@@ -16,7 +16,7 @@ class ErrorHandler implements ErrorHandlerInterface {
   final ErrorHandlerSettings settings;
   final Map<Type, ErrorLevel> _registeredErrors = {};
 
-  final _controller = StreamController<ErrorContainer>();
+  final _controller = StreamController<ErrorContainer>.broadcast();
   final _history = <ErrorContainer>[];
 
   @override

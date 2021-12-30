@@ -1,5 +1,7 @@
 import 'package:error_handler_core/src/models/error_container/error_container.dart';
 
+/// Base error container
+// TODO: rename
 class BaseErrorContainer implements ErrorContainer {
   const BaseErrorContainer({
     this.message,

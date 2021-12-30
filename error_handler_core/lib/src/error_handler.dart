@@ -70,10 +70,10 @@ class ErrorHandler implements ErrorHandlerInterface {
 
   void _handleForHistory(ErrorContainer container) {
     if (settings.useHistory) {
-      _history.add(container);
       if (settings.maxHistoryEntries <= _history.length) {
         _history.removeAt(0);
       }
+      _history.add(container);
     }
   }
 }

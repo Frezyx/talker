@@ -7,9 +7,7 @@ void main() {
   group('ErrorHandler_Handle_Errors', () {
     late ErrorHandler errorHandler;
 
-    setUp(() {
-      errorHandler = ErrorHandler();
-    });
+    setUp(() => errorHandler = ErrorHandler());
 
     test('Handle_Error', () {
       errorHandler.handle(testErrorMsg, error: ArgumentError());

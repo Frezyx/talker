@@ -9,9 +9,7 @@ void main() {
   group('ErrorHandler_Handle_Exceptions', () {
     late ErrorHandler errorHandler;
 
-    setUp(() {
-      errorHandler = ErrorHandler();
-    });
+    setUp(() => errorHandler = ErrorHandler());
 
     test('Handle_Exception', () {
       errorHandler.handle(

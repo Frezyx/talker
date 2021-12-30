@@ -4,16 +4,16 @@ import 'package:error_handler_core/error_handler_core.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const testExceptionMsg = 'test error';
-  const testExceptionMsg2 = 'test error2';
-  group('ErrorHandler_Handle_Errors', () {
+  const testExceptionMsg = 'test_exception';
+  const testExceptionMsg2 = 'test_exception2';
+  group('ErrorHandler_Handle_Exceptions', () {
     late ErrorHandler errorHandler;
 
     setUp(() {
       errorHandler = ErrorHandler();
     });
 
-    test('Handle exception', () {
+    test('Handle_Exception', () {
       errorHandler.handle(
         testExceptionMsg,
         exception: DeferredLoadException(''),
@@ -28,7 +28,7 @@ void main() {
       });
     });
 
-    test('Handle_MultiplyExceptions', () {
+    test('Handle_MultiplyExceptions_Timings', () {
       errorHandler
         ..handle(
           testExceptionMsg,

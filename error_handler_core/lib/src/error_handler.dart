@@ -5,11 +5,16 @@ import 'package:error_handler_core/error_handler_core.dart';
 class ErrorHandler implements ErrorHandlerInterface {
   ErrorHandler({
     this.settings = kDefaultErrorHandlerSettings,
-    this.registeredErrors = const {},
-  });
+    Map<Type, ErrorLevel>? registeredErrors,
+  }) {
+    _registeredErrors.addAll(kDefaultRegisteredErrors);
+    if (registeredErrors != null) {
+      _registeredErrors.addAll(registeredErrors);
+    }
+  }
 
   final ErrorHandlerSettings settings;
-  final Map<Type, ErrorLevel> registeredErrors;
+  final Map<Type, ErrorLevel> _registeredErrors = {};
 
   final _controller = StreamController<ErrorContainer>();
   final _history = <ErrorContainer>[];
@@ -22,8 +27,8 @@ class ErrorHandler implements ErrorHandlerInterface {
 
   @override
   void handle(ErrorContainer container) {
-    final errLvl = registeredErrors[container.runtimeType];
-    if (errLvl != null && container.errorLevel != null) {
+    final errLvl = _registeredErrors[container.runtimeType];
+    if (errLvl != null && container.errorLevel == null) {
       container.errorLevel = errLvl;
     }
     _handle(container);

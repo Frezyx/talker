@@ -5,9 +5,11 @@ import 'package:error_handler_core/error_handler_core.dart';
 class ErrorHandler implements ErrorHandlerInterface {
   ErrorHandler({
     this.settings = kDefaultErrorHandlerSettings,
+    this.registeredErrors = const {},
   });
 
   final ErrorHandlerSettings settings;
+  final Map<Type, ErrorLevel> registeredErrors;
 
   final _controller = StreamController<ErrorContainer>();
   final _history = <ErrorContainer>[];
@@ -19,20 +21,12 @@ class ErrorHandler implements ErrorHandlerInterface {
   List<ErrorContainer> get history => _history;
 
   @override
-  void handle(
-    String? message, {
-    Exception? exception,
-    Error? error,
-    StackTrace? stackTrace,
-  }) {
-    _handle(
-      BaseErrorContainer(
-        message: message,
-        error: error,
-        exception: exception,
-        stackTrace: stackTrace,
-      ),
-    );
+  void handle(ErrorContainer container) {
+    final errLvl = registeredErrors[container.runtimeType];
+    if (errLvl != null && container.errorLevel != null) {
+      container.errorLevel = errLvl;
+    }
+    _handle(container);
   }
 
   @override
@@ -40,11 +34,13 @@ class ErrorHandler implements ErrorHandlerInterface {
     String msg, [
     Error? error,
     StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
   ]) {
     final container = BaseErrorContainer(
       message: msg,
       error: error,
       stackTrace: stackTrace,
+      errorLevel: errorLevel,
     );
     _handle(container);
   }
@@ -54,11 +50,13 @@ class ErrorHandler implements ErrorHandlerInterface {
     String msg, [
     Exception? exception,
     StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
   ]) {
     final container = BaseErrorContainer(
       message: msg,
       exception: exception,
       stackTrace: stackTrace,
+      errorLevel: errorLevel,
     );
     _handle(container);
   }

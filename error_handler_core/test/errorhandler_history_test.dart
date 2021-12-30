@@ -11,20 +11,24 @@ void main() {
 
     setUp(() => errorHandler = ErrorHandler());
 
+    test('Long history', () {
+      for (var i = 0; i < 100; i++) {
+        _handleException(errorHandler, testExceptionMsg);
+      }
+
+      expect(errorHandler.history, isNotNull);
+      expect(errorHandler.history, isNotEmpty);
+      expect(errorHandler.history.length, 100);
+    });
+
     test('Overload', () {
       errorHandler = ErrorHandler(
         settings: const ErrorHandlerSettings(maxHistoryEntries: 1),
       );
 
       errorHandler
-        ..handle(
-          testExceptionMsg,
-          exception: DeferredLoadException(''),
-        )
-        ..handle(
-          testExceptionMsg2,
-          exception: Exception(''),
-        );
+        ..handleException(testExceptionMsg, DeferredLoadException(''))
+        ..handleException(testExceptionMsg2, Exception(''));
 
       expect(errorHandler.history, isNotNull);
       expect(errorHandler.history, isNotEmpty);
@@ -32,4 +36,8 @@ void main() {
       expect(errorHandler.history.first.message, testExceptionMsg2);
     });
   });
+}
+
+void _handleException(ErrorHandler errorHandler, String testExceptionMsg) {
+  errorHandler.handleException(testExceptionMsg, Exception(testExceptionMsg));
 }

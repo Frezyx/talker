@@ -1,4 +1,9 @@
+import 'package:error_handler_core/error_handler_core.dart';
+
 const kDefaultErrorHandlerSettings = ErrorHandlerSettings();
+const kDefaultRegisteredErrors = {
+  BaseErrorContainer: ErrorLevel.debug,
+};
 
 class ErrorHandlerSettings {
   const ErrorHandlerSettings({

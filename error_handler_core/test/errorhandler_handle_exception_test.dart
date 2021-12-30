@@ -12,10 +12,7 @@ void main() {
     setUp(() => errorHandler = ErrorHandler());
 
     test('Handle_Exception', () {
-      errorHandler.handle(
-        testExceptionMsg,
-        exception: DeferredLoadException(''),
-      );
+      errorHandler.handleException(testExceptionMsg, DeferredLoadException(''));
       errorHandler.stream.listen((lastControllerValue) {
         expect(lastControllerValue, isNotNull);
         expect(lastControllerValue.message, testExceptionMsg);
@@ -28,14 +25,8 @@ void main() {
 
     test('Handle_MultiplyExceptions_Timings', () {
       errorHandler
-        ..handle(
-          testExceptionMsg,
-          exception: DeferredLoadException(''),
-        )
-        ..handle(
-          testExceptionMsg2,
-          exception: Exception(''),
-        );
+        ..handleException(testExceptionMsg, DeferredLoadException(''))
+        ..handleException(testExceptionMsg2, Exception(''));
 
       expect(errorHandler.history, isNotNull);
       expect(errorHandler.history, isNotEmpty);

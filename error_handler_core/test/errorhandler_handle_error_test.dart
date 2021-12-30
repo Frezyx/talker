@@ -10,7 +10,7 @@ void main() {
     setUp(() => errorHandler = ErrorHandler());
 
     test('Handle_Error', () {
-      errorHandler.handle(testErrorMsg, error: ArgumentError());
+      errorHandler.handleError(testErrorMsg, ArgumentError());
       errorHandler.stream.listen((lastControllerValue) {
         expect(lastControllerValue, isNotNull);
         expect(lastControllerValue.message, testErrorMsg);
@@ -20,8 +20,8 @@ void main() {
 
     test('Handle_MultiplyErrors_Timings', () {
       errorHandler
-        ..handle(testErrorMsg, error: ArgumentError(''))
-        ..handle(testErrorMsg2, error: TypeError());
+        ..handleError(testErrorMsg, ArgumentError(''))
+        ..handleError(testErrorMsg2, TypeError());
 
       expect(errorHandler.history, isNotNull);
       expect(errorHandler.history, isNotEmpty);

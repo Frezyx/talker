@@ -31,7 +31,8 @@ void main() {
     },
   );
 
-  errorHandler.stream.listen((error) {
+  errorHandler.stream.debug.listen((error) {
+    print('DEBUG ERROR');
     print(error.errorLevel);
   });
 

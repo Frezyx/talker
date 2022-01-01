@@ -3,4 +3,5 @@ enum ErrorLevel {
   warning,
   info,
   critical,
+  tiny,
 }

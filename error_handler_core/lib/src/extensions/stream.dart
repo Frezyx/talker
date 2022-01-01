@@ -19,3 +19,8 @@ extension WarningErrorsStream on Stream<ErrorContainer> {
   Stream<ErrorContainer> get warning =>
       where((e) => e.errorLevel == ErrorLevel.warning);
 }
+
+extension TinyErrorsStream on Stream<ErrorContainer> {
+  Stream<ErrorContainer> get tiny =>
+      where((e) => e.errorLevel == ErrorLevel.tiny);
+}

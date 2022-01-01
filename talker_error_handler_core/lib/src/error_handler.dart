@@ -42,7 +42,7 @@ class ErrorHandler implements ErrorHandlerInterface {
     ErrorLevel? errorLevel,
   ]) {
     final container = BaseErrorContainer(
-      message: msg,
+      msg,
       error: error,
       stackTrace: stackTrace,
       errorLevel: errorLevel,
@@ -58,7 +58,7 @@ class ErrorHandler implements ErrorHandlerInterface {
     ErrorLevel? errorLevel,
   ]) {
     final container = BaseErrorContainer(
-      message: msg,
+      msg,
       exception: exception,
       stackTrace: stackTrace,
       errorLevel: errorLevel,

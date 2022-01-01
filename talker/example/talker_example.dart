@@ -1,6 +1,8 @@
 import 'package:talker/talker.dart';
 
 void main() {
-  var awesome = Awesome();
-  print('awesome: ${awesome.isAwesome}');
+  Talker.instance.stream.listen((d) {
+    print(d);
+  });
+  Talker.instance.handleException('wtf where ?', Exception('aaaa'));
 }

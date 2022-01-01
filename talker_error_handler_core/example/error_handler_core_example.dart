@@ -1,8 +1,8 @@
 import 'package:talker_error_handler_core/talker_error_handler_core.dart';
 
 class HttpErrorContainer extends ErrorContainer {
-  HttpErrorContainer({
-    this.message,
+  HttpErrorContainer(
+    this.message, {
     this.error,
     this.exception,
     this.stackTrace,
@@ -18,7 +18,7 @@ class HttpErrorContainer extends ErrorContainer {
   final Exception? exception;
 
   @override
-  final String? message;
+  final String message;
 
   @override
   final StackTrace? stackTrace;
@@ -36,6 +36,6 @@ void main() {
     print(error.errorLevel);
   });
 
-  errorHandler.handle(BaseErrorContainer());
-  errorHandler.handle(HttpErrorContainer());
+  errorHandler.handle(BaseErrorContainer('Test exception'));
+  errorHandler.handle(HttpErrorContainer('Test exception'));
 }

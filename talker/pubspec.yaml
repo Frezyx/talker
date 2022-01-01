@@ -7,8 +7,10 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 
-# dependencies:
-#   path: ^1.8.0
+dependencies:
+  talker_error_handler_core:
+    path:
+      ../talker_error_handler_core
 
 dev_dependencies:
   lint: ^1.8.1

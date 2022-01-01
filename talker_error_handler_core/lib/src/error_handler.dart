@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:error_handler_core/error_handler_core.dart';
+import 'package:talker_error_handler_core/talker_error_handler_core.dart';
 
 class ErrorHandler implements ErrorHandlerInterface {
   ErrorHandler({

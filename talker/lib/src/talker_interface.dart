@@ -18,4 +18,10 @@ abstract class TalkerInterface {
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
+
+  void log(
+    String message,
+    LogLevel logLevel, {
+    Map<String, dynamic>? additional,
+  });
 }

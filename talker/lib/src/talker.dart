@@ -49,4 +49,18 @@ class Talker implements TalkerInterface {
     ErrorLevel? errorLevel,
   ]) =>
       _errorHandler.handleException(msg, exception, stackTrace, errorLevel);
+
+  @override
+  void log(
+    String message,
+    LogLevel logLevel, {
+    Map<String, dynamic>? additional,
+  }) =>
+      _talkerStreamController.add(
+        TalkerDataContainer(
+          message,
+          logLevel: logLevel,
+          additional: additional,
+        ),
+      );
 }

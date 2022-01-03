@@ -25,6 +25,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Talker Flutter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.grey[100],
       ),
       home: Stack(
         children: [
@@ -42,8 +43,10 @@ class _MyAppState extends State<MyApp> {
                 spacing: 10,
                 children: [
                   MaterialButton(
-                    onPressed: () => Talker.instance
-                        .handleError('Test error', ArgumentError()),
+                    onPressed: () => Talker.instance.handleError(
+                      'dart argument error',
+                      ArgumentError('-6 is not positive number'),
+                    ),
                     color: Colors.black,
                     child: const Text(
                       'Error',
@@ -54,7 +57,8 @@ class _MyAppState extends State<MyApp> {
                   ),
                   MaterialButton(
                     onPressed: () => Talker.instance.handleException(
-                        'Test exception', Exception('Http exception')),
+                        'Http service is not working',
+                        Exception('Not connected')),
                     color: Colors.black,
                     child: const Text(
                       'Exception',
@@ -65,7 +69,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   MaterialButton(
                     onPressed: () => Talker.instance.log(
-                      'Fine log',
+                      'Service send good request',
                       LogLevel.fine,
                     ),
                     color: Colors.black,
@@ -78,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   MaterialButton(
                     onPressed: () => Talker.instance.log(
-                      'Info log',
+                      'Renew token from expire date',
                       LogLevel.info,
                     ),
                     color: Colors.black,
@@ -91,12 +95,35 @@ class _MyAppState extends State<MyApp> {
                   ),
                   MaterialButton(
                     onPressed: () => Talker.instance.log(
-                      'Test waring log',
+                      'Cache images working slowly on this platform',
                       LogLevel.warning,
                     ),
                     color: Colors.black,
                     child: const Text(
-                      'Warning log',
+                      'Waring Log',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () => Talker.instance.log(
+                      'Server exception',
+                      LogLevel.critical,
+                      additional: {
+                        "timestamp": 1510417124782,
+                        "status": 500,
+                        "error": "Internal Server Error",
+                        "exception":
+                            "com.netflix.hystrix.exception.HystrixRuntimeException",
+                        "message":
+                            "ApplicationRepository#save(Application) failed and no fallback available.",
+                        "path": "/application"
+                      },
+                    ),
+                    color: Colors.black,
+                    child: const Text(
+                      'Big Exception',
                       style: TextStyle(
                         color: Colors.white,
                       ),

@@ -1,5 +1,5 @@
 //TODO: Container or wrapper
-import 'package:talker_error_handler_core/talker_error_handler_core.dart';
+import 'package:talker_error_handler/talker_error_handler.dart';
 
 export 'base_error_container.dart';
 

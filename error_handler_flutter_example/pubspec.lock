@@ -135,10 +135,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  talker_error_handler_core:
+  talker_error_handler:
     dependency: "direct main"
     description:
-      path: "../talker_error_handler_core"
+      path: "../talker_error_handler"
       relative: true
     source: path
     version: "1.0.0"

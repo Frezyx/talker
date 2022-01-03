@@ -142,10 +142,10 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
-  talker_error_handler_core:
+  talker_error_handler:
     dependency: transitive
     description:
-      path: "../../talker_error_handler_core"
+      path: "../../talker_error_handler"
       relative: true
     source: path
     version: "1.0.0"

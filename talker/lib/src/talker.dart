@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:talker/talker.dart';
-import 'package:talker_error_handler_core/talker_error_handler_core.dart';
+import 'package:talker_error_handler/talker_error_handler.dart';
 
 class Talker implements TalkerInterface {
   Talker._();

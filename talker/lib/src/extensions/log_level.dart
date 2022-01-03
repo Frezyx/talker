@@ -1,5 +1,5 @@
 import 'package:talker/talker.dart';
-import 'package:talker_error_handler_core/talker_error_handler_core.dart';
+import 'package:talker_error_handler/talker_error_handler.dart';
 
 extension ToLogLevel on ErrorLevel? {
   LogLevel get loglevel {

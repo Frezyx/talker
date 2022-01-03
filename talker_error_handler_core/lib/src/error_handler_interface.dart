@@ -6,14 +6,14 @@ abstract class ErrorHandlerInterface {
 
   void handle(ErrorContainer container);
 
-  void handleError(
+  ErrorContainer handleError(
     String msg, [
     Error? error,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
 
-  void handleException(
+  ErrorContainer handleException(
     String msg, [
     Exception? exception,
     StackTrace? stackTrace,

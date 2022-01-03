@@ -29,6 +29,14 @@ class Talker implements TalkerInterface {
   Stream<TalkerDataInterface> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
+  TalkerObserversManager? _observersManager;
+
+  void configure({List<TalkerObserver>? observers}) {
+    if (observers != null && observers.isNotEmpty) {
+      _observersManager = TalkerObserversManager(observers);
+    }
+  }
+
   @override
   void handle(ErrorContainer container) => _errorHandler.handle(container);
 
@@ -38,8 +46,11 @@ class Talker implements TalkerInterface {
     Error? error,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
-  ]) =>
-      _errorHandler.handleError(msg, error, stackTrace, errorLevel);
+  ]) {
+    final errContainer =
+        _errorHandler.handleError(msg, error, stackTrace, errorLevel);
+    _observersManager?.onError(errContainer);
+  }
 
   @override
   void handleException(
@@ -47,20 +58,24 @@ class Talker implements TalkerInterface {
     Exception? exception,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
-  ]) =>
-      _errorHandler.handleException(msg, exception, stackTrace, errorLevel);
+  ]) {
+    final errContainer =
+        _errorHandler.handleException(msg, exception, stackTrace, errorLevel);
+    _observersManager?.onError(errContainer);
+  }
 
   @override
   void log(
     String message,
     LogLevel logLevel, {
     Map<String, dynamic>? additional,
-  }) =>
-      _talkerStreamController.add(
-        TalkerDataContainer(
-          message,
-          logLevel: logLevel,
-          additional: additional,
-        ),
-      );
+  }) {
+    final logData = TalkerDataContainer(
+      message,
+      logLevel: logLevel,
+      additional: additional,
+    );
+    _talkerStreamController.add(logData);
+    _observersManager?.onLog(logData);
+  }
 }

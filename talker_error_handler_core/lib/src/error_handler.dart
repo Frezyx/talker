@@ -35,7 +35,7 @@ class ErrorHandler implements ErrorHandlerInterface {
   }
 
   @override
-  void handleError(
+  ErrorContainer handleError(
     String msg, [
     Error? error,
     StackTrace? stackTrace,
@@ -48,10 +48,11 @@ class ErrorHandler implements ErrorHandlerInterface {
       errorLevel: errorLevel,
     );
     _handle(container);
+    return container;
   }
 
   @override
-  void handleException(
+  ErrorContainer handleException(
     String msg, [
     Exception? exception,
     StackTrace? stackTrace,
@@ -64,6 +65,7 @@ class ErrorHandler implements ErrorHandlerInterface {
       errorLevel: errorLevel,
     );
     _handle(container);
+    return container;
   }
 
   void _handle(ErrorContainer container) {

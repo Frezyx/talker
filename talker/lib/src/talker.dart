@@ -23,14 +23,14 @@ class Talker implements TalkerInterface {
           err.message,
           error: err.error,
           stackTrace: err.stackTrace,
-          logLevel: err.errorLevel.loglevel,
+          logLevel: err.errorLevel?.loglevel ?? LogLevel.error,
         );
       } else if (err.exception != null) {
         data = TalkerException(
           err.message,
           exception: err.exception,
           stackTrace: err.stackTrace,
-          logLevel: err.errorLevel.loglevel,
+          logLevel: err.errorLevel?.loglevel ?? LogLevel.error,
         );
       }
 

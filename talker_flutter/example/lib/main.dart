@@ -31,20 +31,78 @@ class _MyAppState extends State<MyApp> {
           TalkerScreen(
             talker: Talker.instance,
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: MaterialButton(
-                onPressed: () =>
-                    Talker.instance.handleError('Fuck', ArgumentError()),
-                color: Colors.black,
-                child: const Text(
-                  'Make test error',
-                  style: TextStyle(
-                    color: Colors.white,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 100,
+              width: 600,
+              color: Colors.white,
+              padding: const EdgeInsets.only(bottom: 10.0, left: 10, right: 10),
+              child: Wrap(
+                spacing: 10,
+                children: [
+                  MaterialButton(
+                    onPressed: () => Talker.instance
+                        .handleError('Test error', ArgumentError()),
+                    color: Colors.black,
+                    child: const Text(
+                      'Error',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
+                  MaterialButton(
+                    onPressed: () => Talker.instance.handleException(
+                        'Test exception', Exception('Http exception')),
+                    color: Colors.black,
+                    child: const Text(
+                      'Exception',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () => Talker.instance.log(
+                      'Fine log',
+                      LogLevel.fine,
+                    ),
+                    color: Colors.black,
+                    child: const Text(
+                      'Fine log',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () => Talker.instance.log(
+                      'Info log',
+                      LogLevel.info,
+                    ),
+                    color: Colors.black,
+                    child: const Text(
+                      'Info log',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () => Talker.instance.log(
+                      'Test waring log',
+                      LogLevel.warning,
+                    ),
+                    color: Colors.black,
+                    child: const Text(
+                      'Warning log',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           )

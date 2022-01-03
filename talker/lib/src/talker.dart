@@ -4,10 +4,16 @@ import 'package:talker/talker.dart';
 import 'package:talker_error_handler/talker_error_handler.dart';
 
 class Talker implements TalkerInterface {
-  Talker._();
+  Talker._() {
+    _settings = kDefaultTalkerSettings;
+  }
 
   static final _talker = Talker._();
   static Talker get instance => _talker;
+
+  TalkerObserversManager? _observersManager;
+  late TalkerSettings _settings;
+  final _history = <TalkerDataInterface>[];
 
   late final _errorHandler = ErrorHandler()
     ..stream.listen((err) {
@@ -28,7 +34,10 @@ class Talker implements TalkerInterface {
         );
       }
 
-      if (data != null) _talkerStreamController.add(data);
+      if (data != null) {
+        _talkerStreamController.add(data);
+        _handleForHistory(data);
+      }
     });
 
   final _talkerStreamController =
@@ -38,7 +47,8 @@ class Talker implements TalkerInterface {
   Stream<TalkerDataInterface> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
-  TalkerObserversManager? _observersManager;
+  @override
+  List<TalkerDataInterface> get history => _history;
 
   void configure({List<TalkerObserver>? observers}) {
     if (observers != null && observers.isNotEmpty) {
@@ -86,5 +96,15 @@ class Talker implements TalkerInterface {
     );
     _talkerStreamController.add(logData);
     _observersManager?.onLog(logData);
+    _handleForHistory(logData);
+  }
+
+  void _handleForHistory(TalkerDataInterface data) {
+    if (_settings.useHistory) {
+      if (_settings.maxHistoryEntries <= _history.length) {
+        _history.removeAt(0);
+      }
+      _history.add(data);
+    }
   }
 }

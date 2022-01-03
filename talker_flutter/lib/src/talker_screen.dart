@@ -12,15 +12,15 @@ class TalkerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        actions: [
-          TextButton(
-            onPressed: () => talker.handleError('Test error', ArgumentError()),
-            child: const Text('Make test error'),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   actions: [
+      //     TextButton(
+      //       onPressed: () => talker.handleError('Test error', ArgumentError()),
+      //       child: const Text('Make test error'),
+      //     ),
+      //   ],
+      // ),
       body: StreamBuilder(
         stream: talker.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {

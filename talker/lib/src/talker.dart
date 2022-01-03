@@ -11,15 +11,24 @@ class Talker implements TalkerInterface {
 
   late final _errorHandler = ErrorHandler()
     ..stream.listen((err) {
-      _talkerStreamController.add(
-        TalkerDataContainer(
+      TalkerDataInterface? data;
+      if (err.error != null) {
+        data = TalkerError(
           err.message,
-          exception: err.exception,
           error: err.error,
           stackTrace: err.stackTrace,
           logLevel: err.errorLevel.loglevel,
-        ),
-      );
+        );
+      } else if (err.exception != null) {
+        data = TalkerException(
+          err.message,
+          exception: err.exception,
+          stackTrace: err.stackTrace,
+          logLevel: err.errorLevel.loglevel,
+        );
+      }
+
+      if (data != null) _talkerStreamController.add(data);
     });
 
   final _talkerStreamController =
@@ -70,7 +79,7 @@ class Talker implements TalkerInterface {
     LogLevel logLevel, {
     Map<String, dynamic>? additional,
   }) {
-    final logData = TalkerDataContainer(
+    final logData = TalkerLog(
       message,
       logLevel: logLevel,
       additional: additional,

@@ -1,13 +1,13 @@
 import 'package:talker/talker.dart';
 
-class TalkerDataContainer implements TalkerDataInterface {
-  TalkerDataContainer(
+class TalkerException implements TalkerDataInterface {
+  TalkerException(
     this.message, {
     this.logLevel,
     this.exception,
-    this.error,
+    // this.error,
     this.stackTrace,
-    this.additional,
+    // this.additional,
   });
 
   @override
@@ -17,13 +17,13 @@ class TalkerDataContainer implements TalkerDataInterface {
   final Exception? exception;
 
   @override
-  final Error? error;
+  final Error? error = null;
 
   @override
   final StackTrace? stackTrace;
 
   @override
-  final Map<String, dynamic>? additional;
+  final Map<String, dynamic>? additional = null;
 
   @override
   final LogLevel? logLevel;

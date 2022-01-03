@@ -1,0 +1,1 @@
+library talker_flutter;

@@ -1,6 +1,8 @@
 import 'package:talker_logger/talker_logger.dart';
 
+const kDefaultLoggerSettings = TalkerLoggerSettings();
+
 class TalkerLoggerSettings {
-  TalkerLoggerSettings(this.errorColor);
-  final Map<LogLevel, AnsiPen> errorColor;
+  const TalkerLoggerSettings({this.colors = const {}});
+  final Map<LogLevel, AnsiPen> colors;
 }

@@ -12,6 +12,17 @@ enum LogLevel {
   good,
 }
 
+final logLevelPriorityList = [
+  LogLevel.critical,
+  LogLevel.error,
+  LogLevel.warning,
+  LogLevel.debug,
+  LogLevel.verbose,
+  LogLevel.info,
+  LogLevel.fine,
+  LogLevel.good
+];
+
 extension ToTitle on LogLevel? {
   String get title {
     switch (this) {

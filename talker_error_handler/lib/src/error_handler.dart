@@ -6,6 +6,7 @@ class ErrorHandler implements ErrorHandlerInterface {
   ErrorHandler({
     this.settings = kDefaultErrorHandlerSettings,
     Map<Type, ErrorLevel>? registeredErrors,
+    this.onUnknownErrorType,
   }) {
     _registeredErrors.addAll(kDefaultRegisteredErrors);
     if (registeredErrors != null) {
@@ -15,6 +16,7 @@ class ErrorHandler implements ErrorHandlerInterface {
 
   final ErrorHandlerSettings settings;
   final Map<Type, ErrorLevel> _registeredErrors = {};
+  final Function()? onUnknownErrorType;
 
   final _controller = StreamController<ErrorContainer>.broadcast();
   final _history = <ErrorContainer>[];
@@ -26,12 +28,23 @@ class ErrorHandler implements ErrorHandlerInterface {
   List<ErrorContainer> get history => _history;
 
   @override
-  void handle(ErrorContainer container) {
-    final errLvl = _registeredErrors[container.runtimeType];
-    if (errLvl != null && container.errorLevel == null) {
-      container.errorLevel = errLvl;
+  void handle(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
+  ]) {
+    switch (exception.runtimeType) {
+      case Exception:
+        handleException(msg, exception as Exception?, stackTrace, errorLevel);
+        break;
+      case Error:
+        handleError(msg, exception as Error?, stackTrace, errorLevel);
+        break;
+      default:
+        onUnknownErrorType?.call();
+        break;
     }
-    _handle(container);
   }
 
   @override
@@ -69,6 +82,10 @@ class ErrorHandler implements ErrorHandlerInterface {
   }
 
   void _handle(ErrorContainer container) {
+    // final errLvl = _registeredErrors[container.runtimeType];
+    // if (errLvl != null && container.errorLevel == null) {
+    //   container.errorLevel = errLvl;
+    // }
     _controller.add(container);
     _handleForHistory(container);
   }

@@ -61,8 +61,8 @@ class Talker implements TalkerInterface {
     }
   }
 
-  @override
-  void handle(ErrorContainer container) => _errorHandler.handle(container);
+  // @override
+  // void handle(ErrorContainer container) => _errorHandler.handle(container);
 
   @override
   void handleError(

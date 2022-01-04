@@ -31,11 +31,11 @@ void main() {
     },
   );
 
-  errorHandler.stream.debug.listen((error) {
+  errorHandler.stream.listen((error) {
     print('DEBUG ERROR');
     print(error.errorLevel);
   });
 
-  errorHandler.handle(BaseErrorContainer('Test exception'));
-  errorHandler.handle(HttpErrorContainer('Test exception'));
+  errorHandler.handle('Test exception', Exception('Test exception'));
+  errorHandler.handle('Test error', ArgumentError());
 }

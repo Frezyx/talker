@@ -4,7 +4,12 @@ abstract class ErrorHandlerInterface {
   Stream<ErrorContainer> get stream;
   List<ErrorContainer> get history;
 
-  void handle(ErrorContainer container);
+  void handle(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
+  ]);
 
   ErrorContainer handleError(
     String msg, [

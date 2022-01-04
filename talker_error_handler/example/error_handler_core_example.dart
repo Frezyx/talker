@@ -1,42 +1,37 @@
 import 'package:talker_error_handler/talker_error_handler.dart';
 
-class HttpErrorContainer extends ErrorContainer {
-  HttpErrorContainer(
-    this.message, {
-    this.error,
-    this.exception,
-    this.stackTrace,
-    this.errorLevel,
-  });
-  @override
-  ErrorLevel? errorLevel;
-
-  @override
-  final Error? error;
-
-  @override
-  final Exception? exception;
-
-  @override
-  final String message;
-
-  @override
-  final StackTrace? stackTrace;
-}
+class HttpException implements Exception {}
 
 void main() {
   final errorHandler = ErrorHandler(
     registeredErrors: {
-      HttpErrorContainer: ErrorLevel.critical,
+      HttpException: ErrorLevel.critical,
     },
   );
 
-  errorHandler.stream.listen((error) {
+  errorHandler.stream.debug.listen((error) {
     print('DEBUG ERROR');
     print(error.errorLevel);
   });
 
-  errorHandler.handle(
-      'Test exception', const FormatException('Test exception'));
-  errorHandler.handle('Test error', ArgumentError());
+  errorHandler.stream.critical.listen((error) {
+    print('CRITICAl ERROR');
+    print(error.errorLevel);
+  });
+
+  errorHandler
+    ..handle(
+      'Test custom exception',
+      HttpException(),
+    )
+    ..handle(
+      'Test error',
+      ArgumentError(),
+    )
+    ..handle(
+      'Test critical exception',
+      Exception(),
+      null,
+      ErrorLevel.critical,
+    );
 }

@@ -83,6 +83,7 @@ class ErrorHandler implements ErrorHandlerInterface {
   }
 
   void _handle(ErrorContainer container) {
+    //TODO: fix type checking
     final errLvl = _registeredErrors[container.runtimeType];
     if (errLvl != null && container.errorLevel == null) {
       container.errorLevel = errLvl;

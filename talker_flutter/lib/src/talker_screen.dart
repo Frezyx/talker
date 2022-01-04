@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_json_view/flutter_json_view.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerScreen extends StatelessWidget {

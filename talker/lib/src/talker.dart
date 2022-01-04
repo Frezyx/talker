@@ -107,4 +107,11 @@ class Talker implements TalkerInterface {
       _history.add(data);
     }
   }
+
+  @override
+  void cleanHistory() {
+    if (_settings.useHistory) {
+      _history.clear();
+    }
+  }
 }

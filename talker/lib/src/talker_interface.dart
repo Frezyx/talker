@@ -25,4 +25,6 @@ abstract class TalkerInterface {
     LogLevel logLevel, {
     Map<String, dynamic>? additional,
   });
+
+  void cleanHistory();
 }

@@ -38,9 +38,10 @@ class _MyAppState extends State<MyApp> {
               height: 100,
               width: 600,
               color: Colors.white,
-              padding: const EdgeInsets.only(bottom: 10.0, left: 10, right: 10),
+              padding: const EdgeInsets.all(10),
               child: Wrap(
                 spacing: 10,
+                runSpacing: 10,
                 children: [
                   MaterialButton(
                     onPressed: () => Talker.instance.handleError(

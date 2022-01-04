@@ -26,7 +26,7 @@ extension GetTitle on TalkerDataInterface {
         title = logLevel.title;
         break;
     }
-    return '[$title]' + ' | ${DateTimeFormater(time).timeAndSeconds} |';
+    return '[$title]' + ' | ${DateTimeFormater(time).timeAndSeconds} | ';
   }
 
   String get consoleStackTrace {
@@ -48,5 +48,12 @@ extension GetTitle on TalkerDataInterface {
       return '';
     }
     return '\nError: $error';
+  }
+
+  String get consoleAditional {
+    if (additional == null) {
+      return '';
+    }
+    return '\n$additional';
   }
 }

@@ -27,4 +27,10 @@ class TalkerLog implements TalkerDataInterface {
 
   @override
   final LogLevel? logLevel;
+
+  @override
+  String generateTextMessage() {
+    final m = '[${getTitleText()}] ';
+    return '$m$message\n $additional';
+  }
 }

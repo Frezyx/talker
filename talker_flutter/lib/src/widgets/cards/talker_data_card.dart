@@ -3,9 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerDataCard extends StatelessWidget {
-  const TalkerDataCard({Key? key, required this.data}) : super(key: key);
+  const TalkerDataCard({
+    Key? key,
+    required this.data,
+    required this.onTap,
+  }) : super(key: key);
 
   final TalkerDataInterface data;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -91,13 +96,7 @@ class TalkerDataCard extends StatelessWidget {
                   width: 26,
                   child: IconButton(
                     iconSize: 20,
-                    onPressed: () {
-                      Clipboard.setData(
-                        ClipboardData(
-                          text: data.generateTextMessage(),
-                        ),
-                      );
-                    },
+                    onPressed: onTap,
                     icon: Icon(
                       Icons.copy,
                       color: data.logLevel.color,

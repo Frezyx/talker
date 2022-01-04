@@ -51,12 +51,24 @@ class _TalkerScreenState extends State<TalkerScreen> {
             itemCount: widget.talker.history.length,
             itemBuilder: (_, i) {
               final data = widget.talker.history[i];
-              return TalkerDataCard(data: data);
+              return TalkerDataCard(
+                data: data,
+                onTap: () => _copyTalkerDataItemText(data),
+              );
             },
           );
         },
       ),
     );
+  }
+
+  void _copyTalkerDataItemText(TalkerDataInterface data) {
+    Clipboard.setData(
+      ClipboardData(
+        text: data.generateTextMessage(),
+      ),
+    );
+    _showSnackBar(context, 'Log item is copied for console');
   }
 
   void _cleanHistory() {

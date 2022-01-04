@@ -36,6 +36,7 @@ void main() {
     print(error.errorLevel);
   });
 
-  errorHandler.handle('Test exception', Exception('Test exception'));
+  errorHandler.handle(
+      'Test exception', const FormatException('Test exception'));
   errorHandler.handle('Test error', ArgumentError());
 }

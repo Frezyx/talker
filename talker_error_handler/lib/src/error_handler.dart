@@ -16,7 +16,12 @@ class ErrorHandler implements ErrorHandlerInterface {
 
   final ErrorHandlerSettings settings;
   final Map<Type, ErrorLevel> _registeredErrors = {};
-  final Function()? onUnknownErrorType;
+  final Function(
+    String msg,
+    Object? exception,
+    StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
+  )? onUnknownErrorType;
 
   final _controller = StreamController<ErrorContainer>.broadcast();
   final _history = <ErrorContainer>[];
@@ -34,16 +39,12 @@ class ErrorHandler implements ErrorHandlerInterface {
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    switch (exception.runtimeType) {
-      case Exception:
-        handleException(msg, exception as Exception?, stackTrace, errorLevel);
-        break;
-      case Error:
-        handleError(msg, exception as Error?, stackTrace, errorLevel);
-        break;
-      default:
-        onUnknownErrorType?.call();
-        break;
+    if (exception is Exception) {
+      handleException(msg, exception, stackTrace, errorLevel);
+    } else if (exception is Error) {
+      handleError(msg, exception, stackTrace, errorLevel);
+    } else {
+      onUnknownErrorType?.call(msg, exception, stackTrace, errorLevel);
     }
   }
 

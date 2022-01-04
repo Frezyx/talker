@@ -69,14 +69,17 @@ class Talker implements TalkerInterface {
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
     }
-
-    if (_settings.writeToFile) {
-      await _fileManager.createLogFile();
-    }
   }
 
-  // @override
-  // void handle(ErrorContainer container) => _errorHandler.handle(container);
+  @override
+  void handle(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
+  ]) {
+    _errorHandler.handle(msg, exception, stackTrace, errorLevel);
+  }
 
   @override
   void handleError(
@@ -122,6 +125,13 @@ class Talker implements TalkerInterface {
     );
   }
 
+  @override
+  void cleanHistory() {
+    if (_settings.useHistory) {
+      _history.clear();
+    }
+  }
+
   void _handleForOutputs(TalkerDataInterface data) {
     _writeToHistory(data);
     _writeToFile(data);
@@ -140,22 +150,5 @@ class Talker implements TalkerInterface {
       }
       _history.add(data);
     }
-  }
-
-  @override
-  void cleanHistory() {
-    if (_settings.useHistory) {
-      _history.clear();
-    }
-  }
-
-  @override
-  void handle(
-    String msg, [
-    Object? exception,
-    StackTrace? stackTrace,
-    ErrorLevel? errorLevel,
-  ]) {
-    _errorHandler.handle(msg, exception, stackTrace, errorLevel);
   }
 }

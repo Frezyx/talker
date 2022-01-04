@@ -31,8 +31,8 @@ class TalkerError implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    final m = '[${getTitleText()}] ';
-    return '$m$message\n $error';
+    final m = '${getTitleText()} ';
+    return '$m$message\nError: $error\nStackTrace:\n$stackTrace';
   }
 
   @override

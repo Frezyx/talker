@@ -26,6 +26,6 @@ extension GetTitle on TalkerDataInterface {
         title = logLevel.title;
         break;
     }
-    return title += ' | ${DateTimeFormater(time).timeAndSeconds}';
+    return '[$title]' + ' | ${DateTimeFormater(time).timeAndSeconds} |';
   }
 }

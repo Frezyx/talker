@@ -15,6 +15,7 @@ class Talker implements TalkerInterface {
   late TalkerSettings _settings;
   final _history = <TalkerDataInterface>[];
 
+  late final _logger = TalkerLogger();
   late final _errorHandler = ErrorHandler()
     ..stream.listen((err) {
       TalkerDataInterface? data;
@@ -37,6 +38,10 @@ class Talker implements TalkerInterface {
       if (data != null) {
         _talkerStreamController.add(data);
         _handleForHistory(data);
+        _logger.log(
+          data.generateTextMessage(),
+          logLevel: data.logLevel ?? LogLevel.debug,
+        );
       }
     });
 
@@ -97,6 +102,10 @@ class Talker implements TalkerInterface {
     _talkerStreamController.add(logData);
     _observersManager?.onLog(logData);
     _handleForHistory(logData);
+    _logger.log(
+      logData.generateTextMessage(),
+      logLevel: logData.logLevel ?? LogLevel.debug,
+    );
   }
 
   void _handleForHistory(TalkerDataInterface data) {

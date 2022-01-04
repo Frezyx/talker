@@ -7,20 +7,25 @@ abstract class TalkerDataInterface {
   Error? get error;
   StackTrace? get stackTrace;
   Map<String, dynamic>? get additional;
+  DateTime get time;
   String generateTextMessage();
 }
 
 extension GetTitle on TalkerDataInterface {
   String getTitleText() {
+    var title = '';
     switch (runtimeType) {
       case TalkerError:
-        return 'ERROR';
+        title = 'ERROR';
+        break;
       case TalkerException:
-        return 'EXCEPTION';
+        title = 'EXCEPTION';
+        break;
       case TalkerLog:
-        return logLevel.title;
       default:
-        return 'DEAFULT';
+        title = logLevel.title;
+        break;
     }
+    return title += ' | $time';
   }
 }

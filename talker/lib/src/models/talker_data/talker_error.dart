@@ -4,11 +4,12 @@ class TalkerError implements TalkerDataInterface {
   TalkerError(
     this.message, {
     this.logLevel,
-    // this.exception,
     this.error,
     this.stackTrace,
-    // this.additional,
-  });
+    DateTime? time,
+  }) {
+    _time = time ?? DateTime.now();
+  }
 
   @override
   final String message;
@@ -33,4 +34,9 @@ class TalkerError implements TalkerDataInterface {
     final m = '[${getTitleText()}] ';
     return '$m$message\n $error';
   }
+
+  @override
+  DateTime get time => _time;
+
+  late DateTime _time;
 }

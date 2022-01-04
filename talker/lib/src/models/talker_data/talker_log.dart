@@ -8,7 +8,10 @@ class TalkerLog implements TalkerDataInterface {
     this.error,
     this.stackTrace,
     this.additional,
-  });
+    DateTime? time,
+  }) {
+    _time = time ?? DateTime.now();
+  }
 
   @override
   final String message;
@@ -33,4 +36,9 @@ class TalkerLog implements TalkerDataInterface {
     final m = '[${getTitleText()}] ';
     return '$m$message\n $additional';
   }
+
+  @override
+  DateTime get time => _time;
+
+  late DateTime _time;
 }

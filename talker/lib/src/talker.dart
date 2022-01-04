@@ -13,6 +13,8 @@ class Talker implements TalkerInterface {
 
   TalkerObserversManager? _observersManager;
   late TalkerSettings _settings;
+
+  final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
 
   late final _logger = TalkerLogger();
@@ -37,7 +39,7 @@ class Talker implements TalkerInterface {
 
       if (data != null) {
         _talkerStreamController.add(data);
-        _handleForHistory(data);
+        _handleForOutputs(data);
         _logger.log(
           data.generateTextMessage(),
           logLevel: data.logLevel ?? LogLevel.debug,
@@ -55,9 +57,21 @@ class Talker implements TalkerInterface {
   @override
   List<TalkerDataInterface> get history => _history;
 
-  void configure({List<TalkerObserver>? observers}) {
+  @override
+  Future<void> configure({
+    TalkerSettings? settings,
+    List<TalkerObserver>? observers,
+  }) async {
+    if (settings != null) {
+      _settings = settings;
+    }
+
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
+    }
+
+    if (_settings.writeToFile) {
+      await _fileManager.createLogFile();
     }
   }
 
@@ -101,14 +115,25 @@ class Talker implements TalkerInterface {
     );
     _talkerStreamController.add(logData);
     _observersManager?.onLog(logData);
-    _handleForHistory(logData);
+    _handleForOutputs(logData);
     _logger.log(
       logData.generateTextMessage(),
       logLevel: logData.logLevel ?? LogLevel.debug,
     );
   }
 
-  void _handleForHistory(TalkerDataInterface data) {
+  void _handleForOutputs(TalkerDataInterface data) {
+    _writeToHistory(data);
+    _writeToFile(data);
+  }
+
+  void _writeToFile(TalkerDataInterface data) {
+    if (_settings.writeToFile) {
+      _fileManager.writeToLogFile(data.generateTextMessage());
+    }
+  }
+
+  void _writeToHistory(TalkerDataInterface data) {
     if (_settings.useHistory) {
       if (_settings.maxHistoryEntries <= _history.length) {
         _history.removeAt(0);

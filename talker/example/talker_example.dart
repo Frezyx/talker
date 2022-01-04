@@ -1,6 +1,7 @@
 import 'package:talker/talker.dart';
 
-void main() {
+Future<void> main() async {
+  await Talker.instance.configure();
   try {
     const searchedText = null;
     // throw Exception('Service can`t get test data');

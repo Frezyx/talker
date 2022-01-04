@@ -27,4 +27,9 @@ abstract class TalkerInterface {
   });
 
   void cleanHistory();
+
+  Future<void> configure({
+    TalkerSettings? settings,
+    List<TalkerObserver>? observers,
+  });
 }

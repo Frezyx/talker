@@ -4,7 +4,13 @@ import 'package:talker_error_handler/talker_error_handler.dart';
 abstract class TalkerInterface {
   Stream<TalkerDataInterface> get stream;
   List<TalkerDataInterface> get history;
-  // void handle(ErrorContainer container);
+
+  void handle(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
+  ]);
 
   void handleError(
     String msg, [

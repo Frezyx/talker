@@ -148,4 +148,14 @@ class Talker implements TalkerInterface {
       _history.clear();
     }
   }
+
+  @override
+  void handle(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+    ErrorLevel? errorLevel,
+  ]) {
+    _errorHandler.handle(msg, exception, stackTrace, errorLevel);
+  }
 }

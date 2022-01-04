@@ -14,6 +14,7 @@ dependencies:
   talker_logger:
     path:
       ../talker_logger
+  intl: ^0.17.0
 
 dev_dependencies:
   lint: ^1.8.1

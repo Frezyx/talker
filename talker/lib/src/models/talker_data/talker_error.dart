@@ -31,8 +31,7 @@ class TalkerError implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    final title = '${getTitleText()} ';
-    final mes = '$title$message\nError: $error\nStackTrace:\n$stackTrace';
+    final mes = '$titleText$message$consoleError\n$consoleStackTrace';
     final underline = ConsoleFormater.getUnderLine(mes);
     return mes + underline;
   }

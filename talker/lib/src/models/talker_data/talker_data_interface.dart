@@ -12,7 +12,7 @@ abstract class TalkerDataInterface {
 }
 
 extension GetTitle on TalkerDataInterface {
-  String getTitleText() {
+  String get titleText {
     var title = '';
     switch (runtimeType) {
       case TalkerError:
@@ -27,5 +27,26 @@ extension GetTitle on TalkerDataInterface {
         break;
     }
     return '[$title]' + ' | ${DateTimeFormater(time).timeAndSeconds} |';
+  }
+
+  String get consoleStackTrace {
+    if (stackTrace == null) {
+      return '';
+    }
+    return 'StackTrace:\n${stackTrace ?? ''}';
+  }
+
+  String get consoleException {
+    if (exception == null) {
+      return '';
+    }
+    return '\nException: $exception';
+  }
+
+  String get consoleError {
+    if (error == null) {
+      return '';
+    }
+    return '\nError: $error';
   }
 }

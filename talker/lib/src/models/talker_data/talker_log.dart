@@ -33,8 +33,7 @@ class TalkerLog implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    final m = '${getTitleText()} ';
-    return '$m$message\n $additional';
+    return '$titleText$message\n$additional';
   }
 
   @override

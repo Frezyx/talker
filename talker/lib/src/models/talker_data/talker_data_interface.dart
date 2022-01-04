@@ -33,7 +33,7 @@ extension GetTitle on TalkerDataInterface {
     if (stackTrace == null) {
       return '';
     }
-    return 'StackTrace:\n${stackTrace ?? ''}';
+    return '\nStackTrace:\n${stackTrace ?? ''}';
   }
 
   String get consoleException {

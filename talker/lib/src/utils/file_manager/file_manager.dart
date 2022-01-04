@@ -5,7 +5,11 @@ class FileManager {
 
   late String _name;
   //TODO: lazy getter creation
-  late File _file;
+  Future<File> get file async {
+    return _file ?? (await createLogFile());
+  }
+
+  File? _file;
 
   Future<File> createLogFile() async {
     _name = 'talker_logs_${DateTime.now()}';
@@ -13,7 +17,7 @@ class FileManager {
   }
 
   Future<void> writeToLogFile(String str) async {
-    final writed = await _file.readAsString();
-    await _file.writeAsString(writed + str);
+    final writed = await (await file).readAsString();
+    await (await file).writeAsString(writed + str);
   }
 }

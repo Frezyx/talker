@@ -4,23 +4,25 @@ class TalkerLogger {
   TalkerLogger({
     this.settings = kDefaultLoggerSettings,
     TalkerLoggerFilter? filter,
+    this.formater = const BaseLoggerFormater(),
   }) {
-    filter = filter ?? BaseTalkerLoggerFilter(settings.logLevel);
+    _filter = filter ?? BaseTalkerLoggerFilter(settings.logLevel);
   }
 
   final TalkerLoggerSettings settings;
   late final TalkerLoggerFilter _filter;
+  final LoggerFormater formater;
 
   void log(String msg, {LogLevel logLevel = LogLevel.debug}) {
     var pen = settings.colors[logLevel];
     pen = pen ?? logLevel.consoleColor;
-
     if (_filter.shouldLog(msg, logLevel)) {
-      consolePrint(pen.write(msg));
+      consolePrint(formater.fmt(pen.write(msg), logLevel));
     }
   }
 
   void consolePrint(String msg) {
+    // ignore: avoid_print
     print(msg);
   }
 }

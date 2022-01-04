@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:talker_error_handler/talker_error_handler.dart';
 
 class HttpException implements Exception {}
@@ -10,13 +12,13 @@ void main() {
   );
 
   errorHandler.stream.debug.listen((error) {
-    print('DEBUG ERROR');
-    print(error.errorLevel);
+    log('DEBUG ERROR');
+    log(error.errorLevel.toString());
   });
 
   errorHandler.stream.critical.listen((error) {
-    print('CRITICAl ERROR');
-    print(error.errorLevel);
+    log('CRITICAl ERROR');
+    log(error.errorLevel.toString());
   });
 
   errorHandler

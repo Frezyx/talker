@@ -1,4 +1,4 @@
-import 'package:talker_logger_core/talker_logger_core.dart';
+import 'package:talker_logger/talker_logger.dart';
 import 'package:test/test.dart';
 
 void main() {

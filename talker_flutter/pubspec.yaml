@@ -16,7 +16,7 @@ dependencies:
     #   ../talker
     git:
       url: https://github.com/Frezyx/talker
-      ref: dev
+      ref: testing
       path: talker/
       
 dev_dependencies:

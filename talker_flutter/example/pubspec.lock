@@ -153,8 +153,8 @@ packages:
     dependency: transitive
     description:
       path: talker
-      ref: dev
-      resolved-ref: f831cbea7542fe0cff98b92eb177ddd9392a8120
+      ref: testing
+      resolved-ref: de21f356d88c10ae975e1642b1b2b6c74befb11f
       url: "https://github.com/Frezyx/talker"
     source: git
     version: "0.1.0"

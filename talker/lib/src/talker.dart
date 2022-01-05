@@ -14,7 +14,7 @@ class Talker implements TalkerInterface {
   TalkerObserversManager? _observersManager;
   late TalkerSettings _settings;
 
-  final _fileManager = FileManager();
+  // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
 
   late final _logger = TalkerLogger();

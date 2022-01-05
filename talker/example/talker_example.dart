@@ -6,18 +6,18 @@ Future<void> main() async {
   try {
     throw Exception('Test service exception');
   } catch (e, st) {
-    Talker.instance.handle('Working with string error', e, st);
+    Talker.instance.handle(e, 'Working with string error', st);
   }
 
   try {
     throw Exception('Service can`t get test data');
   } on Exception catch (e, st) {
-    Talker.instance.handleException('Working with strings exception', e, st);
+    Talker.instance.handleException(e, 'Working with strings exception', st);
   }
 
   Talker.instance.log(
     'Big app crashing exception in Some service',
-    LogLevel.critical,
+    logLevel: LogLevel.critical,
     additional: {
       "timestamp": 1510417124782,
       "status": 500,

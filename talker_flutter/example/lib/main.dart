@@ -15,7 +15,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    Talker.instance.configure();
+    Talker.instance.configure(
+      settings: const TalkerSettings(writeToFile: false),
+    );
     super.initState();
   }
 

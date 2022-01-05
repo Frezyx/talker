@@ -145,14 +145,15 @@ class Talker implements TalkerInterface {
 
   void _handleForOutputs(TalkerDataInterface data) {
     _writeToHistory(data);
-    _writeToFile(data);
+    // _writeToFile(data);
   }
 
-  void _writeToFile(TalkerDataInterface data) {
-    if (_settings.writeToFile) {
-      _fileManager.writeToLogFile(data.generateTextMessage());
-    }
-  }
+  //TODO: recreate file manager logic
+  // void _writeToFile(TalkerDataInterface data) {
+  //   if (_settings.writeToFile) {
+  //     _fileManager.writeToLogFile(data.generateTextMessage());
+  //   }
+  // }
 
   void _writeToHistory(TalkerDataInterface data) {
     if (_settings.useHistory) {

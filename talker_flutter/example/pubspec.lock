@@ -162,21 +162,21 @@ packages:
       path: "../../talker_error_handler"
       relative: true
     source: path
-    version: "1.0.0"
+    version: "0.1.0"
   talker_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   talker_logger:
     dependency: transitive
     description:
       path: "../../talker_logger"
       relative: true
     source: path
-    version: "1.0.0"
+    version: "0.1.0"
   term_glyph:
     dependency: transitive
     description:

@@ -1,7 +1,7 @@
 name: talker_flutter
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: Flutter implementation of talker (advanced error handler and logger package).
+version: 0.1.0
+homepage: https://github.com/Frezyx/talker
 
 environment:
   sdk: ">=2.15.0 <3.0.0"

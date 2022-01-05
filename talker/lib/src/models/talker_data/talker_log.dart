@@ -33,7 +33,7 @@ class TalkerLog implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    final mes = '$titleText$message$consoleAditional';
+    final mes = '$titleText$message$displayAditional';
     return ConsoleFormater.addUnderline(mes);
   }
 

@@ -78,7 +78,15 @@ class Talker implements TalkerInterface {
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    _errorHandler.handle(msg, exception, stackTrace, errorLevel);
+    final container = _errorHandler.handle(
+      msg,
+      exception,
+      stackTrace,
+      errorLevel,
+    );
+    if (container != null) {
+      _observersManager?.onError(container);
+    }
   }
 
   @override

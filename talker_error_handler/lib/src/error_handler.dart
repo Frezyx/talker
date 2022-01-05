@@ -33,16 +33,16 @@ class ErrorHandler implements ErrorHandlerInterface {
   List<ErrorContainer> get history => _history;
 
   @override
-  void handle(
+  ErrorContainer? handle(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     if (exception is Exception) {
-      handleException(msg, exception, stackTrace, errorLevel);
+      return handleException(msg, exception, stackTrace, errorLevel);
     } else if (exception is Error) {
-      handleError(msg, exception, stackTrace, errorLevel);
+      return handleError(msg, exception, stackTrace, errorLevel);
     } else {
       onUnknownErrorType?.call(msg, exception, stackTrace, errorLevel);
     }

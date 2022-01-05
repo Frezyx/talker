@@ -2,9 +2,9 @@ import 'package:talker/talker.dart';
 
 class TalkerError implements TalkerDataInterface {
   TalkerError(
-    this.message, {
+    this.error, {
+    this.message,
     this.logLevel,
-    this.error,
     this.stackTrace,
     DateTime? time,
   }) {
@@ -12,13 +12,13 @@ class TalkerError implements TalkerDataInterface {
   }
 
   @override
-  final String message;
+  final Error error;
+
+  @override
+  final String? message;
 
   @override
   final Exception? exception = null;
-
-  @override
-  final Error? error;
 
   @override
   final StackTrace? stackTrace;
@@ -31,7 +31,7 @@ class TalkerError implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    final mes = '$titleText$message$consoleError\n$consoleStackTrace';
+    final mes = '$titleText$consoleMessage$consoleError\n$consoleStackTrace';
     final underline = ConsoleFormater.getUnderLine(mes);
     return mes + underline;
   }

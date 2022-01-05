@@ -11,12 +11,12 @@ dependencies:
   talker_error_handler:
     git:
       url: https://github.com/Frezyx/talker
-      ref: master
+      ref: dev
       path: talker_error_handler/
   talker_logger:
     git:
       url: https://github.com/Frezyx/talker
-      ref: master
+      ref: dev
       path: talker_logger/
   intl: ^0.17.0
 

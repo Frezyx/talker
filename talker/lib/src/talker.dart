@@ -19,21 +19,23 @@ class Talker implements TalkerInterface {
 
   late final _logger = TalkerLogger();
   late final _errorHandler = ErrorHandler()
-    ..stream.listen((err) {
+    ..stream.listen((details) {
       TalkerDataInterface? data;
-      if (err.error != null) {
+      final err = details.error;
+      final exception = details.exception;
+      if (err != null) {
         data = TalkerError(
-          err.message,
-          error: err.error,
-          stackTrace: err.stackTrace,
-          logLevel: err.errorLevel?.loglevel ?? LogLevel.error,
+          err,
+          message: details.message,
+          stackTrace: details.stackTrace,
+          logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
         );
-      } else if (err.exception != null) {
+      } else if (exception != null) {
         data = TalkerException(
-          err.message,
-          exception: err.exception,
-          stackTrace: err.stackTrace,
-          logLevel: err.errorLevel?.loglevel ?? LogLevel.error,
+          exception,
+          message: details.message,
+          stackTrace: details.stackTrace,
+          logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
         );
       }
 

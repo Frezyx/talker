@@ -56,4 +56,11 @@ extension GetTitle on TalkerDataInterface {
     }
     return '\n$additional';
   }
+
+  String get consoleMessage {
+    if (message == null) {
+      return '';
+    }
+    return '$message';
+  }
 }

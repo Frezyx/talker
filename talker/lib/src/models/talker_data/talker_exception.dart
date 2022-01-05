@@ -2,9 +2,9 @@ import 'package:talker/talker.dart';
 
 class TalkerException implements TalkerDataInterface {
   TalkerException(
-    this.message, {
+    this.exception, {
+    this.message,
     this.logLevel,
-    this.exception,
     this.stackTrace,
     DateTime? time,
   }) {
@@ -12,10 +12,10 @@ class TalkerException implements TalkerDataInterface {
   }
 
   @override
-  final String message;
+  final Exception exception;
 
   @override
-  final Exception? exception;
+  final String? message;
 
   @override
   final Error? error = null;
@@ -31,7 +31,7 @@ class TalkerException implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    final mes = '$titleText$message$consoleException$consoleStackTrace';
+    final mes = '$titleText$consoleMessage$consoleException$consoleStackTrace';
     final underline = ConsoleFormater.getUnderLine(mes);
     return mes + underline;
   }

@@ -75,50 +75,51 @@ class Talker implements TalkerInterface {
 
   @override
   void handle(
-    String msg, [
-    Object? exception,
+    Object exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    final container = _errorHandler.handle(
-      msg,
+    final details = _errorHandler.handle(
       exception,
+      msg,
       stackTrace,
       errorLevel,
     );
-    if (container != null) {
-      _observersManager?.onError(container);
+    if (details != null) {
+      _observersManager?.onError(details);
     }
   }
 
   @override
   void handleError(
-    String msg, [
-    Error? error,
+    Error error, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     final errContainer =
-        _errorHandler.handleError(msg, error, stackTrace, errorLevel);
+        _errorHandler.handleError(error, msg, stackTrace, errorLevel);
     _observersManager?.onError(errContainer);
   }
 
   @override
   void handleException(
-    String msg, [
-    Exception? exception,
+    Exception exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     final errContainer =
-        _errorHandler.handleException(msg, exception, stackTrace, errorLevel);
+        _errorHandler.handleException(exception, msg, stackTrace, errorLevel);
     _observersManager?.onError(errContainer);
   }
 
   @override
   void log(
-    String message,
-    LogLevel logLevel, {
+    String message, {
+    //TODO: add default for settings
+    LogLevel logLevel = LogLevel.debug,
     Map<String, dynamic>? additional,
   }) {
     final logData = TalkerLog(

@@ -17,14 +17,14 @@ abstract class TalkerInterface {
   ]);
 
   void handleError(
-    Error? error, [
+    Error error, [
     String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
 
   void handleException(
-    Exception? exception, [
+    Exception exception, [
     String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,

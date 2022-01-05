@@ -12,12 +12,12 @@ dependencies:
     sdk: flutter
 
   talker:
-    # path:
-    #   ../talker
-    git:
-      url: https://github.com/Frezyx/talker
-      ref: testing
-      path: talker/
+    path:
+      ../talker
+    # git:
+    #   url: https://github.com/Frezyx/talker
+    #   ref: testing
+    #   path: talker/
       
 dev_dependencies:
   flutter_test:

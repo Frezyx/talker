@@ -9,19 +9,19 @@ environment:
 
 dependencies:
   talker_error_handler:
-    # path:
-    #   ../talker_error_handler
-    git:
-      url: https://github.com/Frezyx/talker
-      ref: testing
-      path: talker_error_handler/
+    path:
+      ../talker_error_handler
+    # git:
+    #   url: https://github.com/Frezyx/talker
+    #   ref: testing
+    #   path: talker_error_handler/
   talker_logger:
-    # path:
-    #   ../talker_logger
-    git:
-      url: https://github.com/Frezyx/talker
-      ref: testing
-      path: talker_logger/
+    path:
+      ../talker_logger
+    # git:
+    #   url: https://github.com/Frezyx/talker
+    #   ref: testing
+    #   path: talker_logger/
   intl: ^0.17.0
 
 dev_dependencies:

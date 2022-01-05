@@ -10,9 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   talker:
-    path:
-      ../talker
+    git:
+      url: https://github.com/Frezyx/talker
+      ref: dev
+      path: talker/
       
 dev_dependencies:
   flutter_test:

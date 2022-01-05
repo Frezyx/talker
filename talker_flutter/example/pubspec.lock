@@ -152,16 +152,20 @@ packages:
   talker:
     dependency: transitive
     description:
-      path: "../../talker"
-      relative: true
-    source: path
+      path: talker
+      ref: dev
+      resolved-ref: f831cbea7542fe0cff98b92eb177ddd9392a8120
+      url: "https://github.com/Frezyx/talker"
+    source: git
     version: "0.1.0"
   talker_error_handler:
     dependency: transitive
     description:
-      path: "../../talker_error_handler"
-      relative: true
-    source: path
+      path: talker_error_handler
+      ref: dev
+      resolved-ref: f831cbea7542fe0cff98b92eb177ddd9392a8120
+      url: "https://github.com/Frezyx/talker"
+    source: git
     version: "0.1.0"
   talker_flutter:
     dependency: "direct main"
@@ -173,9 +177,11 @@ packages:
   talker_logger:
     dependency: transitive
     description:
-      path: "../../talker_logger"
-      relative: true
-    source: path
+      path: talker_logger
+      ref: dev
+      resolved-ref: f831cbea7542fe0cff98b92eb177ddd9392a8120
+      url: "https://github.com/Frezyx/talker"
+    source: git
     version: "0.1.0"
   term_glyph:
     dependency: transitive

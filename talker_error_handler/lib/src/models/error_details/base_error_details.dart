@@ -2,8 +2,8 @@ import 'package:talker_error_handler/talker_error_handler.dart';
 
 /// Base error container
 // TODO: rename
-class BaseErrorContainer implements ErrorContainer {
-  BaseErrorContainer(
+class BaseErrorDetails implements ErrorDetails {
+  BaseErrorDetails(
     this.message, {
     this.exception,
     this.error,
@@ -26,14 +26,14 @@ class BaseErrorContainer implements ErrorContainer {
   @override
   ErrorLevel? errorLevel;
 
-  BaseErrorContainer copyWith({
+  BaseErrorDetails copyWith({
     String? message,
     Exception? exception,
     Error? error,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   }) {
-    return BaseErrorContainer(
+    return BaseErrorDetails(
       message ?? this.message,
       exception: exception ?? this.exception,
       error: error ?? this.error,

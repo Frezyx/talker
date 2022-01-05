@@ -23,17 +23,17 @@ class ErrorHandler implements ErrorHandlerInterface {
     ErrorLevel? errorLevel,
   )? onUnknownErrorType;
 
-  final _controller = StreamController<ErrorContainer>.broadcast();
-  final _history = <ErrorContainer>[];
+  final _controller = StreamController<ErrorDetails>.broadcast();
+  final _history = <ErrorDetails>[];
 
   @override
-  Stream<ErrorContainer> get stream => _controller.stream.asBroadcastStream();
+  Stream<ErrorDetails> get stream => _controller.stream.asBroadcastStream();
 
   @override
-  List<ErrorContainer> get history => _history;
+  List<ErrorDetails> get history => _history;
 
   @override
-  ErrorContainer? handle(
+  ErrorDetails? handle(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
@@ -49,13 +49,13 @@ class ErrorHandler implements ErrorHandlerInterface {
   }
 
   @override
-  ErrorContainer handleError(
+  ErrorDetails handleError(
     String msg, [
     Error? error,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    final container = BaseErrorContainer(
+    final container = BaseErrorDetails(
       msg,
       error: error,
       stackTrace: stackTrace,
@@ -66,13 +66,13 @@ class ErrorHandler implements ErrorHandlerInterface {
   }
 
   @override
-  ErrorContainer handleException(
+  ErrorDetails handleException(
     String msg, [
     Exception? exception,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    final container = BaseErrorContainer(
+    final container = BaseErrorDetails(
       msg,
       exception: exception,
       stackTrace: stackTrace,
@@ -82,7 +82,7 @@ class ErrorHandler implements ErrorHandlerInterface {
     return container;
   }
 
-  void _handle(ErrorContainer container) {
+  void _handle(ErrorDetails container) {
     //TODO: fix type checking
     final errLvl = _registeredErrors[container.runtimeType];
     if (errLvl != null && container.errorLevel == null) {
@@ -92,7 +92,7 @@ class ErrorHandler implements ErrorHandlerInterface {
     _handleForHistory(container);
   }
 
-  void _handleForHistory(ErrorContainer container) {
+  void _handleForHistory(ErrorDetails container) {
     if (settings.useHistory) {
       if (settings.maxHistoryEntries <= _history.length) {
         _history.removeAt(0);

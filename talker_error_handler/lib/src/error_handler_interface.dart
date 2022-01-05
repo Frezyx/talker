@@ -4,23 +4,23 @@ abstract class ErrorHandlerInterface {
   Stream<ErrorDetails> get stream;
   List<ErrorDetails> get history;
 
-  ErrorDetails? handle(
-    String msg, [
-    Object? exception,
+  void handle(
+    Object exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
 
-  ErrorDetails handleError(
-    String msg, [
-    Error? error,
+  void handleError(
+    Error error, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
 
-  ErrorDetails handleException(
-    String msg, [
-    Exception? exception,
+  void handleException(
+    Exception exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);

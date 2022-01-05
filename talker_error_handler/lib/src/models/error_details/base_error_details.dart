@@ -3,16 +3,16 @@ import 'package:talker_error_handler/talker_error_handler.dart';
 /// Base error container
 // TODO: rename
 class BaseErrorDetails implements ErrorDetails {
-  BaseErrorDetails(
-    this.message, {
+  BaseErrorDetails({
     this.exception,
+    this.message,
     this.error,
     this.stackTrace,
     this.errorLevel,
   });
 
   @override
-  final String message;
+  final String? message;
 
   @override
   final Exception? exception;
@@ -34,7 +34,7 @@ class BaseErrorDetails implements ErrorDetails {
     ErrorLevel? errorLevel,
   }) {
     return BaseErrorDetails(
-      message ?? this.message,
+      message: message ?? this.message,
       exception: exception ?? this.exception,
       error: error ?? this.error,
       stackTrace: stackTrace ?? this.stackTrace,

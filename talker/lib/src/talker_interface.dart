@@ -4,37 +4,37 @@ abstract class TalkerInterface {
   Stream<TalkerDataInterface> get stream;
   List<TalkerDataInterface> get history;
 
+  Future<void> configure({
+    TalkerSettings? settings,
+    List<TalkerObserver>? observers,
+  });
+
   void handle(
-    String msg, [
-    Object? exception,
+    Object exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
 
   void handleError(
-    String msg, [
-    Error? error,
+    Error? error, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
 
   void handleException(
-    String msg, [
-    Exception? exception,
+    Exception? exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]);
 
   void log(
-    String message,
-    LogLevel logLevel, {
+    String message, {
+    LogLevel logLevel = LogLevel.debug,
     Map<String, dynamic>? additional,
   });
 
   void cleanHistory();
-
-  Future<void> configure({
-    TalkerSettings? settings,
-    List<TalkerObserver>? observers,
-  });
 }

@@ -23,16 +23,16 @@ void main() {
 
   errorHandler
     ..handle(
-      'Test custom exception',
       HttpException(),
+      'Test custom exception',
     )
     ..handle(
-      'Test error',
       ArgumentError(),
+      'Test error',
     )
     ..handle(
-      'Test critical exception',
       Exception(),
+      'Test critical exception',
       null,
       ErrorLevel.critical,
     );

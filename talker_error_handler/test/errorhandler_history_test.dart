@@ -27,8 +27,8 @@ void main() {
       );
 
       errorHandler
-        ..handleException(testExceptionMsg, DeferredLoadException(''))
-        ..handleException(testExceptionMsg2, Exception(''));
+        ..handleException(DeferredLoadException(''), testExceptionMsg)
+        ..handleException(Exception(''), testExceptionMsg2);
 
       expect(errorHandler.history, isNotNull);
       expect(errorHandler.history, isNotEmpty);
@@ -39,5 +39,5 @@ void main() {
 }
 
 void _handleException(ErrorHandler errorHandler, String testExceptionMsg) {
-  errorHandler.handleException(testExceptionMsg, Exception(testExceptionMsg));
+  errorHandler.handleException(Exception(testExceptionMsg), testExceptionMsg);
 }

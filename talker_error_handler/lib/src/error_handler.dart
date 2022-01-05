@@ -17,7 +17,7 @@ class ErrorHandler implements ErrorHandlerInterface {
   final ErrorHandlerSettings settings;
   final Map<Type, ErrorLevel> _registeredErrors = {};
   final Function(
-    String msg,
+    String? msg,
     Object? exception,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
@@ -34,15 +34,15 @@ class ErrorHandler implements ErrorHandlerInterface {
 
   @override
   ErrorDetails? handle(
-    String msg, [
-    Object? exception,
+    Object exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     if (exception is Exception) {
-      return handleException(msg, exception, stackTrace, errorLevel);
+      return handleException(exception, msg, stackTrace, errorLevel);
     } else if (exception is Error) {
-      return handleError(msg, exception, stackTrace, errorLevel);
+      return handleError(exception, msg, stackTrace, errorLevel);
     } else {
       onUnknownErrorType?.call(msg, exception, stackTrace, errorLevel);
     }
@@ -50,13 +50,13 @@ class ErrorHandler implements ErrorHandlerInterface {
 
   @override
   ErrorDetails handleError(
-    String msg, [
-    Error? error,
+    Error error, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     final container = BaseErrorDetails(
-      msg,
+      message: msg,
       error: error,
       stackTrace: stackTrace,
       errorLevel: errorLevel,
@@ -67,13 +67,13 @@ class ErrorHandler implements ErrorHandlerInterface {
 
   @override
   ErrorDetails handleException(
-    String msg, [
-    Exception? exception,
+    Exception exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     final container = BaseErrorDetails(
-      msg,
+      message: msg,
       exception: exception,
       stackTrace: stackTrace,
       errorLevel: errorLevel,

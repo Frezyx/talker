@@ -16,8 +16,11 @@ class TalkerLogger {
   void log(String msg, {LogLevel logLevel = LogLevel.debug}) {
     var pen = settings.colors[logLevel];
     pen = pen ?? logLevel.consoleColor;
+
     if (_filter.shouldLog(msg, logLevel)) {
-      consolePrint(formater.fmt(pen.write(msg), logLevel));
+      consolePrint(
+        formater.fmt(msg, logLevel, pen),
+      );
     }
   }
 

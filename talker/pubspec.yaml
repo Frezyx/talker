@@ -9,6 +9,7 @@ environment:
 
 
 dependencies:
+  intl: ^0.17.0
   talker_error_handler:
     path:
       ../talker_error_handler
@@ -23,7 +24,6 @@ dependencies:
     #   url: https://github.com/Frezyx/talker
     #   ref: testing
     #   path: talker_logger/
-  intl: ^0.17.0
 
 dev_dependencies:
   lint: ^1.8.1

@@ -3,7 +3,7 @@ import 'package:talker_logger/talker_logger.dart';
 void main() {
   final logger = TalkerLogger(
     settings: const TalkerLoggerSettings(
-      logLevel: LogLevel.info,
+      level: LogLevel.info,
     ),
   );
 

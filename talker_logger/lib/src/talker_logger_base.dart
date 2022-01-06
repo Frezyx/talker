@@ -6,7 +6,7 @@ class TalkerLogger {
     TalkerLoggerFilter? filter,
     this.formater = const BaseLoggerFormater(),
   }) {
-    _filter = filter ?? BaseTalkerLoggerFilter(settings.logLevel);
+    _filter = filter ?? BaseTalkerLoggerFilter(settings.level);
   }
 
   final TalkerLoggerSettings settings;

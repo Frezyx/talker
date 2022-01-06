@@ -2,10 +2,10 @@ import 'package:talker/src/src.dart';
 
 extension HistoryListText on List<TalkerDataInterface> {
   String get text {
-    var m = '';
+    final sb = StringBuffer();
     for (final data in this) {
-      m += '${data.generateTextMessage()}\n';
+      sb.write('${data.generateTextMessage()}\n');
     }
-    return m;
+    return sb.toString();
   }
 }

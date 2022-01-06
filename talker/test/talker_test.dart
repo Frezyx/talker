@@ -9,7 +9,7 @@ void main() {
     });
 
     test('First Test', () {
-      // expect(awesome.isAwesome, isTrue);
+      expect(true, isTrue);
     });
   });
 }

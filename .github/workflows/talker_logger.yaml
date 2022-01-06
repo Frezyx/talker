@@ -15,7 +15,7 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: packages/bloc
+        working-directory: talker_logger
 
     runs-on: ubuntu-latest
 

@@ -1,4 +1,4 @@
-name: bloc
+name: talker_logger
 
 on:
   push:

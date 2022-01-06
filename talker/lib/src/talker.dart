@@ -1,51 +1,56 @@
 import 'dart:async';
 
 import 'package:talker/talker.dart';
-import 'package:talker_error_handler/talker_error_handler.dart';
 
 class Talker implements TalkerInterface {
   Talker._() {
     _settings = kDefaultTalkerSettings;
+    _logger = TalkerLogger();
+    _errorHandler = ErrorHandler()
+      ..stream.listen((details) {
+        _handleErrorStream(details);
+      });
   }
 
   static final _talker = Talker._();
   static Talker get instance => _talker;
 
-  TalkerObserversManager? _observersManager;
+  /// Fields can be setup in [configure()] method
+
   late TalkerSettings _settings;
+  late TalkerLogger _logger;
+  late ErrorHandler _errorHandler;
 
-  final _fileManager = FileManager();
+  // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
+  TalkerObserversManager? _observersManager;
 
-  late final _logger = TalkerLogger();
-  late final _errorHandler = ErrorHandler()
-    ..stream.listen((err) {
-      TalkerDataInterface? data;
-      if (err.error != null) {
-        data = TalkerError(
-          err.message,
-          error: err.error,
-          stackTrace: err.stackTrace,
-          logLevel: err.errorLevel?.loglevel ?? LogLevel.error,
-        );
-      } else if (err.exception != null) {
-        data = TalkerException(
-          err.message,
-          exception: err.exception,
-          stackTrace: err.stackTrace,
-          logLevel: err.errorLevel?.loglevel ?? LogLevel.error,
-        );
-      }
+  @override
+  Future<void> configure({
+    TalkerLogger? logger,
+    ErrorHandler? errorHandler,
+    TalkerSettings? settings,
+    List<TalkerObserver>? observers,
+  }) async {
+    if (settings != null) {
+      _settings = settings;
+    }
 
-      if (data != null) {
-        _talkerStreamController.add(data);
-        _handleForOutputs(data);
-        _logger.log(
-          data.generateTextMessage(),
-          logLevel: data.logLevel ?? LogLevel.debug,
-        );
-      }
-    });
+    if (observers != null && observers.isNotEmpty) {
+      _observersManager = TalkerObserversManager(observers);
+    }
+
+    if (logger != null) {
+      _logger = logger;
+    }
+
+    if (errorHandler != null) {
+      _errorHandler = errorHandler
+        ..stream.listen((details) {
+          _handleErrorStream(details);
+        });
+    }
+  }
 
   final _talkerStreamController =
       StreamController<TalkerDataInterface>.broadcast();
@@ -58,65 +63,51 @@ class Talker implements TalkerInterface {
   List<TalkerDataInterface> get history => _history;
 
   @override
-  Future<void> configure({
-    TalkerSettings? settings,
-    List<TalkerObserver>? observers,
-  }) async {
-    if (settings != null) {
-      _settings = settings;
-    }
-
-    if (observers != null && observers.isNotEmpty) {
-      _observersManager = TalkerObserversManager(observers);
-    }
-  }
-
-  @override
   void handle(
-    String msg, [
-    Object? exception,
+    Object exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    final container = _errorHandler.handle(
-      msg,
+    final details = _errorHandler.handle(
       exception,
+      msg,
       stackTrace,
       errorLevel,
     );
-    if (container != null) {
-      _observersManager?.onError(container);
+    if (details != null) {
+      _observersManager?.onError(details);
     }
   }
 
   @override
   void handleError(
-    String msg, [
-    Error? error,
+    Error error, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     final errContainer =
-        _errorHandler.handleError(msg, error, stackTrace, errorLevel);
+        _errorHandler.handleError(error, msg, stackTrace, errorLevel);
     _observersManager?.onError(errContainer);
   }
 
   @override
   void handleException(
-    String msg, [
-    Exception? exception,
+    Exception exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     final errContainer =
-        _errorHandler.handleException(msg, exception, stackTrace, errorLevel);
+        _errorHandler.handleException(exception, msg, stackTrace, errorLevel);
     _observersManager?.onError(errContainer);
   }
 
   @override
   void log(
-    String message,
-    LogLevel logLevel, {
+    String message, {
+    LogLevel logLevel = LogLevel.debug,
     Map<String, dynamic>? additional,
   }) {
     final logData = TalkerLog(
@@ -142,14 +133,15 @@ class Talker implements TalkerInterface {
 
   void _handleForOutputs(TalkerDataInterface data) {
     _writeToHistory(data);
-    _writeToFile(data);
+    // _writeToFile(data);
   }
 
-  void _writeToFile(TalkerDataInterface data) {
-    if (_settings.writeToFile) {
-      _fileManager.writeToLogFile(data.generateTextMessage());
-    }
-  }
+  //TODO: recreate file manager logic
+  // void _writeToFile(TalkerDataInterface data) {
+  //   if (_settings.writeToFile) {
+  //     _fileManager.writeToLogFile(data.generateTextMessage());
+  //   }
+  // }
 
   void _writeToHistory(TalkerDataInterface data) {
     if (_settings.useHistory) {
@@ -157,6 +149,36 @@ class Talker implements TalkerInterface {
         _history.removeAt(0);
       }
       _history.add(data);
+    }
+  }
+
+  void _handleErrorStream(ErrorDetails details) {
+    TalkerDataInterface? data;
+    final err = details.error;
+    final exception = details.exception;
+    if (err != null) {
+      data = TalkerError(
+        err,
+        message: details.message,
+        stackTrace: details.stackTrace,
+        logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
+      );
+    } else if (exception != null) {
+      data = TalkerException(
+        exception,
+        message: details.message,
+        stackTrace: details.stackTrace,
+        logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
+      );
+    }
+
+    if (data != null) {
+      _talkerStreamController.add(data);
+      _handleForOutputs(data);
+      _logger.log(
+        data.generateTextMessage(),
+        logLevel: data.logLevel ?? LogLevel.debug,
+      );
     }
   }
 }

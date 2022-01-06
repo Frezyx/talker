@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
-class DateTimeFormater {
-  const DateTimeFormater(this.date);
+class TalkerDateTimeFormater {
+  const TalkerDateTimeFormater(this.date);
   final DateTime date;
 
   String get timeAndSeconds {

@@ -2,7 +2,7 @@ import 'package:talker_error_handler/talker_error_handler.dart';
 
 const kDefaultErrorHandlerSettings = ErrorHandlerSettings();
 const kDefaultRegisteredErrors = {
-  BaseErrorContainer: ErrorLevel.debug,
+  BaseErrorDetails: ErrorLevel.debug,
 };
 
 class ErrorHandlerSettings {

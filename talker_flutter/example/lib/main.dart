@@ -15,7 +15,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    Talker.instance.configure();
+    Talker.instance.configure(
+      settings: const TalkerSettings(writeToFile: false),
+    );
     super.initState();
   }
 
@@ -35,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 100,
+              height: 120,
               width: 600,
               color: Colors.white,
               padding: const EdgeInsets.all(10),
@@ -45,8 +47,8 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   MaterialButton(
                     onPressed: () => Talker.instance.handleError(
-                      'dart argument error',
                       ArgumentError('-6 is not positive number'),
+                      'dart argument error',
                     ),
                     color: Colors.black,
                     child: const Text(
@@ -58,8 +60,9 @@ class _MyAppState extends State<MyApp> {
                   ),
                   MaterialButton(
                     onPressed: () => Talker.instance.handleException(
-                        'Http service is not working',
-                        Exception('Not connected')),
+                      Exception('Not connected'),
+                      'Http service is not working',
+                    ),
                     color: Colors.black,
                     child: const Text(
                       'Exception',
@@ -71,7 +74,7 @@ class _MyAppState extends State<MyApp> {
                   MaterialButton(
                     onPressed: () => Talker.instance.log(
                       'Service send good request',
-                      LogLevel.fine,
+                      logLevel: LogLevel.fine,
                     ),
                     color: Colors.black,
                     child: const Text(
@@ -84,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                   MaterialButton(
                     onPressed: () => Talker.instance.log(
                       'Renew token from expire date',
-                      LogLevel.info,
+                      logLevel: LogLevel.info,
                     ),
                     color: Colors.black,
                     child: const Text(
@@ -97,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                   MaterialButton(
                     onPressed: () => Talker.instance.log(
                       'Cache images working slowly on this platform',
-                      LogLevel.warning,
+                      logLevel: LogLevel.warning,
                     ),
                     color: Colors.black,
                     child: const Text(
@@ -110,7 +113,7 @@ class _MyAppState extends State<MyApp> {
                   MaterialButton(
                     onPressed: () => Talker.instance.log(
                       'Server exception',
-                      LogLevel.critical,
+                      logLevel: LogLevel.critical,
                       additional: {
                         "timestamp": 1510417124782,
                         "status": 500,

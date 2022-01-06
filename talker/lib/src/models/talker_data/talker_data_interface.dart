@@ -26,34 +26,43 @@ extension GetTitle on TalkerDataInterface {
         title = logLevel.title;
         break;
     }
-    return '[$title]' + ' | ${DateTimeFormater(time).timeAndSeconds} | ';
+    return '[$title]' + ' | $displayTime | ';
   }
 
-  String get consoleStackTrace {
+  String get displayStackTrace {
     if (stackTrace == null) {
       return '';
     }
     return '\nStackTrace:\n${stackTrace ?? ''}';
   }
 
-  String get consoleException {
+  String get displayException {
     if (exception == null) {
       return '';
     }
     return '\nException: $exception';
   }
 
-  String get consoleError {
+  String get displayError {
     if (error == null) {
       return '';
     }
     return '\nError: $error';
   }
 
-  String get consoleAditional {
+  String get displayAditional {
     if (additional == null) {
       return '';
     }
     return '\n$additional';
   }
+
+  String get displayMessage {
+    if (message == null) {
+      return '';
+    }
+    return '$message';
+  }
+
+  String get displayTime => TalkerDateTimeFormater(time).timeAndSeconds;
 }

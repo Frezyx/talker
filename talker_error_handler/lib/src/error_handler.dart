@@ -17,46 +17,46 @@ class ErrorHandler implements ErrorHandlerInterface {
   final ErrorHandlerSettings settings;
   final Map<Type, ErrorLevel> _registeredErrors = {};
   final Function(
-    String msg,
+    String? msg,
     Object? exception,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   )? onUnknownErrorType;
 
-  final _controller = StreamController<ErrorContainer>.broadcast();
-  final _history = <ErrorContainer>[];
+  final _controller = StreamController<ErrorDetails>.broadcast();
+  final _history = <ErrorDetails>[];
 
   @override
-  Stream<ErrorContainer> get stream => _controller.stream.asBroadcastStream();
+  Stream<ErrorDetails> get stream => _controller.stream.asBroadcastStream();
 
   @override
-  List<ErrorContainer> get history => _history;
+  List<ErrorDetails> get history => _history;
 
   @override
-  ErrorContainer? handle(
-    String msg, [
-    Object? exception,
+  ErrorDetails? handle(
+    Object exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
     if (exception is Exception) {
-      return handleException(msg, exception, stackTrace, errorLevel);
+      return handleException(exception, msg, stackTrace, errorLevel);
     } else if (exception is Error) {
-      return handleError(msg, exception, stackTrace, errorLevel);
+      return handleError(exception, msg, stackTrace, errorLevel);
     } else {
       onUnknownErrorType?.call(msg, exception, stackTrace, errorLevel);
     }
   }
 
   @override
-  ErrorContainer handleError(
-    String msg, [
-    Error? error,
+  ErrorDetails handleError(
+    Error error, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    final container = BaseErrorContainer(
-      msg,
+    final container = BaseErrorDetails(
+      message: msg,
       error: error,
       stackTrace: stackTrace,
       errorLevel: errorLevel,
@@ -66,14 +66,14 @@ class ErrorHandler implements ErrorHandlerInterface {
   }
 
   @override
-  ErrorContainer handleException(
-    String msg, [
-    Exception? exception,
+  ErrorDetails handleException(
+    Exception exception, [
+    String? msg,
     StackTrace? stackTrace,
     ErrorLevel? errorLevel,
   ]) {
-    final container = BaseErrorContainer(
-      msg,
+    final container = BaseErrorDetails(
+      message: msg,
       exception: exception,
       stackTrace: stackTrace,
       errorLevel: errorLevel,
@@ -82,7 +82,7 @@ class ErrorHandler implements ErrorHandlerInterface {
     return container;
   }
 
-  void _handle(ErrorContainer container) {
+  void _handle(ErrorDetails container) {
     //TODO: fix type checking
     final errLvl = _registeredErrors[container.runtimeType];
     if (errLvl != null && container.errorLevel == null) {
@@ -92,7 +92,7 @@ class ErrorHandler implements ErrorHandlerInterface {
     _handleForHistory(container);
   }
 
-  void _handleForHistory(ErrorContainer container) {
+  void _handleForHistory(ErrorDetails container) {
     if (settings.useHistory) {
       if (settings.maxHistoryEntries <= _history.length) {
         _history.removeAt(0);

@@ -6,7 +6,7 @@ class TalkerObserversManager {
   TalkerObserversManager(this.observers);
   final List<TalkerObserver> observers;
 
-  void onError(ErrorContainer container) {
+  void onError(ErrorDetails container) {
     for (final o in observers) {
       o.onError(container);
     }

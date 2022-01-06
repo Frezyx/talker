@@ -5,9 +5,9 @@ const kDefaultLoggerSettings = TalkerLoggerSettings();
 class TalkerLoggerSettings {
   const TalkerLoggerSettings({
     this.colors = const {},
-    this.logLevel = LogLevel.good,
+    this.level = LogLevel.good,
   });
 
   final Map<LogLevel, AnsiPen> colors;
-  final LogLevel logLevel;
+  final LogLevel level;
 }

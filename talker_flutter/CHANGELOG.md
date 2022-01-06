@@ -1,3 +1,7 @@
-## 0.0.1
+## 0.2.0
+- Add logs list copy method
+- Fix log colors
 
-* TODO: Describe initial release.
+## 0.1.0
+
+* Initial version

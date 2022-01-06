@@ -45,7 +45,7 @@ class TalkerDataCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: data.message ?? '',
+                              text: data.displayMessage,
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                               ),
@@ -62,7 +62,7 @@ class TalkerDataCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: DateTime.now().toString(),
+                              text: data.displayTime,
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                               ),
@@ -70,6 +70,24 @@ class TalkerDataCard extends StatelessWidget {
                           ],
                         ),
                       ),
+                      if (data.stackTrace != null)
+                        RichText(
+                          text: TextSpan(
+                            text: 'StackTrace  ',
+                            style: TextStyle(
+                              color: data.logLevel.color,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: data.displayStackTrace,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       if (data.additional != null)
                         RichText(
                           text: TextSpan(
@@ -80,7 +98,7 @@ class TalkerDataCard extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: data.additional!.toString(),
+                                text: data.displayAditional,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.normal,
                                 ),

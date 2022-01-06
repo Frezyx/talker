@@ -1,6 +1,6 @@
 name: talker_flutter
 description: Flutter implementation of talker (advanced error handler and logger package).
-version: 0.1.0
+version: 0.2.0
 homepage: https://github.com/Frezyx/talker
 publish_to: none
 

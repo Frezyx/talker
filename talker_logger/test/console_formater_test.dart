@@ -2,7 +2,12 @@ import 'package:talker_logger/talker_logger.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final cases = ["msg", "message", "Middle length message with some info"];
+  final cases = [
+    "msg",
+    "message",
+    "Middle length message with some info",
+    "    453#4345//c.,le",
+  ];
 
   group('ConsoleFormater', () {
     group('addUnderline', () {
@@ -14,7 +19,7 @@ void main() {
 }
 
 void _testUnderLine(String msg) {
-  test('Msg $msg', () {
+  test('Msg: $msg', () {
     final underLinedMsg = ConsoleFormater.addUnderline(msg);
 
     expect(underLinedMsg, isNotNull);
@@ -26,5 +31,3 @@ void _testUnderLine(String msg) {
     expect(lastStr, '_' * msg.length);
   });
 }
-
-TalkerLoggerFilter _getFilter(LogLevel level) => BaseTalkerLoggerFilter(level);

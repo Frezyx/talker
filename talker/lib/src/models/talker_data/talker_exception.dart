@@ -31,8 +31,7 @@ class TalkerException implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    final mes = '$titleText$displayMessage$displayException$displayStackTrace';
-    return ConsoleFormater.addUnderline(mes);
+    return '$titleText$displayMessage$displayException$displayStackTrace';
   }
 
   @override

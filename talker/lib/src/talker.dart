@@ -5,61 +5,30 @@ import 'package:talker/talker.dart';
 class Talker implements TalkerInterface {
   Talker._() {
     _settings = kDefaultTalkerSettings;
+    _logger = TalkerLogger();
+    _errorHandler = ErrorHandler()
+      ..stream.listen((details) {
+        _handleErrorStream(details);
+      });
   }
 
   static final _talker = Talker._();
   static Talker get instance => _talker;
 
-  TalkerObserversManager? _observersManager;
+  /// Fields can be setup in [configure()] method
+
   late TalkerSettings _settings;
+  late TalkerLogger _logger;
+  late ErrorHandler _errorHandler;
 
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
-
-  late final _logger = TalkerLogger();
-  late final _errorHandler = ErrorHandler()
-    ..stream.listen((details) {
-      TalkerDataInterface? data;
-      final err = details.error;
-      final exception = details.exception;
-      if (err != null) {
-        data = TalkerError(
-          err,
-          message: details.message,
-          stackTrace: details.stackTrace,
-          logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
-        );
-      } else if (exception != null) {
-        data = TalkerException(
-          exception,
-          message: details.message,
-          stackTrace: details.stackTrace,
-          logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
-        );
-      }
-
-      if (data != null) {
-        _talkerStreamController.add(data);
-        _handleForOutputs(data);
-        _logger.log(
-          data.generateTextMessage(),
-          logLevel: data.logLevel ?? LogLevel.debug,
-        );
-      }
-    });
-
-  final _talkerStreamController =
-      StreamController<TalkerDataInterface>.broadcast();
-
-  @override
-  Stream<TalkerDataInterface> get stream =>
-      _talkerStreamController.stream.asBroadcastStream();
-
-  @override
-  List<TalkerDataInterface> get history => _history;
+  TalkerObserversManager? _observersManager;
 
   @override
   Future<void> configure({
+    TalkerLogger? logger,
+    ErrorHandler? errorHandler,
     TalkerSettings? settings,
     List<TalkerObserver>? observers,
   }) async {
@@ -70,7 +39,28 @@ class Talker implements TalkerInterface {
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
     }
+
+    if (logger != null) {
+      _logger = logger;
+    }
+
+    if (errorHandler != null) {
+      _errorHandler = errorHandler
+        ..stream.listen((details) {
+          _handleErrorStream(details);
+        });
+    }
   }
+
+  final _talkerStreamController =
+      StreamController<TalkerDataInterface>.broadcast();
+
+  @override
+  Stream<TalkerDataInterface> get stream =>
+      _talkerStreamController.stream.asBroadcastStream();
+
+  @override
+  List<TalkerDataInterface> get history => _history;
 
   @override
   void handle(
@@ -117,7 +107,6 @@ class Talker implements TalkerInterface {
   @override
   void log(
     String message, {
-    //TODO: add default for settings
     LogLevel logLevel = LogLevel.debug,
     Map<String, dynamic>? additional,
   }) {
@@ -160,6 +149,36 @@ class Talker implements TalkerInterface {
         _history.removeAt(0);
       }
       _history.add(data);
+    }
+  }
+
+  void _handleErrorStream(ErrorDetails details) {
+    TalkerDataInterface? data;
+    final err = details.error;
+    final exception = details.exception;
+    if (err != null) {
+      data = TalkerError(
+        err,
+        message: details.message,
+        stackTrace: details.stackTrace,
+        logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
+      );
+    } else if (exception != null) {
+      data = TalkerException(
+        exception,
+        message: details.message,
+        stackTrace: details.stackTrace,
+        logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
+      );
+    }
+
+    if (data != null) {
+      _talkerStreamController.add(data);
+      _handleForOutputs(data);
+      _logger.log(
+        data.generateTextMessage(),
+        logLevel: data.logLevel ?? LogLevel.debug,
+      );
     }
   }
 }

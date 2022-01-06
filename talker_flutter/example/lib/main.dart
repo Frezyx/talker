@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 100,
+              height: 120,
               width: 600,
               color: Colors.white,
               padding: const EdgeInsets.all(10),

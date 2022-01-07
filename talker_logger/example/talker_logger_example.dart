@@ -8,11 +8,11 @@ void main() {
   );
 
   logger.log('Test debug');
-  logger.log('Test info', logLevel: LogLevel.info);
-  logger.log('Test critical', logLevel: LogLevel.critical);
-  logger.log('Test error', logLevel: LogLevel.error);
-  logger.log('Test fine', logLevel: LogLevel.fine);
-  logger.log('Test good', logLevel: LogLevel.good);
-  logger.log('Test warning', logLevel: LogLevel.warning);
-  logger.log('Test verbose', logLevel: LogLevel.verbose);
+  logger.log('Test info', level: LogLevel.info);
+  logger.log('Test critical', level: LogLevel.critical);
+  logger.log('Test error', level: LogLevel.error);
+  logger.log('Test fine', level: LogLevel.fine);
+  logger.log('Test good', level: LogLevel.good);
+  logger.log('Test warning', level: LogLevel.warning);
+  logger.log('Test verbose', level: LogLevel.verbose);
 }

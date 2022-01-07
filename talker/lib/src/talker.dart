@@ -120,7 +120,7 @@ class Talker implements TalkerInterface {
     _handleForOutputs(logData);
     _logger.log(
       logData.generateTextMessage(),
-      logLevel: logData.logLevel ?? LogLevel.debug,
+      level: logData.logLevel ?? LogLevel.debug,
     );
   }
 
@@ -177,7 +177,7 @@ class Talker implements TalkerInterface {
       _handleForOutputs(data);
       _logger.log(
         data.generateTextMessage(),
-        logLevel: data.logLevel ?? LogLevel.debug,
+        level: data.logLevel ?? LogLevel.debug,
       );
     }
   }

@@ -16,7 +16,7 @@ dependencies:
     #   url: https://github.com/Frezyx/talker
     #   ref: testing
     #   path: talker_error_handler/
-  talker_logger: ^0.2.0
+  talker_logger: ^0.3.0
     # path:
     #   ../talker_logger
     # git:

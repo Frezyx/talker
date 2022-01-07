@@ -1,3 +1,6 @@
+## 0.2.5
+- Update observer model
+
 ## 0.2.4
 - Implement simple log methods
 

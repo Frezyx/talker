@@ -155,7 +155,7 @@ packages:
       name: talker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.3"
   talker_error_handler:
     dependency: transitive
     description:

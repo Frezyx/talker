@@ -1,3 +1,6 @@
+## 0.2.4
+- Implement simple log methods
+
 ## 0.2.3
 - Fix default (null) errorLevel -> logLevel
 

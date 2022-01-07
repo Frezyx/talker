@@ -1,3 +1,6 @@
+## 0.2.2
+- Fix error_handler version
+
 ## 0.2.1
 - Fix nested packages
 

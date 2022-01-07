@@ -1,3 +1,6 @@
+## 0.2.1
+- Fix nested packages
+
 ## 0.2.0
 - Simplified package api
 - Fix Talker lazy configuration

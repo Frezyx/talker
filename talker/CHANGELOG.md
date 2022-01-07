@@ -1,3 +1,6 @@
+## 0.2.3
+- Fix default (null) errorLevel -> logLevel
+
 ## 0.2.2
 - Fix error_handler version
 

@@ -14,7 +14,7 @@ extension ToLogLevel on ErrorLevel? {
       case ErrorLevel.warning:
         return LogLevel.warning;
       case null:
-        return LogLevel.debug;
+        return LogLevel.error;
     }
   }
 }

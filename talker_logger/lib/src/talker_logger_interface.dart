@@ -1,7 +1,7 @@
 import 'package:talker_logger/talker_logger.dart';
 
 abstract class TalkerLoggerInterface {
-  void log(String msg, {LogLevel level = LogLevel.debug, AnsiPen? pen});
+  void log(String msg, {LogLevel? level, AnsiPen? pen});
   void critical(String msg);
   void error(String msg);
   void debug(String msg);

@@ -14,11 +14,11 @@ class TalkerLogger implements TalkerLoggerInterface {
   final LoggerFormater formater;
 
   @override
-  void log(String msg, {LogLevel level = LogLevel.debug, AnsiPen? pen}) {
+  void log(String msg, {LogLevel? level, AnsiPen? pen}) {
     final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
-
-    if (_filter.shouldLog(msg, level)) {
-      _consolePrint(formater.fmt(msg, level, selectedPen));
+    final selectedLevel = level ?? LogLevel.debug;
+    if (_filter.shouldLog(msg, selectedLevel)) {
+      _consolePrint(formater.fmt(msg, selectedLevel, selectedPen));
     }
   }
 

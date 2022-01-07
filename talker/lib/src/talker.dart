@@ -109,18 +109,109 @@ class Talker implements TalkerInterface {
     String message, {
     LogLevel logLevel = LogLevel.debug,
     Map<String, dynamic>? additional,
+    Object? exception,
+    StackTrace? stackTrace,
   }) {
-    final logData = TalkerLog(
+    _handleLog(exception, message, stackTrace, logLevel, additional);
+  }
+
+  @override
+  void critical(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.critical);
+  }
+
+  @override
+  void debug(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.debug);
+  }
+
+  @override
+  void error(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.error);
+  }
+
+  @override
+  void fine(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.fine);
+  }
+
+  @override
+  void good(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.good);
+  }
+
+  @override
+  void info(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.info);
+  }
+
+  @override
+  void verbose(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.verbose);
+  }
+
+  @override
+  void warning(
+    String msg, [
+    Object? exception,
+    StackTrace? stackTrace,
+  ]) {
+    _handleLog(exception, msg, stackTrace, LogLevel.warning);
+  }
+
+  void _handleLog(
+    Object? exception,
+    String message,
+    StackTrace? stackTrace,
+    LogLevel logLevel, [
+    Map<String, dynamic>? additional,
+  ]) {
+    TalkerDataInterface? data;
+
+    if (exception != null) {
+      handle(exception, message, stackTrace);
+      return;
+    }
+
+    data = TalkerLog(
       message,
       logLevel: logLevel,
       additional: additional,
     );
-    _talkerStreamController.add(logData);
-    _observersManager?.onLog(logData);
-    _handleForOutputs(logData);
+    _talkerStreamController.add(data);
+    _observersManager?.onLog(data);
+    _handleForOutputs(data);
     _logger.log(
-      logData.generateTextMessage(),
-      level: logData.logLevel,
+      data.generateTextMessage(),
+      level: data.logLevel,
     );
   }
 

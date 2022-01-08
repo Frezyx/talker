@@ -1,3 +1,6 @@
+## 0.2.6
+- Add AnsiPen customization for log method
+
 ## 0.2.5
 - Update observer model
 

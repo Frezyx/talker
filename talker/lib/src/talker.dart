@@ -13,10 +13,9 @@ class Talker implements TalkerInterface {
   }
 
   static final _talker = Talker._();
-  static Talker get instance => _talker;
+  static TalkerInterface get instance => _talker;
 
   /// Fields can be setup in [configure()] method
-
   late TalkerSettings _settings;
   late TalkerLogger _logger;
   late ErrorHandler _errorHandler;
@@ -111,8 +110,16 @@ class Talker implements TalkerInterface {
     Map<String, dynamic>? additional,
     Object? exception,
     StackTrace? stackTrace,
+    AnsiPen? pen,
   }) {
-    _handleLog(exception, message, stackTrace, logLevel, additional);
+    _handleLog(
+      exception,
+      message,
+      stackTrace,
+      logLevel,
+      additional: additional,
+      pen: pen,
+    );
   }
 
   @override
@@ -191,9 +198,10 @@ class Talker implements TalkerInterface {
     Object? exception,
     String message,
     StackTrace? stackTrace,
-    LogLevel logLevel, [
+    LogLevel logLevel, {
     Map<String, dynamic>? additional,
-  ]) {
+    AnsiPen? pen,
+  }) {
     TalkerDataInterface? data;
 
     if (exception != null) {
@@ -212,6 +220,7 @@ class Talker implements TalkerInterface {
     _logger.log(
       data.generateTextMessage(),
       level: data.logLevel,
+      pen: pen,
     );
   }
 

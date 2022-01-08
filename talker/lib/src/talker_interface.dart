@@ -36,6 +36,7 @@ abstract class TalkerInterface {
     Map<String, dynamic>? additional,
     Object? exception,
     StackTrace? stackTrace,
+    AnsiPen? pen,
   });
 
   void critical(

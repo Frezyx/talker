@@ -7,6 +7,6 @@ class BaseLoggerFormater implements LoggerFormater {
   String fmt(String msg, LogLevel level, AnsiPen pen) {
     final parts = msg.split('\n');
     final coloredMsg = parts.map((e) => pen.write(e)).join('\n');
-    return ConsoleFormater.addUnderline(coloredMsg);
+    return ConsoleFormater.addUnderline(coloredMsg, pen);
   }
 }

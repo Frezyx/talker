@@ -155,7 +155,7 @@ packages:
       name: talker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.3"
+    version: "0.2.7"
   talker_error_handler:
     dependency: transitive
     description:
@@ -169,14 +169,14 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.2.1"
+    version: "0.2.2"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.2"
   term_glyph:
     dependency: transitive
     description:

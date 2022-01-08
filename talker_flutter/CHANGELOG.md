@@ -1,3 +1,6 @@
+## 0.2.2
+- Update Talker version
+
 ## 0.2.1
 - Fix Talker to TalkerInterface
 

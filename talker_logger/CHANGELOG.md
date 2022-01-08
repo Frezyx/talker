@@ -1,4 +1,7 @@
-## 0.3.0
+## 0.3.2
+- Add coloring for log underline
+
+## 0.3.1
 - Make level nullable field in standart method
 
 ## 0.3.0

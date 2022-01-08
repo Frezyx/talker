@@ -1,3 +1,6 @@
+## 0.2.7
+- Update logger version
+
 ## 0.2.6
 - Add AnsiPen customization for log method
 

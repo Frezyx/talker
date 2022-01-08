@@ -15,4 +15,5 @@ void main() {
   logger.log('Test good', level: LogLevel.good);
   logger.log('Test warning', level: LogLevel.warning);
   logger.log('Test verbose', level: LogLevel.verbose);
+  logger.log('Test custom pen log', pen: AnsiPen()..xterm(49));
 }

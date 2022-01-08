@@ -20,7 +20,7 @@ void main() {
 
 void _testUnderLine(String msg) {
   test('Msg: $msg', () {
-    final underLinedMsg = ConsoleFormater.addUnderline(msg);
+    final underLinedMsg = ConsoleFormater.addUnderline(msg, AnsiPen());
 
     expect(underLinedMsg, isNotNull);
     expect(underLinedMsg, isNotEmpty);

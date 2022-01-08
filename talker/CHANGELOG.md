@@ -1,3 +1,6 @@
+## 0.2.8
+- Add useConsoleLogs settings field
+
 ## 0.2.7
 - Update logger version
 

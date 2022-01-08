@@ -217,11 +217,13 @@ class Talker implements TalkerInterface {
     _talkerStreamController.add(data);
     _observersManager?.onLog(data);
     _handleForOutputs(data);
-    _logger.log(
-      data.generateTextMessage(),
-      level: data.logLevel,
-      pen: pen,
-    );
+    if (_settings.useConsoleLogs) {
+      _logger.log(
+        data.generateTextMessage(),
+        level: data.logLevel,
+        pen: pen,
+      );
+    }
   }
 
   @override
@@ -275,10 +277,12 @@ class Talker implements TalkerInterface {
     if (data != null) {
       _talkerStreamController.add(data);
       _handleForOutputs(data);
-      _logger.log(
-        data.generateTextMessage(),
-        level: data.logLevel ?? LogLevel.error,
-      );
+      if (_settings.useConsoleLogs) {
+        _logger.log(
+          data.generateTextMessage(),
+          level: data.logLevel ?? LogLevel.error,
+        );
+      }
     }
   }
 }

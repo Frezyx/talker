@@ -8,7 +8,7 @@ class TalkerScreen extends StatefulWidget {
     required this.talker,
   }) : super(key: key);
 
-  final Talker talker;
+  final TalkerInterface talker;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();

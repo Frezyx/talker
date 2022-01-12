@@ -3,10 +3,10 @@ import 'package:talker_error_handler/talker_error_handler.dart';
 
 class TalkerObserver {
   const TalkerObserver({
-    required this.onError,
-    required this.onLog,
+    this.onError,
+    this.onLog,
   });
 
-  final Function(ErrorDetails err) onError;
-  final Function(TalkerDataInterface data) onLog;
+  final Function(ErrorDetails err)? onError;
+  final Function(TalkerDataInterface data)? onLog;
 }

@@ -28,4 +28,10 @@ Future<void> main() async {
       "path": "/application"
     },
   );
+
+  Talker.instance.fine('Log info');
+  Talker.instance.error('Log info');
+  Talker.instance.good('Log info');
+  Talker.instance.verbose('Log info');
+  Talker.instance.warning('Log info');
 }

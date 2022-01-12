@@ -22,7 +22,13 @@ void main() {
 
 void _testFmt(String msg) {
   test('Msg: $msg', () {
-    final fmtMsg = _formater.fmt(msg, LogLevel.debug, AnsiPen());
+    final fmtMsg = _formater.fmt(
+      LogDetails(
+        message: msg,
+        level: LogLevel.debug,
+        pen: AnsiPen(),
+      ),
+    );
 
     expect(fmtMsg, isNotNull);
     expect(fmtMsg, isNotEmpty);

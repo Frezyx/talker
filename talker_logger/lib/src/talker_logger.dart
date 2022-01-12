@@ -10,15 +10,26 @@ class TalkerLogger implements TalkerLoggerInterface {
   }
 
   final TalkerLoggerSettings settings;
-  late final TalkerLoggerFilter _filter;
+
   final LoggerFormater formater;
+  late final TalkerLoggerFilter _filter;
 
   @override
-  void log(String msg, {LogLevel level = LogLevel.debug, AnsiPen? pen}) {
+  void log(String msg, {LogLevel? level, AnsiPen? pen}) {
     final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
-
-    if (_filter.shouldLog(msg, level)) {
-      _consolePrint(formater.fmt(msg, level, selectedPen));
+    final selectedLevel = level ?? LogLevel.debug;
+    if (_filter.shouldLog(msg, selectedLevel)) {
+      _consolePrint(
+        formater.fmt(
+          LogDetails(
+            message: msg,
+            level: selectedLevel,
+            pen: selectedPen,
+            lineSymbol: settings.lineSymbol,
+            maxLineWidth: settings.maxLineWidth,
+          ),
+        ),
+      );
     }
   }
 

@@ -33,14 +33,14 @@ extension GetTitle on TalkerDataInterface {
     if (stackTrace == null) {
       return '';
     }
-    return '\nStackTrace:\n${stackTrace ?? ''}';
+    return '\n${stackTrace ?? ''}';
   }
 
   String get displayException {
     if (exception == null) {
       return '';
     }
-    return '\nException: $exception';
+    return '\n$exception';
   }
 
   String get displayError {

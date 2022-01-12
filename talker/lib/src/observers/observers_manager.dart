@@ -8,13 +8,13 @@ class TalkerObserversManager {
 
   void onError(ErrorDetails container) {
     for (final o in observers) {
-      o.onError(container);
+      o.onError?.call(container);
     }
   }
 
   void onLog(TalkerDataInterface data) {
     for (final o in observers) {
-      o.onLog(data);
+      o.onLog?.call(data);
     }
   }
 }

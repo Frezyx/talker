@@ -1,3 +1,13 @@
+## 0.3.0
+- Update all packages to latest version
+- Fix UI coloring
+
+## 0.2.2
+- Update Talker version
+
+## 0.2.1
+- Fix Talker to TalkerInterface
+
 ## 0.2.0
 - Add logs list copy method
 - Fix log colors

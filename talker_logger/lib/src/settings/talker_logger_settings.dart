@@ -6,8 +6,12 @@ class TalkerLoggerSettings {
   const TalkerLoggerSettings({
     this.colors = const {},
     this.level = LogLevel.good,
+    this.lineSymbol = '-',
+    this.maxLineWidth = 140,
   });
 
   final Map<LogLevel, AnsiPen> colors;
   final LogLevel level;
+  final String lineSymbol;
+  final int maxLineWidth;
 }

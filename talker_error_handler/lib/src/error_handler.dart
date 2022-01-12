@@ -82,14 +82,17 @@ class ErrorHandler implements ErrorHandlerInterface {
     return container;
   }
 
-  void _handle(ErrorDetails container) {
+  void _handle(ErrorDetails details) {
     //TODO: fix type checking
-    final errLvl = _registeredErrors[container.runtimeType];
-    if (errLvl != null && container.errorLevel == null) {
-      container.errorLevel = errLvl;
+    if (details.errorLevel == null) {
+      final detailsLvl = _registeredErrors[details.runtimeType];
+      final errLevel = _registeredErrors[details.error.runtimeType];
+      final exceptionLevel = _registeredErrors[details.exception.runtimeType];
+      details.errorLevel = exceptionLevel ?? errLevel ?? detailsLvl;
     }
-    _controller.add(container);
-    _handleForHistory(container);
+
+    _controller.add(details);
+    _handleForHistory(details);
   }
 
   void _handleForHistory(ErrorDetails container) {

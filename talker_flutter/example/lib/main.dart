@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 120,
+              height: 170,
               width: 600,
               color: Colors.white,
               padding: const EdgeInsets.all(10),
@@ -128,6 +128,19 @@ class _MyAppState extends State<MyApp> {
                     color: Colors.black,
                     child: const Text(
                       'Big Exception',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () => Talker.instance.log(
+                      'Custom log message',
+                      pen: AnsiPen()..xterm(49),
+                    ),
+                    color: Colors.black,
+                    child: const Text(
+                      'Custom log',
                       style: TextStyle(
                         color: Colors.white,
                       ),

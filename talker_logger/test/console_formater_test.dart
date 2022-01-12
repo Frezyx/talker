@@ -26,8 +26,8 @@ void _testUnderLine(String msg) {
     expect(underLinedMsg, isNotEmpty);
 
     final lastStr = underLinedMsg.split('\n').last;
-    expect(lastStr, contains('_'));
+    expect(lastStr, contains('-'));
     expect(lastStr.length, msg.length);
-    expect(lastStr, '_' * msg.length);
+    expect(lastStr, '-' * msg.length);
   });
 }

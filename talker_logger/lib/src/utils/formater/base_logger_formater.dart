@@ -4,9 +4,9 @@ class BaseLoggerFormater implements LoggerFormater {
   const BaseLoggerFormater();
 
   @override
-  String fmt(String msg, LogLevel level, AnsiPen pen) {
-    final parts = msg.split('\n');
-    final coloredMsg = parts.map((e) => pen.write(e)).join('\n');
-    return ConsoleFormater.addUnderline(coloredMsg, pen);
+  String fmt(LogDetails details) {
+    final parts = details.message.split('\n');
+    final coloredMsg = parts.map((e) => details.pen.write(e)).join('\n');
+    return ConsoleFormater.addUnderline(coloredMsg, details.pen);
   }
 }

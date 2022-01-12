@@ -41,4 +41,9 @@ class BaseErrorDetails implements ErrorDetails {
       errorLevel: errorLevel ?? this.errorLevel,
     );
   }
+
+  @override
+  String toString() {
+    return 'BaseErrorDetails(message: $message, exception: $exception, error: $error, stackTrace: $stackTrace)';
+  }
 }

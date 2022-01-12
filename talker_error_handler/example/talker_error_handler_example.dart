@@ -17,7 +17,7 @@ void main() {
   });
 
   errorHandler.stream.critical.listen((error) {
-    log('CRITICAl ERROR');
+    log('CRITICAl ERROR - $error');
     log(error.errorLevel.toString());
   });
 

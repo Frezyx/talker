@@ -85,10 +85,10 @@ class ErrorHandler implements ErrorHandlerInterface {
   void _handle(ErrorDetails details) {
     //TODO: fix type checking
     if (details.errorLevel == null) {
-      final errLvl = _registeredErrors[details.runtimeType];
-      if (errLvl != null) {
-        details.errorLevel = errLvl;
-      }
+      final detailsLvl = _registeredErrors[details.runtimeType];
+      final errLevel = _registeredErrors[details.error.runtimeType];
+      final exceptionLevel = _registeredErrors[details.exception.runtimeType];
+      details.errorLevel = exceptionLevel ?? errLevel ?? detailsLvl;
     }
 
     _controller.add(details);

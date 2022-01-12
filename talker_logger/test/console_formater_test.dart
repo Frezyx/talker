@@ -20,12 +20,12 @@ void main() {
 
 void _testUnderLine(String msg) {
   test('Msg: $msg', () {
-    final underLinedMsg = ConsoleFormater.addUnderline(msg, AnsiPen());
+    final underLine = ConsoleFormater.getUnderline(msg.length, AnsiPen());
 
-    expect(underLinedMsg, isNotNull);
-    expect(underLinedMsg, isNotEmpty);
+    expect(underLine, isNotNull);
+    expect(underLine, isNotEmpty);
 
-    final lastStr = underLinedMsg.split('\n').last;
+    final lastStr = underLine.split('\n').last;
     expect(lastStr, contains('-'));
     expect(lastStr.length, msg.length);
     expect(lastStr, '-' * msg.length);

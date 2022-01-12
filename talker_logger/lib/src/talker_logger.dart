@@ -26,6 +26,7 @@ class TalkerLogger implements TalkerLoggerInterface {
             level: selectedLevel,
             pen: selectedPen,
             lineSymbol: settings.lineSymbol,
+            maxLineWidth: settings.maxLineWidth,
           ),
         ),
       );

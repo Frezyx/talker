@@ -1,3 +1,6 @@
+## 0.4.0
+- Update logs base formating and coloring
+
 ## 0.3.2
 - Add coloring for log underline
 

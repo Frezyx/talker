@@ -1,6 +1,6 @@
 name: talker_error_handler
 description: Error handler core package for talker (advanced error handler and logger package)
-version: 0.2.1
+version: 0.3.0
 homepage: https://github.com/Frezyx/talker
 
 environment:
@@ -8,7 +8,6 @@ environment:
 
 
 dependencies:
-#   path: ^1.8.0
 
 dev_dependencies:
   lint: ^1.8.1

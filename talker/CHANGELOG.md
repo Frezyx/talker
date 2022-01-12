@@ -1,3 +1,8 @@
+## 0.3.0
+- Update settings cnfiguration
+- Update internal logic
+- Update internal packages
+
 ## 0.2.8
 - Add useConsoleLogs settings field
 

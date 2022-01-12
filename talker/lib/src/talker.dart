@@ -234,7 +234,9 @@ class Talker implements TalkerInterface {
   }
 
   void _handleForOutputs(TalkerDataInterface data) {
-    _writeToHistory(data);
+    if (_settings.useHistory) {
+      _writeToHistory(data);
+    }
     // _writeToFile(data);
   }
 

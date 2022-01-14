@@ -43,10 +43,6 @@ class Talker implements TalkerInterface {
       _logger = logger;
     }
 
-    if (_settings.useConsoleLogs) {
-      ansiColorDisabled = false;
-    }
-
     if (errorHandler != null) {
       _errorHandler = errorHandler
         ..stream.listen((details) {

@@ -47,7 +47,7 @@ extension GetTitle on TalkerDataInterface {
     if (error == null) {
       return '';
     }
-    return '\nError: $error';
+    return '\n$error';
   }
 
   String get displayAditional {

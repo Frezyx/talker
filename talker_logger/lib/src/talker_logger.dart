@@ -7,6 +7,7 @@ class TalkerLogger implements TalkerLoggerInterface {
     this.formater = const BaseLoggerFormater(),
   }) {
     _filter = filter ?? BaseTalkerLoggerFilter(settings.level);
+    ansiColorDisabled = false;
   }
 
   final TalkerLoggerSettings settings;

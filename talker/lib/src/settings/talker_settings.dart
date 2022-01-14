@@ -1,3 +1,5 @@
+import 'package:talker/talker.dart';
+
 const kDefaultTalkerSettings = TalkerSettings();
 
 class TalkerSettings {
@@ -6,10 +8,25 @@ class TalkerSettings {
     this.useConsoleLogs = true,
     this.maxHistoryItems = 200,
     this.writeToFile = false,
+    this.registeredTypes = const [TalkerLog, TalkerError, TalkerException],
   });
 
+  /// Use history to write talker records
   final bool useHistory;
+
+  /// Use console logs to display talker records
   final bool useConsoleLogs;
+
+  /// Max records count in history
   final int maxHistoryItems;
+
+  /// Use writing talker records in file
   final bool writeToFile;
+
+  /// Registered types to make fltering
+  /// and more easy displaying in talker_flutter
+  ///
+
+  //TODO: make interface
+  final List<Type> registeredTypes;
 }

@@ -36,10 +36,10 @@ class HttpTalkerLog extends TalkerLog {
   HttpTalkerLog(String message) : super(message);
 
   @override
+  AnsiPen get pen => AnsiPen()..blue();
+
+  @override
   String generateTextMessage() {
-    final pen = AnsiPen()
-      ..blue()
-      ..write(message);
-    return pen.toString();
+    return pen.write(message);
   }
 }

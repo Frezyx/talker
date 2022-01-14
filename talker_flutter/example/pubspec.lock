@@ -159,9 +159,9 @@ packages:
   talker_error_handler:
     dependency: transitive
     description:
-      name: talker_error_handler
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../../talker_error_handler"
+      relative: true
+    source: path
     version: "0.3.0"
   talker_flutter:
     dependency: "direct main"
@@ -173,9 +173,9 @@ packages:
   talker_logger:
     dependency: transitive
     description:
-      name: talker_logger
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../../talker_logger"
+      relative: true
+    source: path
     version: "0.4.0"
   term_glyph:
     dependency: transitive

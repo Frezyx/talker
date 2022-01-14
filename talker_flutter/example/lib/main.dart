@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 170,
+              height: kIsWeb ? 100 : 170,
               width: 600,
               color: Colors.white,
               padding: const EdgeInsets.all(10),
@@ -161,7 +162,7 @@ class BarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onTap,
-      color: Colors.black,
+      color: Theme.of(context).primaryColor,
       child: Text(
         title,
         style: const TextStyle(

@@ -9,6 +9,7 @@ class TalkerLog implements TalkerDataInterface {
     this.stackTrace,
     this.additional,
     DateTime? time,
+    this.pen,
   }) {
     _time = time ?? DateTime.now();
   }
@@ -40,4 +41,6 @@ class TalkerLog implements TalkerDataInterface {
   DateTime get time => _time;
 
   late DateTime _time;
+
+  final AnsiPen? pen;
 }

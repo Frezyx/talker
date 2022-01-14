@@ -8,8 +8,8 @@ class TalkerSettings {
     this.useConsoleLogs = true,
     this.maxHistoryItems = 200,
     this.writeToFile = false,
-    this.registeredTypes = const [TalkerLog, TalkerError, TalkerException],
-  });
+    List<Type>? registeredTypes,
+  }) : _registeredTypes = registeredTypes;
 
   /// Use history to write talker records
   final bool useHistory;
@@ -26,7 +26,8 @@ class TalkerSettings {
   /// Registered types to make fltering
   /// and more easy displaying in talker_flutter
   ///
-
+  List<Type> get registeredTypes =>
+      [TalkerLog, TalkerError, TalkerException, ...?_registeredTypes];
   //TODO: make interface
-  final List<Type> registeredTypes;
+  final List<Type>? _registeredTypes;
 }

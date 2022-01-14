@@ -39,6 +39,11 @@ abstract class TalkerInterface {
     AnsiPen? pen,
   });
 
+  void logTyped(
+    TalkerLog log, {
+    LogLevel logLevel = LogLevel.debug,
+  });
+
   void critical(
     String msg, [
     Object? exception,

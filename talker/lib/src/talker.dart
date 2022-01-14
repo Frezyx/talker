@@ -218,14 +218,23 @@ class Talker implements TalkerInterface {
       logLevel: logLevel,
       additional: additional,
     );
+
+    _handleLogData(data as TalkerLog, pen: pen);
+  }
+
+  void _handleLogData(
+    TalkerLog data, {
+    AnsiPen? pen,
+    LogLevel? logLevel,
+  }) {
     _talkerStreamController.add(data);
     _observersManager?.onLog(data);
     _handleForOutputs(data);
     if (_settings.useConsoleLogs) {
       _logger.log(
         data.generateTextMessage(),
-        level: data.logLevel,
-        pen: pen,
+        level: logLevel ?? data.logLevel,
+        pen: data.pen ?? pen,
       );
     }
   }
@@ -290,5 +299,10 @@ class Talker implements TalkerInterface {
         );
       }
     }
+  }
+
+  @override
+  void logTyped(TalkerLog log, {LogLevel logLevel = LogLevel.debug}) {
+    _handleLogData(log, logLevel: logLevel);
   }
 }

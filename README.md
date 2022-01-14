@@ -7,3 +7,4 @@ Working in progress
 ### TODO:
 - LogLevel as a model with customization
 - ErrorLevel as a model with customization
+- Filter for logs in UI (talker_flutter)

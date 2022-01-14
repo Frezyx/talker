@@ -85,9 +85,8 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () => Talker.instance.log(
+                    onPressed: () => Talker.instance.info(
                       'Renew token from expire date',
-                      logLevel: LogLevel.info,
                     ),
                     color: Colors.black,
                     child: const Text(
@@ -98,9 +97,8 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () => Talker.instance.log(
+                    onPressed: () => Talker.instance.warning(
                       'Cache images working slowly on this platform',
-                      logLevel: LogLevel.warning,
                     ),
                     color: Colors.black,
                     child: const Text(

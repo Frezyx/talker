@@ -152,9 +152,9 @@ packages:
   talker:
     dependency: transitive
     description:
-      name: talker
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../../talker"
+      relative: true
+    source: path
     version: "0.3.0"
   talker_error_handler:
     dependency: transitive

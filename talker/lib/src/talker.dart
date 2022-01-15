@@ -24,6 +24,7 @@ class Talker implements TalkerInterface {
   final _history = <TalkerDataInterface>[];
   TalkerObserversManager? _observersManager;
 
+  /// {@macro configure}
   @override
   Future<void> configure({
     TalkerLogger? logger,
@@ -61,6 +62,7 @@ class Talker implements TalkerInterface {
   @override
   List<TalkerDataInterface> get history => _history;
 
+  /// {@macro talker_handle}
   @override
   void handle(
     Object exception, [
@@ -79,6 +81,7 @@ class Talker implements TalkerInterface {
     }
   }
 
+  /// {@macro talker_handleError}
   @override
   void handleError(
     Error error, [
@@ -91,6 +94,7 @@ class Talker implements TalkerInterface {
     _observersManager?.onError(errContainer);
   }
 
+  /// {@macro talker_handleException}
   @override
   void handleException(
     Exception exception, [
@@ -103,6 +107,7 @@ class Talker implements TalkerInterface {
     _observersManager?.onError(errContainer);
   }
 
+  /// {@macro talker_log}
   @override
   void log(
     String message, {

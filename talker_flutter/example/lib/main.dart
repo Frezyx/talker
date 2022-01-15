@@ -19,6 +19,14 @@ class _MyAppState extends State<MyApp> {
     Talker.instance.configure(
       settings: const TalkerSettings(writeToFile: false),
     );
+
+    _handleError();
+    _handleException();
+    _fineLog();
+    _infoLog();
+    _warningLog();
+    _bigCriticalLog();
+    _customLog();
     super.initState();
   }
 
@@ -30,56 +38,60 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],
       ),
-      home: Stack(
-        children: [
-          TalkerScreen(
-            talker: Talker.instance,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: kIsWeb ? 100 : 170,
-              width: 600,
-              color: Colors.white,
-              padding: const EdgeInsets.all(10),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  BarButton(
-                    title: 'Handle Error',
-                    onTap: _handleError,
-                  ),
-                  BarButton(
-                    title: 'Handle Exception',
-                    onTap: _handleException,
-                  ),
-                  BarButton(
-                    title: 'Fine Log',
-                    onTap: _fineLog,
-                  ),
-                  BarButton(
-                    title: 'Info Log',
-                    onTap: _infoLog,
-                  ),
-                  BarButton(
-                    title: 'Waring Log',
-                    onTap: _warningLog,
-                  ),
-                  BarButton(
-                    title: 'Big Critical log',
-                    onTap: _bigCriticalLog,
-                  ),
-                  BarButton(
-                    title: 'Custom log',
-                    onTap: _customLog,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
+      home: TalkerScreen(
+        talker: Talker.instance,
       ),
+
+      //  Stack(
+      //   children: [
+      //     TalkerScreen(
+      //       talker: Talker.instance,
+      //     ),
+      // Align(
+      //   alignment: Alignment.bottomCenter,
+      //   child: Container(
+      //     height: kIsWeb ? 100 : 170,
+      //     width: 600,
+      //     color: Colors.white,
+      //     padding: const EdgeInsets.all(10),
+      //     child: Wrap(
+      //       spacing: 10,
+      //       runSpacing: 10,
+      //       children: [
+      //         BarButton(
+      //           title: 'Handle Error',
+      //           onTap: _handleError,
+      //         ),
+      //         BarButton(
+      //           title: 'Handle Exception',
+      //           onTap: _handleException,
+      //         ),
+      //         BarButton(
+      //           title: 'Fine Log',
+      //           onTap: _fineLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Info Log',
+      //           onTap: _infoLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Waring Log',
+      //           onTap: _warningLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Big Critical log',
+      //           onTap: _bigCriticalLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Custom log',
+      //           onTap: _customLog,
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // )
+      //     ],
+      //   ),
     );
   }
 

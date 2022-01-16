@@ -92,7 +92,7 @@ abstract class TalkerInterface {
   /// Log a new message with maximal customization
   /// [String] [message] - message describes what happened
   /// [LogLevel] [logLevel] - to control logging output
-  /// [Object?] [exception] - excption if happines
+  /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
   /// [Map<String, dynamic>?] [additional] - additional log data for
   /// your own further logic processing
@@ -120,58 +120,165 @@ abstract class TalkerInterface {
     AnsiPen? pen,
   });
 
+  /// {@template talker_log_typed}
+  /// Log a new message
+  /// created in the full [TalkerLog] model or they subclass
+  /// (you can create it by extends of [TalkerLog])
+  ///
+  /// [TalkerLog] [log] - log model
+  /// [LogLevel] [logLevel] - to control logging output
+  /// ```dart
+  /// class HttpTalkerLog extends TalkerLog {
+  ///   HttpTalkerLog(String message) : super(message);
+  ///
+  ///   @override
+  ///   AnsiPen get pen => AnsiPen()..xterm(49);
+  ///
+  ///   @override
+  ///   String generateTextMessage() {
+  ///     return pen.write(message);
+  ///   }
+  ///
+  ///   //You can add here response model of your request
+  ///   final httpLog = HttpTalkerLog('Http status: 200');
+  ///   Talker.instance.logTyped(httpLog);
+  /// ```
+  /// {@endtemplate}
   void logTyped(
     TalkerLog log, {
     LogLevel logLevel = LogLevel.debug,
   });
 
+  /// {@template talker_critical_log}
+  /// Log a new critical message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.critical('Log critical');
+  /// ```
+  /// {@endtemplate}
   void critical(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_error_log}
+  /// Log a new error message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.error('Log error');
+  /// ```
+  /// {@endtemplate}
   void error(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_debug_log}
+  /// Log a new debug message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.debug('Log debug');
+  /// ```
+  /// {@endtemplate}
   void debug(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_warning_log}
+  /// Log a new warning message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.warning('Log warning');
+  /// ```
+  /// {@endtemplate}
   void warning(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_verbose_log}
+  /// Log a new verbose message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.verbose('Log verbose');
+  /// ```
+  /// {@endtemplate}
   void verbose(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_info_log}
+  /// Log a new info message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.info('Log info');
+  /// ```
+  /// {@endtemplate}
   void info(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_fine_log}
+  /// Log a new fine message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.fine('Log fine');
+  /// ```
+  /// {@endtemplate}
   void fine(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_good_log}
+  /// Log a new good message
+  /// [String] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  ///
+  /// ```dart
+  ///   Talker.instance.good('Log good');
+  /// ```
+  /// {@endtemplate}
   void good(
     String msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
+  /// {@template talker_clear_log_history}
+  /// Clear log history
+  /// {@endtemplate}
   void cleanHistory();
 }

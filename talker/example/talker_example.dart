@@ -45,6 +45,7 @@ Future<void> main() async {
   Talker.instance.good('Log good');
   Talker.instance.verbose('Log verbose');
   Talker.instance.warning('Log warning');
+  Talker.instance.critical('Log critical');
 
   final httpLog = HttpTalkerLog('Http good');
   Talker.instance.logTyped(httpLog);

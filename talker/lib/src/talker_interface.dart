@@ -93,7 +93,7 @@ abstract class TalkerInterface {
   /// [String] [message] - message describes what happened
   /// [LogLevel] [logLevel] - to control logging output
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   /// [Map<String, dynamic>?] [additional] - additional log data for
   /// your own further logic processing
   /// [AnsiPen?] [pen] - sets your own log color for console
@@ -153,7 +153,7 @@ abstract class TalkerInterface {
   /// Log a new critical message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.critical('Log critical');
@@ -169,7 +169,7 @@ abstract class TalkerInterface {
   /// Log a new error message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.error('Log error');
@@ -185,7 +185,7 @@ abstract class TalkerInterface {
   /// Log a new debug message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.debug('Log debug');
@@ -201,7 +201,7 @@ abstract class TalkerInterface {
   /// Log a new warning message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.warning('Log warning');
@@ -217,7 +217,7 @@ abstract class TalkerInterface {
   /// Log a new verbose message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.verbose('Log verbose');
@@ -233,7 +233,7 @@ abstract class TalkerInterface {
   /// Log a new info message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.info('Log info');
@@ -249,7 +249,7 @@ abstract class TalkerInterface {
   /// Log a new fine message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.fine('Log fine');
@@ -265,7 +265,7 @@ abstract class TalkerInterface {
   /// Log a new good message
   /// [String] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happines
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
   ///   Talker.instance.good('Log good');

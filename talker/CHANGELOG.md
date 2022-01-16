@@ -1,3 +1,8 @@
+## 0.4.0
+- Add logTyped method
+- Add documentation
+- Updated settings and working
+
 ## 0.3.0
 - Update settings cnfiguration
 - Update internal logic

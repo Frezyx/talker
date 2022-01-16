@@ -34,7 +34,7 @@ class TalkerLog implements TalkerDataInterface {
 
   @override
   String generateTextMessage() {
-    return '$titleText$message$displayAditional';
+    return '$displayTitle$message$displayAditional';
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:talker/talker.dart';
 
+/// Base implementation of [TalkerDataInterface]
+/// to handle ONLY [Error]s
 class TalkerError implements TalkerDataInterface {
   TalkerError(
     this.error, {
@@ -11,31 +13,41 @@ class TalkerError implements TalkerDataInterface {
     _time = time ?? DateTime.now();
   }
 
-  @override
-  final Error error;
+  late DateTime _time;
 
+  /// {@macro talker_data_message}
   @override
   final String? message;
 
+  /// {@macro talker_data_error}
   @override
-  final Exception? exception = null;
+  final Error error;
 
+  /// {@macro talker_data_stackTrace}
   @override
   final StackTrace? stackTrace;
 
-  @override
-  final Map<String, dynamic>? additional = null;
-
+  /// {@macro talker_data_loglevel}
   @override
   final LogLevel? logLevel;
 
+  /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
     return '$displayTitle$displayMessage$displayError$displayStackTrace';
   }
 
+  /// {@macro talker_data_time}
   @override
   DateTime get time => _time;
 
-  late DateTime _time;
+  /// {@macro talker_data_additional}
+  /// Not used in [TalkerError]
+  @override
+  final Map<String, dynamic>? additional = null;
+
+  /// {@macro talker_data_exception}
+  /// Not used in [TalkerError]
+  @override
+  final Exception? exception = null;
 }

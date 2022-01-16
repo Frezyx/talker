@@ -60,7 +60,7 @@ Talker.instance.waring('App is started'),
 ///...
 ```
 
-### More examples you can get [there](https://github.com/Frezyx/talker/blob/master/talker/example/talker_example.dart)
+### More examples you can get [there](https://github.com/Frezyx/talker/blob/master/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/talker/lib/src/talker_interface.dart)
 
 ## Use Talker Flutter 
 Often you need to check what happening in the application when there is no console at hand. There is a talker_flutter package for this situations

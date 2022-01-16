@@ -15,13 +15,13 @@ class TalkerError implements TalkerDataInterface {
 
   late DateTime _time;
 
-  /// {@macro talker_data_message}
-  @override
-  final String? message;
-
   /// {@macro talker_data_error}
   @override
   final Error error;
+
+  /// {@macro talker_data_message}
+  @override
+  final String? message;
 
   /// {@macro talker_data_stackTrace}
   @override

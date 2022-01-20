@@ -1,3 +1,8 @@
+## 0.5.0
+- Add all docs
+- Update core packages versions to 0.5.0
+- Fix package issues
+
 ## 0.4.0
 - Add logTyped method
 - Add documentation

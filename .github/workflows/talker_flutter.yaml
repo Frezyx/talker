@@ -48,3 +48,20 @@ jobs:
       #   with:
       #     min_coverage: 30
       #     path: talker_flutter/coverage/lcov.info
+
+      - name: Build WEB
+      - run: flutter build web --release
+        working-directory: example
+        - run: |
+            cd build/web
+            git init
+
+            git config --global user.email youngfrezyx@gmail.com
+            git config --global user.name Stanislav Ilin
+            git status
+            
+            git remote add origin https://${{secrets.commit_secret}}@github.com/Frezyx/talker.git
+            git checkout -b gh-pages
+            git add --all
+            git commit -m "update"
+            git push origin gh-pages -f

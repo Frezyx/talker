@@ -1,6 +1,7 @@
 import 'package:talker/talker.dart';
 
 extension ToLogLevel on ErrorLevel? {
+  /// Converted [ErrorLevel] in [LogLevel]
   LogLevel get loglevel {
     switch (this) {
       case ErrorLevel.critical:

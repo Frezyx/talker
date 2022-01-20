@@ -41,8 +41,8 @@ dependencies:
 ```
 
 ### Easy to use
-You can use Talker instance everywhere in your app
-A simple and concise syntax will help you with this
+You can use Talker instance everywhere in your app <br>
+Simple and concise syntax will help you with this
 
 ```dart
 
@@ -59,8 +59,26 @@ Talker.instance.error('App is started'),
 Talker.instance.waring('App is started'),
 ///...
 ```
+More examples you can get [there](https://github.com/Frezyx/talker/blob/master/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/talker/lib/src/talker_interface.dart)
 
-### More examples you can get [there](https://github.com/Frezyx/talker/blob/master/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/talker/lib/src/talker_interface.dart)
+### Customization
+Configure the error handler and logger for yourself
+```dart
+// Handle exceptions and errors
+Talker.instance.configure(
+    /// Your own observers to handle errors's exception's and log's
+    observers: [],
+    settings: const TalkerSettings(
+      /// Your own registered types of error's exception's and log's
+      registeredTypes: [HttpTalkerLog],
+      maxHistoryItems: 1000,
+      useHistory: true,
+      useConsoleLogs: true,
+    ),
+  );
+```
+
+More examples you can get [there](https://github.com/Frezyx/talker/blob/master/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/talker/lib/src/talker_interface.dart)
 
 ## Use Talker Flutter 
 Often you need to check what happening in the application when there is no console at hand. There is a talker_flutter package for this situations
@@ -85,3 +103,9 @@ TalkerScreen(talker: Talker.instance)
 - LogLevel as a model with customization
 - ErrorLevel as a model with customization
 - Filter for logs in UI (talker_flutter)
+- Flutter Talker customization / filters
+
+For help getting started with 😍 Flutter, view
+[online documentation](https://flutter.dev/docs), which offers tutorials, 
+samples, guidance on mobile development, and a full API reference.
+

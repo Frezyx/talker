@@ -1,3 +1,6 @@
+## 0.4.0
+- Update talker version to 0.5.0
+
 ## 0.3.0
 - Update all packages to latest version
 - Fix UI coloring

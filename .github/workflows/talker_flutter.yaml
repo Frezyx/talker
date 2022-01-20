@@ -12,7 +12,7 @@ on:
       - ".github/workflows/talker_flutter.yaml"
 
 jobs:
-  build:
+  test:
     defaults:
       run:
         working-directory: talker_flutter
@@ -48,20 +48,37 @@ jobs:
       #   with:
       #     min_coverage: 30
       #     path: talker_flutter/coverage/lcov.info
+  build:
+    defaults:
+      run:
+        working-directory: talker_flutter/example
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+
+      - name: Install Dependencies
+        run: flutter pub get
 
       - name: Build WEB
       - run: flutter build web --release
-        working-directory: example
-        - run: |
-            cd build/web
-            git init
+      - run: |
+          cd build/web
+          git init
 
-            git config --global user.email youngfrezyx@gmail.com
-            git config --global user.name Stanislav Ilin
-            git status
+          git config --global user.email youngfrezyx@gmail.com
+          git config --global user.name Stanislav Ilin
+          git status
             
-            git remote add origin https://${{secrets.commit_secret}}@github.com/Frezyx/talker.git
-            git checkout -b gh-pages
-            git add --all
-            git commit -m "update"
-            git push origin gh-pages -f
+          git remote add origin https://${{secrets.commit_secret}}@github.com/Frezyx/talker.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "update"
+          git push origin gh-pages -f

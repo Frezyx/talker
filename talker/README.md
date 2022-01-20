@@ -20,7 +20,7 @@
 </p>
 <h2 align="center">How it works?</h2>
 <p align="center">
-  <img src="docs/assets/working_model.jpg">
+  <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/working_model.jpg?raw=true">
 </p>
 
 <h2 align="center">On All Platforms</h2>
@@ -28,7 +28,7 @@
    <span style="font-size: 0.8em">Please add Windows and Linux screenshots😘</span>
 </p>
 <p align="center">
-  <img src="docs/assets/all_platforms.jpg">
+  <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/all_platforms.jpg?raw=true">
 </p>
 
 ## Get Started
@@ -97,7 +97,7 @@ TalkerScreen(talker: Talker.instance)
 ```
 
 ### Result
-<img src="docs/assets/talker_flutter_ios_screen.png" width="50%">
+<img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter_ios_screen.png?raw=true" width="50%">
 
 #### TODO:
 - LogLevel as a model with customization

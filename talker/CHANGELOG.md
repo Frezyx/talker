@@ -1,3 +1,6 @@
+## 0.5.1
+- Fix README images urls
+
 ## 0.5.0
 - Add all docs
 - Update core packages versions to 0.5.0

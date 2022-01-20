@@ -44,7 +44,7 @@ jobs:
 
       - name: Deploy WEB
         run: |
-          cd build/web
+          cd example/build/web
           git init
 
           git config --global user.email youngfrezyx@gmail.com

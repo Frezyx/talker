@@ -1,18 +1,62 @@
 import 'package:talker/talker.dart';
 
+/// Base [Talker] Data transfer object
+/// Objects of this type are passed through
+/// handlers observers and stream
 abstract class TalkerDataInterface {
+  /// {@template talker_data_message}
+  /// [String] [message] - message describes what happened
+  /// {@endtemplate}
   String? get message;
+
+  /// {@template talker_data_loglevel}
+  /// [LogLevel] [logLevel] - to control logging output
+  /// {@endtemplate}
   LogLevel? get logLevel;
+
+  /// {@template talker_data_exception}
+  /// [Exception?] [exception] - exception if it happened
+  /// {@endtemplate}
   Exception? get exception;
+
+  /// {@template talker_data_error}
+  /// [Error?] [error] - error if it happened
+  /// {@endtemplate}
   Error? get error;
+
+  /// {@template talker_data_stackTrace}
+  /// StackTrace?] [stackTrace] - stackTrace if [exception] or [error] happened
+  /// {@endtemplate}
   StackTrace? get stackTrace;
+
+  /// {@template talker_data_additional}
+  /// [Map<String, dynamic>?] [additional] - additional log data for
+  /// {@endtemplate}
   Map<String, dynamic>? get additional;
+
+  /// {@template talker_data_time}
+  /// Internal time when the error occurred
+  /// {@endtemplate}
   DateTime get time;
+
+  /// {@template talker_data_generateTextMessage}
+  /// Internal method that generates
+  /// a complete message about the event
+  ///
+  /// See examples:
+  /// [TalkerLog] -> [TalkerLog.generateTextMessage]
+  /// [TalkerException] -> [TalkerException.generateTextMessage]
+  /// [TalkerError] -> [TalkerError.generateTextMessage]
+  ///
+  /// {@endtemplate}
   String generateTextMessage();
 }
 
-extension GetTitle on TalkerDataInterface {
-  String get titleText {
+/// Extension to get
+/// display text of [TalkerDataInterface] fileds
+extension FeildsToDisplay on TalkerDataInterface {
+  /// Displayed title of [TalkerDataInterface]
+  String get displayTitle {
     var title = '';
     switch (runtimeType) {
       case TalkerError:
@@ -29,6 +73,7 @@ extension GetTitle on TalkerDataInterface {
     return '[$title]' + ' | $displayTime | ';
   }
 
+  /// Displayed stackTrace of [TalkerDataInterface]
   String get displayStackTrace {
     if (stackTrace == null) {
       return '';
@@ -36,6 +81,7 @@ extension GetTitle on TalkerDataInterface {
     return '\n${stackTrace ?? ''}';
   }
 
+  /// Displayed exception of [TalkerDataInterface]
   String get displayException {
     if (exception == null) {
       return '';
@@ -43,13 +89,15 @@ extension GetTitle on TalkerDataInterface {
     return '\n$exception';
   }
 
+  /// Displayed error of [TalkerDataInterface]
   String get displayError {
     if (error == null) {
       return '';
     }
-    return '\nError: $error';
+    return '\n$error';
   }
 
+  /// Displayed additional of [TalkerDataInterface]
   String get displayAditional {
     if (additional == null) {
       return '';
@@ -57,6 +105,7 @@ extension GetTitle on TalkerDataInterface {
     return '\n$additional';
   }
 
+  /// Displayed message of [TalkerDataInterface]
   String get displayMessage {
     if (message == null) {
       return '';
@@ -64,5 +113,6 @@ extension GetTitle on TalkerDataInterface {
     return '$message';
   }
 
+  /// Displayed tile of [TalkerDataInterface]
   String get displayTime => TalkerDateTimeFormater(time).timeAndSeconds;
 }

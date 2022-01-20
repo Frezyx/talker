@@ -1,3 +1,11 @@
+## 0.5.0
+- Release 0.5.0 talker package
+- Update README.md
+
+## 0.4.0
+- Implement tests 
+- Fix all package issues
+
 ## 0.3.0
 - Fix hanlder issues and bugs
 

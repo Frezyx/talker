@@ -24,6 +24,7 @@ class Talker implements TalkerInterface {
   final _history = <TalkerDataInterface>[];
   TalkerObserversManager? _observersManager;
 
+  /// {@macro talker_configure}
   @override
   Future<void> configure({
     TalkerLogger? logger,
@@ -54,13 +55,16 @@ class Talker implements TalkerInterface {
   final _talkerStreamController =
       StreamController<TalkerDataInterface>.broadcast();
 
+  /// {@macro talker_stream}
   @override
   Stream<TalkerDataInterface> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
+  /// {@macro talker_history}
   @override
   List<TalkerDataInterface> get history => _history;
 
+  /// {@macro talker_handle}
   @override
   void handle(
     Object exception, [
@@ -79,6 +83,7 @@ class Talker implements TalkerInterface {
     }
   }
 
+  /// {@macro talker_handleError}
   @override
   void handleError(
     Error error, [
@@ -91,6 +96,7 @@ class Talker implements TalkerInterface {
     _observersManager?.onError(errContainer);
   }
 
+  /// {@macro talker_handleException}
   @override
   void handleException(
     Exception exception, [
@@ -103,6 +109,7 @@ class Talker implements TalkerInterface {
     _observersManager?.onError(errContainer);
   }
 
+  /// {@macro talker_log}
   @override
   void log(
     String message, {
@@ -122,6 +129,13 @@ class Talker implements TalkerInterface {
     );
   }
 
+  /// {@macro talker_log_typed}
+  @override
+  void logTyped(TalkerLog log, {LogLevel logLevel = LogLevel.debug}) {
+    _handleLogData(log, logLevel: logLevel);
+  }
+
+  /// {@macro talker_critical_log}
   @override
   void critical(
     String msg, [
@@ -131,6 +145,7 @@ class Talker implements TalkerInterface {
     _handleLog(exception, msg, stackTrace, LogLevel.critical);
   }
 
+  /// {@macro talker_debug_log}
   @override
   void debug(
     String msg, [
@@ -140,6 +155,7 @@ class Talker implements TalkerInterface {
     _handleLog(exception, msg, stackTrace, LogLevel.debug);
   }
 
+  /// {@macro talker_error_log}
   @override
   void error(
     String msg, [
@@ -149,6 +165,7 @@ class Talker implements TalkerInterface {
     _handleLog(exception, msg, stackTrace, LogLevel.error);
   }
 
+  /// {@macro talker_fine_log}
   @override
   void fine(
     String msg, [
@@ -158,6 +175,7 @@ class Talker implements TalkerInterface {
     _handleLog(exception, msg, stackTrace, LogLevel.fine);
   }
 
+  /// {@macro talker_good_log}
   @override
   void good(
     String msg, [
@@ -167,6 +185,7 @@ class Talker implements TalkerInterface {
     _handleLog(exception, msg, stackTrace, LogLevel.good);
   }
 
+  /// {@macro talker_info_log}
   @override
   void info(
     String msg, [
@@ -176,6 +195,7 @@ class Talker implements TalkerInterface {
     _handleLog(exception, msg, stackTrace, LogLevel.info);
   }
 
+  /// {@macro talker_verbose_log}
   @override
   void verbose(
     String msg, [
@@ -185,6 +205,7 @@ class Talker implements TalkerInterface {
     _handleLog(exception, msg, stackTrace, LogLevel.verbose);
   }
 
+  /// {@macro talker_warning_log}
   @override
   void warning(
     String msg, [
@@ -192,6 +213,14 @@ class Talker implements TalkerInterface {
     StackTrace? stackTrace,
   ]) {
     _handleLog(exception, msg, stackTrace, LogLevel.warning);
+  }
+
+  ///{@macro talker_clear_log_history}
+  @override
+  void cleanHistory() {
+    if (_settings.useHistory) {
+      _history.clear();
+    }
   }
 
   void _handleLog(
@@ -214,22 +243,24 @@ class Talker implements TalkerInterface {
       logLevel: logLevel,
       additional: additional,
     );
+
+    _handleLogData(data as TalkerLog, pen: pen);
+  }
+
+  void _handleLogData(
+    TalkerLog data, {
+    AnsiPen? pen,
+    LogLevel? logLevel,
+  }) {
     _talkerStreamController.add(data);
     _observersManager?.onLog(data);
     _handleForOutputs(data);
     if (_settings.useConsoleLogs) {
       _logger.log(
         data.generateTextMessage(),
-        level: data.logLevel,
-        pen: pen,
+        level: logLevel ?? data.logLevel,
+        pen: data.pen ?? pen,
       );
-    }
-  }
-
-  @override
-  void cleanHistory() {
-    if (_settings.useHistory) {
-      _history.clear();
     }
   }
 

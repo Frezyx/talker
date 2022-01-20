@@ -27,9 +27,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
               padding: EdgeInsets.zero,
               iconSize: 28,
               onPressed: _cleanHistory,
-              icon: const Icon(
-                Icons.delete,
-              ),
+              icon: const Icon(Icons.delete_outline),
             ),
           ),
           SizedBox(
@@ -39,6 +37,15 @@ class _TalkerScreenState extends State<TalkerScreen> {
               iconSize: 24,
               onPressed: () => _copyAllLogs(context),
               icon: const Icon(Icons.copy),
+            ),
+          ),
+          SizedBox(
+            width: 40,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              iconSize: 28,
+              onPressed: _cleanHistory,
+              icon: const Icon(Icons.filter_alt_outlined),
             ),
           ),
         ],

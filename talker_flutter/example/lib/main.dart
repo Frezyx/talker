@@ -18,6 +18,14 @@ class _MyAppState extends State<MyApp> {
     Talker.instance.configure(
       settings: const TalkerSettings(writeToFile: false),
     );
+
+    _handleError();
+    _handleException();
+    _fineLog();
+    _infoLog();
+    _warningLog();
+    _bigCriticalLog();
+    _customLog();
     super.initState();
   }
 
@@ -29,128 +37,148 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],
       ),
-      home: Stack(
-        children: [
-          TalkerScreen(
-            talker: Talker.instance,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 170,
-              width: 600,
-              color: Colors.white,
-              padding: const EdgeInsets.all(10),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  MaterialButton(
-                    onPressed: () => Talker.instance.handleError(
-                      ArgumentError('-6 is not positive number'),
-                      'dart argument error',
-                    ),
-                    color: Colors.black,
-                    child: const Text(
-                      'Error',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () => Talker.instance.handleException(
-                      Exception('Not connected'),
-                      'Http service is not working',
-                    ),
-                    color: Colors.black,
-                    child: const Text(
-                      'Exception',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () => Talker.instance.log(
-                      'Service send good request',
-                      logLevel: LogLevel.fine,
-                    ),
-                    color: Colors.black,
-                    child: const Text(
-                      'Fine log',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () => Talker.instance.log(
-                      'Renew token from expire date',
-                      logLevel: LogLevel.info,
-                    ),
-                    color: Colors.black,
-                    child: const Text(
-                      'Info log',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () => Talker.instance.log(
-                      'Cache images working slowly on this platform',
-                      logLevel: LogLevel.warning,
-                    ),
-                    color: Colors.black,
-                    child: const Text(
-                      'Waring Log',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () => Talker.instance.log(
-                      'Server exception',
-                      logLevel: LogLevel.critical,
-                      additional: {
-                        "timestamp": 1510417124782,
-                        "status": 500,
-                        "error": "Internal Server Error",
-                        "exception":
-                            "com.netflix.hystrix.exception.HystrixRuntimeException",
-                        "message":
-                            "ApplicationRepository#save(Application) failed and no fallback available.",
-                        "path": "/application"
-                      },
-                    ),
-                    color: Colors.black,
-                    child: const Text(
-                      'Big Exception',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () => Talker.instance.log(
-                      'Custom log message',
-                      pen: AnsiPen()..xterm(49),
-                    ),
-                    color: Colors.black,
-                    child: const Text(
-                      'Custom log',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
+      home: TalkerScreen(
+        talker: Talker.instance,
+      ),
+
+      //  Stack(
+      //   children: [
+      //     TalkerScreen(
+      //       talker: Talker.instance,
+      //     ),
+      // Align(
+      //   alignment: Alignment.bottomCenter,
+      //   child: Container(
+      //     height: kIsWeb ? 100 : 170,
+      //     width: 600,
+      //     color: Colors.white,
+      //     padding: const EdgeInsets.all(10),
+      //     child: Wrap(
+      //       spacing: 10,
+      //       runSpacing: 10,
+      //       children: [
+      //         BarButton(
+      //           title: 'Handle Error',
+      //           onTap: _handleError,
+      //         ),
+      //         BarButton(
+      //           title: 'Handle Exception',
+      //           onTap: _handleException,
+      //         ),
+      //         BarButton(
+      //           title: 'Fine Log',
+      //           onTap: _fineLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Info Log',
+      //           onTap: _infoLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Waring Log',
+      //           onTap: _warningLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Big Critical log',
+      //           onTap: _bigCriticalLog,
+      //         ),
+      //         BarButton(
+      //           title: 'Custom log',
+      //           onTap: _customLog,
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // )
+      //     ],
+      //   ),
+    );
+  }
+
+  void _handleError() {
+    Talker.instance.handleError(
+      ArgumentError('-6 is not positive number'),
+      'dart argument error',
+    );
+  }
+
+  void _handleException() {
+    Talker.instance.handleException(
+      Exception('Not connected'),
+      'Http service is not working',
+    );
+  }
+
+  void _fineLog() {
+    Talker.instance.fine(
+      'Service send good request',
+    );
+  }
+
+  void _infoLog() {
+    Talker.instance.info('Renew token from expire date');
+  }
+
+  void _warningLog() {
+    Talker.instance.warning(
+      'Cache images working slowly on this platform',
+    );
+  }
+
+  void _customLog() {
+    Talker.instance.logTyped(
+      CustomLog('Custom log message'),
+    );
+  }
+
+  void _bigCriticalLog() {
+    Talker.instance.log(
+      'Server exception',
+      logLevel: LogLevel.critical,
+      additional: {
+        "timestamp": 1510417124782,
+        "status": 500,
+        "error": "Internal Server Error",
+        "exception": "com.netflix.hystrix.exception.HystrixRuntimeException",
+        "message":
+            "ApplicationRepository#save(Application) failed and no fallback available.",
+        "path": "/application"
+      },
+    );
+  }
+}
+
+class CustomLog extends TalkerLog {
+  CustomLog(String message) : super(message);
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(49);
+
+  @override
+  String generateTextMessage() {
+    return pen.write(message);
+  }
+}
+
+class BarButton extends StatelessWidget {
+  const BarButton({
+    Key? key,
+    required this.onTap,
+    required this.title,
+  }) : super(key: key);
+
+  final VoidCallback onTap;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+      onPressed: onTap,
+      color: Theme.of(context).primaryColor,
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:talker/talker.dart';
 
+/// Base implementation of [TalkerDataInterface]
+/// to create Logs
 class TalkerLog implements TalkerDataInterface {
   TalkerLog(
     this.message, {
@@ -9,35 +11,45 @@ class TalkerLog implements TalkerDataInterface {
     this.stackTrace,
     this.additional,
     DateTime? time,
+    this.pen,
   }) {
     _time = time ?? DateTime.now();
   }
 
+  late DateTime _time;
+
+  /// {@macro talker_data_message}
   @override
   final String message;
 
   @override
   final Exception? exception;
 
+  /// {@macro talker_data_error}
   @override
   final Error? error;
 
+  /// {@macro talker_data_stackTrace}
   @override
   final StackTrace? stackTrace;
 
   @override
   final Map<String, dynamic>? additional;
 
+  /// {@macro talker_data_loglevel}
   @override
   final LogLevel? logLevel;
 
+  /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$titleText$message$displayAditional';
+    return '$displayTitle$message$displayAditional';
   }
 
+  /// {@macro talker_data_time}
   @override
   DateTime get time => _time;
 
-  late DateTime _time;
+  /// [AnsiPen?] [pen] - sets your own log color for console
+  final AnsiPen? pen;
 }

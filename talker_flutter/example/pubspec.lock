@@ -155,14 +155,14 @@ packages:
       name: talker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.5.0"
   talker_error_handler:
     dependency: transitive
     description:
       name: talker_error_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.5.0"
   talker_flutter:
     dependency: "direct main"
     description:
@@ -176,7 +176,7 @@ packages:
       name: talker_logger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   term_glyph:
     dependency: transitive
     description:

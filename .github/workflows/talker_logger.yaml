@@ -33,12 +33,14 @@ jobs:
         run: dart analyze --fatal-infos --fatal-warnings .
 
       - name: Run Tests
-        run: |
-          pub global activate test_coverage
-          export PATH=$PATH:$HOME/.pub-cache/bin
-          test_coverage
-      - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
-        with:
-          min_coverage: 30
-          path: talker_logger/coverage/lcov.info
+        run: dart test
+      # - name: Run Tests
+      #   run: |
+      #     pub global activate test_coverage
+      #     export PATH=$PATH:$HOME/.pub-cache/bin
+      #     test_coverage
+      # - name: Check Code Coverage
+      #   uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+      #   with:
+      #     min_coverage: 30
+      #     path: talker_logger/coverage/lcov.info

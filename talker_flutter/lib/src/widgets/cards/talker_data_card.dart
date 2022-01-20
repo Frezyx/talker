@@ -144,5 +144,5 @@ class TalkerDataCard extends StatelessWidget {
     );
   }
 
-  String _getTitle(TalkerDataInterface data) => data.titleText;
+  String _getTitle(TalkerDataInterface data) => data.displayTitle;
 }

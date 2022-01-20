@@ -24,7 +24,7 @@ class Talker implements TalkerInterface {
   final _history = <TalkerDataInterface>[];
   TalkerObserversManager? _observersManager;
 
-  /// {@macro configure}
+  /// {@macro talker_configure}
   @override
   Future<void> configure({
     TalkerLogger? logger,
@@ -55,10 +55,12 @@ class Talker implements TalkerInterface {
   final _talkerStreamController =
       StreamController<TalkerDataInterface>.broadcast();
 
+  /// {@macro talker_stream}
   @override
   Stream<TalkerDataInterface> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
+  /// {@macro talker_history}
   @override
   List<TalkerDataInterface> get history => _history;
 

@@ -1,10 +1,24 @@
 import 'package:talker/talker.dart';
 
 abstract class TalkerInterface {
+  /// {@template talker_stream}
+  /// Еhe common stream to sent all processed events [TalkerDataInterface]
+  /// occurred errors [TalkerError]s, exceptions [TalkerException]s
+  /// and logs [TalkerLog]s that have been sent
+  /// You can connect a listener to it and catch the received errors
+  ///
+  /// Or you can add your observer [TalkerObserver] in the settings
+  /// {@endtemplate}
   Stream<TalkerDataInterface> get stream;
+
+  /// {@template talker_history}
+  /// The history stores all information about all events like
+  /// occurred errors [TalkerError]s, exceptions [TalkerException]s
+  /// and logs [TalkerLog]s that have been sent
+  /// {@endtemplate}
   List<TalkerDataInterface> get history;
 
-  /// {@template configure}
+  /// {@template talker_configure}
   /// Setup configuration of Talker
   ///
   /// You can set your own [TalkerLogger] [logger] subclass

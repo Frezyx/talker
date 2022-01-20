@@ -1,3 +1,7 @@
+## 0.4.0
+- Implement tests 
+- Fix all package issues
+
 ## 0.3.0
 - Fix hanlder issues and bugs
 

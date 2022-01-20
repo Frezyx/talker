@@ -68,8 +68,8 @@ jobs:
         run: flutter pub get
 
       - name: Build WEB
-      - run: flutter build web --release
-      - run: |
+        run: flutter build web --release
+        run: |
           cd build/web
           git init
 

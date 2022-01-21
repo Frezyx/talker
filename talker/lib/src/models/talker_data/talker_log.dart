@@ -10,6 +10,7 @@ class TalkerLog implements TalkerDataInterface {
     this.error,
     this.stackTrace,
     this.additional,
+    this.title,
     DateTime? time,
     this.pen,
   }) {
@@ -33,6 +34,11 @@ class TalkerLog implements TalkerDataInterface {
   @override
   final StackTrace? stackTrace;
 
+  /// {@macro talker_data_title}
+  @override
+  final String? title;
+
+  /// {@macro talker_data_additional}
   @override
   final Map<String, dynamic>? additional;
 

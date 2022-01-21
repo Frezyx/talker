@@ -1,3 +1,6 @@
+## 0.5.2
+- Add title for default models
+
 ## 0.5.1
 - Fix README images urls
 

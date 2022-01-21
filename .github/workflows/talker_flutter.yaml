@@ -40,7 +40,7 @@ jobs:
       - name: Build WEB
         run: |
           cd example
-          flutter build web --release
+          flutter build web --release --web-renderer canvaskit
 
       - name: Deploy WEB
         run: |

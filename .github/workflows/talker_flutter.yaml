@@ -36,15 +36,23 @@ jobs:
 
       - name: Analyze
         run: flutter analyze --fatal-infos --fatal-warnings .
-        
-      # TODO: enable before release version 1.0.0
-      # - name: Run Tests
+
+      # - name: Build WEB
       #   run: |
-      #     pub global activate test_coverage
-      #     export PATH=$PATH:$HOME/.pub-cache/bin
-      #     test_coverage
-      # - name: Check Code Coverage
-      #   uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
-      #   with:
-      #     min_coverage: 30
-      #     path: talker_flutter/coverage/lcov.info
+      #     cd example
+      #     flutter build web --release --web-renderer canvaskit
+
+      # - name: Deploy WEB
+      #   run: |
+      #     cd example/build/web
+      #     git init
+
+      #     git config --global user.email youngfrezyx@gmail.com
+      #     git config --global user.name Stanislav Ilin
+      #     git status
+            
+      #     git remote add origin https://${{secrets.commit_secret}}@github.com/Frezyx/talker.git
+      #     git checkout -b gh-pages
+      #     git add --all
+      #     git commit -m "update"
+      #     git push origin gh-pages -f

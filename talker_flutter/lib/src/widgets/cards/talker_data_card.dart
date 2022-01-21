@@ -24,9 +24,7 @@ class TalkerDataCard extends StatelessWidget {
             margin: const EdgeInsets.all(5).copyWith(bottom: 0),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              border: Border.all(
-                color: data.logLevel.color,
-              ),
+              border: Border.all(color: _color),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +38,7 @@ class TalkerDataCard extends StatelessWidget {
                         text: TextSpan(
                           text: 'Message  ',
                           style: TextStyle(
-                            color: data.logLevel.color,
+                            color: _color,
                             fontWeight: FontWeight.bold,
                           ),
                           children: [
@@ -57,7 +55,7 @@ class TalkerDataCard extends StatelessWidget {
                         text: TextSpan(
                           text: 'Time  ',
                           style: TextStyle(
-                            color: data.logLevel.color,
+                            color: _color,
                             fontWeight: FontWeight.bold,
                           ),
                           children: [
@@ -75,7 +73,7 @@ class TalkerDataCard extends StatelessWidget {
                           text: TextSpan(
                             text: 'StackTrace  ',
                             style: TextStyle(
-                              color: data.logLevel.color,
+                              color: _color,
                               fontWeight: FontWeight.bold,
                             ),
                             children: [
@@ -93,7 +91,7 @@ class TalkerDataCard extends StatelessWidget {
                           text: TextSpan(
                             text: 'Additional  ',
                             style: TextStyle(
-                              color: data.logLevel.color,
+                              color: _color,
                               fontWeight: FontWeight.bold,
                             ),
                             children: [
@@ -116,7 +114,7 @@ class TalkerDataCard extends StatelessWidget {
                     onPressed: onTap,
                     icon: Icon(
                       Icons.copy,
-                      color: data.logLevel.color,
+                      color: _color,
                     ),
                   ),
                 )
@@ -132,7 +130,7 @@ class TalkerDataCard extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  color: data.logLevel.color,
+                  color: _color,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -142,6 +140,13 @@ class TalkerDataCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color get _color {
+    if (data is HaveFlutterColorInterface) {
+      return (data as HaveFlutterColorInterface).color ?? data.logLevel.color;
+    }
+    return data.logLevel.color;
   }
 
   String _getTitle(TalkerDataInterface data) => data.displayTitle;

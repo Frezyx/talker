@@ -157,11 +157,14 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class CustomLog extends TalkerLog {
+class CustomLog extends FlutterTalkerLog {
   CustomLog(String message) : super(message);
 
   @override
   AnsiPen get pen => AnsiPen()..xterm(49);
+
+  @override
+  Color get color => Colors.teal;
 
   @override
   String generateTextMessage() {

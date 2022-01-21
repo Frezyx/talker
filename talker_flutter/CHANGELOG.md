@@ -1,3 +1,6 @@
+## 0.4.1
+- Add Flutter Colors extended Talker models <br> to customize colors of your UI logs
+
 ## 0.4.0
 - Update talker version to 0.5.0
 

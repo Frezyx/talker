@@ -37,22 +37,22 @@ jobs:
       - name: Analyze
         run: flutter analyze --fatal-infos --fatal-warnings .
 
-      - name: Build WEB
-        run: |
-          cd example
-          flutter build web --release --web-renderer canvaskit
+      # - name: Build WEB
+      #   run: |
+      #     cd example
+      #     flutter build web --release --web-renderer canvaskit
 
-      - name: Deploy WEB
-        run: |
-          cd example/build/web
-          git init
+      # - name: Deploy WEB
+      #   run: |
+      #     cd example/build/web
+      #     git init
 
-          git config --global user.email youngfrezyx@gmail.com
-          git config --global user.name Stanislav Ilin
-          git status
+      #     git config --global user.email youngfrezyx@gmail.com
+      #     git config --global user.name Stanislav Ilin
+      #     git status
             
-          git remote add origin https://${{secrets.commit_secret}}@github.com/Frezyx/talker.git
-          git checkout -b gh-pages
-          git add --all
-          git commit -m "update"
-          git push origin gh-pages -f
+      #     git remote add origin https://${{secrets.commit_secret}}@github.com/Frezyx/talker.git
+      #     git checkout -b gh-pages
+      #     git add --all
+      #     git commit -m "update"
+      #     git push origin gh-pages -f

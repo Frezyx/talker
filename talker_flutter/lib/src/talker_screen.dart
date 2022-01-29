@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerScreen extends StatefulWidget {
@@ -17,59 +18,66 @@ class TalkerScreen extends StatefulWidget {
 }
 
 class _TalkerScreenState extends State<TalkerScreen> {
+  final _controller = TalkerScreenController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: widget.options.backgroudColor,
-      appBar: AppBar(
-        title: const Text('Flutter talker'),
-        actions: [
-          SizedBox(
-            width: 40,
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              iconSize: 28,
-              onPressed: _cleanHistory,
-              icon: const Icon(Icons.delete_outline),
-            ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Scaffold(
+          backgroundColor: widget.options.backgroudColor,
+          appBar: AppBar(
+            title: const Text('Flutter talker'),
+            actions: [
+              SizedBox(
+                width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 28,
+                  onPressed: _cleanHistory,
+                  icon: const Icon(Icons.delete_outline),
+                ),
+              ),
+              SizedBox(
+                width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 24,
+                  onPressed: () => _copyAllLogs(context),
+                  icon: const Icon(Icons.copy),
+                ),
+              ),
+              SizedBox(
+                width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 28,
+                  onPressed: _showFilter,
+                  icon: const Icon(Icons.filter_alt_outlined),
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            width: 40,
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              iconSize: 24,
-              onPressed: () => _copyAllLogs(context),
-              icon: const Icon(Icons.copy),
-            ),
-          ),
-          SizedBox(
-            width: 40,
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              iconSize: 28,
-              onPressed: _showFilter,
-              icon: const Icon(Icons.filter_alt_outlined),
-            ),
-          ),
-        ],
-      ),
-      body: StreamBuilder(
-        stream: widget.talker.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: widget.talker.history.length,
-            itemBuilder: (_, i) {
-              final data = widget.talker.history[i];
-              return TalkerDataCard(
-                data: data,
-                onTap: () => _copyTalkerDataItemText(data),
-                options: widget.options,
+          body: StreamBuilder(
+            stream: widget.talker.stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: widget.talker.history.length,
+                itemBuilder: (_, i) {
+                  final data = widget.talker.history[i];
+                  return TalkerDataCard(
+                    data: data,
+                    onTap: () => _copyTalkerDataItemText(data),
+                    options: widget.options,
+                  );
+                },
               );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -94,7 +102,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
 
   void _cleanHistory() {
     Talker.instance.cleanHistory();
-    setState(() {});
+    _controller.update();
   }
 
   void _copyAllLogs(BuildContext context) {

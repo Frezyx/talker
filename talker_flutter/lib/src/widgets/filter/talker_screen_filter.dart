@@ -9,11 +9,17 @@ class TalkerScreenFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final types = unicTypes.map((e) => e.toString()).toList();
     return ListView(
       children: [
-        GroupButton.checkbox(
-          buttons: unicTypes.map((e) => e.toString()).toList(),
-          onSelected: (selected, i) {},
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: GroupButton.checkbox(
+            buttons: types,
+            onSelected: (selected, i) {},
+            mainGroupAlignment: MainGroupAlignment.start,
+          ),
         )
       ],
     );

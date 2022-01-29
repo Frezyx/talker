@@ -1,3 +1,6 @@
+## 0.6.0
+- Implement filter for logs
+
 ## 0.5.2
 - Add title for default models
 

@@ -23,6 +23,13 @@ class TalkerScreenFilter extends StatelessWidget {
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: TextFormField(
+            onChanged: controller.updateFilterSearchQuery,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
             'Titles',
             style: theme.textTheme.headline6!.copyWith(

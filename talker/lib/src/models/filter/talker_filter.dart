@@ -18,9 +18,6 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
   @override
   bool filter(TalkerDataInterface item) {
     var match = false;
-    if (searchQuery?.isNotEmpty ?? false) {
-      item.generateTextMessage().contains(searchQuery!);
-    }
 
     if (titles.isNotEmpty) {
       match = match || titles.contains(item.displayTitle);
@@ -30,7 +27,16 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
       match = match || _checkTypeMatch(item);
     }
 
-    if (titles.isEmpty && types.isEmpty) {
+    if (searchQuery?.isNotEmpty ?? false) {
+      final fullMsg = item.generateTextMessage();
+      final fullUpperMsg = fullMsg.toUpperCase();
+      final fullLowerMsg = fullMsg.toLowerCase();
+      final textContain = fullUpperMsg.contains(searchQuery!) ||
+          fullLowerMsg.contains(searchQuery!);
+      match = match || textContain;
+    }
+
+    if (titles.isEmpty && types.isEmpty && (searchQuery?.isEmpty ?? true)) {
       match = true;
     }
     return match;

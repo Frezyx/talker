@@ -47,7 +47,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
             child: IconButton(
               padding: EdgeInsets.zero,
               iconSize: 28,
-              onPressed: _cleanHistory,
+              onPressed: _showFilter,
               icon: const Icon(Icons.filter_alt_outlined),
             ),
           ),
@@ -80,6 +80,16 @@ class _TalkerScreenState extends State<TalkerScreen> {
       ),
     );
     _showSnackBar(context, 'Log item is copied for console');
+  }
+
+  void _showFilter() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: widget.options.backgroudColor,
+      builder: (context) {
+        return const TalkerScreenFilter();
+      },
+    );
   }
 
   void _cleanHistory() {

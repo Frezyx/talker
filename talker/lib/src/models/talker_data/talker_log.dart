@@ -49,7 +49,7 @@ class TalkerLog implements TalkerDataInterface {
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$displayTitle$message$displayAditional';
+    return '$displayTitleWithTime$message$displayAditional';
   }
 
   /// {@macro talker_data_time}

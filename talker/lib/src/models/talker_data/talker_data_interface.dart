@@ -75,7 +75,11 @@ extension FeildsToDisplay on TalkerDataInterface {
         t = title ?? logLevel.title;
         break;
     }
-    return '[$t]' + ' | $displayTime | ';
+    return t;
+  }
+
+  String get displayTitleWithTime {
+    return '[$displayTitle] | $displayTime | ';
   }
 
   /// Displayed stackTrace of [TalkerDataInterface]

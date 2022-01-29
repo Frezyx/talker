@@ -151,5 +151,5 @@ class TalkerDataCard extends StatelessWidget {
     return data.logLevel.color;
   }
 
-  String _getTitle(TalkerDataInterface data) => data.displayTitle;
+  String _getTitle(TalkerDataInterface data) => data.displayTitleWithTime;
 }

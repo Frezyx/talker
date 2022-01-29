@@ -39,7 +39,7 @@ class TalkerError implements TalkerDataInterface {
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$displayTitle$displayMessage$displayError$displayStackTrace';
+    return '$displayTitleWithTime$displayMessage$displayError$displayStackTrace';
   }
 
   /// {@macro talker_data_time}

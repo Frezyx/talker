@@ -1,3 +1,6 @@
+## 0.5.0
+- Implement UI filter for convenient work with the console in the application
+
 ## 0.4.1
 - Add Flutter Colors extended Talker models <br> to customize colors of your UI logs
 

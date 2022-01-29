@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -37,60 +38,60 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],
       ),
-      home: TalkerScreen(
-        talker: Talker.instance,
+      home: Stack(
+        children: [
+          TalkerScreen(
+            talker: Talker.instance,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: kIsWeb ? 100 : 170,
+              width: 600,
+              color: Colors.grey[850],
+              padding: const EdgeInsets.all(10),
+              child: Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  BarButton(
+                    title: 'Handle Error',
+                    onTap: _handleError,
+                  ),
+                  BarButton(
+                    title: 'Handle Exception',
+                    onTap: _handleException,
+                  ),
+                  BarButton(
+                    title: 'Fine Log',
+                    onTap: _fineLog,
+                  ),
+                  BarButton(
+                    title: 'Info Log',
+                    onTap: _infoLog,
+                  ),
+                  BarButton(
+                    title: 'Waring Log',
+                    onTap: _warningLog,
+                  ),
+                  BarButton(
+                    title: 'Varning Log',
+                    onTap: _verboseLog,
+                  ),
+                  BarButton(
+                    title: 'Big Critical log',
+                    onTap: _bigCriticalLog,
+                  ),
+                  BarButton(
+                    title: 'Custom log',
+                    onTap: _customLog,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
-
-      //  Stack(
-      //   children: [
-      //     TalkerScreen(
-      //       talker: Talker.instance,
-      //     ),
-      // Align(
-      //   alignment: Alignment.bottomCenter,
-      //   child: Container(
-      //     height: kIsWeb ? 100 : 170,
-      //     width: 600,
-      //     color: Colors.white,
-      //     padding: const EdgeInsets.all(10),
-      //     child: Wrap(
-      //       spacing: 10,
-      //       runSpacing: 10,
-      //       children: [
-      //         BarButton(
-      //           title: 'Handle Error',
-      //           onTap: _handleError,
-      //         ),
-      //         BarButton(
-      //           title: 'Handle Exception',
-      //           onTap: _handleException,
-      //         ),
-      //         BarButton(
-      //           title: 'Fine Log',
-      //           onTap: _fineLog,
-      //         ),
-      //         BarButton(
-      //           title: 'Info Log',
-      //           onTap: _infoLog,
-      //         ),
-      //         BarButton(
-      //           title: 'Waring Log',
-      //           onTap: _warningLog,
-      //         ),
-      //         BarButton(
-      //           title: 'Big Critical log',
-      //           onTap: _bigCriticalLog,
-      //         ),
-      //         BarButton(
-      //           title: 'Custom log',
-      //           onTap: _customLog,
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // )
-      //     ],
-      //   ),
     );
   }
 
@@ -116,6 +117,12 @@ class _MyAppState extends State<MyApp> {
 
   void _infoLog() {
     Talker.instance.info('Renew token from expire date');
+  }
+
+  void _verboseLog() {
+    Talker.instance.verbose(
+      'Cache images working slowly on this platform',
+    );
   }
 
   void _warningLog() {
@@ -147,11 +154,14 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class CustomLog extends TalkerLog {
+class CustomLog extends FlutterTalkerLog {
   CustomLog(String message) : super(message);
 
   @override
   AnsiPen get pen => AnsiPen()..xterm(49);
+
+  @override
+  Color get color => Colors.teal;
 
   @override
   String generateTextMessage() {

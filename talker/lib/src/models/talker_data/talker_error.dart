@@ -8,6 +8,7 @@ class TalkerError implements TalkerDataInterface {
     this.message,
     this.logLevel,
     this.stackTrace,
+    this.title,
     DateTime? time,
   }) {
     _time = time ?? DateTime.now();
@@ -27,6 +28,10 @@ class TalkerError implements TalkerDataInterface {
   @override
   final StackTrace? stackTrace;
 
+  /// {@macro talker_data_title}
+  @override
+  final String? title;
+
   /// {@macro talker_data_loglevel}
   @override
   final LogLevel? logLevel;
@@ -34,7 +39,7 @@ class TalkerError implements TalkerDataInterface {
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$displayTitle$displayMessage$displayError$displayStackTrace';
+    return '$displayTitleWithTime$displayMessage$displayError$displayStackTrace';
   }
 
   /// {@macro talker_data_time}

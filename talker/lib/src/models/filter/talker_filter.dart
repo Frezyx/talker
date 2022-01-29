@@ -8,14 +8,20 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
   TalkerFilter({
     required this.titles,
     required this.types,
+    this.searchQuery,
   });
 
   final List<String> titles;
   final List<Type> types;
+  final String? searchQuery;
 
   @override
   bool filter(TalkerDataInterface item) {
     var match = false;
+    if (searchQuery?.isNotEmpty ?? false) {
+      item.generateTextMessage().contains(searchQuery!);
+    }
+
     if (titles.isNotEmpty) {
       match = match || titles.contains(item.displayTitle);
     }
@@ -44,10 +50,12 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
   TalkerFilter copyWith({
     List<String>? titles,
     List<Type>? types,
+    String? searchQuery,
   }) {
     return TalkerFilter(
       titles: titles ?? this.titles,
       types: types ?? this.types,
+      searchQuery: searchQuery ?? this.searchQuery,
     );
   }
 }

@@ -12,6 +12,11 @@ class TalkerScreenController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateFilterSearchQuery(String query) {
+    _filter = _filter.copyWith(searchQuery: query);
+    notifyListeners();
+  }
+
   void addFilterType(Type type) {
     _filter = _filter.copyWith(types: _filter.types..add(type));
     notifyListeners();

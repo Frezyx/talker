@@ -15,7 +15,8 @@ class TalkerScreenFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final types = unicTypes.map((e) => e.toString()).toList();
+    final titles = unicTitles.map((e) => e.toString()).toList();
+    final types = unicTypes.map((e) => e).toList();
     final theme = Theme.of(context);
     return ListView(
       children: [
@@ -33,27 +34,59 @@ class TalkerScreenFilter extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: GroupButton.checkbox(
-            buttons: types,
+            buttons: titles,
             onSelected: (i, selected) {
-              _onToggleTitle(types, i, selected);
+              _onToggleTitle(titles[i], selected);
             },
             mainGroupAlignment: MainGroupAlignment.start,
           ),
-        )
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            'Types',
+            style: theme.textTheme.headline6!.copyWith(
+              color: options.textColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: GroupButton.checkbox(
+            buttons: types.map((e) => e.toString()).toList(),
+            onSelected: (i, selected) {
+              _onToggleType(types[i], selected);
+            },
+            mainGroupAlignment: MainGroupAlignment.start,
+          ),
+        ),
       ],
     );
   }
 
-  void _onToggleTitle(List<String> types, int i, bool selected) {
-    final type = types[i];
+  void _onToggleType(Type type, bool selected) {
     if (selected) {
-      controller.addFilterTitle(type);
+      controller.addFilterType(type);
     } else {
-      controller.removeFilterTitle(type);
+      controller.removeFilterType(type);
     }
   }
 
-  Set<String> get unicTypes {
+  void _onToggleTitle(String title, bool selected) {
+    if (selected) {
+      controller.addFilterTitle(title);
+    } else {
+      controller.removeFilterTitle(title);
+    }
+  }
+
+  Set<Type> get unicTypes {
+    return Talker.instance.history.map((e) => e.runtimeType).toSet();
+  }
+
+  Set<String> get unicTitles {
     return Talker.instance.history.map((e) => e.displayTitle).toSet();
   }
 }

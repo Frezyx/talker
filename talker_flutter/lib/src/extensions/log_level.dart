@@ -12,7 +12,7 @@ extension ToColor on LogLevel? {
       case LogLevel.warning:
         return Colors.orange;
       case LogLevel.verbose:
-        return Colors.grey[900]!;
+        return Colors.grey;
       case LogLevel.info:
         return Colors.blue;
       case LogLevel.good:

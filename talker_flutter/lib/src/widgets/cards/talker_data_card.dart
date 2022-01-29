@@ -6,8 +6,10 @@ class TalkerDataCard extends StatelessWidget {
     Key? key,
     required this.data,
     required this.onTap,
+    required this.options,
   }) : super(key: key);
 
+  final TalkerScreenOptions options;
   final TalkerDataInterface data;
   final Function() onTap;
 
@@ -125,7 +127,7 @@ class TalkerDataCard extends StatelessWidget {
             left: 15,
             child: Container(
               transform: Matrix4.translationValues(0, -8, 0),
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: options.backgroudColor,
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
               child: Text(
                 title,

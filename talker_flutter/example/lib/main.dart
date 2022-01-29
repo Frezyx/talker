@@ -43,15 +43,12 @@ class _MyAppState extends State<MyApp> {
           TalkerScreen(
             talker: Talker.instance,
           ),
-          TalkerScreen(
-            talker: Talker.instance,
-          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               height: kIsWeb ? 100 : 170,
               width: 600,
-              color: Colors.white,
+              color: Colors.grey[850],
               padding: const EdgeInsets.all(10),
               child: Wrap(
                 spacing: 10,

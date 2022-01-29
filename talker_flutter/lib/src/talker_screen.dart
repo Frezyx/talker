@@ -6,9 +6,11 @@ class TalkerScreen extends StatefulWidget {
   const TalkerScreen({
     Key? key,
     required this.talker,
+    this.options = const TalkerScreenOptions(),
   }) : super(key: key);
 
   final TalkerInterface talker;
+  final TalkerScreenOptions options;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();
@@ -18,6 +20,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: widget.options.backgroudColor,
       appBar: AppBar(
         title: const Text('Flutter talker'),
         actions: [
@@ -61,6 +64,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
               return TalkerDataCard(
                 data: data,
                 onTap: () => _copyTalkerDataItemText(data),
+                options: widget.options,
               );
             },
           );

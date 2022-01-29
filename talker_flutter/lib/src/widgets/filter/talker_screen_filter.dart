@@ -18,58 +18,121 @@ class TalkerScreenFilter extends StatelessWidget {
     final titles = unicTitles.map((e) => e.toString()).toList();
     final types = unicTypes.map((e) => e).toList();
     final theme = Theme.of(context);
-    return ListView(
-      children: [
-        const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: TextFormField(
-            onChanged: controller.updateFilterSearchQuery,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text(
-            'Titles',
-            style: theme.textTheme.headline6!.copyWith(
-              color: options.textColor,
+    return Container(
+      decoration: BoxDecoration(
+        color: options.backgroudColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: options.backgroudColor,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
+              boxShadow: const [BoxShadow(blurRadius: 5)],
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Talker Filter',
+                  style: theme.textTheme.headline6!
+                      .copyWith(color: options.textColor),
+                ),
+                InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(
+                    Icons.close_rounded,
+                    color: options.textColor,
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        const SizedBox(height: 5),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: GroupButton.checkbox(
-            buttons: titles,
-            onSelected: (i, selected) {
-              _onToggleTitle(titles[i], selected);
-            },
-            mainGroupAlignment: MainGroupAlignment.start,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text(
-            'Types',
-            style: theme.textTheme.headline6!.copyWith(
-              color: options.textColor,
+          // Divider(height: 1, color: options.textColor.withOpacity(0.5)),
+          Expanded(
+            child: ListView(
+              children: [
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: TextFormField(
+                    style: theme.textTheme.bodyText1!.copyWith(
+                      color: options.textColor,
+                    ),
+                    onChanged: controller.updateFilterSearchQuery,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: options.textColor),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: options.textColor),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: options.textColor,
+                      ),
+                      hintText: 'Search...',
+                      hintStyle: theme.textTheme.bodyText1!.copyWith(
+                        color: options.textColor,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(
+                    'Titles',
+                    style: theme.textTheme.headline6!.copyWith(
+                      color: options.textColor,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: GroupButton.checkbox(
+                    buttons: titles,
+                    onSelected: (i, selected) {
+                      _onToggleTitle(titles[i], selected);
+                    },
+                    mainGroupAlignment: MainGroupAlignment.start,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(
+                    'Types',
+                    style: theme.textTheme.headline6!.copyWith(
+                      color: options.textColor,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: GroupButton.checkbox(
+                    buttons: types.map((e) => e.toString()).toList(),
+                    onSelected: (i, selected) {
+                      _onToggleType(types[i], selected);
+                    },
+                    mainGroupAlignment: MainGroupAlignment.start,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        const SizedBox(height: 5),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: GroupButton.checkbox(
-            buttons: types.map((e) => e.toString()).toList(),
-            onSelected: (i, selected) {
-              _onToggleType(types[i], selected);
-            },
-            mainGroupAlignment: MainGroupAlignment.start,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

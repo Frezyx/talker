@@ -96,7 +96,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
   void _showFilter() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: widget.options.backgroudColor,
+      backgroundColor: Colors.transparent,
       builder: (context) {
         return TalkerScreenFilter(
           controller: _controller,

@@ -7,16 +7,29 @@ class TalkerScreenFilter extends StatelessWidget {
   const TalkerScreenFilter({
     Key? key,
     required this.controller,
+    required this.options,
   }) : super(key: key);
 
   final TalkerScreenController controller;
+  final TalkerScreenOptions options;
 
   @override
   Widget build(BuildContext context) {
     final types = unicTypes.map((e) => e.toString()).toList();
+    final theme = Theme.of(context);
     return ListView(
       children: [
         const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            'Titles',
+            style: theme.textTheme.headline6!.copyWith(
+              color: options.textColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: GroupButton.checkbox(

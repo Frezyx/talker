@@ -100,6 +100,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
       builder: (context) {
         return TalkerScreenFilter(
           controller: _controller,
+          options: widget.options,
         );
       },
     );

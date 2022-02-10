@@ -165,7 +165,7 @@ class CustomLog extends FlutterTalkerLog {
 
   @override
   String generateTextMessage() {
-    return pen.write(message);
+    return '| Custom leading | ' + message;
   }
 }
 

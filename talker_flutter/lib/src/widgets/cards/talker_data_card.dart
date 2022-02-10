@@ -45,7 +45,7 @@ class TalkerDataCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: data.displayMessage,
+                              text: _message,
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                               ),
@@ -142,6 +142,15 @@ class TalkerDataCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String get _message {
+    final message = data.generateTextMessage();
+    final title = data.title;
+    if (title != null && message.contains(title)) {
+      return message.replaceAll(title, '');
+    }
+    return message;
   }
 
   Color get _color {

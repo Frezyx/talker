@@ -126,13 +126,24 @@ class TalkerDataCard extends StatelessWidget {
     );
   }
 
+  // ignore: todo
+  //TODO: refactor
   String get _message {
     final message = data.generateTextMessage();
-    final title = data.title;
-    if (title != null && message.contains(title)) {
-      return message.replaceAll(title, '');
+    final title = data.displayTitle;
+    final time = data.displayTime;
+
+    var m = message;
+
+    if (title.isNotEmpty && message.contains('[$title] ')) {
+      m = message.replaceAll('[$title] ', '').replaceFirst(' |', '');
     }
-    return message;
+
+    if (time.isNotEmpty && m.contains(' $time ')) {
+      return m.replaceAll(' $time ', '').replaceFirst('|', '');
+    }
+
+    return m;
   }
 
   Color get _color {

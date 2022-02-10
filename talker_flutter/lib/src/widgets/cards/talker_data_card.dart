@@ -88,24 +88,6 @@ class TalkerDataCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                      if (data.additional != null)
-                        RichText(
-                          text: TextSpan(
-                            text: 'Additional  ',
-                            style: TextStyle(
-                              color: _color,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: data.displayAditional,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                     ],
                   ),
                 ),

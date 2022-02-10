@@ -1,3 +1,8 @@
+## 0.6.1
+- **BREAKING** Remove TalkerDataInterface, 
+TalkerLog, TalkerError, TalkerException field additional data
+    
+
 ## 0.6.0
 - Implement filter for logs
 

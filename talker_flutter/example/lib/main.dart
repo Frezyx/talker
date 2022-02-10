@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     _fineLog();
     _infoLog();
     _warningLog();
-    _bigCriticalLog();
+    _criticalLog();
     _customLog();
     super.initState();
   }
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   BarButton(
                     title: 'Big Critical log',
-                    onTap: _bigCriticalLog,
+                    onTap: _criticalLog,
                   ),
                   BarButton(
                     title: 'Custom log',
@@ -137,20 +137,8 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void _bigCriticalLog() {
-    Talker.instance.log(
-      'Server exception',
-      logLevel: LogLevel.critical,
-      additional: {
-        "timestamp": 1510417124782,
-        "status": 500,
-        "error": "Internal Server Error",
-        "exception": "com.netflix.hystrix.exception.HystrixRuntimeException",
-        "message":
-            "ApplicationRepository#save(Application) failed and no fallback available.",
-        "path": "/application"
-      },
-    );
+  void _criticalLog() {
+    Talker.instance.log('Server exception', logLevel: LogLevel.critical);
   }
 }
 

@@ -1,3 +1,6 @@
+## 0.5.2
+- Fix display message parsing
+
 ## 0.5.1
 - Update display message UI
 - Update talker version to 0.6.1

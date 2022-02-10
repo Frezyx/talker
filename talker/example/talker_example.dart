@@ -34,10 +34,6 @@ Future<void> main() async {
   Talker.instance.log(
     'Server error',
     logLevel: LogLevel.critical,
-    additional: {
-      "status": 500,
-      "error": "Internal Server Error",
-    },
   );
 
   Talker.instance.fine('Log fine');

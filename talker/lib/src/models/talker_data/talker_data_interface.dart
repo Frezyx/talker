@@ -34,11 +34,6 @@ abstract class TalkerDataInterface {
   /// {@endtemplate}
   StackTrace? get stackTrace;
 
-  /// {@template talker_data_additional}
-  /// [Map<String, dynamic>?] [additional] - additional log data for
-  /// {@endtemplate}
-  Map<String, dynamic>? get additional;
-
   /// {@template talker_data_time}
   /// Internal time when the error occurred
   /// {@endtemplate}
@@ -104,18 +99,6 @@ extension FeildsToDisplay on TalkerDataInterface {
       return '';
     }
     return '\n$error';
-  }
-
-  /// Displayed additional of [TalkerDataInterface]
-  @Deprecated(
-    'This feature was deprecated after v0.7.0 '
-    'Field will be removed after version 1.0.0 of package',
-  )
-  String get displayAditional {
-    if (additional == null) {
-      return '';
-    }
-    return '\n$additional';
   }
 
   /// Displayed message of [TalkerDataInterface]

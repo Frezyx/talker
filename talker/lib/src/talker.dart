@@ -114,11 +114,6 @@ class Talker implements TalkerInterface {
   void log(
     String message, {
     LogLevel logLevel = LogLevel.debug,
-    @Deprecated(
-      'This feature was deprecated after v0.7.0 '
-      'Field will be removed after version 1.0.0 of package',
-    )
-        Map<String, dynamic>? additional,
     Object? exception,
     StackTrace? stackTrace,
     AnsiPen? pen,
@@ -128,7 +123,6 @@ class Talker implements TalkerInterface {
       message,
       stackTrace,
       logLevel,
-      additional: additional,
       pen: pen,
     );
   }
@@ -232,11 +226,6 @@ class Talker implements TalkerInterface {
     String message,
     StackTrace? stackTrace,
     LogLevel logLevel, {
-    @Deprecated(
-      'This feature was deprecated after v0.7.0 '
-      'Field will be removed after version 1.0.0 of package',
-    )
-        Map<String, dynamic>? additional,
     AnsiPen? pen,
   }) {
     TalkerDataInterface? data;
@@ -246,12 +235,7 @@ class Talker implements TalkerInterface {
       return;
     }
 
-    data = TalkerLog(
-      message,
-      logLevel: logLevel,
-      additional: additional,
-    );
-
+    data = TalkerLog(message, logLevel: logLevel);
     _handleLogData(data as TalkerLog, pen: pen);
   }
 

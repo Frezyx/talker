@@ -9,11 +9,6 @@ class TalkerLog implements TalkerDataInterface {
     this.exception,
     this.error,
     this.stackTrace,
-    @Deprecated(
-      'This feature was deprecated after v0.7.0 '
-      'Field will be removed after version 1.0.0 of package',
-    )
-        this.additional,
     this.title,
     DateTime? time,
     this.pen,
@@ -42,14 +37,6 @@ class TalkerLog implements TalkerDataInterface {
   @override
   final String? title;
 
-  /// {@macro talker_data_additional}
-  @override
-  @Deprecated(
-    'This feature was deprecated after v0.7.0 '
-    'Field will be removed after version 1.0.0 of package',
-  )
-  final Map<String, dynamic>? additional;
-
   /// {@macro talker_data_loglevel}
   @override
   final LogLevel? logLevel;
@@ -57,7 +44,7 @@ class TalkerLog implements TalkerDataInterface {
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$displayTitleWithTime$message$displayAditional';
+    return '$displayTitleWithTime$message';
   }
 
   /// {@macro talker_data_time}

@@ -9,7 +9,11 @@ class TalkerLog implements TalkerDataInterface {
     this.exception,
     this.error,
     this.stackTrace,
-    this.additional,
+    @Deprecated(
+      'This feature was deprecated after v0.7.0 '
+      'Field will be removed after version 1.0.0 of package',
+    )
+        this.additional,
     this.title,
     DateTime? time,
     this.pen,

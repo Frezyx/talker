@@ -1,3 +1,8 @@
+## 0.7.0
+- **BREAKING** Remove talker_error_handler package from talker deps
+- **BREAKING** Rewrite error handler on talker package base
+- **BREAKING** Update handle error / exceptions methods
+
 ## 0.6.1
 - **BREAKING** Remove TalkerDataInterface, 
 TalkerLog, TalkerError, TalkerException field additional data

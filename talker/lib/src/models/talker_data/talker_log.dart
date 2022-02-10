@@ -40,6 +40,10 @@ class TalkerLog implements TalkerDataInterface {
 
   /// {@macro talker_data_additional}
   @override
+  @Deprecated(
+    'This feature was deprecated after v0.7.0 '
+    'Field will be removed after version 1.0.0 of package',
+  )
   final Map<String, dynamic>? additional;
 
   /// {@macro talker_data_loglevel}

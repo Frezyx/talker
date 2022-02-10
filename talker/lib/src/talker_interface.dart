@@ -128,7 +128,11 @@ abstract class TalkerInterface {
   void log(
     String message, {
     LogLevel logLevel = LogLevel.debug,
-    Map<String, dynamic>? additional,
+    @Deprecated(
+      'This feature was deprecated after v0.7.0 '
+      'Field will be removed after version 1.0.0 of package',
+    )
+        Map<String, dynamic>? additional,
     Object? exception,
     StackTrace? stackTrace,
     AnsiPen? pen,

@@ -107,6 +107,10 @@ extension FeildsToDisplay on TalkerDataInterface {
   }
 
   /// Displayed additional of [TalkerDataInterface]
+  @Deprecated(
+    'This feature was deprecated after v0.7.0 '
+    'Field will be removed after version 1.0.0 of package',
+  )
   String get displayAditional {
     if (additional == null) {
       return '';

@@ -1,3 +1,6 @@
+## 0.5.3
+- Update talker version to 0.7.0
+
 ## 0.5.2
 - Fix display message parsing
 

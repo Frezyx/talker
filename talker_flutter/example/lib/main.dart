@@ -96,17 +96,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _handleError() {
-    Talker.instance.handleError(
-      ArgumentError('-6 is not positive number'),
-      'dart argument error',
-    );
+    Talker.instance.handleError(ArgumentError('-6 is not positive number'));
   }
 
   void _handleException() {
-    Talker.instance.handleException(
-      Exception('Not connected'),
-      'Http service is not working',
-    );
+    Talker.instance.handleException(Exception('Not connected'));
   }
 
   void _fineLog() {

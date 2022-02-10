@@ -22,13 +22,13 @@ Future<void> main() async {
   try {
     throw Exception('Test service exception');
   } catch (e, st) {
-    Talker.instance.handle(e, 'Working with string error', st);
+    Talker.instance.handle(e, st, 'Working with string error');
   }
 
   try {
     throw Exception('Service can`t get test data');
   } on Exception catch (e, st) {
-    Talker.instance.handleException(e, 'Working with strings exception', st);
+    Talker.instance.handleException(e, st, 'Working with strings exception');
   }
 
   Talker.instance.log(

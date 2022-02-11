@@ -1,3 +1,13 @@
+## 0.5.3
+- Update talker version to 0.7.0
+
+## 0.5.2
+- Fix display message parsing
+
+## 0.5.1
+- Update display message UI
+- Update talker version to 0.6.1
+
 ## 0.5.0
 - Implement UI filter for convenient work with the console in the application
 

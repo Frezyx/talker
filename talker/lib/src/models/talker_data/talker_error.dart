@@ -46,13 +46,24 @@ class TalkerError implements TalkerDataInterface {
   @override
   DateTime get time => _time;
 
-  /// {@macro talker_data_additional}
-  /// Not used in [TalkerError]
-  @override
-  final Map<String, dynamic>? additional = null;
-
   /// {@macro talker_data_exception}
   /// Not used in [TalkerError]
   @override
   final Exception? exception = null;
+
+  TalkerError copyWith({
+    Error? error,
+    String? message,
+    StackTrace? stackTrace,
+    String? title,
+    LogLevel? logLevel,
+  }) {
+    return TalkerError(
+      error ?? this.error,
+      message: message ?? this.message,
+      stackTrace: stackTrace ?? this.stackTrace,
+      title: title ?? this.title,
+      logLevel: logLevel ?? this.logLevel,
+    );
+  }
 }

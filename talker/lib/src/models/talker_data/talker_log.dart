@@ -9,7 +9,6 @@ class TalkerLog implements TalkerDataInterface {
     this.exception,
     this.error,
     this.stackTrace,
-    this.additional,
     this.title,
     DateTime? time,
     this.pen,
@@ -38,10 +37,6 @@ class TalkerLog implements TalkerDataInterface {
   @override
   final String? title;
 
-  /// {@macro talker_data_additional}
-  @override
-  final Map<String, dynamic>? additional;
-
   /// {@macro talker_data_loglevel}
   @override
   final LogLevel? logLevel;
@@ -49,7 +44,7 @@ class TalkerLog implements TalkerDataInterface {
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$displayTitleWithTime$message$displayAditional';
+    return '$displayTitleWithTime$message';
   }
 
   /// {@macro talker_data_time}

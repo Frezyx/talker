@@ -45,7 +45,7 @@ class TalkerDataCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: data.displayMessage,
+                              text: _message,
                               style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                               ),
@@ -81,24 +81,6 @@ class TalkerDataCard extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text: data.displayStackTrace,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      if (data.additional != null)
-                        RichText(
-                          text: TextSpan(
-                            text: 'Additional  ',
-                            style: TextStyle(
-                              color: _color,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: data.displayAditional,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -142,6 +124,26 @@ class TalkerDataCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // ignore: todo
+  //TODO: refactor
+  String get _message {
+    final message = data.generateTextMessage();
+    final title = data.displayTitle;
+    final time = data.displayTime;
+
+    var m = message;
+
+    if (title.isNotEmpty && message.contains('[$title] ')) {
+      m = message.replaceAll('[$title] ', '').replaceFirst(' |', '');
+    }
+
+    if (time.isNotEmpty && m.contains(' $time ')) {
+      return m.replaceAll(' $time ', '').replaceFirst('|', '');
+    }
+
+    return m;
   }
 
   Color get _color {

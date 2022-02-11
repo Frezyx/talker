@@ -34,11 +34,6 @@ abstract class TalkerDataInterface {
   /// {@endtemplate}
   StackTrace? get stackTrace;
 
-  /// {@template talker_data_additional}
-  /// [Map<String, dynamic>?] [additional] - additional log data for
-  /// {@endtemplate}
-  Map<String, dynamic>? get additional;
-
   /// {@template talker_data_time}
   /// Internal time when the error occurred
   /// {@endtemplate}
@@ -104,14 +99,6 @@ extension FeildsToDisplay on TalkerDataInterface {
       return '';
     }
     return '\n$error';
-  }
-
-  /// Displayed additional of [TalkerDataInterface]
-  String get displayAditional {
-    if (additional == null) {
-      return '';
-    }
-    return '\n$additional';
   }
 
   /// Displayed message of [TalkerDataInterface]

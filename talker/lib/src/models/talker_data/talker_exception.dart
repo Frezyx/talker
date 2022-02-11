@@ -50,9 +50,4 @@ class TalkerException implements TalkerDataInterface {
   /// Not used in [TalkerException]
   @override
   final Error? error = null;
-
-  /// {@macro talker_data_additional}
-  /// Not used in [TalkerException]
-  @override
-  final Map<String, dynamic>? additional = null;
 }

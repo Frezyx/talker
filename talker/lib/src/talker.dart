@@ -6,10 +6,7 @@ class Talker implements TalkerInterface {
   Talker._() {
     _settings = kDefaultTalkerSettings;
     _logger = TalkerLogger();
-    _errorHandler = ErrorHandler()
-      ..stream.listen((details) {
-        _handleErrorStream(details);
-      });
+    _errorHandler = TalkerErrorHandler(_settings);
   }
 
   static final _talker = Talker._();
@@ -17,8 +14,8 @@ class Talker implements TalkerInterface {
 
   /// Fields can be setup in [configure()] method
   late TalkerSettings _settings;
-  late TalkerLogger _logger;
-  late ErrorHandler _errorHandler;
+  late TalkerLoggerInterface _logger;
+  late TalkerErrorHandlerInterface _errorHandler;
 
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
@@ -28,7 +25,6 @@ class Talker implements TalkerInterface {
   @override
   Future<void> configure({
     TalkerLogger? logger,
-    ErrorHandler? errorHandler,
     TalkerSettings? settings,
     List<TalkerObserver>? observers,
   }) async {
@@ -42,13 +38,6 @@ class Talker implements TalkerInterface {
 
     if (logger != null) {
       _logger = logger;
-    }
-
-    if (errorHandler != null) {
-      _errorHandler = errorHandler
-        ..stream.listen((details) {
-          _handleErrorStream(details);
-        });
     }
   }
 
@@ -68,18 +57,23 @@ class Talker implements TalkerInterface {
   @override
   void handle(
     Object exception, [
-    String? msg,
     StackTrace? stackTrace,
-    ErrorLevel? errorLevel,
+    String? msg,
+    // ErrorLevel? errorLevel,
   ]) {
-    final details = _errorHandler.handle(
-      exception,
-      msg,
-      stackTrace,
-      errorLevel,
-    );
-    if (details != null) {
-      _observersManager?.onError(details);
+    final data = _errorHandler.handle(exception, stackTrace, msg);
+    if (data is TalkerError) {
+      _observersManager?.onError(data);
+      _handleErrorData(data);
+      return;
+    }
+    if (data is TalkerException) {
+      _observersManager?.onException(data);
+      _handleErrorData(data);
+      return;
+    }
+    if (data is TalkerLog) {
+      _handleLogData(data);
     }
   }
 
@@ -87,26 +81,36 @@ class Talker implements TalkerInterface {
   @override
   void handleError(
     Error error, [
-    String? msg,
     StackTrace? stackTrace,
-    ErrorLevel? errorLevel,
+    String? msg,
+    // ErrorLevel? errorLevel,
   ]) {
-    final errContainer =
-        _errorHandler.handleError(error, msg, stackTrace, errorLevel);
-    _observersManager?.onError(errContainer);
+    final data = TalkerError(
+      error,
+      stackTrace: stackTrace,
+      message: msg,
+      logLevel: LogLevel.error,
+    );
+    _handleErrorData(data);
+    _observersManager?.onError(data);
   }
 
   /// {@macro talker_handleException}
   @override
   void handleException(
     Exception exception, [
-    String? msg,
     StackTrace? stackTrace,
-    ErrorLevel? errorLevel,
+    String? msg,
+    // ErrorLevel? errorLevel,
   ]) {
-    final errContainer =
-        _errorHandler.handleException(exception, msg, stackTrace, errorLevel);
-    _observersManager?.onError(errContainer);
+    final data = TalkerException(
+      exception,
+      stackTrace: stackTrace,
+      message: msg,
+      logLevel: LogLevel.error,
+    );
+    _handleErrorData(data);
+    _observersManager?.onException(data);
   }
 
   /// {@macro talker_log}
@@ -114,19 +118,11 @@ class Talker implements TalkerInterface {
   void log(
     String message, {
     LogLevel logLevel = LogLevel.debug,
-    Map<String, dynamic>? additional,
     Object? exception,
     StackTrace? stackTrace,
     AnsiPen? pen,
   }) {
-    _handleLog(
-      exception,
-      message,
-      stackTrace,
-      logLevel,
-      additional: additional,
-      pen: pen,
-    );
+    _handleLog(message, exception, stackTrace, logLevel, pen: pen);
   }
 
   /// {@macro talker_log_typed}
@@ -142,7 +138,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.critical);
+    _handleLog(msg, exception, stackTrace, LogLevel.critical);
   }
 
   /// {@macro talker_debug_log}
@@ -152,7 +148,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.debug);
+    _handleLog(msg, exception, stackTrace, LogLevel.debug);
   }
 
   /// {@macro talker_error_log}
@@ -162,7 +158,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.error);
+    _handleLog(msg, exception, stackTrace, LogLevel.error);
   }
 
   /// {@macro talker_fine_log}
@@ -172,7 +168,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.fine);
+    _handleLog(msg, exception, stackTrace, LogLevel.fine);
   }
 
   /// {@macro talker_good_log}
@@ -182,7 +178,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.good);
+    _handleLog(msg, exception, stackTrace, LogLevel.good);
   }
 
   /// {@macro talker_info_log}
@@ -192,7 +188,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.info);
+    _handleLog(msg, exception, stackTrace, LogLevel.info);
   }
 
   /// {@macro talker_verbose_log}
@@ -202,7 +198,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.verbose);
+    _handleLog(msg, exception, stackTrace, LogLevel.verbose);
   }
 
   /// {@macro talker_warning_log}
@@ -212,7 +208,7 @@ class Talker implements TalkerInterface {
     Object? exception,
     StackTrace? stackTrace,
   ]) {
-    _handleLog(exception, msg, stackTrace, LogLevel.warning);
+    _handleLog(msg, exception, stackTrace, LogLevel.warning);
   }
 
   ///{@macro talker_clear_log_history}
@@ -224,27 +220,32 @@ class Talker implements TalkerInterface {
   }
 
   void _handleLog(
-    Object? exception,
     String message,
+    Object? exception,
     StackTrace? stackTrace,
     LogLevel logLevel, {
-    Map<String, dynamic>? additional,
     AnsiPen? pen,
   }) {
     TalkerDataInterface? data;
 
     if (exception != null) {
-      handle(exception, message, stackTrace);
+      handle(exception, stackTrace, message);
       return;
     }
 
-    data = TalkerLog(
-      message,
-      logLevel: logLevel,
-      additional: additional,
-    );
-
+    data = TalkerLog(message, logLevel: logLevel);
     _handleLogData(data as TalkerLog, pen: pen);
+  }
+
+  void _handleErrorData(TalkerDataInterface data) {
+    _talkerStreamController.add(data);
+    _handleForOutputs(data);
+    if (_settings.useConsoleLogs) {
+      _logger.log(
+        data.generateTextMessage(),
+        level: data.logLevel ?? LogLevel.error,
+      );
+    }
   }
 
   void _handleLogData(
@@ -252,8 +253,19 @@ class Talker implements TalkerInterface {
     AnsiPen? pen,
     LogLevel? logLevel,
   }) {
-    _talkerStreamController.add(data);
     _observersManager?.onLog(data);
+
+    // if (data.error != null) {
+    //   handleError(data.error!);
+    //   return;
+    // }
+
+    // if (data.exception != null) {
+    //   handleException(data.exception!);
+    //   return;
+    // }
+
+    _talkerStreamController.add(data);
     _handleForOutputs(data);
     if (_settings.useConsoleLogs) {
       _logger.log(
@@ -265,9 +277,8 @@ class Talker implements TalkerInterface {
   }
 
   void _handleForOutputs(TalkerDataInterface data) {
-    if (_settings.useHistory) {
-      _writeToHistory(data);
-    }
+    _writeToHistory(data);
+
     // _writeToFile(data);
   }
 
@@ -284,38 +295,6 @@ class Talker implements TalkerInterface {
         _history.removeAt(0);
       }
       _history.add(data);
-    }
-  }
-
-  void _handleErrorStream(ErrorDetails details) {
-    TalkerDataInterface? data;
-    final err = details.error;
-    final exception = details.exception;
-    if (err != null) {
-      data = TalkerError(
-        err,
-        message: details.message,
-        stackTrace: details.stackTrace,
-        logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
-      );
-    } else if (exception != null) {
-      data = TalkerException(
-        exception,
-        message: details.message,
-        stackTrace: details.stackTrace,
-        logLevel: details.errorLevel?.loglevel ?? LogLevel.error,
-      );
-    }
-
-    if (data != null) {
-      _talkerStreamController.add(data);
-      _handleForOutputs(data);
-      if (_settings.useConsoleLogs) {
-        _logger.log(
-          data.generateTextMessage(),
-          level: data.logLevel ?? LogLevel.error,
-        );
-      }
     }
   }
 }

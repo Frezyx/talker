@@ -45,6 +45,7 @@ class ErrorHandler implements ErrorHandlerInterface {
       return handleError(exception, msg, stackTrace, errorLevel);
     } else {
       onUnknownErrorType?.call(msg, exception, stackTrace, errorLevel);
+      return null;
     }
   }
 

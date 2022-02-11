@@ -55,9 +55,9 @@ abstract class TalkerInterface {
   /// {@endtemplate}
   void handle(
     Object exception, [
-    String? msg,
     StackTrace? stackTrace,
-    ErrorLevel? errorLevel,
+    String? msg,
+    // ErrorLevel? errorLevel,
   ]);
 
   /// {@template talker_handleError}
@@ -76,9 +76,9 @@ abstract class TalkerInterface {
   /// {@endtemplate}
   void handleError(
     Error error, [
-    String? msg,
     StackTrace? stackTrace,
-    ErrorLevel? errorLevel,
+    String? msg,
+    // ErrorLevel? errorLevel,
   ]);
 
   /// {@template talker_handleError}
@@ -97,9 +97,9 @@ abstract class TalkerInterface {
   /// {@endtemplate}
   void handleException(
     Exception exception, [
-    String? msg,
     StackTrace? stackTrace,
-    ErrorLevel? errorLevel,
+    String? msg,
+    // ErrorLevel? errorLevel,
   ]);
 
   /// {@template talker_log}

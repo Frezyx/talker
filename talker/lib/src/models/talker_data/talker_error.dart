@@ -50,4 +50,20 @@ class TalkerError implements TalkerDataInterface {
   /// Not used in [TalkerError]
   @override
   final Exception? exception = null;
+
+  TalkerError copyWith({
+    Error? error,
+    String? message,
+    StackTrace? stackTrace,
+    String? title,
+    LogLevel? logLevel,
+  }) {
+    return TalkerError(
+      error ?? this.error,
+      message: message ?? this.message,
+      stackTrace: stackTrace ?? this.stackTrace,
+      title: title ?? this.title,
+      logLevel: logLevel ?? this.logLevel,
+    );
+  }
 }

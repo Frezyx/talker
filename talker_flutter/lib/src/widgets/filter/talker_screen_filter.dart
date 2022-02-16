@@ -97,13 +97,16 @@ class TalkerScreenFilter extends StatelessWidget {
                 const SizedBox(height: 5),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: GroupButton.checkbox(
+                  child: GroupButton(
+                    isRadio: false,
                     buttons: titles,
                     onSelected: (i, selected) {
                       _onToggleTitle(titles[i], selected);
                     },
-                    mainGroupAlignment: MainGroupAlignment.start,
-                    borderRadius: BorderRadius.circular(10),
+                    options: GroupButtonOptions(
+                      mainGroupAlignment: MainGroupAlignment.start,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -119,13 +122,16 @@ class TalkerScreenFilter extends StatelessWidget {
                 const SizedBox(height: 5),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: GroupButton.checkbox(
+                  child: GroupButton(
+                    isRadio: false,
                     buttons: types.map((e) => e.toString()).toList(),
                     onSelected: (i, selected) {
                       _onToggleType(types[i], selected);
                     },
-                    mainGroupAlignment: MainGroupAlignment.start,
-                    borderRadius: BorderRadius.circular(10),
+                    options: GroupButtonOptions(
+                      mainGroupAlignment: MainGroupAlignment.start,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ],

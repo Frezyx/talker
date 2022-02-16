@@ -1,3 +1,7 @@
+## 0.5.4
+- Update group_button version to 4.5.0
+- Fix [issue 12](https://github.com/Frezyx/talker/issues/12) 
+
 ## 0.5.3
 - Update talker version to 0.7.0
 

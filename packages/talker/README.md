@@ -104,8 +104,6 @@ TalkerScreen(talker: Talker.instance)
 - ErrorLevel as a model with customization
 - Filter for logs in UI (talker_flutter)
 - Flutter Talker customization / filters
-- TalkerLogger settings using by Talker
-- Remove additional field in TalkerDataInterface and all extended models
 
 For help getting started with 😍 Flutter, view
 [online documentation](https://flutter.dev/docs), which offers tutorials, 

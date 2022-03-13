@@ -1,3 +1,7 @@
+## 0.8.0
+- **INFO** Add all package documentation
+- **INFO** Update talker package to 0.8.0 version
+
 ## 0.6.0
 - Update internal packages
 

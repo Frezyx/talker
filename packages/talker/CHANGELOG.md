@@ -1,3 +1,6 @@
+## 0.8.0
+- **FEAT** Add enable and disable methods for Talker
+
 ## 0.7.1
 - **FEAT** Add logger settings, filter, formater fields to configure talker method
 

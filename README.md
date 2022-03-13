@@ -87,7 +87,7 @@ Often you need to check what happening in the application when there is no conso
 ```yaml
 dependencies:
   talker: ^0.7.1
-  talker_flutter: ^0.5.4
+  talker_flutter: ^0.6.0
 ```
 
 ### Easy to use

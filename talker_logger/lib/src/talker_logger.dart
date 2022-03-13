@@ -62,4 +62,16 @@ class TalkerLogger implements TalkerLoggerInterface {
     // ignore: avoid_print
     print(msg);
   }
+
+  TalkerLogger copyWith({
+    TalkerLoggerSettings? settings,
+    LoggerFormater? formater,
+    TalkerLoggerFilter? filter,
+  }) {
+    return TalkerLogger(
+      settings: settings ?? this.settings,
+      formater: formater ?? this.formater,
+      filter: filter ?? _filter,
+    );
+  }
 }

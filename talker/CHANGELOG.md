@@ -1,3 +1,6 @@
+## 0.7.1
+- **FEAT** Add logger settings, filter, formater fields to configure talker method
+
 ## 0.7.0
 - **BREAKING** Remove talker_error_handler package from talker deps
 - **BREAKING** Rewrite error handler on talker package base

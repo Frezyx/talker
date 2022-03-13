@@ -6,7 +6,7 @@ class LogDetails {
     required this.level,
     required this.pen,
     this.lineSymbol = '-',
-    this.maxLineWidth = 200,
+    this.maxLineWidth = 130,
   });
 
   final String message;

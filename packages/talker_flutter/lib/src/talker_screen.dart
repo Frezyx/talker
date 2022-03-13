@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
+import 'package:talker_flutter/src/widgets/widgets.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+/// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatefulWidget {
   const TalkerScreen({
     Key? key,

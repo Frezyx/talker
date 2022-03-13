@@ -8,7 +8,7 @@ void main() {
     });
 
     test('Register errors', () async {
-      const settings = TalkerSettings(
+      final settings = TalkerSettings(
         useConsoleLogs: false,
         registeredTypes: [HttpTalkerLog],
       );

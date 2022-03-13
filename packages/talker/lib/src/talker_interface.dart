@@ -304,4 +304,20 @@ abstract class TalkerInterface {
   /// Clear log history
   /// {@endtemplate}
   void cleanHistory();
+
+  /// {@template talker_disable}
+  /// Method stops all [Talker] works
+  ///
+  /// If you config package to handle errors or making logs,
+  /// this method stop these processes
+  /// {@endtemplate}
+  void disable();
+
+  /// {@template talker_enable}
+  /// Method run all [Talker] works
+  ///
+  /// The method will return everything back
+  /// if the package was suspended by the [disable] method
+  /// {@endtemplate}
+  void enable();
 }

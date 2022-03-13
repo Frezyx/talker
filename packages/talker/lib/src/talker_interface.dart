@@ -313,7 +313,7 @@ abstract class TalkerInterface {
   /// {@endtemplate}
   void disable();
 
-  /// {@template talker_disable}
+  /// {@template talker_enable}
   /// Method run all [Talker] works
   ///
   /// The method will return everything back

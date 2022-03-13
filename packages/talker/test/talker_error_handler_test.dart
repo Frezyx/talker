@@ -1,7 +1,7 @@
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
-final _errHandler = TalkerErrorHandler(const TalkerSettings());
+final _errHandler = TalkerErrorHandler(TalkerSettings());
 
 class TestException implements Exception {}
 

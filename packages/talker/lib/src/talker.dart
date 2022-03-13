@@ -3,7 +3,7 @@ import 'package:talker/talker.dart';
 
 class Talker implements TalkerInterface {
   Talker._() {
-    _settings = kDefaultTalkerSettings;
+    _settings = TalkerSettings();
     _logger = TalkerLogger();
     _errorHandler = TalkerErrorHandler(_settings);
   }
@@ -101,7 +101,9 @@ class Talker implements TalkerInterface {
       logLevel: LogLevel.error,
     );
     _handleErrorData(data);
-    _observersManager?.onError(data);
+    if (_settings.enabled) {
+      _observersManager?.onError(data);
+    }
   }
 
   /// {@macro talker_handleException}
@@ -119,7 +121,9 @@ class Talker implements TalkerInterface {
       logLevel: LogLevel.error,
     );
     _handleErrorData(data);
-    _observersManager?.onException(data);
+    if (_settings.enabled) {
+      _observersManager?.onException(data);
+    }
   }
 
   /// {@macro talker_log}
@@ -247,13 +251,15 @@ class Talker implements TalkerInterface {
   }
 
   void _handleErrorData(TalkerDataInterface data) {
-    _talkerStreamController.add(data);
-    _handleForOutputs(data);
-    if (_settings.useConsoleLogs) {
-      _logger.log(
-        data.generateTextMessage(),
-        level: data.logLevel ?? LogLevel.error,
-      );
+    if (_settings.enabled) {
+      _talkerStreamController.add(data);
+      _handleForOutputs(data);
+      if (_settings.useConsoleLogs) {
+        _logger.log(
+          data.generateTextMessage(),
+          level: data.logLevel ?? LogLevel.error,
+        );
+      }
     }
   }
 
@@ -262,32 +268,22 @@ class Talker implements TalkerInterface {
     AnsiPen? pen,
     LogLevel? logLevel,
   }) {
-    _observersManager?.onLog(data);
-
-    // if (data.error != null) {
-    //   handleError(data.error!);
-    //   return;
-    // }
-
-    // if (data.exception != null) {
-    //   handleException(data.exception!);
-    //   return;
-    // }
-
-    _talkerStreamController.add(data);
-    _handleForOutputs(data);
-    if (_settings.useConsoleLogs) {
-      _logger.log(
-        data.generateTextMessage(),
-        level: logLevel ?? data.logLevel,
-        pen: data.pen ?? pen,
-      );
+    if (_settings.enabled) {
+      _observersManager?.onLog(data);
+      _talkerStreamController.add(data);
+      _handleForOutputs(data);
+      if (_settings.useConsoleLogs) {
+        _logger.log(
+          data.generateTextMessage(),
+          level: logLevel ?? data.logLevel,
+          pen: data.pen ?? pen,
+        );
+      }
     }
   }
 
   void _handleForOutputs(TalkerDataInterface data) {
     _writeToHistory(data);
-
     // _writeToFile(data);
   }
 
@@ -305,5 +301,17 @@ class Talker implements TalkerInterface {
       }
       _history.add(data);
     }
+  }
+
+  ///{@macro talker_disable}
+  @override
+  void disable() {
+    _settings.enabled = false;
+  }
+
+  ///{@macro talker_enable}
+  @override
+  void enable() {
+    _settings.enabled = true;
   }
 }

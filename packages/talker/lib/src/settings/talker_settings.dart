@@ -1,27 +1,38 @@
 import 'package:talker/talker.dart';
 
-const kDefaultTalkerSettings = TalkerSettings();
-
 class TalkerSettings {
-  const TalkerSettings({
-    this.useHistory = true,
-    this.useConsoleLogs = true,
-    this.maxHistoryItems = 200,
-    this.writeToFile = false,
+  TalkerSettings({
+    this.enabled = true,
+    bool useHistory = true,
+    bool useConsoleLogs = true,
+    int maxHistoryItems = 200,
+    bool writeToFile = false,
     List<Type>? registeredTypes,
-  }) : _registeredTypes = registeredTypes;
+  })  : _useHistory = useHistory,
+        _useConsoleLogs = useConsoleLogs,
+        _maxHistoryItems = maxHistoryItems,
+        _writeToFile = writeToFile,
+        _registeredTypes = registeredTypes;
 
   /// Use history to write talker records
-  final bool useHistory;
+  bool get useHistory => _useHistory && enabled;
+  final bool _useHistory;
 
   /// Use console logs to display talker records
-  final bool useConsoleLogs;
+  bool get useConsoleLogs => _useConsoleLogs && enabled;
+  final bool _useConsoleLogs;
 
   /// Max records count in history
-  final int maxHistoryItems;
+  int get maxHistoryItems => _maxHistoryItems;
+  final int _maxHistoryItems;
 
   /// Use writing talker records in file
-  final bool writeToFile;
+  bool get writeToFile => _writeToFile && enabled;
+  final bool _writeToFile;
+
+  /// The main rule that is responsible
+  /// for the operation of the package
+  bool enabled;
 
   /// Registered types to make fltering
   /// and more easy displaying in talker_flutter

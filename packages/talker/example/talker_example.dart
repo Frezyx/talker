@@ -14,7 +14,7 @@ class HttpTalkerLog extends TalkerLog {
 
 Future<void> main() async {
   await Talker.instance.configure(
-    settings: const TalkerSettings(
+    settings: TalkerSettings(
       registeredTypes: [HttpTalkerLog],
     ),
   );

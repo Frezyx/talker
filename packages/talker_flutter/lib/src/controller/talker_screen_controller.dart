@@ -1,41 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+/// Controller to work with [TalkerScreen]
 class TalkerScreenController extends ChangeNotifier {
   TalkerFilter _filter = TalkerFilter(
     titles: [],
     types: [],
   );
+
+  /// Filter for selecting specific logs and errors
   TalkerFilter get filter => _filter;
   set filter(TalkerFilter val) {
     _filter = val;
     notifyListeners();
   }
 
+  /// Method for updating a search query based on errors and logs
   void updateFilterSearchQuery(String query) {
     _filter = _filter.copyWith(searchQuery: query);
     notifyListeners();
   }
 
+  /// Method adds an type to the filter
   void addFilterType(Type type) {
     _filter = _filter.copyWith(types: _filter.types..add(type));
     notifyListeners();
   }
 
+  /// Method removes an type from the filter
   void removeFilterType(Type type) {
     _filter = _filter.copyWith(types: _filter.types..remove(type));
     notifyListeners();
   }
 
+  /// Method adds an title to the filter
   void addFilterTitle(String title) {
     _filter = _filter.copyWith(titles: _filter.titles..add(title));
     notifyListeners();
   }
 
+  /// Method removes an title from the filter
   void removeFilterTitle(String title) {
     _filter = _filter.copyWith(titles: _filter.titles..remove(title));
     notifyListeners();
   }
 
+  /// Redefinition [notifyListeners]
   void update() => notifyListeners();
 }

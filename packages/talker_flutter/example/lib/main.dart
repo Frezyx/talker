@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     Talker.instance.configure(
-      settings: const TalkerSettings(writeToFile: false),
+      settings: TalkerSettings(writeToFile: false),
     );
 
     _handleError();

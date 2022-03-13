@@ -25,6 +25,9 @@ class Talker implements TalkerInterface {
   Future<void> configure({
     TalkerLogger? logger,
     TalkerSettings? settings,
+    TalkerLoggerSettings? loggerSettings,
+    TalkerLoggerFilter? loggerFilter,
+    LoggerFormater? formater,
     List<TalkerObserver>? observers,
   }) async {
     if (settings != null) {
@@ -37,6 +40,13 @@ class Talker implements TalkerInterface {
 
     if (logger != null) {
       _logger = logger;
+    } else {
+      final currLogger = _logger as TalkerLogger;
+      _logger = currLogger.copyWith(
+        settings: loggerSettings,
+        filter: loggerFilter,
+        formater: formater,
+      );
     }
   }
 

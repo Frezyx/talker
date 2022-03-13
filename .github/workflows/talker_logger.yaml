@@ -3,19 +3,19 @@ name: talker_logger
 on:
   push:
     paths:
-      - "talker_logger/**"
+      - "packages/talker_logger/**"
       - ".github/workflows/talker_logger.yaml"
 
   pull_request:
     paths:
-      - "talker_logger/**"
+      - "packages/talker_logger/**"
       - ".github/workflows/talker_logger.yaml"
 
 jobs:
   build:
     defaults:
       run:
-        working-directory: talker_logger
+        working-directory: packages/talker_logger
 
     runs-on: ubuntu-latest
 

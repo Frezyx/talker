@@ -3,19 +3,19 @@ name: talker_flutter
 on:
   push:
     paths:
-      - "talker_flutter/**"
+      - "packages/talker_flutter/**"
       - ".github/workflows/talker_flutter.yaml"
 
   pull_request:
     paths:
-      - "talker_flutter/**"
+      - "packages/talker_flutter/**"
       - ".github/workflows/talker_flutter.yaml"
 
 jobs:
   build:
     defaults:
       run:
-        working-directory: talker_flutter
+        working-directory: packages/talker_flutter
 
     runs-on: ubuntu-latest
 

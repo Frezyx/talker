@@ -1,3 +1,6 @@
+## 0.5.1
+- Remove unused code, fix default logger format
+
 ## 0.5.0
 - Release 0.5.0 talker package
 - Update README.md

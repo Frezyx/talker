@@ -27,7 +27,7 @@ class Talker implements TalkerInterface {
     TalkerSettings? settings,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
-    LoggerFormater? formater,
+    LoggerFormater? loggerFormater,
     List<TalkerObserver>? observers,
   }) async {
     if (settings != null) {
@@ -45,7 +45,7 @@ class Talker implements TalkerInterface {
       _logger = currLogger.copyWith(
         settings: loggerSettings,
         filter: loggerFilter,
-        formater: formater,
+        formater: loggerFormater,
       );
     }
   }

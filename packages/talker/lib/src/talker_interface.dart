@@ -24,8 +24,14 @@ abstract class TalkerInterface {
   /// You can set your own [TalkerLogger] [logger] subclass
   /// (create your own class implements [TalkerLoggerInterface]),
   ///
-  /// You can set your own [ErrorHansdler] [errorHandler] subclass
-  /// (create your own class implements [ErrorHansdlerInterface]),
+  /// You can set your own [TalkerLoggerSettings] [loggerSettings]
+  /// to customize talker logs,
+  ///
+  /// You can set your own [TalkerLoggerFilter] [loggerFilter]
+  /// to filter talker logs,
+  ///
+  /// You can set your own [LoggerFormater] [loggerFormater]
+  /// to format output of talker logs,
   ///
   /// Also you can set [settings] [TalkerSettings],
   ///
@@ -34,6 +40,10 @@ abstract class TalkerInterface {
   /// {@endtemplate}
   Future<void> configure({
     TalkerSettings? settings,
+    TalkerLogger? logger,
+    TalkerLoggerSettings? loggerSettings,
+    TalkerLoggerFilter? loggerFilter,
+    LoggerFormater? loggerFormater,
     List<TalkerObserver>? observers,
   });
 

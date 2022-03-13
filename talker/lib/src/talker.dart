@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:talker/talker.dart';
 
 class Talker implements TalkerInterface {

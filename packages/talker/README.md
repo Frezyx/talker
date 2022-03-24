@@ -50,7 +50,7 @@ Simple and concise syntax will help you with this
 try {
   // your code...
 } on Error catch (e, st) {
-    Talker.instance.handleError(e, 'Error in ...', st);
+    Talker.instance.handleError(e, st, 'Error in ...');
 }
 
 // Log your app info
@@ -69,8 +69,6 @@ Talker.instance.configure(
     /// Your own observers to handle errors's exception's and log's
     observers: [],
     settings: const TalkerSettings(
-      /// Your own registered types of error's exception's and log's
-      registeredTypes: [HttpTalkerLog],
       maxHistoryItems: 1000,
       useHistory: true,
       useConsoleLogs: true,

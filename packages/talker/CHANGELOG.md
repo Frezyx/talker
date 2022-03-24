@@ -1,3 +1,11 @@
+## 0.8.1
+- **talker_logger** update to 0.8.0 version
+- talker_logger changes:
+  - **INFO**: Create README with documentation and examples
+  - **FIX**: Rename and refactor internal code
+  - **INFO**: Add all public entities docs
+  - **FIX**: Remove lineSymbol and maxLineWidth field from LogDetails
+
 ## 0.8.0
 - **FEAT** Add enable and disable methods for Talker
 

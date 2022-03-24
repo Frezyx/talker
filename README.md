@@ -37,7 +37,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^0.8.0
+  talker: ^0.8.1
 ```
 
 ### Easy to use
@@ -50,7 +50,7 @@ Simple and concise syntax will help you with this
 try {
   // your code...
 } on Error catch (e, st) {
-    Talker.instance.handleError(e, 'Error in ...', st);
+    Talker.instance.handleError(e, st, 'Error in ...');
 }
 
 // Log your app info
@@ -86,8 +86,8 @@ Often you need to check what happening in the application when there is no conso
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^0.8.0
-  talker_flutter: ^0.8.0
+  talker: ^0.8.1
+  talker_flutter: ^0.8.1
 ```
 
 ### Easy to use

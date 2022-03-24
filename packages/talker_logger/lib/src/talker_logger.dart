@@ -4,7 +4,7 @@ class TalkerLogger implements TalkerLoggerInterface {
   TalkerLogger({
     this.settings = kDefaultLoggerSettings,
     TalkerLoggerFilter? filter,
-    this.formater = const BaseLoggerFormater(),
+    this.formater = const ColoredLoggerFormater(),
   }) {
     _filter = filter ?? LogLevelTalkerLoggerFilter(settings.level);
     ansiColorDisabled = false;

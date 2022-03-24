@@ -1,7 +1,7 @@
 import 'package:talker_logger/talker_logger.dart';
 import 'package:test/test.dart';
 
-const _formater = BaseLoggerFormater();
+const _formater = ColoredLoggerFormater();
 
 void main() {
   final cases = [

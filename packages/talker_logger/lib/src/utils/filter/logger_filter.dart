@@ -1,6 +1,8 @@
 import 'package:talker_logger/talker_logger.dart';
 
 /// Abstract filter for messages logging.
+///
+/// [LogLevelTalkerLoggerFilter] is used by default
 /// You can create your own filter by implementing [TalkerLoggerFilter]
 /// or use [LogLevelTalkerLoggerFilter].
 abstract class TalkerLoggerFilter {

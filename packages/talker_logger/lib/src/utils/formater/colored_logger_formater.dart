@@ -1,7 +1,9 @@
 import 'package:talker_logger/talker_logger.dart';
 
-class BaseLoggerFormater implements LoggerFormater {
-  const BaseLoggerFormater();
+/// This formatter makes messages colorful
+/// if this setting is enabled in the settings [TalkerLoggerSettings]
+class ColoredLoggerFormater implements LoggerFormater {
+  const ColoredLoggerFormater();
 
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {

@@ -30,7 +30,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
         return Scaffold(
           backgroundColor: widget.options.backgroudColor,
           appBar: AppBar(
-            title: const Text('Flutter talker'),
+            title: Text(widget.options.appBarTitle),
             actions: [
               SizedBox(
                 width: 40,

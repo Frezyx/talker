@@ -11,10 +11,10 @@ class TalkerLogger implements TalkerLoggerInterface {
   }
 
   final TalkerLoggerSettings settings;
-
   final LoggerFormater formater;
   late final TalkerLoggerFilter _filter;
 
+  /// {@macro talker_logger_log}
   @override
   void log(String msg, {LogLevel? level, AnsiPen? pen}) {
     final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
@@ -28,27 +28,35 @@ class TalkerLogger implements TalkerLoggerInterface {
     }
   }
 
+  /// {@macro talker_logger_critical_log}
   @override
   void critical(String msg) => log(msg, level: LogLevel.critical);
 
+  /// {@macro talker_logger_debug_log}
   @override
   void debug(String msg) => log(msg);
 
+  /// {@macro talker_logger_error_log}
   @override
   void error(String msg) => log(msg, level: LogLevel.error);
 
+  /// {@macro talker_logger_fine_log}
   @override
   void fine(String msg) => log(msg, level: LogLevel.fine);
 
+  /// {@macro talker_logger_good_log}
   @override
   void good(String msg) => log(msg, level: LogLevel.good);
 
+  /// {@macro talker_logger_info_log}
   @override
   void info(String msg) => log(msg, level: LogLevel.info);
 
+  /// {@macro talker_logger_verbose_log}
   @override
   void verbose(String msg) => log(msg, level: LogLevel.verbose);
 
+  /// {@macro talker_logger_warning_log}
   @override
   void warning(String msg) => log(msg, level: LogLevel.warning);
 

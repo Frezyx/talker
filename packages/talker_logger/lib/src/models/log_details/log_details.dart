@@ -1,17 +1,20 @@
 import 'package:talker_logger/talker_logger.dart';
 
+/// A class for transporting data
+/// about an log message
 class LogDetails {
   const LogDetails({
     required this.message,
     required this.level,
     required this.pen,
-    this.lineSymbol = '-',
-    this.maxLineWidth = 130,
   });
 
+  /// Log message
   final String message;
+
+  /// Log [LogLevel]
   final LogLevel level;
+
+  /// Pen for colored console message
   final AnsiPen pen;
-  final String lineSymbol;
-  final int maxLineWidth;
 }

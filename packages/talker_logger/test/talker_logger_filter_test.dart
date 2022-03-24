@@ -33,4 +33,5 @@ void _testCompareLevels(LogLevel level, LogLevel acceptedLevel) {
   });
 }
 
-TalkerLoggerFilter _getFilter(LogLevel level) => BaseTalkerLoggerFilter(level);
+TalkerLoggerFilter _getFilter(LogLevel level) =>
+    LogLevelTalkerLoggerFilter(level);

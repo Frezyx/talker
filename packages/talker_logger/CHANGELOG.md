@@ -1,3 +1,11 @@
+## 0.7.0
+- **FIX**: Rename and refactor internal code
+- **INFO**: Add all public entities docs
+
+## 0.6.0
+- **FIX**: Remove lineSymbol and maxLineWidth field from LogDetails
+- **INFO**: Add main class and LogDetails, extensions docs
+
 ## 0.5.1
 - Remove unused code, fix default logger format
 

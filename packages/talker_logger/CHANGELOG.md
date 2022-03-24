@@ -1,3 +1,7 @@
+## 0.8.0
+- **INFO**: Create README with documentation and examples
+- **INFO**: Add TalkerLoggerSettings docs
+
 ## 0.7.0
 - **FIX**: Rename and refactor internal code
 - **INFO**: Add all public entities docs

@@ -5,7 +5,10 @@ class BaseLoggerFormater implements LoggerFormater {
 
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {
-    final underline = ConsoleFormater.getUnderline(details.maxLineWidth);
+    final underline = ConsoleFormater.getUnderline(
+      settings.maxLineWidth,
+      lineSymbol: settings.lineSymbol,
+    );
     if (!settings.enableColors) {
       return '${details.message}\n$underline';
     }

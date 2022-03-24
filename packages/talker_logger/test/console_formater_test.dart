@@ -15,6 +15,12 @@ void main() {
         _testUnderLine(msg);
       }
     });
+
+    group('addCustomUnderline', () {
+      for (final msg in cases) {
+        _testCustomUnderLine(msg, '#');
+      }
+    });
   });
 }
 
@@ -29,5 +35,22 @@ void _testUnderLine(String msg) {
     expect(lastStr, contains('-'));
     expect(lastStr.length, msg.length);
     expect(lastStr, '-' * msg.length);
+  });
+}
+
+void _testCustomUnderLine(String msg, String lineSymbol) {
+  test('Msg: $msg', () {
+    final underLine = ConsoleFormater.getUnderline(
+      msg.length,
+      lineSymbol: lineSymbol,
+    );
+
+    expect(underLine, isNotNull);
+    expect(underLine, isNotEmpty);
+
+    final lastStr = underLine.split('\n').last;
+    expect(lastStr, contains(lineSymbol));
+    expect(lastStr.length, msg.length);
+    expect(lastStr, lineSymbol * msg.length);
   });
 }

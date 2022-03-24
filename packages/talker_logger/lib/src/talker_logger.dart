@@ -20,18 +20,11 @@ class TalkerLogger implements TalkerLoggerInterface {
     final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
     final selectedLevel = level ?? LogLevel.debug;
     if (_filter.shouldLog(msg, selectedLevel)) {
-      _consolePrint(
-        formater.fmt(
-          LogDetails(
-            message: msg,
-            level: selectedLevel,
-            pen: selectedPen,
-            lineSymbol: settings.lineSymbol,
-            maxLineWidth: settings.maxLineWidth,
-          ),
-          settings,
-        ),
+      final formatedMsg = formater.fmt(
+        LogDetails(message: msg, level: selectedLevel, pen: selectedPen),
+        settings,
       );
+      _consolePrint(formatedMsg);
     }
   }
 

@@ -28,6 +28,7 @@ void _testFmt(String msg) {
         level: LogLevel.debug,
         pen: AnsiPen(),
       ),
+      const TalkerLoggerSettings(),
     );
 
     expect(fmtMsg, isNotNull);

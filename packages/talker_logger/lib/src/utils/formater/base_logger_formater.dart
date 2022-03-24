@@ -4,10 +4,14 @@ class BaseLoggerFormater implements LoggerFormater {
   const BaseLoggerFormater();
 
   @override
-  String fmt(LogDetails details) {
+  String fmt(LogDetails details, TalkerLoggerSettings settings) {
+    final underline = ConsoleFormater.getUnderline(details.maxLineWidth);
+    if (!settings.enableColors) {
+      return '${details.message}\n$underline';
+    }
     var lines = details.message.split('\n');
     lines = lines.map((e) => details.pen.write(e)).toList();
-    lines.add(ConsoleFormater.getUnderline(details.maxLineWidth, details.pen));
+    lines.add(details.pen.write(underline));
     final coloredMsg = lines.join('\n');
     return coloredMsg;
   }

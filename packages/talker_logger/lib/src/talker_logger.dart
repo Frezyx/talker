@@ -29,6 +29,7 @@ class TalkerLogger implements TalkerLoggerInterface {
             lineSymbol: settings.lineSymbol,
             maxLineWidth: settings.maxLineWidth,
           ),
+          settings,
         ),
       );
     }

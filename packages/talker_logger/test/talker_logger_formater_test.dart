@@ -1,7 +1,7 @@
 import 'package:talker_logger/talker_logger.dart';
 import 'package:test/test.dart';
 
-const _formater = BaseLoggerFormater();
+const _formater = ColoredLoggerFormater();
 
 void main() {
   final cases = [
@@ -28,6 +28,7 @@ void _testFmt(String msg) {
         level: LogLevel.debug,
         pen: AnsiPen(),
       ),
+      const TalkerLoggerSettings(),
     );
 
     expect(fmtMsg, isNotNull);

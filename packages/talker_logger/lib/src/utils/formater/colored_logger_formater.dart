@@ -7,7 +7,7 @@ class ColoredLoggerFormater implements LoggerFormater {
 
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {
-    final underline = ConsoleFormater.getUnderline(
+    final underline = ConsoleUtils.getUnderline(
       settings.maxLineWidth,
       lineSymbol: settings.lineSymbol,
     );

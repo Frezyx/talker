@@ -9,7 +9,7 @@ void main() {
     "    453#4345//c.,le",
   ];
 
-  group('ConsoleFormater', () {
+  group('ConsoleUtils', () {
     group('addUnderline', () {
       for (final msg in cases) {
         _testUnderLine(msg);
@@ -26,7 +26,7 @@ void main() {
 
 void _testUnderLine(String msg) {
   test('Msg: $msg', () {
-    final underLine = ConsoleFormater.getUnderline(msg.length);
+    final underLine = ConsoleUtils.getUnderline(msg.length);
 
     expect(underLine, isNotNull);
     expect(underLine, isNotEmpty);
@@ -40,7 +40,7 @@ void _testUnderLine(String msg) {
 
 void _testCustomUnderLine(String msg, String lineSymbol) {
   test('Msg: $msg', () {
-    final underLine = ConsoleFormater.getUnderline(
+    final underLine = ConsoleUtils.getUnderline(
       msg.length,
       lineSymbol: lineSymbol,
     );

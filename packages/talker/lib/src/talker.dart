@@ -2,9 +2,31 @@ import 'dart:async';
 import 'package:talker/talker.dart';
 
 class Talker implements TalkerInterface {
+  /// {@template talker_constructor}
+  /// Talker base constructor
+  ///
+  /// You can set your own [TalkerLogger] [logger] subclass
+  /// (create your own class implements [TalkerLoggerInterface]),
+  /// [TalkerLogger()] used by default
+  ///
+  /// You can edit package settings with [settings] [TalkerSettings],
+  /// [TalkerSettings()] used by default
+  ///
+  /// You can set your own [TalkerLoggerSettings] [loggerSettings]
+  /// to customize talker logs,
+  ///
+  /// You can set your own [TalkerLoggerFilter] [loggerFilter]
+  /// to filter talker logs,
+  ///
+  /// You can set your own [LoggerFormater] [loggerFormater]
+  /// to format output of talker logs,
+  ///
+  /// You can add your own observers to handle errors and logs in other place
+  /// [List<TalkerObserver>] [observers],
+  /// {@endtemplate}
   Talker({
-    TalkerSettings? settings,
     TalkerLogger? logger,
+    TalkerSettings? settings,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
     LoggerFormater? loggerFormater,
@@ -17,11 +39,9 @@ class Talker implements TalkerInterface {
           filter: loggerFilter,
           formater: loggerFormater,
         );
-
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
     }
-
     _errorHandler = TalkerErrorHandler(_settings);
   }
 

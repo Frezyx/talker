@@ -2,14 +2,31 @@ import 'dart:async';
 import 'package:talker/talker.dart';
 
 class Talker implements TalkerInterface {
-  Talker._() {
-    _settings = TalkerSettings();
-    _logger = TalkerLogger();
+  Talker({
+    TalkerSettings? settings,
+    TalkerLogger? logger,
+    TalkerLoggerSettings? loggerSettings,
+    TalkerLoggerFilter? loggerFilter,
+    LoggerFormater? loggerFormater,
+    List<TalkerObserver>? observers,
+  }) {
+    _settings = settings ?? TalkerSettings();
+    _logger = logger ??
+        TalkerLogger().copyWith(
+          settings: loggerSettings,
+          filter: loggerFilter,
+          formater: loggerFormater,
+        );
+
+    if (observers != null && observers.isNotEmpty) {
+      _observersManager = TalkerObserversManager(observers);
+    }
+
     _errorHandler = TalkerErrorHandler(_settings);
   }
 
-  static final _talker = Talker._();
-  static TalkerInterface get instance => _talker;
+  // static final _talker = Talker._();
+  // static TalkerInterface get instance => _talker;
 
   /// Fields can be setup in [configure()] method
   late TalkerSettings _settings;
@@ -22,14 +39,14 @@ class Talker implements TalkerInterface {
 
   /// {@macro talker_configure}
   @override
-  Future<void> configure({
+  void configure({
     TalkerLogger? logger,
     TalkerSettings? settings,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
     LoggerFormater? loggerFormater,
     List<TalkerObserver>? observers,
-  }) async {
+  }) {
     if (settings != null) {
       _settings = settings;
     }

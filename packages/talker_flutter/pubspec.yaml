@@ -11,9 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker: ^0.8.1
-    # path:
-    #   ../talker
+  talker:
+    path:
+      ../talker
     # git:
     #   url: https://github.com/Frezyx/talker
     #   ref: testing

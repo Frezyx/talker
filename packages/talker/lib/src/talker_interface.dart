@@ -38,7 +38,7 @@ abstract class TalkerInterface {
   /// You can add your own observers to handle errors and logs in other place
   /// [List<TalkerObserver>] [observers],
   /// {@endtemplate}
-  Future<void> configure({
+  void configure({
     TalkerSettings? settings,
     TalkerLogger? logger,
     TalkerLoggerSettings? loggerSettings,

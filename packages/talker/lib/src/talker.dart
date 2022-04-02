@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:talker/talker.dart';
 
+/// Talker - advanced exception handling and logging
+/// for dart/flutter applications
 class Talker implements TalkerInterface {
   /// {@template talker_constructor}
   /// Talker base constructor
@@ -266,6 +268,18 @@ class Talker implements TalkerInterface {
     }
   }
 
+  ///{@macro talker_disable}
+  @override
+  void disable() {
+    _settings.enabled = false;
+  }
+
+  ///{@macro talker_enable}
+  @override
+  void enable() {
+    _settings.enabled = true;
+  }
+
   void _handleLog(
     String message,
     Object? exception,
@@ -335,17 +349,5 @@ class Talker implements TalkerInterface {
       }
       _history.add(data);
     }
-  }
-
-  ///{@macro talker_disable}
-  @override
-  void disable() {
-    _settings.enabled = false;
-  }
-
-  ///{@macro talker_enable}
-  @override
-  void enable() {
-    _settings.enabled = true;
   }
 }

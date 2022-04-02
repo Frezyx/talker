@@ -25,9 +25,6 @@ class Talker implements TalkerInterface {
     _errorHandler = TalkerErrorHandler(_settings);
   }
 
-  // static final _talker = Talker._();
-  // static TalkerInterface get instance => _talker;
-
   /// Fields can be setup in [configure()] method
   late TalkerSettings _settings;
   late TalkerLoggerInterface _logger;

@@ -103,18 +103,19 @@ class _TalkerScreenState extends State<TalkerScreen> {
         return TalkerScreenFilter(
           controller: _controller,
           options: widget.options,
+          talker: widget.talker,
         );
       },
     );
   }
 
   void _cleanHistory() {
-    Talker.instance.cleanHistory();
+    widget.talker.cleanHistory();
     _controller.update();
   }
 
   void _copyAllLogs(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: Talker.instance.history.text));
+    Clipboard.setData(ClipboardData(text: widget.talker.history.text));
     _showSnackBar(context, 'All logs copied in buffer');
   }
 

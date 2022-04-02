@@ -14,9 +14,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late Talker _talker;
+
   @override
   void initState() {
-    Talker.instance.configure(
+    _talker = Talker(
       settings: TalkerSettings(writeToFile: false),
     );
 
@@ -41,7 +43,7 @@ class _MyAppState extends State<MyApp> {
       home: Stack(
         children: [
           TalkerScreen(
-            talker: Talker.instance,
+            talker: _talker,
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -54,38 +56,14 @@ class _MyAppState extends State<MyApp> {
                 spacing: 10,
                 runSpacing: 10,
                 children: [
-                  BarButton(
-                    title: 'Handle Error',
-                    onTap: _handleError,
-                  ),
-                  BarButton(
-                    title: 'Handle Exception',
-                    onTap: _handleException,
-                  ),
-                  BarButton(
-                    title: 'Fine Log',
-                    onTap: _fineLog,
-                  ),
-                  BarButton(
-                    title: 'Info Log',
-                    onTap: _infoLog,
-                  ),
-                  BarButton(
-                    title: 'Waring Log',
-                    onTap: _warningLog,
-                  ),
-                  BarButton(
-                    title: 'Varning Log',
-                    onTap: _verboseLog,
-                  ),
-                  BarButton(
-                    title: 'Big Critical log',
-                    onTap: _criticalLog,
-                  ),
-                  BarButton(
-                    title: 'Custom log',
-                    onTap: _customLog,
-                  ),
+                  BarButton(title: 'Handle Error', onTap: _handleError),
+                  BarButton(title: 'Handle Exception', onTap: _handleException),
+                  BarButton(title: 'Fine Log', onTap: _fineLog),
+                  BarButton(title: 'Info Log', onTap: _infoLog),
+                  BarButton(title: 'Waring Log', onTap: _warningLog),
+                  BarButton(title: 'Varning Log', onTap: _verboseLog),
+                  BarButton(title: 'Big Critical log', onTap: _criticalLog),
+                  BarButton(title: 'Custom log', onTap: _customLog),
                 ],
               ),
             ),
@@ -96,43 +74,43 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _handleError() {
-    Talker.instance.handleError(ArgumentError('-6 is not positive number'));
+    _talker.handleError(ArgumentError('-6 is not positive number'));
   }
 
   void _handleException() {
-    Talker.instance.handleException(Exception('Not connected'));
+    _talker.handleException(Exception('Not connected'));
   }
 
   void _fineLog() {
-    Talker.instance.fine(
+    _talker.fine(
       'Service send good request',
     );
   }
 
   void _infoLog() {
-    Talker.instance.info('Renew token from expire date');
+    _talker.info('Renew token from expire date');
   }
 
   void _verboseLog() {
-    Talker.instance.verbose(
+    _talker.verbose(
       'Cache images working slowly on this platform',
     );
   }
 
   void _warningLog() {
-    Talker.instance.warning(
+    _talker.warning(
       'Cache images working slowly on this platform',
     );
   }
 
   void _customLog() {
-    Talker.instance.logTyped(
+    _talker.logTyped(
       CustomLog('Custom log message'),
     );
   }
 
   void _criticalLog() {
-    Talker.instance.log('Server exception', logLevel: LogLevel.critical);
+    _talker.log('Server exception', logLevel: LogLevel.critical);
   }
 }
 

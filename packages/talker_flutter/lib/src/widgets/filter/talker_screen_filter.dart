@@ -8,10 +8,12 @@ class TalkerScreenFilter extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.options,
+    required this.talker,
   }) : super(key: key);
 
   final TalkerScreenController controller;
   final TalkerScreenOptions options;
+  final TalkerInterface talker;
 
   @override
   Widget build(BuildContext context) {
@@ -159,10 +161,10 @@ class TalkerScreenFilter extends StatelessWidget {
   }
 
   Set<Type> get unicTypes {
-    return Talker.instance.history.map((e) => e.runtimeType).toSet();
+    return talker.history.map((e) => e.runtimeType).toSet();
   }
 
   Set<String> get unicTitles {
-    return Talker.instance.history.map((e) => e.displayTitle).toSet();
+    return talker.history.map((e) => e.displayTitle).toSet();
   }
 }

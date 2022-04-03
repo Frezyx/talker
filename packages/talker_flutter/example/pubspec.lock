@@ -166,24 +166,24 @@ packages:
   talker:
     dependency: transitive
     description:
-      path: "../../talker"
-      relative: true
-    source: path
-    version: "0.8.1"
+      name: talker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.0"
   talker_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.8.1"
+    version: "0.9.0"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.0"
+    version: "0.9.0"
   term_glyph:
     dependency: transitive
     description:

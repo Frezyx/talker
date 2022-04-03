@@ -19,9 +19,10 @@
   <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/pub%20points" alt="Pub points"></a>
 </p>
 <h2 align="center">How it works?</h2>
-<p align="center">
-  <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/working_model.jpg?raw=true">
-</p>
+<p align="center">Here is the general scheme of the package and its main features</p>
+<a href="https://www.figma.com/proto/uv7J8NiEVFSq1bLdPXb1aL/Talker?node-id=203%3A327&scaling=min-zoom&page-id=203%3A274&starting-point-node-id=203%3A275" align="center">
+  <img src="docs/assets/scheme.gif">
+</a>
 
 <h2 align="center">On All Platforms</h2>
 <p align="center">
@@ -45,18 +46,18 @@ You can use Talker instance everywhere in your app <br>
 Simple and concise syntax will help you with this
 
 ```dart
-
+final talker = Talker();
 // Handle exceptions and errors
 try {
   // your code...
 } on Error catch (e, st) {
-    Talker.instance.handleError(e, st, 'Error in ...');
+    talker.handleError(e, st, 'Error in ...');
 }
 
 // Log your app info
-Talker.instance.log('App is started'),
-Talker.instance.error('App is started'),
-Talker.instance.waring('App is started'),
+talker.log('App is started'),
+talker.error('App is started'),
+talker.waring('App is started'),
 ///...
 ```
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/talker_interface.dart)
@@ -64,11 +65,14 @@ More examples you can get [there](https://github.com/Frezyx/talker/blob/master/p
 ### Customization
 Configure the error handler and logger for yourself
 ```dart
+final talker = Talker();
 // Handle exceptions and errors
-Talker.instance.configure(
+talker.configure(
     /// Your own observers to handle errors's exception's and log's
     observers: [],
     settings: const TalkerSettings(
+      /// Your own registered types of error's exception's and log's
+      registeredTypes: [HttpTalkerLog],
       maxHistoryItems: 1000,
       useHistory: true,
       useConsoleLogs: true,
@@ -91,17 +95,13 @@ dependencies:
 ### Easy to use
 Add this code at something place of your Flutter  application where you want to display logs
 ```dart
-TalkerScreen(talker: Talker.instance)
+final talker = Talker();
+TalkerScreen(talker: talker)
 ```
 
 ### Result
 <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter_ios_screen.png?raw=true" width="50%">
 
-#### TODO:
-- LogLevel as a model with customization
-- ErrorLevel as a model with customization
-- Filter for logs in UI (talker_flutter)
-- Flutter Talker customization / filters
 
 For help getting started with 😍 Flutter, view
 [online documentation](https://flutter.dev/docs), which offers tutorials, 

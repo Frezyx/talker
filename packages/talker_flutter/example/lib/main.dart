@@ -22,10 +22,10 @@ class _MyAppState extends State<MyApp> {
       settings: TalkerSettings(writeToFile: false),
     );
 
-    _handleError();
-    _handleException();
     _fineLog();
     _infoLog();
+    _handleError();
+    _handleException();
     _warningLog();
     _criticalLog();
     _customLog();
@@ -55,11 +55,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _handleError() {
-    _talker.handleError(ArgumentError('-6 is not positive number'));
+    try {
+      throw ArgumentError('-6 is not positive number');
+    } catch (e, st) {
+      _talker.handle(e, st, 'Something wrong in calculation');
+    }
   }
 
   void _handleException() {
-    _talker.handleException(Exception('Not connected'));
+    try {
+      throw Exception('Test service exception');
+    } catch (e, st) {
+      _talker.handle(e, st, 'FakeService excetion');
+    }
   }
 
   void _fineLog() {

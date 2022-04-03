@@ -7,11 +7,13 @@ class TalkerDataCard extends StatelessWidget {
     required this.data,
     required this.onTap,
     required this.options,
+    required this.expanded,
   }) : super(key: key);
 
   final TalkerScreenTheme options;
   final TalkerDataInterface data;
   final Function() onTap;
+  final bool expanded;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class TalkerDataCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
+                        maxLines: expanded ? null : 1,
                         text: TextSpan(
                           text: 'Message  ',
                           style: TextStyle(
@@ -53,24 +56,24 @@ class TalkerDataCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Time  ',
-                          style: TextStyle(
-                            color: _color,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: data.displayTime,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (data.stackTrace != null)
+                      // RichText(
+                      //   text: TextSpan(
+                      //     text: 'Time  ',
+                      //     style: TextStyle(
+                      //       color: _color,
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //     children: [
+                      //       TextSpan(
+                      //         text: data.displayTime,
+                      //         style: const TextStyle(
+                      //           fontWeight: FontWeight.normal,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      if (data.stackTrace != null && expanded)
                         RichText(
                           text: TextSpan(
                             text: 'StackTrace  ',
@@ -93,6 +96,7 @@ class TalkerDataCard extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 26,
+                  height: 26,
                   child: IconButton(
                     iconSize: 20,
                     onPressed: onTap,

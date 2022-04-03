@@ -92,6 +92,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
                     options: widget.theme,
+                    expanded: _controller.expandedLogs,
                   );
                 },
               );

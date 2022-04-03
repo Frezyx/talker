@@ -2,9 +2,10 @@ import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
 void main() {
+  final talker = Talker();
   group('Talker_Settings', () {
     setUp(() {
-      Talker.instance.cleanHistory();
+      talker.cleanHistory();
     });
 
     test('Register errors', () async {
@@ -12,24 +13,17 @@ void main() {
         useConsoleLogs: false,
         registeredTypes: [HttpTalkerLog],
       );
-      await _configureTalker(settings);
-
+      talker.configure(settings: settings);
       final httpLog = HttpTalkerLog('Http good');
-      Talker.instance.logTyped(httpLog);
+      talker.logTyped(httpLog);
 
       expect(settings.registeredTypes, contains(httpLog.runtimeType));
       expect(
-        Talker.instance.history.whereType<HttpTalkerLog>().isNotEmpty,
+        talker.history.whereType<HttpTalkerLog>().isNotEmpty,
         true,
       );
     });
   });
-}
-
-Future<void> _configureTalker(TalkerSettings settings) async {
-  await Talker.instance.configure(
-    settings: settings,
-  );
 }
 
 class HttpTalkerLog extends TalkerLog {

@@ -8,11 +8,21 @@ class TalkerScreenController extends ChangeNotifier {
     types: [],
   );
 
+  var _expandedLogs = true;
+
   /// Filter for selecting specific logs and errors
   TalkerFilter get filter => _filter;
   set filter(TalkerFilter val) {
     _filter = val;
     notifyListeners();
+  }
+
+  bool get expandedLogs => _expandedLogs;
+  set expandedLogs(bool val) {
+    if (val != _expandedLogs) {
+      _expandedLogs = val;
+      notifyListeners();
+    }
   }
 
   /// Method for updating a search query based on errors and logs

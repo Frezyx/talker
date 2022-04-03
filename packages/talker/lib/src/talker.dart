@@ -1,15 +1,51 @@
 import 'dart:async';
 import 'package:talker/talker.dart';
 
+/// Talker - advanced exception handling and logging
+/// for dart/flutter applications
 class Talker implements TalkerInterface {
-  Talker._() {
-    _settings = TalkerSettings();
-    _logger = TalkerLogger();
+  /// {@template talker_constructor}
+  /// Talker base constructor
+  ///
+  /// You can set your own [TalkerLogger] [logger] subclass
+  /// (create your own class implements [TalkerLoggerInterface]),
+  /// [TalkerLogger()] used by default
+  ///
+  /// You can edit package settings with [settings] [TalkerSettings],
+  /// [TalkerSettings()] used by default
+  ///
+  /// You can set your own [TalkerLoggerSettings] [loggerSettings]
+  /// to customize talker logs,
+  ///
+  /// You can set your own [TalkerLoggerFilter] [loggerFilter]
+  /// to filter talker logs,
+  ///
+  /// You can set your own [LoggerFormater] [loggerFormater]
+  /// to format output of talker logs,
+  ///
+  /// You can add your own observers to handle errors and logs in other place
+  /// [List<TalkerObserver>] [observers],
+  /// {@endtemplate}
+  Talker({
+    TalkerLogger? logger,
+    TalkerSettings? settings,
+    TalkerLoggerSettings? loggerSettings,
+    TalkerLoggerFilter? loggerFilter,
+    LoggerFormater? loggerFormater,
+    List<TalkerObserver>? observers,
+  }) {
+    _settings = settings ?? TalkerSettings();
+    _logger = logger ??
+        TalkerLogger().copyWith(
+          settings: loggerSettings,
+          filter: loggerFilter,
+          formater: loggerFormater,
+        );
+    if (observers != null && observers.isNotEmpty) {
+      _observersManager = TalkerObserversManager(observers);
+    }
     _errorHandler = TalkerErrorHandler(_settings);
   }
-
-  static final _talker = Talker._();
-  static TalkerInterface get instance => _talker;
 
   /// Fields can be setup in [configure()] method
   late TalkerSettings _settings;
@@ -22,14 +58,14 @@ class Talker implements TalkerInterface {
 
   /// {@macro talker_configure}
   @override
-  Future<void> configure({
+  void configure({
     TalkerLogger? logger,
     TalkerSettings? settings,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
     LoggerFormater? loggerFormater,
     List<TalkerObserver>? observers,
-  }) async {
+  }) {
     if (settings != null) {
       _settings = settings;
     }
@@ -232,6 +268,18 @@ class Talker implements TalkerInterface {
     }
   }
 
+  ///{@macro talker_disable}
+  @override
+  void disable() {
+    _settings.enabled = false;
+  }
+
+  ///{@macro talker_enable}
+  @override
+  void enable() {
+    _settings.enabled = true;
+  }
+
   void _handleLog(
     String message,
     Object? exception,
@@ -301,17 +349,5 @@ class Talker implements TalkerInterface {
       }
       _history.add(data);
     }
-  }
-
-  ///{@macro talker_disable}
-  @override
-  void disable() {
-    _settings.enabled = false;
-  }
-
-  ///{@macro talker_enable}
-  @override
-  void enable() {
-    _settings.enabled = true;
   }
 }

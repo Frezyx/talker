@@ -1,3 +1,6 @@
+## 0.9.0
+- **INFO**: Make small refactor
+
 ## 0.8.0
 - **INFO**: Create README with documentation and examples
 - **INFO**: Add TalkerLoggerSettings docs

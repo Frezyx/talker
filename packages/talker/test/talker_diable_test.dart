@@ -2,8 +2,9 @@ import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
 void main() {
+  final talker = Talker();
   setUp(() {
-    Talker.instance.cleanHistory();
+    talker.cleanHistory();
   });
 
   group('Talker_toggle_enabled', () {
@@ -11,22 +12,22 @@ void main() {
       'history',
       () {
         test('disable', () {
-          Talker.instance.disable();
-          Talker.instance.error('Test disabled log');
+          talker.disable();
+          talker.error('Test disabled log');
 
-          expect(Talker.instance.history, isEmpty);
+          expect(talker.history, isEmpty);
         });
 
         test('disable and enable', () {
-          Talker.instance.disable();
-          Talker.instance.error('Test disabled log');
+          talker.disable();
+          talker.error('Test disabled log');
 
-          expect(Talker.instance.history, isEmpty);
+          expect(talker.history, isEmpty);
 
-          Talker.instance.enable();
-          Talker.instance.error('Test disabled log');
+          talker.enable();
+          talker.error('Test disabled log');
 
-          expect(Talker.instance.history, isNotEmpty);
+          expect(talker.history, isNotEmpty);
         });
       },
     );

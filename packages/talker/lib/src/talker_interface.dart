@@ -38,7 +38,7 @@ abstract class TalkerInterface {
   /// You can add your own observers to handle errors and logs in other place
   /// [List<TalkerObserver>] [observers],
   /// {@endtemplate}
-  Future<void> configure({
+  void configure({
     TalkerSettings? settings,
     TalkerLogger? logger,
     TalkerLoggerSettings? loggerSettings,
@@ -57,7 +57,7 @@ abstract class TalkerInterface {
   /// try {
   ///   // your code...
   /// } catch (e, st) {
-  ///   Talker.instance.handle(e, 'Eception in ...', st);
+  ///   talker.handle(e, 'Eception in ...', st);
   /// }
   /// ```
   ///
@@ -79,7 +79,7 @@ abstract class TalkerInterface {
   /// try {
   ///   // your code...
   /// } on Error catch (e, st) {
-  ///   Talker.instance.handleError(e, 'Error in ...', st);
+  ///   talker.handleError(e, 'Error in ...', st);
   /// }
   /// ```
   /// {@macro errorLevel}
@@ -100,7 +100,7 @@ abstract class TalkerInterface {
   /// try {
   ///   // your code...
   /// } on Error catch (e, st) {
-  ///   Talker.instance.handleException(e, 'Error in ...', st);
+  ///   talker.handleException(e, 'Error in ...', st);
   /// }
   /// ```
   /// {@macro errorLevel}
@@ -122,7 +122,7 @@ abstract class TalkerInterface {
   /// your own further logic processing
   /// [AnsiPen?] [pen] - sets your own log color for console
   /// ```dart
-  ///   Talker.instance.log(
+  ///   talker.log(
   ///     'Server error',
   ///     logLevel: LogLevel.critical,
   ///     additional: {
@@ -164,7 +164,7 @@ abstract class TalkerInterface {
   ///
   ///   //You can add here response model of your request
   ///   final httpLog = HttpTalkerLog('Http status: 200');
-  ///   Talker.instance.logTyped(httpLog);
+  ///   talker.logTyped(httpLog);
   /// ```
   /// {@endtemplate}
   void logTyped(
@@ -179,7 +179,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.critical('Log critical');
+  ///   talker.critical('Log critical');
   /// ```
   /// {@endtemplate}
   void critical(
@@ -195,7 +195,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.error('Log error');
+  ///   talker.error('Log error');
   /// ```
   /// {@endtemplate}
   void error(
@@ -211,7 +211,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.debug('Log debug');
+  ///   talker.debug('Log debug');
   /// ```
   /// {@endtemplate}
   void debug(
@@ -227,7 +227,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.warning('Log warning');
+  ///   talker.warning('Log warning');
   /// ```
   /// {@endtemplate}
   void warning(
@@ -243,7 +243,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.verbose('Log verbose');
+  ///   talker.verbose('Log verbose');
   /// ```
   /// {@endtemplate}
   void verbose(
@@ -259,7 +259,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.info('Log info');
+  ///   talker.info('Log info');
   /// ```
   /// {@endtemplate}
   void info(
@@ -275,7 +275,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.fine('Log fine');
+  ///   talker.fine('Log fine');
   /// ```
   /// {@endtemplate}
   void fine(
@@ -291,7 +291,7 @@ abstract class TalkerInterface {
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
   /// ```dart
-  ///   Talker.instance.good('Log good');
+  ///   talker.good('Log good');
   /// ```
   /// {@endtemplate}
   void good(

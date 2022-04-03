@@ -1,3 +1,9 @@
+## 0.9.0
+  - **BREAKING** Create common Talker constructor
+  - **BREAKING** After this version Talker is not singleton class 
+  - **FEAT** Now you can create a lot of Talker instances for you app
+  - **FEAT** Now ***configure()*** method is not async
+
 ## 0.8.1
 - **talker_logger** update to 0.8.0 version
 - talker_logger changes:

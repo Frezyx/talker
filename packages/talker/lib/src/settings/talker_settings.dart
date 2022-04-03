@@ -50,14 +50,14 @@ class TalkerSettings {
   ///}
   ///
   ///void main() {
-  ///   Talker.instance.configure(
+  ///   talker.configure(
   ///     settings: const TalkerSettings(
   ///       registeredTypes: [HttpTalkerLog],
   ///     ),
   ///   );
   ///
   ///   final httpLog = HttpTalkerLog('Http good');
-  ///   Talker.instance.logTyped(httpLog);
+  ///   talker.logTyped(httpLog);
   /// }
   /// ```
   List<Type> get registeredTypes =>

@@ -40,6 +40,19 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   iconSize: 28,
+                  onPressed: _toggleLogsExpanded,
+                  icon: Icon(
+                    _controller.expandedLogs
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 28,
                   onPressed: _cleanHistory,
                   icon: const Icon(Icons.delete_outline),
                 ),
@@ -117,6 +130,10 @@ class _TalkerScreenState extends State<TalkerScreen> {
   void _cleanHistory() {
     widget.talker.cleanHistory();
     _controller.update();
+  }
+
+  void _toggleLogsExpanded() {
+    _controller.expandedLogs = !_controller.expandedLogs;
   }
 
   void _copyAllLogs(BuildContext context) {

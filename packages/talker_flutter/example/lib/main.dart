@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -64,9 +63,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _fineLog() {
-    _talker.fine(
-      'Service send good request',
-    );
+    _talker.fine('Service send good request');
   }
 
   void _infoLog() {
@@ -74,21 +71,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _verboseLog() {
-    _talker.verbose(
-      'Cache images working slowly on this platform',
-    );
+    _talker.verbose('Cache images working slowly on this platform');
   }
 
   void _warningLog() {
-    _talker.warning(
-      'Cache images working slowly on this platform',
-    );
+    _talker.warning('Cache images working slowly on this platform');
   }
 
   void _customLog() {
-    _talker.logTyped(
-      CustomLog('Custom log message'),
-    );
+    _talker.logTyped(CustomLog('Custom log message'));
   }
 
   void _criticalLog() {
@@ -99,8 +90,12 @@ class _MyAppState extends State<MyApp> {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => Container(
-        color: Colors.grey[850],
         padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.grey[850]?.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(6),
+        ),
         child: Wrap(
           spacing: 10,
           runSpacing: 10,

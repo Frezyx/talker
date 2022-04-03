@@ -20,7 +20,7 @@
 </p>
 <h2 align="center">How it works?</h2>
 <p align="center">
-  <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/working_model.jpg?raw=true">
+  <img src="docs/assets/scheme.gif">
 </p>
 
 <h2 align="center">On All Platforms</h2>

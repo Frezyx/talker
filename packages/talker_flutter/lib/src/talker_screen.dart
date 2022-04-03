@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/widgets/widgets.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -21,6 +22,8 @@ class TalkerScreen extends StatefulWidget {
 
 class _TalkerScreenState extends State<TalkerScreen> {
   final _controller = TalkerScreenController();
+  final _typesController = GroupButtonController();
+  final _titilesController = GroupButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +107,8 @@ class _TalkerScreenState extends State<TalkerScreen> {
           controller: _controller,
           options: widget.options,
           talker: widget.talker,
+          typesController: _typesController,
+          titlesController: _titilesController,
         );
       },
     );

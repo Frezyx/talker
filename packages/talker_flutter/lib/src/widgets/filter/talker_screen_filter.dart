@@ -9,11 +9,15 @@ class TalkerScreenFilter extends StatelessWidget {
     required this.controller,
     required this.options,
     required this.talker,
+    required this.typesController,
+    required this.titlesController,
   }) : super(key: key);
 
   final TalkerScreenController controller;
   final TalkerScreenOptions options;
   final TalkerInterface talker;
+  final GroupButtonController typesController;
+  final GroupButtonController titlesController;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +106,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   child: GroupButton(
                     isRadio: false,
                     buttons: titles,
+                    controller: titlesController,
                     onSelected: (i, selected) {
                       _onToggleTitle(titles[i], selected);
                     },
@@ -126,6 +131,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: GroupButton(
                     isRadio: false,
+                    controller: typesController,
                     buttons: types.map((e) => e.toString()).toList(),
                     onSelected: (i, selected) {
                       _onToggleType(types[i], selected);

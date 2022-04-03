@@ -9,7 +9,7 @@ class TalkerDataCard extends StatelessWidget {
     required this.options,
   }) : super(key: key);
 
-  final TalkerScreenOptions options;
+  final TalkerScreenTheme options;
   final TalkerDataInterface data;
   final Function() onTap;
 

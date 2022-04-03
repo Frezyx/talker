@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -40,36 +41,17 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],
       ),
-      home: Stack(
-        children: [
-          TalkerScreen(
+      home: Builder(builder: (context) {
+        return Scaffold(
+          body: TalkerScreen(
             talker: _talker,
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: kIsWeb ? 100 : 170,
-              width: 600,
-              color: Colors.grey[850],
-              padding: const EdgeInsets.all(10),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  BarButton(title: 'Handle Error', onTap: _handleError),
-                  BarButton(title: 'Handle Exception', onTap: _handleException),
-                  BarButton(title: 'Fine Log', onTap: _fineLog),
-                  BarButton(title: 'Info Log', onTap: _infoLog),
-                  BarButton(title: 'Waring Log', onTap: _warningLog),
-                  BarButton(title: 'Varning Log', onTap: _verboseLog),
-                  BarButton(title: 'Big Critical log', onTap: _criticalLog),
-                  BarButton(title: 'Custom log', onTap: _customLog),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _showLogMaker(context),
+            child: const Icon(Icons.bug_report),
+          ),
+        );
+      }),
     );
   }
 
@@ -112,6 +94,30 @@ class _MyAppState extends State<MyApp> {
   void _criticalLog() {
     _talker.log('Server exception', logLevel: LogLevel.critical);
   }
+
+  void _showLogMaker(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => Container(
+        color: Colors.grey[850],
+        padding: const EdgeInsets.all(10),
+        child: Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            BarButton(title: 'Handle Error', onTap: _handleError),
+            BarButton(title: 'Handle Exception', onTap: _handleException),
+            BarButton(title: 'Fine Log', onTap: _fineLog),
+            BarButton(title: 'Info Log', onTap: _infoLog),
+            BarButton(title: 'Waring Log', onTap: _warningLog),
+            BarButton(title: 'Varning Log', onTap: _verboseLog),
+            BarButton(title: 'Big Critical log', onTap: _criticalLog),
+            BarButton(title: 'Custom log', onTap: _customLog),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class CustomLog extends FlutterTalkerLog {
@@ -141,9 +147,8 @@ class BarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: onTap,
-      color: Theme.of(context).primaryColor,
       child: Text(
         title,
         style: const TextStyle(

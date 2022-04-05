@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/widgets/widgets.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -9,11 +10,11 @@ class TalkerScreen extends StatefulWidget {
   const TalkerScreen({
     Key? key,
     required this.talker,
-    this.options = const TalkerScreenOptions(),
+    this.theme = const TalkerScreenTheme(),
   }) : super(key: key);
 
   final TalkerInterface talker;
-  final TalkerScreenOptions options;
+  final TalkerScreenTheme theme;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();
@@ -21,6 +22,8 @@ class TalkerScreen extends StatefulWidget {
 
 class _TalkerScreenState extends State<TalkerScreen> {
   final _controller = TalkerScreenController();
+  final _typesController = GroupButtonController();
+  final _titilesController = GroupButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +31,23 @@ class _TalkerScreenState extends State<TalkerScreen> {
       animation: _controller,
       builder: (context, child) {
         return Scaffold(
-          backgroundColor: widget.options.backgroudColor,
+          backgroundColor: widget.theme.backgroudColor,
           appBar: AppBar(
             title: Text(widget.options.appBarTitle),
             actions: [
+              SizedBox(
+                width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 28,
+                  onPressed: _toggleLogsExpanded,
+                  icon: Icon(
+                    _controller.expandedLogs
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                  ),
+                ),
+              ),
               SizedBox(
                 width: 40,
                 child: IconButton(
@@ -75,7 +91,8 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   return TalkerDataCard(
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
-                    options: widget.options,
+                    options: widget.theme,
+                    expanded: _controller.expandedLogs,
                   );
                 },
               );
@@ -102,19 +119,26 @@ class _TalkerScreenState extends State<TalkerScreen> {
       builder: (context) {
         return TalkerScreenFilter(
           controller: _controller,
-          options: widget.options,
+          talkerScreenTheme: widget.theme,
+          talker: widget.talker,
+          typesController: _typesController,
+          titlesController: _titilesController,
         );
       },
     );
   }
 
   void _cleanHistory() {
-    Talker.instance.cleanHistory();
+    widget.talker.cleanHistory();
     _controller.update();
   }
 
+  void _toggleLogsExpanded() {
+    _controller.expandedLogs = !_controller.expandedLogs;
+  }
+
   void _copyAllLogs(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: Talker.instance.history.text));
+    Clipboard.setData(ClipboardData(text: widget.talker.history.text));
     _showSnackBar(context, 'All logs copied in buffer');
   }
 

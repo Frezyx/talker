@@ -6,25 +6,26 @@ void main() {
     late TalkerInterface _talker;
 
     setUp(() {
-      _talker = Talker.instance;
+      _talker = Talker();
+
       _talker.cleanHistory();
     });
 
-    test('ON', () async {
-      await _configureTalker(useHistory: true, talker: _talker);
+    test('ON', () {
+      _configureTalker(useHistory: true, talker: _talker);
       _makeLogs(_talker);
 
-      final history = Talker.instance.history;
+      final history = _talker.history;
 
       expect(history, isNotEmpty);
       expect(history.length, equals(6));
     });
 
-    test('OFF', () async {
-      await _configureTalker(useHistory: false, talker: _talker);
+    test('OFF', () {
+      _configureTalker(useHistory: false, talker: _talker);
       _makeLogs(_talker);
 
-      final history = Talker.instance.history;
+      final history = _talker.history;
 
       expect(history, isEmpty);
     });
@@ -40,11 +41,11 @@ void _makeLogs(TalkerInterface _talker) {
   _talker.debug('Good log');
 }
 
-Future<void> _configureTalker({
+void _configureTalker({
   required bool useHistory,
   required TalkerInterface talker,
-}) async {
-  await talker.configure(
+}) {
+  talker.configure(
     settings: TalkerSettings(useHistory: useHistory, useConsoleLogs: false),
   );
 }

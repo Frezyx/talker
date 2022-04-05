@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -14,16 +14,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late Talker _talker;
+
   @override
   void initState() {
-    Talker.instance.configure(
+    _talker = Talker(
       settings: TalkerSettings(writeToFile: false),
     );
 
-    _handleError();
-    _handleException();
     _fineLog();
     _infoLog();
+    _handleError();
+    _handleException();
     _warningLog();
     _criticalLog();
     _customLog();
@@ -38,101 +40,86 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],
       ),
-      home: Stack(
-        children: [
-          TalkerScreen(
-            talker: Talker.instance,
+      home: Builder(builder: (context) {
+        return Scaffold(
+          body: TalkerScreen(
+            talker: _talker,
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: kIsWeb ? 100 : 170,
-              width: 600,
-              color: Colors.grey[850],
-              padding: const EdgeInsets.all(10),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  BarButton(
-                    title: 'Handle Error',
-                    onTap: _handleError,
-                  ),
-                  BarButton(
-                    title: 'Handle Exception',
-                    onTap: _handleException,
-                  ),
-                  BarButton(
-                    title: 'Fine Log',
-                    onTap: _fineLog,
-                  ),
-                  BarButton(
-                    title: 'Info Log',
-                    onTap: _infoLog,
-                  ),
-                  BarButton(
-                    title: 'Waring Log',
-                    onTap: _warningLog,
-                  ),
-                  BarButton(
-                    title: 'Varning Log',
-                    onTap: _verboseLog,
-                  ),
-                  BarButton(
-                    title: 'Big Critical log',
-                    onTap: _criticalLog,
-                  ),
-                  BarButton(
-                    title: 'Custom log',
-                    onTap: _customLog,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _showLogMaker(context),
+            child: const Icon(Icons.bug_report),
+          ),
+        );
+      }),
     );
   }
 
   void _handleError() {
-    Talker.instance.handleError(ArgumentError('-6 is not positive number'));
+    try {
+      throw ArgumentError('-6 is not positive number');
+    } catch (e, st) {
+      _talker.handle(e, st, 'Something wrong in calculation');
+    }
   }
 
   void _handleException() {
-    Talker.instance.handleException(Exception('Not connected'));
+    try {
+      throw Exception('Test service exception');
+    } catch (e, st) {
+      _talker.handle(e, st, 'FakeService excetion');
+    }
   }
 
   void _fineLog() {
-    Talker.instance.fine(
-      'Service send good request',
-    );
+    _talker.fine('Service send good request');
   }
 
   void _infoLog() {
-    Talker.instance.info('Renew token from expire date');
+    _talker.info('Renew token from expire date');
   }
 
   void _verboseLog() {
-    Talker.instance.verbose(
-      'Cache images working slowly on this platform',
-    );
+    _talker.verbose('Cache images working slowly on this platform');
   }
 
   void _warningLog() {
-    Talker.instance.warning(
-      'Cache images working slowly on this platform',
-    );
+    _talker.warning('Cache images working slowly on this platform');
   }
 
   void _customLog() {
-    Talker.instance.logTyped(
-      CustomLog('Custom log message'),
-    );
+    _talker.logTyped(CustomLog('Custom log message'));
   }
 
   void _criticalLog() {
-    Talker.instance.log('Server exception', logLevel: LogLevel.critical);
+    _talker.log('Server exception', logLevel: LogLevel.critical);
+  }
+
+  void _showLogMaker(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.grey[850]?.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            BarButton(title: 'Handle Error', onTap: _handleError),
+            BarButton(title: 'Handle Exception', onTap: _handleException),
+            BarButton(title: 'Fine Log', onTap: _fineLog),
+            BarButton(title: 'Info Log', onTap: _infoLog),
+            BarButton(title: 'Waring Log', onTap: _warningLog),
+            BarButton(title: 'Varning Log', onTap: _verboseLog),
+            BarButton(title: 'Big Critical log', onTap: _criticalLog),
+            BarButton(title: 'Custom log', onTap: _customLog),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -163,9 +150,8 @@ class BarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: onTap,
-      color: Theme.of(context).primaryColor,
       child: Text(
         title,
         style: const TextStyle(

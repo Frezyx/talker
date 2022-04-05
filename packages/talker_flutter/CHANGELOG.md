@@ -1,3 +1,16 @@
+## 0.9.0
+  - **FEAT** Add expand button for hiding or revealing logs
+  - **FEAT** Update TalkerScreen log UI
+  - **FIX** Saving selected filters after sheet closing
+
+## 0.8.1
+- **talker_logger** update to 0.8.0 version
+- talker_logger changes:
+  - **INFO**: Create README with documentation and examples
+  - **FIX**: Rename and refactor internal code
+  - **INFO**: Add all public entities docs
+  - **FIX**: Remove lineSymbol and maxLineWidth field from LogDetails
+
 ## 0.8.0
 - **INFO** Add all package documentation
 - **INFO** Update talker package to 0.8.0 version

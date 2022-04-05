@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// Configuring the UI of [TalkerScreen]
-class TalkerScreenOptions {
-  const TalkerScreenOptions({
+class TalkerScreenTheme {
+  const TalkerScreenTheme({
     this.appBarTitle = 'Flutter talker',
     this.backgroudColor = const Color(0xFF212121),
     this.textColor = Colors.white,

@@ -7,11 +7,17 @@ class TalkerScreenFilter extends StatelessWidget {
   const TalkerScreenFilter({
     Key? key,
     required this.controller,
-    required this.options,
+    required this.talkerScreenTheme,
+    required this.talker,
+    required this.typesController,
+    required this.titlesController,
   }) : super(key: key);
 
   final TalkerScreenController controller;
-  final TalkerScreenOptions options;
+  final TalkerScreenTheme talkerScreenTheme;
+  final TalkerInterface talker;
+  final GroupButtonController typesController;
+  final GroupButtonController titlesController;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +26,14 @@ class TalkerScreenFilter extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: options.backgroudColor,
+        color: talkerScreenTheme.backgroudColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         children: [
           Container(
             decoration: BoxDecoration(
-              color: options.backgroudColor,
+              color: talkerScreenTheme.backgroudColor,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
               ),
@@ -40,13 +46,13 @@ class TalkerScreenFilter extends StatelessWidget {
                 Text(
                   'Talker Filter',
                   style: theme.textTheme.headline6!
-                      .copyWith(color: options.textColor),
+                      .copyWith(color: talkerScreenTheme.textColor),
                 ),
                 InkWell(
                   onTap: () => Navigator.pop(context),
                   child: Icon(
                     Icons.close_rounded,
-                    color: options.textColor,
+                    color: talkerScreenTheme.textColor,
                   ),
                 ),
               ],
@@ -61,25 +67,28 @@ class TalkerScreenFilter extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextFormField(
                     style: theme.textTheme.bodyText1!.copyWith(
-                      color: options.textColor,
+                      color: talkerScreenTheme.textColor,
                     ),
                     onChanged: controller.updateFilterSearchQuery,
                     decoration: InputDecoration(
+                      fillColor: theme.cardColor,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: options.textColor),
+                        borderSide:
+                            BorderSide(color: talkerScreenTheme.textColor),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: options.textColor),
+                        borderSide:
+                            BorderSide(color: talkerScreenTheme.textColor),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       prefixIcon: Icon(
                         Icons.search,
-                        color: options.textColor,
+                        color: talkerScreenTheme.textColor,
                       ),
                       hintText: 'Search...',
                       hintStyle: theme.textTheme.bodyText1!.copyWith(
-                        color: options.textColor,
+                        color: talkerScreenTheme.textColor,
                       ),
                     ),
                   ),
@@ -90,7 +99,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   child: Text(
                     'Titles',
                     style: theme.textTheme.headline6!.copyWith(
-                      color: options.textColor,
+                      color: talkerScreenTheme.textColor,
                     ),
                   ),
                 ),
@@ -100,6 +109,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   child: GroupButton(
                     isRadio: false,
                     buttons: titles,
+                    controller: titlesController,
                     onSelected: (i, selected) {
                       _onToggleTitle(titles[i], selected);
                     },
@@ -115,7 +125,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   child: Text(
                     'Types',
                     style: theme.textTheme.headline6!.copyWith(
-                      color: options.textColor,
+                      color: talkerScreenTheme.textColor,
                     ),
                   ),
                 ),
@@ -124,6 +134,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: GroupButton(
                     isRadio: false,
+                    controller: typesController,
                     buttons: types.map((e) => e.toString()).toList(),
                     onSelected: (i, selected) {
                       _onToggleType(types[i], selected);
@@ -159,10 +170,10 @@ class TalkerScreenFilter extends StatelessWidget {
   }
 
   Set<Type> get unicTypes {
-    return Talker.instance.history.map((e) => e.runtimeType).toSet();
+    return talker.history.map((e) => e.runtimeType).toSet();
   }
 
   Set<String> get unicTitles {
-    return Talker.instance.history.map((e) => e.displayTitle).toSet();
+    return talker.history.map((e) => e.displayTitle).toSet();
   }
 }

@@ -7,7 +7,6 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  intl: ^0.17.0
   talker_logger: ">=0.9.0 <1.0.0"
     # path:
     #   ../talker_logger

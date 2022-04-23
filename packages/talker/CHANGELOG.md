@@ -1,3 +1,7 @@
+## 0.9.1
+  - **FIX** Make self DateTime formating
+  - **FIX** Delete intl package
+
 ## 0.9.0
   - **BREAKING** Create common Talker constructor
   - **BREAKING** After this version Talker is not singleton class 

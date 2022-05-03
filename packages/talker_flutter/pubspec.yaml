@@ -18,8 +18,8 @@ dependencies:
     #   url: https://github.com/Frezyx/talker
     #   ref: testing
     #   path: talker/
-      
   group_button: ^4.8.0
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

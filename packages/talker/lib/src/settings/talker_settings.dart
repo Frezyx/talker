@@ -7,12 +7,10 @@ class TalkerSettings {
     bool useConsoleLogs = true,
     int maxHistoryItems = 200,
     bool writeToFile = false,
-    List<Type>? registeredTypes,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
         _maxHistoryItems = maxHistoryItems,
-        _writeToFile = writeToFile,
-        _registeredTypes = registeredTypes;
+        _writeToFile = writeToFile;
 
   /// Use history to write talker records
   bool get useHistory => _useHistory && enabled;
@@ -60,8 +58,8 @@ class TalkerSettings {
   ///   talker.logTyped(httpLog);
   /// }
   /// ```
-  List<Type> get registeredTypes =>
-      [TalkerLog, TalkerError, TalkerException, ...?_registeredTypes];
-  //TODO: make interface
-  final List<Type>? _registeredTypes;
+  List<Type> get registeredTypes => [
+        TalkerLog, TalkerError, TalkerException,
+        //...?_registeredTypes
+      ];
 }

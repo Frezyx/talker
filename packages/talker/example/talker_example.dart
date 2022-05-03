@@ -14,9 +14,7 @@ class HttpTalkerLog extends TalkerLog {
 
 Future<void> main() async {
   final talker = Talker(
-    settings: TalkerSettings(
-      registeredTypes: [HttpTalkerLog],
-    ),
+    settings: TalkerSettings(),
   );
 
   try {

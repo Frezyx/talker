@@ -13,7 +13,7 @@ class TalkerSettings {
   // _writeToFile = writeToFile;
 
   /// Use history to write talker records
-  bool get useHistory => _useHistory && enabled;
+  bool get useHistory => _useHistory;
   final bool _useHistory;
 
   /// Use console logs to display talker records

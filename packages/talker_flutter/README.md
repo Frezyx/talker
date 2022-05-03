@@ -71,8 +71,6 @@ talker.configure(
     /// Your own observers to handle errors's exception's and log's
     observers: [],
     settings: const TalkerSettings(
-      /// Your own registered types of error's exception's and log's
-      registeredTypes: [HttpTalkerLog],
       maxHistoryItems: 1000,
       useHistory: true,
       useConsoleLogs: true,

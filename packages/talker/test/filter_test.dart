@@ -16,7 +16,7 @@ void main() {
           titles: ['ERROR'],
           countFound: 1,
           logCallback: () {
-            talker.error('Test disabled log');
+            talker.error('Test log');
           },
         );
 
@@ -24,8 +24,32 @@ void main() {
           titles: ['ERROR', 'EXCEPTION'],
           countFound: 2,
           logCallback: () {
-            talker.error('Test disabled log');
+            talker.error('Test log');
+            talker.handleException(Exception('Test log'));
+          },
+        );
+
+        _testFilterFoundByTitle(
+          titles: ['ERROR', 'VERBOSE'],
+          countFound: 2,
+          logCallback: () {
+            talker.error('Test log');
             talker.handleException(Exception('Test disabled log'));
+            talker.verbose('Test log');
+          },
+        );
+
+        _testFilterFoundByTitle(
+          titles: ['VERBOSE'],
+          countFound: 5,
+          logCallback: () {
+            talker.verbose('Test log');
+            talker.verbose('Test log');
+            talker.error('Test log');
+            talker.verbose('Test log');
+            talker.verbose('Test log');
+            talker.handleException(Exception('Test disabled log'));
+            talker.verbose('Test log');
           },
         );
       },

@@ -68,7 +68,7 @@ extension ToConsoleColor on LogLevel? {
       case LogLevel.warning:
         return AnsiPen()..yellow();
       case LogLevel.verbose:
-        return AnsiPen()..yellow();
+        return AnsiPen()..gray();
       case LogLevel.info:
         return AnsiPen()..blue();
       case LogLevel.fine:

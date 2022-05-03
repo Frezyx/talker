@@ -24,7 +24,7 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
     }
 
     if (types.isNotEmpty) {
-      match = match || _checkTypeMatch(item);
+      match = match && _checkTypeMatch(item);
     }
 
     if (searchQuery?.isNotEmpty ?? false) {
@@ -33,7 +33,7 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
       final fullLowerMsg = fullMsg.toLowerCase();
       final textContain = fullUpperMsg.contains(searchQuery!) ||
           fullLowerMsg.contains(searchQuery!);
-      match = match || textContain;
+      match = match && textContain;
     }
 
     if (titles.isEmpty && types.isEmpty && (searchQuery?.isEmpty ?? true)) {

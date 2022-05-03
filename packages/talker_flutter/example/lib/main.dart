@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -19,7 +21,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     _talker = Talker(
-      settings: TalkerSettings(writeToFile: false),
+      loggerSettings: TalkerLoggerSettings(
+        enableColors: !Platform.isIOS,
+      ),
     );
 
     _fineLog();
@@ -42,9 +46,7 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Builder(builder: (context) {
         return Scaffold(
-          body: TalkerScreen(
-            talker: _talker,
-          ),
+          body: TalkerScreen(talker: _talker),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _showLogMaker(context),
             child: const Icon(Icons.bug_report),

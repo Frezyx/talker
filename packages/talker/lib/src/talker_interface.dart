@@ -2,7 +2,7 @@ import 'package:talker/talker.dart';
 
 abstract class TalkerInterface {
   /// {@template talker_stream}
-  /// Еhe common stream to sent all processed events [TalkerDataInterface]
+  /// Common stream to sent all processed events [TalkerDataInterface]
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
   /// You can connect a listener to it and catch the received errors

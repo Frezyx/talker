@@ -5,18 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ExtendedExample());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ExtendedExample extends StatefulWidget {
+  const ExtendedExample({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<ExtendedExample> createState() => _ExtendedExampleState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _ExtendedExampleState extends State<ExtendedExample> {
   late Talker _talker;
+  var _logsEnabled = true;
 
   @override
   void initState() {
@@ -54,6 +55,15 @@ class _MyAppState extends State<MyApp> {
         );
       }),
     );
+  }
+
+  void _toggleLogsEnabled() {
+    setState(() => _logsEnabled = !_logsEnabled);
+    if (_logsEnabled) {
+      _talker.disable();
+    } else {
+      _talker.enable();
+    }
   }
 
   void _handleError() {
@@ -106,18 +116,37 @@ class _MyAppState extends State<MyApp> {
           color: Colors.grey[850]?.withOpacity(0.9),
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Wrap(
-          spacing: 10,
-          runSpacing: 10,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BarButton(title: 'Handle Error', onTap: _handleError),
-            BarButton(title: 'Handle Exception', onTap: _handleException),
-            BarButton(title: 'Fine Log', onTap: _fineLog),
-            BarButton(title: 'Info Log', onTap: _infoLog),
-            BarButton(title: 'Waring Log', onTap: _warningLog),
-            BarButton(title: 'Varning Log', onTap: _verboseLog),
-            BarButton(title: 'Big Critical log', onTap: _criticalLog),
-            BarButton(title: 'Custom log', onTap: _customLog),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                BarButton(title: 'Handle Error', onTap: _handleError),
+                BarButton(title: 'Handle Exception', onTap: _handleException),
+                BarButton(title: 'Fine Log', onTap: _fineLog),
+                BarButton(title: 'Info Log', onTap: _infoLog),
+                BarButton(title: 'Waring Log', onTap: _warningLog),
+                BarButton(title: 'Varning Log', onTap: _verboseLog),
+                BarButton(title: 'Big Critical log', onTap: _criticalLog),
+                BarButton(title: 'Custom log', onTap: _customLog),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                BarButton(
+                  title: ' ${_logsEnabled ? 'Enable' : 'Disable'} logs',
+                  onTap: _toggleLogsEnabled,
+                  backgroundColor: Colors.white,
+                  titleColor: Colors.grey[900],
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -145,19 +174,26 @@ class BarButton extends StatelessWidget {
     Key? key,
     required this.onTap,
     required this.title,
+    this.backgroundColor,
+    this.titleColor,
   }) : super(key: key);
 
   final VoidCallback onTap;
   final String title;
+  final Color? backgroundColor;
+  final Color? titleColor;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onTap,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(backgroundColor),
+      ),
       child: Text(
         title,
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: titleColor ?? Colors.white,
         ),
       ),
     );

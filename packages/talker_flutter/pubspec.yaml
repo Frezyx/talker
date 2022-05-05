@@ -11,14 +11,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker: ^0.9.0
+  talker: ^0.10.0
     # path:
     #   ../talker
     # git:
     #   url: https://github.com/Frezyx/talker
     #   ref: testing
     #   path: talker/
-  group_button: ^4.8.0
+  group_button: ^5.0.0
   dio: ^4.0.6
 
 dev_dependencies:

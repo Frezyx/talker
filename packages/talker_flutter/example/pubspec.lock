@@ -94,7 +94,7 @@ packages:
       name: group_button
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.8.0"
+    version: "5.0.0"
   http_parser:
     dependency: transitive
     description:

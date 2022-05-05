@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
-import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerScreenFilter extends StatelessWidget {

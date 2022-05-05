@@ -38,7 +38,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^0.9.1
+  talker: ^0.10.0
 ```
 
 ### Easy to use
@@ -72,7 +72,6 @@ talker.configure(
     observers: [],
     settings: const TalkerSettings(
       /// Your own registered types of error's exception's and log's
-      registeredTypes: [HttpTalkerLog],
       maxHistoryItems: 1000,
       useHistory: true,
       useConsoleLogs: true,
@@ -88,8 +87,8 @@ Often you need to check what happening in the application when there is no conso
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^0.9.1
-  talker_flutter: ^0.9.0
+  talker: ^0.10.0
+  talker_flutter: ^0.10.0
 ```
 
 ### Easy to use

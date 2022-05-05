@@ -110,7 +110,7 @@ class TalkerScreenFilter extends StatelessWidget {
                     isRadio: false,
                     buttons: titles,
                     controller: titlesController,
-                    onSelected: (i, selected) {
+                    onSelected: (_, i, selected) {
                       _onToggleTitle(titles[i], selected);
                     },
                     options: GroupButtonOptions(
@@ -136,7 +136,7 @@ class TalkerScreenFilter extends StatelessWidget {
                     isRadio: false,
                     controller: typesController,
                     buttons: types.map((e) => e.toString()).toList(),
-                    onSelected: (i, selected) {
+                    onSelected: (_, i, selected) {
                       _onToggleType(types[i], selected);
                     },
                     options: GroupButtonOptions(

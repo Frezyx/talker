@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -87,14 +94,14 @@ packages:
       name: group_button
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.8.0"
-  intl:
+    version: "5.0.0"
+  http_parser:
     dependency: transitive
     description:
-      name: intl
+      name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.17.0"
+    version: "4.0.0"
   lints:
     dependency: transitive
     description:
@@ -169,14 +176,14 @@ packages:
       name: talker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.0"
+    version: "0.10.0"
   talker_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.9.0+1"
+    version: "0.10.0"
   talker_logger:
     dependency: transitive
     description:

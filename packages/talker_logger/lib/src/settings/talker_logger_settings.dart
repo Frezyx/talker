@@ -17,9 +17,9 @@ class TalkerLoggerSettings {
   /// final logger = TalkerLogger(
   ///   settings: TalkerLoggerSettings(
   ///     colors: {
-  ///       LogLevel.critical: AnsiPen()..yellow(),
-  ///       LogLevel.error: AnsiPen()..yellow(),
-  ///       LogLevel.info: AnsiPen()..yellow(),
+  ///       LogLevel.critical: AnsiPen()..red(),
+  ///       LogLevel.error: AnsiPen()..magenta(),
+  ///       LogLevel.info: AnsiPen()..cyan(),
   ///       LogLevel.fine: AnsiPen()..yellow(),
   ///     },
   ///     enableColors: true,

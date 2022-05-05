@@ -343,7 +343,7 @@ class Talker implements TalkerInterface {
   // }
 
   void _writeToHistory(TalkerDataInterface data) {
-    if (_settings.useHistory) {
+    if (_settings.useHistory && _settings.enabled) {
       if (_settings.maxHistoryItems <= _history.length) {
         _history.removeAt(0);
       }

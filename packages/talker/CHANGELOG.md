@@ -1,3 +1,9 @@
+## 0.10.0
+  - **BREAKING** Remove field registeredTypes
+  - **FIX** Fix history bug
+  - **FIX** Disable writeToFile in settings for first stable release
+  - **INFO** Update example and add some new tests
+
 ## 0.9.1
   - **FIX** Make self DateTime formating
   - **FIX** Delete intl package

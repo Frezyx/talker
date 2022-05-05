@@ -8,7 +8,7 @@ void main() {
     LogLevel.error: AnsiPen()..red(),
     LogLevel.debug: AnsiPen()..gray(),
     LogLevel.warning: AnsiPen()..yellow(),
-    LogLevel.verbose: AnsiPen()..yellow(),
+    LogLevel.verbose: AnsiPen()..gray(),
     LogLevel.info: AnsiPen()..blue(),
     LogLevel.fine: AnsiPen()..cyan(),
     LogLevel.good: AnsiPen()..green(),

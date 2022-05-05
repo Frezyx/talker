@@ -6,16 +6,14 @@ class TalkerSettings {
     bool useHistory = true,
     bool useConsoleLogs = true,
     int maxHistoryItems = 200,
-    bool writeToFile = false,
-    List<Type>? registeredTypes,
+    // bool writeToFile = false,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
-        _maxHistoryItems = maxHistoryItems,
-        _writeToFile = writeToFile,
-        _registeredTypes = registeredTypes;
+        _maxHistoryItems = maxHistoryItems;
+  // _writeToFile = writeToFile;
 
   /// Use history to write talker records
-  bool get useHistory => _useHistory && enabled;
+  bool get useHistory => _useHistory;
   final bool _useHistory;
 
   /// Use console logs to display talker records
@@ -27,8 +25,8 @@ class TalkerSettings {
   final int _maxHistoryItems;
 
   /// Use writing talker records in file
-  bool get writeToFile => _writeToFile && enabled;
-  final bool _writeToFile;
+  // bool get writeToFile => _writeToFile && enabled;
+  // final bool _writeToFile;
 
   /// The main rule that is responsible
   /// for the operation of the package
@@ -60,8 +58,8 @@ class TalkerSettings {
   ///   talker.logTyped(httpLog);
   /// }
   /// ```
-  List<Type> get registeredTypes =>
-      [TalkerLog, TalkerError, TalkerException, ...?_registeredTypes];
-  //TODO: make interface
-  final List<Type>? _registeredTypes;
+  List<Type> get registeredTypes => [
+        TalkerLog, TalkerError, TalkerException,
+        //...?_registeredTypes
+      ];
 }

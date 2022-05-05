@@ -11,13 +11,12 @@ void main() {
     test('Register errors', () async {
       final settings = TalkerSettings(
         useConsoleLogs: false,
-        registeredTypes: [HttpTalkerLog],
       );
       talker.configure(settings: settings);
       final httpLog = HttpTalkerLog('Http good');
       talker.logTyped(httpLog);
 
-      expect(settings.registeredTypes, contains(httpLog.runtimeType));
+      // expect(settings.registeredTypes, contains(httpLog.runtimeType));
       expect(
         talker.history.whereType<HttpTalkerLog>().isNotEmpty,
         true,

@@ -33,13 +33,26 @@ jobs:
         run: dart analyze --fatal-infos --fatal-warnings .
 
       #TODO: enable before release version 1.0.0
-      - name: Run Tests
-        run: |
-          pub global activate test_coverage
-          export PATH=$PATH:$HOME/.pub-cache/bin
-          test_coverage
-      - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+      # - name: Run Tests
+      #   run: |
+      #     pub global activate test_coverage
+      #     export PATH=$PATH:$HOME/.pub-cache/bin
+      #     test_coverage
+      # - name: Check Code Coverage
+      #   uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+      #   with:
+      #     min_coverage: 30
+      #     path: talker/coverage/lcov.info
+      - name: Run tests
+        run: dart test --concurrency=6 --platform vm --coverage=coverage test/
+      - name: Collect coverage
+        run: dart run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.packages --report-on=lib
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2.1.0
         with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1.2.1
+        with:
+          path: coverage/lcov.info
           min_coverage: 30
-          path: talker/coverage/lcov.info

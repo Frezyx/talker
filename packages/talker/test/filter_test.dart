@@ -49,7 +49,9 @@ void main() {
             talker.verbose('Test log');
             talker.verbose('Test log');
             talker.handleException(Exception('Test disabled log'));
+            talker.handleError(ArgumentError());
             talker.verbose('Test log');
+            talker.critical('Test log');
           },
         );
       },

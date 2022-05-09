@@ -1,4 +1,4 @@
-import 'package:talker/talker.dart';
+// import 'package:talker/talker.dart';
 
 class TalkerSettings {
   TalkerSettings({
@@ -58,8 +58,8 @@ class TalkerSettings {
   ///   talker.logTyped(httpLog);
   /// }
   /// ```
-  List<Type> get registeredTypes => [
-        TalkerLog, TalkerError, TalkerException,
-        //...?_registeredTypes
-      ];
+  // List<Type> get registeredTypes => [
+  //       TalkerLog, TalkerError, TalkerException,
+  //       //...?_registeredTypes
+  //     ];
 }

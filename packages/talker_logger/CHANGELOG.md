@@ -1,3 +1,7 @@
+## 0.11.0
+- **INFO**: Make 100% tests coverage
+- **INFO**: Update package docs, examples, tests 
+
 ## 0.9.0
 - **INFO**: Make small refactor
 

@@ -100,6 +100,9 @@ This logger has simple settings that can change output
 **Result** <br>
 <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logger/formated_example.png?raw=true">
 
+## Coverage
+[![](https://codecov.io/gh/Frezyx/talker/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Frezyx/talker/branch/master)
+
 
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/example/talker_logger_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/lib/src/talker_logger_interface.dart)
 

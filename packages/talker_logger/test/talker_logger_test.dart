@@ -10,7 +10,7 @@ class LogLevelLoggerFormater implements LoggerFormater {
 
 final _messages = <String>[];
 final _formatter = LogLevelLoggerFormater();
-final logger = TalkerLogger(
+final _logger = TalkerLogger(
   settings: const TalkerLoggerSettings(enableColors: false),
   formater: _formatter,
   output: (message) => _messages.add(message),
@@ -19,6 +19,21 @@ final logger = TalkerLogger(
 void main() {
   setUp(() {
     _messages.clear();
+  });
+
+  test('Instance', () {
+    // ignore: unnecessary_type_check
+    expect(_logger is TalkerLoggerInterface, true);
+    // ignore: unnecessary_type_check
+    expect(_logger is TalkerLogger, true);
+  });
+
+  test('Constructor', () {
+    final logger = TalkerLogger();
+    // ignore: unnecessary_type_check
+    expect(logger is TalkerLoggerInterface, true);
+    // ignore: unnecessary_type_check
+    expect(logger is TalkerLogger, true);
   });
 
   group('TalkerLogger', () {
@@ -30,35 +45,35 @@ void main() {
   });
   group('log methods LogLevel', () {
     test('error', () {
-      logger.error('Message');
+      _logger.error('Message');
       _expectMessageType(LogLevel.error);
     });
     test('debug', () {
-      logger.debug('Message');
+      _logger.debug('Message');
       _expectMessageType(LogLevel.debug);
     });
     test('critical', () {
-      logger.critical('Message');
+      _logger.critical('Message');
       _expectMessageType(LogLevel.critical);
     });
     test('info', () {
-      logger.info('Message');
+      _logger.info('Message');
       _expectMessageType(LogLevel.info);
     });
     test('fine', () {
-      logger.fine('Message');
+      _logger.fine('Message');
       _expectMessageType(LogLevel.fine);
     });
     test('good', () {
-      logger.good('Message');
+      _logger.good('Message');
       _expectMessageType(LogLevel.good);
     });
     test('verbose', () {
-      logger.verbose('Message');
+      _logger.verbose('Message');
       _expectMessageType(LogLevel.verbose);
     });
     test('warning', () {
-      logger.warning('Message');
+      _logger.warning('Message');
       _expectMessageType(LogLevel.warning);
     });
   });
@@ -66,7 +81,7 @@ void main() {
 
 void _testLog(LogLevel level) {
   test('LogLevel $level', () {
-    logger.log('Message', level: level);
+    _logger.log('Message', level: level);
     _expectMessageType(level);
   });
 }

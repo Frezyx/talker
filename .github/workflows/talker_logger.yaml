@@ -33,10 +33,11 @@ jobs:
         run: dart analyze --fatal-infos --fatal-warnings .
 
       - name: Run Tests
-        run: |
-          pub global activate test_coverage
-          export PATH=$PATH:$HOME/.pub-cache/bin
-          test_coverage
+        # run: |
+        #   pub global activate test_coverage
+        #   export PATH=$PATH:$HOME/.pub-cache/bin
+        #   test_coverage
+        run: flutter test --coverage
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:

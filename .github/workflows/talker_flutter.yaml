@@ -24,6 +24,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: "12.x"
+          distribution: 'zulu'
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"

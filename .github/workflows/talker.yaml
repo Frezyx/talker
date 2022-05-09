@@ -44,9 +44,10 @@ jobs:
       #     min_coverage: 30
       #     path: talker/coverage/lcov.info
       - name: Run tests
-        run: dart test
+        run: dart test --coverage=coverage
       - name: Collect coverage
-        run: dart run coverage
+        run: dart pub global activate coverage
+        run: dart pub global run coverage:test_with_coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2.1.0
         with:

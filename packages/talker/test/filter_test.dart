@@ -1,7 +1,7 @@
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
-final talker = Talker();
+final talker = Talker(settings: TalkerSettings(useConsoleLogs: false));
 
 void main() {
   setUp(() {
@@ -84,10 +84,10 @@ void main() {
           talker.error('HTTP log');
           talker.fine('Http log');
           talker.good('Log http request');
-          talker.good('http');
-          talker.good('Log http');
-          talker.good('htt request');
-          talker.good('ttp request');
+          talker.warning('http');
+          talker.debug('Log http');
+          talker.verbose('htt request');
+          talker.info('ttp request');
         },
       );
     });

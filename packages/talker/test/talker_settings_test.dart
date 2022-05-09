@@ -12,7 +12,10 @@ void main() {
       final settings = TalkerSettings(
         useConsoleLogs: false,
       );
-      talker.configure(settings: settings);
+      talker.configure(
+        settings: settings,
+        logger: TalkerLogger(),
+      );
       final httpLog = HttpTalkerLog('Http good');
       talker.logTyped(httpLog);
 

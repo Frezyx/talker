@@ -44,7 +44,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
           path: packages/talker_flutter/coverage/lcov.info
-           min_coverage: 0
+          min_coverage: 0
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1

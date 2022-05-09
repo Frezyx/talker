@@ -43,9 +43,8 @@ jobs:
       #   with:
       #     min_coverage: 30
       #     path: talker/coverage/lcov.info
-      - name: Run tests
-        run: flutter test --coverage .
-        uses: codecov/codecov-action@v1.0.2
+      - run: flutter test --coverage .
+      - uses: codecov/codecov-action@v1.0.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Check Code Coverage

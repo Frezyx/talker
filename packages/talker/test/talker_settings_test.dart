@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   final talker = Talker();
-  group('Talker_Settings', () {
+  group('TalkerSettings', () {
     setUp(() {
       talker.cleanHistory();
     });

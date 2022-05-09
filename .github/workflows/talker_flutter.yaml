@@ -37,6 +37,20 @@ jobs:
       - name: Analyze
         run: flutter analyze --fatal-infos --fatal-warnings .
 
+      # - name: Run tests
+      #   run: flutter test --no-pub --coverage
+
+      # - name: Check Code Coverage
+      #   uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+      #   with:
+      #     path: packages/talker_flutter/coverage/lcov.info
+      #     min_coverage: 0
+
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+
       # - name: Build WEB
       #   run: |
       #     cd example

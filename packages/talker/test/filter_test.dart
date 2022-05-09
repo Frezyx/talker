@@ -8,7 +8,7 @@ void main() {
     talker.cleanHistory();
   });
 
-  group('Talker_Filter', () {
+  group('TalkerFilter', () {
     group(
       'By title',
       () {
@@ -54,6 +54,22 @@ void main() {
         );
       },
     );
+
+    test('copyWith', () {
+      final filter = TalkerFilter(
+        titles: ['Error'],
+        types: [Exception],
+      );
+      final newFilter = filter.copyWith(titles: ['LOG']);
+      expect(filter == newFilter, false);
+      expect(filter.titles == newFilter.titles, false);
+      expect(filter.titles.first == newFilter.titles.first, false);
+
+      final typesChangesFilter = filter.copyWith(types: [Error]);
+      expect(filter == typesChangesFilter, false);
+      expect(filter.types == typesChangesFilter.types, false);
+      expect(filter.types.first == typesChangesFilter.types.first, false);
+    });
   });
 }
 

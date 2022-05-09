@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_type_check
+// ignore_for_file: unnecessary_type_check, leading_newlines_in_multiline_strings
 
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
@@ -16,6 +16,7 @@ void main() {
         stackTrace: StackTrace.empty,
         title: _testTitle,
       );
+
       expect(error is TalkerDataInterface, true);
       expect(error is TalkerError, true);
       expect(error.message, _testMessage);
@@ -23,6 +24,14 @@ void main() {
       expect(error.time is DateTime, true);
       expect(error.error is ArgumentError, true);
       expect(error.stackTrace is StackTrace, true);
+
+      final message = error.generateTextMessage();
+      expect(
+        message,
+        '''[ERROR] | ${TalkerDateTimeFormater(error.time).timeAndSeconds} | test message
+Invalid argument(s)
+''',
+      );
     });
   });
 }

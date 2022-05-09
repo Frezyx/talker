@@ -44,7 +44,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
           path: packages/talker_logger/coverage/lcov.info
-          min_coverage: 60
+          min_coverage: 50
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1

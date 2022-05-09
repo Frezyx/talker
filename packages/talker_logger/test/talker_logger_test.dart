@@ -22,10 +22,44 @@ void main() {
   });
 
   group('TalkerLogger', () {
-    group('log', () {
+    group('log LogLevel', () {
       for (final level in LogLevel.values) {
         _testLog(level);
       }
+    });
+  });
+  group('log methods LogLevel', () {
+    test('error', () {
+      logger.error('Message');
+      _expectMessageType(LogLevel.error);
+    });
+    test('debug', () {
+      logger.debug('Message');
+      _expectMessageType(LogLevel.debug);
+    });
+    test('critical', () {
+      logger.critical('Message');
+      _expectMessageType(LogLevel.critical);
+    });
+    test('info', () {
+      logger.info('Message');
+      _expectMessageType(LogLevel.info);
+    });
+    test('fine', () {
+      logger.fine('Message');
+      _expectMessageType(LogLevel.fine);
+    });
+    test('good', () {
+      logger.good('Message');
+      _expectMessageType(LogLevel.good);
+    });
+    test('verbose', () {
+      logger.verbose('Message');
+      _expectMessageType(LogLevel.verbose);
+    });
+    test('warning', () {
+      logger.warning('Message');
+      _expectMessageType(LogLevel.warning);
     });
   });
 }
@@ -33,8 +67,12 @@ void main() {
 void _testLog(LogLevel level) {
   test('LogLevel $level', () {
     logger.log('Message', level: level);
-    expect(_messages, isNotEmpty);
-    expect(_messages.length, 1);
-    expect(_messages, contains(level.title));
+    _expectMessageType(level);
   });
+}
+
+void _expectMessageType(LogLevel level) {
+  expect(_messages, isNotEmpty);
+  expect(_messages.length, 1);
+  expect(_messages, contains(level.title));
 }

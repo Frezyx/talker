@@ -5,11 +5,11 @@ class TalkerSettings {
     this.enabled = true,
     bool useHistory = true,
     bool useConsoleLogs = true,
-    int maxHistoryItems = 200,
+    int? maxHistoryItems = 200,
     // bool writeToFile = false,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
-        _maxHistoryItems = maxHistoryItems;
+        _maxHistoryItems = maxHistoryItems ?? 200;
   // _writeToFile = writeToFile;
 
   /// Use history to write talker records

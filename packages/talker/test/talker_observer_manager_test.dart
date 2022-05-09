@@ -86,6 +86,8 @@ void main() {
       expect(_exceptionsStore, isEmpty);
     });
 
+    talker.configure(observers: [mockObserver, emptyMockTalkerObserver]);
+
     test('onException', () {
       talker.handle(Exception());
 

@@ -43,7 +43,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^0.10.0
+  talker: ^0.11.0
 ```
 
 ### Easy to use
@@ -91,7 +91,7 @@ Often you need to check what happening in the application when there is no conso
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^0.10.0
+  talker: ^0.11.0
   talker_flutter: ^0.10.0
 ```
 

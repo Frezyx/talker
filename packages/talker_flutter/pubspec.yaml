@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker: ^0.10.0
+  talker: ^0.11.0
     # path:
     #   ../talker
     # git:

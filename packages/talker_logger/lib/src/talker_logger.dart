@@ -6,14 +6,16 @@ class TalkerLogger implements TalkerLoggerInterface {
     TalkerLoggerFilter? filter,
     this.formater = const ColoredLoggerFormater(),
     void Function(String message)? output,
-  }) : _output = output ?? _consolePrint {
+  }) {
+    // ignore: avoid_print
+    _output = output ?? (String message) => print(message);
     _filter = filter ?? LogLevelTalkerLoggerFilter(settings.level);
     ansiColorDisabled = false;
   }
 
   final TalkerLoggerSettings settings;
   final LoggerFormater formater;
-  final void Function(String message) _output;
+  late final void Function(String message) _output;
   late final TalkerLoggerFilter _filter;
 
   /// {@macro talker_logger_log}
@@ -61,22 +63,4 @@ class TalkerLogger implements TalkerLoggerInterface {
   /// {@macro talker_logger_warning_log}
   @override
   void warning(String msg) => log(msg, level: LogLevel.warning);
-
-  static void _consolePrint(String msg) {
-    // ignore: avoid_print
-    print(msg);
-  }
-
-  TalkerLogger copyWith({
-    TalkerLoggerSettings? settings,
-    LoggerFormater? formater,
-    TalkerLoggerFilter? filter,
-  }) {
-    return TalkerLogger(
-      settings: settings ?? this.settings,
-      formater: formater ?? this.formater,
-      filter: filter ?? _filter,
-      output: _output,
-    );
-  }
 }

@@ -38,12 +38,12 @@ jobs:
         run: flutter analyze --fatal-infos --fatal-warnings .
 
       - name: Run tests
-        run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
+        run: flutter test --no-pub --coverage
 
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
-          path: packages/talker_flutter/coverage/lcov.info
+          path: packages/talker_logger/coverage/lcov.info
           min_coverage: 60
 
       - name: Upload coverage to Codecov

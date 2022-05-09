@@ -33,5 +33,51 @@ Invalid argument(s)
 ''',
       );
     });
+
+    test('TalkerException', () async {
+      final exception = TalkerException(
+        Exception(),
+        message: _testMessage,
+        logLevel: LogLevel.critical,
+        stackTrace: StackTrace.empty,
+        title: _testTitle,
+      );
+
+      expect(exception is TalkerDataInterface, true);
+      expect(exception is TalkerException, true);
+      expect(exception.message, _testMessage);
+      expect(exception.title, _testTitle);
+      expect(exception.time is DateTime, true);
+      expect(exception.exception is Exception, true);
+      expect(exception.stackTrace is StackTrace, true);
+
+      final message = exception.generateTextMessage();
+      expect(
+        message,
+        '''[EXCEPTION] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
+Exception
+''',
+      );
+    });
+
+    test('TalkerLog', () async {
+      final log = TalkerLog(
+        _testMessage,
+        logLevel: LogLevel.debug,
+        title: _testTitle,
+      );
+
+      expect(log is TalkerDataInterface, true);
+      expect(log is TalkerLog, true);
+      expect(log.message, _testMessage);
+      expect(log.title, _testTitle);
+      expect(log.time is DateTime, true);
+
+      final message = log.generateTextMessage();
+      expect(
+        message,
+        '''[test title] | ${TalkerDateTimeFormater(log.time).timeAndSeconds} | test message''',
+      );
+    });
   });
 }

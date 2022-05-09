@@ -76,6 +76,22 @@ void main() {
       );
     });
 
+    group('By search text', () {
+      _testFilterFoundBySearchText(
+        searchQuery: 'http',
+        countFound: 5,
+        logCallback: () {
+          talker.error('HTTP log');
+          talker.fine('Http log');
+          talker.good('Log http request');
+          talker.good('http');
+          talker.good('Log http');
+          talker.good('htt request');
+          talker.good('ttp request');
+        },
+      );
+    });
+
     test('copyWith', () {
       final filter = TalkerFilter(
         titles: ['Error'],
@@ -91,6 +107,20 @@ void main() {
       expect(filter.types == typesChangesFilter.types, false);
       expect(filter.types.first == typesChangesFilter.types.first, false);
     });
+  });
+}
+
+void _testFilterFoundBySearchText({
+  required String searchQuery,
+  required Function() logCallback,
+  required int countFound,
+}) {
+  final filter = TalkerFilter(types: [], titles: [], searchQuery: searchQuery);
+  test('Found $countFound with searchQuery $searchQuery', () {
+    logCallback.call();
+    final foundRecords = talker.history.where((e) => filter.filter(e)).toList();
+    expect(foundRecords, isNotEmpty);
+    expect(foundRecords.length, countFound);
   });
 }
 

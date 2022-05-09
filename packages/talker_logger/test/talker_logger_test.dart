@@ -22,18 +22,27 @@ void main() {
   });
 
   test('Instance', () {
-    // ignore: unnecessary_type_check
-    expect(_logger is TalkerLoggerInterface, true);
-    // ignore: unnecessary_type_check
-    expect(_logger is TalkerLogger, true);
+    _testInstance(_logger);
   });
 
   test('Constructor', () {
     final logger = TalkerLogger();
+    _testInstance(logger);
+  });
+
+  test('copyWith', () {
+    final logger = TalkerLogger().copyWith(
+      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      formater: _formatter,
+    );
+    _testInstance(logger);
     // ignore: unnecessary_type_check
-    expect(logger is TalkerLoggerInterface, true);
+    expect(logger.settings is TalkerLoggerSettings, true);
+    expect(logger.settings.lineSymbol, '#');
+
     // ignore: unnecessary_type_check
-    expect(logger is TalkerLogger, true);
+    expect(logger.formater is LogLevelLoggerFormater, true);
   });
 
   group('TalkerLogger', () {
@@ -77,6 +86,13 @@ void main() {
       _expectMessageType(LogLevel.warning);
     });
   });
+}
+
+void _testInstance(TalkerLogger logger) {
+  // ignore: unnecessary_type_check
+  expect(logger is TalkerLoggerInterface, true);
+  // ignore: unnecessary_type_check
+  expect(logger is TalkerLogger, true);
 }
 
 void _testLog(LogLevel level) {

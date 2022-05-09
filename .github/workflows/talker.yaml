@@ -22,7 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1
-      - uses: codecov/codecov-action@v1.0.2
 
       - name: Install Dependencies
         run: dart pub get
@@ -46,6 +45,7 @@ jobs:
       #     path: talker/coverage/lcov.info
       - name: Run tests
         run: flutter test --coverage .
+        - uses: codecov/codecov-action@v1.0.2
           with:
             token: ${{ secrets.CODECOV_TOKEN }}
       - name: Check Code Coverage

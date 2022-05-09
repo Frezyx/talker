@@ -63,4 +63,17 @@ class TalkerLogger implements TalkerLoggerInterface {
   /// {@macro talker_logger_warning_log}
   @override
   void warning(String msg) => log(msg, level: LogLevel.warning);
+
+  TalkerLogger copyWith({
+    TalkerLoggerSettings? settings,
+    LoggerFormater? formater,
+    TalkerLoggerFilter? filter,
+  }) {
+    return TalkerLogger(
+      settings: settings ?? this.settings,
+      formater: formater ?? this.formater,
+      filter: filter ?? _filter,
+      output: _output,
+    );
+  }
 }

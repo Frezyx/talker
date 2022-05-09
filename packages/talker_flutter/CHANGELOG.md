@@ -1,3 +1,6 @@
+## 0.11.0
+  - **INFO** Update talker version to 0.11.0
+
 ## 0.10.0
   - **FEAT** Create extended example and base example
   - **FIX** Make refactor in internal UI code

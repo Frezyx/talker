@@ -55,6 +55,25 @@ void main() {
       },
     );
 
+    group('By type', () {
+      _testFilterFoundByType(
+        types: [TalkerLog],
+        countFound: 1,
+        logCallback: () {
+          talker.error('Test log');
+        },
+      );
+      _testFilterFoundByType(
+        types: [TalkerError],
+        countFound: 2,
+        logCallback: () {
+          talker.fine('Test log');
+          talker.handle(ArgumentError());
+          talker.handle(ArgumentError());
+        },
+      );
+    });
+
     test('copyWith', () {
       final filter = TalkerFilter(
         titles: ['Error'],
@@ -70,6 +89,20 @@ void main() {
       expect(filter.types == typesChangesFilter.types, false);
       expect(filter.types.first == typesChangesFilter.types.first, false);
     });
+  });
+}
+
+void _testFilterFoundByType({
+  required List<Type> types,
+  required Function() logCallback,
+  required int countFound,
+}) {
+  final filter = TalkerFilter(types: types, titles: []);
+  test('Found $countFound in ${types.join(',')}', () {
+    logCallback.call();
+    final foundRecords = talker.history.where((e) => filter.filter(e)).toList();
+    expect(foundRecords, isNotEmpty);
+    expect(foundRecords.length, countFound);
   });
 }
 

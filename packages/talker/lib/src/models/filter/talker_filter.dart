@@ -24,7 +24,7 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
     }
 
     if (types.isNotEmpty) {
-      match = match && _checkTypeMatch(item);
+      match = match || _checkTypeMatch(item);
     }
 
     if (searchQuery?.isNotEmpty ?? false) {

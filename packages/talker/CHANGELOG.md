@@ -1,3 +1,19 @@
+## 0.11.0
+  - **FIX** Fix filter
+  - **FIX** Refactor package base
+  - **INFO** Make 100% tests coverage
+  - **INFO** Update README.md
+
+## 0.10.0
+  - **BREAKING** Remove field registeredTypes
+  - **FIX** Fix history bug
+  - **FIX** Disable writeToFile in settings for first stable release
+  - **INFO** Update example and add some new tests
+
+## 0.9.1
+  - **FIX** Make self DateTime formating
+  - **FIX** Delete intl package
+
 ## 0.9.0
   - **BREAKING** Create common Talker constructor
   - **BREAKING** After this version Talker is not singleton class 

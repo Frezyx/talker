@@ -1,22 +1,8 @@
 import 'package:talker/talker.dart';
 
-class HttpTalkerLog extends TalkerLog {
-  HttpTalkerLog(String message) : super(message);
-
-  @override
-  AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  String generateTextMessage() {
-    return pen.write(message);
-  }
-}
-
 Future<void> main() async {
   final talker = Talker(
-    settings: TalkerSettings(
-      registeredTypes: [HttpTalkerLog],
-    ),
+    settings: TalkerSettings(),
   );
 
   try {
@@ -45,4 +31,16 @@ Future<void> main() async {
 
   final httpLog = HttpTalkerLog('Http good');
   talker.logTyped(httpLog);
+}
+
+class HttpTalkerLog extends TalkerLog {
+  HttpTalkerLog(String message) : super(message);
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(49);
+
+  @override
+  String generateTextMessage() {
+    return pen.write(message);
+  }
 }

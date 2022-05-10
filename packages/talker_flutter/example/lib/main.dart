@@ -1,25 +1,34 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:talker_example/extended_example/extended_example.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+/// You can see [ExtendedExample] to
+/// check how logs working in realtime
+///
+///
+
 void main() {
-  runApp(const MyApp());
+  runApp(const BaseEample());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class BaseEample extends StatefulWidget {
+  const BaseEample({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<BaseEample> createState() => _BaseEampleState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _BaseEampleState extends State<BaseEample> {
   late Talker _talker;
 
   @override
   void initState() {
     _talker = Talker(
-      settings: TalkerSettings(writeToFile: false),
+      loggerSettings: TalkerLoggerSettings(
+        enableColors: !Platform.isIOS,
+      ),
     );
 
     _fineLog();
@@ -42,13 +51,7 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Builder(builder: (context) {
         return Scaffold(
-          body: TalkerScreen(
-            talker: _talker,
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => _showLogMaker(context),
-            child: const Icon(Icons.bug_report),
-          ),
+          body: TalkerScreen(talker: _talker),
         );
       }),
     );
@@ -78,10 +81,6 @@ class _MyAppState extends State<MyApp> {
     _talker.info('Renew token from expire date');
   }
 
-  void _verboseLog() {
-    _talker.verbose('Cache images working slowly on this platform');
-  }
-
   void _warningLog() {
     _talker.warning('Cache images working slowly on this platform');
   }
@@ -92,72 +91,5 @@ class _MyAppState extends State<MyApp> {
 
   void _criticalLog() {
     _talker.log('Server exception', logLevel: LogLevel.critical);
-  }
-
-  void _showLogMaker(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          color: Colors.grey[850]?.withOpacity(0.9),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: [
-            BarButton(title: 'Handle Error', onTap: _handleError),
-            BarButton(title: 'Handle Exception', onTap: _handleException),
-            BarButton(title: 'Fine Log', onTap: _fineLog),
-            BarButton(title: 'Info Log', onTap: _infoLog),
-            BarButton(title: 'Waring Log', onTap: _warningLog),
-            BarButton(title: 'Varning Log', onTap: _verboseLog),
-            BarButton(title: 'Big Critical log', onTap: _criticalLog),
-            BarButton(title: 'Custom log', onTap: _customLog),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomLog extends FlutterTalkerLog {
-  CustomLog(String message) : super(message);
-
-  @override
-  AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  Color get color => Colors.teal;
-
-  @override
-  String generateTextMessage() {
-    return '| Custom leading | ' + message;
-  }
-}
-
-class BarButton extends StatelessWidget {
-  const BarButton({
-    Key? key,
-    required this.onTap,
-    required this.title,
-  }) : super(key: key);
-
-  final VoidCallback onTap;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onTap,
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-      ),
-    );
   }
 }

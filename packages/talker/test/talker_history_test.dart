@@ -1,4 +1,4 @@
-import 'package:talker/src/src.dart';
+import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -7,7 +7,6 @@ void main() {
 
     setUp(() {
       _talker = Talker();
-
       _talker.cleanHistory();
     });
 
@@ -29,23 +28,38 @@ void main() {
 
       expect(history, isEmpty);
     });
+
+    test('HostoryOverflow', () {
+      _configureTalker(useHistory: true, talker: _talker, maxHistoryItems: 4);
+      _makeLogs(_talker);
+      final history = _talker.history;
+      expect(history, isNotEmpty);
+      expect(history.length, 4);
+      expect(history.first.logLevel, LogLevel.fine);
+      expect(history.last.logLevel, LogLevel.debug);
+    });
   });
 }
 
 void _makeLogs(TalkerInterface _talker) {
-  _talker.good('Good log');
-  _talker.info('Good log');
-  _talker.fine('Good log');
-  _talker.verbose('Good log');
-  _talker.warning('Good log');
-  _talker.debug('Good log');
+  _talker.good('log');
+  _talker.info('log');
+  _talker.fine('log');
+  _talker.verbose('log');
+  _talker.warning('log');
+  _talker.debug('log');
 }
 
 void _configureTalker({
   required bool useHistory,
   required TalkerInterface talker,
+  int? maxHistoryItems,
 }) {
   talker.configure(
-    settings: TalkerSettings(useHistory: useHistory, useConsoleLogs: false),
+    settings: TalkerSettings(
+      useHistory: useHistory,
+      useConsoleLogs: false,
+      maxHistoryItems: maxHistoryItems,
+    ),
   );
 }

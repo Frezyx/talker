@@ -30,3 +30,8 @@
 .dart_tool/
 .packages
 build/
+
+.coverage
+coverage.lcov
+coverage_report
+coverage/

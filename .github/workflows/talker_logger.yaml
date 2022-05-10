@@ -20,27 +20,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: "12.x"
+          distribution: 'zulu'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
 
       - name: Install Dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Format
-        run: dart format --set-exit-if-changed .
+        run: flutter format --set-exit-if-changed .
 
       - name: Analyze
-        run: dart analyze --fatal-infos --fatal-warnings .
+        run: flutter analyze --fatal-infos --fatal-warnings .
 
-      - name: Run Tests
-        run: dart test
+      - name: Run tests
+        run: flutter test --no-pub --coverage
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1.2.1
+        with:
+          path: packages/talker_logger/coverage/lcov.info
+          min_coverage: 90
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
       # - name: Run Tests
       #   run: |
       #     pub global activate test_coverage
       #     export PATH=$PATH:$HOME/.pub-cache/bin
       #     test_coverage
       # - name: Check Code Coverage
-      #   uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+      #   uses: VeryGoodOpenSource/very_good_coverage@v1.2.1
       #   with:
       #     min_coverage: 30
       #     path: talker_logger/coverage/lcov.info

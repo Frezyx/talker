@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   final talker = Talker();
-  group('Talker_Settings', () {
+  group('TalkerSettings', () {
     setUp(() {
       talker.cleanHistory();
     });
@@ -11,13 +11,15 @@ void main() {
     test('Register errors', () async {
       final settings = TalkerSettings(
         useConsoleLogs: false,
-        registeredTypes: [HttpTalkerLog],
       );
-      talker.configure(settings: settings);
+      talker.configure(
+        settings: settings,
+        logger: TalkerLogger(),
+      );
       final httpLog = HttpTalkerLog('Http good');
       talker.logTyped(httpLog);
 
-      expect(settings.registeredTypes, contains(httpLog.runtimeType));
+      // expect(settings.registeredTypes, contains(httpLog.runtimeType));
       expect(
         talker.history.whereType<HttpTalkerLog>().isNotEmpty,
         true,

@@ -1,3 +1,12 @@
+## 0.11.0
+  - **INFO** Update talker version to 0.11.0
+
+## 0.10.0
+  - **FEAT** Create extended example and base example
+  - **FIX** Make refactor in internal UI code
+  - **FIX** Fix examples
+  - **INFO** Update group_button version
+
 ## 0.9.0
   - **FEAT** Add expand button for hiding or revealing logs
   - **FEAT** Update TalkerScreen log UI

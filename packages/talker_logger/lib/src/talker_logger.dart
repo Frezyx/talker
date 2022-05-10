@@ -5,13 +5,17 @@ class TalkerLogger implements TalkerLoggerInterface {
     this.settings = kDefaultLoggerSettings,
     TalkerLoggerFilter? filter,
     this.formater = const ColoredLoggerFormater(),
+    void Function(String message)? output,
   }) {
+    // ignore: avoid_print
+    _output = output ?? (String message) => print(message);
     _filter = filter ?? LogLevelTalkerLoggerFilter(settings.level);
     ansiColorDisabled = false;
   }
 
   final TalkerLoggerSettings settings;
   final LoggerFormater formater;
+  late final void Function(String message) _output;
   late final TalkerLoggerFilter _filter;
 
   /// {@macro talker_logger_log}
@@ -24,7 +28,7 @@ class TalkerLogger implements TalkerLoggerInterface {
         LogDetails(message: msg, level: selectedLevel, pen: selectedPen),
         settings,
       );
-      _consolePrint(formatedMsg);
+      _output(formatedMsg);
     }
   }
 
@@ -60,11 +64,6 @@ class TalkerLogger implements TalkerLoggerInterface {
   @override
   void warning(String msg) => log(msg, level: LogLevel.warning);
 
-  void _consolePrint(String msg) {
-    // ignore: avoid_print
-    print(msg);
-  }
-
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,
     LoggerFormater? formater,
@@ -74,6 +73,7 @@ class TalkerLogger implements TalkerLoggerInterface {
       settings: settings ?? this.settings,
       formater: formater ?? this.formater,
       filter: filter ?? _filter,
+      output: _output,
     );
   }
 }

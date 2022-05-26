@@ -103,10 +103,10 @@ class Talker implements TalkerInterface {
   void handle(
     Object exception, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]) {
-    final data = _errorHandler.handle(exception, stackTrace, msg);
+    final data = _errorHandler.handle(exception, stackTrace, msg?.toString());
     if (data is TalkerError) {
       _observersManager?.onError(data);
       _handleErrorData(data);
@@ -165,7 +165,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_log}
   @override
   void log(
-    String message, {
+    dynamic message, {
     LogLevel logLevel = LogLevel.debug,
     Object? exception,
     StackTrace? stackTrace,
@@ -183,7 +183,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_critical_log}
   @override
   void critical(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -193,7 +193,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_debug_log}
   @override
   void debug(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -203,7 +203,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_error_log}
   @override
   void error(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -213,7 +213,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_fine_log}
   @override
   void fine(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -223,7 +223,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_good_log}
   @override
   void good(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -233,7 +233,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_info_log}
   @override
   void info(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -243,7 +243,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_verbose_log}
   @override
   void verbose(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -253,7 +253,7 @@ class Talker implements TalkerInterface {
   /// {@macro talker_warning_log}
   @override
   void warning(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
@@ -281,7 +281,7 @@ class Talker implements TalkerInterface {
   }
 
   void _handleLog(
-    String message,
+    dynamic message,
     Object? exception,
     StackTrace? stackTrace,
     LogLevel logLevel, {
@@ -294,7 +294,7 @@ class Talker implements TalkerInterface {
       return;
     }
 
-    data = TalkerLog(message, logLevel: logLevel);
+    data = TalkerLog(message?.toString() ?? '', logLevel: logLevel);
     _handleLogData(data as TalkerLog, pen: pen);
   }
 

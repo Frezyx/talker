@@ -1,3 +1,9 @@
+## 0.11.0
+  - **FIX** Fix filter
+  - **FIX** Refactor package base
+  - **INFO** Make 100% tests coverage
+  - **INFO** Update README.md
+
 ## 0.10.0
   - **BREAKING** Remove field registeredTypes
   - **FIX** Fix history bug

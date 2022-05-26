@@ -47,6 +47,24 @@ void main() {
     expect(logger.formater is LogLevelLoggerFormater, true);
   });
 
+  test('Constructor copyWith', () {
+    var logger = TalkerLogger();
+    logger = logger.copyWith(
+      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      formater: _formatter,
+    );
+    _expectInstance(logger);
+    // ignore: unnecessary_type_check
+    expect(logger.settings is TalkerLoggerSettings, true);
+    expect(logger.settings.lineSymbol, '#');
+
+    // ignore: unnecessary_type_check
+    expect(logger.formater is LoggerFormater, true);
+    // ignore: unnecessary_type_check
+    expect(logger.formater is LogLevelLoggerFormater, true);
+  });
+
   group('TalkerLogger', () {
     group('log LogLevel', () {
       for (final level in LogLevel.values) {

@@ -66,7 +66,7 @@ abstract class TalkerInterface {
   void handle(
     Object exception, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]);
 
@@ -87,7 +87,7 @@ abstract class TalkerInterface {
   void handleError(
     Error error, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]);
 
@@ -108,7 +108,7 @@ abstract class TalkerInterface {
   void handleException(
     Exception exception, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]);
 

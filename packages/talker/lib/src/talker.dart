@@ -104,7 +104,6 @@ class Talker implements TalkerInterface {
     Object exception, [
     StackTrace? stackTrace,
     dynamic msg,
-    // ErrorLevel? errorLevel,
   ]) {
     final data = _errorHandler.handle(exception, stackTrace, msg?.toString());
     if (data is TalkerError) {
@@ -127,13 +126,12 @@ class Talker implements TalkerInterface {
   void handleError(
     Error error, [
     StackTrace? stackTrace,
-    String? msg,
-    // ErrorLevel? errorLevel,
+    dynamic msg,
   ]) {
     final data = TalkerError(
       error,
       stackTrace: stackTrace,
-      message: msg,
+      message: msg?.toString(),
       logLevel: LogLevel.error,
     );
     _handleErrorData(data);
@@ -147,13 +145,13 @@ class Talker implements TalkerInterface {
   void handleException(
     Exception exception, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]) {
     final data = TalkerException(
       exception,
       stackTrace: stackTrace,
-      message: msg,
+      message: msg?.toString(),
       logLevel: LogLevel.error,
     );
     _handleErrorData(data);

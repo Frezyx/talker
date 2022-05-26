@@ -12,7 +12,7 @@ abstract class TalkerLoggerInterface {
   /// logger.log('Log custom message', level: LogLevel.error, pen: AnsiPen()..red());
   /// ```
   /// {@endtemplate}
-  void log(String msg, {LogLevel? level, AnsiPen? pen});
+  void log(dynamic msg, {LogLevel? level, AnsiPen? pen});
 
   /// {@template talker_logger_critical_log}
   /// Log a new critical message
@@ -23,7 +23,7 @@ abstract class TalkerLoggerInterface {
   /// logger.critical('Log critical message');
   /// ```
   /// {@endtemplate}
-  void critical(String msg);
+  void critical(dynamic msg);
 
   /// {@template talker_logger_error_log}
   /// Log a new error message
@@ -34,7 +34,7 @@ abstract class TalkerLoggerInterface {
   /// logger.error('Log error message');
   /// ```
   /// {@endtemplate}
-  void error(String msg);
+  void error(dynamic msg);
 
   /// {@template talker_logger_debug_log}
   /// Log a new debug message
@@ -45,7 +45,7 @@ abstract class TalkerLoggerInterface {
   /// logger.debug('Log debug message');
   /// ```
   /// {@endtemplate}
-  void debug(String msg);
+  void debug(dynamic msg);
 
   /// {@template talker_logger_warning_log}
   /// Log a new warning message
@@ -56,7 +56,7 @@ abstract class TalkerLoggerInterface {
   /// logger.warning('Log warning message');
   /// ```
   /// {@endtemplate}
-  void warning(String msg);
+  void warning(dynamic msg);
 
   /// {@template talker_logger_verbose_log}
   /// Log a new verbose message
@@ -67,7 +67,7 @@ abstract class TalkerLoggerInterface {
   /// logger.verbose('Log verbose message');
   /// ```
   /// {@endtemplate}
-  void verbose(String msg);
+  void verbose(dynamic msg);
 
   /// {@template talker_logger_info_log}
   /// Log a new info message
@@ -78,7 +78,7 @@ abstract class TalkerLoggerInterface {
   /// logger.info('Log info message');
   /// ```
   /// {@endtemplate}
-  void info(String msg);
+  void info(dynamic msg);
 
   /// {@template talker_logger_fine_log}
   /// Log a new fine message
@@ -89,7 +89,7 @@ abstract class TalkerLoggerInterface {
   /// logger.fine('Log fine message');
   /// ```
   /// {@endtemplate}
-  void fine(String msg);
+  void fine(dynamic msg);
 
   /// {@template talker_logger_good_log}
   /// Log a new good message
@@ -100,5 +100,5 @@ abstract class TalkerLoggerInterface {
   /// logger.good('Log good message');
   /// ```
   /// {@endtemplate}
-  void good(String msg);
+  void good(dynamic msg);
 }

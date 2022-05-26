@@ -32,15 +32,13 @@ jobs:
       - name: Analyze
         run: dart analyze --fatal-infos --fatal-warnings .
 
-      - name: Run Tests
-        run: |
-          pub global activate test_coverage
-          export PATH=$PATH:$HOME/.pub-cache/bin
-          test_coverage
+      - name: Run tests
+        run: flutter test --no-pub --coverage
+
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.1
         with:
-          path: packages/talker/coverage/lcov.info
+          path: packages/talker_logger/coverage/lcov.info
           min_coverage: 90
 
       - name: Upload coverage to Codecov

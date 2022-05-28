@@ -1,6 +1,10 @@
 part of 'products_bloc.dart';
 
-@immutable
-abstract class ProductsState {}
+abstract class ProductsState extends Equatable {
+  const ProductsState();
+  
+  @override
+  List<Object> get props => [];
+}
 
 class ProductsInitial extends ProductsState {}

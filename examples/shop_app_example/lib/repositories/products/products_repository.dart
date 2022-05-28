@@ -46,8 +46,8 @@ class ProductsRepository implements AbstractProductsRepository {
   @override
   Future<List<Product>> getProductsList() async {
     _requestsCount += 1;
-
-    if (_requestsCount > 1) {
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (_requestsCount > 0) {
       return _mockProducts;
     }
     throw Exception('Products not loaded');
@@ -55,6 +55,7 @@ class ProductsRepository implements AbstractProductsRepository {
 
   @override
   Future<Product> getProduct(String id) async {
+    await Future.delayed(const Duration(milliseconds: 500));
     return _mockProducts.firstWhere((e) => e.id == id);
   }
 }

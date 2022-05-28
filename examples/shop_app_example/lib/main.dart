@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/bloc/observer.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
+import 'package:talker_shop_app_example/ui/presentation_widget.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
 
 void main() {
@@ -36,11 +38,17 @@ class MyApp extends StatelessWidget {
         TalkerRouteObserver(GetIt.instance<Talker>()),
       ],
       builder: (context, child) {
+        if (_haveBigScreen) {
+          return PresentationWidget(child: UiInitializer(child: child!));
+        }
         return UiInitializer(child: child!);
       },
     );
   }
 }
+
+final _haveBigScreen =
+    Platform.isMacOS || Platform.isWindows || Platform.isLinux || kIsWeb;
 
 void _initTalker() {
   final talker = Talker(

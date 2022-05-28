@@ -48,12 +48,18 @@ void main() {
   });
 
   test('Constructor copyWith', () {
-    var logger = TalkerLogger();
+    final messages = <String>[];
+    var logger = TalkerLogger(
+      output: (message) => messages.add(message),
+    );
     logger = logger.copyWith(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
       formater: _formatter,
     );
+    logger.critical('c');
+    logger.critical('c');
+    expect(2, messages.length);
     _expectInstance(logger);
     // ignore: unnecessary_type_check
     expect(logger.settings is TalkerLoggerSettings, true);

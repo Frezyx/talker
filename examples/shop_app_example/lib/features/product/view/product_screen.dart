@@ -188,16 +188,11 @@ class _ProductScreenState extends State<ProductScreen> {
                                       ),
                                       const SizedBox(width: 20),
                                       Expanded(
-                                        child: FloatingActionButton.extended(
-                                          backgroundColor: theme.primaryColor,
-                                          onPressed: () =>
-                                              _addProductToCart(product),
-                                          label: Row(
-                                            children: const [
-                                              Icon(Icons.shopping_basket),
-                                              SizedBox(width: 10),
-                                              Text('Add to card'),
-                                            ],
+                                        child: SizedBox(
+                                          height: 55,
+                                          child: AddToCartButton(
+                                            onPressed: () =>
+                                                _addProductToCart(product),
                                           ),
                                         ),
                                       ),
@@ -238,6 +233,44 @@ class _ProductScreenState extends State<ProductScreen> {
     _productBloc.add(
       UpdateProduct(
         product.copyWith(isFavorite: !product.isFavorite),
+      ),
+    );
+  }
+}
+
+class AddToCartButton extends StatelessWidget {
+  const AddToCartButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(theme.primaryColor),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+        ),
+      ),
+      onPressed: onPressed,
+      icon: const Padding(
+        padding: EdgeInsets.only(
+          right: 10.0,
+        ),
+        child: Icon(
+          Icons.shopping_basket,
+        ),
+      ),
+      label: Row(
+        children: const [
+          Text('Add to card'),
+        ],
       ),
     );
   }

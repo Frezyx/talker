@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 
 const _mockProducts = [

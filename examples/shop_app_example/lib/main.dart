@@ -35,6 +35,9 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [
         TalkerRouteObserver(GetIt.instance<Talker>()),
       ],
+      builder: (context, child) {
+        return UiInitializer(child: child!);
+      },
     );
   }
 }

@@ -47,9 +47,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.shopping_cart,
-              color: theme.primaryColor,
+            child: ElevatedButton.icon(
+              onPressed: () => _openTalekrScreen(context),
+              icon: const Icon(
+                Icons.document_scanner,
+              ),
+              label: const Text('Open logs'),
             ),
           ),
         ],
@@ -99,11 +102,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
           }
           return const Center(child: CircularProgressIndicator());
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: theme.primaryColor,
-        child: const Icon(Icons.document_scanner),
-        onPressed: () => _openTalekrScreen(context),
       ),
     );
   }

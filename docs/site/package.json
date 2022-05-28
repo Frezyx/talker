@@ -1,0 +1,19 @@
+{
+  "name": "talker_docs",
+  "version": "0.0.1",
+  "description": "Talker documentation site",
+  "main": "index.js",
+  "authors": {
+    "name": "Frezyx",
+    "email": "youngfrezyx@gmail.com"
+  },
+  "repository": "https://github.com/Frezyx/talker",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}

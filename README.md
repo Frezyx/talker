@@ -78,7 +78,6 @@ More examples you can get [there](https://github.com/Frezyx/talker/blob/master/p
 Configure the error handler and logger for yourself
 ```dart
 final talker = Talker();
-// Handle exceptions and errors
 talker.configure(
     /// Your own observers to handle errors's exception's and log's
     observers: [],

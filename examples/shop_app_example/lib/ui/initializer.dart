@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -24,7 +22,26 @@ class _UiInitializerState extends State<UiInitializer> {
           SnackBar(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),
-            content: Text(event.exception.toString()),
+            content: Row(
+              children: [
+                const Text('❕', style: TextStyle(fontSize: 30)),
+                const SizedBox(width: 6),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Message from Talker!',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(event.exception.toString()),
+                  ],
+                ),
+              ],
+            ),
             backgroundColor: Colors.red,
             behavior: SnackBarBehavior.floating,
           ),

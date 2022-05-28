@@ -48,12 +48,41 @@ void main() {
   });
 
   test('Constructor copyWith', () {
-    var logger = TalkerLogger();
+    final messages = <String>[];
+    var logger = TalkerLogger(
+      output: (message) => messages.add(message),
+    );
     logger = logger.copyWith(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
       formater: _formatter,
     );
+    logger.critical('c');
+    logger.critical('c');
+    expect(2, messages.length);
+    _expectInstance(logger);
+    // ignore: unnecessary_type_check
+    expect(logger.settings is TalkerLoggerSettings, true);
+    expect(logger.settings.lineSymbol, '#');
+
+    // ignore: unnecessary_type_check
+    expect(logger.formater is LoggerFormater, true);
+    // ignore: unnecessary_type_check
+    expect(logger.formater is LogLevelLoggerFormater, true);
+  });
+
+  test('Constructor copyWith empty', () {
+    final messages = <String>[];
+    var logger = TalkerLogger(
+      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      formater: _formatter,
+      output: (message) => messages.add(message),
+    );
+    logger = logger.copyWith();
+    logger.critical('c');
+    logger.critical('c');
+    expect(2, messages.length);
     _expectInstance(logger);
     // ignore: unnecessary_type_check
     expect(logger.settings is TalkerLoggerSettings, true);

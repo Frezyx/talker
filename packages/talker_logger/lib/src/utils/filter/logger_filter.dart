@@ -9,5 +9,5 @@ abstract class TalkerLoggerFilter {
   /// This method checks every message
   /// Displays a message if [true] is returned,
   /// and not display if [false]
-  bool shouldLog(String msg, LogLevel level);
+  bool shouldLog(dynamic msg, LogLevel level);
 }

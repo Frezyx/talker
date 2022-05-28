@@ -66,7 +66,7 @@ abstract class TalkerInterface {
   void handle(
     Object exception, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]);
 
@@ -87,7 +87,7 @@ abstract class TalkerInterface {
   void handleError(
     Error error, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]);
 
@@ -108,7 +108,7 @@ abstract class TalkerInterface {
   void handleException(
     Exception exception, [
     StackTrace? stackTrace,
-    String? msg,
+    dynamic msg,
     // ErrorLevel? errorLevel,
   ]);
 
@@ -136,7 +136,7 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void log(
-    String message, {
+    dynamic message, {
     LogLevel logLevel = LogLevel.debug,
     Object? exception,
     StackTrace? stackTrace,
@@ -174,7 +174,7 @@ abstract class TalkerInterface {
 
   /// {@template talker_critical_log}
   /// Log a new critical message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -183,14 +183,14 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void critical(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
   /// {@template talker_error_log}
   /// Log a new error message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -199,14 +199,14 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void error(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
   /// {@template talker_debug_log}
   /// Log a new debug message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -215,14 +215,14 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void debug(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
   /// {@template talker_warning_log}
   /// Log a new warning message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -231,14 +231,14 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void warning(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
   /// {@template talker_verbose_log}
   /// Log a new verbose message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -247,14 +247,14 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void verbose(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
   /// {@template talker_info_log}
   /// Log a new info message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -263,14 +263,14 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void info(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
   /// {@template talker_fine_log}
   /// Log a new fine message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -279,14 +279,14 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void fine(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);
 
   /// {@template talker_good_log}
   /// Log a new good message
-  /// [String] [message] - message describes what happened
+  /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
   /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
   ///
@@ -295,7 +295,7 @@ abstract class TalkerInterface {
   /// ```
   /// {@endtemplate}
   void good(
-    String msg, [
+    dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]);

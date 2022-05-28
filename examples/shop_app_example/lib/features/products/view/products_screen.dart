@@ -1,33 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:talker_shop_app_example/features/products/bloc/products/products_bloc.dart';
+import 'package:talker_shop_app_example/features/products/widgets/widgets.dart';
+import 'package:talker_shop_app_example/repositories/products/products.dart';
+import 'package:talker_shop_app_example/ui/ui.dart';
 
-class ProductsScreen extends StatelessWidget {
+class ProductsScreen extends StatefulWidget {
   const ProductsScreen({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<ProductsScreen> createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
+  final _productsBloc = ProductsBloc(
+    productsRepository: GetIt.instance<AbstractProductsRepository>(),
+  );
+
+  @override
+  void initState() {
+    _loadProducts();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: <Widget>[
-            const SliverAppBar(
-              title: Text('SHOPY'),
-              centerTitle: true,
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-            ),
-            SliverGrid(
-              delegate: SliverChildListDelegate(
-                [
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                ],
+      appBar: AppBar(
+        title: const Text(
+          'SHOPY',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: BlocBuilder<ProductsBloc, ProductsState>(
+        bloc: _productsBloc,
+        builder: (context, state) {
+          if (state is ProductsLoaded) {
+            final products = state.products;
+            return GridView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, i) => ProductCard(
+                product: products[i],
+                onTap: () => _openProductScreen(context, products, i),
               ),
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
@@ -35,89 +55,33 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
-            )
-          ],
-        ),
+            );
+          }
+          if (state is ProductsLoadingFailure) {
+            return Center(
+              child: TextButton(
+                onPressed: _loadProducts,
+                child: const Text('Try again'),
+              ),
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
-}
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            stops: [-0.3, 0.9],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFF1F3F4),
-              Color(0xFFE3E4E4),
-            ],
-          ),
-        ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Image.asset(
-                  'assets/air_max_plus.png',
-                  width: double.infinity,
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 10,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Text(
-                      'Nike air Zoom',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      'Running shoes',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      '300 \$',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+  void _openProductScreen(BuildContext context, List<Product> products, int i) {
+    Navigator.pushNamed(
+      context,
+      Routes.product,
+      arguments: {
+        'productId': products[i].id,
+      },
     );
+  }
+
+  void _loadProducts() {
+    _productsBloc.add(LoadProdcust());
   }
 }

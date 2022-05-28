@@ -5,4 +5,9 @@ abstract class ProductsEvent extends Equatable {
 
   @override
   List<Object> get props => [];
+
+  @override
+  bool? get stringify => true;
 }
+
+class LoadProdcust extends ProductsEvent {}

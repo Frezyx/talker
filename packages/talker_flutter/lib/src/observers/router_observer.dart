@@ -8,17 +8,45 @@ class TalkerRouteObserver extends NavigatorObserver {
 
   @override
   void didPush(Route route, Route? previousRoute) {
-    talker.logTyped(TalkerRouteLog(route));
     super.didPush(route, previousRoute);
+    talker.logTyped(TalkerRouteLog(route: route));
   }
 
   @override
   void didPop(Route route, Route? previousRoute) {
-    talker.logTyped(TalkerRouteLog(route));
     super.didPop(route, previousRoute);
+    talker.logTyped(TalkerRouteLog(route: route, isPush: false));
   }
 }
 
-class TalkerRouteLog extends TalkerLog {
-  TalkerRouteLog(Route route) : super(route.settings.name ?? '');
+class TalkerRouteLog extends FlutterTalkerLog {
+  TalkerRouteLog({
+    required Route route,
+    bool isPush = true,
+  }) : super(_createMessage(route, isPush));
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(166);
+
+  @override
+  Color get color => const Color(0xFFD75F00);
+
+  @override
+  String get title => 'ROUTE';
+
+  static String _createMessage(
+    Route<dynamic> route,
+    bool isPush,
+  ) {
+    final buffer = StringBuffer();
+    buffer.write(isPush ? 'Open' : 'Close');
+    buffer.write(' route named ');
+    buffer.write(route.settings.name ?? 'null');
+
+    final args = route.settings.arguments;
+    if (args != null) {
+      buffer.write('\nWith args: $args');
+    }
+    return buffer.toString();
+  }
 }

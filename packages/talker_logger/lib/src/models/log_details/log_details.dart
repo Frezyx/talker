@@ -10,7 +10,7 @@ class LogDetails {
   });
 
   /// Log message
-  final String message;
+  final dynamic message;
 
   /// Log [LogLevel]
   final LogLevel level;

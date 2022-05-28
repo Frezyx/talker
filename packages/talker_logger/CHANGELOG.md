@@ -1,3 +1,6 @@
+## 0.12.0
+- **BREAKING**: Change message field type from String to dynamic
+
 ## 0.11.1
 - **FEAT**: Move back copyWith method
 

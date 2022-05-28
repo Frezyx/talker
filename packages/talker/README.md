@@ -21,6 +21,13 @@
   <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/popularity" alt="Pub popularity"></a>
   <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/pub%20points" alt="Pub points"></a>
 </p>
+
+<p align="center">
+    <a href="https://www.figma.com/proto/uv7J8NiEVFSq1bLdPXb1aL/Talker?node-id=203%3A327&scaling=min-zoom&page-id=203%3A274&starting-point-node-id=203%3A275" align="center">
+        <img src="../../docs/assets/gifs/talker_big.gif?raw=true">
+    </a>
+</p>
+
 <h2 align="center">How it works?</h2>
 <p align="center">Here is the general scheme of the package and its main features</p>
 <p align="center">

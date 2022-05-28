@@ -25,3 +25,11 @@ class UpdateProduct extends ProductEvent {
   @override
   List<Object> get props => super.props..add(product);
 }
+
+class AddProductToCart extends ProductEvent {
+  const AddProductToCart(this.id);
+  final String id;
+
+  @override
+  List<Object> get props => super.props..add(id);
+}

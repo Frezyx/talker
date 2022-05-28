@@ -13,6 +13,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         super(ProductInitial()) {
     on<LoadProduct>(_loadProduct);
     on<UpdateProduct>(_updateProduct);
+    on<AddProductToCart>(_addToCard);
   }
 
   final AbstractProductsRepository _productsRepository;
@@ -40,6 +41,17 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     } on Exception catch (e, st) {
       GetIt.instance<Talker>().handle(e, st);
       emit(ProductLoadingFailure());
+    }
+  }
+
+  Future<void> _addToCard(
+    AddProductToCart event,
+    Emitter<ProductState> emit,
+  ) async {
+    try {
+      throw Exception('Can`t add this product in card');
+    } on Exception catch (e, st) {
+      GetIt.instance<Talker>().handle(e, st);
     }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/features/products/bloc/products/products_bloc.dart';
 import 'package:talker_shop_app_example/features/products/widgets/widgets.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
@@ -29,15 +28,31 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'SHOPY',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: theme.primaryColor,
+          ),
         ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
+        leading: Icon(
+          Icons.menu,
+          color: theme.primaryColor,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.shopping_cart,
+              color: theme.primaryColor,
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<ProductsBloc, ProductsState>(
         bloc: _productsBloc,
@@ -86,7 +101,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: theme.primaryColor,
         child: const Icon(Icons.document_scanner),
         onPressed: () => _openTalekrScreen(context),
       ),

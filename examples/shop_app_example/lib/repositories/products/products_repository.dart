@@ -40,13 +40,16 @@ const _mockProducts = [
   ),
 ];
 
-/// [final isLoaded = Random().nextBool();] - special mock logic
+/// [_requestsCount > 1] - special mock logic
 /// to check how logs working in differend ways of logic
 class ProductsRepository implements AbstractProductsRepository {
+  var _requestsCount = 0;
+
   @override
   Future<List<Product>> getProductsList() async {
-    final isLoaded = Random().nextBool();
-    if (isLoaded) {
+    _requestsCount += 1;
+
+    if (_requestsCount > 1) {
       return _mockProducts;
     }
     throw Exception('Products not loaded');

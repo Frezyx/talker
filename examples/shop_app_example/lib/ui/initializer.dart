@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -14,9 +16,11 @@ class UiInitializer extends StatefulWidget {
 }
 
 class _UiInitializerState extends State<UiInitializer> {
+  StreamSubscription<TalkerDataInterface>? _talkerListener;
+
   @override
   void initState() {
-    GetIt.instance<Talker>().stream.listen((event) {
+    _talkerListener = GetIt.instance<Talker>().stream.listen((event) {
       if (event is TalkerException) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -49,6 +53,12 @@ class _UiInitializerState extends State<UiInitializer> {
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _talkerListener?.cancel();
+    super.dispose();
   }
 
   @override

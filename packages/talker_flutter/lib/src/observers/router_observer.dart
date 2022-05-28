@@ -26,10 +26,10 @@ class TalkerRouteLog extends FlutterTalkerLog {
   }) : super(_createMessage(route, isPush));
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(166);
+  AnsiPen get pen => AnsiPen()..xterm(135);
 
   @override
-  Color get color => const Color(0xFFD75F00);
+  Color get color => const Color(0xFFAF5FFF);
 
   @override
   String get title => 'ROUTE';
@@ -45,7 +45,7 @@ class TalkerRouteLog extends FlutterTalkerLog {
 
     final args = route.settings.arguments;
     if (args != null) {
-      buffer.write('\nWith args: $args');
+      buffer.write('\nArguments: $args');
     }
     return buffer.toString();
   }

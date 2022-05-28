@@ -94,13 +94,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 
   void _openTalekrScreen(BuildContext context) {
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => TalkerScreen(
-          talker: GetIt.instance<Talker>(),
-        ),
-      ),
+      Routes.talker,
     );
   }
 

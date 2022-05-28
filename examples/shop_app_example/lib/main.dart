@@ -32,6 +32,9 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       initialRoute: Routes.productsList,
       routes: appRoutes,
+      navigatorObservers: [
+        TalkerRouteObserver(GetIt.instance<Talker>()),
+      ],
     );
   }
 }
@@ -43,10 +46,12 @@ void _initTalker() {
     ),
   );
   GetIt.instance.registerSingleton<Talker>(talker);
+  talker.verbose('Talker initialization complete');
 }
 
 void _registerRepositories() {
   GetIt.instance.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(),
   );
+  GetIt.instance<Talker>().verbose('Repositories initialization complete');
 }

@@ -201,9 +201,9 @@ packages:
   talker_flutter:
     dependency: "direct main"
     description:
-      name: talker_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../../packages/talker_flutter"
+      relative: true
+    source: path
     version: "0.12.0"
   talker_logger:
     dependency: transitive

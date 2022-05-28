@@ -10,4 +10,4 @@ abstract class ProductsEvent extends Equatable {
   bool? get stringify => true;
 }
 
-class LoadProdcust extends ProductsEvent {}
+class LoadProducts extends ProductsEvent {}

@@ -5,14 +5,14 @@ import 'package:talker_shop_app_example/repositories/products/products.dart';
 const _mockProducts = [
   Product(
     id: '1',
-    name: 'Nike air Zoom Plus |||',
+    name: 'Nike Air Plus',
     type: 'Running shoes',
     price: 299,
     image: 'assets/air_max_plus.png',
   ),
   Product(
     id: '2',
-    name: 'Nike air Zoom White',
+    name: 'Nike Air White',
     type: 'Running shoes',
     price: 299,
     image: 'assets/air_max_plus_white.png',
@@ -54,10 +54,6 @@ class ProductsRepository implements AbstractProductsRepository {
 
   @override
   Future<Product> getProduct(String id) async {
-    final isLoaded = Random().nextBool();
-    if (isLoaded) {
-      return _mockProducts.firstWhere((e) => e.id == id);
-    }
-    throw Exception('Product not loaded');
+    return _mockProducts.firstWhere((e) => e.id == id);
   }
 }

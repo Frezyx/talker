@@ -17,3 +17,11 @@ class LoadProduct extends ProductEvent {
   @override
   List<Object> get props => super.props..add(id);
 }
+
+class UpdateProduct extends ProductEvent {
+  const UpdateProduct(this.product);
+  final Product product;
+
+  @override
+  List<Object> get props => super.props..add(product);
+}

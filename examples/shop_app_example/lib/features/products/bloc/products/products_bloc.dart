@@ -11,13 +11,13 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ProductsBloc({required AbstractProductsRepository productsRepository})
       : _productsRepository = productsRepository,
         super(ProductsInitial()) {
-    on<LoadProdcust>(_loadProducts);
+    on<LoadProducts>(_loadProducts);
   }
 
   final AbstractProductsRepository _productsRepository;
 
   Future<void> _loadProducts(
-    LoadProdcust event,
+    LoadProducts event,
     Emitter<ProductsState> emit,
   ) async {
     try {

@@ -52,6 +52,7 @@ class ProductCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         product.name,
+                        overflow: TextOverflow.fade,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,

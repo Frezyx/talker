@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/bloc/observer.dart';
-import 'package:talker_shop_app_example/features/products/products.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
 

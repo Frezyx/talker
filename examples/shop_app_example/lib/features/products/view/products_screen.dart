@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/features/products/bloc/products/products_bloc.dart';
 import 'package:talker_shop_app_example/features/products/widgets/widgets.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
@@ -44,6 +45,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           if (state is ProductsLoaded) {
             final products = state.products;
             return GridView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               itemCount: products.length,
               itemBuilder: (context, i) => ProductCard(
                 product: products[i],
@@ -59,14 +61,45 @@ class _ProductsScreenState extends State<ProductsScreen> {
           }
           if (state is ProductsLoadingFailure) {
             return Center(
-              child: TextButton(
-                onPressed: _loadProducts,
-                child: const Text('Try again'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Ops! Something not working',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  ),
+                  const Text(
+                    'It is special error to check how logs working in differend ways of logic',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.center,
+                  ),
+                  TextButton(
+                    onPressed: _loadProducts,
+                    child: const Text('Try again'),
+                  ),
+                ],
               ),
             );
           }
           return const Center(child: CircularProgressIndicator());
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        child: const Icon(Icons.document_scanner),
+        onPressed: () => _openTalekrScreen(context),
+      ),
+    );
+  }
+
+  void _openTalekrScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TalkerScreen(
+          talker: GetIt.instance<Talker>(),
+        ),
       ),
     );
   }
@@ -82,6 +115,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 
   void _loadProducts() {
-    _productsBloc.add(LoadProdcust());
+    _productsBloc.add(LoadProducts());
   }
 }

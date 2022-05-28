@@ -12,6 +12,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       : _productsRepository = productsRepository,
         super(ProductInitial()) {
     on<LoadProduct>(_loadProduct);
+    on<UpdateProduct>(_updateProduct);
   }
 
   final AbstractProductsRepository _productsRepository;
@@ -22,8 +23,20 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     try {
       emit(ProductLoading());
-      final products = await _productsRepository.getProduct(event.id);
-      emit(ProductLoaded(products));
+      final product = await _productsRepository.getProduct(event.id);
+      emit(ProductLoaded(product));
+    } on Exception catch (e, st) {
+      GetIt.instance<Talker>().handle(e, st);
+      emit(ProductLoadingFailure());
+    }
+  }
+
+  Future<void> _updateProduct(
+    UpdateProduct event,
+    Emitter<ProductState> emit,
+  ) async {
+    try {
+      emit(ProductLoaded(event.product));
     } on Exception catch (e, st) {
       GetIt.instance<Talker>().handle(e, st);
       emit(ProductLoadingFailure());

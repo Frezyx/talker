@@ -41,6 +41,11 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        foregroundColor: Colors.black,
+      ),
       body: BlocBuilder<ProductBloc, ProductState>(
         bloc: _productBloc,
         builder: (context, state) {
@@ -165,10 +170,14 @@ class _ProductScreenState extends State<ProductScreen> {
                           children: [
                             FloatingActionButton(
                               backgroundColor: theme.primaryColor,
-                              child: const Icon(
+                              child: Icon(
                                 Icons.favorite,
+                                color: product.isFavorite
+                                    ? Colors.red
+                                    : Colors.white,
                               ),
-                              onPressed: () {},
+                              onPressed: () =>
+                                  _toggleProductIsFavorite(product),
                             ),
                             const SizedBox(width: 20),
                             Expanded(
@@ -203,6 +212,14 @@ class _ProductScreenState extends State<ProductScreen> {
           }
           return const Center(child: CircularProgressIndicator());
         },
+      ),
+    );
+  }
+
+  void _toggleProductIsFavorite(Product product) {
+    _productBloc.add(
+      UpdateProduct(
+        product.copyWith(isFavorite: !product.isFavorite),
       ),
     );
   }

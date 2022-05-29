@@ -1,4 +1,9 @@
-<h1 align="center">Talker</h1>
+<p align="center">
+    <a href="https://github.com/Frezyx/talker" align="center">
+        <img src="docs/assets/logo/full_logo.png?raw=true" width="400px">
+    </a>
+</p>
+<!-- <h1 align="center">Talker</h1> -->
 <h2 align="center"> Advanced exception handling and logging for dart/flutter applications 🚀</h2>
 
 <p align="center">
@@ -23,8 +28,8 @@
 </p>
 
 <p align="center">
-    <a href="https://www.figma.com/proto/uv7J8NiEVFSq1bLdPXb1aL/Talker?node-id=203%3A327&scaling=min-zoom&page-id=203%3A274&starting-point-node-id=203%3A275" align="center">
-        <img src="../../docs/assets/gifs/talker_big.gif?raw=true">
+    <a href="docs/assets/gifs/talker_big.gif?raw=true" align="center">
+        <img src="docs/assets/gifs/talker_big.gif?raw=true">
     </a>
 </p>
 

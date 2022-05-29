@@ -65,6 +65,7 @@ module.exports = {
           collapsable: false,
           children: [
             '',
+            'how-it-works',
             'get-started',
           ]
         },

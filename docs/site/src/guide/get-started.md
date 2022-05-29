@@ -20,7 +20,15 @@ like [TalkerScreen](../guide/talker-flutter.html#TalkerScreen) or [TalkerRouteOb
 **talker** package working both for dart and flutter applications
  
 ## Easy to use
-You can use Talker instance everywhere in your app<br>
+All you need for the first start is to import the dependency and create an instance of the Talker class
+```dart
+import 'package:talker/talker.dart';
+void main(){
+  final talker = Talker();
+  talker.info('I`m alive 😄');
+}
+```
+You can use Talker instance everywhere in your code<br>
 Simple and concise syntax will help you with this
 ```dart
 final talker = Talker();
@@ -28,7 +36,7 @@ final talker = Talker();
 try {
   // your code...
 } on Exception catch (e, st) {
-    talker.handle(e, st, 'Exception in ...');
+  talker.handle(e, st, 'Exception in ...');
 }
 
 // Make logs

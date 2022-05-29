@@ -1,5 +1,12 @@
 # Introduction
 
+<p align="center">
+    <a href="https://github.com/Frezyx/talker/tree/master/examples/shop_app_example" align="center">
+        <!-- TODO: change to master -->
+        <img src="https://github.com/Frezyx/talker/blob/implemet-docs-site/docs/assets/gifs/talker_big.gif?raw=true">
+    </a>
+</p>
+
 Talker is **advanced exception handler and logger for dart and Flutter applications**.<br>
 It was created for the simplest integration of the logger and error handler functionality into your application. The main idea of the project is **set up once and reuse several times**.
 

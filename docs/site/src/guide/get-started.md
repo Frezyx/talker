@@ -37,3 +37,18 @@ talker.error('App is started'),
 talker.waring('App is started'),
 ```
 More examples you can get [there](../guide/examples) or in [GitHub](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) 
+
+## Flutter initialization
+Setup Talker to listen your app uncaught exceptions in [runZonedGuarded](https://api.flutter.dev/flutter/dart-async/runZonedGuarded.html) **onError()** callback
+```dart
+void main() {
+  final talker = Talker();
+  runZonedGuarded(
+    () => runApp(BaseEample(talker: talker)),
+    (Object error, StackTrace stack) {
+      talker.handle(error, stack, 'Uncaught app exception');
+    },
+  );
+}
+```
+After such initialization, all uncaught errors and exceptions will be sent to Talker for processing

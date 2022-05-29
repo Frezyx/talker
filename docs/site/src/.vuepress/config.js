@@ -30,13 +30,6 @@ module.exports = {
       },
     ],
     ['link', { rel: "shortcut icon", href: "favicons/favicon.ico" }],
-    [
-      "link",
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap",
-      },
-    ],
   ],
 
   /**
@@ -45,7 +38,7 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    logo: 'favicons/favicon.svg',
+    logo: '/favicons/favicon.svg',
     repo: '',
     editLinks: false,
     docsDir: '',

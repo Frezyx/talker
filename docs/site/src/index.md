@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: https://v1.vuepress.vuejs.org/hero.png
-tagline: Talker documentation site
+tagline: Advancet Exception Handler and Logger for dart and Flutter
 actionText: Quick Start →
 actionLink: /guide/
 features:

@@ -123,3 +123,25 @@ class BaseTalkerObserver extends TalkerObserver {
       };
 }
 ```
+
+## TalkerLogger
+Talker using core package [talker_logger](https://pub.dev/packages/talker_logger) for console logging.<br>
+This core package provides **TalkerLoggerInterface**.<br>
+With this interface you can implement your own logger
+
+### Create your CustomLogger
+```dart
+class CutsomLogger implements TalkerLoggerInterface {}
+//or
+class CustomLogger extends TalkerLogger {}
+```
+
+### Setup logger for Talker
+
+```dart
+final talker = Talker(
+    logger: CustomLogger(),
+);
+```
+
+**[Check more](../guide/talker-logger.md) about TalkerLogger**

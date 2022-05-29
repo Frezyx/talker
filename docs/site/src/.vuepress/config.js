@@ -54,23 +54,19 @@ module.exports = {
           children: [
             '',
             'get-started',
-            'customization'
           ]
         },
         {
-          title: 'Talker',
+          title: 'Documentation',
           collapsable: false,
           children: [
-            'talker'
-          ]
-        },
-        {
-          title: 'Talker Flutter',
-          collapsable: false,
-          children: [
+            'customization',
+            'talker',
             'talker-flutter',
+            'talker-logger',
           ]
-        }, {
+        },
+        {
           title: 'Examples',
           collapsable: false,
           children: [

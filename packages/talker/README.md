@@ -68,8 +68,8 @@ try {
 
 // Log your app info
 talker.log('App is started'),
-talker.error('App is started'),
-talker.waring('App is started'),
+talker.error('App error'),
+talker.waring('App warning'),
 ///...
 ```
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/talker_interface.dart)
@@ -78,7 +78,6 @@ More examples you can get [there](https://github.com/Frezyx/talker/blob/master/p
 Configure the error handler and logger for yourself
 ```dart
 final talker = Talker();
-// Handle exceptions and errors
 talker.configure(
     /// Your own observers to handle errors's exception's and log's
     observers: [],

@@ -1,4 +1,4 @@
-# talker_flutter
+# TalkerFlutter
 
 ## TalkerScreen
 

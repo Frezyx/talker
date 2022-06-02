@@ -23,4 +23,4 @@ jobs:
         TARGET_REPO: Frezyx/talker
         TARGET_BRANCH: implement-docs-site
         BUILD_SCRIPT: npm run build
-        BUILD_DIR: docs/site/src/.vuepress/
+        BUILD_DIR: docs/site/src/.vuepress/dist/

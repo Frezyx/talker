@@ -1,0 +1,26 @@
+name: Build and Deploy Docs Site
+on:
+  push:
+    paths:
+      - "docs/site/**"
+      - ".github/workflows/deploy_docs_site.yaml.yaml"
+
+  pull_request:
+    paths:
+      - "docs/site/**"
+      - ".github/workflows/deploy_docs_site.yaml.yaml"
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: vuepress-deploy
+      uses: jenkey2011/vuepress-deploy@v1.8.1
+      env:
+        ACCESS_TOKEN: ${{ secrets.COMMIT_SECRET }}
+        TARGET_REPO: Frezyx/talker
+        TARGET_BRANCH: implement-docs-site
+        BUILD_SCRIPT: npm run build
+        BUILD_DIR: docs/site/src/.vuepress/

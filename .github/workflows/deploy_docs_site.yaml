@@ -22,7 +22,7 @@ jobs:
     - name: vuepress-deploy
       uses: jenkey2011/vuepress-deploy@v1.8.1
       env:
-        ACCESS_TOKEN: ${{ secrets.COMMIT_SECRET }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: Frezyx/talker
         TARGET_BRANCH: implement-docs-site
         BUILD_SCRIPT: npm run build

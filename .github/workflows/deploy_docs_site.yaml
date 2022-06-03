@@ -2,6 +2,9 @@ name: Build and Deploy
 on: [push]
 jobs:
   build-and-deploy:
+    defaults:
+      run:
+        working-directory: docs/site/
     runs-on: ubuntu-latest
     steps:
     - name: Checkout

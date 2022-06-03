@@ -11,9 +11,9 @@ on:
       - ".github/workflows/deploy_docs_site.yaml"
 jobs:
   build-and-deploy:
-    defaults:
-      run:
-        working-directory: docs/site/
+    # defaults:
+    #   run:
+    #     working-directory: docs/site/
     runs-on: ubuntu-latest
     steps:
     - name: Checkout

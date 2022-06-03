@@ -12,7 +12,10 @@ on:
       - ".github/workflows/deploy_docs_site.yaml"
 
 jobs:
-  docs:
+  build-docs-site:
+    defaults:
+      run:
+        working-directory: docs/site/
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

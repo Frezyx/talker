@@ -3,12 +3,12 @@ on:
   push:
     paths:
       - "docs/site/**"
-      - ".github/workflows/deploy_docs_site.yaml.yaml"
+      - ".github/workflows/deploy_docs_site.yaml"
 
   pull_request:
     paths:
       - "docs/site/**"
-      - ".github/workflows/deploy_docs_site.yaml.yaml"
+      - ".github/workflows/deploy_docs_site.yaml"
 jobs:
   build-and-deploy:
     defaults:

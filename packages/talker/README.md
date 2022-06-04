@@ -1,4 +1,9 @@
-<h1 align="center">Talker</h1>
+<p align="center">
+    <a href="https://github.com/Frezyx/talker" align="center">
+        <img src="../../docs/assets/logo/full_logo.png?raw=true" width="400px">
+    </a>
+</p>
+<!-- <h1 align="center">Talker</h1> -->
 <h2 align="center"> Advanced exception handling and logging for dart/flutter applications 🚀</h2>
 
 <p align="center">
@@ -68,8 +73,8 @@ try {
 
 // Log your app info
 talker.log('App is started'),
-talker.error('App is started'),
-talker.waring('App is started'),
+talker.error('App error'),
+talker.waring('App warning'),
 ///...
 ```
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/talker_interface.dart)
@@ -78,7 +83,6 @@ More examples you can get [there](https://github.com/Frezyx/talker/blob/master/p
 Configure the error handler and logger for yourself
 ```dart
 final talker = Talker();
-// Handle exceptions and errors
 talker.configure(
     /// Your own observers to handle errors's exception's and log's
     observers: [],

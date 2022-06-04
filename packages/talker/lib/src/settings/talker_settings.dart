@@ -12,15 +12,19 @@ class TalkerSettings {
         _maxHistoryItems = maxHistoryItems ?? 200;
   // _writeToFile = writeToFile;
 
-  /// Use history to write talker records
+  /// By default talker write all Errors / Exceptions and logs in history list
+  /// (base dart [List] field in core)
+  /// If [true] - writing in history
+  /// If [false] - not writing
   bool get useHistory => _useHistory;
   final bool _useHistory;
 
-  /// Use console logs to display talker records
+  /// By default talker print all Errors / Exceptions and logs in console.
+  /// If [true] - printing in history [false] - not printing.
   bool get useConsoleLogs => _useConsoleLogs && enabled;
   final bool _useConsoleLogs;
 
-  /// Max records count in history
+  /// Max records count in history list
   int get maxHistoryItems => _maxHistoryItems;
   final int _maxHistoryItems;
 
@@ -30,6 +34,7 @@ class TalkerSettings {
 
   /// The main rule that is responsible
   /// for the operation of the package
+  /// All log and handle error / exception methods are working when [true] and not working when [false]
   bool enabled;
 
   /// Registered types to make fltering

@@ -3,9 +3,6 @@
 ## Setup
 First of all you need to [setup talker for dart](../guide/get-started)
 
-## Methods
-Talker have logging and error/exception handling methods
-
 ## Logging
 
  - **log()**  Default log method. You can pass all custom arguments.
@@ -74,4 +71,58 @@ class HttpTalkerLog extends TalkerLog {
   //You can add here response model of your request
   final httpLog = HttpTalkerLog('Http status: 200');
   talker.logTyped(httpLog);
+```
+
+## Exceptions and Errors handling
+To catch errors, talker has 3 methods for different signatures
+
+ - **handle()** Handle everything (Errors and Exceptions)
+```dart
+try {
+  // your code...
+} catch (e, st) {
+  talker.handle(e, 'Eception in ...', st);
+}
+```
+
+ - **handleException()** Handle only Exceptions
+```dart
+try {
+  // your code...
+} on Exception catch (e, st) {
+  talker.handleException(e, 'Exception in ...', st);
+}
+```
+
+ - **handleError()** Handle only Errors
+```dart
+try {
+  // your code...
+} on Error catch (e, st) {
+  talker.handleError(e, 'Error in ...', st);
+}
+```
+
+## Stream
+Common stream to sent all processed events **TalkerDataInterface**
+occurred errors **TalkerError**'s, exceptions **TalkerException**'s
+and logs **TalkerLog**'s that have been sent
+You can connect a listener to it and catch the received errors
+
+Or you can add your observer **TalkerObserver** in the settings
+```dart
+talker.stream.listen((event) {
+    if (event is TalkerException) {}
+    if (event is TalkerError) {}
+    if (event is TalkerLog) {}
+}
+```
+
+## History
+The history stores all information about all events like
+occurred errors **TalkerError**'s, exceptions **TalkerException**'s
+and logs **TalkerLog**s that have been sent
+```dart
+/// Displays all logs text from the history
+print(talker.history.text);
 ```

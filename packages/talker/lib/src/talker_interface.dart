@@ -92,15 +92,15 @@ abstract class TalkerInterface {
   ]);
 
   /// {@template talker_handleError}
-  /// Handle only Errors
+  /// Handle only Exceptions
   /// [Exception] [exception] - excption
   /// [String?] [msg] - message describes what happened
   /// [StackTrace?] [stackTrace] - stackTrace
   /// ```dart
   /// try {
   ///   // your code...
-  /// } on Error catch (e, st) {
-  ///   talker.handleException(e, 'Error in ...', st);
+  /// } on Exception catch (e, st) {
+  ///   talker.handleException(e, 'Exception in ...', st);
   /// }
   /// ```
   /// {@macro errorLevel}

@@ -57,3 +57,21 @@ talker.info('Recive token from firebase');
 ```dart
 talker.good('✅ Big calculation is finished without exceptions!');
 ```
+
+ - **logTyped()** Custom log messaging method. You can implement your own custom log type and send it to Talker. 
+```dart
+class HttpTalkerLog extends TalkerLog {
+  HttpTalkerLog(String message) : super(message);
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(49);
+
+  @override
+  String generateTextMessage() {
+    return pen.write(message);
+  }
+
+  //You can add here response model of your request
+  final httpLog = HttpTalkerLog('Http status: 200');
+  talker.logTyped(httpLog);
+```

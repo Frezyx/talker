@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+/// Logging NavigatorObserver working on [Talker] base
+/// This observer displays which routes were opened and closed in the application
 class TalkerRouteObserver extends NavigatorObserver {
   TalkerRouteObserver(this.talker);
 

@@ -1,3 +1,6 @@
+## 1.0.0
+First stable release! 🎉
+
 ## 0.12.0
   - **INFO** Update talker version to 0.12.0
 

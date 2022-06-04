@@ -16,7 +16,7 @@ This observer displays which routes were opened and closed in the application
 MaterialApp(
       title: 'TalkerRouteObserver',
       navigatorObservers: [
-        TalkerRouteObserver(GetIt.instance<Talker>()),
+        TalkerRouteObserver(talker),
       ],
 );
 ```

@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/Frezyx/talker" align="center">
-        <img src="docs/assets/logo/full_logo.png?raw=true" width="400px">
+        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logo/full_logo.png?raw=true" width="400px">
     </a>
 </p>
 <!-- <h1 align="center">Talker</h1> -->
@@ -28,34 +28,27 @@
 </p>
 
 <p align="center">
-    <a href="docs/assets/gifs/talker_big.gif?raw=true" align="center">
-        <img src="docs/assets/gifs/talker_big.gif?raw=true">
+    <a href="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_big.gif?raw=true" align="center">
+        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_big.gif?raw=true">
     </a>
 </p>
 
-<h2 align="center">How it works?</h2>
-<p align="center">Here is the general scheme of the package and its main features</p>
-<p align="center">
-  <a href="https://www.figma.com/proto/uv7J8NiEVFSq1bLdPXb1aL/Talker?node-id=203%3A327&scaling=min-zoom&page-id=203%3A274&starting-point-node-id=203%3A275" align="center">
-    <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/scheme.gif?raw=true">
-  </a>
-<p>
-
-<h2 align="center">On All Platforms</h2>
+<!-- <h2 align="center">On All Platforms</h2>
 <p align="center">
    <span style="font-size: 0.8em">Please add Windows and Linux screenshots😘</span>
 </p>
 <p align="center">
   <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/all_platforms.jpg?raw=true">
-</p>
+</p> -->
 
 ## Get Started
-Follow these steps to use this package
+See Get Started documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or
+follow these steps to use this package
 
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^0.12.0
+  talker: ^1.0.0
 ```
 
 ### Easy to use
@@ -67,14 +60,14 @@ final talker = Talker();
 // Handle exceptions and errors
 try {
   // your code...
-} on Error catch (e, st) {
-    talker.handleError(e, st, 'Error in ...');
+} on Exception catch (e, st) {
+    talker.handle(e, st, 'Exception in ...');
 }
 
 // Log your app info
-talker.log('App is started'),
-talker.error('App error'),
-talker.waring('App warning'),
+talker.info('App is started');
+talker.critical('❌ Houston, we have a problem!');
+talker.error('🚨 The service is not available');
 ///...
 ```
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/talker_interface.dart)
@@ -87,7 +80,7 @@ talker.configure(
     /// Your own observers to handle errors's exception's and log's
     observers: [],
     settings: const TalkerSettings(
-      maxHistoryItems: 1000,
+      maxHistoryItems: 100,
       useHistory: true,
       useConsoleLogs: true,
     ),
@@ -97,24 +90,10 @@ talker.configure(
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/talker_interface.dart)
 
 ## Use Talker Flutter 
-Often you need to check what happening in the application when there is no console at hand. There is a talker_flutter package for this situations
+Often you need to check what happening in the application when there is no console at hand. There is a talker_flutter package for this situations.<br>
 
-### Add dependency
-```yaml
-dependencies:
-  talker: ^0.12.0
-  talker_flutter: ^0.12.0
-```
+[Check SetUp guide on docs site](https://frezyx.github.io/talker/guide/get-started.html#instalation)
 
-### Easy to use
-Add this code at something place of your Flutter  application where you want to display logs
-```dart
-final talker = Talker();
-TalkerScreen(talker: talker)
-```
-
-### Result
-<img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter_ios_screen.png?raw=true" width="25%">
 
 
 ## Coverage

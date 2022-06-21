@@ -11,10 +11,11 @@ class ColoredLoggerFormater implements LoggerFormater {
       settings.maxLineWidth,
       lineSymbol: settings.lineSymbol,
     );
+    final msg = details.message?.toString() ?? '';
     if (!settings.enableColors) {
-      return '${details.message}\n$underline';
+      return '$msg\n$underline';
     }
-    var lines = details.message.split('\n');
+    var lines = msg.split('\n');
     lines = lines.map((e) => details.pen.write(e)).toList();
     lines.add(details.pen.write(underline));
     final coloredMsg = lines.join('\n');

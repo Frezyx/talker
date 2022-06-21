@@ -1,3 +1,9 @@
+## 1.0.0
+First stable release! 🎉
+
+## 0.12.0
+- **BREAKING**: Change message field type from String to dynamic
+
 ## 0.11.1
 - **FEAT**: Move back copyWith method
 

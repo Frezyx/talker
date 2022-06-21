@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -10,27 +11,34 @@ import 'package:talker_flutter/talker_flutter.dart';
 ///
 
 void main() {
-  runApp(const BaseEample());
+  final talker = Talker(
+    loggerSettings: TalkerLoggerSettings(
+      enableColors: !Platform.isIOS,
+    ),
+  );
+  runZonedGuarded(
+    () => runApp(BaseEample(talker: talker)),
+    (Object error, StackTrace stack) {
+      talker.handle(error, stack, 'Uncaught app exception');
+    },
+  );
 }
 
 class BaseEample extends StatefulWidget {
-  const BaseEample({Key? key}) : super(key: key);
+  const BaseEample({
+    Key? key,
+    required this.talker,
+  }) : super(key: key);
+
+  final Talker talker;
 
   @override
   State<BaseEample> createState() => _BaseEampleState();
 }
 
 class _BaseEampleState extends State<BaseEample> {
-  late Talker _talker;
-
   @override
   void initState() {
-    _talker = Talker(
-      loggerSettings: TalkerLoggerSettings(
-        enableColors: !Platform.isIOS,
-      ),
-    );
-
     _fineLog();
     _infoLog();
     _handleError();
@@ -51,7 +59,7 @@ class _BaseEampleState extends State<BaseEample> {
       ),
       home: Builder(builder: (context) {
         return Scaffold(
-          body: TalkerScreen(talker: _talker),
+          body: TalkerScreen(talker: widget.talker),
         );
       }),
     );
@@ -61,7 +69,7 @@ class _BaseEampleState extends State<BaseEample> {
     try {
       throw ArgumentError('-6 is not positive number');
     } catch (e, st) {
-      _talker.handle(e, st, 'Something wrong in calculation');
+      widget.talker.handle(e, st, 'Something wrong in calculation');
     }
   }
 
@@ -69,27 +77,27 @@ class _BaseEampleState extends State<BaseEample> {
     try {
       throw Exception('Test service exception');
     } catch (e, st) {
-      _talker.handle(e, st, 'FakeService excetion');
+      widget.talker.handle(e, st, 'FakeService excetion');
     }
   }
 
   void _fineLog() {
-    _talker.fine('Service send good request');
+    widget.talker.fine('Service send good request');
   }
 
   void _infoLog() {
-    _talker.info('Renew token from expire date');
+    widget.talker.info('Renew token from expire date');
   }
 
   void _warningLog() {
-    _talker.warning('Cache images working slowly on this platform');
+    widget.talker.warning('Cache images working slowly on this platform');
   }
 
   void _customLog() {
-    _talker.logTyped(CustomLog('Custom log message'));
+    widget.talker.logTyped(CustomLog('Custom log message'));
   }
 
   void _criticalLog() {
-    _talker.log('Server exception', logLevel: LogLevel.critical);
+    widget.talker.log('Server exception', logLevel: LogLevel.critical);
   }
 }

@@ -1,3 +1,9 @@
+## 1.0.0
+First stable release! 🎉
+
+## 0.12.0
+  - **FEAT**: Change message field type from String to dynamic<br>for all log [error(),critical(),info(),fine(),good(),debug(),verbose(),warning()] methos and handle [handle(), handleError(), hanldeException()] methods
+
 ## 0.11.0
   - **FIX** Fix filter
   - **FIX** Refactor package base

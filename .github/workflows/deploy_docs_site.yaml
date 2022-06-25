@@ -2,11 +2,8 @@ name: docs
 
 on:
   push:
-    paths:
-      - "docs/site/**"
-      - ".github/workflows/deploy_docs_site.yaml"
-
-  pull_request:
+    branches:
+      - main
     paths:
       - "docs/site/**"
       - ".github/workflows/deploy_docs_site.yaml"

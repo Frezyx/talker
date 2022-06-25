@@ -1,3 +1,6 @@
+## 1.1.0
+  - **FEAT** Implement [TalkerListener](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerlistener) widget to handle talker data stream
+
 ## 1.0.0
 First stable release! 🎉
 

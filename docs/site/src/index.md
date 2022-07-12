@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://github.com/Frezyx/talker/blob/implemet-docs-site/docs/assets/logo/logo.png?raw=true
+heroImage: https://github.com/Frezyx/talker/blob/master/docs/assets/logo/logo.png?raw=true
 tagline: Advancet Exception Handler and Logger for dart and Flutter
 actionText: Quick Start →
 actionLink: /guide/

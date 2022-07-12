@@ -20,3 +20,24 @@ MaterialApp(
       ],
 );
 ```
+## TalkerListener
+It should be used for app functionality like
+showing **SnackBar** or **Dialog** about error or exception 
+The **listener** be called when [Talker.stream](https://frezyx.github.io/talker/guide/talker.html#stream) recive new message
+```dart
+TalkerListener(
+  talker: talker,
+  listener: (data) => _talkerListener(context, data),
+  child: Text('Your app or app screen'),
+),
+
+void _talkerListener(BuildContext context, TalkerDataInterface data) {
+  if (data is TalkerException || data is TalkerError) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(data.displayMessage),
+      ),
+    );
+  }
+}
+```

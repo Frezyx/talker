@@ -3,7 +3,7 @@
 <p align="center">
     <a href="https://github.com/Frezyx/talker/tree/master/examples/shop_app_example" align="center">
         <!-- TODO: change to master -->
-        <img src="https://github.com/Frezyx/talker/blob/implemet-docs-site/docs/assets/gifs/talker_big.gif?raw=true">
+        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_big.gif?raw=true">
     </a>
 </p>
 

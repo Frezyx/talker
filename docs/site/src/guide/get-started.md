@@ -5,13 +5,13 @@
 For [Dart](https://dart.dev/) applications you need add **talker** dependency to your **pubspec.yaml**
 ```yaml
 dependencies:
-  talker: ^0.12.0
+  talker: ^1.0.0
 ```
 
 For [Flutter](https://flutter.dev/) applications you can add **talker_flutter** or **talker** dependency to your **pubspec.yaml**
 ```yaml
 dependencies:
-  talker_flutter: ^0.12.0
+  talker_flutter: ^1.1.0
 ```
 
 **What's difference ?**<br>

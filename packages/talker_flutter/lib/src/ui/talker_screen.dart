@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
@@ -25,6 +27,8 @@ class _TalkerScreenState extends State<TalkerScreen> {
   final _typesController = GroupButtonController();
   final _titilesController = GroupButtonController();
 
+  bool _isLogOrderReversed = false;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -33,8 +37,28 @@ class _TalkerScreenState extends State<TalkerScreen> {
         return Scaffold(
           backgroundColor: widget.theme.backgroudColor,
           appBar: AppBar(
-            title: const Text('Flutter talker'),
+            title: const FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text('Flutter talker'),
+            ),
             actions: [
+              SizedBox(
+                width: 40,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: _isLogOrderReversed
+                      ? Matrix4.rotationX(pi)
+                      : Matrix4.identity(),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    iconSize: 28,
+                    onPressed: _toggleLogOrder,
+                    icon: const Icon(
+                      Icons.swap_vert,
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(
                 width: 40,
                 child: IconButton(
@@ -87,7 +111,8 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 physics: const BouncingScrollPhysics(),
                 itemCount: filtredElements.length,
                 itemBuilder: (_, i) {
-                  final data = filtredElements[i];
+                  final data = filtredElements[
+                      _isLogOrderReversed ? filtredElements.length - 1 - i : i];
                   return TalkerDataCard(
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
@@ -131,6 +156,10 @@ class _TalkerScreenState extends State<TalkerScreen> {
   void _cleanHistory() {
     widget.talker.cleanHistory();
     _controller.update();
+  }
+
+  void _toggleLogOrder() {
+    setState(() => _isLogOrderReversed = !_isLogOrderReversed);
   }
 
   void _toggleLogsExpanded() {

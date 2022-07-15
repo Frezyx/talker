@@ -54,6 +54,7 @@ void _initTalker() {
   final talker = Talker(
     loggerSettings: TalkerLoggerSettings(
       enableColors: !Platform.isIOS,
+      displayLatestFirst: true,
     ),
   );
   GetIt.instance.registerSingleton<Talker>(talker);

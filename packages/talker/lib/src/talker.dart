@@ -96,10 +96,7 @@ class Talker implements TalkerInterface {
 
   /// {@macro talker_history}
   @override
-  List<TalkerDataInterface> get history =>
-      (_logger as TalkerLogger).settings.displayLatestFirst
-          ? _history.reversed.toList()
-          : _history;
+  List<TalkerDataInterface> get history => _history;
 
   /// {@macro talker_handle}
   @override

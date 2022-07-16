@@ -10,7 +10,6 @@ class TalkerLoggerSettings {
     this.lineSymbol = '-',
     this.maxLineWidth = 110,
     this.enableColors = true,
-    this.displayLatestFirst = false,
   });
 
   /// Field to setup custom log colors
@@ -41,7 +40,4 @@ class TalkerLoggerSettings {
 
   /// Field for enable and disable colored logs
   final bool enableColors;
-
-  /// Flag for default order of logs to be latest first (at the top). Default false
-  final bool displayLatestFirst;
 }

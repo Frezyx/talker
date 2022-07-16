@@ -1,3 +1,8 @@
+## 1.2.0
+* **FEAT** Add default ordering setting for logs at TalkerScreen
+
+  Thanks for [jirehcwe](https://github.com/jirehcwe)
+
 ## 1.1.0
   - **FEAT** Implement [TalkerListener](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerlistener) widget to handle talker data stream
 

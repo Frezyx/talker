@@ -27,8 +27,6 @@ class _TalkerScreenState extends State<TalkerScreen> {
   final _typesController = GroupButtonController();
   final _titilesController = GroupButtonController();
 
-  bool _isLogOrderReversed = false;
-
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -46,13 +44,13 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 width: 40,
                 child: Transform(
                   alignment: Alignment.center,
-                  transform: _isLogOrderReversed
+                  transform: _controller.isLogOrderReversed
                       ? Matrix4.rotationX(pi)
                       : Matrix4.identity(),
                   child: IconButton(
                     padding: EdgeInsets.zero,
                     iconSize: 28,
-                    onPressed: _toggleLogOrder,
+                    onPressed: _controller.toggleLogOrder,
                     icon: const Icon(
                       Icons.swap_vert,
                     ),
@@ -111,8 +109,9 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 physics: const BouncingScrollPhysics(),
                 itemCount: filtredElements.length,
                 itemBuilder: (_, i) {
-                  final data = filtredElements[
-                      _isLogOrderReversed ? filtredElements.length - 1 - i : i];
+                  final data = filtredElements[_controller.isLogOrderReversed
+                      ? filtredElements.length - 1 - i
+                      : i];
                   return TalkerDataCard(
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
@@ -156,10 +155,6 @@ class _TalkerScreenState extends State<TalkerScreen> {
   void _cleanHistory() {
     widget.talker.cleanHistory();
     _controller.update();
-  }
-
-  void _toggleLogOrder() {
-    setState(() => _isLogOrderReversed = !_isLogOrderReversed);
   }
 
   void _toggleLogsExpanded() {

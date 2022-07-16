@@ -9,6 +9,7 @@ class TalkerScreenController extends ChangeNotifier {
   );
 
   var _expandedLogs = true;
+  bool _isLogOrderReversed = false;
 
   /// Filter for selecting specific logs and errors
   TalkerFilter get filter => _filter;
@@ -23,6 +24,14 @@ class TalkerScreenController extends ChangeNotifier {
       _expandedLogs = val;
       notifyListeners();
     }
+  }
+
+  bool get isLogOrderReversed => _isLogOrderReversed;
+
+  /// Toggle log order (earliest or latest first)
+  void toggleLogOrder() {
+    _isLogOrderReversed = !_isLogOrderReversed;
+    notifyListeners();
   }
 
   /// Method for updating a search query based on errors and logs

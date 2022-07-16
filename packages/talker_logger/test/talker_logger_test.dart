@@ -134,6 +134,19 @@ void main() {
       _logger.warning('Message');
       _expectMessageType(LogLevel.warning);
     });
+
+    test('Message length', () {
+      final logger = TalkerLogger(
+        settings: const TalkerLoggerSettings(enableColors: false),
+        output: (message) => _messages.add(message),
+      );
+      final str = '----' * 10000000;
+      logger.log(str);
+      expect(
+        _messages[0],
+        '${'----' * 10000000}\n--------------------------------------------------------------------------------------------------------------',
+      );
+    });
   });
 }
 

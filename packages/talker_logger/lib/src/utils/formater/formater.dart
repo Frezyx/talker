@@ -1,2 +1,2 @@
-export 'colored_logger_formater.dart';
-export 'logger_formater.dart';
+export 'colored_logger_formatter.dart';
+export 'logger_formatter.dart';

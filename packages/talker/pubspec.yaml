@@ -7,9 +7,9 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  talker_logger: "^1.0.0"
-    # path:
-    #   ../talker_logger
+  talker_logger: # "^1.0.0"
+    path:
+      ../talker_logger
     # git:
     #   url: https://github.com/Frezyx/talker
     #   ref: testing

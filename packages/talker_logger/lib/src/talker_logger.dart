@@ -4,7 +4,7 @@ class TalkerLogger implements TalkerLoggerInterface {
   TalkerLogger({
     this.settings = kDefaultLoggerSettings,
     TalkerLoggerFilter? filter,
-    this.formater = const ColoredLoggerFormatter(),
+    this.formater = const ExtendedLoggerFormatter(),
     void Function(String message)? output,
   }) {
     // ignore: avoid_print

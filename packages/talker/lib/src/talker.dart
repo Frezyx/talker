@@ -31,7 +31,7 @@ class Talker implements TalkerInterface {
     TalkerSettings? settings,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
-    LoggerFormatter? loggerFormater,
+    LoggerFormater? loggerFormater,
     List<TalkerObserver>? observers,
   }) {
     _settings = settings ?? TalkerSettings();
@@ -63,7 +63,7 @@ class Talker implements TalkerInterface {
     TalkerSettings? settings,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
-    LoggerFormatter? loggerFormater,
+    LoggerFormater? loggerFormater,
     List<TalkerObserver>? observers,
   }) {
     if (settings != null) {

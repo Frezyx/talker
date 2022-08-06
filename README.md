@@ -1,15 +1,21 @@
 <p align="center">
     <a href="https://github.com/Frezyx/talker" align="center">
-        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logo/full_logo.png?raw=true" width="400px">
+        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logo/full_logo.png?raw=true" width="250px">
     </a>
 </p>
 <!-- <h1 align="center">Talker</h1> -->
 <h2 align="center"> Advanced exception handling and logging for dart/flutter applications 🚀</h2>
 
 <p align="center">
-    Log your app actions, catch and handle your app exceptions and errors
+    Log your app actions, catch and handle your app exceptions and errors, show alerts
    <br>
    <span style="font-size: 0.9em"> Show some ❤️ and <a href="https://github.com/Frezyx/talker">star the repo</a> to support the project! </span>
+</p>
+
+<p align="center">
+    <a href="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_big.gif?raw=true" align="center">
+        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_big.gif?raw=true">
+    </a>
 </p>
 
 <p align="center">
@@ -25,12 +31,6 @@
   <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/likes" alt="Pub likes"></a>
   <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/popularity" alt="Pub popularity"></a>
   <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/pub%20points" alt="Pub points"></a>
-</p>
-
-<p align="center">
-    <a href="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_big.gif?raw=true" align="center">
-        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_big.gif?raw=true">
-    </a>
 </p>
 
 <!-- <h2 align="center">On All Platforms</h2>

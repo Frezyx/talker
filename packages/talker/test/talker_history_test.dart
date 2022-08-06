@@ -41,13 +41,13 @@ void main() {
   });
 }
 
-void _makeLogs(TalkerInterface _talker) {
-  _talker.good('log');
-  _talker.info('log');
-  _talker.fine('log');
-  _talker.verbose('log');
-  _talker.warning('log');
-  _talker.debug('log');
+void _makeLogs(TalkerInterface talker) {
+  talker.good('log');
+  talker.info('log');
+  talker.fine('log');
+  talker.verbose('log');
+  talker.warning('log');
+  talker.debug('log');
 }
 
 void _configureTalker({

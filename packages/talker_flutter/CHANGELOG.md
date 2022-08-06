@@ -1,3 +1,10 @@
+## 1.3.0
+talker_logger updates:
+- **FEAT**: Implement ExtendedLoggerFormatter
+- **FEAT**: Upgrade ColoredLoggerFormatter
+- **FIX**: Typo Formater -> Formatter
+
+
 ## 1.2.0
 * **FEAT** Add default ordering setting for logs at TalkerScreen
 

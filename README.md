@@ -4,7 +4,7 @@
     </a>
 </p>
 <!-- <h1 align="center">Talker</h1> -->
-<h2 align="center"> Advanced exception handling and logging for dart/flutter applications 🚀</h2>
+<h2 align="center"> Advanced exceptions and errors handler and logger for dart and flutter apps ☎️</h2>
 
 <p align="center">
     Log your app actions, catch and handle your app exceptions and errors, show alerts
@@ -20,18 +20,21 @@
 
 <p align="center">
   <a href="https://codecov.io/gh/Frezyx/talker"><img src="https://codecov.io/gh/Frezyx/talker/branch/master/graph/badge.svg" alt="codecov"></a>
-  <a href="https://pub.dev/packages/talker"><img src="https://img.shields.io/pub/v/talker.svg" alt="Pub"></a>
+  <!-- <a href="https://pub.dev/packages/talker"><img src="https://img.shields.io/pub/v/talker.svg" alt="Pub"></a> -->
   <a href="https://github.com/Frezyx/talker"><img src="https://img.shields.io/github/stars/Frezyx/talker.svg?style=flat&logo=github&label=stars" alt="Star on Github"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://github.com/Frezyx/talker/actions"><img src="https://github.com/Frezyx/talker/workflows/talker/badge.svg" alt="talker"></a>
   <a href="https://github.com/Frezyx/talker_flutter/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_flutter/badge.svg" alt="talker_flutter"></a>
   <a href="https://github.com/Frezyx/talker_logger/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_logger/badge.svg" alt="talker_logger"></a>
 </p>
-<p align="center">
-  <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/likes" alt="Pub likes"></a>
-  <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/popularity" alt="Pub popularity"></a>
-  <a href="https://pub.dev/packages/talker/score"><img src="https://badges.bar/talker/pub%20points" alt="Pub points"></a>
-</p>
+
+## Packages
+
+| Package                                                      | Version                                                       | Stats                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [talker](https://github.com/Frezyx/talker/tree/master/packages/talker) | [![Pub](https://img.shields.io/pub/v/talker.svg?style=flat-square)](https://pub.dartlang.org/packages/talker) | [![Pub](https://badges.bar/talker/likes)](https://badges.bar/talker/score) [![Pub](https://badges.bar/talker/popularity)](https://badges.bar/talker/score) [![Pub](https://badges.bar/talker/pub%20points)](https://badges.bar/talker/score)                                        |
+| [talker_flutter](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) | [![Pub](https://img.shields.io/pub/v/talker_flutter.svg?style=flat-square)](https://pub.dartlang.org/packages/talker_flutter) | [![Pub](https://badges.bar/talker_flutter/likes)](https://badges.bar/talker_flutter/score) [![Pub](https://badges.bar/talker_flutter/popularity)](https://badges.bar/talker_flutter/score) [![Pub](https://badges.bar/talker_flutter/pub%20points)](https://badges.bar/talker_flutter/score)                                        |
+| [talker_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) | [![Pub](https://img.shields.io/pub/v/talker_logger.svg?style=flat-square)](https://pub.dartlang.org/packages/talker_logger) | [![Pub](https://badges.bar/talker_logger/likes)](https://badges.bar/talker_logger/score) [![Pub](https://badges.bar/talker_logger/popularity)](https://badges.bar/talker_logger/score) [![Pub](https://badges.bar/talker_logger/pub%20points)](https://badges.bar/talker_logger/score)                                        |
 
 <!-- <h2 align="center">On All Platforms</h2>
 <p align="center">
@@ -42,8 +45,8 @@
 </p> -->
 
 ## Get Started
-See Get Started documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or
-follow these steps to use this package
+See all documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or
+follow these steps to the coolest experience in error handling
 
 ### Add dependency
 ```yaml

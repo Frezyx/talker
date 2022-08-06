@@ -30,9 +30,9 @@
 
 ## Packages
 Talker is designed for any level of customization. <br>
-Use [talker_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) if you need only a pretty logger for your Flutter/dart app.<br>
-Use [talker](https://github.com/Frezyx/talker/tree/master/packages/talker) if you need error handling and advanced methods.<br>
-Use [talker_flutter](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) to handle error in a Flutter application, display error alerts, collect statistics, [and output errors to the UI](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerscreen).
+- Use [talker_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) if you need only a pretty logger for your Flutter/dart app.<br>
+- Use [talker](https://github.com/Frezyx/talker/tree/master/packages/talker) if you need error handling and advanced methods.<br>
+- Use [talker_flutter](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) to handle error in a Flutter application, display error alerts, collect statistics [and output errors to the UI](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerscreen).
 
 | Package                                                      | Version                                                       | Stats                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |

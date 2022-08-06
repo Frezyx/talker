@@ -1,6 +1,6 @@
 name: talker
 description: Advanced error handler and logger package for flutter and dart apps
-version: 1.0.0+1
+version: 1.1.0
 homepage: https://frezyx.github.io/talker/
 
 environment:

@@ -16,7 +16,7 @@ class ExtendedLoggerFormatter implements LoggerFormatter {
       lineSymbol: settings.lineSymbol,
     );
     final msg = details.message?.toString() ?? '';
-    final msgBorderedLines = msg.split('\n').map((e) => '│$e');
+    final msgBorderedLines = msg.split('\n').map((e) => '│ $e');
     if (!settings.enableColors) {
       return '$topline\n${msgBorderedLines.join('\n')}\n$underline';
     }

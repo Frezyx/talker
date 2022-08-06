@@ -43,7 +43,7 @@ abstract class TalkerInterface {
     TalkerLogger? logger,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
-    LoggerFormater? loggerFormater,
+    LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
   });
 

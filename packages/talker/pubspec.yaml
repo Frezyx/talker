@@ -7,7 +7,7 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  talker_logger: "^1.0.0"
+  talker_logger: 1.1.0+1
     # path:
     #   ../talker_logger
     # git:

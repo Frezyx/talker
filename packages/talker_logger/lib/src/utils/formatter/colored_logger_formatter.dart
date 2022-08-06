@@ -10,7 +10,6 @@ class ColoredLoggerFormatter implements LoggerFormatter {
     final underline = ConsoleUtils.getUnderline(
       settings.maxLineWidth,
       lineSymbol: settings.lineSymbol,
-      withCorner: false,
     );
     final msg = details.message?.toString() ?? '';
     if (!settings.enableColors) {

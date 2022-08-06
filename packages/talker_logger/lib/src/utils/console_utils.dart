@@ -6,7 +6,7 @@ abstract class ConsoleUtils {
   static String getUnderline(
     int length, {
     String lineSymbol = '─',
-    bool withCorner = true,
+    bool withCorner = false,
   }) {
     final line = lineSymbol * length;
     if (withCorner) {
@@ -19,7 +19,7 @@ abstract class ConsoleUtils {
   static String getTopline(
     int length, {
     String lineSymbol = '─',
-    bool withCorner = true,
+    bool withCorner = false,
   }) {
     final line = lineSymbol * length;
     if (withCorner) {

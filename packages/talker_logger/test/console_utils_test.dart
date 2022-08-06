@@ -32,9 +32,9 @@ void _testUnderLine(String msg) {
     expect(underLine, isNotEmpty);
 
     final lastStr = underLine.split('\n').last;
-    expect(lastStr, contains('-'));
+    expect(lastStr, contains('─'));
     expect(lastStr.length, msg.length);
-    expect(lastStr, '-' * msg.length);
+    expect(lastStr, '─' * msg.length);
   });
 }
 

@@ -10,10 +10,12 @@ class ExtendedLoggerFormatter implements LoggerFormatter {
     final underline = ConsoleUtils.getUnderline(
       settings.maxLineWidth,
       lineSymbol: settings.lineSymbol,
+      withCorner: true,
     );
     final topline = ConsoleUtils.getTopline(
       settings.maxLineWidth,
       lineSymbol: settings.lineSymbol,
+      withCorner: true,
     );
     final msg = details.message?.toString() ?? '';
     final msgBorderedLines = msg.split('\n').map((e) => '│ $e');

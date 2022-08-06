@@ -139,12 +139,13 @@ void main() {
       final logger = TalkerLogger(
         settings: const TalkerLoggerSettings(enableColors: false),
         output: (message) => _messages.add(message),
+        formater: const ColoredLoggerFormatter(),
       );
-      final str = '----' * 10000000;
+      final str = '────' * 1000;
       logger.log(str);
       expect(
         _messages[0],
-        '${'----' * 10000000}\n--------------------------------------------------------------------------------------------------------------',
+        '${'────' * 1000}\n──────────────────────────────────────────────────────────────────────────────────────────────────────────────',
       );
     });
   });

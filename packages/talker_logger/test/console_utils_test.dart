@@ -21,6 +21,49 @@ void main() {
         _testCustomUnderLine(msg, '#');
       }
     });
+
+    group('addTopline', () {
+      for (final msg in cases) {
+        _testTopLine(msg);
+      }
+    });
+
+    group('addCustomTopline', () {
+      for (final msg in cases) {
+        _testCustomTopLine(msg, '#');
+      }
+    });
+  });
+}
+
+void _testTopLine(String msg) {
+  test('Msg: $msg', () {
+    final topLine = ConsoleUtils.getTopline(msg.length);
+
+    expect(topLine, isNotNull);
+    expect(topLine, isNotEmpty);
+
+    final firstLine = topLine.split('\n').first;
+    expect(firstLine, contains('─'));
+    expect(firstLine.length, msg.length);
+    expect(firstLine, '─' * msg.length);
+  });
+}
+
+void _testCustomTopLine(String msg, String lineSymbol) {
+  test('Msg: $msg', () {
+    final topLine = ConsoleUtils.getTopline(
+      msg.length,
+      lineSymbol: lineSymbol,
+    );
+
+    expect(topLine, isNotNull);
+    expect(topLine, isNotEmpty);
+
+    final firstStr = topLine.split('\n').first;
+    expect(firstStr, contains(lineSymbol));
+    expect(firstStr.length, msg.length);
+    expect(firstStr, lineSymbol * msg.length);
   });
 }
 

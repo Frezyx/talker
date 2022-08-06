@@ -48,7 +48,7 @@ follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^1.0.0
+  talker: ^1.1.0
 ```
 
 ### Easy to use

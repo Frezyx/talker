@@ -4,7 +4,7 @@ class TalkerLogger implements TalkerLoggerInterface {
   TalkerLogger({
     this.settings = kDefaultLoggerSettings,
     TalkerLoggerFilter? filter,
-    this.formater = const ColoredLoggerFormater(),
+    this.formater = const ExtendedLoggerFormatter(),
     void Function(String message)? output,
   }) {
     // ignore: avoid_print
@@ -14,7 +14,7 @@ class TalkerLogger implements TalkerLoggerInterface {
   }
 
   final TalkerLoggerSettings settings;
-  final LoggerFormater formater;
+  final LoggerFormatter formater;
   late final void Function(String message) _output;
   late final TalkerLoggerFilter _filter;
 
@@ -66,7 +66,7 @@ class TalkerLogger implements TalkerLoggerInterface {
 
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,
-    LoggerFormater? formater,
+    LoggerFormatter? formater,
     TalkerLoggerFilter? filter,
   }) {
     return TalkerLogger(

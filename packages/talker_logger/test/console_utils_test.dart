@@ -33,6 +33,18 @@ void main() {
         _testCustomTopLine(msg, '#');
       }
     });
+
+    group('addToplineWithCorner', () {
+      for (final msg in cases) {
+        _testCustomTopLine(msg, '#', withCorner: true);
+      }
+    });
+
+    group('addUnderlineWithCorner', () {
+      for (final msg in cases) {
+        _testCustomUnderLine(msg, '#', withCorner: true);
+      }
+    });
   });
 }
 
@@ -50,11 +62,16 @@ void _testTopLine(String msg) {
   });
 }
 
-void _testCustomTopLine(String msg, String lineSymbol) {
+void _testCustomTopLine(
+  String msg,
+  String lineSymbol, {
+  bool withCorner = false,
+}) {
   test('Msg: $msg', () {
     final topLine = ConsoleUtils.getTopline(
       msg.length,
       lineSymbol: lineSymbol,
+      withCorner: withCorner,
     );
 
     expect(topLine, isNotNull);
@@ -62,8 +79,11 @@ void _testCustomTopLine(String msg, String lineSymbol) {
 
     final firstStr = topLine.split('\n').first;
     expect(firstStr, contains(lineSymbol));
-    expect(firstStr.length, msg.length);
-    expect(firstStr, lineSymbol * msg.length);
+    expect(firstStr.length, withCorner ? msg.length + 1 : msg.length);
+    expect(
+      firstStr,
+      withCorner ? '┌${lineSymbol * msg.length}' : lineSymbol * msg.length,
+    );
   });
 }
 
@@ -81,11 +101,16 @@ void _testUnderLine(String msg) {
   });
 }
 
-void _testCustomUnderLine(String msg, String lineSymbol) {
+void _testCustomUnderLine(
+  String msg,
+  String lineSymbol, {
+  bool withCorner = false,
+}) {
   test('Msg: $msg', () {
     final underLine = ConsoleUtils.getUnderline(
       msg.length,
       lineSymbol: lineSymbol,
+      withCorner: withCorner,
     );
 
     expect(underLine, isNotNull);
@@ -93,7 +118,10 @@ void _testCustomUnderLine(String msg, String lineSymbol) {
 
     final lastStr = underLine.split('\n').last;
     expect(lastStr, contains(lineSymbol));
-    expect(lastStr.length, msg.length);
-    expect(lastStr, lineSymbol * msg.length);
+    expect(lastStr.length, withCorner ? msg.length + 1 : msg.length);
+    expect(
+      lastStr,
+      withCorner ? '└${lineSymbol * msg.length}' : lineSymbol * msg.length,
+    );
   });
 }

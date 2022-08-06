@@ -1,3 +1,9 @@
+## 1.1.0
+talker_logger updates:
+- **FEAT**: Implement ExtendedLoggerFormatter
+- **FEAT**: Upgrade ColoredLoggerFormatter
+- **FIX**: Typo Formater -> Formatter
+
 ## 1.0.0
 First stable release! 🎉
 

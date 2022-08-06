@@ -3,36 +3,36 @@ import 'package:test/test.dart';
 
 void main() {
   group('Talker_History', () {
-    late TalkerInterface _talker;
+    late TalkerInterface talker;
 
     setUp(() {
-      _talker = Talker();
-      _talker.cleanHistory();
+      talker = Talker();
+      talker.cleanHistory();
     });
 
     test('ON', () {
-      _configureTalker(useHistory: true, talker: _talker);
-      _makeLogs(_talker);
+      _configureTalker(useHistory: true, talker: talker);
+      _makeLogs(talker);
 
-      final history = _talker.history;
+      final history = talker.history;
 
       expect(history, isNotEmpty);
       expect(history.length, equals(6));
     });
 
     test('OFF', () {
-      _configureTalker(useHistory: false, talker: _talker);
-      _makeLogs(_talker);
+      _configureTalker(useHistory: false, talker: talker);
+      _makeLogs(talker);
 
-      final history = _talker.history;
+      final history = talker.history;
 
       expect(history, isEmpty);
     });
 
     test('HostoryOverflow', () {
-      _configureTalker(useHistory: true, talker: _talker, maxHistoryItems: 4);
-      _makeLogs(_talker);
-      final history = _talker.history;
+      _configureTalker(useHistory: true, talker: talker, maxHistoryItems: 4);
+      _makeLogs(talker);
+      final history = talker.history;
       expect(history, isNotEmpty);
       expect(history.length, 4);
       expect(history.first.logLevel, LogLevel.fine);
@@ -41,13 +41,13 @@ void main() {
   });
 }
 
-void _makeLogs(TalkerInterface _talker) {
-  _talker.good('log');
-  _talker.info('log');
-  _talker.fine('log');
-  _talker.verbose('log');
-  _talker.warning('log');
-  _talker.debug('log');
+void _makeLogs(TalkerInterface talker) {
+  talker.good('log');
+  talker.info('log');
+  talker.fine('log');
+  talker.verbose('log');
+  talker.warning('log');
+  talker.debug('log');
 }
 
 void _configureTalker({

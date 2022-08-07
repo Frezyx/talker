@@ -1,3 +1,7 @@
+## 1.4.0
+- **FEAT**: Implement TalkerWrapper widget (to showing snackbars)
+- **FEAT**: Implement base error messages showing in UI (for user)
+
 ## 1.3.0
 talker_logger updates:
 - **FEAT**: Implement ExtendedLoggerFormatter

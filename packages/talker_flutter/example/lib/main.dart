@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:talker_example/custom_error_messages_example/custom_error_messages_example.dart';
 import 'package:talker_example/extended_example/extended_example.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -17,7 +18,9 @@ void main() {
     ),
   );
   runZonedGuarded(
-    () => runApp(BaseEample(talker: talker)),
+    () => runApp(
+      CustomErrorMessagesExample(talker: talker),
+    ),
     (Object error, StackTrace stack) {
       talker.handle(error, stack, 'Uncaught app exception');
     },

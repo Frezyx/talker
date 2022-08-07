@@ -13,6 +13,7 @@ typedef TalkerExceptionBuilder = Widget Function(
 class TalkerWrapperOptions {
   const TalkerWrapperOptions({
     this.exceptionTitle = 'Error occurred',
+    this.errorTitle = 'Error occurred',
     this.exceptionAlertBuilder,
     this.errorAlertBuilder,
     this.enableErrorAlerts = false,
@@ -20,6 +21,7 @@ class TalkerWrapperOptions {
   });
 
   final String exceptionTitle;
+  final String errorTitle;
   final TalkerExceptionBuilder? exceptionAlertBuilder;
   final TalkerErrorBuilder? errorAlertBuilder;
   final bool enableErrorAlerts;

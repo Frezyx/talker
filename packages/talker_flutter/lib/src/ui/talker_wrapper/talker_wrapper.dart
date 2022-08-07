@@ -58,7 +58,7 @@ class TalkerWrapper extends StatelessWidget {
         content: options.errorAlertBuilder?.call(context, data) ??
             _SnackbarContent(
               message: data.error.toString(),
-              title: options.exceptionTitle,
+              title: options.errorTitle,
             ),
       ),
     );

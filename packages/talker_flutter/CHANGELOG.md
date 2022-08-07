@@ -1,3 +1,6 @@
+## 1.4.1
+- **INFO**: Add documentation for TalkerWrapper
+
 ## 1.4.0
 - **FEAT**: Implement TalkerWrapper widget (to showing snackbars)
 - **FEAT**: Implement base error messages showing in UI (for user)

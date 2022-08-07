@@ -21,8 +21,12 @@ class TalkerWrapper extends StatelessWidget {
       child: child,
       talker: talker,
       listener: (data) {
-        if (data is TalkerException) {
+        if (data is TalkerException && options.enableExceptionAlerts) {
           _showExceptionAlert(context, data);
+          return;
+        }
+        if (data is TalkerError && options.enableErrorAlerts) {
+          _showErrorAlert(context, data);
         }
       },
     );
@@ -35,10 +39,27 @@ class TalkerWrapper extends StatelessWidget {
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        content: _SnackbarContent(
-          data: data,
-          title: options.exceptionTitle,
-        ),
+        content: options.exceptionAlertBuilder?.call(context, data) ??
+            _SnackbarContent(
+              message: data.exception.toString(),
+              title: options.exceptionTitle,
+            ),
+      ),
+    );
+  }
+
+  void _showErrorAlert(BuildContext context, TalkerError data) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        margin: EdgeInsets.zero,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        content: options.errorAlertBuilder?.call(context, data) ??
+            _SnackbarContent(
+              message: data.error.toString(),
+              title: options.exceptionTitle,
+            ),
       ),
     );
   }
@@ -47,14 +68,14 @@ class TalkerWrapper extends StatelessWidget {
 class _SnackbarContent extends StatelessWidget {
   const _SnackbarContent({
     Key? key,
-    required this.data,
+    required this.message,
     required this.title,
     this.color,
   }) : super(key: key);
 
-  final TalkerException data;
   final Color? color;
   final String title;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +106,7 @@ class _SnackbarContent extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  data.exception.toString(),
+                  message,
                   style: const TextStyle(color: Colors.white),
                 ),
               ],

@@ -70,10 +70,8 @@ class _SnackbarContent extends StatelessWidget {
     Key? key,
     required this.message,
     required this.title,
-    this.color,
   }) : super(key: key);
 
-  final Color? color;
   final String title;
   final String message;
 
@@ -82,10 +80,11 @@ class _SnackbarContent extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: color ?? Colors.red,
+        color: Colors.red,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 4),

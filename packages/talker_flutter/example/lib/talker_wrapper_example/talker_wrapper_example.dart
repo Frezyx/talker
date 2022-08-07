@@ -31,13 +31,11 @@ class _Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TalkerListener(
+      body: TalkerWrapper(
         talker: talker,
-        listener: (data) {
-          if (data is TalkerException) {
-            _showExceptionAlert(context, data);
-          }
-        },
+        options: const TalkerWrapperOptions(
+          enableErrorAlerts: true,
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,21 +44,14 @@ class _Home extends StatelessWidget {
                 onPressed: _handleException,
                 child: const Text('Handle exception'),
               ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: _handleError,
+                child: const Text('Handle error'),
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  void _showExceptionAlert(BuildContext context, TalkerException data) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        margin: EdgeInsets.zero,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        content: ExceptionSnackbar(data: data),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:talker_logger/talker_logger.dart';
 import 'package:test/test.dart';
 
-class LogLevelLoggerFormater implements LoggerFormater {
+class LogLevelLoggerFormater implements LoggerFormatter {
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {
     return details.level.title;
@@ -42,7 +42,7 @@ void main() {
     expect(logger.settings.lineSymbol, '#');
 
     // ignore: unnecessary_type_check
-    expect(logger.formater is LoggerFormater, true);
+    expect(logger.formater is LoggerFormatter, true);
     // ignore: unnecessary_type_check
     expect(logger.formater is LogLevelLoggerFormater, true);
   });
@@ -66,7 +66,7 @@ void main() {
     expect(logger.settings.lineSymbol, '#');
 
     // ignore: unnecessary_type_check
-    expect(logger.formater is LoggerFormater, true);
+    expect(logger.formater is LoggerFormatter, true);
     // ignore: unnecessary_type_check
     expect(logger.formater is LogLevelLoggerFormater, true);
   });
@@ -89,7 +89,7 @@ void main() {
     expect(logger.settings.lineSymbol, '#');
 
     // ignore: unnecessary_type_check
-    expect(logger.formater is LoggerFormater, true);
+    expect(logger.formater is LoggerFormatter, true);
     // ignore: unnecessary_type_check
     expect(logger.formater is LogLevelLoggerFormater, true);
   });
@@ -133,6 +133,20 @@ void main() {
     test('warning', () {
       _logger.warning('Message');
       _expectMessageType(LogLevel.warning);
+    });
+
+    test('Message length', () {
+      final logger = TalkerLogger(
+        settings: const TalkerLoggerSettings(enableColors: false),
+        output: (message) => _messages.add(message),
+        formater: const ColoredLoggerFormatter(),
+      );
+      final str = '────' * 1000;
+      logger.log(str);
+      expect(
+        _messages[0],
+        '${'────' * 1000}\n──────────────────────────────────────────────────────────────────────────────────────────────────────────────',
+      );
     });
   });
 }

@@ -7,7 +7,7 @@ class TalkerLoggerSettings {
   const TalkerLoggerSettings({
     this.colors = const {},
     this.level = LogLevel.good,
-    this.lineSymbol = '-',
+    this.lineSymbol = '─',
     this.maxLineWidth = 110,
     this.enableColors = true,
   });

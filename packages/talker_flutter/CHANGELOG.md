@@ -1,3 +1,8 @@
+## 1.4.2
+- **INFO**: Add TalkerScreen appBarTitle field
+
+  Thanks for [Khaoz-Topsy](https://github.com/Khaoz-Topsy)
+
 ## 1.4.1
 - **INFO**: Add documentation for TalkerWrapper
 

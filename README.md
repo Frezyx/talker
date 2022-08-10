@@ -101,10 +101,21 @@ Often you need to check what happening in the application when there is no conso
 
 [Check SetUp guide on docs site](https://frezyx.github.io/talker/guide/get-started.html#instalation)
 
-
-
 ## Coverage
 [![](https://codecov.io/gh/Frezyx/talker/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Frezyx/talker/branch/master)
+
+## Additional information
+The project is under development and ready for your pull-requests and issues 👍<br>
+Thank you for support ❤️
+
+<br>
+<div align="center" >
+  <p>Thanks to all contributors of this package</p>
+  <a href="https://github.com/Frezyx/talker/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=Frezyx/talker" />
+  </a>
+</div>
+<br>
 
 For help getting started with 😍 Flutter, view
 [online documentation](https://flutter.dev/docs), which offers tutorials, 

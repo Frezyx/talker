@@ -4,8 +4,8 @@ version: 1.4.1
 homepage: https://frezyx.github.io/talker/
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: '>=2.15.0 <3.0.0'
+  flutter: '>=1.17.0'
 
 dependencies:
   flutter:

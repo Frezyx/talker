@@ -12,11 +12,13 @@ class TalkerScreen extends StatefulWidget {
   const TalkerScreen({
     Key? key,
     required this.talker,
+    this.appBarTitle = 'Flutter talker',
     this.theme = const TalkerScreenTheme(),
   }) : super(key: key);
 
   final TalkerInterface talker;
   final TalkerScreenTheme theme;
+  final String appBarTitle;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();
@@ -37,7 +39,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
           appBar: AppBar(
             title: const FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text('Flutter talker'),
+              child: Text(widget.appBarTitle),
             ),
             actions: [
               SizedBox(

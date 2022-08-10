@@ -37,7 +37,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
         return Scaffold(
           backgroundColor: widget.theme.backgroudColor,
           appBar: AppBar(
-            title: const FittedBox(
+            title: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(widget.appBarTitle),
             ),

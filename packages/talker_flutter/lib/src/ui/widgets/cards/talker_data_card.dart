@@ -29,6 +29,7 @@ class TalkerDataCard extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border.all(color: _color),
+              borderRadius: BorderRadius.circular(5),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,3 +1,7 @@
+## 1.1.1
+- **INFO**: Implement custom Formatter usage example
+- **FIX**: README $ images & docs
+
 ## 1.1.0
 - **FEAT**: Implement ExtendedLoggerFormatter
 - **FEAT**: Upgrade ColoredLoggerFormatter

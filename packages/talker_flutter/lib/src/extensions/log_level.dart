@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Extension to map [LogLevel] into Flutter [Color]
-extension ToColor on LogLevel? {
+extension LogLevelExtensions on LogLevel? {
   Color get color {
     switch (this) {
       case LogLevel.critical:

@@ -5,6 +5,8 @@ import 'package:talker_logger/talker_logger.dart';
 void main() {
   // Create instance
   final logger = TalkerLogger(
+    //Enable for custom colored logs with Formatter
+    // formater: ColoredLoggerFormatter(),
     settings: const TalkerLoggerSettings(
       level: LogLevel.info,
     ),
@@ -13,7 +15,7 @@ void main() {
   // Log messages
   logger.debug('debug');
   logger.info('info');
-  logger.critical('critical');
+  logger.warning('warning');
   logger.error('error');
   logger.fine('fine');
   logger.good('good');
@@ -47,4 +49,14 @@ void main() {
     },
   );
   logger.log(prettyData, pen: AnsiPen()..xterm(46));
+}
+
+class ColoredLoggerFormatter implements LoggerFormatter {
+  @override
+  String fmt(LogDetails details, TalkerLoggerSettings settings) {
+    final msg = details.message?.toString() ?? '';
+    final coloredMsg =
+        msg.split('\n').map((e) => details.pen.write(e)).toList().join('\n');
+    return coloredMsg;
+  }
 }

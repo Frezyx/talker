@@ -50,7 +50,7 @@ logger.log('custom pen log', pen: AnsiPen()..xterm(49));
 ```
 
 **Result** <br>
-<img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/extended_logs_example.png?raw=true">
+<img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logger/extended_logs_example.png?raw=true">
 
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/example/talker_logger_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/lib/src/talker_logger_interface.dart)
 
@@ -76,6 +76,37 @@ This logger has simple settings that can change output
 <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logger/only_critical_example.png?raw=true">
 
 ### 2. Formating
+
+Create your own LoggerFormatter implementation
+For example - ColoredLoggerFormatter that makes messages only with colors
+```dart
+class ColoredLoggerFormatter implements LoggerFormatter {
+  @override
+  String fmt(LogDetails details, TalkerLoggerSettings settings) {
+    final msg = details.message?.toString() ?? '';
+    final coloredMsg =
+        msg.split('\n').map((e) => details.pen.write(e)).toList().join('\n');
+    return coloredMsg;
+  }
+}
+```
+
+And add formatter for TalkerLogger constructor
+```dart
+  final logger = TalkerLogger(
+    formatter: ColoredLoggerFormatter(),
+  );
+
+  logger.debug('debug');
+  logger.info('info');
+  logger.warning('warning');
+  logger.error('error');
+```
+
+**Result** <br>
+<img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logger/example_custom_impl_formatter.png?raw=true">
+
+Or you can make simple customization with default formatters
 ```dart
   final logger = TalkerLogger(
     settings: TalkerLoggerSettings(

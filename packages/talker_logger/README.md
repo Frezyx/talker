@@ -27,7 +27,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_logger: ^1.1.0
+  talker_logger: ^1.1.1
 ```
 
 ### Easy to use
@@ -45,12 +45,12 @@ logger.fine('fine');
 logger.good('good');
 logger.warning('warning');
 logger.verbose('verbose');
-logger.log('info', level: LogLevel.info);
+logger.log('log with level info', level: LogLevel.info);
 logger.log('custom pen log', pen: AnsiPen()..xterm(49));
 ```
 
 **Result** <br>
-<img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logger/base_example.png?raw=true">
+<img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/extended_logs_example.png?raw=true">
 
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/example/talker_logger_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/lib/src/talker_logger_interface.dart)
 

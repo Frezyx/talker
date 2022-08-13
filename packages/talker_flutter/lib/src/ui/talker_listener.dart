@@ -34,8 +34,14 @@ class TalkerListener extends StatefulWidget {
     required this.listener,
   }) : super(key: key);
 
+  /// An [Talker] implementation
   final Talker talker;
+
+  /// All application or screen of your application,
+  /// where you need to listen [Talker] events
   final Widget child;
+
+  /// Responsible for notify about [Talker] events.
   final Function(TalkerDataInterface data) listener;
 
   @override

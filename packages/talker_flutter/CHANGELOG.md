@@ -1,3 +1,27 @@
+## 1.4.2
+- **INFO**: Add TalkerScreen appBarTitle field
+
+  Thanks for [Khaoz-Topsy](https://github.com/Khaoz-Topsy)
+
+## 1.4.1
+- **INFO**: Add documentation for TalkerWrapper
+
+## 1.4.0
+- **FEAT**: Implement TalkerWrapper widget (to showing snackbars)
+- **FEAT**: Implement base error messages showing in UI (for user)
+
+## 1.3.0
+talker_logger updates:
+- **FEAT**: Implement ExtendedLoggerFormatter
+- **FEAT**: Upgrade ColoredLoggerFormatter
+- **FIX**: Typo Formater -> Formatter
+
+
+## 1.2.0
+* **FEAT** Add default ordering setting for logs at TalkerScreen
+
+  Thanks for [jirehcwe](https://github.com/jirehcwe)
+
 ## 1.1.0
   - **FEAT** Implement [TalkerListener](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerlistener) widget to handle talker data stream
 

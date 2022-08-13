@@ -1,7 +1,7 @@
 import 'package:talker_logger/talker_logger.dart';
 import 'package:test/test.dart';
 
-@TestOn('dart-vm')
+// @TestOn('dart─vm')
 void main() {
   final colorCases = {
     LogLevel.critical: AnsiPen()..red(),

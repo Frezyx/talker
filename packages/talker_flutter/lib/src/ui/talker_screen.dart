@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
@@ -10,11 +12,13 @@ class TalkerScreen extends StatefulWidget {
   const TalkerScreen({
     Key? key,
     required this.talker,
+    this.appBarTitle = 'Flutter talker',
     this.theme = const TalkerScreenTheme(),
   }) : super(key: key);
 
   final TalkerInterface talker;
   final TalkerScreenTheme theme;
+  final String appBarTitle;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();
@@ -33,8 +37,28 @@ class _TalkerScreenState extends State<TalkerScreen> {
         return Scaffold(
           backgroundColor: widget.theme.backgroudColor,
           appBar: AppBar(
-            title: const Text('Flutter talker'),
+            title: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(widget.appBarTitle),
+            ),
             actions: [
+              SizedBox(
+                width: 40,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: _controller.isLogOrderReversed
+                      ? Matrix4.rotationX(pi)
+                      : Matrix4.identity(),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    iconSize: 28,
+                    onPressed: _controller.toggleLogOrder,
+                    icon: const Icon(
+                      Icons.swap_vert,
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(
                 width: 40,
                 child: IconButton(
@@ -86,10 +110,12 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 physics: const BouncingScrollPhysics(),
                 itemCount: filtredElements.length,
                 itemBuilder: (_, i) {
-                  final itemData = filtredElements[i];
+                  final data = filtredElements[_controller.isLogOrderReversed
+                      ? filtredElements.length - 1 - i
+                      : i];
                   return TalkerDataCard(
-                    data: itemData,
-                    onTap: () => _copyTalkerDataItemText(itemData),
+                    data: data,
+                    onTap: () => _copyTalkerDataItemText(data),
                     options: widget.theme,
                     expanded: _controller.expandedLogs,
                   );

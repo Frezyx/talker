@@ -1,7 +1,8 @@
 import 'package:talker_logger/talker_logger.dart';
 import 'package:test/test.dart';
 
-const _formater = ColoredLoggerFormater();
+const _coloredFormatter = ColoredLoggerFormatter();
+const _extendedFormatter = ExtendedLoggerFormatter();
 
 void main() {
   final cases = [
@@ -13,24 +14,54 @@ void main() {
 
   final colorCases = ['Message test'];
 
-  group('BaseTalkerLoggerFormater', () {
+  group('ColoredLoggerFormatter', () {
     group('fmt', () {
       for (final msg in cases) {
-        _testFmt(msg);
+        _testFmt(msg, _coloredFormatter);
       }
     });
 
     group('fmt without colors', () {
       for (final msg in colorCases) {
-        _testWithoutColors(msg);
+        _testWithoutColors(msg, _coloredFormatter);
+      }
+    });
+  });
+
+  group('ExtendedLoggerFormatter', () {
+    group('fmt', () {
+      for (final msg in cases) {
+        _testFmt(
+          msg,
+          _extendedFormatter,
+          startMessageIndex: 1,
+          additionalLineSign: '| ',
+        );
+      }
+    });
+
+    group('fmt without colors', () {
+      for (final msg in colorCases) {
+        _testWithoutColors(
+          msg,
+          _extendedFormatter,
+          startMessageIndex: 1,
+          additionalLineSign: '| ',
+        );
       }
     });
   });
 }
 
-void _testWithoutColors(String msg) {
+void _testWithoutColors(
+  String msg,
+  LoggerFormatter formatter, {
+  int startMessageIndex = 0,
+  int endMessageIndex = 1,
+  String additionalLineSign = '',
+}) {
   test('Msg: $msg', () {
-    final fmtMsg = _formater.fmt(
+    final fmtMsg = formatter.fmt(
       LogDetails(
         message: msg,
         level: LogLevel.debug,
@@ -43,15 +74,24 @@ void _testWithoutColors(String msg) {
     expect(fmtMsg, isNotEmpty);
 
     final parts = fmtMsg.split('\n');
-    final msgWithoutUnderline = parts.getRange(0, parts.length - 1).join('\n');
+    final msgWithoutUnderline = parts
+        .getRange(startMessageIndex, parts.length - endMessageIndex)
+        .map((e) => e.replaceRange(0, additionalLineSign.length, ''))
+        .join('\n');
 
     expect(msgWithoutUnderline, msg);
   });
 }
 
-void _testFmt(String msg) {
+void _testFmt(
+  String msg,
+  LoggerFormatter formatter, {
+  int startMessageIndex = 0,
+  int endMessageIndex = 1,
+  String additionalLineSign = '',
+}) {
   test('Msg: $msg', () {
-    final fmtMsg = _formater.fmt(
+    final fmtMsg = formatter.fmt(
       LogDetails(
         message: msg,
         level: LogLevel.debug,
@@ -64,8 +104,11 @@ void _testFmt(String msg) {
     expect(fmtMsg, isNotEmpty);
 
     final parts = fmtMsg.split('\n');
-    final msgWithoutUnderline = parts.getRange(0, parts.length - 1).join('\n');
-
-    expect(msgWithoutUnderline, msg);
+    final msgWithoutLines =
+        parts.getRange(startMessageIndex, parts.length - endMessageIndex);
+    final cleanTxt = msgWithoutLines
+        .map((e) => e.replaceRange(0, additionalLineSign.length, ''))
+        .join('\n');
+    expect(cleanTxt, msg);
   });
 }

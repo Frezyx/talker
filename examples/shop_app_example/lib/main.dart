@@ -39,9 +39,17 @@ class MyApp extends StatelessWidget {
       ],
       builder: (context, child) {
         if (_haveBigScreen) {
-          return PresentationWidget(child: UiInitializer(child: child!));
+          return PresentationWidget(
+            child: TalkerWrapper(
+              talker: GetIt.instance<Talker>(),
+              child: child!,
+            ),
+          );
         }
-        return UiInitializer(child: child!);
+        return TalkerWrapper(
+          talker: GetIt.instance<Talker>(),
+          child: child!,
+        );
       },
     );
   }

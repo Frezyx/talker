@@ -1,13 +1,13 @@
 name: talker
 description: Advanced error handler and logger package for flutter and dart apps
-version: 1.0.0+1
+version: 1.1.0
 homepage: https://frezyx.github.io/talker/
 
 environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  talker_logger: "^1.0.0"
+  talker_logger: 1.1.0+1
     # path:
     #   ../talker_logger
     # git:

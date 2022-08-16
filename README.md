@@ -55,7 +55,7 @@ follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^1.1.0
+  talker: ^1.1.1
 ```
 
 ### Easy to use

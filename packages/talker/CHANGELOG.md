@@ -1,3 +1,6 @@
+## 1.1.1
+- **FEAT**: Update talker_logger to 1.1.1 version
+
 ## 1.1.0
 talker_logger updates:
 - **FEAT**: Implement ExtendedLoggerFormatter

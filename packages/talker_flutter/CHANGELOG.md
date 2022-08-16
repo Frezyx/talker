@@ -1,3 +1,8 @@
+## 1.5.0
+- **FEAT**: Implement TalkerHistoryBuilder widget to create your own custom designed logs UI screen
+- **FEAT**: Implement TalkerBuilder widget to create your own custom designed screen with last log message showing
+- **INFO**: Update talker to 1.1.1 version
+
 ## 1.4.2
 - **INFO**: Add TalkerScreen appBarTitle field
 

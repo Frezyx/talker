@@ -101,12 +101,11 @@ class _TalkerScreenState extends State<TalkerScreen> {
               ),
             ],
           ),
-          body: StreamBuilder(
-            stream: widget.talker.stream,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              final filtredElements = widget.talker.history
-                  .where((e) => _controller.filter.filter(e))
-                  .toList();
+          body: TalkerHistoryBuilder(
+            talker: widget.talker,
+            builder: (context, data) {
+              final filtredElements =
+                  data.where((e) => _controller.filter.filter(e)).toList();
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: filtredElements.length,

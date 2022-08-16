@@ -4,7 +4,7 @@
     </a>
 </p>
 <!-- <h1 align="center">Talker</h1> -->
-<h2 align="center"> Advanced exceptions and errors handler and logger for dart and flutter apps ☎️</h2>
+<h2 align="center"> Advanced error handler and logger for dart and flutter apps ☎️</h2>
 
 <p align="center">
     Log your app actions, catch and handle your app exceptions and errors, show alerts

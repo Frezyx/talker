@@ -91,7 +91,7 @@ talker.info('App is started');
 talker.critical('❌ Houston, we have a problem!');
 talker.error('🚨 The service is not available');
 ```
-More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
+More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
 ## Customization
 Configure the error handler and logger for yourself
@@ -116,7 +116,7 @@ final talker = Talker(
   );
 ```
 
-More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
+More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
 ## Talker Flutter 
 Often you need to check what happening in the application when there is no console at hand. <br>
@@ -126,6 +126,35 @@ There is a [talker_flutter](https://pub.dev/packages/talker_flutter) package for
 | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_screen.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_screen.gif?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.jpg?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" width="250px"></a></p> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 <!-- [Check SetUp guide on docs site](https://frezyx.github.io/talker/guide/get-started.html#instalation) -->
+
+## Get Started with talker_flutter
+Follow these steps to implement talker_flutter in your application
+
+### Add dependency
+```yaml
+dependencies:
+  talker_flutter: ^1.5.0
+```
+
+### Easy to use
+You can use TalkerScreen everywhere in your app
+At Screen, BottomSheet, ModalDialog, etc...
+
+```dart
+final talker = Talker();
+Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => TalkerScreen(talker: talker),
+  )
+);
+```
+
+### TalkerWrapper
+
+| <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpg?raw=true"></a></p> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+See full application example with BLoC and navigation [here](https://github.com/Frezyx/talker/blob/master/examples/shop_app_example)
 
 ## Coverage
 Error handling is a very important task

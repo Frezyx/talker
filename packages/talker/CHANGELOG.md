@@ -1,3 +1,7 @@
+## 1.2.0
+- **INFO**: Huge README update 
+- **INFO**: Update talker_logger to 1.2.0 version
+
 ## 1.1.1
 - **FEAT**: Update talker_logger to 1.1.1 version
 

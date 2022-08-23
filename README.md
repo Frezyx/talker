@@ -7,7 +7,7 @@
 <h2 align="center"> Advanced error handler and logger for dart and flutter apps ☎️</h2>
 
 <p align="center">
-    Log your app actions, catch and handle exceptions and errors, show alerts and share logs report
+    Log your app actions, catch and handle exceptions and errors, show alerts and share log reports
    <br>
    <span style="font-size: 0.9em"> Show some ❤️ and <a href="https://github.com/Frezyx/talker">star the repo</a> to support the project! </span>
 </p>
@@ -27,6 +27,14 @@
   <a href="https://github.com/Frezyx/talker_flutter/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_flutter/badge.svg" alt="talker_flutter"></a>
   <a href="https://github.com/Frezyx/talker_logger/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_logger/badge.svg" alt="talker_logger"></a>
 </p>
+
+## Motivation
+🚀 &nbsp;The main goal of the project provide ability to understand where the error occurs in a short time <br>
+✅ &nbsp;Can work with different state managments <br>
+✅ &nbsp;Can work with any crash reporting tool (Firebase Crashlytics, Sentry, Your own, etc) <br>
+✅ &nbsp;Flutter app logs UI output at screen <br>
+✅ &nbsp;Integrated logs and excetions history <br>
+✅ &nbsp;Showing UI exeption alerts
 
 ## Packages
 Talker is designed for any level of customization. <br>
@@ -56,8 +64,8 @@ Talker is designed for any level of customization. <br>
 </p> -->
 
 ## Get Started
-See all documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or
-follow these steps to the coolest experience in error handling
+<!-- See all documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or -->
+Follow these steps to the coolest experience in error handling
 
 ### Add dependency
 ```yaml
@@ -75,40 +83,49 @@ final talker = Talker();
 try {
   // your code...
 } on Exception catch (e, st) {
-    talker.handle(e, st, 'Exception in ...');
+    talker.handle(e, st, 'Exception with');
 }
 
 // Log your app info
 talker.info('App is started');
 talker.critical('❌ Houston, we have a problem!');
 talker.error('🚨 The service is not available');
-///...
 ```
-More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/talker_interface.dart)
+More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
-### Customization
+## Customization
 Configure the error handler and logger for yourself
 ```dart
-final talker = Talker();
-talker.configure(
+final talker = Talker(
     /// Your own observers to handle errors's exception's and log's
+    /// like Crashlytics or Sentry observer
     observers: [],
     settings: const TalkerSettings(
-      maxHistoryItems: 100,
+      /// You can enable/disable all talker processes with this field
+      enabled: true,
+      /// You can enable/disable saving logs data in history
       useHistory: true,
+      /// Length of history that saving logs data
+      maxHistoryItems: 100,
+      /// You can enable/disable console logs
       useConsoleLogs: true,
     ),
+    /// Setup your implementation of logger
+    logger: TalkerLogger(),
+    ///etc...
   );
 ```
 
-More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/talker_interface.dart)
+More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
-## Use Talker Flutter 
+## Talker Flutter 
 Often you need to check what happening in the application when there is no console at hand. There is a talker_flutter package for this situations.<br>
 
-[Check SetUp guide on docs site](https://frezyx.github.io/talker/guide/get-started.html#instalation)
+<!-- [Check SetUp guide on docs site](https://frezyx.github.io/talker/guide/get-started.html#instalation) -->
 
 ## Coverage
+Error handling is a very important task
+
 [![](https://codecov.io/gh/Frezyx/talker/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Frezyx/talker/branch/master)
 
 ## Additional information

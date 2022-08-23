@@ -1,7 +1,7 @@
 name: talker_logger
 description: Logger core package for talker (advanced error handler and logger package)
 version: 1.1.1
-homepage: https://frezyx.github.io/talker/
+homepage: https://github.com/Frezyx/talker
 
 environment:
   sdk: '>=2.15.0 <3.0.0'

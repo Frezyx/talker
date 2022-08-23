@@ -133,7 +133,7 @@ Follow these steps to implement talker_flutter in your application
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^1.5.0
+  talker_flutter: ^1.5.1
 ```
 
 ### Easy to use

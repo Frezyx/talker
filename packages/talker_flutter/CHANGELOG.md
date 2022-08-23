@@ -1,3 +1,7 @@
+## 1.5.1
+- **INFO**: Huge README update 
+- **INFO**: Update talker to 1.2.0 version
+
 ## 1.5.0
 - **FEAT**: Implement TalkerHistoryBuilder widget to create your own custom designed logs UI screen
 - **FEAT**: Implement TalkerBuilder widget to create your own custom designed screen with last log message showing

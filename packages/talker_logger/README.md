@@ -27,7 +27,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_logger: ^1.1.1
+  talker_logger: ^1.2.0
 ```
 
 ### Easy to use
@@ -135,5 +135,5 @@ Or you can make simple customization with default formatters
 [![](https://codecov.io/gh/Frezyx/talker/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Frezyx/talker/branch/master)
 
 
-More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/example/talker_logger_example.dart) or in [docs](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/lib/src/talker_logger_interface.dart)
+More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker_logger/example/talker_logger_example.dart)
 

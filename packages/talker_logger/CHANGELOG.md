@@ -1,3 +1,7 @@
+## 1.2.0
+- **FIX**: Temp change homepage
+- **INFO**: Update README.md
+
 ## 1.1.1
 - **INFO**: Implement custom Formatter usage example
 - **FIX**: README $ images & docs

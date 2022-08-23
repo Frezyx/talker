@@ -148,16 +148,33 @@ Navigator.of(context).push(
   )
 );
 ```
-
+TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
 ### TalkerWrapper
-
-| <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpg?raw=true"></a></p> |
+In addition to the above, <br>
+talker_flutter is able to show default and custom error messages and another status messages
+| <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" width="350px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true"></a></p> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+```dart
+TalkerWrapper(
+  talker: talker,
+  options: const TalkerWrapperOptions(
+    enableErrorAlerts: true,
+  ),
+  child: /// Application or the screen where you need to show messages
+),
+```
+
+TalkerWrapper [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/talker_wrapper_example/talker_wrapper_example.dart)
 
 See full application example with BLoC and navigation [here](https://github.com/Frezyx/talker/blob/master/examples/shop_app_example)
 
+The talker_flutter package have a lot of another widgets like TalkerBuilder, TalkerListener, etc. You can find all of them in code documentation.
+
 ## Coverage
-Error handling is a very important task
+Error handling is a very important task <br>
+You need to choose carefully if you want to use a package for exceptions handling solution <br>
+Therefore, the project is 100% covered by tests
 
 [![](https://codecov.io/gh/Frezyx/talker/branch/master/graphs/sunburst.svg)](https://codecov.io/gh/Frezyx/talker/branch/master)
 

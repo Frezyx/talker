@@ -70,7 +70,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^1.1.1
+  talker: ^1.2.0
 ```
 
 ### Easy to use

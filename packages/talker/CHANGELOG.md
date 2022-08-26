@@ -1,3 +1,7 @@
+## 1.2.0
+- **FEAT**: Add output to Talker constructor
+- **FEAT**: Update talker_logger to 1.2.1 version
+
 ## 1.1.1
 - **FEAT**: Update talker_logger to 1.1.1 version
 

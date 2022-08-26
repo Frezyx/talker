@@ -123,7 +123,7 @@ Often you need to check what happening in the application when there is no conso
 There is a [talker_flutter](https://pub.dev/packages/talker_flutter) package for this situations.<br>
 
 
-| <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_screen.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_screen.gif?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.jpg?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" width="250px"></a></p> |
+| <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_screen.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_screen.gif?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen.jpg?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" width="250px"></a></p> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 <!-- [Check SetUp guide on docs site](https://frezyx.github.io/talker/guide/get-started.html#instalation) -->
 
@@ -133,7 +133,7 @@ Follow these steps to implement talker_flutter in your application
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^1.5.0
+  talker_flutter: ^1.5.1
 ```
 
 ### Easy to use
@@ -152,7 +152,7 @@ TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packag
 ### TalkerWrapper
 In addition to the above, <br>
 talker_flutter is able to show default and custom error messages and another status messages
-| <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" width="350px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true"></a></p> |
+| <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" width="350px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true" width="1130px"></a></p> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 ```dart

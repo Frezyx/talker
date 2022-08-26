@@ -1,3 +1,8 @@
+## 1.2.1
+- **FEAT**: add output field to copyWith method 
+
+  Thanks for [probka00](https://github.com/probka00)
+
 ## 1.2.0
 - **FIX**: Temp change homepage
 - **INFO**: Update README.md

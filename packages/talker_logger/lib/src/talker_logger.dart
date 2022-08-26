@@ -68,12 +68,13 @@ class TalkerLogger implements TalkerLoggerInterface {
     TalkerLoggerSettings? settings,
     LoggerFormatter? formater,
     TalkerLoggerFilter? filter,
+    Function(String message)? output,
   }) {
     return TalkerLogger(
       settings: settings ?? this.settings,
       formater: formater ?? this.formater,
       filter: filter ?? _filter,
-      output: _output,
+      output: output ?? _output,
     );
   }
 }

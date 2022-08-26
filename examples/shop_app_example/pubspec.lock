@@ -197,7 +197,7 @@ packages:
       name: talker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   talker_flutter:
     dependency: "direct main"
     description:
@@ -211,7 +211,7 @@ packages:
       name: talker_logger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   term_glyph:
     dependency: transitive
     description:

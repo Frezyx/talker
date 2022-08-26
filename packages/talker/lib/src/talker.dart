@@ -33,6 +33,7 @@ class Talker implements TalkerInterface {
     TalkerLoggerFilter? loggerFilter,
     LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
+    Function(String message)? loggerOutput,
   }) {
     _settings = settings ?? TalkerSettings();
     _logger = logger ??
@@ -40,6 +41,7 @@ class Talker implements TalkerInterface {
           settings: loggerSettings,
           filter: loggerFilter,
           formater: loggerFormater,
+          output: loggerOutput,
         );
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);

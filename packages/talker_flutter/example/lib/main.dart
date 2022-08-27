@@ -14,6 +14,7 @@ import 'talker_wrapper_example/talker_wrapper_example.dart';
 
 void main() {
   final talker = Talker(
+    loggerOutput: debugPrint,
     loggerSettings: TalkerLoggerSettings(
       enableColors: !Platform.isIOS,
     ),

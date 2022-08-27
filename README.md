@@ -70,7 +70,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^1.2.0
+  talker: ^1.3.0
 ```
 
 ### Easy to use
@@ -133,7 +133,18 @@ Follow these steps to implement talker_flutter in your application
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^1.5.1
+  talker_flutter: ^1.6.0
+```
+
+### ❗️ Attention ❗️
+Latest Flutter stable release have print method bug [issues/110236](https://github.com/flutter/flutter/issues/110236)
+But with Talker you can solve it with passing your own output/print method
+
+If you want to see full logs in console - pass debugPrint as ouput callback method in Talker constructor
+```dart
+final talker = Talker(
+  loggerOutput: debugPrint,
+);
 ```
 
 ### Easy to use
@@ -141,7 +152,10 @@ You can use TalkerScreen everywhere in your app
 At Screen, BottomSheet, ModalDialog, etc...
 
 ```dart
-final talker = Talker();
+final talker = Talker(
+  loggerOutput: debugPrint,
+);
+
 Navigator.of(context).push(
   MaterialPageRoute(
     builder: (context) => TalkerScreen(talker: talker),
@@ -149,6 +163,7 @@ Navigator.of(context).push(
 );
 ```
 TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
+
 ### TalkerWrapper
 In addition to the above, <br>
 talker_flutter is able to show default and custom error messages and another status messages
@@ -156,6 +171,10 @@ talker_flutter is able to show default and custom error messages and another sta
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 ```dart
+final talker = Talker(
+  loggerOutput: debugPrint,
+);
+
 TalkerWrapper(
   talker: talker,
   options: const TalkerWrapperOptions(

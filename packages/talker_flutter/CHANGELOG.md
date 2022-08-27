@@ -1,3 +1,10 @@
+## 1.6.0
+- **FIX**: Logs cutting by flutter via print method. 
+Now Talker constructor have output filed to provide callback.
+For flutter applications, you need to pass debugPrint as output method
+See more in talker_flutter initialization on project README.md
+- **INFO**: Update talker to 1.3.0 version
+
 ## 1.5.1
 - **INFO**: Huge README update 
 - **INFO**: Update talker to 1.2.0 version

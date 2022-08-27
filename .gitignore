@@ -35,3 +35,4 @@ build/
 coverage.lcov
 coverage_report
 coverage/
+docs/site_old/

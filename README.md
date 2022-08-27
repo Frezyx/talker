@@ -137,7 +137,7 @@ dependencies:
 ```
 
 ### ❗️ Attention ❗️
-Latest Flutter stable release have print method bug [issues/110236](https://github.com/flutter/flutter/issues/110236)
+Latest Flutter stable release have print method bug [issues/110236](https://github.com/flutter/flutter/issues/110236) <br>
 But with Talker you can solve it with passing your own output/print method
 
 If you want to see full logs in console - pass debugPrint as ouput callback method in Talker constructor

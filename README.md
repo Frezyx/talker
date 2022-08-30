@@ -31,11 +31,11 @@
 
 ## Motivation
 🚀 &nbsp;The main goal of the project provide ability to understand where the error occurs in a short time <br>
-✅ &nbsp;Can work with different state managements
-✅ &nbsp;Can work with any crash reporting tool (Firebase Crashlytics, Sentry, Your own, etc)
-✅ &nbsp;Flutter app logs UI output at screen
-✅ &nbsp;Integrated logs and exceptions history
-✅ &nbsp;Showing UI exception alerts
+✅ &nbsp;Can work with different state managements <br>
+✅ &nbsp;Can work with any crash reporting tool (Firebase Crashlytics, Sentry, Your own, etc) <br>
+✅ &nbsp;Flutter app logs UI output at screen <br>
+✅ &nbsp;Integrated logs and exceptions history <br>
+✅ &nbsp;Showing UI exception alerts 
 
 ## Packages
 Talker is designed for any level of customization. <br>

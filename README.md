@@ -26,15 +26,16 @@
   <a href="https://github.com/Frezyx/talker/actions"><img src="https://github.com/Frezyx/talker/workflows/talker/badge.svg" alt="talker"></a>
   <a href="https://github.com/Frezyx/talker_flutter/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_flutter/badge.svg" alt="talker_flutter"></a>
   <a href="https://github.com/Frezyx/talker_logger/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_logger/badge.svg" alt="talker_logger"></a>
+  <a href="https://github.com/Frezyx/talker"><img src="https://hits.dwyl.com/Frezyx/talker.svg?style=flat" alt="Repository views"></a>
 </p>
 
 ## Motivation
 🚀 &nbsp;The main goal of the project provide ability to understand where the error occurs in a short time <br>
-✅ &nbsp;Can work with different state managments <br>
-✅ &nbsp;Can work with any crash reporting tool (Firebase Crashlytics, Sentry, Your own, etc) <br>
-✅ &nbsp;Flutter app logs UI output at screen <br>
-✅ &nbsp;Integrated logs and excetions history <br>
-✅ &nbsp;Showing UI exeption alerts
+✅ &nbsp;Can work with different state managements
+✅ &nbsp;Can work with any crash reporting tool (Firebase Crashlytics, Sentry, Your own, etc)
+✅ &nbsp;Flutter app logs UI output at screen
+✅ &nbsp;Integrated logs and exceptions history
+✅ &nbsp;Showing UI exception alerts
 
 ## Packages
 Talker is designed for any level of customization. <br>

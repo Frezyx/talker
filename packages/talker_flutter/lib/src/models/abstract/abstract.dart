@@ -1,1 +1,1 @@
-export 'have_flutter_color_interface.dart';
+export 'talker_flutter_adapter_interface.dart';

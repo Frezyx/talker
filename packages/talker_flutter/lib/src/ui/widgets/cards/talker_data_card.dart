@@ -152,8 +152,9 @@ class TalkerDataCard extends StatelessWidget {
   }
 
   Color get _color {
-    if (data is HaveFlutterColorInterface) {
-      return (data as HaveFlutterColorInterface).color ?? data.logLevel.color;
+    if (data is TalkerFlutterAdapterInterface) {
+      return (data as TalkerFlutterAdapterInterface).color ??
+          data.logLevel.color;
     }
     return data.logLevel.color;
   }

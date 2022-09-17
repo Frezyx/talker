@@ -2,6 +2,10 @@
 - **INFO**: HaveFlutterColorInterface -> TalkerFlutterAdapterInterface
 - **FEAT**: Implement generateFlutterTextMessage method for **FlutterTalkerDataInterface**, **FlutterTalkerLog**, **FlutterTalkerError**, **FlutterTalkerException** classes
 
+Now you can extend your flutter app logs.
+- **generateFlutterTextMessage** used in TalkerScreen (UI list of logs)
+- **generateTextMessage** used in console logs and history
+
 ## 1.6.0
 - **FIX**: Logs cutting by flutter via print method. 
 Now Talker constructor have output filed to provide callback.

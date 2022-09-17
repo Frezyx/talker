@@ -1,3 +1,7 @@
+## 1.7.0
+- **INFO**: HaveFlutterColorInterface -> TalkerFlutterAdapterInterface
+- **FEAT**: Implement generateFlutterTextMessage method for **FlutterTalkerDataInterface**, **FlutterTalkerLog**, **FlutterTalkerError**, **FlutterTalkerException** classes
+
 ## 1.6.0
 - **FIX**: Logs cutting by flutter via print method. 
 Now Talker constructor have output filed to provide callback.

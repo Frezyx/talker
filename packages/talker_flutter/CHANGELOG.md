@@ -1,3 +1,6 @@
+## 1.7.1
+- **FIX**: FlutterTalkerException, FlutterTalkerError, FlutterTalkerLog now implements FlutterTalkerDataInterface
+
 ## 1.7.0
 - **INFO**: HaveFlutterColorInterface -> TalkerFlutterAdapterInterface
 - **FEAT**: Implement generateFlutterTextMessage method for **FlutterTalkerDataInterface**, **FlutterTalkerLog**, **FlutterTalkerError**, **FlutterTalkerException** classes

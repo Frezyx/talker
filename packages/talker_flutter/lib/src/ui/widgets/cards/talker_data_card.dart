@@ -134,7 +134,14 @@ class TalkerDataCard extends StatelessWidget {
   // ignore: todo
   //TODO: refactor
   String get _message {
-    final message = data.generateTextMessage();
+    var message = '';
+    final d = data;
+    if (d is FlutterTalkerDataInterface) {
+      message = d.generateFlutterTextMessage();
+    } else {
+      message = d.generateTextMessage();
+    }
+
     final title = data.displayTitle;
     final time = data.displayTime;
 

@@ -128,10 +128,26 @@ class _TalkerScreenState extends State<TalkerScreen> {
               title: 'Filter',
               icon: Icons.filter_alt_outlined,
             ),
+            BottomSheetAction(
+              onTap: _saveLogsInFile,
+              title: 'Download logs file',
+              icon: Icons.filter_alt_outlined,
+            ),
           ],
           talkerScreenTheme: widget.theme,
         );
       },
+    );
+  }
+
+  Future<void> _saveLogsInFile() async {
+    final path = await _controller.saveLogsInFile(
+      widget.talker.history.text,
+    );
+    Clipboard.setData(ClipboardData(text: path));
+    _showSnackBar(
+      context,
+      'Logs saved in file: $path\nPath copied in clipboard',
     );
   }
 
@@ -141,7 +157,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
         text: data.generateTextMessage(),
       ),
     );
-    _showSnackBar(context, 'Log item is copied for console');
+    _showSnackBar(context, 'Log item is copied in clipboard');
   }
 
   Future<void> _showFilter(BuildContext context) async {

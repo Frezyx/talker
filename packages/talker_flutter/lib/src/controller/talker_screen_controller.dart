@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -62,6 +65,15 @@ class TalkerScreenController extends ChangeNotifier {
   void removeFilterTitle(String title) {
     _filter = _filter.copyWith(titles: _filter.titles..remove(title));
     notifyListeners();
+  }
+
+  Future<String> saveLogsInFile(String logs) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final dirPath = dir.path;
+    final file = await File(dirPath + '/' + 'talker_logs_${DateTime.now()}.txt')
+        .create(recursive: true);
+    await file.writeAsString(logs);
+    return file.path;
   }
 
   /// Redefinition [notifyListeners]

@@ -17,9 +17,17 @@ class TalkerScreen extends StatefulWidget {
     this.itemsBuilder,
   }) : super(key: key);
 
+  /// Talker implementation
   final TalkerInterface talker;
+
+  /// Theme for customize [TalkerScreen]
   final TalkerScreenTheme theme;
+
+  /// Screen [AppBar] title
   final String appBarTitle;
+
+  /// Optional Builder to customize
+  /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
   @override

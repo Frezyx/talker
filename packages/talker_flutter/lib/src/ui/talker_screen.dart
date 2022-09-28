@@ -57,110 +57,10 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   iconSize: 28,
-                  onPressed: () async {
-                    await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (context) {
-                        return ActionsBottomSheet(
-                          actions: [
-                            BottomSheetAction(
-                              onTap: _controller.toggleLogOrder,
-                              title: 'Reverse logs',
-                              icon: Icons.swap_vert,
-                            ),
-                            BottomSheetAction(
-                              onTap: _toggleLogsExpanded,
-                              title: 'Cut logs',
-                              icon: _controller.expandedLogs
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                            ),
-                            BottomSheetAction(
-                              onTap: _cleanHistory,
-                              title: 'Clean history',
-                              icon: Icons.delete_outline,
-                            ),
-                            BottomSheetAction(
-                              onTap: () => _copyAllLogs(context),
-                              title: 'Copy all logs',
-                              icon: Icons.copy,
-                            ),
-                            BottomSheetAction(
-                              onTap: () => _showFilter(context),
-                              title: 'Filter',
-                              icon: Icons.filter_alt_outlined,
-                            ),
-                          ],
-                          talkerScreenTheme: widget.theme,
-                        );
-                      },
-                    );
-                  },
+                  onPressed: () => _showActionsBottomSheet(context),
                   icon: const Icon(Icons.more_vert_rounded),
                 ),
               ),
-
-              // SizedBox(
-              //   width: 40,
-              //   child: Transform(
-              //     alignment: Alignment.center,
-              //     transform: _controller.isLogOrderReversed
-              //         ? Matrix4.rotationX(pi)
-              //         : Matrix4.identity(),
-              //     child: IconButton(
-              //       padding: EdgeInsets.zero,
-              //       iconSize: 28,
-              //       onPressed: _controller.toggleLogOrder,
-              //       icon: const Icon(
-              //         Icons.swap_vert,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   width: 40,
-              //   child: IconButton(
-              //     padding: EdgeInsets.zero,
-              //     iconSize: 28,
-              //     onPressed: _toggleLogsExpanded,
-              //     icon: Icon(
-              //       _controller.expandedLogs
-              //           ? Icons.visibility_outlined
-              //           : Icons.visibility_off_outlined,
-              //     ),
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   width: 40,
-              //   child: IconButton(
-              //     padding: EdgeInsets.zero,
-              //     iconSize: 28,
-              //     onPressed: _cleanHistory,
-              //     icon: const Icon(Icons.delete_outline),
-              //   ),
-              // ),
-              // SizedBox(
-              //   width: 40,
-              //   child: IconButton(
-              //     padding: EdgeInsets.zero,
-              //     iconSize: 24,
-              //     onPressed: () => _copyAllLogs(context),
-              //     icon: const Icon(Icons.copy),
-              //   ),
-              // ),
-              // SizedBox(
-              //   width: 40,
-              //   child: IconButton(
-              //     padding: EdgeInsets.zero,
-              //     iconSize: 28,
-              //     onPressed: () => _showFilter(context),
-              //     icon: const Icon(Icons.filter_alt_outlined),
-              //   ),
-              // ),
             ],
           ),
           body: TalkerHistoryBuilder(
@@ -188,6 +88,48 @@ class _TalkerScreenState extends State<TalkerScreen> {
               );
             },
           ),
+        );
+      },
+    );
+  }
+
+  Future<void> _showActionsBottomSheet(BuildContext context) async {
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return ActionsBottomSheet(
+          actions: [
+            BottomSheetAction(
+              onTap: _controller.toggleLogOrder,
+              title: 'Reverse logs',
+              icon: Icons.swap_vert,
+            ),
+            BottomSheetAction(
+              onTap: _toggleLogsExpanded,
+              title: 'Cut logs',
+              icon: _controller.expandedLogs
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
+            ),
+            BottomSheetAction(
+              onTap: _cleanHistory,
+              title: 'Clean history',
+              icon: Icons.delete_outline,
+            ),
+            BottomSheetAction(
+              onTap: () => _copyAllLogs(context),
+              title: 'Copy all logs',
+              icon: Icons.copy,
+            ),
+            BottomSheetAction(
+              onTap: () => _showFilter(context),
+              title: 'Filter',
+              icon: Icons.filter_alt_outlined,
+            ),
+          ],
+          talkerScreenTheme: widget.theme,
         );
       },
     );

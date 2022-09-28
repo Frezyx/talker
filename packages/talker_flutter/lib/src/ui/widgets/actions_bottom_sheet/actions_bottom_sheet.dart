@@ -24,26 +24,47 @@ class ActionsBottomSheet extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           ...actions
-              .map((e) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        onTap: e.onTap,
-                        title: Text(
-                          e.title,
-                          style: TextStyle(
-                            color: talkerScreenTheme.textColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        leading:
-                            Icon(e.icon, color: talkerScreenTheme.iconsColor),
-                      ),
-                    ],
-                  ))
+              .map(
+                (e) => _ActionTile(
+                  talkerScreenTheme: talkerScreenTheme,
+                  action: e,
+                ),
+              )
               .toList(),
         ],
+      ),
+    );
+  }
+}
+
+class _ActionTile extends StatelessWidget {
+  const _ActionTile({
+    Key? key,
+    required this.action,
+    required this.talkerScreenTheme,
+  }) : super(key: key);
+
+  final BottomSheetAction action;
+  final TalkerScreenTheme talkerScreenTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        Navigator.pop(context);
+        action.onTap();
+      },
+      title: Text(
+        action.title,
+        style: TextStyle(
+          color: talkerScreenTheme.textColor,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      leading: Icon(
+        action.icon,
+        color: talkerScreenTheme.iconsColor,
       ),
     );
   }

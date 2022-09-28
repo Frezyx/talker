@@ -107,8 +107,13 @@ class _TalkerScreenState extends State<TalkerScreen> {
               icon: Icons.swap_vert,
             ),
             BottomSheetAction(
+              onTap: () => _copyAllLogs(context),
+              title: 'Copy all logs',
+              icon: Icons.copy,
+            ),
+            BottomSheetAction(
               onTap: _toggleLogsExpanded,
-              title: 'Cut logs',
+              title: _controller.expandedLogs ? 'Collapse logs' : 'Expand logs',
               icon: _controller.expandedLogs
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
@@ -117,11 +122,6 @@ class _TalkerScreenState extends State<TalkerScreen> {
               onTap: _cleanHistory,
               title: 'Clean history',
               icon: Icons.delete_outline,
-            ),
-            BottomSheetAction(
-              onTap: () => _copyAllLogs(context),
-              title: 'Copy all logs',
-              icon: Icons.copy,
             ),
             BottomSheetAction(
               onTap: () => _showFilter(context),

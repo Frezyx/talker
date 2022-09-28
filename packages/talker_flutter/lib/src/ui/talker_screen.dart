@@ -14,11 +14,13 @@ class TalkerScreen extends StatefulWidget {
     required this.talker,
     this.appBarTitle = 'Flutter talker',
     this.theme = const TalkerScreenTheme(),
+    this.errorBuilder,
   }) : super(key: key);
 
   final TalkerInterface talker;
   final TalkerScreenTheme theme;
   final String appBarTitle;
+  final TalkerErrorBuilder? errorBuilder;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();

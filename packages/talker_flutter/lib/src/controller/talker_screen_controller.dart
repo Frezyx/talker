@@ -68,8 +68,8 @@ class TalkerScreenController extends ChangeNotifier {
   }
 
   Future<String> saveLogsInFile(String logs) async {
-    final dir = await getApplicationDocumentsDirectory();
-    final dirPath = dir.path;
+    final dir = await getExternalStorageDirectory();
+    final dirPath = dir!.path;
     final file = await File(dirPath + '/' + 'talker_logs_${DateTime.now()}.txt')
         .create(recursive: true);
     await file.writeAsString(logs);

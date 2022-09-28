@@ -14,13 +14,13 @@ class TalkerScreen extends StatefulWidget {
     required this.talker,
     this.appBarTitle = 'Flutter talker',
     this.theme = const TalkerScreenTheme(),
-    this.errorBuilder,
+    this.itemsBuilder,
   }) : super(key: key);
 
   final TalkerInterface talker;
   final TalkerScreenTheme theme;
   final String appBarTitle;
-  final TalkerErrorBuilder? errorBuilder;
+  final TalkerDataBuilder? itemsBuilder;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();
@@ -97,7 +97,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   iconSize: 28,
-                  onPressed: _showFilter,
+                  onPressed: () => _showFilter(context),
                   icon: const Icon(Icons.filter_alt_outlined),
                 ),
               ),
@@ -115,6 +115,9 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   final data = filtredElements[_controller.isLogOrderReversed
                       ? filtredElements.length - 1 - i
                       : i];
+                  if (widget.itemsBuilder != null) {
+                    return widget.itemsBuilder!.call(context, data);
+                  }
                   return TalkerDataCard(
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
@@ -139,7 +142,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
     _showSnackBar(context, 'Log item is copied for console');
   }
 
-  void _showFilter() {
+  void _showFilter(BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,

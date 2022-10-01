@@ -76,7 +76,7 @@ class TalkerDioLogger extends Interceptor {
       StackTrace.current,
       '''URL: ${err.requestOptions.uri}
 METHOD: ${err.requestOptions.method}
-STATUS-CODE: ${err.response?.statusCode}''',
+${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',
     );
   }
 }

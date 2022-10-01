@@ -1,8 +1,8 @@
 # talker_dio_logger
-Lightweight and customizable dio http client logger on talker base
-
+Lightweight and customizable [dio](https://pub.dev/packages/dio) http client logger on [talker](https://pub.dev/packages/talker) base.<br>
+[Talker](https://github.com/Frezyx/talker) - Advanced exception handling and logging for dart/flutter applications 🚀
 ## Preview
-
+This is how the logs of your http requests will look in the console
 ![](../../docs/assets/talker_dio_logger/preview.png)
 
 ## Getting started

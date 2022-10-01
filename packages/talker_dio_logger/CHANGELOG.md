@@ -1,3 +1,7 @@
+## 0.1.0-dev.5
+
+- **FEAT**: provide documentation and usage examples
+
 ## 0.1.0-dev.4
 
 - **FIX**: null status code showing

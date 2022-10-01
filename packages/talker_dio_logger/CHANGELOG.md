@@ -1,3 +1,7 @@
+## 0.1.0-dev.4
+
+- **FIX**: null status code showing
+
 ## 0.1.0-dev.3
 
 - **FEAT**: Implement example Flutter app

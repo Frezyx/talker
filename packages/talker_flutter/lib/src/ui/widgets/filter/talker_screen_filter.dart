@@ -25,6 +25,7 @@ class TalkerScreenFilter extends StatelessWidget {
     final types = unicTypes.map((e) => e).toList();
     final theme = Theme.of(context);
     return Container(
+      margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 80),
       decoration: BoxDecoration(
         color: talkerScreenTheme.backgroudColor,
         borderRadius: BorderRadius.circular(10),
@@ -39,7 +40,7 @@ class TalkerScreenFilter extends StatelessWidget {
               ),
               boxShadow: const [BoxShadow(blurRadius: 5)],
             ),
-            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

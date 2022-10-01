@@ -1,3 +1,14 @@
+## 2.0.0
+- **FEAT**: Update TalkerScreen actions UI 
+- **FEAT**: Implement logs file sharing 
+- **FEAT**: Update logs filter UI
+- **INFO**: Code base refactoring
+- **Huge Talker update**
+See more in [releases](https://github.com/Frezyx/talker/releases)
+
+## 1.7.1
+- **FIX**: FlutterTalkerException, FlutterTalkerError, FlutterTalkerLog now implements FlutterTalkerDataInterface
+
 ## 1.7.0
 - **INFO**: HaveFlutterColorInterface -> TalkerFlutterAdapterInterface
 - **FEAT**: Implement generateFlutterTextMessage method for **FlutterTalkerDataInterface**, **FlutterTalkerLog**, **FlutterTalkerError**, **FlutterTalkerException** classes

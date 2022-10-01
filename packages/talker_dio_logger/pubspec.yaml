@@ -1,0 +1,21 @@
+name: talker_dio_logger
+description: Lightweight and customizable dio http client logger on talker base
+version: 0.1.0
+homepage: https://github.com/Frezyx/talker
+
+environment:
+  sdk: '>=2.15.0 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  talker_flutter: ^2.0.0
+  dio: ^4.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:

@@ -1,19 +1,5 @@
 part of 'talker_wrapper.dart';
 
-/// Signature for build custom [TalkerError]
-/// messages in showing [Snackbar]
-typedef TalkerErrorBuilder = Widget Function(
-  BuildContext context,
-  TalkerError data,
-);
-
-/// Signature for build custom [TalkerException]
-/// messages in showing [Snackbar]
-typedef TalkerExceptionBuilder = Widget Function(
-  BuildContext context,
-  TalkerException data,
-);
-
 /// Options for [TalkerWrapper]
 class TalkerWrapperOptions {
   const TalkerWrapperOptions({

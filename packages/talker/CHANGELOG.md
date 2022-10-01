@@ -1,3 +1,7 @@
+## 2.0.0
+- **Huge Talker update**
+See more in [releases](https://github.com/Frezyx/talker/releases)
+
 ## 1.3.0
 - **FEAT**: Add output to Talker constructor
 - **FEAT**: Update talker_logger to 1.2.1 version

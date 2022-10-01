@@ -1,3 +1,7 @@
+## 2.0.0
+- **Huge Talker update**
+See more in [releases](https://github.com/Frezyx/talker/releases)
+
 ## 1.2.1
 - **FEAT**: add output field to copyWith method 
 

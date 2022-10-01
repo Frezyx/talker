@@ -36,11 +36,11 @@ class HttpRequestLog extends FlutterTalkerLog {
   String generateTextMessage() {
     var msg = '[$displayTitle] $message';
 
-    if (printData) {
+    if (printData && data != null) {
       final prettyData = encoder.convert(data);
       msg += '\nDATA:$prettyData';
     }
-    if (printHeaders) {
+    if (printHeaders && headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
       msg += '\nHEADERS:$prettyHeaders';
     }

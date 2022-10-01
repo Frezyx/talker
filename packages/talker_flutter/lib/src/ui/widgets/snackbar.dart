@@ -6,11 +6,13 @@ class SnackbarContent extends StatelessWidget {
     required this.message,
     required this.title,
     this.bacgroundColor = Colors.red,
+    this.button,
   }) : super(key: key);
 
   final String title;
   final String message;
   final Color bacgroundColor;
+  final Widget? button;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +50,11 @@ class SnackbarContent extends StatelessWidget {
               ],
             ),
           ),
-          TextButton(
-            onPressed: () => _closeSnackbar(context),
-            child: const Text("Undo"),
-          )
+          button ??
+              TextButton(
+                onPressed: () => _closeSnackbar(context),
+                child: const Text("Undo"),
+              )
         ],
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
+import 'package:talker_flutter/src/ui/widgets/snackbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'widgets/actions_bottom_sheet/actions_bottom_sheet.dart';
@@ -129,9 +131,9 @@ class _TalkerScreenState extends State<TalkerScreen> {
               icon: Icons.filter_alt_outlined,
             ),
             BottomSheetAction(
-              onTap: _saveLogsInFile,
-              title: 'Download logs file',
-              icon: Icons.filter_alt_outlined,
+              onTap: _shareLogsInFile,
+              title: 'Share logs file',
+              icon: Icons.ios_share_outlined,
             ),
           ],
           talkerScreenTheme: widget.theme,
@@ -140,22 +142,16 @@ class _TalkerScreenState extends State<TalkerScreen> {
     );
   }
 
-  Future<void> _saveLogsInFile() async {
+  Future<void> _shareLogsInFile() async {
     final path = await _controller.saveLogsInFile(
       widget.talker.history.text,
     );
-    Clipboard.setData(ClipboardData(text: path));
-    _showSnackBar(
-      context,
-      'Logs saved in file: $path\nPath copied in clipboard',
-    );
+    Share.shareFiles([path]);
   }
 
   void _copyTalkerDataItemText(TalkerDataInterface data) {
     Clipboard.setData(
-      ClipboardData(
-        text: data.generateTextMessage(),
-      ),
+      ClipboardData(text: data.generateTextMessage()),
     );
     _showSnackBar(context, 'Log item is copied in clipboard');
   }

@@ -1,3 +1,7 @@
+## 0.1.0
+- **Huge Talker update**
+See more in [releases](https://github.com/Frezyx/talker/releases)
+
 ## 0.1.0-dev.6
 
 - **FEAT**: Downgrade min supported sdk version from 2.18 to 2.15

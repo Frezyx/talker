@@ -1,7 +1,4 @@
 library talker_dio_logger;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'talker_dio_logger_settings.dart';
+export 'talker_dio_logger_interceptor.dart';

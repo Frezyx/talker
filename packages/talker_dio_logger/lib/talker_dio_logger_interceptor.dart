@@ -53,7 +53,9 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
-    _talker.error(
+    _talker.handle(
+      err,
+      StackTrace.current,
       '''URL: ${err.requestOptions.uri}
 METHOD: ${err.requestOptions.method}
 STATUS-CODE: ${err.response?.statusCode}''',

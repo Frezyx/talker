@@ -1,19 +1,38 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'talker_dio_logger_settings.dart';
 
+/// [Dio] http client logger on [Talker] base
+///
+/// [talker] filed is current [Talker] instance.
+/// Provide your instance if your application used [Talker] as default logger
+/// Commont Talker instance will be used by default
 class TalkerDioLogger extends Interceptor {
   TalkerDioLogger({
     Talker? talker,
     this.settings = const TalkerDioLoggerSettings(),
   }) {
-    _talker = talker ?? Talker(loggerOutput: debugPrint);
+    _talker = talker ??
+        Talker(
+          loggerOutput: debugPrint,
+          settings: TalkerSettings(
+            useConsoleLogs: kDebugMode,
+            useHistory: kDebugMode,
+          ),
+          loggerSettings: TalkerLoggerSettings(
+            enableColors: !Platform.isIOS && !Platform.isMacOS,
+          ),
+        );
   }
 
   late Talker _talker;
+
+  /// [TalkerDioLogger] settings and customization
   final TalkerDioLoggerSettings settings;
 
   @override
@@ -24,7 +43,6 @@ class TalkerDioLogger extends Interceptor {
     super.onRequest(options, handler);
     var message = '${options.uri}';
     message += '\nMETHOD: ${options.method}';
-
     final httpLog = HttpRequestLog(
       message,
       data: options.data,

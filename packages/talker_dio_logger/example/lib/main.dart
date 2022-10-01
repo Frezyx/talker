@@ -27,7 +27,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-    _dio.get('https://jsonplaceholder.typicode.com/todos/1');
     super.initState();
   }
 
@@ -43,6 +42,11 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Text(
+                'Check result in console',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
                   _dio.get('https://jsonplaceholder.typicode.com/todos/1');

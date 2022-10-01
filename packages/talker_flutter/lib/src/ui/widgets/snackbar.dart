@@ -6,13 +6,11 @@ class SnackbarContent extends StatelessWidget {
     required this.message,
     required this.title,
     this.bacgroundColor = Colors.red,
-    this.button,
   }) : super(key: key);
 
   final String title;
   final String message;
   final Color bacgroundColor;
-  final Widget? button;
 
   @override
   Widget build(BuildContext context) {
@@ -26,35 +24,41 @@ class SnackbarContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(width: 4),
-          const Icon(Icons.warning, color: Colors.white),
-          const SizedBox(width: 12),
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                const SizedBox(width: 4),
+                const Icon(Icons.warning, color: Colors.white),
+                const SizedBox(width: 12),
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        message,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
-                ),
-                Text(
-                  message,
-                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             ),
           ),
-          button ??
-              TextButton(
-                onPressed: () => _closeSnackbar(context),
-                child: const Text("Undo"),
-              )
+          TextButton(
+            onPressed: () => _closeSnackbar(context),
+            child: const Text("Undo"),
+          )
         ],
       ),
     );

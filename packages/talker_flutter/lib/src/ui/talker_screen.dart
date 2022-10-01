@@ -58,6 +58,15 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   iconSize: 28,
+                  onPressed: () => _showFilter(context),
+                  icon: const Icon(Icons.filter_alt_outlined),
+                ),
+              ),
+              SizedBox(
+                width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 28,
                   onPressed: () => _showActionsBottomSheet(context),
                   icon: const Icon(Icons.more_vert_rounded),
                 ),
@@ -125,11 +134,6 @@ class _TalkerScreenState extends State<TalkerScreen> {
               icon: Icons.delete_outline,
             ),
             BottomSheetAction(
-              onTap: () => _showFilter(context),
-              title: 'Filter',
-              icon: Icons.filter_alt_outlined,
-            ),
-            BottomSheetAction(
               onTap: _shareLogsInFile,
               title: 'Share logs file',
               icon: Icons.ios_share_outlined,
@@ -159,6 +163,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
     await showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (context) {
         return TalkerScreenFilter(
           controller: _controller,

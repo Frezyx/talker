@@ -21,7 +21,7 @@
 <p align="center">
   <a href="https://codecov.io/gh/Frezyx/talker"><img src="https://codecov.io/gh/Frezyx/talker/branch/master/graph/badge.svg" alt="codecov"></a>
   <!-- <a href="https://pub.dev/packages/talker"><img src="https://img.shields.io/pub/v/talker.svg" alt="Pub"></a> -->
-  <a href="https://github.com/Frezyx/talker"><img src="https://img.shields.io/github/stars/Frezyx/talker.svg?style=flat&logo=github&label=stars" alt="Star on Github"></a>
+  <a href="https://github.com/Frezyx/talker"><img src="https://img.shields.io/github/stars/Frezyx/talker?style=social" alt="GitHub"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://github.com/Frezyx/talker/actions"><img src="https://github.com/Frezyx/talker/workflows/talker/badge.svg" alt="talker"></a>
   <a href="https://github.com/Frezyx/talker_flutter/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_flutter/badge.svg" alt="talker_flutter"></a>
@@ -45,6 +45,7 @@ Talker is designed for any level of customization. <br>
 | [talker](https://github.com/Frezyx/talker/tree/master/packages/talker) | [![Pub](https://img.shields.io/pub/v/talker.svg?style=flat-square)](https://github.com/Frezyx/talker/tree/master/packages/talker) | Main dart package for make logs handle exceptions.  |
 | [talker_flutter](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) | [![Pub](https://img.shields.io/pub/v/talker_flutter.svg?style=flat-square)](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) | Error handler and logger for Flutter applications |
 | [talker_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) | [![Pub](https://img.shields.io/pub/v/talker_logger.svg?style=flat-square)](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) | Pretty logger for dart/flutter apps |
+| [talker_dio_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_dio_logger) | [![Pub](https://img.shields.io/pub/v/talker_dio_logger.svg?style=flat-square)](https://github.com/Frezyx/talker/tree/master/packages/talker_dio_logger) | Pretty logger for dart/flutter apps |
 
 <!-- talker  Have auto-included logging, history and data transfering via stream. Package have possibility to setup observers, settings, filter and etc... -->
 <!-- talker_flutter Show error alerts with TalkerWrapper. Watch and share application logs with [TalkerScreen](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerscreen) or TalkerHistoryBuilder. Send exceptions and crash report to Sentry / Crashlitycs / Own Analytics via observers / TalkerListener, etc... -->

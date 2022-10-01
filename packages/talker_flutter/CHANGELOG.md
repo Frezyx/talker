@@ -1,3 +1,9 @@
+## 2.0.0
+- **FEAT**: Update TalkerScreen actions UI 
+- **FEAT**: Implement logs file sharing 
+- **FEAT**: Update logs filter UI
+- **INFO**: Code base refactoring
+
 ## 1.7.1
 - **FIX**: FlutterTalkerException, FlutterTalkerError, FlutterTalkerLog now implements FlutterTalkerDataInterface
 

@@ -4,7 +4,6 @@ import 'package:group_button/group_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
-import 'package:talker_flutter/src/ui/widgets/snackbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'widgets/actions_bottom_sheet/actions_bottom_sheet.dart';

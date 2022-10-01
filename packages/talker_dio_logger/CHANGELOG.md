@@ -1,3 +1,7 @@
+## 0.1.0-dev.6
+
+- **FEAT**: Downgrade min supported sdk version from 2.18 to 2.15
+
 ## 0.1.0-dev.5
 
 - **FEAT**: provide documentation and usage examples

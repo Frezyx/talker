@@ -3,6 +3,8 @@
 - **FEAT**: Implement logs file sharing 
 - **FEAT**: Update logs filter UI
 - **INFO**: Code base refactoring
+- **Huge Talker update**
+See more in [releases](https://github.com/Frezyx/talker/releases)
 
 ## 1.7.1
 - **FIX**: FlutterTalkerException, FlutterTalkerError, FlutterTalkerLog now implements FlutterTalkerDataInterface

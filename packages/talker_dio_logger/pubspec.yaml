@@ -1,5 +1,5 @@
 name: talker_dio_logger
-description: A new Flutter package project.
+description: Lightweight and customizable dio http client logger on talker base
 version: 0.1.0-dev.1
 homepage: https://github.com/Frezyx/talker
 

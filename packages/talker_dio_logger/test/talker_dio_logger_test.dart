@@ -1,16 +1,12 @@
+import 'package:flutter_test/flutter_test.dart';
+
 import 'package:talker_dio_logger/talker_dio_logger.dart';
-import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
+  test('adds one to input values', () {
+    final calculator = Calculator();
+    expect(calculator.addOne(2), 3);
+    expect(calculator.addOne(-7), -6);
+    expect(calculator.addOne(0), 1);
   });
 }

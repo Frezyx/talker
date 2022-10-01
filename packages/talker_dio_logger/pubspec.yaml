@@ -1,7 +1,7 @@
 name: talker_dio_logger
 description: A new Flutter package project.
-version: 0.0.1
-homepage:
+version: 0.1.0-dev.1
+homepage: https://github.com/Frezyx/talker
 
 environment:
   sdk: '>=2.18.0 <3.0.0'

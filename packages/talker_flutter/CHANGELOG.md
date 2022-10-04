@@ -1,3 +1,6 @@
+## 2.0.1
+- **FIX**: Logs text generation for copy and share (save to file) methods
+
 ## 2.0.0
 - **FEAT**: Update TalkerScreen actions UI 
 - **FEAT**: Implement logs file sharing 

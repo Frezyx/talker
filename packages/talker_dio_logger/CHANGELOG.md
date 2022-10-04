@@ -1,3 +1,6 @@
+## 0.1.1
+- **FEAT**: Update talker_flutter version to 2.0.1s
+
 ## 0.1.0
 - **Huge Talker update**
 See more in [releases](https://github.com/Frezyx/talker/releases)

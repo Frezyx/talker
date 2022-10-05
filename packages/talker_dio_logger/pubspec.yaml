@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  talker_flutter: ^2.0.2
+  talker_flutter: ^2.0.3
   dio: ^4.0.6
 
 dev_dependencies:

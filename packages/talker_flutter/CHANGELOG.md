@@ -1,3 +1,6 @@
+## 2.0.3
+- **FIX**: Talker logs card gaps
+
 ## 2.0.2
 - **FIX**: Ignore routes with null settings.name in **TalkerRouteObserver**
 

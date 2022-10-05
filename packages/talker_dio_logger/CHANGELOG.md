@@ -1,5 +1,8 @@
+## 0.1.2
+- **FEAT**: Update talker_flutter version to 2.0.2
+
 ## 0.1.1
-- **FEAT**: Update talker_flutter version to 2.0.1s
+- **FEAT**: Update talker_flutter version to 2.0.1
 
 ## 0.1.0
 - **Huge Talker update**

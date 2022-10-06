@@ -153,9 +153,10 @@ class _TalkerScreenState extends State<TalkerScreen> {
   }
 
   void _copyTalkerDataItemText(TalkerDataInterface data) {
-    Clipboard.setData(
-      ClipboardData(text: data.generateTextMessage()),
-    );
+    final text = data is FlutterTalkerDataInterface
+        ? data.generateFlutterTextMessage()
+        : data.generateTextMessage();
+    Clipboard.setData(ClipboardData(text: text));
     _showSnackBar(context, 'Log item is copied in clipboard');
   }
 

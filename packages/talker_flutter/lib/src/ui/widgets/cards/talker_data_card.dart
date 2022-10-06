@@ -26,7 +26,7 @@ class TalkerDataCard extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.all(5).copyWith(bottom: 0),
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10).copyWith(top: 16),
             decoration: BoxDecoration(
               border: Border.all(color: _color),
               borderRadius: BorderRadius.circular(5),

@@ -149,7 +149,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
     final path = await _controller.saveLogsInFile(
       widget.talker.history.text,
     );
-    Share.shareFiles([path]);
+    await Share.shareFilesWithResult([path]);
   }
 
   void _copyTalkerDataItemText(TalkerDataInterface data) {

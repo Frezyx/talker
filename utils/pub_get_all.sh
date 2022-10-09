@@ -11,3 +11,7 @@ flutter pub get
 echo "talker_logger"
 cd ../talker_logger
 flutter pub get
+
+echo "talker_dio_logger"
+cd ../talker_dio_logger
+flutter pub get

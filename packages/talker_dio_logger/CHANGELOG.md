@@ -1,3 +1,6 @@
+## 0.3.0
+- **FIX**: Delete stackTrace for dio errors
+
 ## 0.2.0
 - **FIX**: Add try/catch for interceptor to avoid FormData exceptions
 

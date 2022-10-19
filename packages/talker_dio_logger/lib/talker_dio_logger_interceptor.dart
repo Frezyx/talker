@@ -82,7 +82,7 @@ class TalkerDioLogger extends Interceptor {
     try {
       _talker.handle(
         err,
-        StackTrace.current,
+        null,
         '''URL: ${err.requestOptions.uri}
   METHOD: ${err.requestOptions.method}
   ${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',

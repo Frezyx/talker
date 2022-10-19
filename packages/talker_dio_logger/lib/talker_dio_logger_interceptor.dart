@@ -41,42 +41,54 @@ class TalkerDioLogger extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     super.onRequest(options, handler);
-    var message = '${options.uri}';
-    message += '\nMETHOD: ${options.method}';
-    final httpLog = HttpRequestLog(
-      message,
-      data: options.data,
-      headers: options.headers,
-      printData: settings.printRequestData,
-      printHeaders: settings.printRequestHeaders,
-    );
-    _talker.logTyped(httpLog);
+    try {
+      var message = '${options.uri}';
+      message += '\nMETHOD: ${options.method}';
+      final httpLog = HttpRequestLog(
+        message,
+        data: options.data,
+        headers: options.headers,
+        printData: settings.printRequestData,
+        printHeaders: settings.printRequestHeaders,
+      );
+      _talker.logTyped(httpLog);
+    } catch (_) {
+      //pass
+    }
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
-    final message =
-        'STATUS: [${response.statusCode}] | ${response.requestOptions.uri}';
-    final httpLog = HttpResponseLog(
-      message,
-      data: response.data,
-      headers: response.requestOptions.headers,
-      printData: settings.printResponseData,
-      printHeaders: settings.printResponseHeaders,
-    );
-    _talker.logTyped(httpLog);
+    try {
+      final message =
+          'STATUS: [${response.statusCode}] | ${response.requestOptions.uri}';
+      final httpLog = HttpResponseLog(
+        message,
+        data: response.data,
+        headers: response.requestOptions.headers,
+        printData: settings.printResponseData,
+        printHeaders: settings.printResponseHeaders,
+      );
+      _talker.logTyped(httpLog);
+    } catch (_) {
+      //pass
+    }
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
-    _talker.handle(
-      err,
-      StackTrace.current,
-      '''URL: ${err.requestOptions.uri}
-METHOD: ${err.requestOptions.method}
-${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',
-    );
+    try {
+      _talker.handle(
+        err,
+        StackTrace.current,
+        '''URL: ${err.requestOptions.uri}
+  METHOD: ${err.requestOptions.method}
+  ${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',
+      );
+    } catch (_) {
+      //pass
+    }
   }
 }

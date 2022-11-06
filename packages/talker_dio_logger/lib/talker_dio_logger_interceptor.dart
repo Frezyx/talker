@@ -65,7 +65,9 @@ class TalkerDioLogger extends Interceptor {
           'STATUS: [${response.statusCode}] | ${response.requestOptions.uri}';
       final httpLog = HttpResponseLog(
         message,
+        responseMessage: response.statusMessage,
         data: response.data,
+        printMesage: settings.printResponseMessage,
         headers: response.requestOptions.headers,
         printData: settings.printResponseData,
         printHeaders: settings.printResponseHeaders,

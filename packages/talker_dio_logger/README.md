@@ -23,7 +23,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^0.3.0
+  talker_dio_logger: ^0.4.0
 ```
 
 ### Usage
@@ -36,6 +36,7 @@ dio.interceptors.add(
         settings: const TalkerDioLoggerSettings(
           printRequestHeaders: true,
           printResponseHeaders: true,
+          printResponseMessage: true,
         ),
     ),
 );

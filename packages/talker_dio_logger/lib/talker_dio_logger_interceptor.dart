@@ -41,16 +41,20 @@ class TalkerDioLogger extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     super.onRequest(options, handler);
-    var message = '${options.uri}';
-    message += '\nMETHOD: ${options.method}';
-    final httpLog = HttpRequestLog(
-      message,
-      data: options.data,
-      headers: options.headers,
-      printData: settings.printRequestData,
-      printHeaders: settings.printRequestHeaders,
-    );
-    _talker.logTyped(httpLog);
+    try {
+      var message = '${options.uri}';
+      message += '\nMETHOD: ${options.method}';
+      final httpLog = HttpRequestLog(
+        message,
+        data: options.data,
+        headers: options.headers,
+        printData: settings.printRequestData,
+        printHeaders: settings.printRequestHeaders,
+      );
+      _talker.logTyped(httpLog);
+    } catch (_) {
+      //pass
+    }
   }
 
   @override
@@ -76,12 +80,16 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
-    _talker.handle(
-      err,
-      StackTrace.current,
-      '''URL: ${err.requestOptions.uri}
-METHOD: ${err.requestOptions.method}
-${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',
-    );
+    try {
+      _talker.handle(
+        err,
+        null,
+        '''URL: ${err.requestOptions.uri}
+  METHOD: ${err.requestOptions.method}
+  ${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',
+      );
+    } catch (_) {
+      //pass
+    }
   }
 }

@@ -1,3 +1,9 @@
+## 0.3.0
+- **FIX**: Delete stackTrace for dio errors
+
+## 0.2.0
+- **FIX**: Add try/catch for interceptor to avoid FormData exceptions
+
 ## 0.1.3
 - **FEAT**: Update talker_flutter version to 2.0.3
 

@@ -1,3 +1,7 @@
+## 0.4.0
+- **FEAT**: Implement Response.statusMessage printing
+- **FEAT**: Implement printResponseMessage field in TalkerDioLoggerSettings
+
 ## 0.3.0
 - **FIX**: Delete stackTrace for dio errors
 

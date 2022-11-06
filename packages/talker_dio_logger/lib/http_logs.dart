@@ -7,14 +7,14 @@ const encoder = JsonEncoder.withIndent('  ');
 
 class HttpRequestLog extends FlutterTalkerLog {
   HttpRequestLog(
-    String message, {
+    String title, {
     required this.headers,
     this.data,
     this.printData = false,
     this.printHeaders = false,
     this.showDataAtUI = true,
     this.showHeadersAtUI = true,
-  }) : super(message);
+  }) : super(title);
 
   final dynamic data;
   final Map<String, dynamic> headers;
@@ -65,19 +65,23 @@ class HttpRequestLog extends FlutterTalkerLog {
 
 class HttpResponseLog extends FlutterTalkerLog {
   HttpResponseLog(
-    String message, {
+    String title, {
     required this.headers,
+    this.responseMessage,
     this.data,
     this.printData = false,
     this.printHeaders = false,
+    this.printMesage = true,
     this.showDataAtUI = true,
     this.showHeadersAtUI = true,
-  }) : super(message);
+  }) : super(title);
 
+  final String? responseMessage;
   final dynamic data;
   final Map<String, dynamic> headers;
   final bool printData;
   final bool printHeaders;
+  final bool printMesage;
   final bool showDataAtUI;
   final bool showHeadersAtUI;
 
@@ -93,6 +97,10 @@ class HttpResponseLog extends FlutterTalkerLog {
   @override
   String generateTextMessage() {
     var msg = '[$displayTitle] $message';
+
+    if (printMesage && responseMessage != null) {
+      msg += '\nMESSAGE:$responseMessage';
+    }
 
     if (printData && data != null) {
       final prettyData = encoder.convert(data);

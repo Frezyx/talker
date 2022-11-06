@@ -56,16 +56,21 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
-    final message =
-        'STATUS: [${response.statusCode}] | ${response.requestOptions.uri}';
-    final httpLog = HttpResponseLog(
-      message,
-      data: response.data,
-      headers: response.requestOptions.headers,
-      printData: settings.printResponseData,
-      printHeaders: settings.printResponseHeaders,
-    );
-    _talker.logTyped(httpLog);
+    try {
+      final message =
+          'STATUS: [${response.statusCode}] | ${response.requestOptions.uri}';
+      final httpLog = HttpResponseLog(
+        message,
+        responseMessage: response.statusMessage,
+        data: response.data,
+        headers: response.requestOptions.headers,
+        printData: settings.printResponseData,
+        printHeaders: settings.printResponseHeaders,
+      );
+      _talker.logTyped(httpLog);
+    } catch (_) {
+      //pass
+    }
   }
 
   @override

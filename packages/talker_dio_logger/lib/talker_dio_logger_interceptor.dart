@@ -67,6 +67,7 @@ class TalkerDioLogger extends Interceptor {
         message,
         responseMessage: response.statusMessage,
         data: response.data,
+        printMesage: settings.printResponseMessage,
         headers: response.requestOptions.headers,
         printData: settings.printResponseData,
         printHeaders: settings.printResponseHeaders,

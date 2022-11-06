@@ -93,7 +93,7 @@ void main() {
     });
 
     test('copyWith', () {
-      final filter = TalkerFilter(
+      final filter = BaseTalkerFilter(
         titles: ['Error'],
         types: [Exception],
       );
@@ -115,7 +115,8 @@ void _testFilterFoundBySearchText({
   required Function() logCallback,
   required int countFound,
 }) {
-  final filter = TalkerFilter(types: [], titles: [], searchQuery: searchQuery);
+  final filter =
+      BaseTalkerFilter(types: [], titles: [], searchQuery: searchQuery);
   test('Found $countFound with searchQuery $searchQuery', () {
     logCallback.call();
     final foundRecords = talker.history.where((e) => filter.filter(e)).toList();
@@ -129,7 +130,7 @@ void _testFilterFoundByType({
   required Function() logCallback,
   required int countFound,
 }) {
-  final filter = TalkerFilter(types: types, titles: []);
+  final filter = BaseTalkerFilter(types: types, titles: []);
   test('Found $countFound in ${types.join(',')}', () {
     logCallback.call();
     final foundRecords = talker.history.where((e) => filter.filter(e)).toList();
@@ -143,7 +144,7 @@ void _testFilterFoundByTitle({
   required Function() logCallback,
   required int countFound,
 }) {
-  final filter = TalkerFilter(types: [], titles: titles);
+  final filter = BaseTalkerFilter(types: [], titles: titles);
   test('Found $countFound in ${titles.join(',')}', () {
     logCallback.call();
     final foundRecords = talker.history.where((e) => filter.filter(e)).toList();

@@ -4,8 +4,8 @@ abstract class Filter<T> {
   bool filter(T item);
 }
 
-class TalkerFilter implements Filter<TalkerDataInterface> {
-  TalkerFilter({
+class BaseTalkerFilter implements Filter<TalkerDataInterface> {
+  BaseTalkerFilter({
     required this.titles,
     required this.types,
     this.searchQuery,
@@ -53,12 +53,12 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
     return match;
   }
 
-  TalkerFilter copyWith({
+  BaseTalkerFilter copyWith({
     List<String>? titles,
     List<Type>? types,
     String? searchQuery,
   }) {
-    return TalkerFilter(
+    return BaseTalkerFilter(
       titles: titles ?? this.titles,
       types: types ?? this.types,
       searchQuery: searchQuery ?? this.searchQuery,

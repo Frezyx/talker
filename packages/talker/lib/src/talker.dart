@@ -29,12 +29,13 @@ class Talker implements TalkerInterface {
   Talker({
     TalkerLogger? logger,
     TalkerSettings? settings,
+    Filter<TalkerDataInterface>? filter,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
     LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     Function(String message)? loggerOutput,
-  }) {
+  }) : _filter = filter {
     _settings = settings ?? TalkerSettings();
     _logger = logger ??
         TalkerLogger().copyWith(
@@ -53,6 +54,7 @@ class Talker implements TalkerInterface {
   late TalkerSettings _settings;
   late TalkerLoggerInterface _logger;
   late TalkerErrorHandlerInterface _errorHandler;
+  final Filter<TalkerDataInterface>? _filter;
 
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
@@ -288,7 +290,6 @@ class Talker implements TalkerInterface {
     AnsiPen? pen,
   }) {
     TalkerDataInterface? data;
-
     if (exception != null) {
       handle(exception, stackTrace, message);
       return;
@@ -299,15 +300,20 @@ class Talker implements TalkerInterface {
   }
 
   void _handleErrorData(TalkerDataInterface data) {
-    if (_settings.enabled) {
-      _talkerStreamController.add(data);
-      _handleForOutputs(data);
-      if (_settings.useConsoleLogs) {
-        _logger.log(
-          data.generateTextMessage(),
-          level: data.logLevel ?? LogLevel.error,
-        );
-      }
+    if (!_settings.enabled) {
+      return;
+    }
+    final isApproved = _isApprovedByFilter(data);
+    if (!isApproved) {
+      return;
+    }
+    _talkerStreamController.add(data);
+    _handleForOutputs(data);
+    if (_settings.useConsoleLogs) {
+      _logger.log(
+        data.generateTextMessage(),
+        level: data.logLevel ?? LogLevel.error,
+      );
     }
   }
 
@@ -316,17 +322,22 @@ class Talker implements TalkerInterface {
     AnsiPen? pen,
     LogLevel? logLevel,
   }) {
-    if (_settings.enabled) {
-      _observersManager?.onLog(data);
-      _talkerStreamController.add(data);
-      _handleForOutputs(data);
-      if (_settings.useConsoleLogs) {
-        _logger.log(
-          data.generateTextMessage(),
-          level: logLevel ?? data.logLevel,
-          pen: data.pen ?? pen,
-        );
-      }
+    if (!_settings.enabled) {
+      return;
+    }
+    final isApproved = _isApprovedByFilter(data);
+    if (!isApproved) {
+      return;
+    }
+    _observersManager?.onLog(data);
+    _talkerStreamController.add(data);
+    _handleForOutputs(data);
+    if (_settings.useConsoleLogs) {
+      _logger.log(
+        data.generateTextMessage(),
+        level: logLevel ?? data.logLevel,
+        pen: data.pen ?? pen,
+      );
     }
   }
 
@@ -350,4 +361,7 @@ class Talker implements TalkerInterface {
       _history.add(data);
     }
   }
+
+  bool _isApprovedByFilter(TalkerDataInterface data) =>
+      _filter?.filter(data) ?? true;
 }

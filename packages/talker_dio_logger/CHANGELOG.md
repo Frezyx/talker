@@ -1,3 +1,7 @@
+## 0.5.0
+- **Talker mutual update**
+See more in [releases](https://github.com/Frezyx/talker/releases)
+
 ## 0.4.0
 - **FEAT**: Implement Response.statusMessage printing
 - **FEAT**: Implement printResponseMessage field in TalkerDioLoggerSettings

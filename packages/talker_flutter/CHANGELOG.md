@@ -1,3 +1,10 @@
+## 2.1.0
+- **FEAT**: Implement filter for Talker constructor. 
+Now you can filter data by logger and by talker instance as default.
+
+## 2.0.6
+- **FIX**: Update internal packages
+
 ## 2.0.5
 - **FIX**: Analyzer issues about shareFiles method deprecation
 

@@ -1,13 +1,15 @@
 import 'package:talker/src/src.dart';
 
+typedef TalkerFilter = Filter<TalkerDataInterface>;
+
 abstract class Filter<T> {
   bool filter(T item);
 }
 
-class TalkerFilter implements Filter<TalkerDataInterface> {
-  TalkerFilter({
-    required this.titles,
-    required this.types,
+class BaseTalkerFilter implements TalkerFilter {
+  BaseTalkerFilter({
+    this.titles = const [],
+    this.types = const [],
     this.searchQuery,
   });
 
@@ -53,12 +55,12 @@ class TalkerFilter implements Filter<TalkerDataInterface> {
     return match;
   }
 
-  TalkerFilter copyWith({
+  BaseTalkerFilter copyWith({
     List<String>? titles,
     List<Type>? types,
     String? searchQuery,
   }) {
-    return TalkerFilter(
+    return BaseTalkerFilter(
       titles: titles ?? this.titles,
       types: types ?? this.types,
       searchQuery: searchQuery ?? this.searchQuery,

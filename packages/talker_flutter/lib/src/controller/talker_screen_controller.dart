@@ -6,17 +6,14 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
 class TalkerScreenController extends ChangeNotifier {
-  TalkerFilter _filter = TalkerFilter(
-    titles: [],
-    types: [],
-  );
+  BaseTalkerFilter _filter = BaseTalkerFilter();
 
   var _expandedLogs = true;
   bool _isLogOrderReversed = false;
 
   /// Filter for selecting specific logs and errors
-  TalkerFilter get filter => _filter;
-  set filter(TalkerFilter val) {
+  BaseTalkerFilter get filter => _filter;
+  set filter(BaseTalkerFilter val) {
     _filter = val;
     notifyListeners();
   }

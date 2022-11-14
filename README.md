@@ -52,11 +52,6 @@ Talker is designed for any level of customization. <br>
 <!-- talker_logger with possibility to customize formatting, filtering, log level setup and output methods. Used as logger for talker package -->
 
 
- <!-- [![Pub](https://img.shields.io/pub/likes/talker_flutter?logo=flutter)](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) [![Pub](https://img.shields.io/pub/popularity/talker_flutter?logo=flutter)](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) [![Pub](https://img.shields.io/pub/points/talker_flutter?logo=flutter)](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) -->
-<!-- [![Pub](https://img.shields.io/pub/likes/talker?logo=dart)](https://github.com/Frezyx/talker/tree/master/packages/talker) [![Pub](https://img.shields.io/pub/popularity/talker?logo=dart)](https://github.com/Frezyx/talker/tree/master/packages/talker) [![Pub](https://img.shields.io/pub/points/talker?logo=dart)](https://github.com/Frezyx/talker/tree/master/packages/talker) -->
-<!-- [![Pub](https://img.shields.io/pub/likes/talker_logger?logo=dart)](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) [![Pub](https://img.shields.io/pub/popularity/talker_logger?logo=dart)](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) [![Pub](https://img.shields.io/pub/points/talker_logger?logo=dart)](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) -->
-
-
 <!-- <h2 align="center">On All Platforms</h2>
 <p align="center">
    <span style="font-size: 0.8em">Please add Windows and Linux screenshots😘</span>
@@ -72,7 +67,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^2.0.0
+  talker: ^2.1.0
 ```
 
 ### Easy to use
@@ -95,7 +90,38 @@ talker.error('🚨 The service is not available');
 ```
 More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
-## Customization
+
+## ❗️ Attention ❗️
+
+### Logs are truncated / cut by the console
+
+Latest Flutter stable release have print method bug [issues/110236](https://github.com/flutter/flutter/issues/110236) <br>
+But with Talker you can solve it with passing your own output/print method 
+
+
+If you want to see full logs in console - pass debugPrint as ouput callback method in Talker constructor
+```dart
+final talker = Talker(
+  loggerOutput: debugPrint,
+);
+```
+
+### iOS logs colors 
+There is a problem with the color palette of logs when launching the app on iOS.
+In this case, the console cannot read the ansi colors that are used by the library.
+
+<img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/console/ios_colors.png?raw=true">
+
+For disable colors in iOS application you can setup this loggerSettings field
+```dart
+  final talker = Talker(
+    loggerSettings: TalkerLoggerSettings(
+      enableColors: !Platform.isIOS,
+    ),
+  );
+```
+
+## ⚙️ Customization
 Configure the error handler and logger for yourself
 ```dart
 final talker = Talker(
@@ -135,18 +161,7 @@ Follow these steps to implement talker_flutter in your application
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^2.0.5
-```
-
-### ❗️ Attention ❗️
-Latest Flutter stable release have print method bug [issues/110236](https://github.com/flutter/flutter/issues/110236) <br>
-But with Talker you can solve it with passing your own output/print method
-
-If you want to see full logs in console - pass debugPrint as ouput callback method in Talker constructor
-```dart
-final talker = Talker(
-  loggerOutput: debugPrint,
-);
+  talker_flutter: ^2.0.6
 ```
 
 ### Easy to use

@@ -1,3 +1,7 @@
+## 2.1.0
+- **FEAT**: Implement filter for Talker constructor. 
+Now you can filter data by logger and by talker instance as default.
+
 ## 2.0.0
 - **Huge Talker update**
 See more in [releases](https://github.com/Frezyx/talker/releases)

@@ -367,6 +367,8 @@ class Talker implements TalkerInterface {
     }
   }
 
-  bool _isApprovedByFilter(TalkerDataInterface data) =>
-      _filter?.filter(data) ?? true;
+  bool _isApprovedByFilter(TalkerDataInterface data) {
+    final approved = _filter?.filter(data) ?? true;
+    return approved;
+  }
 }

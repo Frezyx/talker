@@ -29,13 +29,14 @@ class Talker implements TalkerInterface {
   Talker({
     TalkerLogger? logger,
     TalkerSettings? settings,
-    Filter<TalkerDataInterface>? filter,
+    TalkerFilter? filter,
     TalkerLoggerSettings? loggerSettings,
     TalkerLoggerFilter? loggerFilter,
     LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     Function(String message)? loggerOutput,
-  }) : _filter = filter {
+  }) {
+    _filter = filter;
     _settings = settings ?? TalkerSettings();
     _logger = logger ??
         TalkerLogger().copyWith(
@@ -54,7 +55,7 @@ class Talker implements TalkerInterface {
   late TalkerSettings _settings;
   late TalkerLoggerInterface _logger;
   late TalkerErrorHandlerInterface _errorHandler;
-  final Filter<TalkerDataInterface>? _filter;
+  late TalkerFilter? _filter;
 
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
@@ -69,7 +70,11 @@ class Talker implements TalkerInterface {
     TalkerLoggerFilter? loggerFilter,
     LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
+    TalkerFilter? filter,
   }) {
+    if (filter != null) {
+      _filter = filter;
+    }
     if (settings != null) {
       _settings = settings;
     }

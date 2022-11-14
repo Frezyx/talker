@@ -110,7 +110,7 @@ final talker = Talker(
 There is a problem with the color palette of logs when launching the app on iOS.
 In this case, the console cannot read the ansi colors that are used by the library.
 
-<img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logo/full_logo.png?raw=true" width="250px">
+<img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/console/ios_colors.png?raw=true">
 
 For disable colors in iOS application you can setup this loggerSettings field
 ```dart

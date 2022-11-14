@@ -6,40 +6,11 @@ void main() {
     _testFilterByTitles(useTalkerFilter: false);
     _testFilterByTitles(useTalkerFilter: true);
 
-    // group('By type', () {
-    //   _testFilterFoundByType(
-    //     types: [TalkerLog],
-    //     countFound: 1,
-    //     logCallback: () {
-    //       talker.error('Test log');
-    //     },
-    //   );
-    //   _testFilterFoundByType(
-    //     types: [TalkerError],
-    //     countFound: 2,
-    //     logCallback: () {
-    //       talker.fine('Test log');
-    //       talker.handle(ArgumentError());
-    //       talker.handle(ArgumentError());
-    //     },
-    //   );
-    // });
+    _testFilterByTypes(useTalkerFilter: false);
+    _testFilterByTypes(useTalkerFilter: true);
 
-    // group('By search text', () {
-    //   _testFilterFoundBySearchText(
-    //     searchQuery: 'http',
-    //     countFound: 5,
-    //     logCallback: () {
-    //       talker.error('HTTP log');
-    //       talker.fine('Http log');
-    //       talker.good('Log http request');
-    //       talker.warning('http');
-    //       talker.debug('Log http');
-    //       talker.verbose('htt request');
-    //       talker.info('ttp request');
-    //     },
-    //   );
-    // });
+    _testFilterBySearchText(useTalkerFilter: false);
+    _testFilterBySearchText(useTalkerFilter: true);
 
     test('copyWith', () {
       final filter = BaseTalkerFilter(
@@ -56,6 +27,48 @@ void main() {
       expect(filter.types == typesChangesFilter.types, false);
       expect(filter.types.first == typesChangesFilter.types.first, false);
     });
+  });
+}
+
+void _testFilterBySearchText({required bool useTalkerFilter}) {
+  return group('By search text', () {
+    _testFilterFoundBySearchText(
+      useTalkerFilter: useTalkerFilter,
+      searchQuery: 'http',
+      countFound: 5,
+      logCallback: (talker) {
+        talker.error('HTTP log');
+        talker.fine('Http log');
+        talker.good('Log http request');
+        talker.warning('http');
+        talker.debug('Log http');
+        talker.verbose('htt request');
+        talker.info('ttp request');
+      },
+    );
+  });
+}
+
+void _testFilterByTypes({required bool useTalkerFilter}) {
+  group('By type', () {
+    _testFilterFoundByType(
+      useTalkerFilter: useTalkerFilter,
+      types: [TalkerLog],
+      countFound: 1,
+      logCallback: (talker) {
+        talker.error('Test log');
+      },
+    );
+    _testFilterFoundByType(
+      useTalkerFilter: useTalkerFilter,
+      types: [TalkerError],
+      countFound: 2,
+      logCallback: (talker) {
+        talker.fine('Test log');
+        talker.handle(ArgumentError());
+        talker.handle(ArgumentError());
+      },
+    );
   });
 }
 
@@ -113,34 +126,50 @@ void _testFilterByTitles({required bool useTalkerFilter}) {
   );
 }
 
-// void _testFilterFoundBySearchText({
-//   required String searchQuery,
-//   required Function() logCallback,
-//   required int countFound,
-// }) {
-//   final filter =
-//       BaseTalkerFilter(types: [], titles: [], searchQuery: searchQuery);
-//   test('Found $countFound with searchQuery $searchQuery', () {
-//     logCallback.call();
-//     final foundRecords = talker.history.where((e) => filter.filter(e)).toList();
-//     expect(foundRecords, isNotEmpty);
-//     expect(foundRecords.length, countFound);
-//   });
-// }
+void _testFilterFoundBySearchText({
+  required String searchQuery,
+  required Function(Talker talker) logCallback,
+  required int countFound,
+  required bool useTalkerFilter,
+}) {
+  final filter =
+      BaseTalkerFilter(types: [], titles: [], searchQuery: searchQuery);
+  final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
+  talker.configure(settings: TalkerSettings(useConsoleLogs: false));
 
-// void _testFilterFoundByType({
-//   required List<Type> types,
-//   required Function() logCallback,
-//   required int countFound,
-// }) {
-//   final filter = BaseTalkerFilter(types: types, titles: []);
-//   test('Found $countFound in ${types.join(',')}', () {
-//     logCallback.call();
-//     final foundRecords = talker.history.where((e) => filter.filter(e)).toList();
-//     expect(foundRecords, isNotEmpty);
-//     expect(foundRecords.length, countFound);
-//   });
-// }
+  test(
+      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} with searchQuery $searchQuery',
+      () {
+    logCallback.call(talker);
+    final foundRecords = useTalkerFilter
+        ? talker.history
+        : talker.history.where((e) => filter.filter(e)).toList();
+    expect(foundRecords, isNotEmpty);
+    expect(foundRecords.length, countFound);
+  });
+}
+
+void _testFilterFoundByType({
+  required List<Type> types,
+  required Function(Talker talker) logCallback,
+  required int countFound,
+  required bool useTalkerFilter,
+}) {
+  final filter = BaseTalkerFilter(types: types);
+  final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
+  talker.configure(settings: TalkerSettings(useConsoleLogs: false));
+
+  test(
+      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${types.join(',')}',
+      () {
+    logCallback.call(talker);
+    final foundRecords = useTalkerFilter
+        ? talker.history
+        : talker.history.where((e) => filter.filter(e)).toList();
+    expect(foundRecords, isNotEmpty);
+    expect(foundRecords.length, countFound);
+  });
+}
 
 void _testFilterFoundByTitle({
   required List<String> titles,
@@ -148,7 +177,7 @@ void _testFilterFoundByTitle({
   required int countFound,
   required bool useTalkerFilter,
 }) {
-  final filter = BaseTalkerFilter(types: [], titles: titles);
+  final filter = BaseTalkerFilter(titles: titles);
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
   talker.configure(settings: TalkerSettings(useConsoleLogs: false));
 

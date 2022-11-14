@@ -1,3 +1,7 @@
+## 2.1.0
+- **Talker mutual update**
+See more in [releases](https://github.com/Frezyx/talker/releases)
+
 ## 2.0.0
 - **Huge Talker update**
 See more in [releases](https://github.com/Frezyx/talker/releases)

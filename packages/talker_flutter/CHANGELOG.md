@@ -1,3 +1,6 @@
+## 2.0.6
+- **FIX**: Update internal packages
+
 ## 2.0.5
 - **FIX**: Analyzer issues about shareFiles method deprecation
 

@@ -5,12 +5,15 @@ void main() {
   group('TalkerFilter', () {
     _testFilterByTitles(useTalkerFilter: false);
     _testFilterByTitles(useTalkerFilter: true);
+    _testFilterByTitles(useTalkerFilter: true, configureFilter: true);
 
     _testFilterByTypes(useTalkerFilter: false);
     _testFilterByTypes(useTalkerFilter: true);
+    _testFilterByTypes(useTalkerFilter: true, configureFilter: true);
 
     _testFilterBySearchText(useTalkerFilter: false);
     _testFilterBySearchText(useTalkerFilter: true);
+    _testFilterBySearchText(useTalkerFilter: true, configureFilter: true);
 
     test('copyWith', () {
       final filter = BaseTalkerFilter(
@@ -30,9 +33,13 @@ void main() {
   });
 }
 
-void _testFilterBySearchText({required bool useTalkerFilter}) {
+void _testFilterBySearchText({
+  required bool useTalkerFilter,
+  bool configureFilter = false,
+}) {
   return group('By search text', () {
     _testFilterFoundBySearchText(
+      configureFilter: configureFilter,
       useTalkerFilter: useTalkerFilter,
       searchQuery: 'http',
       countFound: 5,
@@ -49,9 +56,13 @@ void _testFilterBySearchText({required bool useTalkerFilter}) {
   });
 }
 
-void _testFilterByTypes({required bool useTalkerFilter}) {
+void _testFilterByTypes({
+  required bool useTalkerFilter,
+  bool configureFilter = false,
+}) {
   group('By type', () {
     _testFilterFoundByType(
+      configureFilter: configureFilter,
       useTalkerFilter: useTalkerFilter,
       types: [TalkerLog],
       countFound: 1,
@@ -60,6 +71,7 @@ void _testFilterByTypes({required bool useTalkerFilter}) {
       },
     );
     _testFilterFoundByType(
+      configureFilter: configureFilter,
       useTalkerFilter: useTalkerFilter,
       types: [TalkerError],
       countFound: 2,
@@ -72,11 +84,15 @@ void _testFilterByTypes({required bool useTalkerFilter}) {
   });
 }
 
-void _testFilterByTitles({required bool useTalkerFilter}) {
+void _testFilterByTitles({
+  required bool useTalkerFilter,
+  bool configureFilter = false,
+}) {
   return group(
     'By title',
     () {
       _testFilterFoundByTitle(
+        configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
         titles: ['ERROR'],
         countFound: 1,
@@ -86,6 +102,7 @@ void _testFilterByTitles({required bool useTalkerFilter}) {
       );
 
       _testFilterFoundByTitle(
+        configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
         titles: ['ERROR', 'EXCEPTION'],
         countFound: 2,
@@ -96,6 +113,7 @@ void _testFilterByTitles({required bool useTalkerFilter}) {
       );
 
       _testFilterFoundByTitle(
+        configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
         titles: ['ERROR', 'VERBOSE'],
         countFound: 2,
@@ -107,6 +125,7 @@ void _testFilterByTitles({required bool useTalkerFilter}) {
       );
 
       _testFilterFoundByTitle(
+        configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
         titles: ['VERBOSE'],
         countFound: 5,
@@ -131,14 +150,19 @@ void _testFilterFoundBySearchText({
   required Function(Talker talker) logCallback,
   required int countFound,
   required bool useTalkerFilter,
+  bool configureFilter = false,
 }) {
   final filter =
       BaseTalkerFilter(types: [], titles: [], searchQuery: searchQuery);
-  final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
-  talker.configure(settings: TalkerSettings(useConsoleLogs: false));
+  final talker =
+      useTalkerFilter && !configureFilter ? Talker(filter: filter) : Talker();
+  talker.configure(
+    settings: TalkerSettings(useConsoleLogs: false),
+    filter: useTalkerFilter && configureFilter ? filter : null,
+  );
 
   test(
-      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} with searchQuery $searchQuery',
+      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} with searchQuery $searchQuery ${configureFilter ? 'by configure() method' : ''}',
       () {
     logCallback.call(talker);
     final foundRecords = useTalkerFilter
@@ -154,13 +178,18 @@ void _testFilterFoundByType({
   required Function(Talker talker) logCallback,
   required int countFound,
   required bool useTalkerFilter,
+  bool configureFilter = false,
 }) {
   final filter = BaseTalkerFilter(types: types);
-  final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
-  talker.configure(settings: TalkerSettings(useConsoleLogs: false));
+  final talker =
+      useTalkerFilter && !configureFilter ? Talker(filter: filter) : Talker();
+  talker.configure(
+    settings: TalkerSettings(useConsoleLogs: false),
+    filter: useTalkerFilter && configureFilter ? filter : null,
+  );
 
   test(
-      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${types.join(',')}',
+      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${types.join(',')} ${configureFilter ? 'by configure() method' : ''}',
       () {
     logCallback.call(talker);
     final foundRecords = useTalkerFilter
@@ -176,13 +205,18 @@ void _testFilterFoundByTitle({
   required Function(Talker) logCallback,
   required int countFound,
   required bool useTalkerFilter,
+  bool configureFilter = false,
 }) {
   final filter = BaseTalkerFilter(titles: titles);
-  final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
-  talker.configure(settings: TalkerSettings(useConsoleLogs: false));
+  final talker =
+      useTalkerFilter && !configureFilter ? Talker(filter: filter) : Talker();
+  talker.configure(
+    settings: TalkerSettings(useConsoleLogs: false),
+    filter: useTalkerFilter && configureFilter ? filter : null,
+  );
 
   test(
-      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${titles.join(',')}',
+      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${titles.join(',')} ${configureFilter ? 'by configure() method' : ''}',
       () {
     logCallback.call(talker);
 

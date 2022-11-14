@@ -72,7 +72,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^2.0.0
+  talker: ^2.1.0
 ```
 
 ### Easy to use
@@ -95,7 +95,26 @@ talker.error('🚨 The service is not available');
 ```
 More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
-## Customization
+
+## ❗️ Attention ❗️
+
+### Logs are truncated / cut by the console
+
+Latest Flutter stable release have print method bug [issues/110236](https://github.com/flutter/flutter/issues/110236) <br>
+But with Talker you can solve it with passing your own output/print method 
+
+If you want to see full logs in console - pass debugPrint as ouput callback method in Talker constructor
+```dart
+final talker = Talker(
+  loggerOutput: debugPrint,
+);
+```
+
+### iOS logs colors 
+There is a problem with the color palette of logs when launching the app on iOS.
+In this case, the console cannot read the ansi colors that are used by the library.
+
+## ⚙️ Customization
 Configure the error handler and logger for yourself
 ```dart
 final talker = Talker(
@@ -136,17 +155,6 @@ Follow these steps to implement talker_flutter in your application
 ```yaml
 dependencies:
   talker_flutter: ^2.0.6
-```
-
-### ❗️ Attention ❗️
-Latest Flutter stable release have print method bug [issues/110236](https://github.com/flutter/flutter/issues/110236) <br>
-But with Talker you can solve it with passing your own output/print method
-
-If you want to see full logs in console - pass debugPrint as ouput callback method in Talker constructor
-```dart
-final talker = Talker(
-  loggerOutput: debugPrint,
-);
 ```
 
 ### Easy to use

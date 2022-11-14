@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker_flutter: #^1.1.0
+  talker_flutter:
     path:
       ../../packages/talker_flutter
   get_it: ^7.2.0

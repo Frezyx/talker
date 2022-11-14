@@ -60,8 +60,8 @@ final _haveBigScreen =
 
 void _initTalker() {
   final talker = Talker(
-    loggerSettings: TalkerLoggerSettings(
-      enableColors: !Platform.isIOS,
+    filter: BaseTalkerFilter(
+      searchQuery: '4',
     ),
   );
   GetIt.instance.registerSingleton<Talker>(talker);

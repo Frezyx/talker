@@ -1,3 +1,5 @@
+import 'package:talker_flutter/talker_flutter.dart';
+
 /// [TalkerDioLogger] settings and customization
 class TalkerDioLoggerSettings {
   const TalkerDioLoggerSettings({
@@ -6,6 +8,8 @@ class TalkerDioLoggerSettings {
     this.printResponseMessage = true,
     this.printRequestData = true,
     this.printRequestHeaders = false,
+    this.requestPen,
+    this.responsePen,
   });
 
   /// Print [response.data] if true
@@ -22,4 +26,26 @@ class TalkerDioLoggerSettings {
 
   /// Print [request.headers] if true
   final bool printRequestHeaders;
+
+  /// Field to set custom request console logs color
+  ///```
+  ///// Red color
+  ///final redPen = AnsiPen()..red();
+  ///
+  ///// Blue color
+  ///final redPen = AnsiPen()..blue();
+  ///```
+  /// More details in [AnsiPen] docs
+  final AnsiPen? requestPen;
+
+  /// Field to set custom response console logs color
+  ///```
+  ///// Red color
+  ///final redPen = AnsiPen()..red();
+  ///
+  ///// Blue color
+  ///final redPen = AnsiPen()..blue();
+  ///```
+  /// More details in [AnsiPen] docs
+  final AnsiPen? responsePen;
 }

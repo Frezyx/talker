@@ -48,8 +48,7 @@ class TalkerDioLogger extends Interceptor {
         message,
         data: options.data,
         headers: options.headers,
-        printData: settings.printRequestData,
-        printHeaders: settings.printRequestHeaders,
+        settings: settings,
       );
       _talker.logTyped(httpLog);
     } catch (_) {
@@ -67,10 +66,8 @@ class TalkerDioLogger extends Interceptor {
         message,
         responseMessage: response.statusMessage,
         data: response.data,
-        printMesage: settings.printResponseMessage,
         headers: response.requestOptions.headers,
-        printData: settings.printResponseData,
-        printHeaders: settings.printResponseHeaders,
+        settings: settings,
       );
       _talker.logTyped(httpLog);
     } catch (_) {

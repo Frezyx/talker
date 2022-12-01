@@ -15,7 +15,7 @@ Lightweight and customizable [dio](https://pub.dev/packages/dio) http client log
 
 ## Preview
 This is how the logs of your http requests will look in the console
-![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_dio_logger/preview.png?raw=true)
+![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_dio_logger/preview_new.png?raw=true)
 
 ## Getting started
 Follow these steps to use this package

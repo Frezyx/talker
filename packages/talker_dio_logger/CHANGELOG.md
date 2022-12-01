@@ -1,3 +1,9 @@
+## 1.0.0
+- **BREAKING**: Package available for dart applications as for Flutter apps 
+(Flutter sdk was removed from package dependencies)
+- **FEAT**: Upgrade logs formatting, more readable, simpler and more effective 
+- **FEAT**: Implement DioError custom logs with new formatting
+
 ## 0.6.0
 - **FEAT**: Implement requestPen and responsePen for 
 setup custom request and response console message colors

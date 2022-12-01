@@ -1,3 +1,7 @@
+## 0.6.0
+- **FEAT**: Implement requestPen and responsePen for 
+setup custom request and response console message colors
+
 ## 0.5.0
 - **Talker mutual update**
 See more in [releases](https://github.com/Frezyx/talker/releases)

@@ -5,17 +5,11 @@ homepage: https://github.com/Frezyx/talker
 
 environment:
   sdk: '>=2.15.0 <3.0.0'
-  flutter: ">=1.17.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-  talker_flutter: ^2.1.0
   dio: ^4.0.6
+  talker: ^2.1.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
-
-flutter:
+  lint: ^2.0.1
+  test: ^1.22.0

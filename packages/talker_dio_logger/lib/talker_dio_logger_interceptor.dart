@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/http_logs.dart';
-import 'package:talker_flutter/talker_flutter.dart';
-
-import 'talker_dio_logger_settings.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 /// [Dio] http client logger on [Talker] base
 ///
@@ -19,11 +17,7 @@ class TalkerDioLogger extends Interceptor {
   }) {
     _talker = talker ??
         Talker(
-          loggerOutput: debugPrint,
-          settings: TalkerSettings(
-            useConsoleLogs: kDebugMode,
-            useHistory: kDebugMode,
-          ),
+          settings: TalkerSettings(),
           loggerSettings: TalkerLoggerSettings(
             enableColors: !Platform.isIOS && !Platform.isMacOS,
           ),

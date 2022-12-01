@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 const encoder = JsonEncoder.withIndent('  ');
 
-class HttpRequestLog extends FlutterTalkerLog {
+class HttpRequestLog extends TalkerLog {
   HttpRequestLog(
     String title, {
     required this.headers,
@@ -21,9 +20,6 @@ class HttpRequestLog extends FlutterTalkerLog {
   @override
   AnsiPen get pen => settings.requestPen ?? AnsiPen()
     ..xterm(219);
-
-  @override
-  Color get color => Colors.pink[300]!;
 
   @override
   String get title => 'HTTP';
@@ -44,7 +40,7 @@ class HttpRequestLog extends FlutterTalkerLog {
   }
 }
 
-class HttpResponseLog extends FlutterTalkerLog {
+class HttpResponseLog extends TalkerLog {
   HttpResponseLog(
     String title, {
     required this.headers,
@@ -61,9 +57,6 @@ class HttpResponseLog extends FlutterTalkerLog {
   @override
   AnsiPen get pen => settings.responsePen ?? AnsiPen()
     ..xterm(46);
-
-  @override
-  Color get color => const Color.fromARGB(255, 48, 227, 57);
 
   @override
   String get title => 'HTTP-RESPONSE';

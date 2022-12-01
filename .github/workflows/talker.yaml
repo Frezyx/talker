@@ -42,7 +42,7 @@ jobs:
         run: flutter test --no-pub --coverage
 
       - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v2.0.0
+        uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
         with:
           path: packages/talker/coverage/lcov.info
           min_coverage: 90
@@ -58,7 +58,7 @@ jobs:
       #     export PATH=$PATH:$HOME/.pub-cache/bin
       #     test_coverage
       # - name: Check Code Coverage
-      #   uses: VeryGoodOpenSource/very_good_coverage@v2.0.0
+      #   uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
       #   with:
       #     min_coverage: 30
       #     path: talker_logger/coverage/lcov.info

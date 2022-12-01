@@ -162,7 +162,7 @@ packages:
       name: mime
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   path:
     dependency: transitive
     description:
@@ -183,7 +183,7 @@ packages:
       name: path_provider_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.20"
+    version: "2.0.22"
   path_provider_ios:
     dependency: transitive
     description:
@@ -300,9 +300,9 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.5.0"
+    version: "0.6.0"
   talker_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: talker_flutter
       url: "https://pub.dartlang.org"
@@ -384,7 +384,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.2"
   xdg_directories:
     dependency: transitive
     description:

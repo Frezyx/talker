@@ -1,129 +1,128 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:talker_flutter/talker_flutter.dart';
+import 'package:dio/dio.dart';
+import 'package:talker/talker.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 const encoder = JsonEncoder.withIndent('  ');
 
-class HttpRequestLog extends FlutterTalkerLog {
+class HttpRequestLog extends TalkerLog {
   HttpRequestLog(
     String title, {
-    required this.headers,
-    this.data,
-    this.printData = false,
-    this.printHeaders = false,
-    this.showDataAtUI = true,
-    this.showHeadersAtUI = true,
+    required this.requestOptions,
+    required this.settings,
   }) : super(title);
 
-  final dynamic data;
-  final Map<String, dynamic> headers;
-  final bool printData;
-  final bool printHeaders;
-  final bool showDataAtUI;
-  final bool showHeadersAtUI;
+  final RequestOptions requestOptions;
+  final TalkerDioLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(219);
+  AnsiPen get pen => settings.requestPen ?? AnsiPen()
+    ..xterm(219);
 
   @override
-  Color get color => Colors.pink[300]!;
-
-  @override
-  String get title => 'HTTP';
+  String get title => 'http-request';
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] $message';
+    var msg = '[$displayTitle] [${requestOptions.method}] $message';
 
-    if (printData && data != null) {
+    final data = requestOptions.data;
+    final headers = requestOptions.headers;
+
+    if (settings.printRequestData && data != null) {
       final prettyData = encoder.convert(data);
-      msg += '\nDATA:$prettyData';
+      msg += '\nData: $prettyData';
     }
-    if (printHeaders && headers.isNotEmpty) {
+    if (settings.printRequestHeaders && headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
-      msg += '\nHEADERS:$prettyHeaders';
-    }
-    return msg;
-  }
-
-  @override
-  String generateFlutterTextMessage() {
-    var msg = '[$displayTitle] $message';
-
-    if (showDataAtUI) {
-      final prettyData = encoder.convert(data);
-      msg += '\nDATA:$prettyData';
-    }
-    if (showHeadersAtUI) {
-      final prettyHeaders = encoder.convert(headers);
-      msg += '\nHEADERS:$prettyHeaders';
+      msg += '\nHeaders: $prettyHeaders';
     }
     return msg;
   }
 }
 
-class HttpResponseLog extends FlutterTalkerLog {
+class HttpResponseLog extends TalkerLog {
   HttpResponseLog(
     String title, {
-    required this.headers,
-    this.responseMessage,
-    this.data,
-    this.printData = false,
-    this.printHeaders = false,
-    this.printMesage = true,
-    this.showDataAtUI = true,
-    this.showHeadersAtUI = true,
+    required this.response,
+    required this.settings,
   }) : super(title);
 
-  final String? responseMessage;
-  final dynamic data;
-  final Map<String, dynamic> headers;
-  final bool printData;
-  final bool printHeaders;
-  final bool printMesage;
-  final bool showDataAtUI;
-  final bool showHeadersAtUI;
+  final Response<dynamic> response;
+  final TalkerDioLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(46);
+  AnsiPen get pen => settings.responsePen ?? AnsiPen()
+    ..xterm(46);
 
   @override
-  Color get color => const Color.fromARGB(255, 48, 227, 57);
-
-  @override
-  String get title => 'HTTP-RESPONSE';
+  String get title => 'http-response';
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] $message';
+    var msg = '[$displayTitle] [${response.requestOptions.method}] $message';
 
-    if (printMesage && responseMessage != null) {
-      msg += '\nMESSAGE:$responseMessage';
+    final responseMessage = response.statusMessage;
+    final data = response.data;
+    final headers = response.requestOptions.headers;
+
+    msg += '\nStatus: ${response.statusCode}';
+
+    if (settings.printResponseMessage && responseMessage != null) {
+      msg += '\nMessage: $responseMessage';
     }
 
-    if (printData && data != null) {
+    if (settings.printResponseData && data != null) {
       final prettyData = encoder.convert(data);
-      msg += '\nDATA:$prettyData';
+      msg += '\nData: $prettyData';
     }
-    if (printHeaders && headers.isNotEmpty) {
+    if (settings.printResponseHeaders && headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
-      msg += '\nHEADERS:$prettyHeaders';
+      msg += '\nHeaders: $prettyHeaders';
     }
     return msg;
   }
+}
+
+class HttpErrorLog extends TalkerLog {
+  HttpErrorLog(
+    String title, {
+    required this.dioError,
+    required this.settings,
+  }) : super(title);
+
+  final DioError dioError;
+  final TalkerDioLoggerSettings settings;
 
   @override
-  String generateFlutterTextMessage() {
-    var msg = '[$displayTitle] $message';
+  AnsiPen get pen => settings.errorPen ?? AnsiPen()
+    ..red();
 
-    if (showDataAtUI) {
-      final prettyData = encoder.convert(data);
-      msg += '\nDATA:$prettyData';
+  @override
+  String get title => 'http-error';
+
+  @override
+  String generateTextMessage() {
+    var msg = '[$displayTitle] [${dioError.requestOptions.method}] $message';
+
+    final responseMessage = dioError.message;
+    final statusCode = dioError.response?.statusCode;
+    final data = dioError.response?.data;
+    final headers = dioError.requestOptions.headers;
+
+    if (statusCode != null) {
+      msg += '\nStatus: ${dioError.response?.statusCode}';
     }
-    if (showHeadersAtUI) {
+    msg += '\nMessage: $responseMessage';
+
+    if (data != null) {
+      final prettyData = encoder.convert(data);
+      msg += '\nData: $prettyData';
+    }
+    if (headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
-      msg += '\nHEADERS:$prettyHeaders';
+      msg += '\nHeaders: $prettyHeaders';
     }
     return msg;
   }

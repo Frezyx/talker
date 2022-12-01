@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/http_logs.dart';
-import 'package:talker_flutter/talker_flutter.dart';
-
-import 'talker_dio_logger_settings.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 /// [Dio] http client logger on [Talker] base
 ///
@@ -19,11 +17,7 @@ class TalkerDioLogger extends Interceptor {
   }) {
     _talker = talker ??
         Talker(
-          loggerOutput: debugPrint,
-          settings: TalkerSettings(
-            useConsoleLogs: kDebugMode,
-            useHistory: kDebugMode,
-          ),
+          settings: TalkerSettings(),
           loggerSettings: TalkerLoggerSettings(
             enableColors: !Platform.isIOS && !Platform.isMacOS,
           ),
@@ -42,14 +36,11 @@ class TalkerDioLogger extends Interceptor {
   ) {
     super.onRequest(options, handler);
     try {
-      var message = '${options.uri}';
-      message += '\nMETHOD: ${options.method}';
+      final message = '${options.uri}';
       final httpLog = HttpRequestLog(
         message,
-        data: options.data,
-        headers: options.headers,
-        printData: settings.printRequestData,
-        printHeaders: settings.printRequestHeaders,
+        requestOptions: options,
+        settings: settings,
       );
       _talker.logTyped(httpLog);
     } catch (_) {
@@ -61,16 +52,11 @@ class TalkerDioLogger extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
     try {
-      final message =
-          'STATUS: [${response.statusCode}] | ${response.requestOptions.uri}';
+      final message = '${response.requestOptions.uri}';
       final httpLog = HttpResponseLog(
         message,
-        responseMessage: response.statusMessage,
-        data: response.data,
-        printMesage: settings.printResponseMessage,
-        headers: response.requestOptions.headers,
-        printData: settings.printResponseData,
-        printHeaders: settings.printResponseHeaders,
+        settings: settings,
+        response: response,
       );
       _talker.logTyped(httpLog);
     } catch (_) {
@@ -82,13 +68,13 @@ class TalkerDioLogger extends Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
     try {
-      _talker.handle(
-        err,
-        null,
-        '''URL: ${err.requestOptions.uri}
-  METHOD: ${err.requestOptions.method}
-  ${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',
+      final message = '${err.requestOptions.uri}';
+      final httpErrorLog = HttpErrorLog(
+        message,
+        dioError: err,
+        settings: settings,
       );
+      _talker.logTyped(httpErrorLog);
     } catch (_) {
       //pass
     }

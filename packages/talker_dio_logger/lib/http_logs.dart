@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
@@ -8,13 +9,11 @@ const encoder = JsonEncoder.withIndent('  ');
 class HttpRequestLog extends TalkerLog {
   HttpRequestLog(
     String title, {
-    required this.headers,
+    required this.requestOptions,
     required this.settings,
-    this.data,
   }) : super(title);
 
-  final dynamic data;
-  final Map<String, dynamic> headers;
+  final RequestOptions requestOptions;
   final TalkerDioLoggerSettings settings;
 
   @override
@@ -22,19 +21,22 @@ class HttpRequestLog extends TalkerLog {
     ..xterm(219);
 
   @override
-  String get title => 'HTTP';
+  String get title => 'http-request';
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] $message';
+    var msg = '[$displayTitle] [${requestOptions.method}] $message';
+
+    final data = requestOptions.data;
+    final headers = requestOptions.headers;
 
     if (settings.printRequestData && data != null) {
       final prettyData = encoder.convert(data);
-      msg += '\nDATA:$prettyData';
+      msg += '\nData:$prettyData';
     }
     if (settings.printRequestHeaders && headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
-      msg += '\nHEADERS:$prettyHeaders';
+      msg += '\nHeaders:$prettyHeaders';
     }
     return msg;
   }
@@ -43,15 +45,11 @@ class HttpRequestLog extends TalkerLog {
 class HttpResponseLog extends TalkerLog {
   HttpResponseLog(
     String title, {
-    required this.headers,
+    required this.response,
     required this.settings,
-    this.responseMessage,
-    this.data,
   }) : super(title);
 
-  final String? responseMessage;
-  final dynamic data;
-  final Map<String, dynamic> headers;
+  final Response<dynamic> response;
   final TalkerDioLoggerSettings settings;
 
   @override
@@ -59,23 +57,29 @@ class HttpResponseLog extends TalkerLog {
     ..xterm(46);
 
   @override
-  String get title => 'HTTP-RESPONSE';
+  String get title => 'http-response';
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] $message';
+    var msg = '[$displayTitle] [${response.requestOptions.method}] $message';
+
+    final responseMessage = response.statusMessage;
+    final data = response.data;
+    final headers = response.requestOptions.headers;
+
+    msg += '\nStatus: ${response.statusCode}';
 
     if (settings.printResponseMessage && responseMessage != null) {
-      msg += '\nMESSAGE:$responseMessage';
+      msg += '\nMessage:$responseMessage';
     }
 
     if (settings.printResponseData && data != null) {
       final prettyData = encoder.convert(data);
-      msg += '\nDATA:$prettyData';
+      msg += '\nData:$prettyData';
     }
     if (settings.printResponseHeaders && headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
-      msg += '\nHEADERS:$prettyHeaders';
+      msg += '\nHeaders:$prettyHeaders';
     }
     return msg;
   }

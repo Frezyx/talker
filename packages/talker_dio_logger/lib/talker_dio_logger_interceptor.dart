@@ -36,12 +36,10 @@ class TalkerDioLogger extends Interceptor {
   ) {
     super.onRequest(options, handler);
     try {
-      var message = '${options.uri}';
-      message += '\nMETHOD: ${options.method}';
+      final message = '${options.uri}';
       final httpLog = HttpRequestLog(
         message,
-        data: options.data,
-        headers: options.headers,
+        requestOptions: options,
         settings: settings,
       );
       _talker.logTyped(httpLog);
@@ -54,14 +52,11 @@ class TalkerDioLogger extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
     try {
-      final message =
-          'STATUS: [${response.statusCode}] | ${response.requestOptions.uri}';
+      final message = '${response.requestOptions.uri}';
       final httpLog = HttpResponseLog(
         message,
-        responseMessage: response.statusMessage,
-        data: response.data,
-        headers: response.requestOptions.headers,
         settings: settings,
+        response: response,
       );
       _talker.logTyped(httpLog);
     } catch (_) {

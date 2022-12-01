@@ -32,11 +32,11 @@ class HttpRequestLog extends TalkerLog {
 
     if (settings.printRequestData && data != null) {
       final prettyData = encoder.convert(data);
-      msg += '\nData:$prettyData';
+      msg += '\nData: $prettyData';
     }
     if (settings.printRequestHeaders && headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
-      msg += '\nHeaders:$prettyHeaders';
+      msg += '\nHeaders: $prettyHeaders';
     }
     return msg;
   }
@@ -70,16 +70,59 @@ class HttpResponseLog extends TalkerLog {
     msg += '\nStatus: ${response.statusCode}';
 
     if (settings.printResponseMessage && responseMessage != null) {
-      msg += '\nMessage:$responseMessage';
+      msg += '\nMessage: $responseMessage';
     }
 
     if (settings.printResponseData && data != null) {
       final prettyData = encoder.convert(data);
-      msg += '\nData:$prettyData';
+      msg += '\nData: $prettyData';
     }
     if (settings.printResponseHeaders && headers.isNotEmpty) {
       final prettyHeaders = encoder.convert(headers);
-      msg += '\nHeaders:$prettyHeaders';
+      msg += '\nHeaders: $prettyHeaders';
+    }
+    return msg;
+  }
+}
+
+class HttpErrorLog extends TalkerLog {
+  HttpErrorLog(
+    String title, {
+    required this.dioError,
+    required this.settings,
+  }) : super(title);
+
+  final DioError dioError;
+  final TalkerDioLoggerSettings settings;
+
+  @override
+  AnsiPen get pen => settings.errorPen ?? AnsiPen()
+    ..red();
+
+  @override
+  String get title => 'http-error';
+
+  @override
+  String generateTextMessage() {
+    var msg = '[$displayTitle] [${dioError.requestOptions.method}] $message';
+
+    final responseMessage = dioError.message;
+    final statusCode = dioError.response?.statusCode;
+    final data = dioError.response?.data;
+    final headers = dioError.requestOptions.headers;
+
+    if (statusCode != null) {
+      msg += '\nStatus: ${dioError.response?.statusCode}';
+    }
+    msg += '\nMessage: $responseMessage';
+
+    if (data != null) {
+      final prettyData = encoder.convert(data);
+      msg += '\nData: $prettyData';
+    }
+    if (headers.isNotEmpty) {
+      final prettyHeaders = encoder.convert(headers);
+      msg += '\nHeaders: $prettyHeaders';
     }
     return msg;
   }

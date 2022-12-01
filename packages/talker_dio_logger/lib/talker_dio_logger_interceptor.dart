@@ -68,13 +68,13 @@ class TalkerDioLogger extends Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
     try {
-      _talker.handle(
-        err,
-        null,
-        '''URL: ${err.requestOptions.uri}
-  METHOD: ${err.requestOptions.method}
-  ${err.response?.statusCode != null ? 'STATUS-CODE: ${err.response?.statusCode}' : ''}''',
+      final message = '${err.requestOptions.uri}';
+      final httpErrorLog = HttpErrorLog(
+        message,
+        dioError: err,
+        settings: settings,
       );
+      _talker.logTyped(httpErrorLog);
     } catch (_) {
       //pass
     }

@@ -1,3 +1,7 @@
+## 2.1.0+1
+- **INFO**: Improve README.md
+- **INFO**: Improve pubspec.yaml
+
 ## 2.1.0
 - **FEAT**: Implement filter for Talker constructor. 
 Now you can filter data by logger and by talker instance as default.

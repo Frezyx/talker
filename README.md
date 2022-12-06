@@ -42,23 +42,20 @@ Talker is designed for any level of customization. <br>
 
 | Package | Version | Description | 
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [talker](https://github.com/Frezyx/talker/tree/master/packages/talker) | [![Pub](https://img.shields.io/pub/v/talker.svg?style=flat-square)](https://pub.dev/packages/talker) | Main dart package for make logs handle exceptions.  |
-| [talker_flutter](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) | [![Pub](https://img.shields.io/pub/v/talker_flutter.svg?style=flat-square)](https://pub.dev/packages/talker_flutter) | Error handler and logger for Flutter applications |
+| [talker](https://github.com/Frezyx/talker/tree/master/packages/talker) | [![Pub](https://img.shields.io/pub/v/talker.svg?style=flat-square)](https://pub.dev/packages/talker) | Main dart package for logging and error handling |
+| [talker_flutter](https://github.com/Frezyx/talker/tree/master/packages/talker_flutter) | [![Pub](https://img.shields.io/pub/v/talker_flutter.svg?style=flat-square)](https://pub.dev/packages/talker_flutter) | Flutter extensions for talker <br>Colored Flutter app logs (iOS and Android), logs list screen, showing error messages at UI out of the box, route observer, etc |
 | [talker_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) | [![Pub](https://img.shields.io/pub/v/talker_logger.svg?style=flat-square)](https://pub.dev/packages/talker_logger) | Customizable pretty logger for dart/flutter apps |
-| [talker_dio_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_dio_logger) | [![Pub](https://img.shields.io/pub/v/talker_dio_logger.svg?style=flat-square)](https://pub.dev/packages/talker_dio_logger) | Customizable pretty logger for logging dio http calls |
+| [talker_dio_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_dio_logger) | [![Pub](https://img.shields.io/pub/v/talker_dio_logger.svg?style=flat-square)](https://pub.dev/packages/talker_dio_logger) | Best logger for dio http calls |
 
-<!-- talker  Have auto-included logging, history and data transfering via stream. Package have possibility to setup observers, settings, filter and etc... -->
-<!-- talker_flutter Show error alerts with TalkerWrapper. Watch and share application logs with [TalkerScreen](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerscreen) or TalkerHistoryBuilder. Send exceptions and crash report to Sentry / Crashlitycs / Own Analytics via observers / TalkerListener, etc... -->
-<!-- talker_logger with possibility to customize formatting, filtering, log level setup and output methods. Used as logger for talker package -->
+## Table of contents
 
-
-<!-- <h2 align="center">On All Platforms</h2>
-<p align="center">
-   <span style="font-size: 0.8em">Please add Windows and Linux screenshots😘</span>
-</p>
-<p align="center">
-  <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/all_platforms.jpg?raw=true">
-</p> -->
+- [Motivation](#motivation)
+- [Packages](#Packages)
+- [Get Started](#get-started)
+- [Customization](#⚙️-customization)
+- [Talker Flutter](#talker-flutter)
+- [Coverage](#coverage)
+- [Additional information](#additional-information)
 
 ## Get Started
 <!-- See all documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or -->

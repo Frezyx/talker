@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'dart:developer';
 
@@ -20,6 +23,7 @@ extension TalkerFlutter on Talker {
         loggerFilter: loggerFilter,
         loggerFormater: loggerFormater,
         observers: observers,
-        loggerOutput: loggerOutput ?? log,
+        loggerOutput: loggerOutput ??
+            (Platform.isIOS || Platform.isMacOS ? log : debugPrint),
       );
 }

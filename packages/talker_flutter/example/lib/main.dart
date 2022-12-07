@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:talker_example/extended_example/extended_example.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'talker_wrapper_example/talker_wrapper_example.dart';
 
 /// You can see [ExtendedExample] to
 /// check how logs working in realtime

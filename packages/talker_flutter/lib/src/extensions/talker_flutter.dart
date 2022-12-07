@@ -23,7 +23,14 @@ extension TalkerFlutter on Talker {
         loggerFilter: loggerFilter,
         loggerFormater: loggerFormater,
         observers: observers,
-        loggerOutput: loggerOutput ??
-            (Platform.isIOS || Platform.isMacOS ? log : debugPrint),
+        loggerOutput: loggerOutput ?? _defaultFlutterOutput,
       );
+
+  static dynamic _defaultFlutterOutput(String message) {
+    if (Platform.isIOS || Platform.isMacOS) {
+      log(message, name: 'Talker');
+      return;
+    }
+    debugPrint(message);
+  }
 }

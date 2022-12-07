@@ -52,7 +52,8 @@ Talker is designed for any level of customization. <br>
 - [Motivation](#motivation)
 - [Packages](#Packages)
 - [Get Started](#get-started)
-- [Customization](#⚙️-customization)
+- [Get Started Flutter](#get-started-flutter)
+- [Customization](#customization)
 - [Talker Flutter](#talker-flutter)
 - [Features list](#features-list)
 - [Coverage](#coverage)
@@ -88,6 +89,8 @@ talker.error('🚨 The service is not available');
 ```
 More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
+## Get Started Flutter
+//TODO:
 
 ## ❗️ Attention ❗️
 
@@ -240,9 +243,6 @@ The talker_flutter package have a lot of another widgets like TalkerBuilder, Tal
 ✅ Logs and errors history saving
 
 ✅ TalkerObserver - handle all logs, errors, exceptions for integrations (Sentry, Crashlytics)
-
-
-
 
 
 ## Coverage

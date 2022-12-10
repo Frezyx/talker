@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
-import 'package:talker_flutter/src/ui/talker_monitor.dart';
+import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -59,7 +59,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   iconSize: 28,
-                  onPressed: () => _openTalkerMonitor(context, widget.theme),
+                  onPressed: () => _openTalkerMonitor(context),
                   icon: const Icon(Icons.monitor_heart_outlined),
                 ),
               ),
@@ -113,11 +113,12 @@ class _TalkerScreenState extends State<TalkerScreen> {
     );
   }
 
-  void _openTalkerMonitor(BuildContext context, TalkerScreenTheme theme) {
+  void _openTalkerMonitor(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => TalkerMonitor(
-          theme: theme,
+          theme: widget.theme,
+          talker: widget.talker,
         ),
       ),
     );

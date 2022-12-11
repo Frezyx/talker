@@ -57,11 +57,9 @@ class _TalkerScreenState extends State<TalkerScreen> {
             actions: [
               SizedBox(
                 width: 40,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  iconSize: 28,
+                child: _MonitorButton(
+                  talker: widget.talker,
                   onPressed: () => _openTalkerMonitor(context),
-                  icon: const Icon(Icons.monitor_heart_outlined),
                 ),
               ),
               SizedBox(
@@ -218,6 +216,54 @@ class _TalkerScreenState extends State<TalkerScreen> {
   void _showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(text)),
+    );
+  }
+}
+
+class _MonitorButton extends StatelessWidget {
+  const _MonitorButton({
+    Key? key,
+    required this.talker,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final TalkerInterface talker;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return TalkerHistoryBuilder(
+      talker: talker,
+      builder: (context, data) {
+        final haveErrors = data
+            .where((e) => e is TalkerError || e is TalkerException)
+            .isNotEmpty;
+        return Stack(
+          children: [
+            Center(
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                iconSize: 28,
+                onPressed: onPressed,
+                icon: const Icon(Icons.monitor_heart_outlined),
+              ),
+            ),
+            if (haveErrors)
+              Positioned(
+                right: 6,
+                top: 15,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  height: 5,
+                  width: 5,
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

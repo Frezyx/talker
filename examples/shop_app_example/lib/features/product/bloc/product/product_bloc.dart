@@ -42,7 +42,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductLoaded(event.product));
     } on Exception catch (e, st) {
       GetIt.instance<Talker>().handle(e, st);
-      emit(ProductLoadingFailure());
+      // emit(ProductLoadingFailure());
     }
   }
 

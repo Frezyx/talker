@@ -63,11 +63,19 @@ final _haveBigScreen =
 void _initTalker() {
   final talker = TalkerFlutter.init();
   GetIt.instance.registerSingleton<Talker>(talker);
-  talker.verbose('Talker initialization complete');
+  talker.verbose('Talker initialization completed');
+
+  /// This logic is just for example here
+  if (!GetIt.instance.isRegistered<Talker>()) {
+    GetIt.instance.registerSingleton<Talker>(talker);
+  } else {
+    talker.warning('Trying to re-register an object in GetIt');
+  }
 }
 
 void _registerRepositories() {
   final dio = Dio();
+  _tryPrecacheDio();
   dio.interceptors.add(
     TalkerDioLogger(
       talker: GetIt.instance<Talker>(),
@@ -83,5 +91,14 @@ void _registerRepositories() {
   GetIt.instance.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(dio: dio),
   );
-  GetIt.instance<Talker>().verbose('Repositories initialization complete');
+  GetIt.instance<Talker>().info('Repositories initialization completed');
+}
+
+/// This logic is just for example here
+void _tryPrecacheDio() {
+  try {
+    throw Exception('Dio precache exception');
+  } catch (e, st) {
+    GetIt.instance<Talker>().handle(e, st);
+  }
 }

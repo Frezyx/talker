@@ -52,39 +52,42 @@ class TalkerDataCard extends StatelessWidget {
                 )
               ],
             ),
-            Container(
-              margin: stackTrace != null ? const EdgeInsets.only(top: 8) : null,
-              padding: stackTrace != null
-                  ? const EdgeInsets.all(6)
-                  : EdgeInsets.zero,
-              decoration: stackTrace != null
-                  ? BoxDecoration(
-                      color: Colors.grey[900],
-                      borderRadius: BorderRadius.circular(10),
-                    )
-                  : null,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (errorType != null)
-                    Text(
-                      errorType,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 12,
+            if (expanded)
+              Container(
+                width: double.infinity,
+                margin:
+                    stackTrace != null ? const EdgeInsets.only(top: 8) : null,
+                padding: stackTrace != null
+                    ? const EdgeInsets.all(6)
+                    : EdgeInsets.zero,
+                decoration: stackTrace != null
+                    ? BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(10),
+                      )
+                    : null,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (expanded && errorType != null)
+                      Text(
+                        errorType,
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                  if (expanded && errorMessage != null)
-                    Text(
-                      errorMessage,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 12,
+                    if (expanded && errorMessage != null)
+                      Text(
+                        errorMessage,
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
             if (expanded && message != null)
               Text(
                 message,

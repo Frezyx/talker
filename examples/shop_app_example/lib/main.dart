@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/bloc/observer.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
@@ -59,18 +61,25 @@ final _haveBigScreen =
     Platform.isMacOS || Platform.isWindows || Platform.isLinux || kIsWeb;
 
 void _initTalker() {
-  final talker = Talker(
-    filter: BaseTalkerFilter(
-      searchQuery: '4',
-    ),
-  );
+  final talker = TalkerFlutter.init();
   GetIt.instance.registerSingleton<Talker>(talker);
   talker.verbose('Talker initialization complete');
 }
 
 void _registerRepositories() {
+  final dio = Dio();
+  dio.interceptors.add(
+    TalkerDioLogger(
+      talker: GetIt.instance<Talker>(),
+      settings: const TalkerDioLoggerSettings(
+        printRequestHeaders: true,
+        printResponseHeaders: true,
+      ),
+    ),
+  );
+
   GetIt.instance.registerSingleton<AbstractProductsRepository>(
-    ProductsRepository(),
+    ProductsRepository(dio: dio),
   );
   GetIt.instance<Talker>().verbose('Repositories initialization complete');
 }

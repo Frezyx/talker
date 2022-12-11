@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 
 const _mockProducts = [
@@ -41,21 +42,27 @@ const _mockProducts = [
 /// [_requestsCount > 1] - special mock logic
 /// to check how logs working in differend ways of logic
 class ProductsRepository implements AbstractProductsRepository {
+  ProductsRepository({required Dio dio}) : _dio = dio;
   var _requestsCount = 0;
+
+  final Dio _dio;
 
   @override
   Future<List<Product>> getProductsList() async {
     _requestsCount += 1;
-    await Future.delayed(const Duration(milliseconds: 500));
     if (_requestsCount > 0) {
+      await _dio.get('https://jsonplaceholder.typicode.com/todos');
       return _mockProducts;
     }
-    throw Exception('Products not loaded');
+
+    /// Incorrect http request path
+    await _dio.get('https://jsonplaceholder.typicode.com/tod');
+    return _mockProducts;
   }
 
   @override
   Future<Product> getProduct(String id) async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await _dio.get('https://jsonplaceholder.typicode.com/todos/1');
     return _mockProducts.firstWhere((e) => e.id == id);
   }
 }

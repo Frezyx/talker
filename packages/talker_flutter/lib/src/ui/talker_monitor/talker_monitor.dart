@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitor extends StatelessWidget {
@@ -29,6 +30,7 @@ class TalkerMonitor extends StatelessWidget {
         builder: (context, data) {
           final errors = data.whereType<TalkerError>().toList();
           final exceptions = data.whereType<TalkerException>().toList();
+          final httpRequests = data.whereType<HttpRequestLog>().toList();
 
           return CustomScrollView(
             slivers: [
@@ -52,6 +54,16 @@ class TalkerMonitor extends StatelessWidget {
                   icon: Icons.error_outline_rounded,
                   subtitle:
                       'Application has ${exceptions.length} unresolved exceptions',
+                ),
+              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 10)),
+              SliverToBoxAdapter(
+                child: TalkerMonitorItem(
+                  logs: httpRequests,
+                  title: 'Http Requests',
+                  color: Colors.green,
+                  icon: Icons.wifi,
+                  subtitle: '${httpRequests.length} http requests executed',
                 ),
               )
             ],

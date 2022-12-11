@@ -64,6 +64,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.6"
   equatable:
     dependency: "direct main"
     description:
@@ -135,6 +142,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.2"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.2"
   js:
     dependency: transitive
     description:
@@ -321,14 +335,21 @@ packages:
       name: talker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1-dev.1"
+  talker_dio_logger:
+    dependency: "direct main"
+    description:
+      name: talker_dio_logger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   talker_flutter:
     dependency: "direct main"
     description:
       path: "../../packages/talker_flutter"
       relative: true
     source: path
-    version: "2.1.0"
+    version: "2.1.1-dev.1"
   talker_logger:
     dependency: transitive
     description:

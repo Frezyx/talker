@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talker_dio_logger/http_logs.dart';
+import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_exceptions_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_item.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -50,6 +51,7 @@ class TalkerMonitor extends StatelessWidget {
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${errors.length} unresolved errors',
+                    onTap: () => _openExceptionsScreen(context, errors),
                   ),
                 ),
               ],
@@ -63,6 +65,7 @@ class TalkerMonitor extends StatelessWidget {
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${exceptions.length} unresolved exceptions',
+                    onTap: () => _openExceptionsScreen(context, exceptions),
                   ),
                 ),
               ],
@@ -130,6 +133,18 @@ class TalkerMonitor extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+
+  void _openExceptionsScreen(
+      BuildContext context, List<TalkerDataInterface> exceptions) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TalkerMonitorExceptionsScreen(
+          exceptions: exceptions,
+          theme: theme,
+        ),
       ),
     );
   }

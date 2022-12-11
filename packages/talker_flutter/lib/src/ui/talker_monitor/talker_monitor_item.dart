@@ -10,6 +10,7 @@ class TalkerMonitorItem extends StatelessWidget {
     this.subtitleWidget,
     required this.color,
     required this.icon,
+    this.onTap,
   }) : super(key: key);
 
   final String title;
@@ -18,52 +19,57 @@ class TalkerMonitorItem extends StatelessWidget {
   final List<TalkerDataInterface> logs;
   final Color color;
   final IconData icon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 49, 49, 49),
-        border: Border.all(color: color),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(icon, color: color),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  if (subtitle != null)
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 49, 49, 49),
+          border: Border.all(color: color),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(icon, color: color),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      subtitle!,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
+                      title,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  if (subtitleWidget != null) subtitleWidget!
-                ],
-              ),
-            ],
-          ),
-          Icon(Icons.arrow_forward_ios_rounded, color: color),
-        ],
+                    if (subtitle != null)
+                      Text(
+                        subtitle!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    if (subtitleWidget != null) subtitleWidget!
+                  ],
+                ),
+              ],
+            ),
+            if (onTap != null)
+              Icon(Icons.arrow_forward_ios_rounded, color: color),
+          ],
+        ),
       ),
     );
   }

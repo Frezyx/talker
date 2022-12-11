@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorItem extends StatelessWidget {
@@ -25,15 +26,8 @@ class TalkerMonitorItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 49, 49, 49),
-          border: Border.all(color: color),
-          borderRadius: BorderRadius.circular(10),
-        ),
+      child: TalkerBaseCard(
+        color: color,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

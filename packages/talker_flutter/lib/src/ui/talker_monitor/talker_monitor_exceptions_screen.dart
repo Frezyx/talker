@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
+import 'package:talker_flutter/src/ui/widgets/cards/talker_data_card.dart';
 
 class TalkerMonitorExceptionsScreen extends StatelessWidget {
   const TalkerMonitorExceptionsScreen({
@@ -21,16 +22,12 @@ class TalkerMonitorExceptionsScreen extends StatelessWidget {
       ),
       body: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final data = exceptions[index];
-                return TalkerLogDataContainer(
-                  data: data,
-                  expanded: true,
-                  options: theme,
-                  onTap: () {},
-                );
+                return TalkerDataCard(data: data);
               },
               childCount: exceptions.length,
             ),

@@ -1,5 +1,12 @@
+## 2.1.1-dev.3
+- **FEAT**: TalkerMonitor sorting, warning, infos, verbose errors
+- **FEAT**: Talker Http Monitor for http request-response analytics and monitoring
+
 ## 2.1.1-dev.2
-- **INFO**: Implement initial TalkerMonitor functionality
+- **FEAT**: Implement initial TalkerMonitor functionality
+
+## 2.1.1-dev.1
+- **FEAT**: Create FlutterTalker extensions for enable iOS/ MacOS colored logging
 
 ## 2.1.0+1
 - **INFO**: Improve README.md

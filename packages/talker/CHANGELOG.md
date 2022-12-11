@@ -1,3 +1,6 @@
+## 2.1.1-dev.2
+- **INFO**: Up version due to the talker_flutter update
+
 ## 2.1.0+1
 - **INFO**: Improve README.md
 - **INFO**: Improve pubspec.yaml

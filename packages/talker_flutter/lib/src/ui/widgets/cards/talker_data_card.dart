@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talker_dio_logger/http_logs.dart';
+import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -10,12 +11,14 @@ class TalkerDataCard extends StatelessWidget {
     required this.data,
     this.onTap,
     this.expanded = true,
+    this.margin,
   }) : super(key: key);
 
   final Color? color;
   final TalkerDataInterface data;
   final VoidCallback? onTap;
   final bool expanded;
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class TalkerDataCard extends StatelessWidget {
     final message = _message;
     final stackTrace = _stackTrace;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: margin ?? const EdgeInsets.only(bottom: 8),
       child: TalkerBaseCard(
         color: color,
         child: Column(
@@ -95,7 +98,7 @@ class TalkerDataCard extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 8),
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: Colors.grey[900],
+                  color: stackTraceBackground,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
@@ -128,10 +131,10 @@ class TalkerDataCard extends StatelessWidget {
       return LogLevel.error.color;
     }
     if (data is HttpResponseLog) {
-      return const Color(0xFF26FF3C);
+      return httpResponseLogColor;
     }
     if (data is HttpRequestLog) {
-      return const Color(0xFFB800AF);
+      return httpRequestLogColor;
     }
 
     return data.logLevel.color;
@@ -140,6 +143,11 @@ class TalkerDataCard extends StatelessWidget {
   String? get _message {
     if (data is TalkerError || data is TalkerException) {
       return null;
+    }
+    if (data is HttpErrorLog ||
+        data is HttpRequestLog ||
+        data is HttpResponseLog) {
+      return data.generateTextMessage();
     }
     return data.displayMessage;
   }

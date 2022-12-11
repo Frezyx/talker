@@ -74,6 +74,8 @@ void _registerRepositories() {
       settings: const TalkerDioLoggerSettings(
         printRequestHeaders: true,
         printResponseHeaders: true,
+        printRequestData: true,
+        printResponseData: true,
       ),
     ),
   );

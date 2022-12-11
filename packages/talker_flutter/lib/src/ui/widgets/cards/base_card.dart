@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theem.dart';
+import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 
 class TalkerBaseCard extends StatelessWidget {
   const TalkerBaseCard({

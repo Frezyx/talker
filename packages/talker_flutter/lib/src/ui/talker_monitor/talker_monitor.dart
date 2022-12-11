@@ -187,6 +187,7 @@ class TalkerMonitor extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => TalkerMonitorHttpScreen(
           talker: talker,
+          theme: theme,
         ),
       ),
     );

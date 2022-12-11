@@ -47,6 +47,7 @@ extension LogLevelTitle on LogLevel? {
       case LogLevel.good:
         return 'GOOD';
       case LogLevel.debug:
+        return 'DEBUG';
       default:
         return 'LOG';
     }

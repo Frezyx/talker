@@ -8,8 +8,10 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
     Key? key,
     required this.exceptions,
     required this.theme,
+    required this.typeName,
   }) : super(key: key);
 
+  final String typeName;
   final TalkerScreenTheme theme;
   final List<TalkerDataInterface> exceptions;
 
@@ -18,7 +20,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.backgroudColor,
       appBar: AppBar(
-        title: const Text('Talker Monitor Exceptions'),
+        title: Text('Talker Monitor $typeName'),
       ),
       body: CustomScrollView(
         slivers: [

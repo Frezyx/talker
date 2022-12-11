@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talker_dio_logger/http_logs.dart';
-import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_exceptions_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_item.dart';
+import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_typed_logs_screen.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitor extends StatelessWidget {
@@ -108,7 +108,8 @@ class TalkerMonitor extends StatelessWidget {
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${errors.length} unresolved errors',
-                    onTap: () => _openTypedLogsScreen(context, errors),
+                    onTap: () =>
+                        _openTypedLogsScreen(context, errors, 'Errors'),
                   ),
                 ),
               ],
@@ -122,7 +123,8 @@ class TalkerMonitor extends StatelessWidget {
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${exceptions.length} unresolved exceptions',
-                    onTap: () => _openTypedLogsScreen(context, exceptions),
+                    onTap: () =>
+                        _openTypedLogsScreen(context, exceptions, 'Exceptions'),
                   ),
                 ),
               ],
@@ -135,7 +137,8 @@ class TalkerMonitor extends StatelessWidget {
                     color: LogLevel.warning.color,
                     icon: Icons.warning_amber_rounded,
                     subtitle: 'Application has ${warnings.length} warnings',
-                    onTap: () => _openTypedLogsScreen(context, warnings),
+                    onTap: () =>
+                        _openTypedLogsScreen(context, warnings, 'Warnings'),
                   ),
                 ),
               ],
@@ -148,7 +151,7 @@ class TalkerMonitor extends StatelessWidget {
                     color: LogLevel.info.color,
                     icon: Icons.info_outline_rounded,
                     subtitle: 'Info logs count: ${infos.length}',
-                    onTap: () => _openTypedLogsScreen(context, infos),
+                    onTap: () => _openTypedLogsScreen(context, infos, 'Infos'),
                   ),
                 ),
               ],
@@ -162,7 +165,11 @@ class TalkerMonitor extends StatelessWidget {
                     icon: Icons.remove_red_eye_outlined,
                     subtitle:
                         'Verbose and debug logs count: ${verboseDebug.length}',
-                    onTap: () => _openTypedLogsScreen(context, verboseDebug),
+                    onTap: () => _openTypedLogsScreen(
+                      context,
+                      verboseDebug,
+                      'Verbose & debug',
+                    ),
                   ),
                 ),
               ],
@@ -174,12 +181,16 @@ class TalkerMonitor extends StatelessWidget {
   }
 
   void _openTypedLogsScreen(
-      BuildContext context, List<TalkerDataInterface> logs) {
+    BuildContext context,
+    List<TalkerDataInterface> logs,
+    String typeName,
+  ) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => TalkerMonitorTypedLogsScreen(
           exceptions: logs,
           theme: theme,
+          typeName: typeName,
         ),
       ),
     );

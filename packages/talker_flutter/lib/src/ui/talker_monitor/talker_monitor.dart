@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talker_dio_logger/http_logs.dart';
+import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_http_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_item.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_typed_logs_screen.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -57,6 +58,7 @@ class TalkerMonitor extends StatelessWidget {
                     title: 'Http Requests',
                     color: Colors.green,
                     icon: Icons.wifi,
+                    onTap: () => _openHttpMonitor(context),
                     subtitleWidget: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -176,6 +178,16 @@ class TalkerMonitor extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+
+  void _openHttpMonitor(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TalkerMonitorHttpScreen(
+          talker: talker,
+        ),
       ),
     );
   }

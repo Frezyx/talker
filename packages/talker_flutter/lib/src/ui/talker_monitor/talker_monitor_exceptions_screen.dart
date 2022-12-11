@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:talker_flutter/src/ui/widgets/cards/talker_data_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerMonitorExceptionsScreen extends StatelessWidget {
-  const TalkerMonitorExceptionsScreen({
+class TalkerMonitorTypedLogsScreen extends StatelessWidget {
+  const TalkerMonitorTypedLogsScreen({
     Key? key,
     required this.exceptions,
     required this.theme,

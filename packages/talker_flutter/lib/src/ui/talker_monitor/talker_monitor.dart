@@ -35,52 +35,20 @@ class TalkerMonitor extends StatelessWidget {
           final exceptions = data.whereType<TalkerException>().toList();
           final warnings =
               logs.where((e) => e.logLevel == LogLevel.warning).toList();
+
+          final infos = logs.where((e) => e.logLevel == LogLevel.info).toList();
+          final verboseDebug = logs
+              .where((e) =>
+                  e.logLevel == LogLevel.verbose ||
+                  e.logLevel == LogLevel.debug)
+              .toList();
+
           final httpRequests = data.whereType<HttpRequestLog>().toList();
           final httpErrors = data.whereType<HttpErrorLog>().toList();
           final httpResponses = data.whereType<HttpResponseLog>().toList();
 
           return CustomScrollView(
             slivers: [
-              if (errors.isNotEmpty) ...[
-                const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
-                    logs: errors,
-                    title: 'Errors',
-                    color: Colors.red,
-                    icon: Icons.error_outline_rounded,
-                    subtitle:
-                        'Application has ${errors.length} unresolved errors',
-                    onTap: () => _openExceptionsScreen(context, errors),
-                  ),
-                ),
-              ],
-              if (exceptions.isNotEmpty) ...[
-                const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
-                    logs: exceptions,
-                    title: 'Exceptions',
-                    color: Colors.red,
-                    icon: Icons.error_outline_rounded,
-                    subtitle:
-                        'Application has ${exceptions.length} unresolved exceptions',
-                    onTap: () => _openExceptionsScreen(context, exceptions),
-                  ),
-                ),
-              ],
-              if (warnings.isNotEmpty) ...[
-                const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
-                    logs: warnings,
-                    title: 'Warnings',
-                    color: LogLevel.warning.color,
-                    icon: Icons.warning_amber_rounded,
-                    subtitle: 'Application has ${warnings.length} warnings',
-                  ),
-                ),
-              ],
               if (httpRequests.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
@@ -130,6 +98,74 @@ class TalkerMonitor extends StatelessWidget {
                   ),
                 ),
               ],
+              if (errors.isNotEmpty) ...[
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: TalkerMonitorItem(
+                    logs: errors,
+                    title: 'Errors',
+                    color: Colors.red,
+                    icon: Icons.error_outline_rounded,
+                    subtitle:
+                        'Application has ${errors.length} unresolved errors',
+                    onTap: () => _openTypedLogsScreen(context, errors),
+                  ),
+                ),
+              ],
+              if (exceptions.isNotEmpty) ...[
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: TalkerMonitorItem(
+                    logs: exceptions,
+                    title: 'Exceptions',
+                    color: LogLevel.error.color,
+                    icon: Icons.error_outline_rounded,
+                    subtitle:
+                        'Application has ${exceptions.length} unresolved exceptions',
+                    onTap: () => _openTypedLogsScreen(context, exceptions),
+                  ),
+                ),
+              ],
+              if (warnings.isNotEmpty) ...[
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: TalkerMonitorItem(
+                    logs: warnings,
+                    title: 'Warnings',
+                    color: LogLevel.warning.color,
+                    icon: Icons.warning_amber_rounded,
+                    subtitle: 'Application has ${warnings.length} warnings',
+                    onTap: () => _openTypedLogsScreen(context, warnings),
+                  ),
+                ),
+              ],
+              if (infos.isNotEmpty) ...[
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: TalkerMonitorItem(
+                    logs: infos,
+                    title: 'Infos',
+                    color: LogLevel.info.color,
+                    icon: Icons.info_outline_rounded,
+                    subtitle: 'Info logs count: ${infos.length}',
+                    onTap: () => _openTypedLogsScreen(context, infos),
+                  ),
+                ),
+              ],
+              if (verboseDebug.isNotEmpty) ...[
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: TalkerMonitorItem(
+                    logs: verboseDebug,
+                    title: 'Verbose & debug',
+                    color: LogLevel.verbose.color,
+                    icon: Icons.remove_red_eye_outlined,
+                    subtitle:
+                        'Verbose and debug logs count: ${verboseDebug.length}',
+                    onTap: () => _openTypedLogsScreen(context, verboseDebug),
+                  ),
+                ),
+              ],
             ],
           );
         },
@@ -137,12 +173,12 @@ class TalkerMonitor extends StatelessWidget {
     );
   }
 
-  void _openExceptionsScreen(
-      BuildContext context, List<TalkerDataInterface> exceptions) {
+  void _openTypedLogsScreen(
+      BuildContext context, List<TalkerDataInterface> logs) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => TalkerMonitorExceptionsScreen(
-          exceptions: exceptions,
+        builder: (context) => TalkerMonitorTypedLogsScreen(
+          exceptions: logs,
           theme: theme,
         ),
       ),

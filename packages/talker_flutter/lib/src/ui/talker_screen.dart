@@ -90,6 +90,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
               final filtredElements =
                   data.where((e) => _controller.filter.filter(e)).toList();
               return ListView.builder(
+                padding: const EdgeInsets.only(top: 10),
                 physics: const BouncingScrollPhysics(),
                 itemCount: filtredElements.length,
                 itemBuilder: (_, i) {

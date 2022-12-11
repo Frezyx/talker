@@ -22,6 +22,7 @@ class TalkerDataCard extends StatelessWidget {
     final color = this.color ?? _color;
     final errorType = _type;
     final message = _message;
+    final stackTrace = _stackTrace;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TalkerBaseCard(
@@ -47,22 +48,39 @@ class TalkerDataCard extends StatelessWidget {
                 )
               ],
             ),
-            if (errorType != null)
-              Text(
-                errorType,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
-                ),
+            Container(
+              margin: stackTrace != null ? const EdgeInsets.only(top: 8) : null,
+              padding: stackTrace != null
+                  ? const EdgeInsets.all(6)
+                  : EdgeInsets.zero,
+              decoration: stackTrace != null
+                  ? BoxDecoration(
+                      color: Colors.grey[900],
+                      borderRadius: BorderRadius.circular(10),
+                    )
+                  : null,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (errorType != null)
+                    Text(
+                      errorType,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 12,
+                      ),
+                    ),
+                  if (expanded && errorMessage != null)
+                    Text(
+                      errorMessage,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 12,
+                      ),
+                    ),
+                ],
               ),
-            if (expanded && errorMessage != null)
-              Text(
-                errorMessage,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
-                ),
-              ),
+            ),
             if (expanded && message != null)
               Text(
                 message,
@@ -71,10 +89,33 @@ class TalkerDataCard extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
+            if (expanded && stackTrace != null)
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: Colors.grey[900],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  stackTrace,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
           ],
         ),
       ),
     );
+  }
+
+  String? get _stackTrace {
+    if (data is! TalkerError && data is! TalkerException) {
+      return null;
+    }
+    return 'StackTrace:\n' + data.stackTrace.toString();
   }
 
   Color get _color {

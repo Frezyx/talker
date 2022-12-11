@@ -8,6 +8,7 @@ import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'widgets/actions_bottom_sheet.dart';
+import 'widgets/cards/talker_data_card.dart';
 
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatefulWidget {
@@ -98,11 +99,11 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   if (widget.itemsBuilder != null) {
                     return widget.itemsBuilder!.call(context, data);
                   }
-                  return TalkerLogDataContainer(
+                  return TalkerDataCard(
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
-                    options: widget.theme,
-                    expanded: _controller.expandedLogs,
+                    // options: widget.theme,
+                    // expanded: _controller.expandedLogs,
                   );
                 },
               );

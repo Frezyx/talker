@@ -7,52 +7,71 @@ class TalkerDataCard extends StatelessWidget {
     Key? key,
     this.color,
     required this.data,
+    this.onTap,
   }) : super(key: key);
 
   final Color? color;
   final TalkerDataInterface data;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final errorMessage = _errorMessage;
     final color = this.color ?? _color;
-    return Stack(
-      children: [
-        TalkerBaseCard(
-          color: color,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          data.displayTitle + ' | ' + data.displayTime,
-                          style: TextStyle(
-                            color: color,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(_type,
-                            style: TextStyle(color: color, fontSize: 12)),
-                        if (errorMessage != null)
-                          Text(errorMessage,
-                              style: TextStyle(color: color, fontSize: 12)),
-                      ],
+    final errorType = _type;
+    final message = _message;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: TalkerBaseCard(
+        color: color,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    data.displayTitle + ' | ' + data.displayTime,
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  // IconButton(
-                  //   onPressed: () {},
-                  //   icon: Icon(Icons.expand, color: color),
-                  // )
-                ],
+                ),
+                IconButton(
+                  constraints: BoxConstraints.loose(const Size.fromHeight(26)),
+                  onPressed: onTap,
+                  icon: Icon(Icons.copy, color: color, size: 20),
+                )
+              ],
+            ),
+            if (errorType != null)
+              Text(
+                errorType,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                ),
               ),
-            ],
-          ),
+            if (errorMessage != null)
+              Text(
+                errorMessage,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                ),
+              ),
+            if (message != null)
+              Text(
+                message,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                ),
+              ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -64,6 +83,13 @@ class TalkerDataCard extends StatelessWidget {
     return data.logLevel.color;
   }
 
+  String? get _message {
+    if (data is TalkerError || data is TalkerException) {
+      return null;
+    }
+    return data.displayMessage;
+  }
+
   String? get _errorMessage {
     var txt = data.exception?.toString() ?? data.exception?.toString();
 
@@ -73,7 +99,10 @@ class TalkerDataCard extends StatelessWidget {
     return txt;
   }
 
-  String get _type {
+  String? get _type {
+    if (data is! TalkerError && data is! TalkerException) {
+      return null;
+    }
     return 'Type: ' +
         (data.exception?.runtimeType.toString() ??
             data.error?.runtimeType.toString() ??

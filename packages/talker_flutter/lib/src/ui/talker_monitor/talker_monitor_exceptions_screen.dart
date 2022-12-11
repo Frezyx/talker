@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:talker/talker.dart';
-import 'package:talker_flutter/src/ui/ui.dart';
+import 'package:flutter/services.dart';
 import 'package:talker_flutter/src/ui/widgets/cards/talker_data_card.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorExceptionsScreen extends StatelessWidget {
   const TalkerMonitorExceptionsScreen({
@@ -27,13 +27,30 @@ class TalkerMonitorExceptionsScreen extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final data = exceptions[index];
-                return TalkerDataCard(data: data);
+                return TalkerDataCard(
+                  data: data,
+                  onTap: () => _copyTalkerDataItemText(context, data),
+                );
               },
               childCount: exceptions.length,
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _copyTalkerDataItemText(BuildContext context, TalkerDataInterface data) {
+    final text = data is FlutterTalkerDataInterface
+        ? data.generateFlutterTextMessage()
+        : data.generateTextMessage();
+    Clipboard.setData(ClipboardData(text: text));
+    _showSnackBar(context, 'Log item is copied in clipboard');
+  }
+
+  void _showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(text)),
     );
   }
 }

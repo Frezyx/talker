@@ -38,6 +38,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     Emitter<ProductState> emit,
   ) async {
     try {
+      await _productsRepository.addToFavorites(event.product.id);
       emit(ProductLoaded(event.product));
     } on Exception catch (e, st) {
       GetIt.instance<Talker>().handle(e, st);
@@ -50,7 +51,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     Emitter<ProductState> emit,
   ) async {
     try {
-      throw Exception('Can`t add this product in card');
+      await _productsRepository.addToCart(event.id);
     } on Exception catch (e, st) {
       GetIt.instance<Talker>().handle(e, st);
     }

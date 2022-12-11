@@ -50,7 +50,7 @@ class ProductsRepository implements AbstractProductsRepository {
   @override
   Future<List<Product>> getProductsList() async {
     _requestsCount += 1;
-    if (_requestsCount > 0) {
+    if (_requestsCount % 2 != 0) {
       await _dio.get('https://jsonplaceholder.typicode.com/todos');
       return _mockProducts;
     }
@@ -64,5 +64,29 @@ class ProductsRepository implements AbstractProductsRepository {
   Future<Product> getProduct(String id) async {
     await _dio.get('https://jsonplaceholder.typicode.com/todos/1');
     return _mockProducts.firstWhere((e) => e.id == id);
+  }
+
+  @override
+  Future<void> addToFavorites(String id) async {
+    _requestsCount += 1;
+    if (_requestsCount % 2 != 0) {
+      await _dio.put('https://jsonplaceholder.typicode.com/todos/1');
+      return;
+    }
+
+    /// Incorrect request
+    await _dio.put('https://jsonplaceholder.typicode.com\todos/1');
+  }
+
+  @override
+  Future<void> addToCart(String id) async {
+    _requestsCount += 1;
+    if (_requestsCount % 2 != 0) {
+      await _dio.post('https://jsonplaceholder.typicode.com/todos/1');
+      return;
+    }
+
+    /// Incorrect request
+    await _dio.post('https://jsonplaceholder.typicode.com\todos/1');
   }
 }

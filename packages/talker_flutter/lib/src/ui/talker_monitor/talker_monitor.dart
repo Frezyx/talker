@@ -29,8 +29,11 @@ class TalkerMonitor extends StatelessWidget {
       body: TalkerHistoryBuilder(
         talker: talker,
         builder: (context, data) {
+          final logs = data.whereType<TalkerLog>().toList();
           final errors = data.whereType<TalkerError>().toList();
           final exceptions = data.whereType<TalkerException>().toList();
+          final warnings =
+              logs.where((e) => e.logLevel == LogLevel.warning).toList();
           final httpRequests = data.whereType<HttpRequestLog>().toList();
           final httpErrors = data.whereType<HttpErrorLog>().toList();
           final httpResponses = data.whereType<HttpResponseLog>().toList();
@@ -60,6 +63,18 @@ class TalkerMonitor extends StatelessWidget {
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${exceptions.length} unresolved exceptions',
+                  ),
+                ),
+              ],
+              if (warnings.isNotEmpty) ...[
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: TalkerMonitorItem(
+                    logs: warnings,
+                    title: 'Warnings',
+                    color: LogLevel.warning.color,
+                    icon: Icons.warning_amber_rounded,
+                    subtitle: 'Application has ${warnings.length} warnings',
                   ),
                 ),
               ],

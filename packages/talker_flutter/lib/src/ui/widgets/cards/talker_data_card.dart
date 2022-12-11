@@ -8,11 +8,13 @@ class TalkerDataCard extends StatelessWidget {
     this.color,
     required this.data,
     this.onTap,
+    this.expanded = true,
   }) : super(key: key);
 
   final Color? color;
   final TalkerDataInterface data;
   final VoidCallback? onTap;
+  final bool expanded;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class TalkerDataCard extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
-            if (errorMessage != null)
+            if (expanded && errorMessage != null)
               Text(
                 errorMessage,
                 style: TextStyle(
@@ -61,7 +63,7 @@ class TalkerDataCard extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
-            if (message != null)
+            if (expanded && message != null)
               Text(
                 message,
                 style: TextStyle(

@@ -29,8 +29,7 @@ void main() {
       expect(
         message,
         '''[ERROR] | ${TalkerDateTimeFormater(error.time).timeAndSeconds} | test message
-Invalid argument(s)
-''',
+Invalid argument(s)''',
       );
     });
 
@@ -55,8 +54,7 @@ Invalid argument(s)
       expect(
         message,
         '''[EXCEPTION] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
-Exception
-''',
+Exception''',
       );
     });
 

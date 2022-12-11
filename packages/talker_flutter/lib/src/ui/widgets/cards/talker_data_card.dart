@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -123,6 +124,16 @@ class TalkerDataCard extends StatelessWidget {
       return (data as TalkerFlutterAdapterInterface).color ??
           data.logLevel.color;
     }
+    if (data is HttpErrorLog) {
+      return LogLevel.error.color;
+    }
+    if (data is HttpResponseLog) {
+      return const Color(0xFF26FF3C);
+    }
+    if (data is HttpRequestLog) {
+      return const Color(0xFFB800AF);
+    }
+
     return data.logLevel.color;
   }
 

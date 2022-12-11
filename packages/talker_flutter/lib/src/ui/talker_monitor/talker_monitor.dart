@@ -79,13 +79,13 @@ class TalkerMonitorItem extends StatelessWidget {
     Key? key,
     required this.logs,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.color,
     required this.icon,
   }) : super(key: key);
 
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final List<TalkerDataInterface> logs;
   final Color color;
   final IconData icon;
@@ -116,13 +116,14 @@ class TalkerMonitorItem extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              Text(
-                subtitle,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+              if (subtitle != null)
+                Text(
+                  subtitle!,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
             ],
           ),
         ],

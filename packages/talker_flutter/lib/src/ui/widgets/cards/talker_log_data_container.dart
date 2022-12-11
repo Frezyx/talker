@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerDataCard extends StatelessWidget {
-  const TalkerDataCard({
+class TalkerLogDataContainer extends StatelessWidget {
+  const TalkerLogDataContainer({
     Key? key,
     required this.data,
     required this.onTap,

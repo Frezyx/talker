@@ -25,7 +25,7 @@ class TalkerMonitorExceptionsScreen extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final data = exceptions[index];
-                return TalkerDataCard(
+                return TalkerLogDataContainer(
                   data: data,
                   expanded: true,
                   options: theme,

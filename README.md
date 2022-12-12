@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/Frezyx/talker" align="center">
-        <img src="https://github.com/Frezyx/talker/blob/master/docs/assets/logo/full_logo.png?raw=true" width="250px">
+        <img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logo/full_logo.png?raw=true" width="250px">
     </a>
 </p>
 <!-- <h1 align="center">Talker</h1> -->

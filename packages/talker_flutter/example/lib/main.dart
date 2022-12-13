@@ -12,7 +12,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 void main() {
   final talker = TalkerFlutter.init();
   runZonedGuarded(
-    () => runApp(BaseEample(talker: talker)),
+    () => runApp(BaseExample(talker: talker)),
     (Object error, StackTrace stack) {
       talker.handle(error, stack, 'Uncaught app exception');
     },

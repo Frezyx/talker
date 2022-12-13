@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -29,35 +28,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Talker shop app',
-      theme: lightTheme,
-      initialRoute: Routes.productsList,
-      debugShowCheckedModeBanner: false,
-      routes: appRoutes,
-      navigatorObservers: [
-        TalkerRouteObserver(GetIt.instance<Talker>()),
-      ],
-      builder: (context, child) {
-        if (_haveBigScreen) {
+        title: 'Talker shop app',
+        theme: lightTheme,
+        initialRoute: Routes.productsList,
+        debugShowCheckedModeBanner: false,
+        routes: appRoutes,
+        navigatorObservers: [
+          TalkerRouteObserver(GetIt.instance<Talker>()),
+        ],
+        builder: (context, child) {
           return PresentationFrame(
             child: TalkerWrapper(
               talker: GetIt.instance<Talker>(),
               child: child!,
             ),
           );
-        }
-        return TalkerWrapper(
-          talker: GetIt.instance<Talker>(),
-          child: child!,
-        );
-      },
-    );
+        });
   }
 }
-
-final _haveBigScreen = kIsWeb ||
-    [TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]
-        .contains(defaultTargetPlatform);
 
 void _initTalker() {
   final talker = TalkerFlutter.init();

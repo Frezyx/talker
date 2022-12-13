@@ -51,12 +51,12 @@ class ProductsRepository implements AbstractProductsRepository {
   Future<List<Product>> getProductsList() async {
     _requestsCount += 1;
     if (_requestsCount % 2 != 0) {
-      await _dio.get('https://jsonplaceholder.typicode.com/users');
+      await _dio.get('https://jsonplaceholder.typicode.com/users/1');
       return _mockProducts;
     }
 
     /// Incorrect http request path
-    await _dio.get('https://jsonplaceholder.typicode.com/usetyrtyergvf');
+    await _dio.get('https://jsonplaceholder.typicode.com/usetyrtyergvf/1');
     return _mockProducts;
   }
 

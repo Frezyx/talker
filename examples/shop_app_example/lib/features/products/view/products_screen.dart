@@ -60,7 +60,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
       ),
       body: Column(
         children: [
-          const _ExampleWarning(),
+          const ExampleWarning(
+            text:
+                'In this example, every second http - request will be intentionally incorrect to show all types of logs in TalkerMonitor',
+          ),
           Expanded(
             child: BlocBuilder<ProductsBloc, ProductsState>(
               bloc: _productsBloc,
@@ -139,10 +142,13 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 }
 
-class _ExampleWarning extends StatelessWidget {
-  const _ExampleWarning({
+class ExampleWarning extends StatelessWidget {
+  const ExampleWarning({
     Key? key,
+    required this.text,
   }) : super(key: key);
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +168,7 @@ class _ExampleWarning extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              'In this example, every second http - request will be intentionally incorrect to show all types of logs in TalkerMonitor',
+              text,
               style: TextStyle(color: LogLevel.warning.color),
             ),
           ),

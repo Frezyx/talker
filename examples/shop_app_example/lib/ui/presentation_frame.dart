@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PresentationFrame extends StatelessWidget {
   const PresentationFrame({
@@ -20,19 +21,37 @@ class PresentationFrame extends StatelessWidget {
         devicePixelRatio: 2,
       );
       return Material(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 60, top: 30),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const _LogsPreview(),
-              const SizedBox(width: 20),
-              _ApplicationPreview(mq: mq, child: child),
-              const SizedBox(width: 60),
-              const _TalkerAboutSection(mq: mq),
-            ],
-          ),
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              width: double.infinity,
+              decoration: const BoxDecoration(color: Colors.red),
+              child: const Text(
+                'Interact with Application to see canges in Logs Preview',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 60, top: 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const _LogsPreview(),
+                  const SizedBox(width: 20),
+                  _ApplicationPreview(mq: mq, child: child),
+                  const SizedBox(width: 60),
+                  const _TalkerAboutSection(mq: mq),
+                ],
+              ),
+            ),
+          ],
         ),
       );
     }
@@ -86,7 +105,9 @@ class _TalkerAboutSection extends StatelessWidget {
               Row(
                 children: <Widget>[
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      launchUrl(Uri.parse('https://pub.dev/packages/talker'));
+                    },
                     child: Row(
                       children: [
                         Image.asset('assets/flutter.png', height: 70),
@@ -104,7 +125,9 @@ class _TalkerAboutSection extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      launchUrl(Uri.parse('https://github.com/Frezyx/talker'));
+                    },
                     child: Row(
                       children: [
                         Image.asset('assets/github.png', height: 70),
@@ -190,7 +213,7 @@ class _LogsPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const MediaQueryData mediaQuery = MediaQueryData(
-      size: Size(700, 800),
+      size: Size(800, 896),
       padding: EdgeInsets.only(top: 44, bottom: 34),
       devicePixelRatio: 2,
     );
@@ -245,7 +268,7 @@ class _LogsPreview extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   clipBehavior: Clip.antiAlias,
-                  borderRadius: BorderRadius.circular(0),
+                  borderRadius: BorderRadius.circular(7),
                   child: device,
                 ),
               ),

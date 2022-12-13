@@ -19,8 +19,8 @@ void main() {
   );
 }
 
-class BaseEample extends StatefulWidget {
-  const BaseEample({
+class BaseExample extends StatefulWidget {
+  const BaseExample({
     Key? key,
     required this.talker,
   }) : super(key: key);
@@ -28,10 +28,10 @@ class BaseEample extends StatefulWidget {
   final Talker talker;
 
   @override
-  State<BaseEample> createState() => _BaseEampleState();
+  State<BaseExample> createState() => _BaseExampleState();
 }
 
-class _BaseEampleState extends State<BaseEample> {
+class _BaseExampleState extends State<BaseExample> {
   @override
   void initState() {
     _fineLog();
@@ -72,7 +72,7 @@ class _BaseEampleState extends State<BaseEample> {
     try {
       throw Exception('Test service exception');
     } catch (e, st) {
-      widget.talker.handle(e, st, 'FakeService excetion');
+      widget.talker.handle(e, st, 'FakeService exception');
     }
   }
 

@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
@@ -42,25 +42,27 @@ class TalkerScreenController extends ChangeNotifier {
 
   /// Method adds an type to the filter
   void addFilterType(Type type) {
-    _filter = _filter.copyWith(types: _filter.types..add(type));
+    _filter = _filter.copyWith(types: [..._filter.types, type]);
     notifyListeners();
   }
 
   /// Method removes an type from the filter
   void removeFilterType(Type type) {
-    _filter = _filter.copyWith(types: _filter.types..remove(type));
+    _filter =
+        _filter.copyWith(types: _filter.types.where((t) => t != type).toList());
     notifyListeners();
   }
 
   /// Method adds an title to the filter
   void addFilterTitle(String title) {
-    _filter = _filter.copyWith(titles: _filter.titles..add(title));
+    _filter = _filter.copyWith(titles: [..._filter.titles, title]);
     notifyListeners();
   }
 
   /// Method removes an title from the filter
   void removeFilterTitle(String title) {
-    _filter = _filter.copyWith(titles: _filter.titles..remove(title));
+    _filter = _filter.copyWith(
+        titles: _filter.titles.where((t) => t != title).toList());
     notifyListeners();
   }
 

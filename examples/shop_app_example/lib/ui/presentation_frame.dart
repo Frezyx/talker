@@ -26,7 +26,7 @@ class PresentationFrame extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const _LogsPreview(mediaQuery: mq),
+              const _LogsPreview(),
               const SizedBox(width: 20),
               _ApplicationPreview(mq: mq, child: child),
               const SizedBox(width: 60),
@@ -185,15 +185,17 @@ class _ApplicationPreview extends StatelessWidget {
 class _LogsPreview extends StatelessWidget {
   const _LogsPreview({
     Key? key,
-    required this.mediaQuery,
   }) : super(key: key);
-
-  final MediaQueryData mediaQuery;
 
   @override
   Widget build(BuildContext context) {
+    const MediaQueryData mediaQuery = MediaQueryData(
+      size: Size(700, 800),
+      padding: EdgeInsets.only(top: 44, bottom: 34),
+      devicePixelRatio: 2,
+    );
     return Flexible(
-      flex: 3,
+      flex: 5,
       child: FittedBox(
         fit: BoxFit.contain,
         child: Builder(builder: (context) {
@@ -238,11 +240,12 @@ class _LogsPreview extends StatelessWidget {
               const SizedBox(height: 16),
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: Colors.black, width: 12)),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: Colors.grey[700]!, width: 6),
+                ),
                 child: ClipRRect(
                   clipBehavior: Clip.antiAlias,
-                  borderRadius: BorderRadius.circular(38.5),
+                  borderRadius: BorderRadius.circular(0),
                   child: device,
                 ),
               ),

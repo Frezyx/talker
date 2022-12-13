@@ -1,3 +1,8 @@
+## 2.1.1
+- **FIX**: TalkerFilter Cannot add to an unmodifiable list issue
+
+Thnaks for [ProjectAJ14](https://github.com/ProjectAJ14)
+
 ## 2.1.0+1
 - **INFO**: Improve README.md
 - **INFO**: Improve pubspec.yaml

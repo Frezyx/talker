@@ -51,18 +51,18 @@ class ProductsRepository implements AbstractProductsRepository {
   Future<List<Product>> getProductsList() async {
     _requestsCount += 1;
     if (_requestsCount % 2 != 0) {
-      await _dio.get('https://jsonplaceholder.typicode.com/todos');
+      await _dio.get('https://jsonplaceholder.typicode.com/users');
       return _mockProducts;
     }
 
     /// Incorrect http request path
-    await _dio.get('https://jsonplaceholder.typicode.com/tod');
+    await _dio.get('https://jsonplaceholder.typicode.com/usetyrtyergvf');
     return _mockProducts;
   }
 
   @override
   Future<Product> getProduct(String id) async {
-    await _dio.get('https://jsonplaceholder.typicode.com/todos/1');
+    await _dio.get('https://jsonplaceholder.typicode.com/users/1');
     return _mockProducts.firstWhere((e) => e.id == id);
   }
 
@@ -70,23 +70,23 @@ class ProductsRepository implements AbstractProductsRepository {
   Future<void> addToFavorites(String id) async {
     _requestsCount += 1;
     if (_requestsCount % 2 != 0) {
-      await _dio.put('https://jsonplaceholder.typicode.com/todos/1');
+      await _dio.put('https://jsonplaceholder.typicode.com/users/1');
       return;
     }
 
     /// Incorrect request
-    await _dio.put('https://jsonplaceholder.typicode.com\todos/1');
+    await _dio.put('https://jsonplaceholder.typicode.comuseahstdfr/1');
   }
 
   @override
   Future<void> addToCart(String id) async {
     _requestsCount += 1;
     if (_requestsCount % 2 != 0) {
-      await _dio.post('https://jsonplaceholder.typicode.com/todos/1');
+      await _dio.post('https://jsonplaceholder.typicode.com/users/1');
       return;
     }
 
     /// Incorrect request
-    await _dio.post('https://jsonplaceholder.typicode.com\todos/1');
+    await _dio.post('https://jsonplaceholder.typicode.comusyeyrutwyetf/1');
   }
 }

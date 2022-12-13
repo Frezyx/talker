@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -10,17 +9,15 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/bloc/observer.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
-import 'package:talker_shop_app_example/ui/presentation_widget.dart';
+import 'package:talker_shop_app_example/ui/presentation_frame.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
 
 void main() {
   _initTalker();
   _registerRepositories();
+  Bloc.observer = AppBlocObserver();
   runZonedGuarded(() {
-    BlocOverrides.runZoned(
-      () => runApp(const MyApp()),
-      blocObserver: AppBlocObserver(),
-    );
+    runApp(const MyApp());
   }, (Object error, StackTrace stack) {
     GetIt.instance<Talker>().handle(error, stack, 'Uncaught app exception');
   });
@@ -35,13 +32,14 @@ class MyApp extends StatelessWidget {
       title: 'Talker shop app',
       theme: lightTheme,
       initialRoute: Routes.productsList,
+      debugShowCheckedModeBanner: false,
       routes: appRoutes,
       navigatorObservers: [
         TalkerRouteObserver(GetIt.instance<Talker>()),
       ],
       builder: (context, child) {
         if (_haveBigScreen) {
-          return PresentationWidget(
+          return PresentationFrame(
             child: TalkerWrapper(
               talker: GetIt.instance<Talker>(),
               child: child!,
@@ -57,8 +55,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final _haveBigScreen =
-    Platform.isMacOS || Platform.isWindows || Platform.isLinux || kIsWeb;
+final _haveBigScreen = kIsWeb ||
+    [TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]
+        .contains(defaultTargetPlatform);
 
 void _initTalker() {
   final talker = TalkerFlutter.init();
@@ -75,7 +74,7 @@ void _initTalker() {
 
 void _registerRepositories() {
   final dio = Dio();
-  _tryPrecacheDio();
+  // _tryPrecacheDio();
   dio.interceptors.add(
     TalkerDioLogger(
       talker: GetIt.instance<Talker>(),
@@ -95,10 +94,10 @@ void _registerRepositories() {
 }
 
 /// This logic is just for example here
-void _tryPrecacheDio() {
-  try {
-    throw Exception('Dio precache exception');
-  } catch (e, st) {
-    GetIt.instance<Talker>().handle(e, st);
-  }
-}
+// void _tryPrecacheDio() {
+//   try {
+//     throw Exception('Dio precache exception');
+//   } catch (e, st) {
+//     GetIt.instance<Talker>().handle(e, st);
+//   }
+// }

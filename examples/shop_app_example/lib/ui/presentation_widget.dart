@@ -11,8 +11,22 @@ class PresentationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: child),
-        Expanded(child: TalkerScreen(talker: GetIt.instance<Talker>())),
+        const Spacer(flex: 2),
+        Expanded(
+          flex: 4,
+          child: Stack(
+            children: [
+              child,
+              Image.asset('assets/iphone_mockup.png'),
+            ],
+          ),
+        ),
+        const Spacer(flex: 1),
+        Expanded(
+          flex: 4,
+          child: TalkerScreen(talker: GetIt.instance<Talker>()),
+        ),
+        const Spacer(flex: 2),
       ],
     );
   }

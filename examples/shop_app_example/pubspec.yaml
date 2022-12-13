@@ -13,8 +13,8 @@ dependencies:
     path:
       ../../packages/talker_flutter
   get_it: ^7.2.0
-  flutter_bloc: ^8.0.1
-  equatable: ^2.0.3
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
   dio: ^4.0.6
   talker_dio_logger: ^1.0.0
 

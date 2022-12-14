@@ -1,3 +1,7 @@
+## 2.2.0-dev.1
+- **INFO**: Init prerelease version
+- **INFO**: Add web demo example
+
 ## 2.1.1-dev.3
 - **FEAT**: TalkerMonitor sorting, warning, infos, verbose errors
 - **FEAT**: Talker Http Monitor for http request-response analytics and monitoring

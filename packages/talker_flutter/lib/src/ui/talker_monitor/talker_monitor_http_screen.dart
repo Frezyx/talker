@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/src/extensions/iterable.dart';
 import 'package:talker_flutter/src/ui/theme/default_theme.dart';
-import 'package:talker_flutter/src/ui/widgets/cards/talker_data_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorHttpScreen extends StatelessWidget {

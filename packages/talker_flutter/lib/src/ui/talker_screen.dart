@@ -8,7 +8,6 @@ import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'widgets/actions_bottom_sheet.dart';
-import 'widgets/cards/talker_data_card.dart';
 
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatefulWidget {

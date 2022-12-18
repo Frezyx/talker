@@ -29,6 +29,8 @@
   <a href="https://github.com/Frezyx/talker_logger/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_logger/badge.svg" alt="talker_logger"></a>
 </p>
 
+<a href="https://frezyx.github.io/talker">Web demo</a>
+
 ## Motivation
 🚀 &nbsp;The main goal of the project provide ability to understand where the error occurs in a short time <br>
 ✅ &nbsp;Can work with different state managements <br>

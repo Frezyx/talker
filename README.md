@@ -88,6 +88,8 @@ You can use Talker instance everywhere in your app <br>
 Simple and concise syntax will help you with this
 
 ```dart
+import 'package:talker/talker.dart';
+
 final talker = Talker();
 
 // Handle exceptions and errors
@@ -174,9 +176,8 @@ Often you need to check what happening in the application when there is no conso
 There is a TalkerScreen widget from [talker_flutter](https://pub.dev/packages/talker_flutter) package for this situations.<br>
 
 
-| <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_screen.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_screen.gif?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen.jpg?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_screen_filter.jpg?raw=true" width="250px"></a></p> |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-<!-- [Check SetUp guide on docs site](https://frezyx.github.io/talker/guide/get-started.html#instalation) -->
+| <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_screen.gif" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/gifs/talker_screen.gif?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.png" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_actions.png" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_actions.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.png" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.png?raw=true" width="250px"></a></p> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 ### Easy to use
 You can use TalkerScreen everywhere in your app
@@ -248,14 +249,15 @@ The talker_flutter package have a lot of another widgets like TalkerBuilder, Tal
 ✅ Flutter
 - ✅ Application logs sharing
 
-- ✅ Logs history list screen
 - ✅ HTTP cals logging
+- ✅ TalkerScreen - Showing logs list in Flutter app UI
+- ✅ TalkerMonitor - A short summary of your application status. How much errors, how much warnings in Flutter app UI
 - ✅ TalkerRouteObserver - router logging (which screen is opened, which is closed)
 - ✅ TalkerWrapper - Showing errors and exceptions messages at UI
 - ✅ TalkerListener - Listen logs data at application UI
 - ✅ TalkerBuilder - UI builder to Logs List showing custom UI
 - ✅ Android/Windows/Web application logs colors
-- 🚧 iOS/MacOS application logs colors
+- ✅ iOS/MacOS application logs colors
 
 ✅ Logs and errors history saving
 

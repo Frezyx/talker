@@ -12,12 +12,14 @@ dependencies:
   talker_flutter:
     path:
       ../../packages/talker_flutter
+  talker_dio_logger: ^1.0.0
   get_it: ^7.2.0
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
   dio: ^4.0.6
-  talker_dio_logger: ^1.0.0
   url_launcher: ^6.1.7
+  firebase_core: ^2.4.0
+  firebase_analytics: ^10.0.7
 
 dev_dependencies:
   flutter_test:

@@ -175,12 +175,13 @@ As result of this method you will get the same instance of Talker as when creati
 Often you need to check what happening in the application when there is no console at hand. <br>
 There is a TalkerScreen widget from [talker_flutter](https://pub.dev/packages/talker_flutter) package for this situations.<br>
 
+For better understanding how it works check [Web Demo](https://frezyx.github.io/talker) page
 
-| <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.png" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_actions.png" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_actions.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.png" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.png?raw=true" width="250px"></a></p> |
+| <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_actions.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.png?raw=true" width="250px"></a></p> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 ### Easy to use
-You can use TalkerScreen everywhere in your app
+You can use TalkerScreen everywhere in your app<br>
 At Screen, BottomSheet, ModalDialog, etc...
 
 ```dart

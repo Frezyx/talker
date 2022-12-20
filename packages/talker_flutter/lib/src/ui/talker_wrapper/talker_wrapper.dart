@@ -35,7 +35,7 @@ class TalkerWrapper extends StatelessWidget {
             context,
             options.exceptionAlertBuilder?.call(context, data) ??
                 SnackbarContent(
-                  message: data.error.toString(),
+                  message: _mapErrorMessage(data.displayException),
                   title: options.errorTitle,
                 ),
           );
@@ -46,13 +46,21 @@ class TalkerWrapper extends StatelessWidget {
             context,
             options.errorAlertBuilder?.call(context, data) ??
                 SnackbarContent(
-                  message: data.error.toString(),
+                  message: _mapErrorMessage(data.displayError),
                   title: options.errorTitle,
                 ),
           );
         }
       },
     );
+  }
+
+  String _mapErrorMessage(String errorMessage) {
+    final errorParts = errorMessage.split('\n');
+    if (errorParts.length < 2) {
+      return errorMessage;
+    }
+    return errorParts.getRange(1, 2).join('\n');
   }
 
   static void showAlert(BuildContext context, Widget content) {

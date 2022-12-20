@@ -197,7 +197,35 @@ Navigator.of(context).push(
 ```
 See more in TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
 
+## TalkerMonitor 
+If you want to check the status of your application in a short time<br> 
+**TalkerMonitor** will be the best solution for you 
 
+Monitor is a filtered quick information about http requests, exceptions, errors, warnings, etc... count
+
+You will find Monitor at the TalkerScreen page
+
+For better understanding how it works check [Web Demo](https://frezyx.github.io/talker) page
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.png?raw=true" width="250px"></a></p>
+
+
+### Easy to use
+You can use TalkerScreen everywhere in your app<br>
+At Screen, BottomSheet, ModalDialog, etc...
+
+```dart
+import 'package:talker_flutter/talker_flutter.dart';
+
+final talker = TalkerFlutter.init();
+
+Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => TalkerScreen(talker: talker),
+  )
+);
+```
+See more in TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
 
 ## TalkerWrapper
 In addition 

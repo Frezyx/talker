@@ -67,6 +67,7 @@ Talker is designed for any level of customization. <br>
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
   - [TalkerScreen](#talkerscreen)
+  - [TalkerMonitor](#talkermonitor)
   - [TalkerWrapper](#talkerwrapper)
   - [More Features And Examples](#more-features-and-examples)
 - [Features list](#features-list)

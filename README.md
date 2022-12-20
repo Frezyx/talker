@@ -205,27 +205,9 @@ Monitor is a filtered quick information about http requests, exceptions, errors,
 
 You will find Monitor at the TalkerScreen page
 
-For better understanding how it works check [Web Demo](https://frezyx.github.io/talker) page
-
 <p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_monitor/talker_monitor.png?raw=true"></a></p>
 
-
-### Easy to use
-You can use TalkerScreen everywhere in your app<br>
-At Screen, BottomSheet, ModalDialog, etc...
-
-```dart
-import 'package:talker_flutter/talker_flutter.dart';
-
-final talker = TalkerFlutter.init();
-
-Navigator.of(context).push(
-  MaterialPageRoute(
-    builder: (context) => TalkerScreen(talker: talker),
-  )
-);
-```
-See more in TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
+For better understanding how it works check [Web Demo](https://frezyx.github.io/talker) page
 
 ## TalkerWrapper
 In addition 

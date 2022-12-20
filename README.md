@@ -207,7 +207,7 @@ You will find Monitor at the TalkerScreen page
 
 For better understanding how it works check [Web Demo](https://frezyx.github.io/talker) page
 
-<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_monitor.png?raw=true" width="450px"></a></p>
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_monitor/talker_monitor.png?raw=true"></a></p>
 
 
 ### Easy to use

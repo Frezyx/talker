@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
+import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-import 'widgets/actions_bottom_sheet/actions_bottom_sheet.dart';
+import 'widgets/actions_bottom_sheet.dart';
 
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatefulWidget {
@@ -55,6 +56,13 @@ class _TalkerScreenState extends State<TalkerScreen> {
             actions: [
               SizedBox(
                 width: 40,
+                child: _MonitorButton(
+                  talker: widget.talker,
+                  onPressed: () => _openTalkerMonitor(context),
+                ),
+              ),
+              SizedBox(
+                width: 40,
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   iconSize: 28,
@@ -79,6 +87,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
               final filtredElements =
                   data.where((e) => _controller.filter.filter(e)).toList();
               return ListView.builder(
+                padding: const EdgeInsets.only(top: 10),
                 physics: const BouncingScrollPhysics(),
                 itemCount: filtredElements.length,
                 itemBuilder: (_, i) {
@@ -91,7 +100,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   return TalkerDataCard(
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
-                    options: widget.theme,
+                    // options: widget.theme,
                     expanded: _controller.expandedLogs,
                   );
                 },
@@ -100,6 +109,17 @@ class _TalkerScreenState extends State<TalkerScreen> {
           ),
         );
       },
+    );
+  }
+
+  void _openTalkerMonitor(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TalkerMonitor(
+          theme: widget.theme,
+          talker: widget.talker,
+        ),
+      ),
     );
   }
 
@@ -195,6 +215,54 @@ class _TalkerScreenState extends State<TalkerScreen> {
   void _showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(text)),
+    );
+  }
+}
+
+class _MonitorButton extends StatelessWidget {
+  const _MonitorButton({
+    Key? key,
+    required this.talker,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final TalkerInterface talker;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return TalkerHistoryBuilder(
+      talker: talker,
+      builder: (context, data) {
+        final haveErrors = data
+            .where((e) => e is TalkerError || e is TalkerException)
+            .isNotEmpty;
+        return Stack(
+          children: [
+            Center(
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                iconSize: 28,
+                onPressed: onPressed,
+                icon: const Icon(Icons.monitor_heart_outlined),
+              ),
+            ),
+            if (haveErrors)
+              Positioned(
+                right: 6,
+                top: 15,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  height: 5,
+                  width: 5,
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

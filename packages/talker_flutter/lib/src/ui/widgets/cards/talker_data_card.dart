@@ -1,161 +1,128 @@
 import 'package:flutter/material.dart';
+import 'package:talker_dio_logger/http_logs.dart';
+import 'package:talker_flutter/src/ui/theme/default_theme.dart';
+import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerDataCard extends StatelessWidget {
   const TalkerDataCard({
     Key? key,
+    this.color,
     required this.data,
-    required this.onTap,
-    required this.options,
-    required this.expanded,
+    this.onTap,
+    this.expanded = true,
+    this.margin,
   }) : super(key: key);
 
-  final TalkerScreenTheme options;
+  final Color? color;
   final TalkerDataInterface data;
-  final Function() onTap;
+  final VoidCallback? onTap;
   final bool expanded;
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) {
-    final title = _getTitle(data);
-
+    final errorMessage = _errorMessage;
+    final color = this.color ?? _color;
+    final errorType = _type;
+    final message = _message;
+    final stackTrace = _stackTrace;
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: Stack(
-        fit: StackFit.passthrough,
-        children: [
-          Container(
-            margin: const EdgeInsets.all(5).copyWith(bottom: 0),
-            padding: const EdgeInsets.all(10).copyWith(top: 16),
-            decoration: BoxDecoration(
-              border: Border.all(color: _color),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: margin ?? const EdgeInsets.only(bottom: 8),
+      child: TalkerBaseCard(
+        color: color,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        maxLines: expanded ? null : 1,
-                        text: TextSpan(
-                          text: 'Message  ',
-                          style: TextStyle(
-                            color: _color,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: _message,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // RichText(
-                      //   text: TextSpan(
-                      //     text: 'Time  ',
-                      //     style: TextStyle(
-                      //       color: _color,
-                      //       fontWeight: FontWeight.bold,
-                      //     ),
-                      //     children: [
-                      //       TextSpan(
-                      //         text: data.displayTime,
-                      //         style: const TextStyle(
-                      //           fontWeight: FontWeight.normal,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      if (data.stackTrace != null && expanded)
-                        RichText(
-                          text: TextSpan(
-                            text: 'StackTrace  ',
-                            style: TextStyle(
-                              color: _color,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: data.displayStackTrace,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 26,
-                  height: 26,
-                  child: IconButton(
-                    iconSize: 20,
-                    onPressed: onTap,
-                    icon: Icon(
-                      Icons.copy,
-                      color: _color,
+                Expanded(
+                  child: Text(
+                    '${data.displayTitle} | ${data.displayTime}',
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
+                ),
+                IconButton(
+                  constraints: BoxConstraints.loose(const Size.fromHeight(26)),
+                  onPressed: onTap,
+                  icon: Icon(Icons.copy, color: color, size: 20),
                 )
               ],
             ),
-          ),
-          Positioned(
-            left: 15,
-            child: Container(
-              transform: Matrix4.translationValues(0, -8, 0),
-              color: options.backgroudColor,
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: _color,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+            if (expanded)
+              Container(
+                width: double.infinity,
+                margin:
+                    stackTrace != null ? const EdgeInsets.only(top: 8) : null,
+                padding: stackTrace != null
+                    ? const EdgeInsets.all(6)
+                    : EdgeInsets.zero,
+                decoration: stackTrace != null
+                    ? BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(10),
+                      )
+                    : null,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (expanded && errorType != null)
+                      Text(
+                        errorType,
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 12,
+                        ),
+                      ),
+                    if (expanded && errorMessage != null)
+                      Text(
+                        errorMessage,
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 12,
+                        ),
+                      ),
+                  ],
                 ),
               ),
-            ),
-          ),
-        ],
+            if (expanded && message != null)
+              Text(
+                message,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                ),
+              ),
+            if (expanded && stackTrace != null)
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: stackTraceBackground,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  stackTrace,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
 
-  // ignore: todo
-  //TODO: refactor
-  String get _message {
-    var message = '';
-    final d = data;
-    if (d is FlutterTalkerDataInterface) {
-      message = d.generateFlutterTextMessage();
-    } else {
-      message = d.generateTextMessage();
+  String? get _stackTrace {
+    if (data is! TalkerError && data is! TalkerException) {
+      return null;
     }
-
-    final title = data.displayTitle;
-    final time = data.displayTime;
-
-    var m = message;
-
-    if (title.isNotEmpty && message.contains('[$title] ')) {
-      m = message.replaceAll('[$title] ', '').replaceFirst(' |', '');
-    }
-
-    if (time.isNotEmpty && m.contains(' $time ')) {
-      return m.replaceAll(' $time ', '').replaceFirst('|', '');
-    }
-
-    return m;
+    return 'StackTrace:\n${data.stackTrace}';
   }
 
   Color get _color {
@@ -163,8 +130,44 @@ class TalkerDataCard extends StatelessWidget {
       return (data as TalkerFlutterAdapterInterface).color ??
           data.logLevel.color;
     }
+    if (data is HttpErrorLog) {
+      return LogLevel.error.color;
+    }
+    if (data is HttpResponseLog) {
+      return httpResponseLogColor;
+    }
+    if (data is HttpRequestLog) {
+      return httpRequestLogColor;
+    }
+
     return data.logLevel.color;
   }
 
-  String _getTitle(TalkerDataInterface data) => data.displayTitleWithTime;
+  String? get _message {
+    if (data is TalkerError || data is TalkerException) {
+      return null;
+    }
+    if (data is HttpErrorLog ||
+        data is HttpRequestLog ||
+        data is HttpResponseLog) {
+      return data.generateTextMessage();
+    }
+    return data.displayMessage;
+  }
+
+  String? get _errorMessage {
+    var txt = data.exception?.toString() ?? data.exception?.toString();
+
+    if ((txt?.isNotEmpty ?? false) && txt!.contains('Source stack:')) {
+      txt = 'Data: ${txt.split('Source stack:').first.replaceAll('\n', '')}';
+    }
+    return txt;
+  }
+
+  String? get _type {
+    if (data is! TalkerError && data is! TalkerException) {
+      return null;
+    }
+    return 'Type: ${data.exception?.runtimeType.toString() ?? data.error?.runtimeType.toString() ?? ''}';
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -17,11 +15,7 @@ class _ExtendedExampleState extends State<ExtendedExample> {
 
   @override
   void initState() {
-    _talker = Talker(
-      loggerSettings: TalkerLoggerSettings(
-        enableColors: !Platform.isIOS,
-      ),
-    );
+    _talker = TalkerFlutter.init();
 
     _fineLog();
     _infoLog();

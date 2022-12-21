@@ -55,6 +55,6 @@ class BlocStateLog extends FlutterTalkerLog {
   String get title => 'BLOC';
 
   static String _createMessage(Bloc bloc, Transition transition) {
-    return '\n${'TRANSITION in ${bloc.runtimeType} with event ${transition.event.runtimeType}'}\n${'CURRENT state: ${transition.currentState.runtimeType}'}\n${'NEXT state: ${transition.nextState.runtimeType}'}';
+    return '${'TRANSITION in ${bloc.runtimeType} with event ${transition.event.runtimeType}'}\n${'CURRENT state: ${transition.currentState.runtimeType}'}\n${'NEXT state: ${transition.nextState.runtimeType}'}';
   }
 }

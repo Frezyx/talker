@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 
 const _mockProducts = [
@@ -41,21 +42,51 @@ const _mockProducts = [
 /// [_requestsCount > 1] - special mock logic
 /// to check how logs working in differend ways of logic
 class ProductsRepository implements AbstractProductsRepository {
+  ProductsRepository({required Dio dio}) : _dio = dio;
   var _requestsCount = 0;
+
+  final Dio _dio;
 
   @override
   Future<List<Product>> getProductsList() async {
     _requestsCount += 1;
-    await Future.delayed(const Duration(milliseconds: 500));
-    if (_requestsCount > 0) {
+    if (_requestsCount % 2 != 0) {
+      await _dio.get('https://jsonplaceholder.typicode.com/users/1');
       return _mockProducts;
     }
-    throw Exception('Products not loaded');
+
+    /// Incorrect http request path
+    await _dio.get('https://jsonplaceholder.typicode.com/usetyrtyergvf/1');
+    return _mockProducts;
   }
 
   @override
   Future<Product> getProduct(String id) async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await _dio.get('https://jsonplaceholder.typicode.com/users/1');
     return _mockProducts.firstWhere((e) => e.id == id);
+  }
+
+  @override
+  Future<void> addToFavorites(String id) async {
+    _requestsCount += 1;
+    if (_requestsCount % 2 != 0) {
+      await _dio.put('https://jsonplaceholder.typicode.com/users/1');
+      return;
+    }
+
+    /// Incorrect request
+    await _dio.put('https://jsonplaceholder.typicode.comuseahstdfr/1');
+  }
+
+  @override
+  Future<void> addToCart(String id) async {
+    _requestsCount += 1;
+    if (_requestsCount % 2 != 0) {
+      await _dio.post('https://jsonplaceholder.typicode.com/users/1');
+      return;
+    }
+
+    /// Incorrect request
+    await _dio.post('https://jsonplaceholder.typicode.comusyeyrutwyetf/1');
   }
 }

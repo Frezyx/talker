@@ -22,7 +22,7 @@ void main() {
     LogLevel.verbose: 'VERBOSE',
     LogLevel.info: 'INFO',
     LogLevel.good: 'GOOD',
-    LogLevel.debug: 'LOG',
+    LogLevel.debug: 'DEBUG',
   };
 
   setUp(() {

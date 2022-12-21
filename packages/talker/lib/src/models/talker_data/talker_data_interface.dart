@@ -82,7 +82,10 @@ extension FeildsToDisplay on TalkerDataInterface {
     if (stackTrace == null) {
       return '';
     }
-    return '\n${stackTrace ?? ''}';
+    if (stackTrace!.toString().isEmpty) {
+      return '';
+    }
+    return '\nStackTrace: $stackTrace}';
   }
 
   /// Displayed exception of [TalkerDataInterface]

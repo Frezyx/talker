@@ -1,3 +1,14 @@
+## 2.2.0
+- **INFO**: talker 2.2.0 release
+- **INFO**: Update dependencies
+
+## 2.2.0-dev.1
+- **INFO**: Up version due to the talker_flutter update
+
+## 2.1.1-dev.3
+- **FEAT**: Implement debug logs title
+- **INFO**: Up version due to the talker_flutter update
+
 ## 2.1.0
 - **Talker mutual update**
 See more in [releases](https://github.com/Frezyx/talker/releases)

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.frezycode.talker_shop_app_example">
+    package="com.example.shop_app_example">
    <application
-        android:label="talker_shop_app_example"
+        android:label="shop_app_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -38,7 +38,7 @@ class TalkerDataCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    data.displayTitle + ' | ' + data.displayTime,
+                    '${data.displayTitle} | ${data.displayTime}',
                     style: TextStyle(
                       color: color,
                       fontWeight: FontWeight.w700,
@@ -122,7 +122,7 @@ class TalkerDataCard extends StatelessWidget {
     if (data is! TalkerError && data is! TalkerException) {
       return null;
     }
-    return 'StackTrace:\n' + data.stackTrace.toString();
+    return 'StackTrace:\n${data.stackTrace}';
   }
 
   Color get _color {
@@ -159,7 +159,7 @@ class TalkerDataCard extends StatelessWidget {
     var txt = data.exception?.toString() ?? data.exception?.toString();
 
     if ((txt?.isNotEmpty ?? false) && txt!.contains('Source stack:')) {
-      txt = 'Data: ' + txt.split('Source stack:').first.replaceAll('\n', '');
+      txt = 'Data: ${txt.split('Source stack:').first.replaceAll('\n', '')}';
     }
     return txt;
   }
@@ -168,9 +168,6 @@ class TalkerDataCard extends StatelessWidget {
     if (data is! TalkerError && data is! TalkerException) {
       return null;
     }
-    return 'Type: ' +
-        (data.exception?.runtimeType.toString() ??
-            data.error?.runtimeType.toString() ??
-            '');
+    return 'Type: ${data.exception?.runtimeType.toString() ?? data.error?.runtimeType.toString() ?? ''}';
   }
 }

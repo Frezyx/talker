@@ -27,7 +27,6 @@ class TalkerWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TalkerListener(
-      child: child,
       talker: talker,
       listener: (data) {
         if (data is TalkerException && options.enableExceptionAlerts) {
@@ -52,6 +51,7 @@ class TalkerWrapper extends StatelessWidget {
           );
         }
       },
+      child: child,
     );
   }
 

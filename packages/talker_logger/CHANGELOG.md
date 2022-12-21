@@ -1,3 +1,7 @@
+## 2.2.0
+- **INFO**: talker 2.2.0 release
+- **INFO**: Update dependencies
+
 ## 2.2.0-dev.1
 - **INFO**: Up version due to the talker_flutter update
 

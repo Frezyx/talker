@@ -1,3 +1,7 @@
+## 2.2.0
+- **FIX**: talker release 2.2.0
+- **FIX**: Change Debug "Log" title to "Debug"
+
 ## 2.1.1-dev.3
 - **INFO**: Up version due to the talker_flutter update
 

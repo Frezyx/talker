@@ -300,7 +300,7 @@ packages:
       name: talker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0-dev.1"
+    version: "2.2.0"
   talker_dio_logger:
     dependency: transitive
     description:
@@ -314,14 +314,14 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.2.0-dev.1"
+    version: "2.2.0"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0-dev.1"
+    version: "2.2.0"
   term_glyph:
     dependency: transitive
     description:

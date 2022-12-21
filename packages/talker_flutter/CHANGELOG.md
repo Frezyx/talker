@@ -1,3 +1,9 @@
+## 2.2.0
+- **FEAT**: Create FlutterTalker extensions for enable iOS/ MacOS colored logging
+- **FEAT**: Implement [TalkerMonitor](https://github.com/Frezyx/talker/tree/dev#talkermonitor) for sorting, warning, infos, verbose errors
+- **FEAT**: Implement [Talker Http Monitor](https://github.com/Frezyx/talker/tree/dev#talkermonitor) for http request-response analytics and monitoring
+- **FEAT**: Web demo example avaliable at [frezyx.github.io/talker](https://frezyx.github.io/talker)
+
 ## 2.2.0-dev.1
 - **INFO**: Init prerelease version
 - **INFO**: Add web demo example

@@ -1,3 +1,8 @@
+# 2.2.1
+- **FIX**: Fix color reset in console
+
+Thnaks for [westito](https://github.com/westito)
+
 ## 2.2.0
 - **INFO**: talker 2.2.0 release
 - **INFO**: Update dependencies

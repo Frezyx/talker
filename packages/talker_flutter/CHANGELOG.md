@@ -1,3 +1,8 @@
+# 2.2.1
+- **FIX**: Fix color reset in console
+
+Thnaks for [westito](https://github.com/westito)
+
 ## 2.2.0
 - **FEAT**: Create FlutterTalker extensions for enable iOS/ MacOS colored logging
 - **FEAT**: Implement [TalkerMonitor](https://github.com/Frezyx/talker/tree/dev#talkermonitor) for sorting, warning, infos, verbose errors

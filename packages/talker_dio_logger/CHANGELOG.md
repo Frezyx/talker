@@ -1,3 +1,9 @@
+# 1.0.1
+- **FIX**: Fix color override in dio logger
+- **FIX**: Fix color reset in console
+
+Thnaks for [westito](https://github.com/westito)
+
 ## 1.0.0
 - **BREAKING**: Package available for dart applications as for Flutter apps 
 (Flutter sdk was removed from package dependencies)

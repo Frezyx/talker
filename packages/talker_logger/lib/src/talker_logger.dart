@@ -8,7 +8,7 @@ class TalkerLogger implements TalkerLoggerInterface {
     void Function(String message)? output,
   }) {
     // ignore: avoid_print
-    _output = output ?? (String message) => print(message);
+    _output = output ?? (String message) => message.split('\n').forEach(print);
     _filter = filter ?? LogLevelTalkerLoggerFilter(settings.level);
     ansiColorDisabled = false;
   }

@@ -1,15 +1,16 @@
 name: talker_bloc_logger
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# homepage: https://www.example.com
+description: Lightweight and customizable BLoC state management library logger on talker base.
+version: 0.1.0
+homepage: https://github.com/Frezyx/talker
+repository: https://github.com/Frezyx/talker
+issue_tracker: https://github.com/Frezyx/talker/issues
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
   talker: ^2.2.1
   bloc: ^8.1.0
-#   path: ^1.8.0
 
 dev_dependencies:
   lints: ^2.0.0

@@ -2,6 +2,8 @@ name: talker_logger
 description: Logger core package for talker (advanced error handler and logger package)
 version: 2.2.1
 homepage: https://github.com/Frezyx/talker
+repository: https://github.com/Frezyx/talker
+issue_tracker: https://github.com/Frezyx/talker/issues
 
 environment:
   sdk: '>=2.15.0 <3.0.0'

@@ -1,39 +1,54 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# talker_bloc_logger
+Lightweight and customizable [BLoC](https://pub.dev/packages/bloc) state management library logger on [talker](https://pub.dev/packages/talker) base.<br>
+[Talker](https://github.com/Frezyx/talker) - Advanced exception handling and logging for dart/flutter applications 🚀
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+<p>
+  <a href="https://github.com/Frezyx/talker"><img src="https://img.shields.io/github/stars/Frezyx/talker?style=social" alt="GitHub"></a>
+  <a href="https://codecov.io/gh/Frezyx/talker"><img src="https://codecov.io/gh/Frezyx/talker/branch/master/graph/badge.svg" alt="codecov"></a>
+  <a href="https://pub.dev/packages/talker_bloc_logger"><img src="https://img.shields.io/pub/v/talker_bloc_logger.svg" alt="Pub"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <br>
+  <a href="https://github.com/Frezyx/talker/actions"><img src="https://github.com/Frezyx/talker/workflows/talker/badge.svg" alt="talker"></a>
+  <a href="https://github.com/Frezyx/talker_flutter/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_flutter/badge.svg" alt="talker_flutter"></a>
+  <a href="https://github.com/Frezyx/talker_logger/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_logger/badge.svg" alt="talker_logger"></a>
+</p>
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Preview
+This is how the logs of your BLoC's event callign and state emits will look in the console
+![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_dio_logger/preview_new.png?raw=true)
 
 ## Getting started
+Follow these steps to use this package
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Add dependency
+```yaml
+dependencies:
+  talker_bloc_logger: ^0.1.0
+```
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+### Usage
+Just set **TalkerBlocObserver** as Bloc.observer field and it will work
 
 ```dart
-const like = 'sample';
+import 'package:talker_bloc_observer/talker_bloc_observer.dart';
+
+Bloc.observer = TalkerBlocObserver();
+```
+
+## Using with Talker
+You can add your talker instance for TalkerDioLogger if your app already uses Talker.
+
+In this case, all logs and errors will fall into your unified tracking system
+
+```dart
+import 'package:talker_bloc_observer/talker_bloc_observer.dart';
+import 'package:talker/talker.dart';
+
+final talker = Talker();
+Bloc.observer = TalkerBlocObserver(talker: talker);
 ```
 
 ## Additional information
+The project is under development and ready for your pull-requests and issues 👍<br>
+Thank you for support ❤️
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.

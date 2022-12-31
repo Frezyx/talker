@@ -11,7 +11,7 @@ class BlocEventLog extends TalkerLog {
   String get title => 'BLOC';
 
   static String _createMessage(Bloc bloc, Object? event) {
-    return 'Event recive in ${bloc.runtimeType} event: $event';
+    return 'Event recive in ${bloc.runtimeType} event: ${event.runtimeType}';
   }
 }
 
@@ -26,6 +26,11 @@ class BlocStateLog extends TalkerLog {
   String get title => 'BLOC';
 
   static String _createMessage(Bloc bloc, Transition transition) {
-    return '\n${'TRANSITION in ${bloc.runtimeType} with event ${transition.event.runtimeType}'}\n${'CURRENT state: ${transition.currentState.runtimeType}'}\n${'NEXT state: ${transition.nextState.runtimeType}'}';
+    final sb = StringBuffer();
+    sb.write(
+        '\n${'TRANSITION in ${bloc.runtimeType} with event ${transition.event.runtimeType}'}');
+    sb.write('\n${'CURRENT state: ${transition.currentState.runtimeType}'}');
+    sb.write('\n${'NEXT state: ${transition.nextState.runtimeType}'}');
+    return sb.toString();
   }
 }

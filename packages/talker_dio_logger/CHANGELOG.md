@@ -1,3 +1,6 @@
+# 1.0.2
+- **FIX**: Fix format
+
 # 1.0.1
 - **FIX**: Fix color override in dio logger
 - **FIX**: Fix color reset in console

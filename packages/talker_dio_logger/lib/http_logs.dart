@@ -17,8 +17,7 @@ class HttpRequestLog extends TalkerLog {
   final TalkerDioLoggerSettings settings;
 
   @override
-  AnsiPen get pen => settings.requestPen ?? (AnsiPen()
-    ..xterm(219));
+  AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
   String get title => 'http-request';
@@ -53,8 +52,7 @@ class HttpResponseLog extends TalkerLog {
   final TalkerDioLoggerSettings settings;
 
   @override
-  AnsiPen get pen => settings.responsePen ?? (AnsiPen()
-    ..xterm(46));
+  AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
   String get title => 'http-response';
@@ -96,8 +94,7 @@ class HttpErrorLog extends TalkerLog {
   final TalkerDioLoggerSettings settings;
 
   @override
-  AnsiPen get pen => settings.errorPen ?? (AnsiPen()
-    ..red());
+  AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
   String get title => 'http-error';

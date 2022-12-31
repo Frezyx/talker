@@ -18,6 +18,7 @@ class TalkerDioLogger extends Interceptor {
     _talker = talker ??
         Talker(
           settings: TalkerSettings(),
+          //TODO: fix
           loggerSettings: TalkerLoggerSettings(
             enableColors: !Platform.isIOS && !Platform.isMacOS,
           ),

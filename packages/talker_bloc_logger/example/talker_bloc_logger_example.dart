@@ -1,6 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 
+void main() async {
+  Bloc.observer = TalkerBlocObserver();
+  final somethingBloc = SomethingBloc();
+  somethingBloc.add(LoadSomething(LoadSomethingCase.successful));
+  await Future.delayed(const Duration(milliseconds: 300));
+  somethingBloc.add(LoadSomething(LoadSomethingCase.failure));
+}
+
 enum LoadSomethingCase { successful, failure }
 
 class SomethingBloc extends Bloc<SomethingEvent, SomethingState> {
@@ -35,12 +43,4 @@ class SomethingLoaded extends SomethingState {}
 class SomethingLoadingFailure extends SomethingState {
   SomethingLoadingFailure(this.exception);
   final Object? exception;
-}
-
-void main() async {
-  Bloc.observer = TalkerBlocObserver();
-  final somethingBloc = SomethingBloc();
-  somethingBloc.add(LoadSomething(LoadSomethingCase.successful));
-  await Future.delayed(const Duration(milliseconds: 300));
-  somethingBloc.add(LoadSomething(LoadSomethingCase.failure));
 }

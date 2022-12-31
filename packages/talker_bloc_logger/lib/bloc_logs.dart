@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:talker/talker.dart';
 
+/// [Bloc] event log model
 class BlocEventLog extends TalkerLog {
   BlocEventLog(Bloc bloc, Object? event) : super(_createMessage(bloc, event));
 
@@ -15,6 +16,7 @@ class BlocEventLog extends TalkerLog {
   }
 }
 
+/// [Bloc] state log model
 class BlocStateLog extends TalkerLog {
   BlocStateLog(Bloc bloc, Transition transition)
       : super(_createMessage(bloc, transition));

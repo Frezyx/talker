@@ -26,6 +26,6 @@ class TalkerBlocObserver extends BlocObserver {
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
-    _talker.error('[BLOC] $bloc', error, stackTrace);
+    _talker.error('${bloc.runtimeType}', error, stackTrace);
   }
 }

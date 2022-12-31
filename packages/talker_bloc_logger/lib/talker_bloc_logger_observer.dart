@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_bloc_logger/bloc_logs.dart';

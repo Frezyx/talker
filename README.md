@@ -73,6 +73,7 @@ Talker is designed for any level of customization. <br>
   - [More Features And Examples](#more-features-and-examples)
 - [Integrations](#integrations)
   - [Talker Dio Logger](#talker-dio-logger)
+  - [Talker BLoC Logger](#talker-bloc-logger)
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)
@@ -251,7 +252,7 @@ You can use ready out of the box packages like [talker_dio_logger](https://pub.d
 
 ## Talker Dio Logger
 
-Lightweight and simple solution for logging if your app use dio as http-client 
+Lightweight, simple and pretty solution for logging if your app use [dio](https://pub.dev/packages/dio) as http-client 
 
 This is how the logs of your http requests will look in the console
 ![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_dio_logger/preview_new.png?raw=true)
@@ -297,6 +298,44 @@ dio.interceptors.add(
         ),
     ),
 );
+```
+
+## Talker BLoC Logger
+
+Lightweight, simple and pretty solution for logging if your app use [BLoC](https://pub.dev/packages/bloc) as state managment
+
+This is how the logs of your BLoC's event callign and state emits will look in the console
+![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_bloc_logger/preview.png?raw=true)
+
+### Getting started
+Follow these steps to use this package
+
+### Add dependency
+```yaml
+dependencies:
+  talker_bloc_logger: ^0.1.0
+```
+
+### Usage
+Just set **TalkerBlocObserver** as Bloc.observer field and it will work
+
+```dart
+import 'package:talker_bloc_observer/talker_bloc_observer.dart';
+
+Bloc.observer = TalkerBlocObserver();
+```
+
+### Using with Talker
+You can add your talker instance for TalkerDioLogger if your app already uses Talker.
+
+In this case, all logs and errors will fall into your unified tracking system
+
+```dart
+import 'package:talker_bloc_observer/talker_bloc_observer.dart';
+import 'package:talker/talker.dart';
+
+final talker = Talker();
+Bloc.observer = TalkerBlocObserver(talker: talker);
 ```
 
 ## Features list

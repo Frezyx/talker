@@ -71,6 +71,8 @@ Talker is designed for any level of customization. <br>
   - [TalkerMonitor](#talkermonitor)
   - [TalkerWrapper](#talkerwrapper)
   - [More Features And Examples](#more-features-and-examples)
+- [Integrations](#integrations)
+  - [Talker Dio Logger](#talker-dio-logger)
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)
@@ -240,6 +242,62 @@ TalkerWrapper [usage example](https://github.com/Frezyx/talker/blob/master/packa
 See full application example with BLoC and navigation [here](https://github.com/Frezyx/talker/blob/master/examples/shop_app_example)
 
 The talker_flutter package have a lot of another widgets like TalkerBuilder, TalkerListener, etc. You can find all of them in code documentation.
+
+## Integrations
+
+In addition to the basic functionality, talker was conceived as a tool for creating lightweight loggers for the main activities of your application
+
+You can use ready out of the box packages like [talker_dio_logger](https://pub.dev/packages/talker_dio_logger) and [talker_bloc_logger](https://pub.dev/packages/talker_bloc_logger) or create your own packages.
+
+## Talker Dio Logger
+
+Lightweight and simple solution for logging if your app use dio as http-client 
+
+This is how the logs of your http requests will look in the console
+![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_dio_logger/preview_new.png?raw=true)
+
+### Getting started
+Follow these steps to use this package
+
+### Add dependency
+```yaml
+dependencies:
+  talker_dio_logger: ^1.0.2
+```
+
+### Usage
+Just add **TalkerDioLogger** to your dio instance and it will work
+
+```dart
+final dio = Dio();
+dio.interceptors.add(
+    TalkerDioLogger(
+        settings: const TalkerDioLoggerSettings(
+          printRequestHeaders: true,
+          printResponseHeaders: true,
+          printResponseMessage: true,
+        ),
+    ),
+);
+```
+
+### Using with Talker
+You can add your talker instance for TalkerDioLogger if your app already uses Talker.
+In this case, all logs and errors will fall into your unified tracking system
+
+```dart
+final talker = Talker();
+final dio = Dio();
+dio.interceptors.add(
+    TalkerDioLogger(
+        talker: talker,
+        settings: const TalkerDioLoggerSettings(
+          printRequestHeaders: true,
+          printResponseHeaders: true,
+        ),
+    ),
+);
+```
 
 ## Features list
 

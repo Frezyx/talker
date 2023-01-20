@@ -46,8 +46,8 @@ class TalkerScreenFilter extends StatelessWidget {
               children: [
                 Text(
                   'Talker Filter',
-                  style: theme.textTheme.headline6!
-                      .copyWith(color: talkerScreenTheme.textColor),
+                  style: theme.textTheme.headline6
+                      ?.copyWith(color: talkerScreenTheme.textColor),
                 ),
                 InkWell(
                   onTap: () => Navigator.pop(context),

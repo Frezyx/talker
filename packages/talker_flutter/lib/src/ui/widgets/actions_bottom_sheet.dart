@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class ActionsBottomSheet extends StatelessWidget {
@@ -14,15 +14,8 @@ class ActionsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        top: 20,
-        bottom: MediaQuery.of(context).padding.bottom,
-      ),
-      decoration: BoxDecoration(
-        color: talkerScreenTheme.backgroudColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return BaseBottomSheet(
+      talkerScreenTheme: talkerScreenTheme,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

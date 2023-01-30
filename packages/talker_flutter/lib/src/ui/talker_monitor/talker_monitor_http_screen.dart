@@ -57,6 +57,8 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
                           data: pair.key,
                           margin: EdgeInsets.zero,
                           expanded: _expandRequestLogs,
+                          onTap: () =>
+                              _copyTalkerDataItemText(context, pair.key),
                         ),
                         if (pair.value != null) ...[
                           Container(
@@ -78,6 +80,8 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
                           TalkerDataCard(
                             data: pair.value!,
                             expanded: _expandRequestLogs,
+                            onTap: () =>
+                                _copyTalkerDataItemText(context, pair.value!),
                           ),
                         ],
                         const SizedBox(height: 10),
@@ -91,6 +95,20 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
           );
         },
       ),
+    );
+  }
+
+  void _copyTalkerDataItemText(BuildContext context, TalkerDataInterface data) {
+    final text = data is FlutterTalkerDataInterface
+        ? data.generateFlutterTextMessage()
+        : data.generateTextMessage();
+    Clipboard.setData(ClipboardData(text: text));
+    _showSnackBar(context, 'Log item is copied in clipboard');
+  }
+
+  void _showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(text)),
     );
   }
 
@@ -173,11 +191,5 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
   void _copyAllLogs(BuildContext context) {
     Clipboard.setData(ClipboardData(text: _httpLogs.text));
     _showSnackBar(context, 'All logs copied in buffer');
-  }
-
-  void _showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(text)),
-    );
   }
 }

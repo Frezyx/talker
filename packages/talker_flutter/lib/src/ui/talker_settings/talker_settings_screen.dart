@@ -46,6 +46,38 @@ class _TalkerSettingsScreenState extends State<TalkerSettingsScreen> {
               },
             ),
           ),
+          SliverToBoxAdapter(
+            child: _TalkerSettingsCard(
+              canEdit: widget.talker.settings.enabled,
+              talkerScreenTheme: widget.talkerScreenTheme,
+              title: 'Use console logs',
+              enabled: widget.talker.settings.useConsoleLogs,
+              onChanged: (enabled) {
+                widget.talker.configure(
+                  settings: widget.talker.settings.copyWith(
+                    useConsoleLogs: enabled,
+                  ),
+                );
+                setState(() {});
+              },
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: _TalkerSettingsCard(
+              canEdit: widget.talker.settings.enabled,
+              talkerScreenTheme: widget.talkerScreenTheme,
+              title: 'Use history',
+              enabled: widget.talker.settings.useHistory,
+              onChanged: (enabled) {
+                widget.talker.configure(
+                  settings: widget.talker.settings.copyWith(
+                    useHistory: enabled,
+                  ),
+                );
+                setState(() {});
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -59,30 +91,39 @@ class _TalkerSettingsCard extends StatelessWidget {
     required this.title,
     required this.enabled,
     required this.onChanged,
+    this.canEdit = true,
   }) : super(key: key);
 
   final String title;
   final bool enabled;
   final Function(bool enabled) onChanged;
   final TalkerScreenTheme talkerScreenTheme;
+  final bool canEdit;
 
   @override
   Widget build(BuildContext context) {
-    return TalkerBaseCard(
-      color: cardBackgroundColor,
-      child: ListTile(
-        title: Text(
-          title,
-          style: TextStyle(
-            color: talkerScreenTheme.textColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 150),
+      opacity: canEdit ? 1 : 0.7,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: TalkerBaseCard(
+          color: cardBackgroundColor,
+          child: ListTile(
+            title: Text(
+              title,
+              style: TextStyle(
+                color: talkerScreenTheme.textColor,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: CupertinoSwitch(
+              value: enabled,
+              trackColor: canEdit ? Colors.red : Colors.grey,
+              onChanged: canEdit ? onChanged : null,
+            ),
           ),
-        ),
-        trailing: CupertinoSwitch(
-          value: enabled,
-          trackColor: Colors.red,
-          onChanged: onChanged,
         ),
       ),
     );

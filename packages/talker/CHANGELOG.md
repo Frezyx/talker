@@ -1,3 +1,6 @@
+# 2.3.2
+- **FIX**: Settings field configure bug
+
 # 2.3.1
 - **FIX**: Settings field initialization bug
 - **FEAT**: Add copyWith to TalkerSettings

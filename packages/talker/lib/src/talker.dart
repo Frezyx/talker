@@ -80,7 +80,7 @@ class Talker implements TalkerInterface {
       _filter = filter;
     }
     if (settings != null) {
-      settings = settings;
+      this.settings = settings;
     }
 
     if (observers != null && observers.isNotEmpty) {

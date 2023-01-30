@@ -1,5 +1,6 @@
-// import 'package:talker/talker.dart';
-
+/// {@template talker_settings}
+/// This class used for setup [Talker] configuration
+/// {@endtemplate}
 class TalkerSettings {
   TalkerSettings({
     this.enabled = true,

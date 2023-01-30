@@ -320,4 +320,10 @@ abstract class TalkerInterface {
   /// if the package was suspended by the [disable] method
   /// {@endtemplate}
   void enable();
+
+  /// {@macro talker_settings}
+  TalkerSettings get settings;
+
+  /// {@macro talker_settings}
+  set settings(TalkerSettings val);
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:talker/talker.dart';
 
 /// Talker - advanced exception handling and logging
@@ -37,7 +38,7 @@ class Talker implements TalkerInterface {
     Function(String message)? loggerOutput,
   }) {
     _filter = filter;
-    _settings = settings ?? TalkerSettings();
+    settings = settings ?? TalkerSettings();
     _logger = logger ??
         TalkerLogger().copyWith(
           settings: loggerSettings,
@@ -48,11 +49,14 @@ class Talker implements TalkerInterface {
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
     }
-    _errorHandler = TalkerErrorHandler(_settings);
+    _errorHandler = TalkerErrorHandler(settings);
   }
 
   /// Fields can be setup in [configure()] method
-  late TalkerSettings _settings;
+
+  /// {@macro talker_settings}
+  @override
+  late TalkerSettings settings;
   late TalkerLoggerInterface _logger;
   late TalkerErrorHandlerInterface _errorHandler;
   late TalkerFilter? _filter;
@@ -76,7 +80,7 @@ class Talker implements TalkerInterface {
       _filter = filter;
     }
     if (settings != null) {
-      _settings = settings;
+      settings = settings;
     }
 
     if (observers != null && observers.isNotEmpty) {
@@ -144,7 +148,7 @@ class Talker implements TalkerInterface {
       logLevel: LogLevel.error,
     );
     _handleErrorData(data);
-    if (_settings.enabled) {
+    if (settings.enabled) {
       _observersManager?.onError(data);
     }
   }
@@ -164,7 +168,7 @@ class Talker implements TalkerInterface {
       logLevel: LogLevel.error,
     );
     _handleErrorData(data);
-    if (_settings.enabled) {
+    if (settings.enabled) {
       _observersManager?.onException(data);
     }
   }
@@ -270,7 +274,7 @@ class Talker implements TalkerInterface {
   ///{@macro talker_clear_log_history}
   @override
   void cleanHistory() {
-    if (_settings.useHistory) {
+    if (settings.useHistory) {
       _history.clear();
     }
   }
@@ -278,13 +282,13 @@ class Talker implements TalkerInterface {
   ///{@macro talker_disable}
   @override
   void disable() {
-    _settings.enabled = false;
+    settings.enabled = false;
   }
 
   ///{@macro talker_enable}
   @override
   void enable() {
-    _settings.enabled = true;
+    settings.enabled = true;
   }
 
   void _handleLog(
@@ -305,7 +309,7 @@ class Talker implements TalkerInterface {
   }
 
   void _handleErrorData(TalkerDataInterface data) {
-    if (!_settings.enabled) {
+    if (!settings.enabled) {
       return;
     }
     final isApproved = _isApprovedByFilter(data);
@@ -314,7 +318,7 @@ class Talker implements TalkerInterface {
     }
     _talkerStreamController.add(data);
     _handleForOutputs(data);
-    if (_settings.useConsoleLogs) {
+    if (settings.useConsoleLogs) {
       _logger.log(
         data.generateTextMessage(),
         level: data.logLevel ?? LogLevel.error,
@@ -327,7 +331,7 @@ class Talker implements TalkerInterface {
     AnsiPen? pen,
     LogLevel? logLevel,
   }) {
-    if (!_settings.enabled) {
+    if (!settings.enabled) {
       return;
     }
     final isApproved = _isApprovedByFilter(data);
@@ -337,7 +341,7 @@ class Talker implements TalkerInterface {
     _observersManager?.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
-    if (_settings.useConsoleLogs) {
+    if (settings.useConsoleLogs) {
       _logger.log(
         data.generateTextMessage(),
         level: logLevel ?? data.logLevel,
@@ -359,8 +363,8 @@ class Talker implements TalkerInterface {
   // }
 
   void _writeToHistory(TalkerDataInterface data) {
-    if (_settings.useHistory && _settings.enabled) {
-      if (_settings.maxHistoryItems <= _history.length) {
+    if (settings.useHistory && settings.enabled) {
+      if (settings.maxHistoryItems <= _history.length) {
         _history.removeAt(0);
       }
       _history.add(data);

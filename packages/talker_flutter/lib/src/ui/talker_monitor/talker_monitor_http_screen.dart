@@ -159,14 +159,19 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
 
   Future<void> _shareLogsInFile() async {
     final path = await _controller.saveLogsInFile(
-      widget.talker.history.text,
+      _httpLogs.text,
     );
     // ignore: deprecated_member_use
     await Share.shareFilesWithResult([path]);
   }
 
+  List<TalkerDataInterface> get _httpLogs => widget.talker.history
+      .where((e) =>
+          e is HttpRequestLog || e is HttpErrorLog || e is HttpResponseLog)
+      .toList();
+
   void _copyAllLogs(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: widget.talker.history.text));
+    Clipboard.setData(ClipboardData(text: _httpLogs.text));
     _showSnackBar(context, 'All logs copied in buffer');
   }
 

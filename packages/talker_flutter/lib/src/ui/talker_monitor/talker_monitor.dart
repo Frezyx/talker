@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_http_screen.dart';
-import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_item.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_typed_logs_screen.dart';
+import 'package:talker_flutter/src/ui/talker_monitor/widgets/widgets.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitor extends StatelessWidget {

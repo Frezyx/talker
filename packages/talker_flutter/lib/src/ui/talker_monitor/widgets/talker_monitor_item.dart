@@ -32,7 +32,6 @@ class TalkerMonitorItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(icon, color: color),
                 const SizedBox(width: 10),

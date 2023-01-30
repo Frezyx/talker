@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:talker_dio_logger/http_logs.dart';
+import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/extensions/iterable.dart';
 import 'package:talker_flutter/src/ui/theme/default_theme.dart';
-import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
+import 'package:talker_flutter/src/ui/widgets/actions_bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorHttpScreen extends StatefulWidget {
@@ -21,8 +24,8 @@ class TalkerMonitorHttpScreen extends StatefulWidget {
 }
 
 class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
-  var _expandResponseLogs = true;
   var _expandRequestLogs = true;
+  final _controller = TalkerScreenController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
         actions: [
           IconButton(
             onPressed: () => _showBottomSheet(context),
-            icon: const Icon(Icons.tune),
+            icon: const Icon(Icons.more_vert_rounded),
           ),
         ],
       ),
@@ -74,7 +77,7 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
                           ),
                           TalkerDataCard(
                             data: pair.value!,
-                            expanded: _expandResponseLogs,
+                            expanded: _expandRequestLogs,
                           ),
                         ],
                         const SizedBox(height: 10),
@@ -119,12 +122,32 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return HttpMonitorSettingsBottomSheet(
+        return ActionsBottomSheet(
+          actions: [
+            BottomSheetAction(
+              onTap: _controller.toggleLogOrder,
+              title: 'Reverse logs',
+              icon: Icons.swap_vert,
+            ),
+            BottomSheetAction(
+              onTap: () => _copyAllLogs(context),
+              title: 'Copy all logs',
+              icon: Icons.copy,
+            ),
+            BottomSheetAction(
+              onTap: () => _toggleRequestLogsExpanded(!_expandRequestLogs),
+              title: _expandRequestLogs ? 'Collapse logs' : 'Expand logs',
+              icon: _expandRequestLogs
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
+            ),
+            BottomSheetAction(
+              onTap: _shareLogsInFile,
+              title: 'Share logs file',
+              icon: Icons.ios_share_outlined,
+            ),
+          ],
           talkerScreenTheme: widget.talkerScreenTheme,
-          onRequestLogsExpandToggled: _toggleRequestLogsExpanded,
-          onResponseLogsExpandToggled: _toggleResponseLogsExpanded,
-          initialExpandRequestLogs: _expandRequestLogs,
-          initialExpandResponseLogs: _expandResponseLogs,
         );
       },
     );
@@ -134,96 +157,22 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
     setState(() => _expandRequestLogs = value);
   }
 
-  void _toggleResponseLogsExpanded(bool value) {
-    setState(() => _expandResponseLogs = value);
-  }
-}
-
-class HttpMonitorSettingsBottomSheet extends StatefulWidget {
-  const HttpMonitorSettingsBottomSheet({
-    Key? key,
-    required this.talkerScreenTheme,
-    required this.onResponseLogsExpandToggled,
-    required this.onRequestLogsExpandToggled,
-    required this.initialExpandResponseLogs,
-    required this.initialExpandRequestLogs,
-  }) : super(key: key);
-
-  final TalkerScreenTheme talkerScreenTheme;
-  final bool initialExpandResponseLogs;
-  final bool initialExpandRequestLogs;
-  final ValueChanged<bool> onResponseLogsExpandToggled;
-  final ValueChanged<bool> onRequestLogsExpandToggled;
-
-  @override
-  State<HttpMonitorSettingsBottomSheet> createState() =>
-      _HttpMonitorSettingsBottomSheetState();
-}
-
-class _HttpMonitorSettingsBottomSheetState
-    extends State<HttpMonitorSettingsBottomSheet> {
-  late var _expandResponseLogs = widget.initialExpandResponseLogs;
-  late var _expandRequestLogs = widget.initialExpandRequestLogs;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return BaseBottomSheet(
-      talkerScreenTheme: widget.talkerScreenTheme,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Talker Http Monitor Settings',
-                style: theme.textTheme.headline6
-                    ?.copyWith(color: widget.talkerScreenTheme.textColor),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          CheckboxListTile(
-            value: _expandRequestLogs,
-            title: Text(
-              '${_expandRequestLogs ? 'Collapse' : 'Expand'} http-request logs',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: widget.talkerScreenTheme.textColor,
-                fontSize: 18,
-              ),
-            ),
-            onChanged: (value) => _toggleRequestLogsExpanded(value ?? false),
-          ),
-          Divider(
-            height: 1,
-            color: widget.talkerScreenTheme.iconsColor.withOpacity(0.5),
-            endIndent: 10,
-            indent: 10,
-          ),
-          CheckboxListTile(
-            value: _expandResponseLogs,
-            title: Text(
-              '${_expandResponseLogs ? 'Collapse' : 'Expand'} http-response logs',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: widget.talkerScreenTheme.textColor,
-                fontSize: 18,
-              ),
-            ),
-            onChanged: (value) => _toggleResponseLogsExpanded(value ?? false),
-          ),
-        ],
-      ),
+  Future<void> _shareLogsInFile() async {
+    final path = await _controller.saveLogsInFile(
+      widget.talker.history.text,
     );
+    // ignore: deprecated_member_use
+    await Share.shareFilesWithResult([path]);
   }
 
-  void _toggleRequestLogsExpanded(bool value) {
-    setState(() => _expandRequestLogs = value);
-    widget.onRequestLogsExpandToggled(value);
+  void _copyAllLogs(BuildContext context) {
+    Clipboard.setData(ClipboardData(text: widget.talker.history.text));
+    _showSnackBar(context, 'All logs copied in buffer');
   }
 
-  void _toggleResponseLogsExpanded(bool value) {
-    setState(() => _expandResponseLogs = value);
-    widget.onResponseLogsExpandToggled(value);
+  void _showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(text)),
+    );
   }
 }

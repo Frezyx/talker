@@ -1,3 +1,6 @@
+# 2.3.0
+- **FEAT**: Make settings Talker public field
+
 # 2.2.1
 - **FIX**: Fix color reset in console
 

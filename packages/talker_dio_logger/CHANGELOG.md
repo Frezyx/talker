@@ -1,3 +1,6 @@
+# 1.0.3
+- **FIX**: Update talker version to 2.3.3
+
 # 1.0.2
 - **FIX**: Fix format
 

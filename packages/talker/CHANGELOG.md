@@ -1,3 +1,7 @@
+# 2.3.1
+- **FIX**: Settings field initialization bug
+- **FEAT**: Add copyWith to TalkerSettings
+
 # 2.3.0
 - **FEAT**: Make settings Talker public field
 

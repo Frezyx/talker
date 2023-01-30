@@ -13,7 +13,9 @@ dependencies:
   talker_dio_logger: 
     path:
       ../
-  talker_flutter: ^2.1.0
+  talker_flutter:
+    path:
+      ../../talker_flutter/
 
 dev_dependencies:
   flutter_test:

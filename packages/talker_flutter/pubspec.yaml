@@ -13,13 +13,16 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker: ^2.2.1
-    # path:
-    #   ../talker
+  talker: 
+    path:
+      ../talker
+  talker_dio_logger: 
+    path:
+      ../talker_dio_logger
   group_button: ^5.2.2
   path_provider: ^2.0.11
   share_plus: ^6.3.0
-  talker_dio_logger: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:

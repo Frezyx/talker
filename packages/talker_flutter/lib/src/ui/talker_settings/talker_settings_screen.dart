@@ -4,7 +4,7 @@ import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerSettingsScreen extends StatelessWidget {
+class TalkerSettingsScreen extends StatefulWidget {
   const TalkerSettingsScreen({
     Key? key,
     required this.talkerScreenTheme,
@@ -18,9 +18,14 @@ class TalkerSettingsScreen extends StatelessWidget {
   final TalkerInterface talker;
 
   @override
+  State<TalkerSettingsScreen> createState() => _TalkerSettingsScreenState();
+}
+
+class _TalkerSettingsScreenState extends State<TalkerSettingsScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: talkerScreenTheme.backgroudColor,
+      backgroundColor: widget.talkerScreenTheme.backgroudColor,
       appBar: AppBar(
         title: const FittedBox(
           fit: BoxFit.scaleDown,
@@ -32,10 +37,13 @@ class TalkerSettingsScreen extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
           SliverToBoxAdapter(
             child: _TalkerSettingsCard(
-              talkerScreenTheme: talkerScreenTheme,
+              talkerScreenTheme: widget.talkerScreenTheme,
               title: 'Enabled',
-              enabled: true,
-              onChanged: (enabled) {},
+              enabled: widget.talker.settings.enabled,
+              onChanged: (enabled) {
+                (enabled ? widget.talker.enable : widget.talker.disable).call();
+                setState(() {});
+              },
             ),
           ),
         ],

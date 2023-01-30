@@ -68,4 +68,18 @@ class TalkerSettings {
   //       TalkerLog, TalkerError, TalkerException,
   //       //...?_registeredTypes
   //     ];
+
+  TalkerSettings copyWith({
+    bool? enabled,
+    bool? useHistory,
+    bool? useConsoleLogs,
+    int? maxHistoryItems,
+  }) {
+    return TalkerSettings(
+      useHistory: useHistory ?? _useHistory,
+      useConsoleLogs: useConsoleLogs ?? _useConsoleLogs,
+      maxHistoryItems: maxHistoryItems ?? _maxHistoryItems,
+      enabled: enabled ?? this.enabled,
+    );
+  }
 }

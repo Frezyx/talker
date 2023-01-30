@@ -38,7 +38,7 @@ class Talker implements TalkerInterface {
     Function(String message)? loggerOutput,
   }) {
     _filter = filter;
-    settings = settings ?? TalkerSettings();
+    this.settings = settings ?? TalkerSettings();
     _logger = logger ??
         TalkerLogger().copyWith(
           settings: loggerSettings,
@@ -49,7 +49,7 @@ class Talker implements TalkerInterface {
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
     }
-    _errorHandler = TalkerErrorHandler(settings);
+    _errorHandler = TalkerErrorHandler(this.settings);
   }
 
   /// Fields can be setup in [configure()] method

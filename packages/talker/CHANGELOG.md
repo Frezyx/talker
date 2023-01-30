@@ -1,3 +1,6 @@
+# 2.3.3
+- **FIX**: Settings enable and disable rules
+
 # 2.3.2
 - **FIX**: Settings field configure bug
 

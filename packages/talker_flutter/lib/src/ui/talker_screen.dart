@@ -4,6 +4,7 @@ import 'package:group_button/group_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
+import 'package:talker_flutter/src/ui/talker_settings/talker_settings_screen.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -56,6 +57,15 @@ class _TalkerScreenState extends State<TalkerScreen> {
             actions: [
               SizedBox(
                 width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 28,
+                  onPressed: () => _openTalkerSettings(context),
+                  icon: const Icon(Icons.settings_rounded),
+                ),
+              ),
+              SizedBox(
+                width: 40,
                 child: _MonitorButton(
                   talker: widget.talker,
                   onPressed: () => _openTalkerMonitor(context),
@@ -70,13 +80,16 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   icon: const Icon(Icons.filter_alt_outlined),
                 ),
               ),
-              SizedBox(
-                width: 40,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  iconSize: 28,
-                  onPressed: () => _showActionsBottomSheet(context),
-                  icon: const Icon(Icons.more_vert_rounded),
+              Padding(
+                padding: const EdgeInsets.only(right: 6),
+                child: SizedBox(
+                  width: 28,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    iconSize: 28,
+                    onPressed: () => _showActionsBottomSheet(context),
+                    icon: const Icon(Icons.more_vert_rounded),
+                  ),
                 ),
               ),
             ],
@@ -109,6 +122,17 @@ class _TalkerScreenState extends State<TalkerScreen> {
           ),
         );
       },
+    );
+  }
+
+  void _openTalkerSettings(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TalkerSettingsScreen(
+          talkerScreenTheme: widget.theme,
+          talker: widget.talker,
+        ),
+      ),
     );
   }
 

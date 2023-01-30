@@ -1,3 +1,6 @@
+# 2.3.1
+- **FEAT**: Add initial TalkerSettings screen to interact with Talker configuration
+
 # 2.3.0
 - **FEAT**: Add filters and fast actions for http calls monitor
 - **FEAT**: Expanded size of log item click zone

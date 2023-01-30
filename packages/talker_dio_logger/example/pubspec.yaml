@@ -10,12 +10,12 @@ dependencies:
   flutter:
     sdk: flutter
   dio: ^4.0.6
-  talker_dio_logger: 
-    path:
-      ../
-  talker_flutter:
-    path:
-      ../../talker_flutter/
+  talker_dio_logger: ^1.0.3
+    # path:
+    #   ../
+  talker_flutter: ^2.3.1    
+    # path:
+    #   ../../talker_flutter/
 
 dev_dependencies:
   flutter_test:

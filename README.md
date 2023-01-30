@@ -368,6 +368,7 @@ Bloc.observer = TalkerBlocObserver(talker: talker);
 - ✅ TalkerBuilder - UI builder to Logs List showing custom UI
 - ✅ Android/Windows/Web application logs colors
 - ✅ iOS/MacOS application logs colors
+- 🚧 Talker configuration chnages from TalkerFlutter 
 
 ✅ Logs and errors history saving
 

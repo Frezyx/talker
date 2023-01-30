@@ -11,7 +11,7 @@ void main() {
   group('Talker_ErrorHandler', () {
     group('handle Error', () {
       _testHandleError(ArgumentError());
-      _testHandleError(NullThrownError());
+      _testHandleError(RangeError('a'));
       _testHandleError(AssertionError());
     });
 

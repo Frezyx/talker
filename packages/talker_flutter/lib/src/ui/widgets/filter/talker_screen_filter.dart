@@ -46,7 +46,7 @@ class TalkerScreenFilter extends StatelessWidget {
               children: [
                 Text(
                   'Talker Filter',
-                  style: theme.textTheme.headline6
+                  style: theme.textTheme.titleLarge
                       ?.copyWith(color: talkerScreenTheme.textColor),
                 ),
                 InkWell(
@@ -67,7 +67,7 @@ class TalkerScreenFilter extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextFormField(
-                    style: theme.textTheme.bodyText1!.copyWith(
+                    style: theme.textTheme.bodyLarge!.copyWith(
                       color: talkerScreenTheme.textColor,
                     ),
                     onChanged: controller.updateFilterSearchQuery,
@@ -88,7 +88,7 @@ class TalkerScreenFilter extends StatelessWidget {
                         color: talkerScreenTheme.textColor,
                       ),
                       hintText: 'Search...',
-                      hintStyle: theme.textTheme.bodyText1!.copyWith(
+                      hintStyle: theme.textTheme.bodyLarge!.copyWith(
                         color: talkerScreenTheme.textColor,
                       ),
                     ),
@@ -99,7 +99,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
                     'Titles',
-                    style: theme.textTheme.headline6!.copyWith(
+                    style: theme.textTheme.titleLarge!.copyWith(
                       color: talkerScreenTheme.textColor,
                     ),
                   ),
@@ -125,7 +125,7 @@ class TalkerScreenFilter extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
                     'Types',
-                    style: theme.textTheme.headline6!.copyWith(
+                    style: theme.textTheme.titleLarge!.copyWith(
                       color: talkerScreenTheme.textColor,
                     ),
                   ),

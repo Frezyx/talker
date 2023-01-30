@@ -17,7 +17,7 @@ class TalkerSettings {
   /// (base dart [List] field in core)
   /// If [true] - writing in history
   /// If [false] - not writing
-  bool get useHistory => _useHistory;
+  bool get useHistory => _useHistory && enabled;
   final bool _useHistory;
 
   /// By default talker print all Errors / Exceptions and logs in console.

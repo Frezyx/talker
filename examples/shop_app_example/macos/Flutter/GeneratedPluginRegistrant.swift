@@ -7,7 +7,7 @@ import Foundation
 
 import firebase_analytics
 import firebase_core
-import path_provider_macos
+import path_provider_foundation
 import share_plus
 import url_launcher_macos
 

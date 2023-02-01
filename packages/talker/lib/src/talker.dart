@@ -64,6 +64,7 @@ class Talker implements TalkerInterface {
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
   TalkerObserversManager? _observersManager;
+  final _addons = <String, Object>{};
 
   /// {@macro talker_configure}
   @override
@@ -110,6 +111,9 @@ class Talker implements TalkerInterface {
   /// {@macro talker_history}
   @override
   List<TalkerDataInterface> get history => _history;
+
+  @override
+  Map<String, Object> get addons => _addons;
 
   /// {@macro talker_handle}
   @override

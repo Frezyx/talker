@@ -326,4 +326,11 @@ abstract class TalkerInterface {
 
   /// {@macro talker_settings}
   set settings(TalkerSettings val);
+
+  /// {@template talker_addons}
+  /// [Talker] additional package instances for
+  /// setup settings and updating mutual functionality
+  ///
+  /// {@endtemplate}
+  Map<String, Object> get addons;
 }

@@ -1,3 +1,6 @@
+# 2.3.5
+- **FEAT**: Fix exports
+
 # 2.3.4
 - **FEAT**: Add equality operators override for talker and settings
 

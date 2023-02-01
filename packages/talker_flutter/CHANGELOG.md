@@ -1,3 +1,10 @@
+# 2.4.0
+- **FEAT**: Add settings bottom sheet on main screen
+- **FEAT**: Add talker_dio_logger settings on settings bottom sheet
+- **FEAT**: Make great UI improvements
+- **FEAT**: Setup talker_dio_logger addon functionality
+- **FEAT**: Make logs reversed as default
+
 # 2.3.1
 - **FEAT**: Add initial TalkerSettings screen to interact with Talker configuration
 

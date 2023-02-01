@@ -23,11 +23,11 @@ class TalkerDioLogger extends Interceptor {
 
   /// Method to update [settings] of [TalkerDioLogger]
   void configure({
-    bool printResponseData = true,
-    bool printResponseHeaders = false,
-    bool printResponseMessage = true,
-    bool printRequestData = true,
-    bool printRequestHeaders = false,
+    bool? printResponseData,
+    bool? printResponseHeaders,
+    bool? printResponseMessage,
+    bool? printRequestData,
+    bool? printRequestHeaders,
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,

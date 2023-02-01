@@ -18,7 +18,7 @@ class TalkerSettingsScreen extends StatefulWidget {
   /// Talker implementation
   final TalkerInterface talker;
 
-  final List<AdditionalTalkerSetting> Function()? additionalSettings;
+  final List<AdditionalTalkerSetting>? additionalSettings;
 
   @override
   State<TalkerSettingsScreen> createState() => _TalkerSettingsScreenState();
@@ -83,14 +83,16 @@ class _TalkerSettingsScreenState extends State<TalkerSettingsScreen> {
           ),
           if (widget.additionalSettings != null)
             ...widget.additionalSettings!
-                .call()
                 .map(
                   (e) => SliverToBoxAdapter(
                     child: _TalkerSettingsCard(
                       talkerScreenTheme: widget.talkerScreenTheme,
                       title: e.title,
                       enabled: e.value,
-                      onChanged: e.onChanged,
+                      onChanged: (v) {
+                        e.onChanged(v);
+                        setState(() {});
+                      },
                     ),
                   ),
                 )

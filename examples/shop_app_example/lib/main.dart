@@ -76,22 +76,22 @@ void _initTalker() {
   } else {
     talker.warning('Trying to re-register an object in GetIt');
   }
+  final talkerDioLogger = TalkerDioLogger(
+    talker: GetIt.instance<Talker>(),
+    settings: const TalkerDioLoggerSettings(
+      printRequestHeaders: true,
+      printResponseHeaders: true,
+      printRequestData: true,
+      printResponseData: true,
+    ),
+  );
+  GetIt.instance.registerSingleton(talkerDioLogger);
 }
 
 void _registerRepositories() {
   final dio = Dio();
   // _tryPrecacheDio();
-  dio.interceptors.add(
-    TalkerDioLogger(
-      talker: GetIt.instance<Talker>(),
-      settings: const TalkerDioLoggerSettings(
-        printRequestHeaders: true,
-        printResponseHeaders: true,
-        printRequestData: true,
-        printResponseData: true,
-      ),
-    ),
-  );
+  dio.interceptors.add(GetIt.instance<TalkerDioLogger>());
 
   GetIt.instance.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(dio: dio),

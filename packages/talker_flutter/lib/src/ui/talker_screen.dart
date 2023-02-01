@@ -8,7 +8,7 @@ import 'package:talker_flutter/src/ui/talker_settings/talker_settings_screen.dar
 import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-import 'widgets/actions_bottom_sheet.dart';
+import 'talker_actions/talker_actions.dart';
 
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatefulWidget {
@@ -137,9 +137,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
         builder: (context) => TalkerSettingsScreen(
           talkerScreenTheme: widget.theme,
           talker: widget.talker,
-          additionalSettings: widget.aditionalSettings != null
-              ? () => widget.aditionalSettings!
-              : null,
+          additionalSettings: widget.aditionalSettings,
         ),
       ),
     );

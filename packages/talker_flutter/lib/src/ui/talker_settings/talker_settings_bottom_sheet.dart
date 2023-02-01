@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/src/ui/talker_settings/widgets/talker_setting_card.dart';
+import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
+import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerSettingsBottomSheet extends StatefulWidget {
@@ -93,17 +95,17 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
           widget.talker.notifyListeners();
         },
       ),
-      if (_dioLogger != null) ...[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Text(
-            'Dio logger settings',
-            style: theme.textTheme.titleLarge?.copyWith(
-              color: widget.talkerScreenTheme.textColor,
-              fontWeight: FontWeight.w700,
-            ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Text(
+          'Dio logger settings',
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: widget.talkerScreenTheme.textColor,
+            fontWeight: FontWeight.w700,
           ),
         ),
+      ),
+      if (_dioLogger != null) ...[
         TalkerSettingsCard(
           talkerScreenTheme: widget.talkerScreenTheme,
           title: 'Print request data',
@@ -122,7 +124,40 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
             widget.talker.notifyListeners();
           },
         ),
-      ],
+      ] else
+        TalkerBaseCard(
+          color: cardBackgroundColor,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+          child: Column(
+            children: [
+              Icon(
+                Icons.info_outline_rounded,
+                color: widget.talkerScreenTheme.iconsColor,
+                size: 46,
+              ),
+              const SizedBox(height: 16),
+              RichText(
+                text: TextSpan(
+                  text:
+                      'Init TalkerDioLogger() interceptor in your app to see dio logger settings',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: widget.talkerScreenTheme.textColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: const [
+                    TextSpan(text: '\n'),
+                    TextSpan(text: '\n'),
+                    TextSpan(
+                      text: 'The settings will be available automatically',
+                      style: TextStyle(fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
     ];
 
     return BaseBottomSheet(

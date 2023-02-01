@@ -28,6 +28,8 @@ class TalkerSettingsCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: TalkerBaseCard(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
+              .copyWith(right: 0),
           color: cardBackgroundColor,
           child: ListTile(
             title: Text(
@@ -35,7 +37,7 @@ class TalkerSettingsCard extends StatelessWidget {
               style: TextStyle(
                 color: talkerScreenTheme.textColor,
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
               ),
             ),
             trailing: CupertinoSwitch(

@@ -424,11 +424,10 @@ packages:
   talker:
     dependency: transitive
     description:
-      name: talker
-      sha256: db563db0f71b77d182a32c796ad9e2b559f64f4f9a2b044a61d1e68042f4f1a0
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.4"
+      path: "../../packages/talker"
+      relative: true
+    source: path
+    version: "2.3.5"
   talker_dio_logger:
     dependency: "direct main"
     description:

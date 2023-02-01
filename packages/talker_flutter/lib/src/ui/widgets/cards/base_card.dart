@@ -6,16 +6,18 @@ class TalkerBaseCard extends StatelessWidget {
     Key? key,
     required this.child,
     required this.color,
+    this.padding = const EdgeInsets.all(8),
   }) : super(key: key);
 
   final Widget child;
   final Color color;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(8),
+      padding: padding,
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: cardBackgroundColor,

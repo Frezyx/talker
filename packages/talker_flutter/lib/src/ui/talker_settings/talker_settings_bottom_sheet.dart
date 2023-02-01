@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/src/ui/talker_settings/widgets/talker_setting_card.dart';
 import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -25,8 +25,16 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
 }
 
 class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
+  TalkerDioLogger? _dioLogger;
+
   @override
   void initState() {
+    final addons = widget.talker.value.addons;
+    final dioAddon = addons[TalkerOriginalAddons.talkerDioLogger.code];
+    if (dioAddon != null && dioAddon is TalkerDioLogger) {
+      _dioLogger = dioAddon;
+    }
+
     widget.talker.addListener(() {
       setState(() {});
     });
@@ -35,7 +43,18 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = [
+    final theme = Theme.of(context);
+    final settings = <Widget>[
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Text(
+          'Basic settings',
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: widget.talkerScreenTheme.textColor,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
       TalkerSettingsCard(
         talkerScreenTheme: widget.talkerScreenTheme,
         title: 'Enabled',
@@ -74,6 +93,36 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
           widget.talker.notifyListeners();
         },
       ),
+      if (_dioLogger != null) ...[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Text(
+            'Dio logger settings',
+            style: theme.textTheme.titleLarge?.copyWith(
+              color: widget.talkerScreenTheme.textColor,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        TalkerSettingsCard(
+          talkerScreenTheme: widget.talkerScreenTheme,
+          title: 'Print request data',
+          enabled: _dioLogger!.settings.printRequestData,
+          onChanged: (enabled) {
+            _dioLogger!.configure(printRequestData: enabled);
+            widget.talker.notifyListeners();
+          },
+        ),
+        TalkerSettingsCard(
+          talkerScreenTheme: widget.talkerScreenTheme,
+          title: 'Print response data',
+          enabled: _dioLogger!.settings.printResponseData,
+          onChanged: (enabled) {
+            _dioLogger!.configure(printResponseData: enabled);
+            widget.talker.notifyListeners();
+          },
+        ),
+      ],
     ];
 
     return BaseBottomSheet(
@@ -84,21 +133,6 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
           slivers: [
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
             ...settings.map((e) => SliverToBoxAdapter(child: e)),
-            // if (widget.additionalSettings.value != null)
-            //   ...widget.additionalSettings.value!
-            //       .map(
-            //         (e) => SliverToBoxAdapter(
-            //           child: TalkerSettingsCard(
-            //             talkerScreenTheme: widget.talkerScreenTheme,
-            //             title: e.title,
-            //             enabled: e.value,
-            //             onChanged: (v) {
-            //               e.onChanged(v);
-            //             },
-            //           ),
-            //         ),
-            //       )
-            //       .toList(),
           ],
         ),
       ),

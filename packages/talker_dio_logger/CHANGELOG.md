@@ -1,3 +1,6 @@
+# 1.1.0 
+- **FEAT**: Add configure method to update [settings] of [TalkerDioLogger]
+
 # 1.0.3
 - **FIX**: Update talker version to 2.3.3
 

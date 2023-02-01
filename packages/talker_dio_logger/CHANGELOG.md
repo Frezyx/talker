@@ -1,3 +1,8 @@
+# 1.2.0 
+- **FEAT**: Update talker version to 2.4.0
+- **FEAT**: Setup internal talker addon registration
+- **FEAT**: Add settings in talker_flutter settings 
+
 # 1.1.0 
 - **FEAT**: Add configure method to update [settings] of [TalkerDioLogger]
 

@@ -1,3 +1,6 @@
+# 2.4.0
+- **FEAT**: Ad addons functionality: registerAddon, resetAddon methods, addons getter
+
 # 2.3.5
 - **FEAT**: Fix exports
 

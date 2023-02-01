@@ -331,7 +331,7 @@ packages:
       path: "../../talker"
       relative: true
     source: path
-    version: "2.3.5"
+    version: "2.4.0"
   talker_dio_logger:
     dependency: transitive
     description:

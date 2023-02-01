@@ -14,6 +14,10 @@ class TalkerDioLogger extends Interceptor {
     this.settings = const TalkerDioLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
+    _talker.registerAddon(
+      code: TalkerOriginalAddons.talkerDioLogger.code,
+      addon: this,
+    );
   }
 
   late Talker _talker;

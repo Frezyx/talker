@@ -333,4 +333,14 @@ abstract class TalkerInterface {
   ///
   /// {@endtemplate}
   Map<String, Object> get addons;
+
+  /// {@template talker_addons_register}
+  /// Method to setup new addon
+  /// {@endtemplate}
+  void registerAddon({required String code, required Object addon});
+
+  /// {@template talker_addons_reset}
+  /// Method to remove addon from registerd
+  /// {@endtemplate}
+  void resetAddon(String code);
 }

@@ -45,22 +45,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Talker shop app',
-        theme: lightTheme,
-        initialRoute: Routes.productsList,
-        debugShowCheckedModeBanner: false,
-        routes: appRoutes,
-        navigatorObservers: [
-          TalkerRouteObserver(GetIt.instance<Talker>()),
-        ],
-        builder: (context, child) {
-          return PresentationFrame(
-            child: TalkerWrapper(
-              talker: GetIt.instance<Talker>(),
-              child: child!,
-            ),
-          );
-        });
+      title: 'Talker shop app',
+      theme: lightTheme,
+      initialRoute: Routes.productsList,
+      debugShowCheckedModeBanner: false,
+      routes: appRoutes,
+      navigatorObservers: [
+        TalkerRouteObserver(GetIt.instance<Talker>()),
+      ],
+      builder: (context, child) {
+        return PresentationFrame(
+          child: TalkerWrapper(
+            talker: GetIt.instance<Talker>(),
+            child: child!,
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -97,12 +98,3 @@ void _registerRepositories() {
   );
   GetIt.instance<Talker>().info('Repositories initialization completed');
 }
-
-/// This logic is just for example here
-// void _tryPrecacheDio() {
-//   try {
-//     throw Exception('Dio precache exception');
-//   } catch (e, st) {
-//     GetIt.instance<Talker>().handle(e, st);
-//   }
-// }

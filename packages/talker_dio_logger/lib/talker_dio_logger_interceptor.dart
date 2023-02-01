@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/http_logs.dart';
@@ -15,20 +13,35 @@ class TalkerDioLogger extends Interceptor {
     Talker? talker,
     this.settings = const TalkerDioLoggerSettings(),
   }) {
-    _talker = talker ??
-        Talker(
-          settings: TalkerSettings(),
-          //TODO: fix
-          loggerSettings: TalkerLoggerSettings(
-            enableColors: !Platform.isIOS && !Platform.isMacOS,
-          ),
-        );
+    _talker = talker ?? Talker();
   }
 
   late Talker _talker;
 
   /// [TalkerDioLogger] settings and customization
-  final TalkerDioLoggerSettings settings;
+  TalkerDioLoggerSettings settings;
+
+  void configure({
+    bool printResponseData = true,
+    bool printResponseHeaders = false,
+    bool printResponseMessage = true,
+    bool printRequestData = true,
+    bool printRequestHeaders = false,
+    AnsiPen? requestPen,
+    AnsiPen? responsePen,
+    AnsiPen? errorPen,
+  }) {
+    settings = settings.copyWith(
+      printRequestData: printRequestData,
+      printRequestHeaders: printRequestHeaders,
+      printResponseData: printResponseData,
+      printResponseHeaders: printResponseHeaders,
+      printResponseMessage: printResponseMessage,
+      requestPen: requestPen,
+      responsePen: responsePen,
+      errorPen: errorPen,
+    );
+  }
 
   @override
   void onRequest(

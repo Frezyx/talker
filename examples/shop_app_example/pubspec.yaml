@@ -9,12 +9,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker_flutter: ^2.3.1    
-  # path:
-    #   ../../packages/talker_flutter
-  talker_dio_logger: ^1.0.3   
-  # path:
-    #   ../../packages/talker_dio_logger
+  talker_flutter:
+    path:
+      ../../packages/talker_flutter
+  talker_dio_logger: 
+    path:
+      ../../packages/talker_dio_logger
   get_it: ^7.2.0
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5

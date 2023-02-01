@@ -336,10 +336,9 @@ packages:
   talker_dio_logger:
     dependency: transitive
     description:
-      name: talker_dio_logger
-      sha256: "7650d505e0be8c370fc3c27c8e5541112b97a31ba5667139ff664bc10c61cb9e"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../talker_dio_logger"
+      relative: true
+    source: path
     version: "1.0.3"
   talker_flutter:
     dependency: "direct main"

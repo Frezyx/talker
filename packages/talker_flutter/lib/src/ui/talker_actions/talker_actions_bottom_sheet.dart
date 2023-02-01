@@ -15,6 +15,7 @@ class ActionsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseBottomSheet(
+      title: 'Talker Actions',
       talkerScreenTheme: talkerScreenTheme,
       child: Column(
         mainAxisSize: MainAxisSize.min,

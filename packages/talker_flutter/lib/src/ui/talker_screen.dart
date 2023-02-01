@@ -132,14 +132,18 @@ class _TalkerScreenState extends State<TalkerScreen> {
   }
 
   void _openTalkerSettings(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => TalkerSettingsScreen(
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return TalkerSettingsBottomSheet(
           talkerScreenTheme: widget.theme,
           talker: widget.talker,
           additionalSettings: widget.aditionalSettings,
-        ),
-      ),
+          onUpdated: () => setState(() {}),
+        );
+      },
     );
   }
 

@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/theme/default_theme.dart';
+import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
 import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerSettingsScreen extends StatefulWidget {
-  const TalkerSettingsScreen({
+class TalkerSettingsBottomSheet extends StatelessWidget {
+  const TalkerSettingsBottomSheet({
     Key? key,
     required this.talkerScreenTheme,
     required this.talker,
     this.additionalSettings,
+    this.onUpdated,
   }) : super(key: key);
 
   /// Theme for customize [TalkerScreen]
@@ -20,84 +22,78 @@ class TalkerSettingsScreen extends StatefulWidget {
 
   final List<AdditionalTalkerSetting>? additionalSettings;
 
-  @override
-  State<TalkerSettingsScreen> createState() => _TalkerSettingsScreenState();
-}
+  final VoidCallback? onUpdated;
 
-class _TalkerSettingsScreenState extends State<TalkerSettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: widget.talkerScreenTheme.backgroudColor,
-      appBar: AppBar(
-        title: const FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text('Talker Settings'),
-        ),
-      ),
-      body: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(child: SizedBox(height: 16)),
-          SliverToBoxAdapter(
-            child: _TalkerSettingsCard(
-              talkerScreenTheme: widget.talkerScreenTheme,
-              title: 'Enabled',
-              enabled: widget.talker.settings.enabled,
-              onChanged: (enabled) {
-                (enabled ? widget.talker.enable : widget.talker.disable).call();
-                setState(() {});
-              },
+    return BaseBottomSheet(
+      title: 'Talker Settings',
+      talkerScreenTheme: talkerScreenTheme,
+      child: Expanded(
+        child: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+            SliverToBoxAdapter(
+              child: _TalkerSettingsCard(
+                talkerScreenTheme: talkerScreenTheme,
+                title: 'Enabled',
+                enabled: talker.settings.enabled,
+                onChanged: (enabled) {
+                  (enabled ? talker.enable : talker.disable).call();
+                  onUpdated?.call();
+                },
+              ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: _TalkerSettingsCard(
-              canEdit: widget.talker.settings.enabled,
-              talkerScreenTheme: widget.talkerScreenTheme,
-              title: 'Use console logs',
-              enabled: widget.talker.settings.useConsoleLogs,
-              onChanged: (enabled) {
-                widget.talker.configure(
-                  settings: widget.talker.settings.copyWith(
-                    useConsoleLogs: enabled,
-                  ),
-                );
-                setState(() {});
-              },
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: _TalkerSettingsCard(
-              canEdit: widget.talker.settings.enabled,
-              talkerScreenTheme: widget.talkerScreenTheme,
-              title: 'Use history',
-              enabled: widget.talker.settings.useHistory,
-              onChanged: (enabled) {
-                widget.talker.configure(
-                  settings: widget.talker.settings.copyWith(
-                    useHistory: enabled,
-                  ),
-                );
-                setState(() {});
-              },
-            ),
-          ),
-          if (widget.additionalSettings != null)
-            ...widget.additionalSettings!
-                .map(
-                  (e) => SliverToBoxAdapter(
-                    child: _TalkerSettingsCard(
-                      talkerScreenTheme: widget.talkerScreenTheme,
-                      title: e.title,
-                      enabled: e.value,
-                      onChanged: (v) {
-                        e.onChanged(v);
-                        setState(() {});
-                      },
+            SliverToBoxAdapter(
+              child: _TalkerSettingsCard(
+                canEdit: talker.settings.enabled,
+                talkerScreenTheme: talkerScreenTheme,
+                title: 'Use console logs',
+                enabled: talker.settings.useConsoleLogs,
+                onChanged: (enabled) {
+                  talker.configure(
+                    settings: talker.settings.copyWith(
+                      useConsoleLogs: enabled,
                     ),
-                  ),
-                )
-                .toList(),
-        ],
+                  );
+                  onUpdated?.call();
+                },
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: _TalkerSettingsCard(
+                canEdit: talker.settings.enabled,
+                talkerScreenTheme: talkerScreenTheme,
+                title: 'Use history',
+                enabled: talker.settings.useHistory,
+                onChanged: (enabled) {
+                  talker.configure(
+                    settings: talker.settings.copyWith(
+                      useHistory: enabled,
+                    ),
+                  );
+                  onUpdated?.call();
+                },
+              ),
+            ),
+            if (additionalSettings != null)
+              ...additionalSettings!
+                  .map(
+                    (e) => SliverToBoxAdapter(
+                      child: _TalkerSettingsCard(
+                        talkerScreenTheme: talkerScreenTheme,
+                        title: e.title,
+                        enabled: e.value,
+                        onChanged: (v) {
+                          e.onChanged(v);
+                          onUpdated?.call();
+                        },
+                      ),
+                    ),
+                  )
+                  .toList(),
+          ],
+        ),
       ),
     );
   }

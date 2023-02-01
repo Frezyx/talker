@@ -4,7 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/extensions/iterable.dart';
-import 'package:talker_flutter/src/ui/talker_actions/actions_bottom_sheet.dart';
+import 'package:talker_flutter/src/ui/talker_actions/talker_actions_bottom_sheet.dart';
 import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 

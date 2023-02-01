@@ -1,3 +1,6 @@
+# 2.3.4
+- **FEAT**: Add equality operators override for talker and settings
+
 # 2.3.3
 - **FIX**: Settings enable and disable rules
 

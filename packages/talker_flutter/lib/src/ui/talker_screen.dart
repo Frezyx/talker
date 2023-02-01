@@ -137,6 +137,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
 
   void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
     final talker = ValueNotifier(widget.talker);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,

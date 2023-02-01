@@ -1,4 +1,4 @@
-import 'package:talker/src/src.dart';
+import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
 void main() {

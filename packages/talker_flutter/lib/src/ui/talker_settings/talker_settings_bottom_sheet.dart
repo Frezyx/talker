@@ -84,13 +84,12 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
           slivers: [
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
             ...settings.map((e) => SliverToBoxAdapter(child: e)),
-
-            // if (additionalSettings != null)
-            //   ...additionalSettings!
+            // if (widget.additionalSettings.value != null)
+            //   ...widget.additionalSettings.value!
             //       .map(
             //         (e) => SliverToBoxAdapter(
             //           child: TalkerSettingsCard(
-            //             talkerScreenTheme: talkerScreenTheme,
+            //             talkerScreenTheme: widget.talkerScreenTheme,
             //             title: e.title,
             //             enabled: e.value,
             //             onChanged: (v) {

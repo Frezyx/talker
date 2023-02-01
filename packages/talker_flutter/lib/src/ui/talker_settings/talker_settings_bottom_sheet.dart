@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/talker_settings/widgets/talker_setting_card.dart';
@@ -41,6 +43,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
         onChanged: (enabled) {
           (enabled ? widget.talker.value.enable : widget.talker.value.disable)
               .call();
+          widget.talker.notifyListeners();
         },
       ),
       TalkerSettingsCard(
@@ -54,6 +57,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
               useConsoleLogs: enabled,
             ),
           );
+          widget.talker.notifyListeners();
         },
       ),
       TalkerSettingsCard(
@@ -67,6 +71,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
               useHistory: enabled,
             ),
           );
+          widget.talker.notifyListeners();
         },
       ),
     ];

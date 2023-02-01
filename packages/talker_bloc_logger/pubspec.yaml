@@ -9,7 +9,7 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  talker: ^2.2.1
+  talker: ^2.3.4
   bloc: ^8.1.0
   meta: ^1.8.0
 

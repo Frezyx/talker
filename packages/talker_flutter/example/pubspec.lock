@@ -329,17 +329,17 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: f5d5a24f76ae05ffcea4efef1575eed92073246c1697ff985c7ab1daaaaf27a9
+      sha256: db563db0f71b77d182a32c796ad9e2b559f64f4f9a2b044a61d1e68042f4f1a0
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "2.3.4"
   talker_dio_logger:
     dependency: transitive
     description:
       path: "../../talker_dio_logger"
       relative: true
     source: path
-    version: "1.0.3"
+    version: "1.1.0"
   talker_flutter:
     dependency: "direct main"
     description:

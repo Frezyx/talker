@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker: ^2.3.3
+  talker: ^2.3.4
   talker_dio_logger: 
   # ^1.0.3
     path:

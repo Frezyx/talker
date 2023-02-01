@@ -29,13 +29,17 @@ class HttpRequestLog extends TalkerLog {
     final data = requestOptions.data;
     final headers = requestOptions.headers;
 
-    if (settings.printRequestData && data != null) {
-      final prettyData = encoder.convert(data);
-      msg += '\nData: $prettyData';
-    }
-    if (settings.printRequestHeaders && headers.isNotEmpty) {
-      final prettyHeaders = encoder.convert(headers);
-      msg += '\nHeaders: $prettyHeaders';
+    try {
+      if (settings.printRequestData && data != null) {
+        final prettyData = encoder.convert(data);
+        msg += '\nData: $prettyData';
+      }
+      if (settings.printRequestHeaders && headers.isNotEmpty) {
+        final prettyHeaders = encoder.convert(headers);
+        msg += '\nHeaders: $prettyHeaders';
+      }
+    } catch (_) {
+      // TODO: add handling can`t convert
     }
     return msg;
   }
@@ -71,13 +75,17 @@ class HttpResponseLog extends TalkerLog {
       msg += '\nMessage: $responseMessage';
     }
 
-    if (settings.printResponseData && data != null) {
-      final prettyData = encoder.convert(data);
-      msg += '\nData: $prettyData';
-    }
-    if (settings.printResponseHeaders && headers.isNotEmpty) {
-      final prettyHeaders = encoder.convert(headers);
-      msg += '\nHeaders: $prettyHeaders';
+    try {
+      if (settings.printResponseData && data != null) {
+        final prettyData = encoder.convert(data);
+        msg += '\nData: $prettyData';
+      }
+      if (settings.printResponseHeaders && headers.isNotEmpty) {
+        final prettyHeaders = encoder.convert(headers);
+        msg += '\nHeaders: $prettyHeaders';
+      }
+    } catch (_) {
+      // TODO: add handling can`t convert
     }
     return msg;
   }

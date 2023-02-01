@@ -1,3 +1,6 @@
+# 1.2.1
+- **FEAT**: Tmp fix for conver json method exception for FormData
+
 # 1.2.0 
 - **FEAT**: Update talker version to 2.4.0
 - **FEAT**: Setup internal talker addon registration

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class ActionsBottomSheet extends StatelessWidget {
-  const ActionsBottomSheet({
+class TalkerActionsBottomSheet extends StatelessWidget {
+  const TalkerActionsBottomSheet({
     Key? key,
     required this.talkerScreenTheme,
     required this.actions,
   }) : super(key: key);
 
   final TalkerScreenTheme talkerScreenTheme;
-  final List<BottomSheetAction> actions;
+  final List<TalkerActionItem> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _ActionTile extends StatelessWidget {
     required this.talkerScreenTheme,
   }) : super(key: key);
 
-  final BottomSheetAction action;
+  final TalkerActionItem action;
   final TalkerScreenTheme talkerScreenTheme;
 
   @override
@@ -67,8 +67,8 @@ class _ActionTile extends StatelessWidget {
   }
 }
 
-class BottomSheetAction {
-  const BottomSheetAction({
+class TalkerActionItem {
+  const TalkerActionItem({
     required this.onTap,
     required this.title,
     required this.icon,

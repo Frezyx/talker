@@ -140,26 +140,26 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return ActionsBottomSheet(
+        return TalkerActionsBottomSheet(
           actions: [
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _controller.toggleLogOrder,
               title: 'Reverse logs',
               icon: Icons.swap_vert,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: () => _copyAllLogs(context),
               title: 'Copy all logs',
               icon: Icons.copy,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: () => _toggleRequestLogsExpanded(!_expandRequestLogs),
               title: _expandRequestLogs ? 'Collapse logs' : 'Expand logs',
               icon: _expandRequestLogs
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _shareLogsInFile,
               title: 'Share logs file',
               icon: Icons.ios_share_outlined,

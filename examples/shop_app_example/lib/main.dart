@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/bloc/observer.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
@@ -75,22 +76,22 @@ void _initTalker() {
   } else {
     talker.warning('Trying to re-register an object in GetIt');
   }
-  // final talkerDioLogger = TalkerDioLogger(
-  //   talker: GetIt.instance<Talker>(),
-  //   settings: const TalkerDioLoggerSettings(
-  //     printRequestHeaders: true,
-  //     printResponseHeaders: true,
-  //     printRequestData: true,
-  //     printResponseData: true,
-  //   ),
-  // );
-  // GetIt.instance.registerSingleton(talkerDioLogger);
+  final talkerDioLogger = TalkerDioLogger(
+    talker: GetIt.instance<Talker>(),
+    settings: const TalkerDioLoggerSettings(
+      printRequestHeaders: true,
+      printResponseHeaders: true,
+      printRequestData: true,
+      printResponseData: true,
+    ),
+  );
+  GetIt.instance.registerSingleton(talkerDioLogger);
 }
 
 void _registerRepositories() {
   final dio = Dio();
   // _tryPrecacheDio();
-  // dio.interceptors.add(GetIt.instance<TalkerDioLogger>());
+  dio.interceptors.add(GetIt.instance<TalkerDioLogger>());
 
   GetIt.instance.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(dio: dio),

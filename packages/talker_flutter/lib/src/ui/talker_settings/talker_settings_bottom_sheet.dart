@@ -124,40 +124,35 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
             widget.talker.notifyListeners();
           },
         ),
-      ] else
-        TalkerBaseCard(
-          color: cardBackgroundColor,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-          child: Column(
-            children: [
-              Icon(
-                Icons.info_outline_rounded,
-                color: widget.talkerScreenTheme.iconsColor,
-                size: 46,
-              ),
-              const SizedBox(height: 16),
-              RichText(
-                text: TextSpan(
-                  text:
-                      'Init TalkerDioLogger() interceptor in your app to see dio logger settings',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: widget.talkerScreenTheme.textColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  children: const [
-                    TextSpan(text: '\n'),
-                    TextSpan(text: '\n'),
-                    TextSpan(
-                      text: 'The settings will be available automatically',
-                      style: TextStyle(fontWeight: FontWeight.w400),
-                    ),
-                  ],
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+        TalkerSettingsCard(
+          talkerScreenTheme: widget.talkerScreenTheme,
+          title: 'Print request headers',
+          enabled: _dioLogger!.settings.printRequestHeaders,
+          onChanged: (enabled) {
+            _dioLogger!.configure(printRequestHeaders: enabled);
+            widget.talker.notifyListeners();
+          },
         ),
+        TalkerSettingsCard(
+          talkerScreenTheme: widget.talkerScreenTheme,
+          title: 'Print response headers',
+          enabled: _dioLogger!.settings.printResponseHeaders,
+          onChanged: (enabled) {
+            _dioLogger!.configure(printResponseHeaders: enabled);
+            widget.talker.notifyListeners();
+          },
+        ),
+        TalkerSettingsCard(
+          talkerScreenTheme: widget.talkerScreenTheme,
+          title: 'Print response message',
+          enabled: _dioLogger!.settings.printResponseMessage,
+          onChanged: (enabled) {
+            _dioLogger!.configure(printResponseMessage: enabled);
+            widget.talker.notifyListeners();
+          },
+        ),
+      ] else
+        _TalkerDioLoggerNotSetup(talkerScreenTheme: widget.talkerScreenTheme),
     ];
 
     return BaseBottomSheet(
@@ -170,6 +165,53 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
             ...settings.map((e) => SliverToBoxAdapter(child: e)),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _TalkerDioLoggerNotSetup extends StatelessWidget {
+  const _TalkerDioLoggerNotSetup({
+    Key? key,
+    required this.talkerScreenTheme,
+  }) : super(key: key);
+
+  final TalkerScreenTheme talkerScreenTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return TalkerBaseCard(
+      color: cardBackgroundColor,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+      child: Column(
+        children: [
+          Icon(
+            Icons.info_outline_rounded,
+            color: talkerScreenTheme.iconsColor,
+            size: 46,
+          ),
+          const SizedBox(height: 16),
+          RichText(
+            text: TextSpan(
+              text:
+                  'Init TalkerDioLogger() interceptor in your app to see dio logger settings',
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: talkerScreenTheme.textColor,
+                fontWeight: FontWeight.bold,
+              ),
+              children: const [
+                TextSpan(text: '\n'),
+                TextSpan(text: '\n'),
+                TextSpan(
+                  text: 'The settings will be available automatically',
+                  style: TextStyle(fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

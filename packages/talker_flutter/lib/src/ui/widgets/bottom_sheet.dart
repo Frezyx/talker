@@ -35,8 +35,8 @@ class BaseBottomSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8)
+                  .copyWith(bottom: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -59,6 +59,7 @@ class BaseBottomSheet extends StatelessWidget {
               color: talkerScreenTheme.textColor,
               endIndent: 10,
               indent: 10,
+              height: 1,
             ),
             child,
           ],

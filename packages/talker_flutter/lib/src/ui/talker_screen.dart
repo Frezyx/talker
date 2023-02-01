@@ -5,7 +5,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
-import 'package:talker_flutter/src/ui/talker_settings/widgets/talker_setting_card.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -137,6 +136,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
   }
 
   void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
+    final talker = ValueNotifier(widget.talker);
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -144,46 +144,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
       builder: (context) {
         return TalkerSettingsBottomSheet(
           talkerScreenTheme: theme,
-          talker: widget.talker,
-          settings: [
-            TalkerSettingsCard(
-              talkerScreenTheme: theme,
-              title: 'Enabled',
-              enabled: widget.talker.settings.enabled,
-              onChanged: (enabled) {
-                (enabled ? widget.talker.enable : widget.talker.disable).call();
-                setState(() {});
-              },
-            ),
-            TalkerSettingsCard(
-              canEdit: widget.talker.settings.enabled,
-              talkerScreenTheme: theme,
-              title: 'Use console logs',
-              enabled: widget.talker.settings.useConsoleLogs,
-              onChanged: (enabled) {
-                widget.talker.configure(
-                  settings: widget.talker.settings.copyWith(
-                    useConsoleLogs: enabled,
-                  ),
-                );
-                setState(() {});
-              },
-            ),
-            TalkerSettingsCard(
-              canEdit: widget.talker.settings.enabled,
-              talkerScreenTheme: theme,
-              title: 'Use history',
-              enabled: widget.talker.settings.useHistory,
-              onChanged: (enabled) {
-                widget.talker.configure(
-                  settings: widget.talker.settings.copyWith(
-                    useHistory: enabled,
-                  ),
-                );
-                setState(() {});
-              },
-            ),
-          ],
+          talker: talker,
         );
       },
     );

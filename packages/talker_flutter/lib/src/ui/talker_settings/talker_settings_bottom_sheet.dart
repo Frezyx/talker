@@ -1,32 +1,79 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talker_flutter/src/ui/talker_settings/widgets/talker_setting_card.dart';
 import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerSettingsBottomSheet extends StatelessWidget {
+class TalkerSettingsBottomSheet extends StatefulWidget {
   const TalkerSettingsBottomSheet({
     Key? key,
     required this.talkerScreenTheme,
     required this.talker,
-    required this.settings,
-    // this.additionalSettings,
   }) : super(key: key);
 
   /// Theme for customize [TalkerScreen]
   final TalkerScreenTheme talkerScreenTheme;
 
   /// Talker implementation
-  final TalkerInterface talker;
+  final ValueNotifier<TalkerInterface> talker;
 
-  final List<Widget> settings;
+  @override
+  State<TalkerSettingsBottomSheet> createState() =>
+      _TalkerSettingsBottomSheetState();
+}
 
-  // final List<AdditionalTalkerSetting>? additionalSettings;
+class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
+  @override
+  void initState() {
+    widget.talker.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final settings = [
+      TalkerSettingsCard(
+        talkerScreenTheme: widget.talkerScreenTheme,
+        title: 'Enabled',
+        enabled: widget.talker.value.settings.enabled,
+        onChanged: (enabled) {
+          (enabled ? widget.talker.value.enable : widget.talker.value.disable)
+              .call();
+        },
+      ),
+      TalkerSettingsCard(
+        canEdit: widget.talker.value.settings.enabled,
+        talkerScreenTheme: widget.talkerScreenTheme,
+        title: 'Use console logs',
+        enabled: widget.talker.value.settings.useConsoleLogs,
+        onChanged: (enabled) {
+          widget.talker.value.configure(
+            settings: widget.talker.value.settings.copyWith(
+              useConsoleLogs: enabled,
+            ),
+          );
+        },
+      ),
+      TalkerSettingsCard(
+        canEdit: widget.talker.value.settings.enabled,
+        talkerScreenTheme: widget.talkerScreenTheme,
+        title: 'Use history',
+        enabled: widget.talker.value.settings.useHistory,
+        onChanged: (enabled) {
+          widget.talker.value.configure(
+            settings: widget.talker.value.settings.copyWith(
+              useHistory: enabled,
+            ),
+          );
+        },
+      ),
+    ];
+
     return BaseBottomSheet(
       title: 'Talker Settings',
-      talkerScreenTheme: talkerScreenTheme,
+      talkerScreenTheme: widget.talkerScreenTheme,
       child: Expanded(
         child: CustomScrollView(
           slivers: [

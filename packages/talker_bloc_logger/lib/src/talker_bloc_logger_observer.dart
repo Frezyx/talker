@@ -23,20 +23,28 @@ class TalkerBlocObserver extends BlocObserver {
   @mustCallSuper
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    _talker.logTyped(
-      BlocEventLog(
-        bloc: bloc,
-        event: event,
-        settings: settings,
-      ),
-    );
+    if (settings.enabled) {
+      _talker.logTyped(
+        BlocEventLog(
+          bloc: bloc,
+          event: event,
+          settings: settings,
+        ),
+      );
+    }
   }
 
   @override
   @mustCallSuper
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    _talker.logTyped(BlocStateLog(bloc, transition));
+    if (settings.enabled) {
+      _talker.logTyped(BlocStateLog(
+        bloc: bloc,
+        transition: transition,
+        settings: settings,
+      ));
+    }
   }
 
   @override

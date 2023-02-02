@@ -1,3 +1,6 @@
+# 1.2.2
+- **FEAT**: Add addonId field for create a lot of addon instances in talker
+
 # 1.2.1
 - **FEAT**: Tmp fix for conver json method exception for FormData
 

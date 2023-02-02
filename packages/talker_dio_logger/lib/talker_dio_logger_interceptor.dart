@@ -12,10 +12,11 @@ class TalkerDioLogger extends Interceptor {
   TalkerDioLogger({
     Talker? talker,
     this.settings = const TalkerDioLoggerSettings(),
+    this.addonId,
   }) {
     _talker = talker ?? Talker();
     _talker.registerAddon(
-      code: TalkerOriginalAddons.talkerDioLogger.code,
+      code: addonId ?? TalkerOriginalAddons.talkerDioLogger.code,
       addon: this,
     );
   }
@@ -24,6 +25,10 @@ class TalkerDioLogger extends Interceptor {
 
   /// [TalkerDioLogger] settings and customization
   TalkerDioLoggerSettings settings;
+
+  /// Talker addon functionality
+  /// addon id for create a lot of addons
+  final String? addonId;
 
   /// Method to update [settings] of [TalkerDioLogger]
   void configure({

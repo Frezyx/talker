@@ -11,17 +11,25 @@ import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 class TalkerBlocObserver extends BlocObserver {
   TalkerBlocObserver({
     Talker? talker,
+    this.settings = const TalkerBlocLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
   }
 
   late TalkerInterface _talker;
+  final TalkerBlocLoggerSettings settings;
 
   @override
   @mustCallSuper
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    _talker.logTyped(BlocEventLog(bloc, event));
+    _talker.logTyped(
+      BlocEventLog(
+        bloc: bloc,
+        event: event,
+        settings: settings,
+      ),
+    );
   }
 
   @override

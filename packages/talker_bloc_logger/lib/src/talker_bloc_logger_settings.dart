@@ -1,8 +1,8 @@
 class TalkerBlocLoggerSettings {
   const TalkerBlocLoggerSettings({
-    required this.enabled,
-    required this.printEventFullData,
-    required this.printStateFullData,
+    this.enabled = true,
+    this.printEventFullData = true,
+    this.printStateFullData = true,
   });
 
   final bool enabled;

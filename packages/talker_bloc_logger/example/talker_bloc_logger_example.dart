@@ -2,7 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 
 void main() async {
-  Bloc.observer = TalkerBlocObserver();
+  Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      printEventFullData: false,
+      printStateFullData: false,
+    ),
+  );
   final somethingBloc = SomethingBloc();
   somethingBloc.add(LoadSomething(LoadSomethingCase.successful));
   await Future.delayed(const Duration(milliseconds: 300));

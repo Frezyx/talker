@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:talker/talker.dart';
-import 'package:talker_bloc_logger/bloc_logs.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 
 /// [BLoC] logger on [Talker] base
 ///

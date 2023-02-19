@@ -1,3 +1,6 @@
+# 1.3.0
+- **FEAT**: Update talker_dio_logger dio version to 5.0.0
+
 # 1.2.2
 - **FEAT**: Add addonId field for create a lot of addon instances in talker
 

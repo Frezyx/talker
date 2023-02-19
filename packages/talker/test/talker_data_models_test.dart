@@ -56,6 +56,14 @@ Invalid argument(s)''',
         '''[EXCEPTION] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
 Exception''',
       );
+
+      final exceptionWithStackTrace = TalkerException(
+        Exception(),
+        stackTrace: StackTrace.current,
+      );
+
+      final fmtStackTrace = exceptionWithStackTrace.displayStackTrace;
+      expect(fmtStackTrace, isNotEmpty);
     });
 
     test('TalkerLog', () async {

@@ -4,10 +4,11 @@ import 'package:group_button/group_button.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
+import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
 import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-import 'widgets/actions_bottom_sheet.dart';
+import 'talker_actions/talker_actions.dart';
 
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class TalkerScreen extends StatefulWidget {
     this.appBarTitle = 'Flutter talker',
     this.theme = const TalkerScreenTheme(),
     this.itemsBuilder,
+    this.aditionalSettings,
   }) : super(key: key);
 
   /// Talker implementation
@@ -32,6 +34,11 @@ class TalkerScreen extends StatefulWidget {
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
+  /// Additional settings for talker extensions
+  /// like talker_dio_logger [https://pub.dev/packages/talker_dio_logger],
+  /// talker_bloc_logger [https://pub.dev/packages/talker_bloc_logger], etc
+  final List<AdditionalTalkerSetting>? aditionalSettings;
+
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();
 }
@@ -43,17 +50,30 @@ class _TalkerScreenState extends State<TalkerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final talkerScreenTheme = widget.theme;
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
         return Scaffold(
-          backgroundColor: widget.theme.backgroudColor,
+          backgroundColor: talkerScreenTheme.backgroudColor,
           appBar: AppBar(
             title: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(widget.appBarTitle),
             ),
             actions: [
+              SizedBox(
+                width: 40,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  iconSize: 28,
+                  onPressed: () => _openTalkerSettings(
+                    context,
+                    talkerScreenTheme,
+                  ),
+                  icon: const Icon(Icons.settings_rounded),
+                ),
+              ),
               SizedBox(
                 width: 40,
                 child: _MonitorButton(
@@ -70,13 +90,16 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   icon: const Icon(Icons.filter_alt_outlined),
                 ),
               ),
-              SizedBox(
-                width: 40,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  iconSize: 28,
-                  onPressed: () => _showActionsBottomSheet(context),
-                  icon: const Icon(Icons.more_vert_rounded),
+              Padding(
+                padding: const EdgeInsets.only(right: 6),
+                child: SizedBox(
+                  width: 28,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    iconSize: 28,
+                    onPressed: () => _showActionsBottomSheet(context),
+                    icon: const Icon(Icons.more_vert_rounded),
+                  ),
                 ),
               ),
             ],
@@ -100,13 +123,29 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   return TalkerDataCard(
                     data: data,
                     onTap: () => _copyTalkerDataItemText(data),
-                    // options: widget.theme,
+                    // options: talkerScreenTheme,
                     expanded: _controller.expandedLogs,
                   );
                 },
               );
             },
           ),
+        );
+      },
+    );
+  }
+
+  void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
+    final talker = ValueNotifier(widget.talker);
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return TalkerSettingsBottomSheet(
+          talkerScreenTheme: theme,
+          talker: talker,
         );
       },
     );
@@ -129,31 +168,31 @@ class _TalkerScreenState extends State<TalkerScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return ActionsBottomSheet(
+        return TalkerActionsBottomSheet(
           actions: [
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _controller.toggleLogOrder,
               title: 'Reverse logs',
               icon: Icons.swap_vert,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: () => _copyAllLogs(context),
               title: 'Copy all logs',
               icon: Icons.copy,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _toggleLogsExpanded,
               title: _controller.expandedLogs ? 'Collapse logs' : 'Expand logs',
               icon: _controller.expandedLogs
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _cleanHistory,
               title: 'Clean history',
               icon: Icons.delete_outline,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _shareLogsInFile,
               title: 'Share logs file',
               icon: Icons.ios_share_outlined,

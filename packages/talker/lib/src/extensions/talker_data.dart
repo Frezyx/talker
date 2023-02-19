@@ -1,4 +1,4 @@
-import 'package:talker/src/src.dart';
+import 'package:talker/talker.dart';
 
 extension HistoryListText on List<TalkerDataInterface> {
   /// The method allows you to get

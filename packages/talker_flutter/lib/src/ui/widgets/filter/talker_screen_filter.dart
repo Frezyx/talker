@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
+import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerScreenFilter extends StatelessWidget {
@@ -24,132 +25,95 @@ class TalkerScreenFilter extends StatelessWidget {
     final titles = unicTitles.map((e) => e.toString()).toList();
     final types = unicTypes.map((e) => e).toList();
     final theme = Theme.of(context);
-    return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 80),
-      decoration: BoxDecoration(
-        color: talkerScreenTheme.backgroudColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: talkerScreenTheme.backgroudColor,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
-              boxShadow: const [BoxShadow(blurRadius: 5)],
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Talker Filter',
-                  style: theme.textTheme.titleLarge
-                      ?.copyWith(color: talkerScreenTheme.textColor),
+    return BaseBottomSheet(
+      title: 'Talker Filter',
+      talkerScreenTheme: talkerScreenTheme,
+      child: Expanded(
+        child: ListView(
+          children: [
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: TextFormField(
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  color: talkerScreenTheme.textColor,
                 ),
-                InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.close_rounded,
+                onChanged: controller.updateFilterSearchQuery,
+                decoration: InputDecoration(
+                  fillColor: theme.cardColor,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: talkerScreenTheme.textColor),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: talkerScreenTheme.textColor),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: talkerScreenTheme.textColor,
+                  ),
+                  hintText: 'Search...',
+                  hintStyle: theme.textTheme.bodyLarge!.copyWith(
                     color: talkerScreenTheme.textColor,
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-          // Divider(height: 1, color: options.textColor.withOpacity(0.5)),
-          Expanded(
-            child: ListView(
-              children: [
-                const SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: TextFormField(
-                    style: theme.textTheme.bodyLarge!.copyWith(
-                      color: talkerScreenTheme.textColor,
-                    ),
-                    onChanged: controller.updateFilterSearchQuery,
-                    decoration: InputDecoration(
-                      fillColor: theme.cardColor,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: talkerScreenTheme.textColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: talkerScreenTheme.textColor),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: talkerScreenTheme.textColor,
-                      ),
-                      hintText: 'Search...',
-                      hintStyle: theme.textTheme.bodyLarge!.copyWith(
-                        color: talkerScreenTheme.textColor,
-                      ),
-                    ),
-                  ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                'Titles',
+                style: theme.textTheme.titleLarge!.copyWith(
+                  color: talkerScreenTheme.textColor,
                 ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    'Titles',
-                    style: theme.textTheme.titleLarge!.copyWith(
-                      color: talkerScreenTheme.textColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: GroupButton(
-                    isRadio: false,
-                    buttons: titles,
-                    controller: titlesController,
-                    onSelected: (_, i, selected) {
-                      _onToggleTitle(titles[i], selected);
-                    },
-                    options: GroupButtonOptions(
-                      mainGroupAlignment: MainGroupAlignment.start,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    'Types',
-                    style: theme.textTheme.titleLarge!.copyWith(
-                      color: talkerScreenTheme.textColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: GroupButton(
-                    isRadio: false,
-                    controller: typesController,
-                    buttons: types.map((e) => e.toString()).toList(),
-                    onSelected: (_, i, selected) {
-                      _onToggleType(types[i], selected);
-                    },
-                    options: GroupButtonOptions(
-                      mainGroupAlignment: MainGroupAlignment.start,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GroupButton(
+                isRadio: false,
+                buttons: titles,
+                controller: titlesController,
+                onSelected: (_, i, selected) {
+                  _onToggleTitle(titles[i], selected);
+                },
+                options: GroupButtonOptions(
+                  mainGroupAlignment: MainGroupAlignment.start,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                'Types',
+                style: theme.textTheme.titleLarge!.copyWith(
+                  color: talkerScreenTheme.textColor,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GroupButton(
+                isRadio: false,
+                controller: typesController,
+                buttons: types.map((e) => e.toString()).toList(),
+                onSelected: (_, i, selected) {
+                  _onToggleType(types[i], selected);
+                },
+                options: GroupButtonOptions(
+                  mainGroupAlignment: MainGroupAlignment.start,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

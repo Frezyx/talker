@@ -1,3 +1,25 @@
+# 2.4.0
+- **FEAT**: Ad addons functionality: registerAddon, resetAddon methods, addons getter
+
+# 2.3.5
+- **FEAT**: Fix exports
+
+# 2.3.4
+- **FEAT**: Add equality operators override for talker and settings
+
+# 2.3.3
+- **FIX**: Settings enable and disable rules
+
+# 2.3.2
+- **FIX**: Settings field configure bug
+
+# 2.3.1
+- **FIX**: Settings field initialization bug
+- **FEAT**: Add copyWith to TalkerSettings
+
+# 2.3.0
+- **FEAT**: Make settings Talker public field
+
 # 2.2.1
 - **FIX**: Fix color reset in console
 

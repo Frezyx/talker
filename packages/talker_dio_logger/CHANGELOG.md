@@ -1,3 +1,23 @@
+# 1.3.0
+- **FEAT**: Update talker_dio_logger dio version to 5.0.0
+
+# 1.2.2
+- **FEAT**: Add addonId field for create a lot of addon instances in talker
+
+# 1.2.1
+- **FEAT**: Tmp fix for conver json method exception for FormData
+
+# 1.2.0 
+- **FEAT**: Update talker version to 2.4.0
+- **FEAT**: Setup internal talker addon registration
+- **FEAT**: Add settings in talker_flutter settings 
+
+# 1.1.0 
+- **FEAT**: Add configure method to update [settings] of [TalkerDioLogger]
+
+# 1.0.3
+- **FIX**: Update talker version to 2.3.3
+
 # 1.0.2
 - **FIX**: Fix format
 

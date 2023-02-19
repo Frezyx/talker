@@ -4,8 +4,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/extensions/iterable.dart';
+import 'package:talker_flutter/src/ui/talker_actions/talker_actions_bottom_sheet.dart';
 import 'package:talker_flutter/src/ui/theme/default_theme.dart';
-import 'package:talker_flutter/src/ui/widgets/actions_bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorHttpScreen extends StatefulWidget {
@@ -140,26 +140,26 @@ class _TalkerMonitorHttpScreenState extends State<TalkerMonitorHttpScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return ActionsBottomSheet(
+        return TalkerActionsBottomSheet(
           actions: [
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _controller.toggleLogOrder,
               title: 'Reverse logs',
               icon: Icons.swap_vert,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: () => _copyAllLogs(context),
               title: 'Copy all logs',
               icon: Icons.copy,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: () => _toggleRequestLogsExpanded(!_expandRequestLogs),
               title: _expandRequestLogs ? 'Collapse logs' : 'Expand logs',
               icon: _expandRequestLogs
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
             ),
-            BottomSheetAction(
+            TalkerActionItem(
               onTap: _shareLogsInFile,
               title: 'Share logs file',
               icon: Icons.ios_share_outlined,

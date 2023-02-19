@@ -1,5 +1,6 @@
-// import 'package:talker/talker.dart';
-
+/// {@template talker_settings}
+/// This class used for setup [Talker] configuration
+/// {@endtemplate}
 class TalkerSettings {
   TalkerSettings({
     this.enabled = true,
@@ -16,7 +17,7 @@ class TalkerSettings {
   /// (base dart [List] field in core)
   /// If [true] - writing in history
   /// If [false] - not writing
-  bool get useHistory => _useHistory;
+  bool get useHistory => _useHistory && enabled;
   final bool _useHistory;
 
   /// By default talker print all Errors / Exceptions and logs in console.
@@ -67,4 +68,37 @@ class TalkerSettings {
   //       TalkerLog, TalkerError, TalkerException,
   //       //...?_registeredTypes
   //     ];
+
+  TalkerSettings copyWith({
+    bool? enabled,
+    bool? useHistory,
+    bool? useConsoleLogs,
+    int? maxHistoryItems,
+  }) {
+    return TalkerSettings(
+      useHistory: useHistory ?? _useHistory,
+      useConsoleLogs: useConsoleLogs ?? _useConsoleLogs,
+      maxHistoryItems: maxHistoryItems ?? _maxHistoryItems,
+      enabled: enabled ?? this.enabled,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is TalkerSettings &&
+        other._useHistory == _useHistory &&
+        other._useConsoleLogs == _useConsoleLogs &&
+        other._maxHistoryItems == _maxHistoryItems &&
+        other.enabled == enabled;
+  }
+
+  @override
+  int get hashCode {
+    return _useHistory.hashCode ^
+        _useConsoleLogs.hashCode ^
+        _maxHistoryItems.hashCode ^
+        enabled.hashCode;
+  }
 }

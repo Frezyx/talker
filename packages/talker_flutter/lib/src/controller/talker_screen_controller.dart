@@ -9,7 +9,7 @@ class TalkerScreenController extends ChangeNotifier {
   BaseTalkerFilter _filter = BaseTalkerFilter();
 
   var _expandedLogs = true;
-  bool _isLogOrderReversed = false;
+  bool _isLogOrderReversed = true;
 
   /// Filter for selecting specific logs and errors
   BaseTalkerFilter get filter => _filter;

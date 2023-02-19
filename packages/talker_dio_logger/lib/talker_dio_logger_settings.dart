@@ -60,4 +60,26 @@ class TalkerDioLoggerSettings {
   ///```
   /// More details in [AnsiPen] docs
   final AnsiPen? errorPen;
+
+  TalkerDioLoggerSettings copyWith({
+    bool? printResponseData,
+    bool? printResponseHeaders,
+    bool? printResponseMessage,
+    bool? printRequestData,
+    bool? printRequestHeaders,
+    AnsiPen? requestPen,
+    AnsiPen? responsePen,
+    AnsiPen? errorPen,
+  }) {
+    return TalkerDioLoggerSettings(
+      printResponseData: printResponseData ?? this.printResponseData,
+      printResponseHeaders: printResponseHeaders ?? this.printResponseHeaders,
+      printResponseMessage: printResponseMessage ?? this.printResponseMessage,
+      printRequestData: printRequestData ?? this.printRequestData,
+      printRequestHeaders: printRequestHeaders ?? this.printRequestHeaders,
+      requestPen: requestPen ?? this.requestPen,
+      responsePen: responsePen ?? this.responsePen,
+      errorPen: errorPen ?? this.errorPen,
+    );
+  }
 }

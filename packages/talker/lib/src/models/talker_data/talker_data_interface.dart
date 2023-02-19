@@ -82,7 +82,7 @@ extension FeildsToDisplay on TalkerDataInterface {
     if (stackTrace == null) {
       return '';
     }
-    if (stackTrace!.toString().isEmpty) {
+    if (stackTrace == StackTrace.empty) {
       return '';
     }
     return '\nStackTrace: $stackTrace}';

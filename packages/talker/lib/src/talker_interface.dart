@@ -320,4 +320,27 @@ abstract class TalkerInterface {
   /// if the package was suspended by the [disable] method
   /// {@endtemplate}
   void enable();
+
+  /// {@macro talker_settings}
+  TalkerSettings get settings;
+
+  /// {@macro talker_settings}
+  set settings(TalkerSettings val);
+
+  /// {@template talker_addons}
+  /// [Talker] additional package instances for
+  /// setup settings and updating mutual functionality
+  ///
+  /// {@endtemplate}
+  Map<String, Object> get addons;
+
+  /// {@template talker_addons_register}
+  /// Method to setup new addon
+  /// {@endtemplate}
+  void registerAddon({required String code, required Object addon});
+
+  /// {@template talker_addons_reset}
+  /// Method to remove addon from registerd
+  /// {@endtemplate}
+  void resetAddon(String code);
 }

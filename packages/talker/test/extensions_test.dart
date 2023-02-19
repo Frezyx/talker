@@ -1,4 +1,4 @@
-import 'package:talker/src/src.dart';
+import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,6 +13,13 @@ void main() {
       final expectedMsg =
           '${error.generateTextMessage()}\n${exception.generateTextMessage()}\n${log.generateTextMessage()}\n';
       expect(fullMsg, expectedMsg);
+    });
+  });
+
+  group('TalkerOriginalAddonsExt', () {
+    test('code', () async {
+      expect('talker_dio_logger', TalkerOriginalAddons.talkerDioLogger.code);
+      expect('talker_bloc_logger', TalkerOriginalAddons.talkerBlocLogger.code);
     });
   });
 }

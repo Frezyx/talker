@@ -13,5 +13,7 @@ abstract class Routes {
 final appRoutes = <String, WidgetBuilder>{
   Routes.product: (context) => const ProductScreen(),
   Routes.productsList: (context) => const ProductsScreen(),
-  Routes.talker: (context) => TalkerScreen(talker: GetIt.instance<Talker>()),
+  Routes.talker: (context) => TalkerScreen(
+        talker: GetIt.instance<Talker>(),
+      ),
 };

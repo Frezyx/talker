@@ -1,3 +1,16 @@
+# 2.4.1
+- **FEAT**: Update talker_dio_logger to 1.3.0 and internal packages
+
+# 2.4.0
+- **FEAT**: Add settings bottom sheet on main screen
+- **FEAT**: Add talker_dio_logger settings on settings bottom sheet
+- **FEAT**: Make great UI improvements
+- **FEAT**: Setup talker_dio_logger addon functionality
+- **FEAT**: Make logs reversed as default
+
+# 2.3.1
+- **FEAT**: Add initial TalkerSettings screen to interact with Talker configuration
+
 # 2.3.0
 - **FEAT**: Add filters and fast actions for http calls monitor
 - **FEAT**: Expanded size of log item click zone

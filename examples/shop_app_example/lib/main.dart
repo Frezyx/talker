@@ -45,22 +45,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Talker shop app',
-        theme: lightTheme,
-        initialRoute: Routes.productsList,
-        debugShowCheckedModeBanner: false,
-        routes: appRoutes,
-        navigatorObservers: [
-          TalkerRouteObserver(GetIt.instance<Talker>()),
-        ],
-        builder: (context, child) {
-          return PresentationFrame(
-            child: TalkerWrapper(
-              talker: GetIt.instance<Talker>(),
-              child: child!,
-            ),
-          );
-        });
+      title: 'Talker shop app',
+      theme: lightTheme,
+      initialRoute: Routes.productsList,
+      debugShowCheckedModeBanner: false,
+      routes: appRoutes,
+      navigatorObservers: [
+        TalkerRouteObserver(GetIt.instance<Talker>()),
+      ],
+      builder: (context, child) {
+        return PresentationFrame(
+          child: TalkerWrapper(
+            talker: GetIt.instance<Talker>(),
+            child: child!,
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -75,34 +76,25 @@ void _initTalker() {
   } else {
     talker.warning('Trying to re-register an object in GetIt');
   }
+  final talkerDioLogger = TalkerDioLogger(
+    talker: GetIt.instance<Talker>(),
+    settings: const TalkerDioLoggerSettings(
+      printRequestHeaders: true,
+      printResponseHeaders: true,
+      printRequestData: true,
+      printResponseData: true,
+    ),
+  );
+  GetIt.instance.registerSingleton(talkerDioLogger);
 }
 
 void _registerRepositories() {
   final dio = Dio();
   // _tryPrecacheDio();
-  dio.interceptors.add(
-    TalkerDioLogger(
-      talker: GetIt.instance<Talker>(),
-      settings: const TalkerDioLoggerSettings(
-        printRequestHeaders: true,
-        printResponseHeaders: true,
-        printRequestData: true,
-        printResponseData: true,
-      ),
-    ),
-  );
+  dio.interceptors.add(GetIt.instance<TalkerDioLogger>());
 
   GetIt.instance.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(dio: dio),
   );
   GetIt.instance<Talker>().info('Repositories initialization completed');
 }
-
-/// This logic is just for example here
-// void _tryPrecacheDio() {
-//   try {
-//     throw Exception('Dio precache exception');
-//   } catch (e, st) {
-//     GetIt.instance<Talker>().handle(e, st);
-//   }
-// }

@@ -56,4 +56,63 @@ void main() {
     expect(talker.history.first is TalkerLog, true);
     expect(talker.history.last is TalkerLog, true);
   });
+
+  test('register addon', () {
+    final talkerWithAddons = Talker();
+    talkerWithAddons.registerAddon(
+      code: TalkerOriginalAddons.talkerBlocLogger.code,
+      addon: 'addon',
+    );
+    expect(talkerWithAddons.addons, isNotEmpty);
+    expect(
+      talkerWithAddons.addons,
+      {TalkerOriginalAddons.talkerBlocLogger.code: 'addon'},
+    );
+  });
+
+  test('register two addons with one code', () {
+    final talkerWithAddons = Talker();
+    talkerWithAddons.registerAddon(
+      code: TalkerOriginalAddons.talkerBlocLogger.code,
+      addon: 'addon',
+    );
+    try {
+      talkerWithAddons.registerAddon(
+        code: TalkerOriginalAddons.talkerBlocLogger.code,
+        addon: 'addon',
+      );
+    } catch (_) {
+      // pass...
+    }
+    expect(talkerWithAddons.addons, isNotEmpty);
+    expect(talkerWithAddons.addons.length, 1);
+    expect(
+      talkerWithAddons.addons,
+      {TalkerOriginalAddons.talkerBlocLogger.code: 'addon'},
+    );
+  });
+
+  test('reset addon', () {
+    final talkerWithAddons = Talker();
+    talkerWithAddons.registerAddon(
+      code: TalkerOriginalAddons.talkerBlocLogger.code,
+      addon: 'addon',
+    );
+    talkerWithAddons.resetAddon(TalkerOriginalAddons.talkerBlocLogger.code);
+    expect(talkerWithAddons.addons, isEmpty);
+  });
+
+  test('Equality', () {
+    final talker1 = Talker();
+    final talker2 = Talker();
+    expect(talker1, isNot(talker2));
+    expect(talker1, talker1);
+  });
+
+  test('hashCode', () async {
+    final talker = Talker();
+
+    expect(talker.hashCode, isNotNull);
+    expect(talker.hashCode, isNot(0));
+  });
 }

@@ -1,3 +1,6 @@
+# 2.4.1
+- **FEAT**: Update talker_dio_logger to 1.3.0 and internal packages
+
 # 2.4.0
 - **FEAT**: Add settings bottom sheet on main screen
 - **FEAT**: Add talker_dio_logger settings on settings bottom sheet

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:talker/talker.dart';
-import 'package:talker_bloc_logger/bloc_logs.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 
 /// [BLoC] logger on [Talker] base
 ///
@@ -11,24 +11,44 @@ import 'package:talker_bloc_logger/bloc_logs.dart';
 class TalkerBlocObserver extends BlocObserver {
   TalkerBlocObserver({
     Talker? talker,
+    this.settings = const TalkerBlocLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
+    _talker.registerAddon(
+      code: TalkerOriginalAddons.talkerBlocLogger.code,
+      addon: this,
+    );
   }
 
   late TalkerInterface _talker;
+  final TalkerBlocLoggerSettings settings;
 
   @override
   @mustCallSuper
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    _talker.logTyped(BlocEventLog(bloc, event));
+    if (settings.enabled) {
+      _talker.logTyped(
+        BlocEventLog(
+          bloc: bloc,
+          event: event,
+          settings: settings,
+        ),
+      );
+    }
   }
 
   @override
   @mustCallSuper
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    _talker.logTyped(BlocStateLog(bloc, transition));
+    if (settings.enabled) {
+      _talker.logTyped(BlocStateLog(
+        bloc: bloc,
+        transition: transition,
+        settings: settings,
+      ));
+    }
   }
 
   @override

@@ -61,6 +61,16 @@ void main() {
       expect(newSettings.useHistory, false);
       expect(newSettings.maxHistoryItems, 999);
     });
+
+    test('copyWith empty', () async {
+      final settings = TalkerSettings();
+      final newSettings = settings.copyWith();
+
+      expect(newSettings.enabled, true);
+      expect(newSettings.useConsoleLogs, true);
+      expect(newSettings.useHistory, true);
+      expect(newSettings.maxHistoryItems, 200);
+    });
   });
 }
 

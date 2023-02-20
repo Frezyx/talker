@@ -77,7 +77,10 @@ void main() {
 
     final mockObserver = MockTalkerObserver();
     final emptyMockTalkerObserver = EmptyMockTalkerObserver();
-    final talker = Talker(observers: [mockObserver, emptyMockTalkerObserver]);
+    final talker = Talker(
+      observers: [mockObserver, emptyMockTalkerObserver],
+      settings: TalkerSettings(useConsoleLogs: false),
+    );
 
     test('onError', () {
       talker.handle(ArgumentError());

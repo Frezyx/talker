@@ -6,7 +6,7 @@ void main() {
     late TalkerInterface talker;
 
     setUp(() {
-      talker = Talker();
+      talker = Talker(settings: TalkerSettings(useConsoleLogs: false));
       talker.cleanHistory();
     });
 

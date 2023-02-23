@@ -3,7 +3,6 @@ import 'dart:isolate';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/widgets/snackbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// class to wrap an the entire application
@@ -23,12 +22,11 @@ class TalkerAppWrapper {
     dynamic stackTrace, {
     FlutterErrorDetails? errorDetails,
   }) async {
-    talker.error("unhandled exception", error, stackTrace);
+    talker.error("Unhandled Exception", error, stackTrace);
   }
 
   Future _setupErrorHooks() async {
     FlutterError.onError = (FlutterErrorDetails details) async {
-      print("REPORTING ERROR flutter");
       _reportError(details.exception, details.stack, errorDetails: details);
     };
     PlatformDispatcher.instance.onError = (error, stack) {
@@ -58,8 +56,6 @@ class TalkerAppWrapper {
       }
       runApp(rootWidget);
     }, (dynamic error, StackTrace stackTrace) {
-      print("REPORTING ERROR Dart");
-
       _reportError(error, stackTrace);
     });
   }

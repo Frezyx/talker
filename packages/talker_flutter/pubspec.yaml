@@ -19,7 +19,7 @@ dependencies:
   talker_dio_logger: ^1.3.0
     # path:
     #   ../../packages/talker_dio_logger
-
+  path: ^1.8.0
   group_button: ^5.2.2
   path_provider: ^2.0.12
   share_plus: ^6.3.1

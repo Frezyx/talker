@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/widgets/snackbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-
 /// class to wrap an the entire application
 /// To listen to un handled exceptions
 
@@ -27,20 +26,17 @@ class TalkerAppWrapper {
     talker.error("unhandled exception", error, stackTrace);
   }
 
-  void _runZonedGuarded(void Function() callback) {
-    runZonedGuarded<Future<void>>(() async {
-      if (ensureInitialized) {
-        WidgetsFlutterBinding.ensureInitialized();
-      }
-      callback();
-    }, (dynamic error, StackTrace stackTrace) {
-      _reportError(error, stackTrace);
-    });
-  }
-
   Future _setupErrorHooks() async {
     FlutterError.onError = (FlutterErrorDetails details) async {
+      print("REPORTING ERROR flutter");
       _reportError(details.exception, details.stack, errorDetails: details);
+    };
+    PlatformDispatcher.instance.onError = (error, stack) {
+      _reportError(
+        error,
+        stack,
+      );
+      return true;
     };
 
     ///Web doesn't have Isolate error listener support
@@ -56,8 +52,15 @@ class TalkerAppWrapper {
   }
 
   void runAppFromRootWidget() {
-    _runZonedGuarded(() {
+    runZonedGuarded(() async {
+      if (ensureInitialized) {
+        WidgetsFlutterBinding.ensureInitialized();
+      }
       runApp(rootWidget);
+    }, (dynamic error, StackTrace stackTrace) {
+      print("REPORTING ERROR Dart");
+
+      _reportError(error, stackTrace);
     });
   }
 
@@ -68,5 +71,4 @@ class TalkerAppWrapper {
   final bool ensureInitialized;
 
   final Talker talker;
-
 }

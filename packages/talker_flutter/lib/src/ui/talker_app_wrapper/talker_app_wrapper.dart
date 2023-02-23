@@ -7,14 +7,9 @@ import 'package:talker_flutter/src/ui/widgets/snackbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 
-/// Widget to wrap an screen or the entire application
-/// in [Talker] data listerning
-///
-/// This is used to display error
-/// and exeption messages via [TalkerListener]
-///
-/// [TalkerWrapperOptions] options used to customize and filtering
-/// error and exceptions messages output
+/// class to wrap an the entire application
+/// To listen to un handled exceptions
+
 class TalkerAppWrapper {
   TalkerAppWrapper({
     required this.talker,

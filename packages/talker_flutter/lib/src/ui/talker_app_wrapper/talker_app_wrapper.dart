@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/widgets/snackbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-part 'talker_app_wrapper_options.dart';
 
 /// Widget to wrap an screen or the entire application
 /// in [Talker] data listerning
@@ -21,7 +20,6 @@ class TalkerAppWrapper {
     required this.talker,
     required this.rootWidget,
     this.ensureInitialized = false,
-    this.options = const TalkerWrapperOptions(),
   }) {
     _setupErrorHooks();
     runAppFromRootWidget();
@@ -76,5 +74,4 @@ class TalkerAppWrapper {
 
   final Talker talker;
 
-  final TalkerWrapperOptions options;
 }

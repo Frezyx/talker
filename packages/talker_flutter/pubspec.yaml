@@ -20,7 +20,7 @@ dependencies:
     # path:
     #   ../../packages/talker_dio_logger
   group_button: ^5.2.2
-  path_provider: ^2.0.12
+  path_provider: ^2.0.13
   share_plus: ^6.3.1
 
 

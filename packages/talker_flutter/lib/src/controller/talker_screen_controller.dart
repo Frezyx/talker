@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -70,8 +69,9 @@ class TalkerScreenController extends ChangeNotifier {
   Future<String> saveLogsInFile(String logs) async {
     final dir = await getTemporaryDirectory();
     final dirPath = dir.path;
-    final file = await File(join(dirPath, 'talker_logs_${DateTime.now().toString().replaceAll(":", " ")}.txt'))
-        .create(recursive: true);
+    final fmtDate = DateTime.now().toString().replaceAll(":", " ");
+    final file =
+        await File('$dirPath/talker_logs_$fmtDate.txt').create(recursive: true);
     await file.writeAsString(logs);
     return file.path;
   }

@@ -69,8 +69,9 @@ class TalkerScreenController extends ChangeNotifier {
   Future<String> saveLogsInFile(String logs) async {
     final dir = await getTemporaryDirectory();
     final dirPath = dir.path;
-    final file = await File('$dirPath/talker_logs_${DateTime.now()}.txt')
-        .create(recursive: true);
+    final fmtDate = DateTime.now().toString().replaceAll(":", " ");
+    final file =
+        await File('$dirPath/talker_logs_$fmtDate.txt').create(recursive: true);
     await file.writeAsString(logs);
     return file.path;
   }

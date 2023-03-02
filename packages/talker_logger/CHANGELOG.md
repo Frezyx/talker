@@ -25,7 +25,7 @@ See more in [releases](https://github.com/Frezyx/talker/releases)
 ## 1.2.1
 - **FEAT**: add output field to copyWith method 
 
-  Thanks for [probka00](https://github.com/probka00)
+  Thanks to [probka00](https://github.com/probka00)
 
 ## 1.2.0
 - **FIX**: Temp change homepage

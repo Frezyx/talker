@@ -1,3 +1,6 @@
+# 2.4.3
+- **FEAT**: update path_provider version to 2.0.13
+
 # 2.4.2
 - **FIX**: logs sharing on windows devices
 

@@ -1,3 +1,6 @@
+## 1.0.2
+- **FIX**: message generation for talker_flutter
+
 ## 1.0.1
 - **FIX**: package path in example code sample
 

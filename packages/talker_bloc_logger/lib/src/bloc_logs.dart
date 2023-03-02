@@ -8,7 +8,9 @@ class BlocEventLog extends TalkerLog {
     required this.bloc,
     required this.event,
     required this.settings,
-  }) : super('');
+  }) : super(settings.printEventFullData
+            ? '${bloc.runtimeType} recive event:\n$event'
+            : '${bloc.runtimeType} recvie event: ${event.runtimeType}');
 
   final Bloc bloc;
   final Object? event;
@@ -28,11 +30,7 @@ class BlocEventLog extends TalkerLog {
   String _createMessage() {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime);
-    if (settings.printEventFullData) {
-      sb.write('\n${bloc.runtimeType} recive event:\n$event');
-    } else {
-      sb.write('\n${bloc.runtimeType} recvie event: ${event.runtimeType}');
-    }
+    sb.write('\n$message');
     return sb.toString();
   }
 }
@@ -43,7 +41,8 @@ class BlocStateLog extends TalkerLog {
     required this.bloc,
     required this.transition,
     required this.settings,
-  }) : super('');
+  }) : super(
+            'TRANSITION in ${bloc.runtimeType} with event ${transition.event.runtimeType}');
 
   final Bloc bloc;
   final Transition transition;
@@ -63,8 +62,7 @@ class BlocStateLog extends TalkerLog {
   String _createMessage() {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime);
-    sb.write(
-        '\nTRANSITION in ${bloc.runtimeType} with event ${transition.event.runtimeType}');
+    sb.write('\n$message');
     sb.write(
         '\n${'CURRENT state: ${settings.printStateFullData ? '\n${transition.currentState}' : transition.currentState.runtimeType}'}');
     sb.write(

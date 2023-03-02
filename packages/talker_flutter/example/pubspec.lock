@@ -347,7 +347,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.4.1"
+    version: "2.4.2"
   talker_logger:
     dependency: transitive
     description:

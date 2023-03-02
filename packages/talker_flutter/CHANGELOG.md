@@ -1,3 +1,8 @@
+# 2.4.2
+- **FIX**: logs sharing on windows devices
+
+Thanks to [zezo357](https://github.com/zezo357)
+
 # 2.4.1
 - **FEAT**: Update talker_dio_logger to 1.3.0 and internal packages
 

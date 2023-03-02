@@ -109,7 +109,7 @@ See more in talker_flutter initialization on project README.md
 ## 1.4.2
 - **INFO**: Add TalkerScreen appBarTitle field
 
-  Thanks for [Khaoz-Topsy](https://github.com/Khaoz-Topsy)
+  Thanks to [Khaoz-Topsy](https://github.com/Khaoz-Topsy)
 
 ## 1.4.1
 - **INFO**: Add documentation for TalkerWrapper
@@ -128,7 +128,7 @@ talker_logger updates:
 ## 1.2.0
 * **FEAT** Add default ordering setting for logs at TalkerScreen
 
-  Thanks for [jirehcwe](https://github.com/jirehcwe)
+  Thanks to [jirehcwe](https://github.com/jirehcwe)
 
 ## 1.1.0
   - **FEAT** Implement [TalkerListener](https://frezyx.github.io/talker/guide/talker-flutter.html#talkerlistener) widget to handle talker data stream

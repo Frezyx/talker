@@ -1,3 +1,8 @@
+## 1.0.1
+- **FIX**: package path in example code sample
+
+Thanks to [SamuelMTDavies](https://github.com/SamuelMTDavies)
+
 ## 1.0.0
 - **FEAT**: Add TalkerBlocLoggerSettings for customize settings
 - **FEAT**: Add Talker addon functionality

@@ -30,7 +30,8 @@ dependencies:
 Just set **TalkerBlocObserver** as Bloc.observer field and it will work
 
 ```dart
-import 'package:talker_bloc_observer/talker_bloc_observer.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger.dart';
+
 
 Bloc.observer = TalkerBlocObserver();
 ```
@@ -41,7 +42,7 @@ You can add your talker instance for TalkerDioLogger if your app already uses Ta
 In this case, all logs and errors will fall into your unified tracking system
 
 ```dart
-import 'package:talker_bloc_observer/talker_bloc_observer.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker/talker.dart';
 
 final talker = Talker();

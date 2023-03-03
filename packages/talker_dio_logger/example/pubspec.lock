@@ -69,10 +69,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "7d328c4d898a61efc3cd93655a0955858e29a0aa647f0f9e02d59b3bb275e2e8"
+      sha256: "3709d74615bba5e443eb141f6a7f4bcc4788f8fae6f743edadfb79c2a8e6287e"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.6"
+    version: "5.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -329,10 +329,10 @@ packages:
     dependency: "direct main"
     description:
       name: talker_dio_logger
-      sha256: "89c1460d47f1bf76f9a13bdf7536b3a62d06d948159826fc777a2f1e32962730"
+      sha256: a5c63094189f50bb920d8dc7297fc1a2d8336d26b197673f429eca0d73ea759c
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.2"
+    version: "1.3.0"
   talker_flutter:
     dependency: "direct main"
     description:

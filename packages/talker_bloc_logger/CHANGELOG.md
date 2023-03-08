@@ -1,3 +1,6 @@
+## 1.1.0
+- **FEAT**: Add transitionFilter and eventFilter to filtering logs
+
 ## 1.0.2
 - **FIX**: message generation for talker_flutter
 

@@ -58,7 +58,7 @@ class Talker implements TalkerInterface {
   @override
   late TalkerSettings settings;
   late TalkerLoggerInterface _logger;
-  late TalkerErrorHandlerInterface _errorHandler;
+  late TalkerErrorHandler _errorHandler;
   late TalkerFilter? _filter;
 
   // final _fileManager = FileManager();

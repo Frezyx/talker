@@ -1,3 +1,4 @@
+
 import 'package:talker/talker.dart';
 
 typedef TalkerFilter = Filter<TalkerDataInterface>;

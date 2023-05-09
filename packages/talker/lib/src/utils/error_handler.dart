@@ -1,11 +1,10 @@
 import 'package:talker/talker.dart';
 
-class TalkerErrorHandler implements TalkerErrorHandlerInterface {
+class TalkerErrorHandler {
   TalkerErrorHandler(this.settings);
 
   final TalkerSettings settings;
 
-  @override
   TalkerDataInterface handle(
     Object exception, [
     StackTrace? stackTrace,

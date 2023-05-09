@@ -63,10 +63,7 @@ extension FeildsToDisplay on TalkerDataInterface {
 
   /// Displayed stackTrace of [TalkerDataInterface]
   String get displayStackTrace {
-    if (stackTrace == null) {
-      return '';
-    }
-    if (stackTrace == StackTrace.empty) {
+    if (stackTrace == null || stackTrace == StackTrace.empty) {
       return '';
     }
     return '\nStackTrace: $stackTrace}';

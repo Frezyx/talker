@@ -141,6 +141,7 @@ class Talker implements TalkerInterface {
 
   /// {@macro talker_handleError}
   @override
+  @Deprecated("Will be removed in a future release. Use handle method instead")
   void handleError(
     Error error, [
     StackTrace? stackTrace,
@@ -160,6 +161,7 @@ class Talker implements TalkerInterface {
 
   /// {@macro talker_handleException}
   @override
+  @Deprecated("Will be removed in a future release. Use handle method instead")
   void handleException(
     Exception exception, [
     StackTrace? stackTrace,

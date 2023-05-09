@@ -84,6 +84,7 @@ abstract class TalkerInterface {
   /// ```
   /// {@macro errorLevel}
   /// {@endtemplate}
+  @Deprecated("Will be removed in a future release. Use handle method instead")
   void handleError(
     Error error, [
     StackTrace? stackTrace,
@@ -105,6 +106,7 @@ abstract class TalkerInterface {
   /// ```
   /// {@macro errorLevel}
   /// {@endtemplate}
+  @Deprecated("Will be removed in a future release. Use handle method instead")
   void handleException(
     Exception exception, [
     StackTrace? stackTrace,

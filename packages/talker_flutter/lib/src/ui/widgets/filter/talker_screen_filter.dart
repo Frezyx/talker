@@ -139,6 +139,6 @@ class TalkerScreenFilter extends StatelessWidget {
   }
 
   Set<String> get unicTitles {
-    return talker.history.map((e) => e.displayTitle).toSet();
+    return talker.history.map((e) => e.title).toSet();
   }
 }

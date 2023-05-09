@@ -39,7 +39,7 @@ class TalkerDataCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${data.displayTitle} | ${data.displayTime}',
+                      '${data.title} | ${data.displayTime}',
                       style: TextStyle(
                         color: color,
                         fontWeight: FontWeight.w700,
@@ -140,13 +140,13 @@ class TalkerDataCard extends StatelessWidget {
       return (data as TalkerFlutterAdapterInterface).color ??
           data.logLevel.color;
     }
-    if (data is HttpErrorLog) {
+    if (data.title == WellKnownTitles.httpError.title) {
       return LogLevel.error.color;
     }
-    if (data is HttpResponseLog) {
+    if (data.title == WellKnownTitles.httpResponse.title) {
       return httpResponseLogColor;
     }
-    if (data is HttpRequestLog) {
+    if (data.title == WellKnownTitles.httpResponse.title) {
       return httpRequestLogColor;
     }
 
@@ -157,9 +157,12 @@ class TalkerDataCard extends StatelessWidget {
     if (data is TalkerError || data is TalkerException) {
       return null;
     }
-    if (data is HttpErrorLog ||
-        data is HttpRequestLog ||
-        data is HttpResponseLog) {
+    final isHttpLog = [
+      WellKnownTitles.httpError.title,
+      WellKnownTitles.httpRequest.title,
+      WellKnownTitles.httpResponse.title,
+    ].contains(data.title);
+    if (isHttpLog) {
       return data.generateTextMessage();
     }
     return data.displayMessage;

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_dio_logger/http_logs.dart';
-import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_http_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_typed_logs_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/widgets/widgets.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -44,9 +42,14 @@ class TalkerMonitor extends StatelessWidget {
                   e.logLevel == LogLevel.debug)
               .toList();
 
-          final httpRequests = data.whereType<HttpRequestLog>().toList();
-          final httpErrors = data.whereType<HttpErrorLog>().toList();
-          final httpResponses = data.whereType<HttpResponseLog>().toList();
+          final httpRequests = data
+              .where((e) => e.title == WellKnownTitles.httpRequest.title)
+              .toList();
+          final httpErrors = data
+            ..where((e) => e.title == WellKnownTitles.httpError.title).toList();
+          final httpResponses = data
+            ..where((e) => e.title == WellKnownTitles.httpResponse.title)
+                .toList();
 
           return CustomScrollView(
             slivers: [
@@ -183,14 +186,14 @@ class TalkerMonitor extends StatelessWidget {
   }
 
   void _openHttpMonitor(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => TalkerMonitorHttpScreen(
-          talker: talker,
-          talkerScreenTheme: theme,
-        ),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => TalkerMonitorHttpScreen(
+    //       talker: talker,
+    //       talkerScreenTheme: theme,
+    //     ),
+    //   ),
+    // );
   }
 
   void _openTypedLogsScreen(

@@ -4,6 +4,8 @@ enum WellKnownTitles {
   httpError,
   httpRequest,
   httpResponse,
+  blocEvent,
+  blocTransition,
 }
 
 extension WellKnownTitlesExt on WellKnownTitles {
@@ -19,6 +21,10 @@ extension WellKnownTitlesExt on WellKnownTitles {
         return 'http-request';
       case WellKnownTitles.httpResponse:
         return 'http-response';
+      case WellKnownTitles.blocEvent:
+        return 'bloc-event';
+      case WellKnownTitles.blocTransition:
+        return 'bloc-transition';
     }
   }
 }

@@ -46,10 +46,11 @@ class TalkerMonitor extends StatelessWidget {
               .where((e) => e.title == WellKnownTitles.httpRequest.title)
               .toList();
           final httpErrors = data
-            ..where((e) => e.title == WellKnownTitles.httpError.title).toList();
+              .where((e) => e.title == WellKnownTitles.httpError.title)
+              .toList();
           final httpResponses = data
-            ..where((e) => e.title == WellKnownTitles.httpResponse.title)
-                .toList();
+              .where((e) => e.title == WellKnownTitles.httpResponse.title)
+              .toList();
 
           return CustomScrollView(
             slivers: [

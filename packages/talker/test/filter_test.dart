@@ -108,7 +108,7 @@ void _testFilterByTitles({
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
-          talker.handleException(Exception('Test log'));
+          talker.handle(Exception('Test log'));
         },
       );
 
@@ -119,7 +119,7 @@ void _testFilterByTitles({
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
-          talker.handleException(Exception('Test disabled log'));
+          talker.handle(Exception('Test disabled log'));
           talker.verbose('Test log');
         },
       );
@@ -135,8 +135,8 @@ void _testFilterByTitles({
           talker.error('Test log');
           talker.verbose('Test log');
           talker.verbose('Test log');
-          talker.handleException(Exception('Test disabled log'));
-          talker.handleError(ArgumentError());
+          talker.handle(Exception('Test disabled log'));
+          talker.handle(ArgumentError());
           talker.verbose('Test log');
           talker.critical('Test log');
         },

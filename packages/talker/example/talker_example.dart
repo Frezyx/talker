@@ -11,12 +11,6 @@ Future<void> main() async {
     talker.handle(e, st, 'Working with string error');
   }
 
-  try {
-    throw Exception('Service can`t get test data');
-  } on Exception catch (e, st) {
-    talker.handleException(e, st, 'Working with strings exception');
-  }
-
   talker.log(
     'Server error',
     logLevel: LogLevel.critical,

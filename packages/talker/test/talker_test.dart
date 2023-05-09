@@ -30,8 +30,8 @@ void main() {
     });
 
     test('Handle error', () {
-      talker.handleError(ArgumentError());
-      talker.handleError(ArgumentError(), StackTrace.current, 'Some error');
+      talker.handle(ArgumentError());
+      talker.handle(ArgumentError(), StackTrace.current, 'Some error');
       expect(talker.history, isNotEmpty);
       expect(talker.history.length, 2);
       expect(talker.history.first is TalkerError, true);
@@ -40,8 +40,8 @@ void main() {
   });
 
   test('Handle exception', () {
-    talker.handleException(Exception());
-    talker.handleException(Exception(), StackTrace.current, 'Some error');
+    talker.handle(Exception());
+    talker.handle(Exception(), StackTrace.current, 'Some error');
     expect(talker.history, isNotEmpty);
     expect(talker.history.length, 2);
     expect(talker.history.first is TalkerException, true);

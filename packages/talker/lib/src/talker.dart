@@ -64,7 +64,6 @@ class Talker implements TalkerInterface {
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
   TalkerObserversManager? _observersManager;
-  final _addons = <String, Object>{};
 
   /// {@macro talker_configure}
   @override
@@ -111,10 +110,6 @@ class Talker implements TalkerInterface {
   /// {@macro talker_history}
   @override
   List<TalkerDataInterface> get history => _history;
-
-  ///{@macro talker_addons}
-  @override
-  Map<String, Object> get addons => _addons;
 
   /// {@macro talker_handle}
   @override
@@ -296,24 +291,6 @@ class Talker implements TalkerInterface {
   @override
   void enable() {
     settings.enabled = true;
-  }
-
-  ///{@macro talker_addon_register}
-  @override
-  void registerAddon({
-    required String code,
-    required Object addon,
-  }) {
-    if (_addons.containsKey(code)) {
-      throw Exception('Addon currently exist');
-    }
-    _addons[code] = addon;
-  }
-
-  ///{@macro talker_addon_reset}
-  @override
-  void resetAddon(String code) {
-    _addons.remove(code);
   }
 
   void _handleLog(

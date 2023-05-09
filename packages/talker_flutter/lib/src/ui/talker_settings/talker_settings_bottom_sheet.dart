@@ -1,11 +1,8 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
 import 'package:flutter/material.dart';
-import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/src/ui/talker_settings/widgets/talker_setting_card.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
-import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerSettingsBottomSheet extends StatefulWidget {
@@ -27,21 +24,21 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
 }
 
 class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
-  TalkerDioLogger? _dioLogger;
+  // TalkerDioLogger? _dioLogger;
 
-  @override
-  void initState() {
-    final addons = widget.talker.value.addons;
-    final dioAddon = addons[TalkerOriginalAddons.talkerDioLogger.code];
-    if (dioAddon != null && dioAddon is TalkerDioLogger) {
-      _dioLogger = dioAddon;
-    }
+  // @override
+  // void initState() {
+  //   final addons = widget.talker.value.addons;
+  //   final dioAddon = addons[TalkerOriginalAddons.talkerDioLogger.code];
+  //   if (dioAddon != null && dioAddon is TalkerDioLogger) {
+  //     _dioLogger = dioAddon;
+  //   }
 
-    widget.talker.addListener(() {
-      setState(() {});
-    });
-    super.initState();
-  }
+  //   widget.talker.addListener(() {
+  //     setState(() {});
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,54 +102,54 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
           ),
         ),
       ),
-      if (_dioLogger != null) ...[
-        TalkerSettingsCard(
-          talkerScreenTheme: widget.talkerScreenTheme,
-          title: 'Print request data',
-          enabled: _dioLogger!.settings.printRequestData,
-          onChanged: (enabled) {
-            _dioLogger!.configure(printRequestData: enabled);
-            widget.talker.notifyListeners();
-          },
-        ),
-        TalkerSettingsCard(
-          talkerScreenTheme: widget.talkerScreenTheme,
-          title: 'Print response data',
-          enabled: _dioLogger!.settings.printResponseData,
-          onChanged: (enabled) {
-            _dioLogger!.configure(printResponseData: enabled);
-            widget.talker.notifyListeners();
-          },
-        ),
-        TalkerSettingsCard(
-          talkerScreenTheme: widget.talkerScreenTheme,
-          title: 'Print request headers',
-          enabled: _dioLogger!.settings.printRequestHeaders,
-          onChanged: (enabled) {
-            _dioLogger!.configure(printRequestHeaders: enabled);
-            widget.talker.notifyListeners();
-          },
-        ),
-        TalkerSettingsCard(
-          talkerScreenTheme: widget.talkerScreenTheme,
-          title: 'Print response headers',
-          enabled: _dioLogger!.settings.printResponseHeaders,
-          onChanged: (enabled) {
-            _dioLogger!.configure(printResponseHeaders: enabled);
-            widget.talker.notifyListeners();
-          },
-        ),
-        TalkerSettingsCard(
-          talkerScreenTheme: widget.talkerScreenTheme,
-          title: 'Print response message',
-          enabled: _dioLogger!.settings.printResponseMessage,
-          onChanged: (enabled) {
-            _dioLogger!.configure(printResponseMessage: enabled);
-            widget.talker.notifyListeners();
-          },
-        ),
-      ] else
-        _TalkerDioLoggerNotSetup(talkerScreenTheme: widget.talkerScreenTheme),
+      // if (_dioLogger != null) ...[
+      //   TalkerSettingsCard(
+      //     talkerScreenTheme: widget.talkerScreenTheme,
+      //     title: 'Print request data',
+      //     enabled: _dioLogger!.settings.printRequestData,
+      //     onChanged: (enabled) {
+      //       _dioLogger!.configure(printRequestData: enabled);
+      //       widget.talker.notifyListeners();
+      //     },
+      //   ),
+      //   TalkerSettingsCard(
+      //     talkerScreenTheme: widget.talkerScreenTheme,
+      //     title: 'Print response data',
+      //     enabled: _dioLogger!.settings.printResponseData,
+      //     onChanged: (enabled) {
+      //       _dioLogger!.configure(printResponseData: enabled);
+      //       widget.talker.notifyListeners();
+      //     },
+      //   ),
+      //   TalkerSettingsCard(
+      //     talkerScreenTheme: widget.talkerScreenTheme,
+      //     title: 'Print request headers',
+      //     enabled: _dioLogger!.settings.printRequestHeaders,
+      //     onChanged: (enabled) {
+      //       _dioLogger!.configure(printRequestHeaders: enabled);
+      //       widget.talker.notifyListeners();
+      //     },
+      //   ),
+      //   TalkerSettingsCard(
+      //     talkerScreenTheme: widget.talkerScreenTheme,
+      //     title: 'Print response headers',
+      //     enabled: _dioLogger!.settings.printResponseHeaders,
+      //     onChanged: (enabled) {
+      //       _dioLogger!.configure(printResponseHeaders: enabled);
+      //       widget.talker.notifyListeners();
+      //     },
+      //   ),
+      //   TalkerSettingsCard(
+      //     talkerScreenTheme: widget.talkerScreenTheme,
+      //     title: 'Print response message',
+      //     enabled: _dioLogger!.settings.printResponseMessage,
+      //     onChanged: (enabled) {
+      //       _dioLogger!.configure(printResponseMessage: enabled);
+      //       widget.talker.notifyListeners();
+      //     },
+      //   ),
+      // ] else
+      //   _TalkerDioLoggerNotSetup(talkerScreenTheme: widget.talkerScreenTheme),
     ];
 
     return BaseBottomSheet(
@@ -170,49 +167,49 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
   }
 }
 
-class _TalkerDioLoggerNotSetup extends StatelessWidget {
-  const _TalkerDioLoggerNotSetup({
-    Key? key,
-    required this.talkerScreenTheme,
-  }) : super(key: key);
+// class _TalkerDioLoggerNotSetup extends StatelessWidget {
+//   const _TalkerDioLoggerNotSetup({
+//     Key? key,
+//     required this.talkerScreenTheme,
+//   }) : super(key: key);
 
-  final TalkerScreenTheme talkerScreenTheme;
+//   final TalkerScreenTheme talkerScreenTheme;
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return TalkerBaseCard(
-      color: cardBackgroundColor,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-      child: Column(
-        children: [
-          Icon(
-            Icons.info_outline_rounded,
-            color: talkerScreenTheme.iconsColor,
-            size: 46,
-          ),
-          const SizedBox(height: 16),
-          RichText(
-            text: TextSpan(
-              text:
-                  'Init TalkerDioLogger() interceptor in your app to see dio logger settings',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: talkerScreenTheme.textColor,
-                fontWeight: FontWeight.bold,
-              ),
-              children: const [
-                TextSpan(text: '\n'),
-                TextSpan(text: '\n'),
-                TextSpan(
-                  text: 'The settings will be available automatically',
-                  style: TextStyle(fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final theme = Theme.of(context);
+//     return TalkerBaseCard(
+//       color: cardBackgroundColor,
+//       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+//       child: Column(
+//         children: [
+//           Icon(
+//             Icons.info_outline_rounded,
+//             color: talkerScreenTheme.iconsColor,
+//             size: 46,
+//           ),
+//           const SizedBox(height: 16),
+//           RichText(
+//             text: TextSpan(
+//               text:
+//                   'Init TalkerDioLogger() interceptor in your app to see dio logger settings',
+//               style: theme.textTheme.titleMedium?.copyWith(
+//                 color: talkerScreenTheme.textColor,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//               children: const [
+//                 TextSpan(text: '\n'),
+//                 TextSpan(text: '\n'),
+//                 TextSpan(
+//                   text: 'The settings will be available automatically',
+//                   style: TextStyle(fontWeight: FontWeight.w400),
+//                 ),
+//               ],
+//             ),
+//             textAlign: TextAlign.center,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

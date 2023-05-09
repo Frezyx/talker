@@ -13,10 +13,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker: ^2.4.0
-    # path:
-    #   ../../packages/talker
-  talker_dio_logger: ^1.3.0
+  talker: #^2.4.0
+    path:
+      ../../packages/talker
+  talker_dio_logger: #^1.3.0
+    path:
+      ../../packages/talker_dio_logger
     # path:
     #   ../../packages/talker_dio_logger
   group_button: ^5.2.2

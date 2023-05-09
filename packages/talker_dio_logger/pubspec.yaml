@@ -8,7 +8,9 @@ environment:
 
 dependencies:
   dio: ^5.0.0
-  talker: ^2.4.0
+  talker: #^2.4.0
+    path:
+      ../talker
 
 dev_dependencies:
   lint: ^2.0.1

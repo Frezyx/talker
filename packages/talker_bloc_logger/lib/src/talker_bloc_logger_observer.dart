@@ -16,7 +16,7 @@ class TalkerBlocObserver extends BlocObserver {
     _talker = talker ?? Talker();
   }
 
-  late TalkerInterface _talker;
+  late Talker _talker;
   final TalkerBlocLoggerSettings settings;
 
   @override

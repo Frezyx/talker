@@ -14,7 +14,7 @@ class TalkerBuilder extends StatelessWidget {
     this.placeholder = const SizedBox(),
   }) : super(key: key);
 
-  final TalkerInterface talker;
+  final Talker talker;
   final TalkerWidgetBuilder builder;
   final Widget placeholder;
 

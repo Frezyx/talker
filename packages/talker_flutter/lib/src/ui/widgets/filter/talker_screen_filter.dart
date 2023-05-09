@@ -16,7 +16,7 @@ class TalkerScreenFilter extends StatelessWidget {
 
   final TalkerScreenController controller;
   final TalkerScreenTheme talkerScreenTheme;
-  final TalkerInterface talker;
+  final Talker talker;
   final GroupButtonController typesController;
   final GroupButtonController titlesController;
 

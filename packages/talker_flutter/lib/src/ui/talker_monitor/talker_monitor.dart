@@ -14,7 +14,7 @@ class TalkerMonitor extends StatelessWidget {
   final TalkerScreenTheme theme;
 
   /// Talker implementation
-  final TalkerInterface talker;
+  final Talker talker;
 
   @override
   Widget build(BuildContext context) {

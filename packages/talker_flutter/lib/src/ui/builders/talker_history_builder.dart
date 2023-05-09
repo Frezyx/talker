@@ -11,7 +11,7 @@ class TalkerHistoryBuilder extends StatelessWidget {
     required this.builder,
   }) : super(key: key);
 
-  final TalkerInterface talker;
+  final Talker talker;
   final TalkerHistoryWidgetBuilder builder;
 
   @override

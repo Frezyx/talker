@@ -6,7 +6,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 class TalkerRouteObserver extends NavigatorObserver {
   TalkerRouteObserver(this.talker);
 
-  final TalkerInterface talker;
+  final Talker talker;
 
   @override
   void didPush(Route route, Route? previousRoute) {

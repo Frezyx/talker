@@ -22,7 +22,7 @@ class TalkerScreen extends StatefulWidget {
   }) : super(key: key);
 
   /// Talker implementation
-  final TalkerInterface talker;
+  final Talker talker;
 
   /// Theme for customize [TalkerScreen]
   final TalkerScreenTheme theme;
@@ -265,7 +265,7 @@ class _MonitorButton extends StatelessWidget {
     required this.onPressed,
   }) : super(key: key);
 
-  final TalkerInterface talker;
+  final Talker talker;
   final VoidCallback onPressed;
 
   @override

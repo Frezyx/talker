@@ -16,7 +16,7 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
   final TalkerScreenTheme talkerScreenTheme;
 
   /// Talker implementation
-  final ValueNotifier<TalkerInterface> talker;
+  final ValueNotifier<Talker> talker;
 
   @override
   State<TalkerSettingsBottomSheet> createState() =>

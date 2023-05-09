@@ -14,7 +14,7 @@
 //     required this.talkerScreenTheme,
 //   }) : super(key: key);
 
-//   final TalkerInterface talker;
+//   final Talker talker;
 //   final TalkerScreenTheme talkerScreenTheme;
 
 //   @override

@@ -8,12 +8,14 @@ class TalkerException implements TalkerDataInterface {
     this.message,
     this.logLevel,
     this.stackTrace,
-    this.title,
+    String? title,
     DateTime? time,
   }) {
+    _title = title ?? WellKnownTitles.exception.title;
     _time = time ?? DateTime.now();
   }
 
+  late String _title;
   late DateTime _time;
 
   /// {@macro talker_data_exception}
@@ -30,7 +32,7 @@ class TalkerException implements TalkerDataInterface {
 
   /// {@macro talker_data_title}
   @override
-  final String? title;
+  String get title => _title;
 
   /// {@macro talker_data_loglevel}
   @override

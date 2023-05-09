@@ -27,7 +27,7 @@ abstract class TalkerDataInterface {
   /// {@template talker_data_title}
   /// Title of Talker log
   /// {@endtemplate}
-  String? get title;
+  String get title;
 
   /// {@template talker_data_stackTrace}
   /// StackTrace?] [stackTrace] - stackTrace if [exception] or [error] happened
@@ -56,25 +56,9 @@ abstract class TalkerDataInterface {
 /// display text of [TalkerDataInterface] fileds
 extension FeildsToDisplay on TalkerDataInterface {
   /// Displayed title of [TalkerDataInterface]
-  String get displayTitle {
-    var t = '';
-    switch (runtimeType) {
-      case TalkerError:
-        t = 'ERROR';
-        break;
-      case TalkerException:
-        t = 'EXCEPTION';
-        break;
-      case TalkerLog:
-      default:
-        t = title ?? logLevel.title;
-        break;
-    }
-    return t;
-  }
 
   String get displayTitleWithTime {
-    return '[$displayTitle] | $displayTime | ';
+    return '[$title] | $displayTime | ';
   }
 
   /// Displayed stackTrace of [TalkerDataInterface]

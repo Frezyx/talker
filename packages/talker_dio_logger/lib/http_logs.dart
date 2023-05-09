@@ -24,7 +24,7 @@ class HttpRequestLog extends TalkerLog {
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] [${requestOptions.method}] $message';
+    var msg = '[$title] [${requestOptions.method}] $message';
 
     final data = requestOptions.data;
     final headers = requestOptions.headers;
@@ -63,7 +63,7 @@ class HttpResponseLog extends TalkerLog {
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] [${response.requestOptions.method}] $message';
+    var msg = '[$title] [${response.requestOptions.method}] $message';
 
     final responseMessage = response.statusMessage;
     final data = response.data;
@@ -109,7 +109,7 @@ class HttpErrorLog extends TalkerLog {
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] [${dioError.requestOptions.method}] $message';
+    var msg = '[$title] [${dioError.requestOptions.method}] $message';
 
     final responseMessage = dioError.message;
     final statusCode = dioError.response?.statusCode;

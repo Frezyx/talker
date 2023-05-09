@@ -22,7 +22,7 @@ class BaseTalkerFilter implements TalkerFilter {
     var match = false;
 
     if (titles.isNotEmpty) {
-      match = match || titles.contains(item.displayTitle);
+      match = match || titles.contains(item.title);
     }
 
     if (types.isNotEmpty) {

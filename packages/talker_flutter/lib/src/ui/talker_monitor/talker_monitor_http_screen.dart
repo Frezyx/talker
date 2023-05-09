@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:talker_dio_logger/http_logs.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/extensions/iterable.dart';
 import 'package:talker_flutter/src/ui/talker_actions/talker_actions_bottom_sheet.dart';

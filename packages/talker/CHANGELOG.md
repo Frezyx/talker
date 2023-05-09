@@ -1,3 +1,6 @@
+# 2.4.1
+- Add deprecations for **handleError** and **handleException** methods
+
 # 2.4.0
 - **FEAT**: Ad addons functionality: registerAddon, resetAddon methods, addons getter
 

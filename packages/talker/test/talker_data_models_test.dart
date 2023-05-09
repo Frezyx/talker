@@ -28,7 +28,7 @@ void main() {
       final message = error.generateTextMessage();
       expect(
         message,
-        '''[ERROR] | ${TalkerDateTimeFormater(error.time).timeAndSeconds} | test message
+        '''[test title] | ${TalkerDateTimeFormater(error.time).timeAndSeconds} | test message
 Invalid argument(s)''',
       );
     });
@@ -53,7 +53,7 @@ Invalid argument(s)''',
       final message = exception.generateTextMessage();
       expect(
         message,
-        '''[EXCEPTION] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
+        '''[test title] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
 Exception''',
       );
 

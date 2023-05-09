@@ -14,10 +14,6 @@ class TalkerBlocObserver extends BlocObserver {
     this.settings = const TalkerBlocLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
-    _talker.registerAddon(
-      code: TalkerOriginalAddons.talkerBlocLogger.code,
-      addon: this,
-    );
   }
 
   late TalkerInterface _talker;

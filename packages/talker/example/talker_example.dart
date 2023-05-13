@@ -16,7 +16,6 @@ Future<void> main() async {
     logLevel: LogLevel.critical,
   );
 
-  talker.fine('Log fine');
   talker.error('Log error');
   talker.good('Log good');
   talker.verbose('Log verbose');

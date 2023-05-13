@@ -34,7 +34,6 @@ class BaseExample extends StatefulWidget {
 class _BaseExampleState extends State<BaseExample> {
   @override
   void initState() {
-    _fineLog();
     _infoLog();
     _handleError();
     _handleException();
@@ -74,10 +73,6 @@ class _BaseExampleState extends State<BaseExample> {
     } catch (e, st) {
       widget.talker.handle(e, st, 'FakeService exception');
     }
-  }
-
-  void _fineLog() {
-    widget.talker.fine('Service send good request');
   }
 
   void _infoLog() {

@@ -340,6 +340,7 @@ class Talker {
   ///   talker.fine('Log fine');
   /// ```
 
+  @Deprecated("Will be removed in a future release. Use any of other LogLevel")
   void fine(
     dynamic msg, [
     Object? exception,

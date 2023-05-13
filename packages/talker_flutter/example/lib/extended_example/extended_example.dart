@@ -17,7 +17,6 @@ class _ExtendedExampleState extends State<ExtendedExample> {
   void initState() {
     _talker = TalkerFlutter.init();
 
-    _fineLog();
     _infoLog();
     _handleError();
     _handleException();
@@ -72,10 +71,6 @@ class _ExtendedExampleState extends State<ExtendedExample> {
     }
   }
 
-  void _fineLog() {
-    _talker.fine('Service send good request');
-  }
-
   void _infoLog() {
     _talker.info('Renew token from expire date');
   }
@@ -116,7 +111,6 @@ class _ExtendedExampleState extends State<ExtendedExample> {
               children: [
                 BarButton(title: 'Handle Error', onTap: _handleError),
                 BarButton(title: 'Handle Exception', onTap: _handleException),
-                BarButton(title: 'Fine Log', onTap: _fineLog),
                 BarButton(title: 'Info Log', onTap: _infoLog),
                 BarButton(title: 'Waring Log', onTap: _warningLog),
                 BarButton(title: 'Varning Log', onTap: _verboseLog),

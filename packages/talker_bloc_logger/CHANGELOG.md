@@ -1,3 +1,8 @@
+## 2.0.0-dev.1
+- Upgrade talker to 3.0.0-dev.4 version
+- Make titles well known 
+  (WellKnownTitles.blocEvent.title & WellKnownTitles.blocTransition.title)
+
 ## 1.1.0
 - **FEAT**: Add transitionFilter and eventFilter to filtering logs
 

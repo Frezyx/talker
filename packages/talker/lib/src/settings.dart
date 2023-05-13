@@ -82,23 +82,4 @@ class TalkerSettings {
       enabled: enabled ?? this.enabled,
     );
   }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is TalkerSettings &&
-        other._useHistory == _useHistory &&
-        other._useConsoleLogs == _useConsoleLogs &&
-        other._maxHistoryItems == _maxHistoryItems &&
-        other.enabled == enabled;
-  }
-
-  @override
-  int get hashCode {
-    return _useHistory.hashCode ^
-        _useConsoleLogs.hashCode ^
-        _maxHistoryItems.hashCode ^
-        enabled.hashCode;
-  }
 }

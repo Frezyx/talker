@@ -1,3 +1,8 @@
+# 3.0.0-dev.2
+
+- Make TalkerObserver abstract class with self methods
+  Remove constructor with callback's initialization
+
 # 3.0.0-dev.1
 
 - Delete talker addons feature

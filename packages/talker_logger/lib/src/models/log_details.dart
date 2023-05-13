@@ -1,4 +1,3 @@
-
 import 'package:talker_logger/talker_logger.dart';
 
 /// A class for transporting data

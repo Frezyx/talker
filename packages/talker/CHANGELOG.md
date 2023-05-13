@@ -1,3 +1,10 @@
+# 3.0.0-dev.1
+
+- Delete talker addons feature
+- Delete TalkerInterface class
+- Make handleException and handleError deprecated methods
+- Make fine log method deprecated
+
 # 2.4.1
 - Add deprecations for **handleError** and **handleException** methods
 

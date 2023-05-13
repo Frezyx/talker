@@ -118,10 +118,6 @@ void main() {
       _logger.info('Message');
       _expectMessageType(LogLevel.info);
     });
-    test('fine', () {
-      _logger.fine('Message');
-      _expectMessageType(LogLevel.fine);
-    });
     test('good', () {
       _logger.good('Message');
       _expectMessageType(LogLevel.good);

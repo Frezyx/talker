@@ -1,3 +1,10 @@
+# 3.0.0-dev.1
+
+- Remove **TalkerLoggerInterface**
+- Make fine log method Deprecated
+- Rename LogLevelTalkerLoggerFilter -> LogLevelFilter
+- Rename TalkerLoggerFilter -> LoggerFilter
+
 # 2.2.1
 - **FIX**: Fix color reset in console
 

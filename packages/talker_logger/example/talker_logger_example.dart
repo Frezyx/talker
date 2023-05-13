@@ -17,7 +17,6 @@ void main() {
   logger.info('info');
   logger.warning('warning');
   logger.error('error');
-  logger.fine('fine');
   logger.good('good');
   logger.warning('warning');
   logger.verbose('verbose');

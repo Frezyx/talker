@@ -8,6 +8,9 @@ enum LogLevel {
 
   /// Messages
   info,
+  @Deprecated(
+    "Will be removed in a future release. Use any of other LogLevel",
+  )
   fine,
   good,
   debug,
@@ -23,6 +26,7 @@ final logLevelPriorityList = [
   LogLevel.debug,
   LogLevel.verbose,
   LogLevel.info,
+  // ignore: deprecated_member_use_from_same_package
   LogLevel.fine,
   LogLevel.good
 ];
@@ -36,6 +40,7 @@ extension LogLevelTitle on LogLevel? {
         return 'CRITICAL';
       case LogLevel.error:
         return 'ERROR';
+      // ignore: deprecated_member_use_from_same_package
       case LogLevel.fine:
         return 'FINE';
       case LogLevel.warning:
@@ -72,6 +77,7 @@ extension ToConsoleColor on LogLevel? {
         return AnsiPen()..gray();
       case LogLevel.info:
         return AnsiPen()..blue();
+      // ignore: deprecated_member_use_from_same_package
       case LogLevel.fine:
         return AnsiPen()..cyan();
       case LogLevel.good:

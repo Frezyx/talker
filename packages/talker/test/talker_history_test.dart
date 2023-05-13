@@ -35,7 +35,6 @@ void main() {
       final history = talker.history;
       expect(history, isNotEmpty);
       expect(history.length, 4);
-      expect(history.first.logLevel, LogLevel.fine);
       expect(history.last.logLevel, LogLevel.debug);
     });
   });

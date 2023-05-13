@@ -1,3 +1,8 @@
+# 3.0.0-dev.6
+
+- Add WellKnownTitle route
+- Replace [ERROR] and [EXCEPTION] to [error] and [exception] titles
+
 # 3.0.0-dev.5
 
 - Update talker_logger version to 3.0.0-dev.3

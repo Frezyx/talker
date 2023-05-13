@@ -1,3 +1,8 @@
+# 3.0.0-dev.4
+
+- Make _Filter class internal
+- Remove Talker equality overriding
+
 # 3.0.0-dev.3
 
 - Move all important files on upper level and simplify folders navigation

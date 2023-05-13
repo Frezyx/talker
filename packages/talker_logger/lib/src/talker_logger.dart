@@ -13,8 +13,12 @@ class TalkerLogger {
     ansiColorDisabled = false;
   }
 
+  /// Logger settings
   final TalkerLoggerSettings settings;
+
+  /// Logs formatter
   final LoggerFormatter formater;
+
   late final void Function(String message) _output;
   late final TalkerLoggerFilter _filter;
 
@@ -123,7 +127,9 @@ class TalkerLogger {
   /// logger.fine('Log fine message');
   /// ```
   /// {@endtemplate}
-  @Deprecated("")
+  @Deprecated(
+    "Will be removed in a future release. Use any of other log methods",
+  )
   void fine(dynamic msg) => log(msg, level: LogLevel.fine);
 
   /// {@template talker_logger_good_log}

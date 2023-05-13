@@ -33,7 +33,7 @@ void main() {
   test('Constructor with fields', () {
     final logger = TalkerLogger(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
-      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      filter: const LogLevelFilter(LogLevel.critical),
       formater: _formatter,
     );
     _expectInstance(logger);
@@ -54,7 +54,7 @@ void main() {
     );
     logger = logger.copyWith(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
-      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      filter: const LogLevelFilter(LogLevel.critical),
       formater: _formatter,
     );
     logger.critical('c');
@@ -75,7 +75,7 @@ void main() {
     final messages = <String>[];
     var logger = TalkerLogger(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
-      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      filter: const LogLevelFilter(LogLevel.critical),
       formater: _formatter,
       output: (message) => messages.add(message),
     );

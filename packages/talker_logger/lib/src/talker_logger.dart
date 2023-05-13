@@ -3,13 +3,13 @@ import 'package:talker_logger/talker_logger.dart';
 class TalkerLogger {
   TalkerLogger({
     this.settings = kDefaultLoggerSettings,
-    TalkerLoggerFilter? filter,
+    LoggerFilter? filter,
     this.formater = const ExtendedLoggerFormatter(),
     void Function(String message)? output,
   }) {
     // ignore: avoid_print
     _output = output ?? (String message) => message.split('\n').forEach(print);
-    _filter = filter ?? LogLevelTalkerLoggerFilter(settings.level);
+    _filter = filter ?? LogLevelFilter(settings.level);
     ansiColorDisabled = false;
   }
 
@@ -20,7 +20,7 @@ class TalkerLogger {
   final LoggerFormatter formater;
 
   late final void Function(String message) _output;
-  late final TalkerLoggerFilter _filter;
+  late final LoggerFilter _filter;
 
   /// {@template talker_logger_log}
   /// Log a new custom message
@@ -147,7 +147,7 @@ class TalkerLogger {
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,
     LoggerFormatter? formater,
-    TalkerLoggerFilter? filter,
+    LoggerFilter? filter,
     Function(String message)? output,
   }) {
     return TalkerLogger(

@@ -18,7 +18,7 @@ class Talker {
   /// You can set your own [TalkerLoggerSettings] [loggerSettings]
   /// to customize talker logs,
   ///
-  /// You can set your own [TalkerLoggerFilter] [loggerFilter]
+  /// You can set your own [LoggerFilter] [loggerFilter]
   /// to filter talker logs,
   ///
   /// You can set your own [LoggerFormater] [loggerFormater]
@@ -32,7 +32,7 @@ class Talker {
     TalkerSettings? settings,
     TalkerFilter? filter,
     TalkerLoggerSettings? loggerSettings,
-    TalkerLoggerFilter? loggerFilter,
+    LoggerFilter? loggerFilter,
     LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     Function(String message)? loggerOutput,
@@ -72,7 +72,7 @@ class Talker {
   /// You can set your own [TalkerLoggerSettings] [loggerSettings]
   /// to customize talker logs,
   ///
-  /// You can set your own [TalkerLoggerFilter] [loggerFilter]
+  /// You can set your own [LoggerFilter] [loggerFilter]
   /// to filter talker logs,
   ///
   /// You can set your own [LoggerFormater] [loggerFormater]
@@ -86,7 +86,7 @@ class Talker {
     TalkerLogger? logger,
     TalkerSettings? settings,
     TalkerLoggerSettings? loggerSettings,
-    TalkerLoggerFilter? loggerFilter,
+    LoggerFilter? loggerFilter,
     LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     TalkerFilter? filter,

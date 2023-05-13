@@ -9,7 +9,7 @@ extension TalkerFlutter on Talker {
     TalkerSettings? settings,
     TalkerFilter? filter,
     TalkerLoggerSettings? loggerSettings,
-    TalkerLoggerFilter? loggerFilter,
+    LoggerFilter? loggerFilter,
     LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     Function(String message)? loggerOutput,

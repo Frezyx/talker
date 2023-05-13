@@ -1,4 +1,4 @@
-import 'package:talker/src/observers/observers_manager.dart';
+import 'package:talker/src/utils/observers_manager.dart';
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 

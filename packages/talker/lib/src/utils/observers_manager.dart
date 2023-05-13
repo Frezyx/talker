@@ -1,7 +1,7 @@
 import 'package:talker/src/models/talker_data_interface.dart';
 import 'package:talker/src/models/talker_error.dart';
 import 'package:talker/src/models/talker_exception.dart';
-import 'package:talker/src/observers/talker_observer.dart';
+import 'package:talker/src/observer.dart';
 
 /// Manager to wrap all observers
 class TalkerObserversManager {

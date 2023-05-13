@@ -1,3 +1,4 @@
+import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 
 /// Base [Talker] Data transfer object

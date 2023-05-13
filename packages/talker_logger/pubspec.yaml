@@ -1,6 +1,6 @@
 name: talker_logger
-description: Logger core package for talker (advanced error handler and logger package)
-version: 3.0.0-dev.1
+description: Easy and pretty logger. Core package for talker (advanced error handler and logger package)
+version: 3.0.0-dev.2
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues

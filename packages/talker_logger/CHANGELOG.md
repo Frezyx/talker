@@ -1,3 +1,7 @@
+# 3.0.0-dev.2
+
+- Make LogLevel.fine deprecatd
+
 # 3.0.0-dev.1
 
 - Remove **TalkerLoggerInterface**

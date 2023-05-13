@@ -34,12 +34,14 @@ class BaseExample extends StatefulWidget {
 class _BaseExampleState extends State<BaseExample> {
   @override
   void initState() {
-    _infoLog();
-    _handleError();
+    widget.talker.info('Renew token from expire date');
     _handleException();
-    _warningLog();
-    _criticalLog();
-    _customLog();
+    widget.talker.warning('Cache images working slowly on this platform');
+    widget.talker.log('Server exception', logLevel: LogLevel.critical);
+    widget.talker.info('3.............');
+    widget.talker.info('2.......');
+    widget.talker.info('1');
+    widget.talker.good('Now you can check all Talkler power ⚡');
     super.initState();
   }
 
@@ -59,35 +61,11 @@ class _BaseExampleState extends State<BaseExample> {
     );
   }
 
-  void _handleError() {
-    try {
-      throw ArgumentError('-6 is not positive number');
-    } catch (e, st) {
-      widget.talker.handle(e, st, 'Something wrong in calculation');
-    }
-  }
-
   void _handleException() {
     try {
       throw Exception('Test service exception');
     } catch (e, st) {
       widget.talker.handle(e, st, 'FakeService exception');
     }
-  }
-
-  void _infoLog() {
-    widget.talker.info('Renew token from expire date');
-  }
-
-  void _warningLog() {
-    widget.talker.warning('Cache images working slowly on this platform');
-  }
-
-  void _customLog() {
-    widget.talker.logTyped(CustomLog('Custom log message'));
-  }
-
-  void _criticalLog() {
-    widget.talker.log('Server exception', logLevel: LogLevel.critical);
   }
 }

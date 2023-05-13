@@ -1,3 +1,4 @@
+import 'package:talker/src/observers/observers_manager.dart';
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
@@ -7,31 +8,16 @@ final _exceptionsStore = <TalkerException>[];
 
 class MockTalkerObserver extends TalkerObserver {
   @override
-  Function(TalkerError err) get onError => (err) {
-        _errorsStore.add(err);
-      };
+  void onError(TalkerError err) => _errorsStore.add(err);
 
   @override
-  Function(TalkerException err) get onException => (e) {
-        _exceptionsStore.add(e);
-      };
+  void onException(TalkerException e) => _exceptionsStore.add(e);
 
   @override
-  Function(TalkerDataInterface log) get onLog => (log) {
-        _logsStore.add(log);
-      };
+  void onLog(TalkerDataInterface log) => _logsStore.add(log);
 }
 
-class EmptyMockTalkerObserver extends TalkerObserver {
-  @override
-  Function(TalkerError err) get onError => (err) {};
-
-  @override
-  Function(TalkerException err) get onException => (e) {};
-
-  @override
-  Function(TalkerDataInterface log) get onLog => (log) {};
-}
+class EmptyMockTalkerObserver extends TalkerObserver {}
 
 void main() {
   group('TalkerObserver', () {

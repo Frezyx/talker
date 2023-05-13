@@ -2,19 +2,13 @@ import 'package:talker/src/models/models.dart';
 
 /// Base observer class for
 /// to create your own observers
-class TalkerObserver {
-  const TalkerObserver({
-    this.onError,
-    this.onLog,
-    this.onException,
-  });
-
+abstract class TalkerObserver {
   /// Called when [Talker] handle an [TalkerError]
-  final Function(TalkerError err)? onError;
+  void onError(TalkerError err) {}
 
   /// Called when [Talker] handle an [TalkerException]
-  final Function(TalkerException err)? onException;
+  void onException(TalkerException err) {}
 
   /// Called when [Talker] handle an [TalkerDataInterface] log
-  final Function(TalkerDataInterface log)? onLog;
+  void onLog(TalkerDataInterface log) {}
 }

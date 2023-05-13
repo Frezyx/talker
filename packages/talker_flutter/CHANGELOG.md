@@ -1,3 +1,11 @@
+# 3.0.0-dev.1
+
+- Rename TalkerMonitorItem -> TalkerMonitorCard
+- Remove FlutterTalkerDataInterface and subclasses
+- Remove talker_dio_logger depencency
+- Update talker version to 3.0.0-dev.6
+- Update internal packages versions
+
 # 2.4.3
 - **FEAT**: update path_provider version to 2.0.13
 

@@ -1,6 +1,6 @@
 name: talker_flutter
 description: Flutter extensions for talker. Advanced and simple error handler and logger for dart and flutter apps with history, sharing, customization, etc.
-version: 2.4.3
+version: 3.0.0-dev.1
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues
@@ -13,9 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker: #^2.4.0
-    path:
-      ../../packages/talker
+  talker: ^3.0.0-dev.6
+    # path:
+    #   ../../packages/talker
   # talker_dio_logger: #^1.3.0
   #   path:
   #     ../../packages/talker_dio_logger

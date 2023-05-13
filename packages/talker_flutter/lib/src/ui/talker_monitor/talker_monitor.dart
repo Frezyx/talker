@@ -57,7 +57,7 @@ class TalkerMonitor extends StatelessWidget {
               if (httpRequests.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: httpRequests,
                     title: 'Http Requests',
                     color: Colors.green,
@@ -107,7 +107,7 @@ class TalkerMonitor extends StatelessWidget {
               if (errors.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: errors,
                     title: 'Errors',
                     color: Colors.red,
@@ -122,7 +122,7 @@ class TalkerMonitor extends StatelessWidget {
               if (exceptions.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: exceptions,
                     title: 'Exceptions',
                     color: LogLevel.error.color,
@@ -137,7 +137,7 @@ class TalkerMonitor extends StatelessWidget {
               if (warnings.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: warnings,
                     title: 'Warnings',
                     color: LogLevel.warning.color,
@@ -151,7 +151,7 @@ class TalkerMonitor extends StatelessWidget {
               if (infos.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: infos,
                     title: 'Infos',
                     color: LogLevel.info.color,
@@ -164,7 +164,7 @@ class TalkerMonitor extends StatelessWidget {
               if (verboseDebug.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: verboseDebug,
                     title: 'Verbose & debug',
                     color: LogLevel.verbose.color,

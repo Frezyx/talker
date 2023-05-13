@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerMonitorItem extends StatelessWidget {
-  const TalkerMonitorItem({
+class TalkerMonitorCard extends StatelessWidget {
+  const TalkerMonitorCard({
     Key? key,
     required this.logs,
     required this.title,

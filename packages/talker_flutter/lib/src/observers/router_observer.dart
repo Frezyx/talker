@@ -37,9 +37,6 @@ class TalkerRouteLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(135);
 
   @override
-  Color get color => const Color(0xFFAF5FFF);
-
-  @override
   String get title => WellKnownTitles.route.title;
 
   static String _createMessage(

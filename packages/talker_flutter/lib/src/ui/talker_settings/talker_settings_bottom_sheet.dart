@@ -92,16 +92,16 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
           widget.talker.notifyListeners();
         },
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Text(
-          'Dio logger settings',
-          style: theme.textTheme.titleLarge?.copyWith(
-            color: widget.talkerScreenTheme.textColor,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
+      // Padding(
+      //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      //   child: Text(
+      //     'Dio logger settings',
+      //     style: theme.textTheme.titleLarge?.copyWith(
+      //       color: widget.talkerScreenTheme.textColor,
+      //       fontWeight: FontWeight.w700,
+      //     ),
+      //   ),
+      // ),
       // if (_dioLogger != null) ...[
       //   TalkerSettingsCard(
       //     talkerScreenTheme: widget.talkerScreenTheme,

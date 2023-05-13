@@ -315,7 +315,7 @@ packages:
       path: "../../talker"
       relative: true
     source: path
-    version: "2.4.1"
+    version: "3.0.0-dev.5"
   talker_flutter:
     dependency: "direct main"
     description:
@@ -326,10 +326,11 @@ packages:
   talker_logger:
     dependency: transitive
     description:
-      path: "../../talker_logger"
-      relative: true
-    source: path
-    version: "2.2.1"
+      name: talker_logger
+      sha256: fafd3a9225e11dbbacb9f4b2c3dbd98bcc1fef4d1310aee3284dca9c54e45708
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0-dev.3"
   term_glyph:
     dependency: transitive
     description:

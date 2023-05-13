@@ -6,15 +6,16 @@ enum WellKnownTitles {
   httpResponse,
   blocEvent,
   blocTransition,
+  route,
 }
 
 extension WellKnownTitlesExt on WellKnownTitles {
   String get title {
     switch (this) {
       case WellKnownTitles.error:
-        return 'ERROR';
+        return 'error';
       case WellKnownTitles.exception:
-        return 'EXCEPTION';
+        return 'exception';
       case WellKnownTitles.httpError:
         return 'http-error';
       case WellKnownTitles.httpRequest:
@@ -25,6 +26,8 @@ extension WellKnownTitlesExt on WellKnownTitles {
         return 'bloc-event';
       case WellKnownTitles.blocTransition:
         return 'bloc-transition';
+      case WellKnownTitles.route:
+        return 'route';
     }
   }
 }

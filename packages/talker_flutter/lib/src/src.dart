@@ -1,5 +1,4 @@
 export 'extensions/extensions.dart';
-export 'models/models.dart';
 export 'observers/observers.dart';
 export 'ui/builders/builders.dart';
 export 'ui/talker_listener.dart';

@@ -27,7 +27,7 @@ class TalkerRouteObserver extends NavigatorObserver {
   }
 }
 
-class TalkerRouteLog extends FlutterTalkerLog {
+class TalkerRouteLog extends TalkerLog {
   TalkerRouteLog({
     required Route route,
     bool isPush = true,
@@ -40,7 +40,7 @@ class TalkerRouteLog extends FlutterTalkerLog {
   Color get color => const Color(0xFFAF5FFF);
 
   @override
-  String get title => 'ROUTE';
+  String get title => WellKnownTitles.route.title;
 
   static String _createMessage(
     Route<dynamic> route,

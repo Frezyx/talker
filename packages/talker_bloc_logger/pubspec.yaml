@@ -13,7 +13,7 @@ dependencies:
     # path:
     #   ../talker
   bloc: ^8.1.1
-  meta: ^1.9.1
+  meta: ^1.8.0
 
 dev_dependencies:
   lints: ^2.0.1

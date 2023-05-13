@@ -15,13 +15,16 @@ dependencies:
   talker_dio_logger: 
     path:
       ../../packages/talker_dio_logger
-  get_it: ^7.2.0
-  flutter_bloc: ^8.1.1
+  talker_bloc_logger: 
+    path:
+      ../../packages/talker_bloc_logger
+  get_it: ^7.6.0
+  flutter_bloc: ^8.1.2
   equatable: ^2.0.5
-  dio: ^5.0.0
-  url_launcher: ^6.1.7
-  firebase_core: ^2.4.0
-  firebase_analytics: ^10.0.7
+  dio: ^5.1.2
+  url_launcher: ^6.1.11
+  firebase_core: ^2.12.0
+  firebase_analytics: ^10.4.0
 
 dev_dependencies:
   flutter_test:

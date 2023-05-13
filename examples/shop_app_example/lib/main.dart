@@ -7,9 +7,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:talker_shop_app_example/bloc/observer.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 import 'package:talker_shop_app_example/ui/presentation_frame.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
@@ -21,7 +21,7 @@ void main() async {
   await _initFirease();
   _initTalker();
   _registerRepositories();
-  Bloc.observer = AppBlocObserver();
+  Bloc.observer = TalkerBlocObserver();
   runZonedGuarded(() {
     runApp(const MyApp());
   }, (Object error, StackTrace stack) {

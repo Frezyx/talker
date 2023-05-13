@@ -136,10 +136,6 @@ class TalkerDataCard extends StatelessWidget {
   }
 
   Color get _color {
-    if (data is TalkerFlutterAdapterInterface) {
-      return (data as TalkerFlutterAdapterInterface).color ??
-          data.logLevel.color;
-    }
     if (data.title == WellKnownTitles.httpError.title) {
       return LogLevel.error.color;
     }
@@ -149,7 +145,9 @@ class TalkerDataCard extends StatelessWidget {
     if (data.title == WellKnownTitles.httpResponse.title) {
       return httpRequestLogColor;
     }
-
+    if (data.title == WellKnownTitles.route.title) {
+      return routeLogcolor;
+    }
     return data.logLevel.color;
   }
 

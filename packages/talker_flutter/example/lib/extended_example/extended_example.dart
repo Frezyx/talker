@@ -138,14 +138,11 @@ class _ExtendedExampleState extends State<ExtendedExample> {
   }
 }
 
-class CustomLog extends FlutterTalkerLog {
+class CustomLog extends TalkerLog {
   CustomLog(String message) : super(message);
 
   @override
   AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  Color get color => Colors.teal;
 
   @override
   String generateTextMessage() {

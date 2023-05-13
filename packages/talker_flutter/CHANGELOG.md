@@ -1,3 +1,7 @@
+# 3.0.0-dev.2
+- Fix settings updates checking in UI
+- Update example
+
 # 3.0.0-dev.1
 
 - Rename TalkerMonitorItem -> TalkerMonitorCard

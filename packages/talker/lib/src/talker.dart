@@ -56,7 +56,7 @@ class Talker {
 
   /// {@macro talker_settings}
   late TalkerSettings settings;
-  late TalkerLoggerInterface _logger;
+  late TalkerLogger _logger;
   late TalkerErrorHandler _errorHandler;
   late TalkerFilter? _filter;
 
@@ -105,7 +105,7 @@ class Talker {
     if (logger != null) {
       _logger = logger;
     } else {
-      final currLogger = _logger as TalkerLogger;
+      final currLogger = _logger;
       _logger = currLogger.copyWith(
         settings: loggerSettings,
         filter: loggerFilter,

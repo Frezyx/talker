@@ -1,11 +1,6 @@
-
 import 'package:talker/talker.dart';
 
-typedef TalkerFilter = Filter<TalkerDataInterface>;
-
-abstract class Filter<T> {
-  bool filter(T item);
-}
+typedef TalkerFilter = _Filter<TalkerDataInterface>;
 
 class BaseTalkerFilter implements TalkerFilter {
   BaseTalkerFilter({
@@ -67,4 +62,8 @@ class BaseTalkerFilter implements TalkerFilter {
       searchQuery: searchQuery ?? this.searchQuery,
     );
   }
+}
+
+abstract class _Filter<T> {
+  bool filter(T item);
 }

@@ -1,6 +1,6 @@
 import 'package:talker_logger/talker_logger.dart';
 
-class TalkerLogger implements TalkerLoggerInterface {
+class TalkerLogger {
   TalkerLogger({
     this.settings = kDefaultLoggerSettings,
     TalkerLoggerFilter? filter,
@@ -18,8 +18,18 @@ class TalkerLogger implements TalkerLoggerInterface {
   late final void Function(String message) _output;
   late final TalkerLoggerFilter _filter;
 
-  /// {@macro talker_logger_log}
-  @override
+  /// {@template talker_logger_log}
+  /// Log a new custom message
+  /// [String] [msg] - message describes what happened
+  /// [LogLevel] [level] - level of logs to segmentation фтв control logging output
+  /// [AnsiPen] [pen] - console pen to setting log color
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.log('Log custom message', level: LogLevel.error, pen: AnsiPen()..red());
+  /// ```
+  /// {@endtemplate}
+
   void log(dynamic msg, {LogLevel? level, AnsiPen? pen}) {
     final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
     final selectedLevel = level ?? LogLevel.debug;
@@ -32,37 +42,101 @@ class TalkerLogger implements TalkerLoggerInterface {
     }
   }
 
-  /// {@macro talker_logger_critical_log}
-  @override
+  /// {@template talker_logger_critical_log}
+  /// Log a new critical message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.critical('Log critical message');
+  /// ```
+  /// {@endtemplate}
+
   void critical(dynamic msg) => log(msg, level: LogLevel.critical);
 
-  /// {@macro talker_logger_debug_log}
-  @override
-  void debug(dynamic msg) => log(msg);
+  /// {@template talker_logger_error_log}
+  /// Log a new error message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.error('Log error message');
+  /// ```
+  /// {@endtemplate}
 
-  /// {@macro talker_logger_error_log}
-  @override
   void error(dynamic msg) => log(msg, level: LogLevel.error);
 
-  /// {@macro talker_logger_fine_log}
-  @override
-  void fine(dynamic msg) => log(msg, level: LogLevel.fine);
+  /// {@template talker_logger_warning_log}
+  /// Log a new warning message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.warning('Log warning message');
+  /// ```
+  /// {@endtemplate}
 
-  /// {@macro talker_logger_good_log}
-  @override
-  void good(dynamic msg) => log(msg, level: LogLevel.good);
+  void warning(dynamic msg) => log(msg, level: LogLevel.warning);
 
-  /// {@macro talker_logger_info_log}
-  @override
-  void info(dynamic msg) => log(msg, level: LogLevel.info);
+  /// {@template talker_logger_debug_log}
+  /// Log a new debug message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.debug('Log debug message');
+  /// ```
+  /// {@endtemplate}
 
-  /// {@macro talker_logger_verbose_log}
-  @override
+  void debug(dynamic msg) => log(msg);
+
+  /// {@template talker_logger_verbose_log}
+  /// Log a new verbose message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.verbose('Log verbose message');
+  /// ```
+  /// {@endtemplate}
+
   void verbose(dynamic msg) => log(msg, level: LogLevel.verbose);
 
-  /// {@macro talker_logger_warning_log}
-  @override
-  void warning(dynamic msg) => log(msg, level: LogLevel.warning);
+  /// {@template talker_logger_info_log}
+  /// Log a new info message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.info('Log info message');
+  /// ```
+  /// {@endtemplate}
+
+  void info(dynamic msg) => log(msg, level: LogLevel.info);
+
+  /// {@template talker_logger_fine_log}
+  /// Log a new fine message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.fine('Log fine message');
+  /// ```
+  /// {@endtemplate}
+  @Deprecated("")
+  void fine(dynamic msg) => log(msg, level: LogLevel.fine);
+
+  /// {@template talker_logger_good_log}
+  /// Log a new good message
+  /// [String] [msg] - message describes what happened
+  ///
+  /// ```dart
+  /// final logger = TalkerLogger();
+  /// logger.good('Log good message');
+  /// ```
+  /// {@endtemplate}
+
+  void good(dynamic msg) => log(msg, level: LogLevel.good);
 
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,

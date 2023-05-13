@@ -166,7 +166,5 @@ void _expectMessageType(LogLevel level) {
 
 void _expectInstance(TalkerLogger logger) {
   // ignore: unnecessary_type_check
-  expect(logger is TalkerLoggerInterface, true);
-  // ignore: unnecessary_type_check
   expect(logger is TalkerLogger, true);
 }

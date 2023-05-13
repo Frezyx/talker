@@ -34,14 +34,19 @@ class BaseExample extends StatefulWidget {
 class _BaseExampleState extends State<BaseExample> {
   @override
   void initState() {
-    widget.talker.info('Renew token from expire date');
+    final talker = widget.talker;
+    talker.info('Renew token from expire date');
     _handleException();
-    widget.talker.warning('Cache images working slowly on this platform');
-    widget.talker.log('Server exception', logLevel: LogLevel.critical);
-    widget.talker.info('3.............');
-    widget.talker.info('2.......');
-    widget.talker.info('1');
-    widget.talker.good('Now you can check all Talkler power ⚡');
+    talker.warning('Cache images working slowly on this platform');
+    talker.log('Server exception', logLevel: LogLevel.critical);
+    talker.debug('Exception data sent for your analytics server');
+    talker.verbose(
+      'Start reloading config after critical server exception',
+    );
+    talker.info('3.............');
+    talker.info('2.......');
+    talker.info('1');
+    talker.good('Now you can check all Talkler power ⚡');
     super.initState();
   }
 

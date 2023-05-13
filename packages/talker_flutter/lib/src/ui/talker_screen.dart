@@ -18,7 +18,6 @@ class TalkerScreen extends StatefulWidget {
     this.appBarTitle = 'Flutter talker',
     this.theme = const TalkerScreenTheme(),
     this.itemsBuilder,
-    this.aditionalSettings,
   }) : super(key: key);
 
   /// Talker implementation
@@ -33,11 +32,6 @@ class TalkerScreen extends StatefulWidget {
   /// Optional Builder to customize
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
-
-  /// Additional settings for talker extensions
-  /// like talker_dio_logger [https://pub.dev/packages/talker_dio_logger],
-  /// talker_bloc_logger [https://pub.dev/packages/talker_bloc_logger], etc
-  final List<AdditionalTalkerSetting>? aditionalSettings;
 
   @override
   State<TalkerScreen> createState() => _TalkerScreenState();

@@ -6,7 +6,7 @@ void main() {
   // Create instance
   final logger = TalkerLogger(
     //Enable for custom colored logs with Formatter
-    // formater: ColoredLoggerFormatter(),
+    // formater: _ColoredLoggerFormatter(),
     settings: const TalkerLoggerSettings(
       level: LogLevel.info,
     ),
@@ -50,7 +50,7 @@ void main() {
   logger.log(prettyData, pen: AnsiPen()..xterm(46));
 }
 
-class ColoredLoggerFormatter implements LoggerFormatter {
+class _ColoredLoggerFormatter implements LoggerFormatter {
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {
     final msg = details.message?.toString() ?? '';

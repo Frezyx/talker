@@ -1,5 +1,3 @@
-library talker_logger;
-
 export 'package:ansicolor/ansicolor.dart';
 
 export 'src/filter/filter.dart';

@@ -50,6 +50,7 @@ void main() {
   logger.log(prettyData, pen: AnsiPen()..xterm(46));
 }
 
+// ignore: unused_element
 class _ColoredLoggerFormatter implements LoggerFormatter {
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {

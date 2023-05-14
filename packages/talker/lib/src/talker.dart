@@ -529,23 +529,4 @@ class Talker {
     final approved = _filter?.filter(data) ?? true;
     return approved;
   }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Talker &&
-        other.settings == settings &&
-        other._logger == _logger &&
-        other._errorHandler == _errorHandler &&
-        other._filter == _filter;
-  }
-
-  @override
-  int get hashCode {
-    return settings.hashCode ^
-        _logger.hashCode ^
-        _errorHandler.hashCode ^
-        _filter.hashCode;
-  }
 }

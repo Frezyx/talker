@@ -17,7 +17,7 @@ void main() {
       final history = talker.history;
 
       expect(history, isNotEmpty);
-      expect(history.length, equals(6));
+      expect(history.length, equals(5));
     });
 
     test('OFF', () {

@@ -13,9 +13,9 @@ extension WellKnownTitlesExt on WellKnownTitles {
   String get title {
     switch (this) {
       case WellKnownTitles.error:
-        return 'error';
+        return 'ERROR';
       case WellKnownTitles.exception:
-        return 'exception';
+        return 'EXCEPTION';
       case WellKnownTitles.httpError:
         return 'http-error';
       case WellKnownTitles.httpRequest:

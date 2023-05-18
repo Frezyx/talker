@@ -9,8 +9,14 @@ class BaseTalkerFilter implements TalkerFilter {
     this.searchQuery,
   });
 
+  /// List of enabled for filter titles [EXCEPTION], [ERROR], [VERBOSE]
   final List<String> titles;
+
+  /// List of enabled for filter types - subclasses of [TalkerDataInterface]
+  /// Like [TalkerError], [TalkerException], [TalkerLog], etc.
   final List<Type> types;
+
+  /// String query for filtering logs
   final String? searchQuery;
 
   @override

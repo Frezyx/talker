@@ -103,30 +103,42 @@ class _TalkerScreenState extends State<TalkerScreen> {
             builder: (context, data) {
               final filtredElements =
                   data.where((e) => _controller.filter.filter(e)).toList();
-              return ListView.builder(
-                padding: const EdgeInsets.only(top: 10),
+              return CustomScrollView(
                 physics: const BouncingScrollPhysics(),
-                itemCount: filtredElements.length,
-                itemBuilder: (_, i) {
-                  final data = filtredElements[_controller.isLogOrderReversed
-                      ? filtredElements.length - 1 - i
-                      : i];
-                  if (widget.itemsBuilder != null) {
-                    return widget.itemsBuilder!.call(context, data);
-                  }
-                  return TalkerDataCard(
-                    data: data,
-                    onTap: () => _copyTalkerDataItemText(data),
-                    // options: talkerScreenTheme,
-                    expanded: _controller.expandedLogs,
-                  );
-                },
+                slivers: [
+                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, i) {
+                        final data = _getListItem(filtredElements, i);
+                        if (widget.itemsBuilder != null) {
+                          return widget.itemsBuilder!.call(context, data);
+                        }
+                        return TalkerDataCard(
+                          data: data,
+                          onTap: () => _copyTalkerDataItemText(data),
+                          expanded: _controller.expandedLogs,
+                        );
+                      },
+                      childCount: filtredElements.length,
+                    ),
+                  ),
+                ],
               );
             },
           ),
         );
       },
     );
+  }
+
+  TalkerDataInterface _getListItem(
+    List<TalkerDataInterface> filtredElements,
+    int i,
+  ) {
+    final data = filtredElements[
+        _controller.isLogOrderReversed ? filtredElements.length - 1 - i : i];
+    return data;
   }
 
   void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {

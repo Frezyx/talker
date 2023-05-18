@@ -31,13 +31,17 @@ class Talker {
   /// {@endtemplate}
   Talker({
     TalkerLogger? logger,
+    List<TalkerObserver>? observers,
     TalkerSettings? settings,
     TalkerFilter? filter,
-    TalkerLoggerSettings? loggerSettings,
-    LoggerFilter? loggerFilter,
-    LoggerFormatter? loggerFormater,
-    List<TalkerObserver>? observers,
-    Function(String message)? loggerOutput,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        TalkerLoggerSettings? loggerSettings,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFilter? loggerFilter,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFormatter? loggerFormater,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        Function(String message)? loggerOutput,
   }) {
     _filter = filter;
     this.settings = settings ?? TalkerSettings();
@@ -87,9 +91,12 @@ class Talker {
   void configure({
     TalkerLogger? logger,
     TalkerSettings? settings,
-    TalkerLoggerSettings? loggerSettings,
-    LoggerFilter? loggerFilter,
-    LoggerFormatter? loggerFormater,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        TalkerLoggerSettings? loggerSettings,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFilter? loggerFilter,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     TalkerFilter? filter,
   }) {

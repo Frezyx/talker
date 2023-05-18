@@ -1,3 +1,8 @@
+# 3.0.0-dev.7
+
+- Make loggerSettings, loggerFilter, loggerFormater, loggerOutput Deprecated
+  Currently you can setup this felds and all other logger settings only in TalkerLogger constructor
+
 # 3.0.0-dev.6
 
 - Add WellKnownTitle route

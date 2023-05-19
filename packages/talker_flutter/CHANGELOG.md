@@ -1,3 +1,8 @@
+# 3.0.0-dev.5
+
+- Rename **TalkerHistoryBuilder** -> **TalkerBuilder**
+- Remove old **TalkerBuilder**
+
 # 3.0.0-dev.4
 
 - Make loggerSettings, loggerFilter, loggerFormater, loggerOutput Deprecated

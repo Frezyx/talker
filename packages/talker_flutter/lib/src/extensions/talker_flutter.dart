@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -8,11 +10,15 @@ extension TalkerFlutter on Talker {
     TalkerLogger? logger,
     TalkerSettings? settings,
     TalkerFilter? filter,
-    TalkerLoggerSettings? loggerSettings,
-    LoggerFilter? loggerFilter,
-    LoggerFormatter? loggerFormater,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        TalkerLoggerSettings? loggerSettings,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFilter? loggerFilter,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
-    Function(String message)? loggerOutput,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        Function(String message)? loggerOutput,
   }) =>
       Talker(
         logger: logger,

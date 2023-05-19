@@ -54,7 +54,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
             onPressed: () => _showActionsBottomSheet(context),
             child: const Icon(Icons.menu_rounded),
           ),
-          body: TalkerHistoryBuilder(
+          body: TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
               final filtredElements =
@@ -353,7 +353,7 @@ class _MonitorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TalkerHistoryBuilder(
+    return TalkerBuilder(
       talker: talker,
       builder: (context, data) {
         final haveErrors = data

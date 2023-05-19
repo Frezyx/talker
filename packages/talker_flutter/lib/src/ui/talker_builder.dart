@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-typedef TalkerHistoryWidgetBuilder = Widget Function(
-    BuildContext context, List<TalkerDataInterface> data);
+typedef TalkerWidgetBuilder = Widget Function(
+  BuildContext context,
+  List<TalkerDataInterface> data,
+);
 
-class TalkerHistoryBuilder extends StatelessWidget {
-  const TalkerHistoryBuilder({
+class TalkerBuilder extends StatelessWidget {
+  const TalkerBuilder({
     Key? key,
     required this.talker,
     required this.builder,
   }) : super(key: key);
 
   final Talker talker;
-  final TalkerHistoryWidgetBuilder builder;
+  final TalkerWidgetBuilder builder;
 
   @override
   Widget build(BuildContext context) {

@@ -26,7 +26,7 @@ class TalkerMonitor extends StatelessWidget {
           child: Text('Talker Monitor'),
         ),
       ),
-      body: TalkerHistoryBuilder(
+      body: TalkerBuilder(
         talker: talker,
         builder: (context, data) {
           final logs = data.whereType<TalkerLog>().toList();

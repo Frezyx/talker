@@ -24,16 +24,8 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
 }
 
 class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
-  // TalkerDioLogger? _dioLogger;
-
   @override
   void initState() {
-    //   final addons = widget.talker.value.addons;
-    //   final dioAddon = addons[TalkerOriginalAddons.talkerDioLogger.code];
-    //   if (dioAddon != null && dioAddon is TalkerDioLogger) {
-    //     _dioLogger = dioAddon;
-    //   }
-
     widget.talker.addListener(() => setState(() {}));
     super.initState();
   }

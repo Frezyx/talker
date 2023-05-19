@@ -9,13 +9,14 @@ import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'talker_actions/talker_actions.dart';
+import 'theme/default_theme.dart';
 
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatefulWidget {
   const TalkerScreen({
     Key? key,
     required this.talker,
-    this.appBarTitle = 'Flutter talker',
+    this.appBarTitle = 'Talker',
     this.theme = const TalkerScreenTheme(),
     this.itemsBuilder,
   }) : super(key: key);
@@ -46,6 +47,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
   @override
   Widget build(BuildContext context) {
     final talkerScreenTheme = widget.theme;
+    final theme = Theme.of(context);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -119,20 +121,38 @@ class _TalkerScreenState extends State<TalkerScreen> {
                     title: SizedBox(
                       height: 50,
                       child: ListView(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: const EdgeInsets.only(left: 16),
                         scrollDirection: Axis.horizontal,
                         children: [
                           GroupButton(
                             controller: _titilesController,
                             isRadio: false,
-                            options: GroupButtonOptions(
-                              groupingType: GroupingType.row,
-                              borderRadius: BorderRadius.circular(10),
-                              spacing: 5,
-                            ),
-                            buttonBuilder: (selected, value, context) => Text(
-                              '$value(${titles.where((e) => e == value).length})',
-                            ),
+                            buttonBuilder: (selected, value, context) {
+                              final count =
+                                  titles.where((e) => e == value).length;
+                              return Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: selected
+                                      ? theme.primaryColor
+                                      : cardBackgroundColor,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '$count',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      '$value',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                             onSelected: (_, i, selected) {
                               _onToggleTitle(unicTitles[i], selected);
                             },

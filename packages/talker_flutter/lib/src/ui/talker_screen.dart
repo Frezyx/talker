@@ -5,7 +5,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
-import 'package:talker_flutter/src/ui/ui.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'talker_actions/talker_actions.dart';
@@ -78,15 +77,6 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   onPressed: () => _openTalkerMonitor(context),
                 ),
               ),
-              SizedBox(
-                width: 40,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  iconSize: 28,
-                  onPressed: () => _showFilter(context),
-                  icon: const Icon(Icons.filter_alt_outlined),
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(right: 6),
                 child: SizedBox(
@@ -117,52 +107,87 @@ class _TalkerScreenState extends State<TalkerScreen> {
                     pinned: false,
                     floating: true,
                     titleSpacing: 0,
-                    toolbarHeight: 50,
-                    title: SizedBox(
-                      height: 50,
-                      child: ListView(
-                        padding: const EdgeInsets.only(left: 16),
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          GroupButton(
-                            controller: _titilesController,
-                            isRadio: false,
-                            buttonBuilder: (selected, value, context) {
-                              final count =
-                                  titles.where((e) => e == value).length;
-                              return Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: selected
-                                      ? theme.primaryColor
-                                      : cardBackgroundColor,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      '$count',
-                                      style: const TextStyle(fontSize: 12),
+                    toolbarHeight: 110,
+                    title: Column(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          child: ListView(
+                            padding: const EdgeInsets.only(left: 16),
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              GroupButton(
+                                controller: _titilesController,
+                                isRadio: false,
+                                buttonBuilder: (selected, value, context) {
+                                  final count =
+                                      titles.where((e) => e == value).length;
+                                  return Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: selected
+                                          ? theme.primaryColor
+                                          : cardBackgroundColor,
                                     ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      '$value',
-                                      style: const TextStyle(fontSize: 12),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '$count',
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '$value',
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              );
-                            },
-                            onSelected: (_, i, selected) {
-                              _onToggleTitle(unicTitles[i], selected);
-                            },
-                            buttons: unicTitles,
+                                  );
+                                },
+                                onSelected: (_, i, selected) {
+                                  _onToggleTitle(unicTitles[i], selected);
+                                },
+                                buttons: unicTitles,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 4),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: TextFormField(
+                            style: theme.textTheme.bodyLarge!.copyWith(
+                              color: talkerScreenTheme.textColor,
+                            ),
+                            onChanged: _controller.updateFilterSearchQuery,
+                            decoration: InputDecoration(
+                              fillColor: theme.cardColor,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: talkerScreenTheme.textColor),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: talkerScreenTheme.textColor),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: talkerScreenTheme.textColor,
+                              ),
+                              hintText: 'Search...',
+                              hintStyle: theme.textTheme.bodyLarge!.copyWith(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 4)),
+                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {
@@ -286,23 +311,6 @@ class _TalkerScreenState extends State<TalkerScreen> {
     final text = data.generateTextMessage();
     Clipboard.setData(ClipboardData(text: text));
     _showSnackBar(context, 'Log item is copied in clipboard');
-  }
-
-  Future<void> _showFilter(BuildContext context) async {
-    await showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (context) {
-        return TalkerScreenFilter(
-          controller: _controller,
-          talkerScreenTheme: widget.theme,
-          talker: widget.talker,
-          typesController: _typesController,
-          titlesController: _titilesController,
-        );
-      },
-    );
   }
 
   void _cleanHistory() {

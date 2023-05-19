@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/widgets/cards/base_card.dart';
+import 'package:talker_flutter/src/ui/widgets/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorCard extends StatelessWidget {

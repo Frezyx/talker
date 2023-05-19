@@ -106,7 +106,10 @@ class _TalkerScreenState extends State<TalkerScreen> {
                             SizedBox(
                               height: 50,
                               child: ListView(
-                                padding: const EdgeInsets.only(left: 16),
+                                padding: const EdgeInsets.only(
+                                  left: 16,
+                                  right: 16,
+                                ),
                                 scrollDirection: Axis.horizontal,
                                 children: [
                                   GroupButton(

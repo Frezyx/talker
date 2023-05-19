@@ -39,8 +39,6 @@ class TalkerScreen extends StatefulWidget {
 
 class _TalkerScreenState extends State<TalkerScreen> {
   final _controller = TalkerScreenController();
-
-  final _typesController = GroupButtonController();
   final _titilesController = GroupButtonController();
 
   @override
@@ -52,44 +50,9 @@ class _TalkerScreenState extends State<TalkerScreen> {
       builder: (context, child) {
         return Scaffold(
           backgroundColor: talkerScreenTheme.backgroudColor,
-          appBar: AppBar(
-            title: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(widget.appBarTitle),
-            ),
-            actions: [
-              SizedBox(
-                width: 40,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  iconSize: 28,
-                  onPressed: () => _openTalkerSettings(
-                    context,
-                    talkerScreenTheme,
-                  ),
-                  icon: const Icon(Icons.settings_rounded),
-                ),
-              ),
-              SizedBox(
-                width: 40,
-                child: _MonitorButton(
-                  talker: widget.talker,
-                  onPressed: () => _openTalkerMonitor(context),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 6),
-                child: SizedBox(
-                  width: 28,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    iconSize: 28,
-                    onPressed: () => _showActionsBottomSheet(context),
-                    icon: const Icon(Icons.more_vert_rounded),
-                  ),
-                ),
-              ),
-            ],
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _showActionsBottomSheet(context),
+            child: const Icon(Icons.menu_rounded),
           ),
           body: TalkerHistoryBuilder(
             talker: widget.talker,
@@ -106,88 +69,129 @@ class _TalkerScreenState extends State<TalkerScreen> {
                     elevation: 0,
                     pinned: false,
                     floating: true,
-                    titleSpacing: 0,
-                    toolbarHeight: 110,
-                    title: Column(
-                      children: [
-                        SizedBox(
-                          height: 50,
-                          child: ListView(
-                            padding: const EdgeInsets.only(left: 16),
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              GroupButton(
-                                controller: _titilesController,
-                                isRadio: false,
-                                buttonBuilder: (selected, value, context) {
-                                  final count =
-                                      titles.where((e) => e == value).length;
-                                  return Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: selected
-                                          ? theme.primaryColor
-                                          : cardBackgroundColor,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          '$count',
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          '$value',
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                                onSelected: (_, i, selected) {
-                                  _onToggleTitle(unicTitles[i], selected);
-                                },
-                                buttons: unicTitles,
-                              ),
-                            ],
-                          ),
+                    expandedHeight: 180.0,
+                    collapsedHeight: 102,
+                    toolbarHeight: 60,
+                    actions: [
+                      UnconstrainedBox(
+                        child: IconButton(
+                          onPressed: () => _showActionsBottomSheet(context),
+                          icon: const Icon(Icons.menu_rounded),
                         ),
-                        const SizedBox(height: 4),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: TextFormField(
-                            style: theme.textTheme.bodyLarge!.copyWith(
-                              color: talkerScreenTheme.textColor,
-                            ),
-                            onChanged: _controller.updateFilterSearchQuery,
-                            decoration: InputDecoration(
-                              fillColor: theme.cardColor,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: talkerScreenTheme.textColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: talkerScreenTheme.textColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: talkerScreenTheme.textColor,
-                              ),
-                              hintText: 'Search...',
-                              hintStyle: theme.textTheme.bodyLarge!.copyWith(
-                                color: Colors.grey,
-                              ),
-                            ),
+                      ),
+                      UnconstrainedBox(
+                        child: IconButton(
+                          onPressed: () => _openTalkerSettings(
+                            context,
+                            talkerScreenTheme,
                           ),
+                          icon: const Icon(Icons.settings_rounded),
                         ),
-                      ],
+                      ),
+                      UnconstrainedBox(
+                        child: _MonitorButton(
+                          talker: widget.talker,
+                          onPressed: () => _openTalkerMonitor(context),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                    title: Text(widget.appBarTitle),
+                    flexibleSpace: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.pin,
+                      background: Padding(
+                        padding: const EdgeInsets.only(top: 60),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              child: ListView(
+                                padding: const EdgeInsets.only(left: 16),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  GroupButton(
+                                    controller: _titilesController,
+                                    isRadio: false,
+                                    buttonBuilder: (selected, value, context) {
+                                      final count = titles
+                                          .where((e) => e == value)
+                                          .length;
+                                      return Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: selected
+                                              ? theme.primaryColor
+                                              : cardBackgroundColor,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              '$count',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              '$value',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    onSelected: (_, i, selected) {
+                                      _onToggleTitle(unicTitles[i], selected);
+                                    },
+                                    buttons: unicTitles,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: TextFormField(
+                                style: theme.textTheme.bodyLarge!.copyWith(
+                                  color: talkerScreenTheme.textColor,
+                                ),
+                                onChanged: _controller.updateFilterSearchQuery,
+                                decoration: InputDecoration(
+                                  fillColor: theme.cardColor,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: talkerScreenTheme.textColor),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: talkerScreenTheme.textColor),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.search,
+                                    color: talkerScreenTheme.textColor,
+                                  ),
+                                  hintText: 'Search...',
+                                  hintStyle:
+                                      theme.textTheme.bodyLarge!.copyWith(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {
@@ -356,8 +360,6 @@ class _MonitorButton extends StatelessWidget {
           children: [
             Center(
               child: IconButton(
-                padding: EdgeInsets.zero,
-                iconSize: 28,
                 onPressed: onPressed,
                 icon: const Icon(Icons.monitor_heart_outlined),
               ),
@@ -365,14 +367,14 @@ class _MonitorButton extends StatelessWidget {
             if (haveErrors)
               Positioned(
                 right: 6,
-                top: 15,
+                top: 8,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.red,
                     shape: BoxShape.circle,
                   ),
-                  height: 5,
-                  width: 5,
+                  height: 7,
+                  width: 7,
                 ),
               ),
           ],

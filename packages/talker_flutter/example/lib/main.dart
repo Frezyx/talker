@@ -54,6 +54,7 @@ class _BaseExampleState extends State<BaseExample> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Talker Flutter',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],

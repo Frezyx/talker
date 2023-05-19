@@ -29,7 +29,7 @@ class BaseBottomSheet extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: talkerScreenTheme.backgroudColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,

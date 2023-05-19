@@ -39,6 +39,7 @@ class TalkerScreen extends StatefulWidget {
 
 class _TalkerScreenState extends State<TalkerScreen> {
   final _controller = TalkerScreenController();
+
   final _typesController = GroupButtonController();
   final _titilesController = GroupButtonController();
 
@@ -103,10 +104,45 @@ class _TalkerScreenState extends State<TalkerScreen> {
             builder: (context, data) {
               final filtredElements =
                   data.where((e) => _controller.filter.filter(e)).toList();
+              final titles = data.map((e) => e.title).toList();
+              final unicTitles = titles.toSet().toList();
               return CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: [
-                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                  SliverAppBar(
+                    backgroundColor: talkerScreenTheme.backgroudColor,
+                    elevation: 0,
+                    pinned: false,
+                    floating: true,
+                    titleSpacing: 0,
+                    toolbarHeight: 50,
+                    title: SizedBox(
+                      height: 50,
+                      child: ListView(
+                        padding: const EdgeInsets.only(left: 10),
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          GroupButton(
+                            controller: _titilesController,
+                            isRadio: false,
+                            options: GroupButtonOptions(
+                              groupingType: GroupingType.row,
+                              borderRadius: BorderRadius.circular(10),
+                              spacing: 5,
+                            ),
+                            buttonBuilder: (selected, value, context) => Text(
+                              '$value(${titles.where((e) => e == value).length})',
+                            ),
+                            onSelected: (_, i, selected) {
+                              _onToggleTitle(unicTitles[i], selected);
+                            },
+                            buttons: unicTitles,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 4)),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {
@@ -130,6 +166,14 @@ class _TalkerScreenState extends State<TalkerScreen> {
         );
       },
     );
+  }
+
+  void _onToggleTitle(String title, bool selected) {
+    if (selected) {
+      _controller.addFilterTitle(title);
+    } else {
+      _controller.removeFilterTitle(title);
+    }
   }
 
   TalkerDataInterface _getListItem(

@@ -1,3 +1,9 @@
+# 3.0.0-dev.3
+
+- Update Talker screen UI
+- Remove Filter bottom sheet (now this functionality is avaliable at TalkerScreen)
+- Remove **iconsColor** field from TalkerScreenTheme
+
 # 3.0.0-dev.2
 - Fix settings updates checking in UI
 - Update example

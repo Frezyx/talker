@@ -228,7 +228,7 @@ class _LogsPreview extends StatelessWidget {
               width: mediaQuery.size.width,
               height: mediaQuery.size.height,
               alignment: Alignment.center,
-              child: TalkerHistoryBuilder(
+              child: TalkerBuilder(
                   talker: GetIt.instance<Talker>(),
                   builder: (context, data) {
                     final reversedLogs = data.reversed.toList();

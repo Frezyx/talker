@@ -1,3 +1,42 @@
+# 3.0.0-dev.8
+
+- Rename route title to ROUTE
+
+# 3.0.0-dev.7
+
+- Make loggerSettings, loggerFilter, loggerFormater, loggerOutput Deprecated
+  Currently you can setup this felds and all other logger settings only in TalkerLogger constructor
+
+# 3.0.0-dev.6
+
+- Add WellKnownTitle route
+- Replace [ERROR] and [EXCEPTION] to [error] and [exception] titles
+
+# 3.0.0-dev.5
+
+- Update talker_logger version to 3.0.0-dev.3
+
+# 3.0.0-dev.4
+
+- Make _Filter class internal
+- Remove Talker equality overriding
+
+# 3.0.0-dev.3
+
+- Move all important files on upper level and simplify folders navigation
+
+# 3.0.0-dev.2
+
+- Make TalkerObserver abstract class with self methods
+  Remove constructor with callback's initialization
+
+# 3.0.0-dev.1
+
+- Delete talker addons feature
+- Delete TalkerInterface class
+- Make handleException and handleError deprecated methods
+- Make fine log method deprecated
+
 # 2.4.1
 - Add deprecations for **handleError** and **handleException** methods
 

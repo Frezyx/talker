@@ -1,3 +1,41 @@
+# 3.0.0-dev.7
+
+- Update talker version to ^3.0.0-dev.8
+- Fix TalkerFlutter logs colors for http and bloc logs
+
+# 3.0.0-dev.6
+
+- Update **TalkerScreen** UI
+- Fix AppBar SafeArea
+
+# 3.0.0-dev.5
+
+- Rename **TalkerHistoryBuilder** -> **TalkerBuilder**
+- Remove old **TalkerBuilder**
+
+# 3.0.0-dev.4
+
+- Make loggerSettings, loggerFilter, loggerFormater, loggerOutput Deprecated
+  Currently you can setup this felds and all other logger settings only in TalkerLogger constructor
+
+# 3.0.0-dev.3
+
+- Update Talker screen UI
+- Remove Filter bottom sheet (now this functionality is avaliable at TalkerScreen)
+- Remove **iconsColor** field from TalkerScreenTheme
+
+# 3.0.0-dev.2
+- Fix settings updates checking in UI
+- Update example
+
+# 3.0.0-dev.1
+
+- Rename TalkerMonitorItem -> TalkerMonitorCard
+- Remove FlutterTalkerDataInterface and subclasses
+- Remove talker_dio_logger depencency
+- Update talker version to 3.0.0-dev.6
+- Update internal packages versions
+
 # 2.4.3
 - **FEAT**: update path_provider version to 2.0.13
 

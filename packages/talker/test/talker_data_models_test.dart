@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_type_check, leading_newlines_in_multiline_strings
 
+import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
@@ -28,7 +29,7 @@ void main() {
       final message = error.generateTextMessage();
       expect(
         message,
-        '''[ERROR] | ${TalkerDateTimeFormater(error.time).timeAndSeconds} | test message
+        '''[test title] | ${TalkerDateTimeFormater(error.time).timeAndSeconds} | test message
 Invalid argument(s)''',
       );
     });
@@ -53,7 +54,7 @@ Invalid argument(s)''',
       final message = exception.generateTextMessage();
       expect(
         message,
-        '''[EXCEPTION] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
+        '''[test title] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
 Exception''',
       );
 

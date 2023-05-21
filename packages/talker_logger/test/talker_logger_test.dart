@@ -33,7 +33,7 @@ void main() {
   test('Constructor with fields', () {
     final logger = TalkerLogger(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
-      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      filter: const LogLevelFilter(LogLevel.critical),
       formater: _formatter,
     );
     _expectInstance(logger);
@@ -54,7 +54,7 @@ void main() {
     );
     logger = logger.copyWith(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
-      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      filter: const LogLevelFilter(LogLevel.critical),
       formater: _formatter,
     );
     logger.critical('c');
@@ -75,7 +75,7 @@ void main() {
     final messages = <String>[];
     var logger = TalkerLogger(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
-      filter: const LogLevelTalkerLoggerFilter(LogLevel.critical),
+      filter: const LogLevelFilter(LogLevel.critical),
       formater: _formatter,
       output: (message) => messages.add(message),
     );
@@ -117,10 +117,6 @@ void main() {
     test('info', () {
       _logger.info('Message');
       _expectMessageType(LogLevel.info);
-    });
-    test('fine', () {
-      _logger.fine('Message');
-      _expectMessageType(LogLevel.fine);
     });
     test('good', () {
       _logger.good('Message');
@@ -165,8 +161,6 @@ void _expectMessageType(LogLevel level) {
 }
 
 void _expectInstance(TalkerLogger logger) {
-  // ignore: unnecessary_type_check
-  expect(logger is TalkerLoggerInterface, true);
   // ignore: unnecessary_type_check
   expect(logger is TalkerLogger, true);
 }

@@ -6,7 +6,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 class TalkerRouteObserver extends NavigatorObserver {
   TalkerRouteObserver(this.talker);
 
-  final TalkerInterface talker;
+  final Talker talker;
 
   @override
   void didPush(Route route, Route? previousRoute) {
@@ -27,7 +27,7 @@ class TalkerRouteObserver extends NavigatorObserver {
   }
 }
 
-class TalkerRouteLog extends FlutterTalkerLog {
+class TalkerRouteLog extends TalkerLog {
   TalkerRouteLog({
     required Route route,
     bool isPush = true,
@@ -37,10 +37,7 @@ class TalkerRouteLog extends FlutterTalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(135);
 
   @override
-  Color get color => const Color(0xFFAF5FFF);
-
-  @override
-  String get title => 'ROUTE';
+  String get title => WellKnownTitles.route.title;
 
   static String _createMessage(
     Route<dynamic> route,

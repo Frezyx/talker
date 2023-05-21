@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:talker/src/utils/observers_manager.dart';
+import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 
 /// Talker - advanced exception handling and logging
 /// for dart/flutter applications
-class Talker implements TalkerInterface {
+class Talker {
   /// {@template talker_constructor}
   /// Talker base constructor
   ///
@@ -18,7 +20,7 @@ class Talker implements TalkerInterface {
   /// You can set your own [TalkerLoggerSettings] [loggerSettings]
   /// to customize talker logs,
   ///
-  /// You can set your own [TalkerLoggerFilter] [loggerFilter]
+  /// You can set your own [LoggerFilter] [loggerFilter]
   /// to filter talker logs,
   ///
   /// You can set your own [LoggerFormater] [loggerFormater]
@@ -29,13 +31,17 @@ class Talker implements TalkerInterface {
   /// {@endtemplate}
   Talker({
     TalkerLogger? logger,
+    List<TalkerObserver>? observers,
     TalkerSettings? settings,
     TalkerFilter? filter,
-    TalkerLoggerSettings? loggerSettings,
-    TalkerLoggerFilter? loggerFilter,
-    LoggerFormatter? loggerFormater,
-    List<TalkerObserver>? observers,
-    Function(String message)? loggerOutput,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        TalkerLoggerSettings? loggerSettings,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFilter? loggerFilter,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFormatter? loggerFormater,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        Function(String message)? loggerOutput,
   }) {
     _filter = filter;
     this.settings = settings ?? TalkerSettings();
@@ -55,25 +61,42 @@ class Talker implements TalkerInterface {
   /// Fields can be setup in [configure()] method
 
   /// {@macro talker_settings}
-  @override
   late TalkerSettings settings;
-  late TalkerLoggerInterface _logger;
-  late TalkerErrorHandlerInterface _errorHandler;
+  late TalkerLogger _logger;
+  late TalkerErrorHandler _errorHandler;
   late TalkerFilter? _filter;
 
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
   TalkerObserversManager? _observersManager;
-  final _addons = <String, Object>{};
 
-  /// {@macro talker_configure}
-  @override
+  /// Setup configuration of Talker
+  ///
+  /// You can set your own [TalkerLogger] [logger] subclass
+  /// (create your own class implements [TalkerLoggerInterface]),
+  ///
+  /// You can set your own [TalkerLoggerSettings] [loggerSettings]
+  /// to customize talker logs,
+  ///
+  /// You can set your own [LoggerFilter] [loggerFilter]
+  /// to filter talker logs,
+  ///
+  /// You can set your own [LoggerFormater] [loggerFormater]
+  /// to format output of talker logs,
+  ///
+  /// Also you can set [settings] [TalkerSettings],
+  ///
+  /// You can add your own observers to handle errors and logs in other place
+  /// [List<TalkerObserver>] [observers],
   void configure({
     TalkerLogger? logger,
     TalkerSettings? settings,
-    TalkerLoggerSettings? loggerSettings,
-    TalkerLoggerFilter? loggerFilter,
-    LoggerFormatter? loggerFormater,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        TalkerLoggerSettings? loggerSettings,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFilter? loggerFilter,
+    @Deprecated('Setup all logger settings in TalkerLogger constructor')
+        LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     TalkerFilter? filter,
   }) {
@@ -91,7 +114,7 @@ class Talker implements TalkerInterface {
     if (logger != null) {
       _logger = logger;
     } else {
-      final currLogger = _logger as TalkerLogger;
+      final currLogger = _logger;
       _logger = currLogger.copyWith(
         settings: loggerSettings,
         filter: loggerFilter,
@@ -103,21 +126,37 @@ class Talker implements TalkerInterface {
   final _talkerStreamController =
       StreamController<TalkerDataInterface>.broadcast();
 
-  /// {@macro talker_stream}
-  @override
+  /// Common stream to sent all processed events [TalkerDataInterface]
+  /// occurred errors [TalkerError]s, exceptions [TalkerException]s
+  /// and logs [TalkerLog]s that have been sent
+  /// You can connect a listener to it and catch the received errors
+  ///
+  /// Or you can add your observer [TalkerObserver] in the settings
+
   Stream<TalkerDataInterface> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
-  /// {@macro talker_history}
-  @override
+  /// The history stores all information about all events like
+  /// occurred errors [TalkerError]s, exceptions [TalkerException]s
+  /// and logs [TalkerLog]s that have been sent
+
   List<TalkerDataInterface> get history => _history;
 
-  ///{@macro talker_addons}
-  @override
-  Map<String, Object> get addons => _addons;
+  /// Handle common exceptions in your code
+  /// [Object] [exception] - excption
+  /// [String?] [msg] - message describes what happened
+  /// [StackTrace?] [stackTrace] - stackTrace
+  ///
+  /// ```dart
+  /// try {
+  ///   // your code...
+  /// } catch (e, st) {
+  ///   talker.handle(e, 'Eception in ...', st);
+  /// }
+  /// ```
+  ///
+  /// {@macro errorLevel}
 
-  /// {@macro talker_handle}
-  @override
   void handle(
     Object exception, [
     StackTrace? stackTrace,
@@ -139,8 +178,19 @@ class Talker implements TalkerInterface {
     }
   }
 
-  /// {@macro talker_handleError}
-  @override
+  /// Handle only Errors
+  /// [Error] [error] - error
+  /// [String?] [msg] - message describes what happened
+  /// [StackTrace?] [stackTrace] - stackTrace
+  /// ```dart
+  /// try {
+  ///   // your code...
+  /// } on Error catch (e, st) {
+  ///   talker.handleError(e, 'Error in ...', st);
+  /// }
+  /// ```
+  /// {@macro errorLevel}
+
   @Deprecated("Will be removed in a future release. Use handle method instead")
   void handleError(
     Error error, [
@@ -160,7 +210,7 @@ class Talker implements TalkerInterface {
   }
 
   /// {@macro talker_handleException}
-  @override
+
   @Deprecated("Will be removed in a future release. Use handle method instead")
   void handleException(
     Exception exception, [
@@ -180,8 +230,28 @@ class Talker implements TalkerInterface {
     }
   }
 
-  /// {@macro talker_log}
-  @override
+  /// Log a new message with maximal customization
+  /// [String] [message] - message describes what happened
+  /// [LogLevel] [logLevel] - to control logging output
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  /// [Map<String, dynamic>?] [additional] - additional log data for
+  /// your own further logic processing
+  /// [AnsiPen?] [pen] - sets your own log color for console
+  /// ```dart
+  ///   talker.log(
+  ///     'Server error',
+  ///     logLevel: LogLevel.critical,
+  ///     additional: {
+  ///       "status": 500,
+  ///       "error": "Internal Server Error",
+  ///     },
+  ///     exception: Exception('...'),
+  ///     stackTrace: stackTrace,
+  ///     pen: AnsiPen()..red(),
+  ///   );
+  /// ```
+
   void log(
     dynamic message, {
     LogLevel logLevel = LogLevel.debug,
@@ -192,14 +262,42 @@ class Talker implements TalkerInterface {
     _handleLog(message, exception, stackTrace, logLevel, pen: pen);
   }
 
-  /// {@macro talker_log_typed}
-  @override
+  /// Log a new message
+  /// created in the full [TalkerLog] model or they subclass
+  /// (you can create it by extends of [TalkerLog])
+  ///
+  /// [TalkerLog] [log] - log model
+  /// [LogLevel] [logLevel] - to control logging output
+  /// ```dart
+  /// class HttpTalkerLog extends TalkerLog {
+  ///   HttpTalkerLog(String message) : super(message);
+  ///
+  ///
+  ///   AnsiPen get pen => AnsiPen()..xterm(49);
+  ///
+  ///
+  ///   String generateTextMessage() {
+  ///     return pen.write(message);
+  ///   }
+  ///
+  ///   //You can add here response model of your request
+  ///   final httpLog = HttpTalkerLog('Http status: 200');
+  ///   talker.logTyped(httpLog);
+  /// ```
+
   void logTyped(TalkerLog log, {LogLevel logLevel = LogLevel.debug}) {
     _handleLogData(log, logLevel: logLevel);
   }
 
-  /// {@macro talker_critical_log}
-  @override
+  /// Log a new critical message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.critical('Log critical');
+  /// ```
+
   void critical(
     dynamic msg, [
     Object? exception,
@@ -208,8 +306,15 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.critical);
   }
 
-  /// {@macro talker_debug_log}
-  @override
+  /// Log a new debug message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.debug('Log debug');
+  /// ```
+
   void debug(
     dynamic msg, [
     Object? exception,
@@ -218,8 +323,15 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.debug);
   }
 
-  /// {@macro talker_error_log}
-  @override
+  /// Log a new error message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.error('Log error');
+  /// ```
+
   void error(
     dynamic msg, [
     Object? exception,
@@ -228,8 +340,16 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.error);
   }
 
-  /// {@macro talker_fine_log}
-  @override
+  /// Log a new fine message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.fine('Log fine');
+  /// ```
+
+  @Deprecated("Will be removed in a future release. Use any of other LogLevel")
   void fine(
     dynamic msg, [
     Object? exception,
@@ -238,8 +358,15 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.fine);
   }
 
-  /// {@macro talker_good_log}
-  @override
+  /// Log a new good message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.good('Log good');
+  /// ```
+
   void good(
     dynamic msg, [
     Object? exception,
@@ -248,8 +375,15 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.good);
   }
 
-  /// {@macro talker_info_log}
-  @override
+  /// Log a new info message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.info('Log info');
+  /// ```
+
   void info(
     dynamic msg, [
     Object? exception,
@@ -258,8 +392,15 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.info);
   }
 
-  /// {@macro talker_verbose_log}
-  @override
+  /// Log a new verbose message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.verbose('Log verbose');
+  /// ```
+
   void verbose(
     dynamic msg, [
     Object? exception,
@@ -268,8 +409,15 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.verbose);
   }
 
-  /// {@macro talker_warning_log}
-  @override
+  /// Log a new warning message
+  /// [dynamic] [message] - message describes what happened
+  /// [Object?] [exception] - exception if it happened
+  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
+  ///
+  /// ```dart
+  ///   talker.warning('Log warning');
+  /// ```
+
   void warning(
     dynamic msg, [
     Object? exception,
@@ -278,42 +426,30 @@ class Talker implements TalkerInterface {
     _handleLog(msg, exception, stackTrace, LogLevel.warning);
   }
 
-  ///{@macro talker_clear_log_history}
-  @override
+  /// Clear log history
+
   void cleanHistory() {
     if (settings.useHistory) {
       _history.clear();
     }
   }
 
-  ///{@macro talker_disable}
-  @override
+  /// Method stops all [Talker] works
+  ///
+  /// If you config package to handle errors or making logs,
+  /// this method stop these processes
+
   void disable() {
     settings.enabled = false;
   }
 
-  ///{@macro talker_enable}
-  @override
+  /// Method run all [Talker] works
+  ///
+  /// The method will return everything back
+  /// if the package was suspended by the [disable] method
+
   void enable() {
     settings.enabled = true;
-  }
-
-  ///{@macro talker_addon_register}
-  @override
-  void registerAddon({
-    required String code,
-    required Object addon,
-  }) {
-    if (_addons.containsKey(code)) {
-      throw Exception('Addon currently exist');
-    }
-    _addons[code] = addon;
-  }
-
-  ///{@macro talker_addon_reset}
-  @override
-  void resetAddon(String code) {
-    _addons.remove(code);
   }
 
   void _handleLog(
@@ -399,24 +535,5 @@ class Talker implements TalkerInterface {
   bool _isApprovedByFilter(TalkerDataInterface data) {
     final approved = _filter?.filter(data) ?? true;
     return approved;
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Talker &&
-        other.settings == settings &&
-        other._logger == _logger &&
-        other._errorHandler == _errorHandler &&
-        other._filter == _filter;
-  }
-
-  @override
-  int get hashCode {
-    return settings.hashCode ^
-        _logger.hashCode ^
-        _errorHandler.hashCode ^
-        _filter.hashCode;
   }
 }

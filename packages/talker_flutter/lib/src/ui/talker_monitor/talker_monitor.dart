@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_dio_logger/http_logs.dart';
-import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_http_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_typed_logs_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/widgets/widgets.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -16,7 +14,7 @@ class TalkerMonitor extends StatelessWidget {
   final TalkerScreenTheme theme;
 
   /// Talker implementation
-  final TalkerInterface talker;
+  final Talker talker;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class TalkerMonitor extends StatelessWidget {
           child: Text('Talker Monitor'),
         ),
       ),
-      body: TalkerHistoryBuilder(
+      body: TalkerBuilder(
         talker: talker,
         builder: (context, data) {
           final logs = data.whereType<TalkerLog>().toList();
@@ -44,16 +42,22 @@ class TalkerMonitor extends StatelessWidget {
                   e.logLevel == LogLevel.debug)
               .toList();
 
-          final httpRequests = data.whereType<HttpRequestLog>().toList();
-          final httpErrors = data.whereType<HttpErrorLog>().toList();
-          final httpResponses = data.whereType<HttpResponseLog>().toList();
+          final httpRequests = data
+              .where((e) => e.title == WellKnownTitles.httpRequest.title)
+              .toList();
+          final httpErrors = data
+              .where((e) => e.title == WellKnownTitles.httpError.title)
+              .toList();
+          final httpResponses = data
+              .where((e) => e.title == WellKnownTitles.httpResponse.title)
+              .toList();
 
           return CustomScrollView(
             slivers: [
               if (httpRequests.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: httpRequests,
                     title: 'Http Requests',
                     color: Colors.green,
@@ -103,7 +107,7 @@ class TalkerMonitor extends StatelessWidget {
               if (errors.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: errors,
                     title: 'Errors',
                     color: Colors.red,
@@ -118,7 +122,7 @@ class TalkerMonitor extends StatelessWidget {
               if (exceptions.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: exceptions,
                     title: 'Exceptions',
                     color: LogLevel.error.color,
@@ -133,7 +137,7 @@ class TalkerMonitor extends StatelessWidget {
               if (warnings.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: warnings,
                     title: 'Warnings',
                     color: LogLevel.warning.color,
@@ -147,7 +151,7 @@ class TalkerMonitor extends StatelessWidget {
               if (infos.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: infos,
                     title: 'Infos',
                     color: LogLevel.info.color,
@@ -160,7 +164,7 @@ class TalkerMonitor extends StatelessWidget {
               if (verboseDebug.isNotEmpty) ...[
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: TalkerMonitorItem(
+                  child: TalkerMonitorCard(
                     logs: verboseDebug,
                     title: 'Verbose & debug',
                     color: LogLevel.verbose.color,
@@ -183,14 +187,14 @@ class TalkerMonitor extends StatelessWidget {
   }
 
   void _openHttpMonitor(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => TalkerMonitorHttpScreen(
-          talker: talker,
-          talkerScreenTheme: theme,
-        ),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => TalkerMonitorHttpScreen(
+    //       talker: talker,
+    //       talkerScreenTheme: theme,
+    //     ),
+    //   ),
+    // );
   }
 
   void _openTypedLogsScreen(

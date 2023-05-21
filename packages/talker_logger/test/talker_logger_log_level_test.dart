@@ -10,14 +10,12 @@ void main() {
     LogLevel.warning: AnsiPen()..yellow(),
     LogLevel.verbose: AnsiPen()..gray(),
     LogLevel.info: AnsiPen()..blue(),
-    LogLevel.fine: AnsiPen()..cyan(),
     LogLevel.good: AnsiPen()..green(),
   };
 
   final textCases = {
     LogLevel.critical: 'CRITICAL',
     LogLevel.error: 'ERROR',
-    LogLevel.fine: 'FINE',
     LogLevel.warning: 'WARNING',
     LogLevel.verbose: 'VERBOSE',
     LogLevel.info: 'INFO',

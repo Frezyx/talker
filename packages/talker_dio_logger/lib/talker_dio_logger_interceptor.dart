@@ -15,10 +15,6 @@ class TalkerDioLogger extends Interceptor {
     this.addonId,
   }) {
     _talker = talker ?? Talker();
-    _talker.registerAddon(
-      code: addonId ?? TalkerOriginalAddons.talkerDioLogger.code,
-      addon: this,
-    );
   }
 
   late Talker _talker;

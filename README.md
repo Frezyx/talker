@@ -4,7 +4,7 @@
     </a>
 </p>
 <!-- <h1 align="center">Talker</h1> -->
-<h2 align="center"> Advanced error handler and logger for dart and flutter apps ☎️</h2>
+<h2 align="center"> Advanced error handler and logger for dart and flutter apps</h2>
 
 <p align="center">
     Log your app actions, catch and handle exceptions and errors, show alerts and share log reports
@@ -141,7 +141,7 @@ More examples you can get [here](https://github.com/Frezyx/talker/blob/master/pa
 
 ## Get Started Flutter
 
-Talker Flutter is extension for dart talker package with additional functionality which will help you to simplify work with Flutter application logs, errors and exceptions.
+Talker Flutter is an extension for the Dart Talker package that adds extra functionality to make it easier for you to handle logs, errors, and exceptions in your Flutter applications.
 
 ### Add dependency
 ```yaml

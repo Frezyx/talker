@@ -1,5 +1,5 @@
 name: talker
-description: Advanced and simple error handler and logger for dart and flutter apps with history, sharing, customization, etc.
+description: Advanced Error Handler, Logger, and App Monitoring with Logs History, Report Sharing, Custom Logs, and More.
 version: 3.0.0-dev.8
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker

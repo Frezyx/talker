@@ -14,7 +14,7 @@
 
 <p align="center">
     <a href="https://github.com/Frezyx/talker" align="center">
-        <img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/talker.png?raw=true">
+        <img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/talker.jpg?raw=true">
     </a>
 </p>
 

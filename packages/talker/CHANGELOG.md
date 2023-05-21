@@ -1,3 +1,7 @@
+# 3.0.0-dev.8
+
+- Rename route title to ROUTE
+
 # 3.0.0-dev.7
 
 - Make loggerSettings, loggerFilter, loggerFormater, loggerOutput Deprecated

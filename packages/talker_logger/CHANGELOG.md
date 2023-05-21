@@ -1,3 +1,7 @@
+# 3.0.0-dev.4
+
+- Update pubspec.yaml description
+
 # 3.0.0-dev.3
 - Move all important files on upper level and simplify folders navigation
 

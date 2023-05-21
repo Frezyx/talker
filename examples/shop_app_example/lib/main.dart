@@ -90,7 +90,6 @@ void _initTalker() {
 
 void _registerRepositories() {
   final dio = Dio();
-  // _tryPrecacheDio();
   dio.interceptors.add(GetIt.instance<TalkerDioLogger>());
 
   GetIt.instance.registerSingleton<AbstractProductsRepository>(

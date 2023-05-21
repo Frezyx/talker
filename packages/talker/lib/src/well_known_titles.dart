@@ -27,7 +27,7 @@ extension WellKnownTitlesExt on WellKnownTitles {
       case WellKnownTitles.blocTransition:
         return 'bloc-transition';
       case WellKnownTitles.route:
-        return 'route';
+        return 'ROUTE';
     }
   }
 }

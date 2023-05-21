@@ -11,7 +11,7 @@ void main() {
       expect(WellKnownTitles.httpResponse.title, equals('http-response'));
       expect(WellKnownTitles.blocEvent.title, equals('bloc-event'));
       expect(WellKnownTitles.blocTransition.title, equals('bloc-transition'));
-      expect(WellKnownTitles.route.title, equals('route'));
+      expect(WellKnownTitles.route.title, equals('ROUTE'));
     });
   });
 }

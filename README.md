@@ -213,7 +213,7 @@ Monitor is a filtered quick information about http requests, exceptions, errors,
 
 You will find Monitor at the TalkerScreen page
 
-<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_monitor/talker_monitor.png?raw=true"></a></p>
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/monitor.jpg?raw=true"></a></p>
 
 For better understanding how it works check [Web Demo](https://frezyx.github.io/talker) page
 
@@ -239,10 +239,13 @@ TalkerWrapper(
 
 ## More Features And Examples
 
+### Custom UI error messages
+
 In order to understand in more details - you can check this article ["Showing Flutter custom error messages"](https://dev.to/frezyx/showing-flutter-custom-error-messages-109o)
 
 TalkerWrapper [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/talker_wrapper_example/talker_wrapper_example.dart)
 
+### ShopApp example
 See full application example with BLoC and navigation [here](https://github.com/Frezyx/talker/blob/master/examples/shop_app_example)
 
 The talker_flutter package have a lot of another widgets like TalkerBuilder, TalkerListener, etc. You can find all of them in code documentation.

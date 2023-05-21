@@ -51,6 +51,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
         return Scaffold(
           backgroundColor: talkerScreenTheme.backgroudColor,
           floatingActionButton: FloatingActionButton(
+            backgroundColor: theme.primaryColor,
             onPressed: () => _showActionsBottomSheet(context),
             child: const Icon(Icons.menu_rounded),
           ),

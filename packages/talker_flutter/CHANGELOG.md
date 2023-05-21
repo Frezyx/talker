@@ -1,3 +1,8 @@
+# 3.0.0-dev.6
+
+- Update **TalkerScreen** UI
+- Fix AppBar SafeArea
+
 # 3.0.0-dev.5
 
 - Rename **TalkerHistoryBuilder** -> **TalkerBuilder**

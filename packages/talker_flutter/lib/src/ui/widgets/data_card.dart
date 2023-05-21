@@ -142,7 +142,7 @@ class TalkerDataCard extends StatelessWidget {
     if (data.title == WellKnownTitles.httpResponse.title) {
       return httpResponseLogColor;
     }
-    if (data.title == WellKnownTitles.httpResponse.title) {
+    if (data.title == WellKnownTitles.httpRequest.title) {
       return httpRequestLogColor;
     }
     if (data.title == WellKnownTitles.route.title) {

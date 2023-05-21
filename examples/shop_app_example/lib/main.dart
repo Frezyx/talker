@@ -21,7 +21,7 @@ void main() async {
   await _initFirease();
   _initTalker();
   _registerRepositories();
-  Bloc.observer = TalkerBlocObserver();
+  Bloc.observer = TalkerBlocObserver(talker: GetIt.instance<Talker>());
   runZonedGuarded(() {
     runApp(const MyApp());
   }, (Object error, StackTrace stack) {

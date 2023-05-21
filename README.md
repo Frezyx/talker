@@ -13,8 +13,8 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/Frezyx/talker/blob/dev/docs/assets/banner/banner.png?raw=true" align="center">
-        <img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/banner/banner.png?raw=true">
+    <a href="https://github.com/Frezyx/talker" align="center">
+        <img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/talker.png?raw=true">
     </a>
 </p>
 

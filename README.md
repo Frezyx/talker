@@ -220,8 +220,8 @@ For better understanding how it works check [Web Demo](https://frezyx.github.io/
 ## TalkerWrapper
 In addition 
 talker_flutter is able to show default and custom error messages and another status messages via TalkerWrapper
-| <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/gifs/talker_wrapper_app_example.gif?raw=true" width="350px"></a></p> | <p align="left"><a href="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true" align="center"><img src="https://github.com/Frezyx/talker/blob/master/docs/assets/talker_flutter/talker_wrapper_storage_view.jpeg?raw=true" width="1130px"></a></p> |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/wrapper.jpg?raw=true"></a></p>
 
 ```dart
 import 'package:talker_flutter/talker_flutter.dart';

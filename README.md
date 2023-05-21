@@ -45,7 +45,7 @@ Web Demo</a> page</p>
 ✅ &nbsp;Flutter app logs UI output at screen <br>
 ✅ &nbsp;Sharing and saving logs history and error crash reports<br>
 ✅ &nbsp;Showing UI exception alerts<br> 
-✅ &nbsp;Http logs available out of the box<br>
+✅ &nbsp;Http and BLoC logs available out of the box<br>
 ✅ [Check all features](#features-list)
 
 ## Packages
@@ -93,23 +93,25 @@ You can use Talker instance everywhere in your app <br>
 Simple and concise syntax will help you with this
 
 ```dart
-import 'package:talker/talker.dart';
+  import 'package:talker/talker.dart';
 
-final talker = Talker();
+  final talker = Talker();
 
-// Handle exceptions and errors
-try {
-  // your code...
-} catch (e, st) {
+  // Handle exceptions and errors
+  try {
+    throw Exception('Something went wrong');
+  } catch (e, st) {
     talker.handle(e, st, 'Exception with');
-}
+  }
 
-// Log your app info
-talker.info('App is started');
-talker.critical('❌ Houston, we have a problem!');
-talker.error('🚨 The service is not available');
+  // Log your app actions
+  talker.info('App is started');
+  talker.debug('All services enabled');
+  talker.error('❌ Houston, we have a problem!');
 ```
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker/console.png?raw=true"></a></p>
 
 ## ⚙️ Customization
 Configure the error handler and logger for yourself
@@ -182,8 +184,9 @@ There is a TalkerScreen widget from [talker_flutter](https://pub.dev/packages/ta
 
 For better understanding how it works check [Web Demo](https://frezyx.github.io/talker) page
 
-| <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_actions.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_flutter/talker_screen_filter.png?raw=true" width="250px"></a></p> |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/start.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/filter.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/actions.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker_flutter/settings.png?raw=true" width="250px"></a></p> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| TalkerScreen | TalkerFilter | TalkerActions | TalkerSettings |
 
 ### Easy to use
 You can use TalkerScreen everywhere in your app<br>
@@ -368,7 +371,7 @@ Bloc.observer = TalkerBlocObserver(talker: talker);
 - ✅ TalkerBuilder - UI builder to Logs List showing custom UI
 - ✅ Android/Windows/Web application logs colors
 - ✅ iOS/MacOS application logs colors
-- 🚧 Talker configuration chnages from TalkerFlutter 
+- ✅ Talker configuration chnages from TalkerFlutter 
 
 ✅ Logs and errors history saving
 

@@ -1,30 +1,19 @@
 import 'package:talker/talker.dart';
 
 Future<void> main() async {
-  final talker = Talker(
-    settings: TalkerSettings(),
-  );
+  final talker = Talker();
 
+  // Handle exceptions and errors
   try {
-    throw Exception('Test service exception');
+    throw Exception('Something went wrong');
   } catch (e, st) {
-    talker.handle(e, st, 'Working with string error');
+    talker.handle(e, st, 'Exception with');
   }
 
-  talker.log(
-    'Server error',
-    logLevel: LogLevel.critical,
-  );
-
-  talker.error('Log error');
-  talker.good('Log good');
-  talker.verbose('Log verbose');
-  talker.warning('Log warning');
-  talker.critical('Log critical');
-
-  final httpLog = HttpExampleTalkerLog('Http good');
-  talker.logTyped(httpLog);
-  talker.logTyped(AnalyticsExampleTalkerLog(talker));
+  // Log your app actions
+  talker.info('App is started');
+  talker.debug('All services enabled');
+  talker.error('❌ Houston, we have a problem!');
 }
 
 class HttpExampleTalkerLog extends TalkerLog {

@@ -1,3 +1,7 @@
+# 3.0.0-dev.9
+
+- Update README, and pubspec.yaml docs
+
 # 3.0.0-dev.7
 
 - Update talker version to ^3.0.0-dev.8

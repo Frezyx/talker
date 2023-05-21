@@ -1,3 +1,8 @@
+# 3.0.0-dev.7
+
+- Update talker version to ^3.0.0-dev.8
+- Fix TalkerFlutter logs colors for http and bloc logs
+
 # 3.0.0-dev.6
 
 - Update **TalkerScreen** UI

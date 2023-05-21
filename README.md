@@ -144,7 +144,7 @@ Talker Flutter is extension for dart talker package with additional functionalit
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^3.0.0-dev.6
+  talker_flutter: ^3.0.0-dev.7
 ```
 
 ### Setup

@@ -1,3 +1,20 @@
+# 3.0.0-dev.10
+
+- Delete deprecated in constructor and configure() method:
+  - **LoggerFormatter? loggerFormater**
+  - **LoggerFilter? loggerFilter** 
+  - **TalkerLoggerSettings? loggerSettings** 
+
+Now you can setup this fields only in TalkerLogger constructor
+
+- Delete deprecated methods:
+  - **handleError()** **handleException()**
+
+Now you can use the **handle()** method to achieve the same functionality in both methods.
+
+- Delete deprecated method:
+  - **fine()** log method
+
 # 3.0.0-dev.9
 
 - Update README, and pubspec.yaml docs

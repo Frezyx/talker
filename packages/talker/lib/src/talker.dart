@@ -34,24 +34,10 @@ class Talker {
     List<TalkerObserver>? observers,
     TalkerSettings? settings,
     TalkerFilter? filter,
-    @Deprecated('Setup all logger settings in TalkerLogger constructor')
-        TalkerLoggerSettings? loggerSettings,
-    @Deprecated('Setup all logger settings in TalkerLogger constructor')
-        LoggerFilter? loggerFilter,
-    @Deprecated('Setup all logger settings in TalkerLogger constructor')
-        LoggerFormatter? loggerFormater,
-    @Deprecated('Setup all logger settings in TalkerLogger constructor')
-        Function(String message)? loggerOutput,
   }) {
     _filter = filter;
     this.settings = settings ?? TalkerSettings();
-    _logger = logger ??
-        TalkerLogger().copyWith(
-          settings: loggerSettings,
-          filter: loggerFilter,
-          formater: loggerFormater,
-          output: loggerOutput,
-        );
+    _logger = logger ?? TalkerLogger();
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
     }
@@ -91,12 +77,6 @@ class Talker {
   void configure({
     TalkerLogger? logger,
     TalkerSettings? settings,
-    @Deprecated('Setup all logger settings in TalkerLogger constructor')
-        TalkerLoggerSettings? loggerSettings,
-    @Deprecated('Setup all logger settings in TalkerLogger constructor')
-        LoggerFilter? loggerFilter,
-    @Deprecated('Setup all logger settings in TalkerLogger constructor')
-        LoggerFormatter? loggerFormater,
     List<TalkerObserver>? observers,
     TalkerFilter? filter,
   }) {
@@ -106,21 +86,10 @@ class Talker {
     if (settings != null) {
       this.settings = settings;
     }
-
     if (observers != null && observers.isNotEmpty) {
       _observersManager = TalkerObserversManager(observers);
     }
-
-    if (logger != null) {
-      _logger = logger;
-    } else {
-      final currLogger = _logger;
-      _logger = currLogger.copyWith(
-        settings: loggerSettings,
-        filter: loggerFilter,
-        formater: loggerFormater,
-      );
-    }
+    _logger = logger ?? _logger;
   }
 
   final _talkerStreamController =
@@ -175,58 +144,6 @@ class Talker {
     }
     if (data is TalkerLog) {
       _handleLogData(data);
-    }
-  }
-
-  /// Handle only Errors
-  /// [Error] [error] - error
-  /// [String?] [msg] - message describes what happened
-  /// [StackTrace?] [stackTrace] - stackTrace
-  /// ```dart
-  /// try {
-  ///   // your code...
-  /// } on Error catch (e, st) {
-  ///   talker.handleError(e, 'Error in ...', st);
-  /// }
-  /// ```
-  /// {@macro errorLevel}
-
-  @Deprecated("Will be removed in a future release. Use handle method instead")
-  void handleError(
-    Error error, [
-    StackTrace? stackTrace,
-    dynamic msg,
-  ]) {
-    final data = TalkerError(
-      error,
-      stackTrace: stackTrace,
-      message: msg?.toString(),
-      logLevel: LogLevel.error,
-    );
-    _handleErrorData(data);
-    if (settings.enabled) {
-      _observersManager?.onError(data);
-    }
-  }
-
-  /// {@macro talker_handleException}
-
-  @Deprecated("Will be removed in a future release. Use handle method instead")
-  void handleException(
-    Exception exception, [
-    StackTrace? stackTrace,
-    dynamic msg,
-    // ErrorLevel? errorLevel,
-  ]) {
-    final data = TalkerException(
-      exception,
-      stackTrace: stackTrace,
-      message: msg?.toString(),
-      logLevel: LogLevel.error,
-    );
-    _handleErrorData(data);
-    if (settings.enabled) {
-      _observersManager?.onException(data);
     }
   }
 
@@ -338,24 +255,6 @@ class Talker {
     StackTrace? stackTrace,
   ]) {
     _handleLog(msg, exception, stackTrace, LogLevel.error);
-  }
-
-  /// Log a new fine message
-  /// [dynamic] [message] - message describes what happened
-  /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
-  ///
-  /// ```dart
-  ///   talker.fine('Log fine');
-  /// ```
-
-  @Deprecated("Will be removed in a future release. Use any of other LogLevel")
-  void fine(
-    dynamic msg, [
-    Object? exception,
-    StackTrace? stackTrace,
-  ]) {
-    _handleLog(msg, exception, stackTrace, LogLevel.fine);
   }
 
   /// Log a new good message

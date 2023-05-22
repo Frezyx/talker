@@ -1,3 +1,7 @@
+# 3.0.0-dev.5
+
+- Delete deprecated **LogLevel.fine** and **.fine()** log method 
+
 # 3.0.0-dev.4
 
 - Update pubspec.yaml description

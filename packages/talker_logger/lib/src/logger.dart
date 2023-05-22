@@ -118,20 +118,6 @@ class TalkerLogger {
 
   void info(dynamic msg) => log(msg, level: LogLevel.info);
 
-  /// {@template talker_logger_fine_log}
-  /// Log a new fine message
-  /// [String] [msg] - message describes what happened
-  ///
-  /// ```dart
-  /// final logger = TalkerLogger();
-  /// logger.fine('Log fine message');
-  /// ```
-  /// {@endtemplate}
-  @Deprecated(
-    "Will be removed in a future release. Use any of other log methods",
-  )
-  void fine(dynamic msg) => log(msg, level: LogLevel.fine);
-
   /// {@template talker_logger_good_log}
   /// Log a new good message
   /// [String] [msg] - message describes what happened

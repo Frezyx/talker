@@ -20,7 +20,6 @@ class TalkerLoggerSettings {
   ///       LogLevel.critical: AnsiPen()..red(),
   ///       LogLevel.error: AnsiPen()..magenta(),
   ///       LogLevel.info: AnsiPen()..cyan(),
-  ///       LogLevel.fine: AnsiPen()..yellow(),
   ///     },
   ///     enableColors: true,
   ///   ),

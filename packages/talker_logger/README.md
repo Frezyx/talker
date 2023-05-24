@@ -109,7 +109,6 @@ Or you can make simple customization with default formatters
         LogLevel.critical: AnsiPen()..yellow(),
         LogLevel.error: AnsiPen()..yellow(),
         LogLevel.info: AnsiPen()..yellow(),
-        LogLevel.fine: AnsiPen()..yellow(),
       },
       maxLineWidth: 20,
       lineSymbol: '#',

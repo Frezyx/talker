@@ -1,3 +1,8 @@
+# 3.0.0-dev.10
+
+- Update **talker** version to 3.0.0-dev.11
+- Delete LogLevel.fine deprecation usage in extensions
+
 # 3.0.0-dev.9
 
 - Update TalkerFlutter extension (Remove deprecated fileds)

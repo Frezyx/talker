@@ -1,3 +1,7 @@
+# 3.0.0-dev.11
+
+- Upgrade **talker_logger** version to 3.0.0-dev.5
+
 # 3.0.0-dev.10
 
 - Delete deprecated in constructor and configure() method:

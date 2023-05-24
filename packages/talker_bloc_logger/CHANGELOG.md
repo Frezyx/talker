@@ -1,3 +1,6 @@
+## 2.0.0-dev.2
+- Downgrade meta version to 1.8.0
+
 ## 2.0.0-dev.1
 - Upgrade talker to 3.0.0-dev.4 version
 - Make titles well known 

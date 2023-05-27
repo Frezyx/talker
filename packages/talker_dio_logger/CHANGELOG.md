@@ -1,3 +1,6 @@
+## 2.0.0-dev.2
+- Upgrade **talker** version to 3.0.0-dev.13
+
 ## 2.0.0-dev.1
 - Upgrade talker to 3.0.0-dev.4 version
 - Make titles well known 

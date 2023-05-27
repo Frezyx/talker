@@ -65,6 +65,7 @@ Talker is designed for any level of customization. <br>
 - [Packages](#packages)
 - [Get Started](#get-started)
 - [Customization](#⚙️-customization)
+- [TalkerObserver](#talkerobserver)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
   - [TalkerScreen](#talkerscreen)
@@ -133,6 +134,42 @@ final talker = Talker(
   );
 ```
 More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
+
+## TalkerObserver
+
+TalkerObserver is a mechanism that allows observing what is happening inside Talker from the outside.
+
+You can use it to transmit data about logs to external sources such as **Crashlytics**, **Sentry**, **Grafana**, or your own analytics service, etc.
+
+```dart
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:talker/talker.dart';
+
+class CrashlitycsTalkerObserver extends TalkerObserver {
+  CrashlitycsTalkerObserver();
+
+  @override
+  void onError(err) {
+      FirebaseCrashlytics.instance.recordError(
+        err.error,
+        err.stackTrace,
+        reason: err.message,
+      );
+  }
+
+  @override
+  void onException(err) {
+      FirebaseCrashlytics.instance.recordError(
+        err.exception,
+        err.stackTrace,
+        reason: err.message,
+      );
+  }
+}
+
+final craslyticsTalkerObserver = CrashlitycsTalkerObserver();
+final talker = Talker(observer: craslyticsTalkerObserver);
+```
 
 # Talker Flutter
 

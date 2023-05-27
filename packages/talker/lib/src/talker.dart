@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:talker/src/utils/observers_manager.dart';
 import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 
@@ -31,16 +30,14 @@ class Talker {
   /// {@endtemplate}
   Talker({
     TalkerLogger? logger,
-    List<TalkerObserver>? observers,
+    TalkerObserver? observer,
     TalkerSettings? settings,
     TalkerFilter? filter,
   }) {
     _filter = filter;
     this.settings = settings ?? TalkerSettings();
     _logger = logger ?? TalkerLogger();
-    if (observers != null && observers.isNotEmpty) {
-      _observersManager = TalkerObserversManager(observers);
-    }
+    _observer = observer ?? const _DefaultTalkerObserver();
     _errorHandler = TalkerErrorHandler(this.settings);
   }
 
@@ -51,10 +48,10 @@ class Talker {
   late TalkerLogger _logger;
   late TalkerErrorHandler _errorHandler;
   late TalkerFilter? _filter;
+  late TalkerObserver _observer;
 
   // final _fileManager = FileManager();
   final _history = <TalkerDataInterface>[];
-  TalkerObserversManager? _observersManager;
 
   /// Setup configuration of Talker
   ///
@@ -77,7 +74,7 @@ class Talker {
   void configure({
     TalkerLogger? logger,
     TalkerSettings? settings,
-    List<TalkerObserver>? observers,
+    TalkerObserver? observer,
     TalkerFilter? filter,
   }) {
     if (filter != null) {
@@ -86,9 +83,7 @@ class Talker {
     if (settings != null) {
       this.settings = settings;
     }
-    if (observers != null && observers.isNotEmpty) {
-      _observersManager = TalkerObserversManager(observers);
-    }
+    _observer = observer ?? _observer;
     _logger = logger ?? _logger;
   }
 
@@ -133,12 +128,12 @@ class Talker {
   ]) {
     final data = _errorHandler.handle(exception, stackTrace, msg?.toString());
     if (data is TalkerError) {
-      _observersManager?.onError(data);
+      _observer.onError(data);
       _handleErrorData(data);
       return;
     }
     if (data is TalkerException) {
-      _observersManager?.onException(data);
+      _observer.onException(data);
       _handleErrorData(data);
       return;
     }
@@ -398,7 +393,7 @@ class Talker {
     if (!isApproved) {
       return;
     }
-    _observersManager?.onLog(data);
+    _observer.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
@@ -435,4 +430,8 @@ class Talker {
     final approved = _filter?.filter(data) ?? true;
     return approved;
   }
+}
+
+class _DefaultTalkerObserver extends TalkerObserver {
+  const _DefaultTalkerObserver();
 }

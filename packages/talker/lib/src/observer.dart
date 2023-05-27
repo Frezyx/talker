@@ -3,6 +3,8 @@ import 'package:talker/src/models/models.dart';
 /// Base observer class for
 /// to create your own observers
 abstract class TalkerObserver {
+  const TalkerObserver();
+
   /// Called when [Talker] handle an [TalkerError]
   void onError(TalkerError err) {}
 

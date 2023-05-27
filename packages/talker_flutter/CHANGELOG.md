@@ -1,3 +1,7 @@
+# 3.0.0-dev.11
+
+- Update **talker** version to 3.0.0-dev.13
+
 # 3.0.0-dev.10
 
 - Update **talker** version to 3.0.0-dev.11

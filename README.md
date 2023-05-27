@@ -40,13 +40,14 @@ Web Demo</a> page</p>
 
 ## Motivation
 🚀 &nbsp;The main goal of the project is provide ability to understand where the error occurs in a shortest possible time <br>
-✅ &nbsp;Can work with different state managements <br>
-✅ &nbsp;Can work with any crash reporting tool (Firebase Crashlytics, Sentry, Your own, etc) <br>
-✅ &nbsp;Flutter app logs UI output at screen <br>
-✅ &nbsp;Sharing and saving logs history and error crash reports<br>
-✅ &nbsp;Showing UI exception alerts<br> 
-✅ &nbsp;Http and BLoC logs available out of the box<br>
-✅ [Check all features](#features-list)
+✅ &nbsp;Compatible with any state managements <br>
+✅ &nbsp;Works with any crash reporting tool (Firebase Crashlytics, Sentry, custom tools, etc.) <br>
+✅ &nbsp;Logs UI output of Flutter app on the screen <br>
+✅ &nbsp;Allows sharing and saving logs history and error crash reports <br>
+✅ &nbsp;Displays alerts for UI exceptions. <br>
+✅ &nbsp;Built-in support for dio [HTTP logs](#talker-dio-logger) <br>
+✅ &nbsp;Built-in support for [BLoC logs](#talker-bloc-logger) <br>
+✅ &nbsp;[Check all features](#features-list)
 
 ## Packages
 Talker is designed for any level of customization. <br>

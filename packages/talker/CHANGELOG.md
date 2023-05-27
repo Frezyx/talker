@@ -1,3 +1,8 @@
+# 3.0.0-dev.12
+
+- Add **observer** field instead of reomoved **observers**
+- Remove **observers** field to simplify API
+
 # 3.0.0-dev.11
 
 - Upgrade **talker_logger** version to 3.0.0-dev.5

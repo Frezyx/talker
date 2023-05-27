@@ -14,37 +14,15 @@ Future<void> main() async {
   talker.info('App is started');
   talker.debug('All services enabled');
   talker.error('❌ Houston, we have a problem!');
+  talker.logTyped(YourCustomLog('Something like your own service message'));
 }
 
-class HttpExampleTalkerLog extends TalkerLog {
-  HttpExampleTalkerLog(String message) : super(message);
+class YourCustomLog extends TalkerLog {
+  YourCustomLog(String message) : super(message);
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  String generateTextMessage() {
-    return pen.write(message);
-  }
-}
-
-class AnalyticsExampleTalkerLog extends TalkerLog {
-  AnalyticsExampleTalkerLog(this.talker) : super('Report');
-
-  final Talker talker;
-
-  @override
-  String get title => 'ANALYTICS';
+  String get title => 'CUSTOM';
 
   @override
   AnsiPen get pen => AnsiPen()..xterm(121);
-
-  @override
-  String generateTextMessage() {
-    final msg = '''
-$displayTitleWithTime$message
-Registred logs: ${talker.history.length}
-Registred symbols: ${talker.history.join().split('').length}''';
-    return msg;
-  }
 }

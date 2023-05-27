@@ -99,21 +99,25 @@ Simple and concise syntax will help you with this
 
   final talker = Talker();
 
-  // Handle exceptions and errors
+  /// Jsut logs
+  talker.warning('The pizza is over 😥');
+  talker.debug('Thinking about order new one 🤔');
+
+  // Handling Exception's and Error's
   try {
-    throw Exception('Something went wrong');
+    throw Exception('The restaurant is closed ❌');
   } catch (e, st) {
-    talker.handle(e, st, 'Exception with');
+    talker.handle(e, st);
   }
 
-  // Log your app actions
-  talker.info('App is started');
-  talker.debug('All services enabled');
-  talker.error('❌ Houston, we have a problem!');
+  /// Jsut logs
+  talker.info('Ordering from other restaurant...');
+  talker.info('Payment started...');
+  talker.good('Payment completed. Waiting for pizza 🍕');
 ```
 More examples you can get [there](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
-<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker/console.png?raw=true"></a></p>
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/v3/talker/console.jpg?raw=true"></a></p>
 
 ## ⚙️ Customization
 Configure the error handler and logger for yourself

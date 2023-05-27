@@ -3,17 +3,22 @@ import 'package:talker/talker.dart';
 Future<void> main() async {
   final talker = Talker();
 
-  // Handle exceptions and errors
+  /// Logs with LogLevel
+  talker.warning('The pizza is over 😥');
+  talker.debug('Thinking about order new one 🤔');
+  talker.error('The restaurant is closed ❌');
+  talker.info('Ordering from other restaurant...');
+  talker.info('Payment started...');
+  talker.good('Payment completed! Waiting for pizza 🍕');
+
+  /// [Exception]'s and [Error]'s handling
   try {
     throw Exception('Something went wrong');
   } catch (e, st) {
     talker.handle(e, st, 'Exception with');
   }
 
-  // Log your app actions
-  talker.info('App is started');
-  talker.debug('All services enabled');
-  talker.error('❌ Houston, we have a problem!');
+  /// Custom logs
   talker.logTyped(YourCustomLog('Something like your own service message'));
 }
 

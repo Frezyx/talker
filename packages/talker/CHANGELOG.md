@@ -1,3 +1,7 @@
+# 3.0.0-dev.13
+
+- Add **TalkerObserver** to README.md docs
+
 # 3.0.0-dev.12
 
 - Add **observer** field instead of reomoved **observers**

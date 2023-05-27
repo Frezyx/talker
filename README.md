@@ -86,7 +86,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^3.0.0-dev.12
+  talker: ^3.0.0-dev.13
 ```
 
 ### Easy to use

@@ -25,8 +25,8 @@ class Talker {
   /// You can set your own [LoggerFormater] [loggerFormater]
   /// to format output of talker logs,
   ///
-  /// You can add your own observers to handle errors and logs in other place
-  /// [List<TalkerObserver>] [observers],
+  /// You can add your own observer to handle errors and logs in other place
+  /// [TalkerObserver] [observer],
   /// {@endtemplate}
   Talker({
     TalkerLogger? logger,
@@ -69,8 +69,8 @@ class Talker {
   ///
   /// Also you can set [settings] [TalkerSettings],
   ///
-  /// You can add your own observers to handle errors and logs in other place
-  /// [List<TalkerObserver>] [observers],
+  /// You can add your own observer to handle errors and logs in other place
+  /// [TalkerObserver] [observer],
   void configure({
     TalkerLogger? logger,
     TalkerSettings? settings,

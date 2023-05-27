@@ -117,9 +117,6 @@ More examples you can get [there](https://github.com/Frezyx/talker/blob/master/p
 Configure the error handler and logger for yourself
 ```dart
 final talker = Talker(
-    /// Your own observers to handle errors's exception's and log's
-    /// like Crashlytics or Sentry observer
-    observers: [],
     settings: const TalkerSettings(
       /// You can enable/disable all talker processes with this field
       enabled: true,

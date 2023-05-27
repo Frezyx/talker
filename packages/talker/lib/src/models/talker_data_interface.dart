@@ -3,7 +3,7 @@ import 'package:talker/talker.dart';
 
 /// Base [Talker] Data transfer object
 /// Objects of this type are passed through
-/// handlers observers and stream
+/// handlers observer and stream
 abstract class TalkerDataInterface {
   /// {@template talker_data_message}
   /// [String] [message] - message describes what happened

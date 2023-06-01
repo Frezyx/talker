@@ -1,3 +1,6 @@
+## 2.0.0
+- Upgrade **talker** version to 3.0.0
+
 ## 2.0.0-dev.3
 - Upgrade **talker** version to 3.0.0-dev.13
 

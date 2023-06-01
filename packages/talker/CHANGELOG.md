@@ -1,3 +1,20 @@
+# 3.0.0
+
+**Lighter, simpler, more powerful**
+
+- Remove deprecated in constructor and configure() method:
+  - **LoggerFormatter? loggerFormater**
+  - **LoggerFilter? loggerFilter** 
+  - **TalkerLoggerSettings? loggerSettings** 
+Now you can setup this fields only in TalkerLogger constructor
+
+- Remove deprecated methods:
+  - **handleError()** **handleException()**
+  - **fine()** log method
+Now you can use the **handle()** method to achieve the same functionality in both methods.
+
+- Add **observer** field instead of reomoved **observers**
+
 # 3.0.0-dev.13
 
 - Add **TalkerObserver** to README.md docs

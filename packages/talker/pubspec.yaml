@@ -1,6 +1,6 @@
 name: talker
-description: Advanced Error Handler, Logger, and App Monitoring with Logs History, Report Sharing, Custom Logs, and More.
-version: 3.0.0-dev.13
+description: Advanced Error Handler, Logger, and App Monitoring with Logs History, Report Sharing, Custom Logs, and etc.
+version: 3.0.0
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues
@@ -9,13 +9,7 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  talker_logger: ^3.0.0-dev.5
-    # path:
-    #   ../talker_logger
-    # git:
-    #   url: https://github.com/Frezyx/talker
-    #   ref: testing
-    #   path: talker_logger/
+  talker_logger: ^3.0.1
 
 dev_dependencies:
   dart_code_metrics: ^5.7.4

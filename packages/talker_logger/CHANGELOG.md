@@ -1,3 +1,12 @@
+# 3.0.0
+
+- ⚠️ Remove **TalkerLoggerInterface**
+- ⚠️ Remove deprecated **LogLevel.fine** and **.fine()** log method 
+- ⚠️ Rename **LogLevelTalkerLoggerFilter** -> **LogLevelFilter**, **TalkerLoggerFilter** -> **LoggerFilter**
+- Move all important files on upper level and simplify folders navigation
+- Remove kDefaultLoggerSettings constant
+- Make console_utils private class
+
 # 3.0.0-dev.6
 
 - Remove kDefaultLoggerSettings constant

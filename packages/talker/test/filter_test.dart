@@ -42,10 +42,9 @@ void _testFilterBySearchText({
       configureFilter: configureFilter,
       useTalkerFilter: useTalkerFilter,
       searchQuery: 'http',
-      countFound: 5,
+      countFound: 4,
       logCallback: (talker) {
         talker.error('HTTP log');
-        talker.fine('Http log');
         talker.good('Log http request');
         talker.warning('http');
         talker.debug('Log http');
@@ -76,7 +75,7 @@ void _testFilterByTypes({
       types: [TalkerError],
       countFound: 2,
       logCallback: (talker) {
-        talker.fine('Test log');
+        talker.good('Test log');
         talker.handle(ArgumentError());
         talker.handle(ArgumentError());
       },
@@ -108,7 +107,7 @@ void _testFilterByTitles({
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
-          talker.handleException(Exception('Test log'));
+          talker.handle(Exception('Test log'));
         },
       );
 
@@ -119,7 +118,7 @@ void _testFilterByTitles({
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
-          talker.handleException(Exception('Test disabled log'));
+          talker.handle(Exception('Test disabled log'));
           talker.verbose('Test log');
         },
       );
@@ -135,8 +134,8 @@ void _testFilterByTitles({
           talker.error('Test log');
           talker.verbose('Test log');
           talker.verbose('Test log');
-          talker.handleException(Exception('Test disabled log'));
-          talker.handleError(ArgumentError());
+          talker.handle(Exception('Test disabled log'));
+          talker.handle(ArgumentError());
           talker.verbose('Test log');
           talker.critical('Test log');
         },

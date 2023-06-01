@@ -34,13 +34,19 @@ class BaseExample extends StatefulWidget {
 class _BaseExampleState extends State<BaseExample> {
   @override
   void initState() {
-    _fineLog();
-    _infoLog();
-    _handleError();
+    final talker = widget.talker;
+    talker.info('Renew token from expire date');
     _handleException();
-    _warningLog();
-    _criticalLog();
-    _customLog();
+    talker.warning('Cache images working slowly on this platform');
+    talker.log('Server exception', logLevel: LogLevel.critical);
+    talker.debug('Exception data sent for your analytics server');
+    talker.verbose(
+      'Start reloading config after critical server exception',
+    );
+    talker.info('3.............');
+    talker.info('2.......');
+    talker.info('1');
+    talker.good('Now you can check all Talkler power ⚡');
     super.initState();
   }
 
@@ -48,6 +54,7 @@ class _BaseExampleState extends State<BaseExample> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Talker Flutter',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],
@@ -60,39 +67,11 @@ class _BaseExampleState extends State<BaseExample> {
     );
   }
 
-  void _handleError() {
-    try {
-      throw ArgumentError('-6 is not positive number');
-    } catch (e, st) {
-      widget.talker.handle(e, st, 'Something wrong in calculation');
-    }
-  }
-
   void _handleException() {
     try {
       throw Exception('Test service exception');
     } catch (e, st) {
       widget.talker.handle(e, st, 'FakeService exception');
     }
-  }
-
-  void _fineLog() {
-    widget.talker.fine('Service send good request');
-  }
-
-  void _infoLog() {
-    widget.talker.info('Renew token from expire date');
-  }
-
-  void _warningLog() {
-    widget.talker.warning('Cache images working slowly on this platform');
-  }
-
-  void _customLog() {
-    widget.talker.logTyped(CustomLog('Custom log message'));
-  }
-
-  void _criticalLog() {
-    widget.talker.log('Server exception', logLevel: LogLevel.critical);
   }
 }

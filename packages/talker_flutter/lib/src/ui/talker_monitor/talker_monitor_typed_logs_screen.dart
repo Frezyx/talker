@@ -42,9 +42,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
   }
 
   void _copyTalkerDataItemText(BuildContext context, TalkerDataInterface data) {
-    final text = data is FlutterTalkerDataInterface
-        ? data.generateFlutterTextMessage()
-        : data.generateTextMessage();
+    final text = data.generateTextMessage();
     Clipboard.setData(ClipboardData(text: text));
     _showSnackBar(context, 'Log item is copied in clipboard');
   }

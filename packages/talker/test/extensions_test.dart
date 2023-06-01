@@ -15,11 +15,4 @@ void main() {
       expect(fullMsg, expectedMsg);
     });
   });
-
-  group('TalkerOriginalAddonsExt', () {
-    test('code', () async {
-      expect('talker_dio_logger', TalkerOriginalAddons.talkerDioLogger.code);
-      expect('talker_bloc_logger', TalkerOriginalAddons.talkerBlocLogger.code);
-    });
-  });
 }

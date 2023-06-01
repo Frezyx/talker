@@ -1,1 +1,1 @@
-export 'talker_monitor_item.dart';
+export 'talker_monitor_card.dart';

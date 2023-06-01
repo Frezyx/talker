@@ -1,3 +1,16 @@
+## 2.0.0
+- Upgrade **talker** version to 3.0.0
+- Fix Addon currently exist [issue](https://github.com/Frezyx/talker/issues/102) 
+- Remove addon functionality to simplify code base
+
+## 2.0.0-dev.2
+- Upgrade **talker** version to 3.0.0-dev.13
+
+## 2.0.0-dev.1
+- Upgrade talker to 3.0.0-dev.4 version
+- Make titles well known 
+  (WellKnownTitles.httpRequest.title, WellKnownTitles.httpResponse.title, WellKnownTitles.httpError.title)
+
 # 1.3.0
 - **FEAT**: Update talker_dio_logger dio version to 5.0.0
 

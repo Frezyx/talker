@@ -59,10 +59,7 @@ class _ActionTile extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      leading: Icon(
-        action.icon,
-        color: talkerScreenTheme.iconsColor,
-      ),
+      leading: Icon(action.icon, color: talkerScreenTheme.textColor),
     );
   }
 }

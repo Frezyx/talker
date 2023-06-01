@@ -11,7 +11,7 @@ MaterialColor get primaryColor => MaterialColor(
       _primaryColorCodes,
     );
 
-Color get _primaryColor => Colors.black;
+Color get _primaryColor => Colors.deepPurple;
 final Map<int, Color> _primaryColorCodes = {
   50: _primaryColor.withOpacity(.1),
   100: _primaryColor.withOpacity(.2),

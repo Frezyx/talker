@@ -1,3 +1,14 @@
+# 3.0.0
+
+**Lighter, simpler, more powerful**
+
+- Big UI/UX updates. Interacting with logs from the application has become even easier now.
+- Rename **TalkerHistoryBuilder** -> **TalkerBuilder**
+- Remove old **TalkerBuilder**
+- Remove **FlutterTalkerDataInterface** and subclasses instead of **TalkerDataInterface**
+- Remove **iconsColor** field from TalkerScreenTheme
+- Remove Filter bottom sheet (now this functionality is avaliable at TalkerScreen)
+
 # 3.0.0-dev.12
 
 - Add **TalkerObserver** in **TalkerFlutter** extension constructor

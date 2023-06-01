@@ -1,3 +1,7 @@
+# 3.0.1
+
+- Move back console_utils export
+
 # 3.0.0
 
 - ⚠️ Remove **TalkerLoggerInterface**

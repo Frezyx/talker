@@ -1,4 +1,3 @@
-import 'package:talker_logger/src/utils/utils.dart';
 import 'package:talker_logger/talker_logger.dart';
 
 /// This formatter makes messages colorful

@@ -2,7 +2,7 @@ import 'package:talker_logger/talker_logger.dart';
 
 class TalkerLogger {
   TalkerLogger({
-    this.settings = kDefaultLoggerSettings,
+    this.settings = const TalkerLoggerSettings(),
     LoggerFilter? filter,
     this.formater = const ExtendedLoggerFormatter(),
     void Function(String message)? output,

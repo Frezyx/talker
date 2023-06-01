@@ -1,7 +1,5 @@
 import 'package:talker_logger/talker_logger.dart';
 
-const kDefaultLoggerSettings = TalkerLoggerSettings();
-
 /// Logger customization settings
 class TalkerLoggerSettings {
   const TalkerLoggerSettings({

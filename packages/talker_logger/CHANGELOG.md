@@ -1,3 +1,8 @@
+# 3.0.0-dev.6
+
+- Remove kDefaultLoggerSettings constant
+- Make console_utils private class
+
 # 3.0.0-dev.5
 
 - Delete deprecated **LogLevel.fine** and **.fine()** log method 

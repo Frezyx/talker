@@ -1,3 +1,7 @@
+# 3.0.0-dev.12
+
+- Add **TalkerObserver** in **TalkerFlutter** extension constructor
+
 # 3.0.0-dev.11
 
 - Update **talker** version to 3.0.0-dev.13

@@ -20,11 +20,11 @@ class HttpRequestLog extends TalkerLog {
   AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
-  String get title => 'http-request';
+  String get title => WellKnownTitles.httpRequest.title;
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] [${requestOptions.method}] $message';
+    var msg = '[$title] [${requestOptions.method}] $message';
 
     final data = requestOptions.data;
     final headers = requestOptions.headers;
@@ -59,11 +59,11 @@ class HttpResponseLog extends TalkerLog {
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
-  String get title => 'http-response';
+  String get title => WellKnownTitles.httpResponse.title;
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] [${response.requestOptions.method}] $message';
+    var msg = '[$title] [${response.requestOptions.method}] $message';
 
     final responseMessage = response.statusMessage;
     final data = response.data;
@@ -105,11 +105,11 @@ class HttpErrorLog extends TalkerLog {
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
-  String get title => 'http-error';
+  String get title => WellKnownTitles.httpError.title;
 
   @override
   String generateTextMessage() {
-    var msg = '[$displayTitle] [${dioError.requestOptions.method}] $message';
+    var msg = '[$title] [${dioError.requestOptions.method}] $message';
 
     final responseMessage = dioError.message;
     final statusCode = dioError.response?.statusCode;

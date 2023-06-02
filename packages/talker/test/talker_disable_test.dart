@@ -2,7 +2,7 @@ import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final talker = Talker();
+  final talker = Talker(settings: TalkerSettings(useConsoleLogs: false));
   setUp(() {
     talker.cleanHistory();
   });

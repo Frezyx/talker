@@ -1,3 +1,43 @@
+# 3.0.1
+
+- Move back console_utils export
+
+# 3.0.0
+
+- ⚠️ Remove **TalkerLoggerInterface**
+- ⚠️ Remove deprecated **LogLevel.fine** and **.fine()** log method 
+- ⚠️ Rename **LogLevelTalkerLoggerFilter** -> **LogLevelFilter**, **TalkerLoggerFilter** -> **LoggerFilter**
+- Move all important files on upper level and simplify folders navigation
+- Remove kDefaultLoggerSettings constant
+- Make console_utils private class
+
+# 3.0.0-dev.6
+
+- Remove kDefaultLoggerSettings constant
+- Make console_utils private class
+
+# 3.0.0-dev.5
+
+- Delete deprecated **LogLevel.fine** and **.fine()** log method 
+
+# 3.0.0-dev.4
+
+- Update pubspec.yaml description
+
+# 3.0.0-dev.3
+- Move all important files on upper level and simplify folders navigation
+
+# 3.0.0-dev.2
+
+- Make LogLevel.fine deprecatd
+
+# 3.0.0-dev.1
+
+- Remove **TalkerLoggerInterface**
+- Make fine log method Deprecated
+- Rename LogLevelTalkerLoggerFilter -> LogLevelFilter
+- Rename TalkerLoggerFilter -> LoggerFilter
+
 # 2.2.1
 - **FIX**: Fix color reset in console
 

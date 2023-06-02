@@ -1,3 +1,96 @@
+# 3.0.0
+
+**Lighter, simpler, more powerful**
+
+- Remove deprecated in constructor and configure() method:
+  - **LoggerFormatter? loggerFormater**
+  - **LoggerFilter? loggerFilter** 
+  - **TalkerLoggerSettings? loggerSettings** 
+Now you can setup this fields only in TalkerLogger constructor
+
+- Remove deprecated methods:
+  - **handleError()** **handleException()**
+  - **fine()** log method
+Now you can use the **handle()** method to achieve the same functionality in both methods.
+
+- Add **observer** field instead of reomoved **observers**
+
+# 3.0.0-dev.13
+
+- Add **TalkerObserver** to README.md docs
+
+# 3.0.0-dev.12
+
+- Add **observer** field instead of reomoved **observers**
+- Remove **observers** field to simplify API
+
+# 3.0.0-dev.11
+
+- Upgrade **talker_logger** version to 3.0.0-dev.5
+
+# 3.0.0-dev.10
+
+- Delete deprecated in constructor and configure() method:
+  - **LoggerFormatter? loggerFormater**
+  - **LoggerFilter? loggerFilter** 
+  - **TalkerLoggerSettings? loggerSettings** 
+
+Now you can setup this fields only in TalkerLogger constructor
+
+- Delete deprecated methods:
+  - **handleError()** **handleException()**
+
+Now you can use the **handle()** method to achieve the same functionality in both methods.
+
+- Delete deprecated method:
+  - **fine()** log method
+
+# 3.0.0-dev.9
+
+- Update README, and pubspec.yaml docs
+
+# 3.0.0-dev.8
+
+- Rename route title to ROUTE
+
+# 3.0.0-dev.7
+
+- Make loggerSettings, loggerFilter, loggerFormater, loggerOutput Deprecated
+  Currently you can setup this felds and all other logger settings only in TalkerLogger constructor
+
+# 3.0.0-dev.6
+
+- Add WellKnownTitle route
+- Replace [ERROR] and [EXCEPTION] to [error] and [exception] titles
+
+# 3.0.0-dev.5
+
+- Update talker_logger version to 3.0.0-dev.3
+
+# 3.0.0-dev.4
+
+- Make _Filter class internal
+- Remove Talker equality overriding
+
+# 3.0.0-dev.3
+
+- Move all important files on upper level and simplify folders navigation
+
+# 3.0.0-dev.2
+
+- Make TalkerObserver abstract class with self methods
+  Remove constructor with callback's initialization
+
+# 3.0.0-dev.1
+
+- Delete talker addons feature
+- Delete TalkerInterface class
+- Make handleException and handleError deprecated methods
+- Make fine log method deprecated
+
+# 2.4.1
+- Add deprecations for **handleError** and **handleException** methods
+
 # 2.4.0
 - **FEAT**: Ad addons functionality: registerAddon, resetAddon methods, addons getter
 

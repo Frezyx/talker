@@ -9,8 +9,6 @@ extension LogLevelExtensions on LogLevel? {
         return Colors.red[800]!;
       case LogLevel.error:
         return Colors.red[400]!;
-      case LogLevel.fine:
-        return Colors.teal[400]!;
       case LogLevel.warning:
         return Colors.orange[800]!;
       case LogLevel.verbose:

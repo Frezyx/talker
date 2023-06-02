@@ -30,8 +30,8 @@ void main() {
     });
 
     test('Handle error', () {
-      talker.handleError(ArgumentError());
-      talker.handleError(ArgumentError(), StackTrace.current, 'Some error');
+      talker.handle(ArgumentError());
+      talker.handle(ArgumentError(), StackTrace.current, 'Some error');
       expect(talker.history, isNotEmpty);
       expect(talker.history.length, 2);
       expect(talker.history.first is TalkerError, true);
@@ -40,8 +40,8 @@ void main() {
   });
 
   test('Handle exception', () {
-    talker.handleException(Exception());
-    talker.handleException(Exception(), StackTrace.current, 'Some error');
+    talker.handle(Exception());
+    talker.handle(Exception(), StackTrace.current, 'Some error');
     expect(talker.history, isNotEmpty);
     expect(talker.history.length, 2);
     expect(talker.history.first is TalkerException, true);
@@ -55,51 +55,6 @@ void main() {
     expect(talker.history.length, 2);
     expect(talker.history.first is TalkerLog, true);
     expect(talker.history.last is TalkerLog, true);
-  });
-
-  test('register addon', () {
-    final talkerWithAddons = Talker();
-    talkerWithAddons.registerAddon(
-      code: TalkerOriginalAddons.talkerBlocLogger.code,
-      addon: 'addon',
-    );
-    expect(talkerWithAddons.addons, isNotEmpty);
-    expect(
-      talkerWithAddons.addons,
-      {TalkerOriginalAddons.talkerBlocLogger.code: 'addon'},
-    );
-  });
-
-  test('register two addons with one code', () {
-    final talkerWithAddons = Talker();
-    talkerWithAddons.registerAddon(
-      code: TalkerOriginalAddons.talkerBlocLogger.code,
-      addon: 'addon',
-    );
-    try {
-      talkerWithAddons.registerAddon(
-        code: TalkerOriginalAddons.talkerBlocLogger.code,
-        addon: 'addon',
-      );
-    } catch (_) {
-      // pass...
-    }
-    expect(talkerWithAddons.addons, isNotEmpty);
-    expect(talkerWithAddons.addons.length, 1);
-    expect(
-      talkerWithAddons.addons,
-      {TalkerOriginalAddons.talkerBlocLogger.code: 'addon'},
-    );
-  });
-
-  test('reset addon', () {
-    final talkerWithAddons = Talker();
-    talkerWithAddons.registerAddon(
-      code: TalkerOriginalAddons.talkerBlocLogger.code,
-      addon: 'addon',
-    );
-    talkerWithAddons.resetAddon(TalkerOriginalAddons.talkerBlocLogger.code);
-    expect(talkerWithAddons.addons, isEmpty);
   });
 
   test('Equality', () {

@@ -3,10 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('Talker_History', () {
-    late TalkerInterface talker;
+    late Talker talker;
 
     setUp(() {
-      talker = Talker();
+      talker = Talker(settings: TalkerSettings(useConsoleLogs: false));
       talker.cleanHistory();
     });
 
@@ -17,7 +17,7 @@ void main() {
       final history = talker.history;
 
       expect(history, isNotEmpty);
-      expect(history.length, equals(6));
+      expect(history.length, equals(5));
     });
 
     test('OFF', () {
@@ -35,16 +35,14 @@ void main() {
       final history = talker.history;
       expect(history, isNotEmpty);
       expect(history.length, 4);
-      expect(history.first.logLevel, LogLevel.fine);
       expect(history.last.logLevel, LogLevel.debug);
     });
   });
 }
 
-void _makeLogs(TalkerInterface talker) {
+void _makeLogs(Talker talker) {
   talker.good('log');
   talker.info('log');
-  talker.fine('log');
   talker.verbose('log');
   talker.warning('log');
   talker.debug('log');
@@ -52,7 +50,7 @@ void _makeLogs(TalkerInterface talker) {
 
 void _configureTalker({
   required bool useHistory,
-  required TalkerInterface talker,
+  required Talker talker,
   int? maxHistoryItems,
 }) {
   talker.configure(

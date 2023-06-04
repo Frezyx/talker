@@ -5,6 +5,6 @@ export 'ui/talker_builder.dart';
 export 'ui/talker_listener.dart';
 export 'ui/talker_screen.dart';
 export 'ui/talker_wrapper/talker_wrapper.dart';
-export 'ui/run_talker_zoned_guarded/run_talker_zoned_guarded.dart';
 export 'ui/theme/theme.dart';
 export 'ui/widgets/data_card.dart';
+export 'utils/run_talker_zoned_guarded/run_talker_zoned_guarded.dart';

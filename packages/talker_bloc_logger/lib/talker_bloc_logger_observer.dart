@@ -63,4 +63,26 @@ class TalkerBlocObserver extends BlocObserver {
     super.onError(bloc, error, stackTrace);
     _talker.error('${bloc.runtimeType}', error, stackTrace);
   }
+
+  @override
+  void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
+  }
+
+  @override
+  void onClose(BlocBase bloc) {
+    super.onClose(bloc);
+  }
+
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    _talker.logTyped(
+      BlocChangeLog(
+        bloc: bloc,
+        change: change,
+        settings: settings,
+      ),
+    );
+  }
 }

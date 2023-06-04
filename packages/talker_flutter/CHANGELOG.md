@@ -1,5 +1,8 @@
+# 3.1.1
+- Fix TalkerFlutter output initialization
+
 # 3.1.0
-- **FIX**: Add **runTalkerZonedGuarded** method to setup handle all 
+- Add **runTalkerZonedGuarded** method to setup handle all 
 app unhandled exceptions with one method
 
 Thanks to [zezo357](https://github.com/zezo357)

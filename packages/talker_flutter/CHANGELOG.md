@@ -1,3 +1,9 @@
+# 3.1.0
+- **FIX**: Add **runTalkerZonedGuarded** method to setup handle all 
+app unhandled exceptions with one method
+
+Thanks to [zezo357](https://github.com/zezo357)
+
 # 3.0.0
 
 **Lighter, simpler, more powerful**

@@ -11,7 +11,9 @@ extension TalkerFlutter on Talker {
     TalkerFilter? filter,
   }) =>
       Talker(
-        logger: logger?.copyWith(output: _defaultFlutterOutput),
+        logger: (logger ?? TalkerLogger()).copyWith(
+          output: _defaultFlutterOutput,
+        ),
         settings: settings,
         observer: observer,
         filter: filter,

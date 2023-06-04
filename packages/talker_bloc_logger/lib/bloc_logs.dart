@@ -35,7 +35,7 @@ class BlocEventLog extends TalkerLog {
   }
 }
 
-/// [Bloc] state log model
+/// [Bloc] state transition log model
 class BlocStateLog extends TalkerLog {
   BlocStateLog({
     required this.bloc,
@@ -66,6 +66,41 @@ class BlocStateLog extends TalkerLog {
         '\n${'CURRENT state: ${settings.printStateFullData ? '\n${transition.currentState}' : transition.currentState.runtimeType}'}');
     sb.write(
         '\n${'NEXT state: ${settings.printStateFullData ? '\n${transition.nextState}' : transition.nextState.runtimeType}'}');
+    return sb.toString();
+  }
+}
+
+/// [Bloc] state changed log model
+class BlocChangeLog extends TalkerLog {
+  BlocChangeLog({
+    required this.bloc,
+    required this.change,
+    required this.settings,
+  }) : super('${bloc.runtimeType} changed');
+
+  final BlocBase bloc;
+  final Change change;
+  final TalkerBlocLoggerSettings settings;
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(49);
+
+  @override
+  String get title => WellKnownTitles.blocTransition.title;
+
+  @override
+  String generateTextMessage() {
+    return _createMessage();
+  }
+
+  String _createMessage() {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime);
+    sb.write('\n$message');
+    sb.write(
+        '\n${'CURRENT state: ${settings.printStateFullData ? '\n${change.currentState}' : change.currentState.runtimeType}'}');
+    sb.write(
+        '\n${'NEXT state: ${settings.printStateFullData ? '\n${change.nextState}' : change.nextState.runtimeType}'}');
     return sb.toString();
   }
 }

@@ -94,11 +94,11 @@ class HttpResponseLog extends TalkerLog {
 class HttpErrorLog extends TalkerLog {
   HttpErrorLog(
     String title, {
-    required this.dioError,
+    required this.dioException,
     required this.settings,
   }) : super(title);
 
-  final DioError dioError;
+  final DioException dioException;
   final TalkerDioLoggerSettings settings;
 
   @override
@@ -109,15 +109,15 @@ class HttpErrorLog extends TalkerLog {
 
   @override
   String generateTextMessage() {
-    var msg = '[$title] [${dioError.requestOptions.method}] $message';
+    var msg = '[$title] [${dioException.requestOptions.method}] $message';
 
-    final responseMessage = dioError.message;
-    final statusCode = dioError.response?.statusCode;
-    final data = dioError.response?.data;
-    final headers = dioError.requestOptions.headers;
+    final responseMessage = dioException.message;
+    final statusCode = dioException.response?.statusCode;
+    final data = dioException.response?.data;
+    final headers = dioException.requestOptions.headers;
 
     if (statusCode != null) {
-      msg += '\nStatus: ${dioError.response?.statusCode}';
+      msg += '\nStatus: ${dioException.response?.statusCode}';
     }
     msg += '\nMessage: $responseMessage';
 

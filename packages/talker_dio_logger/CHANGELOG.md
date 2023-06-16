@@ -1,3 +1,7 @@
+## 2.0.2
+- Replace deprecated DioError with **DioException**
+- Update sdk version to **'>=2.15.0 <4.0.0'**
+
 ## 2.0.1
 - Upgrade **dio** version to 5.2.0
 

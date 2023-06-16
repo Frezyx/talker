@@ -2,7 +2,7 @@ import 'package:http_interceptor/http_interceptor.dart';
 import 'package:talker_http_logger/talker_http_logger.dart';
 
 void main(List<String> args) async {
-  Client client = InterceptedClient.build(interceptors: [
+  final client = InterceptedClient.build(interceptors: [
     TalkerHttpLogger(),
   ]);
 

@@ -23,7 +23,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_http_logger: ^0.1.0
+  talker_http_logger: ^0.1.0-dev.2
 ```
 
 ### Usage
@@ -34,7 +34,7 @@ import 'package:http_interceptor/http_interceptor.dart';
 import 'package:talker_http_logger/talker_http_logger.dart';
 
 void main() async {
-  Client client = InterceptedClient.build(interceptors: [
+  final client = InterceptedClient.build(interceptors: [
     TalkerHttpLogger(),
   ]);
 
@@ -53,7 +53,7 @@ import 'package:talker_http_logger/talker_http_logger.dart';
 
 void main() async {
   final talker = Talker();
-  Client client = InterceptedClient.build(interceptors: [
+  final client = InterceptedClient.build(interceptors: [
     TalkerHttpLogger(talker: talker),
   ]);
 

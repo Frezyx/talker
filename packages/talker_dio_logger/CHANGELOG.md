@@ -1,3 +1,6 @@
+## 2.0.1
+- Upgrade **dio** version to 5.2.0
+
 ## 2.0.0
 - Upgrade **talker** version to 3.0.0
 - Fix Addon currently exist [issue](https://github.com/Frezyx/talker/issues/102) 

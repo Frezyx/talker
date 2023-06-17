@@ -68,16 +68,16 @@ class _TalkerScreenState extends State<TalkerScreen> {
                   SliverAppBar(
                     backgroundColor: talkerScreenTheme.backgroudColor,
                     elevation: 0,
-                    pinned: false,
+                    pinned: true,
                     floating: true,
-                    expandedHeight: 180.0,
-                    collapsedHeight: 102,
+                    expandedHeight: 180,
+                    collapsedHeight: 60,
                     toolbarHeight: 60,
                     actions: [
                       UnconstrainedBox(
-                        child: IconButton(
-                          onPressed: () => _showActionsBottomSheet(context),
-                          icon: const Icon(Icons.menu_rounded),
+                        child: _MonitorButton(
+                          talker: widget.talker,
+                          onPressed: () => _openTalkerMonitor(context),
                         ),
                       ),
                       UnconstrainedBox(
@@ -90,16 +90,16 @@ class _TalkerScreenState extends State<TalkerScreen> {
                         ),
                       ),
                       UnconstrainedBox(
-                        child: _MonitorButton(
-                          talker: widget.talker,
-                          onPressed: () => _openTalkerMonitor(context),
+                        child: IconButton(
+                          onPressed: () => _showActionsBottomSheet(context),
+                          icon: const Icon(Icons.menu_rounded),
                         ),
                       ),
                       const SizedBox(width: 10),
                     ],
                     title: Text(widget.appBarTitle),
                     flexibleSpace: FlexibleSpaceBar(
-                      collapseMode: CollapseMode.pin,
+                      collapseMode: CollapseMode.parallax,
                       background: SafeArea(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 60),
@@ -200,6 +200,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                       ),
                     ),
                   ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 8)),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {

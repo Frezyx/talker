@@ -16,13 +16,13 @@ import 'package:talker_shop_app_example/ui/ui.dart';
 
 import 'firebase_options.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await _initFirease();
-  _initTalker();
-  _registerRepositories();
-  Bloc.observer = TalkerBlocObserver(talker: GetIt.instance<Talker>());
-  runZonedGuarded(() {
+void main() {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await _initFirease();
+    _initTalker();
+    _registerRepositories();
+    Bloc.observer = TalkerBlocObserver(talker: GetIt.instance<Talker>());
     runApp(const MyApp());
   }, (Object error, StackTrace stack) {
     GetIt.instance<Talker>().handle(error, stack, 'Uncaught app exception');

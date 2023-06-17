@@ -38,11 +38,14 @@ class TalkerDataCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '${data.title} | ${data.displayTime}',
-                      style: TextStyle(
-                        color: color,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Text(
+                        '${data.title} | ${data.displayTime}',
+                        style: TextStyle(
+                          color: color,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                     if (onTap != null) Icon(Icons.copy, color: color, size: 18),

@@ -1,3 +1,12 @@
+# 3.1.4
+- Fix TalkerScreen scrolling
+
+# 3.1.3
+- Update sdk version to **'>=2.15.0 <4.0.0'**
+
+# 3.1.2
+- Make fixed text size in talker data list
+
 # 3.1.1
 - Fix TalkerFlutter output initialization
 

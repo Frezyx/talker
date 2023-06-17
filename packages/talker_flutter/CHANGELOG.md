@@ -1,3 +1,6 @@
+# 3.1.2
+- Make fixed text size in talker data list
+
 # 3.1.1
 - Fix TalkerFlutter output initialization
 

@@ -57,7 +57,7 @@ class TalkerDioLogger extends Interceptor {
     super.onRequest(options, handler);
     try {
       final message = '${options.uri}';
-      final httpLog = HttpRequestLog(
+      final httpLog = DioRequestLog(
         message,
         requestOptions: options,
         settings: settings,
@@ -73,7 +73,7 @@ class TalkerDioLogger extends Interceptor {
     super.onResponse(response, handler);
     try {
       final message = '${response.requestOptions.uri}';
-      final httpLog = HttpResponseLog(
+      final httpLog = DioResponseLog(
         message,
         settings: settings,
         response: response,
@@ -89,7 +89,7 @@ class TalkerDioLogger extends Interceptor {
     super.onError(exception, handler);
     try {
       final message = '${exception.requestOptions.uri}';
-      final httpErrorLog = HttpErrorLog(
+      final httpErrorLog = DioErrorLog(
         message,
         dioException: exception,
         settings: settings,

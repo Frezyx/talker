@@ -1,3 +1,8 @@
+## 2.1.0
+- Rename **HttpRequestLog** -> **DioRequestLog**
+- Rename **HttpResponseLog** -> **DioResponseLog**
+- Rename **HttpErrorLog** -> **DioErrorLog**
+
 ## 2.0.2
 - Replace deprecated DioError with **DioException**
 - Update sdk version to **'>=2.15.0 <4.0.0'**

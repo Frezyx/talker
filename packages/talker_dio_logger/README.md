@@ -23,7 +23,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^2.1.1
+  talker_dio_logger: ^2.1.2
 ```
 
 ### Usage

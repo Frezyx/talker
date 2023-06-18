@@ -85,13 +85,13 @@ class TalkerDioLogger extends Interceptor {
   }
 
   @override
-  void onError(DioException exception, ErrorInterceptorHandler handler) {
-    super.onError(exception, handler);
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    super.onError(err, handler);
     try {
-      final message = '${exception.requestOptions.uri}';
+      final message = '${err.requestOptions.uri}';
       final httpErrorLog = DioErrorLog(
         message,
-        dioException: exception,
+        dioException: err,
         settings: settings,
       );
       _talker.logTyped(httpErrorLog);

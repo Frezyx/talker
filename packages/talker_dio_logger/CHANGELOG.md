@@ -1,3 +1,7 @@
+## 2.1.1
+- Downgrade lints package to **2.0.0** version
+- Update analysis options
+
 ## 2.1.0
 - Rename **HttpRequestLog** -> **DioRequestLog**
 - Rename **HttpResponseLog** -> **DioResponseLog**

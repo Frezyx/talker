@@ -1,3 +1,8 @@
+# 3.1.5
+- Fix typos in package documentation
+
+Thanks to [vicenterusso](https://github.com/vicenterusso)
+
 # 3.1.4
 - Fix TalkerScreen scrolling
 

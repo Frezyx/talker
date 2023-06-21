@@ -6,7 +6,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 /// It should be used for app functionality like
 /// showing [SnackBar] or [Dialog] about error or exception
 ///
-/// The [listener] be called when [Talker.stream] recive new message
+/// The [listener] be called when [Talker.stream] received new message
 ///
 ///```dart
 ///TalkerListener(

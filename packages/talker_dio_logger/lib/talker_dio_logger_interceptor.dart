@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
-import 'package:talker_dio_logger/http_logs.dart';
+import 'package:talker_dio_logger/dio_logs.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 /// [Dio] http client logger on [Talker] base
@@ -61,7 +61,7 @@ class TalkerDioLogger extends Interceptor {
     }
     try {
       final message = '${options.uri}';
-      final httpLog = HttpRequestLog(
+      final httpLog = DioRequestLog(
         message,
         requestOptions: options,
         settings: settings,
@@ -81,7 +81,7 @@ class TalkerDioLogger extends Interceptor {
     }
     try {
       final message = '${response.requestOptions.uri}';
-      final httpLog = HttpResponseLog(
+      final httpLog = DioResponseLog(
         message,
         settings: settings,
         response: response,
@@ -93,13 +93,13 @@ class TalkerDioLogger extends Interceptor {
   }
 
   @override
-  void onError(DioException exception, ErrorInterceptorHandler handler) {
-    super.onError(exception, handler);
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    super.onError(err, handler);
     try {
-      final message = '${exception.requestOptions.uri}';
-      final httpErrorLog = HttpErrorLog(
+      final message = '${err.requestOptions.uri}';
+      final httpErrorLog = DioErrorLog(
         message,
-        dioException: exception,
+        dioException: err,
         settings: settings,
       );
       _talker.logTyped(httpErrorLog);

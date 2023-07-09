@@ -1,3 +1,19 @@
+## 2.2.0
+- Add **responseFilter** and **requestFilter** in **TalkerDioLoggerSettings**
+Now you can add your custom logic to log only specific HTTP responses and resuests
+
+## 2.1.2
+- Fix linter issues
+
+## 2.1.1
+- Downgrade lints package to **2.0.0** version
+- Update analysis options
+
+## 2.1.0
+- Rename **HttpRequestLog** -> **DioRequestLog**
+- Rename **HttpResponseLog** -> **DioResponseLog**
+- Rename **HttpErrorLog** -> **DioErrorLog**
+
 ## 2.0.2
 - Replace deprecated DioError with **DioException**
 - Update sdk version to **'>=2.15.0 <4.0.0'**

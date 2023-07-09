@@ -6,8 +6,8 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 const encoder = JsonEncoder.withIndent('  ');
 
-class HttpRequestLog extends TalkerLog {
-  HttpRequestLog(
+class DioRequestLog extends TalkerLog {
+  DioRequestLog(
     String title, {
     required this.requestOptions,
     required this.settings,
@@ -45,8 +45,8 @@ class HttpRequestLog extends TalkerLog {
   }
 }
 
-class HttpResponseLog extends TalkerLog {
-  HttpResponseLog(
+class DioResponseLog extends TalkerLog {
+  DioResponseLog(
     String title, {
     required this.response,
     required this.settings,
@@ -91,8 +91,8 @@ class HttpResponseLog extends TalkerLog {
   }
 }
 
-class HttpErrorLog extends TalkerLog {
-  HttpErrorLog(
+class DioErrorLog extends TalkerLog {
+  DioErrorLog(
     String title, {
     required this.dioException,
     required this.settings,

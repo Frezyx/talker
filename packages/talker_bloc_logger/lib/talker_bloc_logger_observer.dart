@@ -23,7 +23,7 @@ class TalkerBlocObserver extends BlocObserver {
   @mustCallSuper
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    if (!settings.enabled) {
+    if (!settings.enabled || !settings.printEvents) {
       return;
     }
     final accepted = settings.eventFilter?.call(bloc, event) ?? true;
@@ -43,7 +43,7 @@ class TalkerBlocObserver extends BlocObserver {
   @mustCallSuper
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    if (!settings.enabled) {
+    if (!settings.enabled || !settings.printTransitions) {
       return;
     }
     final accepted = settings.transitionFilter?.call(bloc, transition) ?? true;
@@ -55,6 +55,21 @@ class TalkerBlocObserver extends BlocObserver {
       transition: transition,
       settings: settings,
     ));
+  }
+
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    if (!settings.enabled || !settings.printChanges) {
+      return;
+    }
+    _talker.logTyped(
+      BlocChangeLog(
+        bloc: bloc,
+        change: change,
+        settings: settings,
+      ),
+    );
   }
 
   @override
@@ -72,17 +87,5 @@ class TalkerBlocObserver extends BlocObserver {
   @override
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
-  }
-
-  @override
-  void onChange(BlocBase bloc, Change change) {
-    super.onChange(bloc, change);
-    _talker.logTyped(
-      BlocChangeLog(
-        bloc: bloc,
-        change: change,
-        settings: settings,
-      ),
-    );
   }
 }

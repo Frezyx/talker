@@ -1,4 +1,6 @@
 ## 2.1.0
+- Update sdk version to **'>=2.15.0 <4.0.0'**
+## 2.1.0
 - Add logging for **onChange** method to enable **Cubit**'s logs
 - Add **printEvents**, **printTransitions**, **printChanges** fields in **TalkerBlocLoggerSettings**
 

@@ -1,3 +1,6 @@
+# 3.1.6
+- Update **talker** version to 3.0.2
+
 # 3.1.5
 - Fix typos in package documentation
 

@@ -55,6 +55,10 @@ class TalkerDioLogger extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     super.onRequest(options, handler);
+    final accepted = settings.requestFilter?.call(options) ?? true;
+    if (!accepted) {
+      return;
+    }
     try {
       final message = '${options.uri}';
       final httpLog = HttpRequestLog(
@@ -71,6 +75,10 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
+    final accepted = settings.responseFilter?.call(response) ?? true;
+    if (!accepted) {
+      return;
+    }
     try {
       final message = '${response.requestOptions.uri}';
       final httpLog = HttpResponseLog(

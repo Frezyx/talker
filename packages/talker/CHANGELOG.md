@@ -1,3 +1,6 @@
+# 3.0.2
+- Update **talker_logger** version to 3.0.3
+
 # 3.0.1
 - Update sdk version to **'>=2.15.0 <4.0.0'**
 

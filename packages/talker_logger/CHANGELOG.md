@@ -1,3 +1,6 @@
+# 3.0.2
+- Update **LogLevel** priority list
+
 # 3.0.1
 
 - Move back console_utils export

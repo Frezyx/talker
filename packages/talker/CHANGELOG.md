@@ -1,3 +1,6 @@
+# 3.0.1
+- Update sdk version to **'>=2.15.0 <4.0.0'**
+
 # 3.0.0
 
 **Lighter, simpler, more powerful**

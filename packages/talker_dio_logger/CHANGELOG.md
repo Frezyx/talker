@@ -1,3 +1,7 @@
+## 2.2.0
+- Add **responseFilter** and **requestFilter** in **TalkerDioLoggerSettings**
+Now you can add your custom logic to log only specific HTTP responses and resuests
+
 ## 2.1.2
 - Fix linter issues
 

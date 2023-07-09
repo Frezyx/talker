@@ -32,5 +32,22 @@ void main() {
       logger.onResponse(response, ResponseInterceptorHandler());
       expect(talker.history.last.message, logMessage);
     });
+
+    test('onResponse method should log http response headers', () {
+      logger = TalkerDioLogger(talker: talker, settings: TalkerDioLoggerSettings(
+        printResponseHeaders: true
+      ));
+      final options = RequestOptions(path: '/test');
+      final response = Response(requestOptions: options, statusCode: 200, headers: Headers()..add("HEADER",
+      "VALUE"));
+      logger.onResponse(response, ResponseInterceptorHandler());
+      expect(talker.history.last.generateTextMessage(), '[http-response] [GET] /test\n'
+          'Status: 200\n'
+          'Headers: {\n'
+          '  "header": [\n'
+          '    "VALUE"\n'
+          '  ]\n'
+          '}');
+    });
   });
 }

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
 
 /// [TalkerDioLogger] settings and customization
@@ -11,6 +12,8 @@ class TalkerDioLoggerSettings {
     this.requestPen,
     this.responsePen,
     this.errorPen,
+    this.requestFilter,
+    this.responseFilter,
   });
 
   /// Print [response.data] if true
@@ -61,6 +64,14 @@ class TalkerDioLoggerSettings {
   /// More details in [AnsiPen] docs
   final AnsiPen? errorPen;
 
+  /// For request filtering.
+  /// You can add your custom logic to log only specific HTTP requests [RequestOptions].
+  final bool Function(RequestOptions requestOptions)? requestFilter;
+
+  /// For response filtering.
+  /// You can add your custom logic to log only specific HTTP responses [Response].
+  final bool Function(Response response)? responseFilter;
+
   TalkerDioLoggerSettings copyWith({
     bool? printResponseData,
     bool? printResponseHeaders,
@@ -70,6 +81,8 @@ class TalkerDioLoggerSettings {
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
+    bool Function(RequestOptions requestOptions)? requestFilter,
+    bool Function(Response response)? responseFilter,
   }) {
     return TalkerDioLoggerSettings(
       printResponseData: printResponseData ?? this.printResponseData,
@@ -80,6 +93,8 @@ class TalkerDioLoggerSettings {
       requestPen: requestPen ?? this.requestPen,
       responsePen: responsePen ?? this.responsePen,
       errorPen: errorPen ?? this.errorPen,
+      requestFilter: requestFilter ?? this.requestFilter,
+      responseFilter: responseFilter ?? this.responseFilter,
     );
   }
 }

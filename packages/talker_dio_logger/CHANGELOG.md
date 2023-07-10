@@ -1,3 +1,8 @@
+## 2.2.1
+- Fix Response headers bug 
+
+Thnaks for [matt400m](https://github.com/matt400m)
+
 ## 2.2.0
 - Add **responseFilter** and **requestFilter** in **TalkerDioLoggerSettings**
 Now you can add your custom logic to log only specific HTTP responses and resuests

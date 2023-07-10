@@ -67,7 +67,7 @@ class DioResponseLog extends TalkerLog {
 
     final responseMessage = response.statusMessage;
     final data = response.data;
-    final headers = response.requestOptions.headers;
+    final headers = response.headers.map;
 
     msg += '\nStatus: ${response.statusCode}';
 

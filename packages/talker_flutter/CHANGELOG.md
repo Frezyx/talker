@@ -1,3 +1,7 @@
+# 3.1.7
+- Set the exact size of the text in the search TextField
+- Fix large text in search bar
+
 # 3.1.6
 - Update **talker** version to 3.0.2
 

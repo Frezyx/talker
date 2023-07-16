@@ -335,6 +335,7 @@ class _SearchTextField extends StatelessWidget {
       child: TextFormField(
         style: theme.textTheme.bodyLarge!.copyWith(
           color: talkerScreenTheme.textColor,
+          fontSize: 14,
         ),
         onChanged: controller.updateFilterSearchQuery,
         decoration: InputDecoration(
@@ -354,6 +355,7 @@ class _SearchTextField extends StatelessWidget {
           hintText: 'Search...',
           hintStyle: theme.textTheme.bodyLarge!.copyWith(
             color: Colors.grey,
+            fontSize: 14,
           ),
         ),
       ),

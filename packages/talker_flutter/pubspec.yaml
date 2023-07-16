@@ -1,6 +1,6 @@
 name: talker_flutter
 description: Advanced error handler and logger package for flutter and dart. App monitoring, logs history, report sharing, custom logs, and etc.
-version: 3.1.6
+version: 3.1.7
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues

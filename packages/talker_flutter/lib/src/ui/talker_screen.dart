@@ -161,38 +161,9 @@ class _TalkerScreenState extends State<TalkerScreen> {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: TextFormField(
-                                  style: theme.textTheme.bodyLarge!.copyWith(
-                                    color: talkerScreenTheme.textColor,
-                                  ),
-                                  onChanged:
-                                      _controller.updateFilterSearchQuery,
-                                  decoration: InputDecoration(
-                                    fillColor: theme.cardColor,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: talkerScreenTheme.textColor),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: talkerScreenTheme.textColor),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    prefixIcon: Icon(
-                                      Icons.search,
-                                      color: talkerScreenTheme.textColor,
-                                    ),
-                                    hintText: 'Search...',
-                                    hintStyle:
-                                        theme.textTheme.bodyLarge!.copyWith(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
+                              _SearchTextField(
+                                controller: _controller,
+                                talkerScreenTheme: talkerScreenTheme,
                               ),
                             ],
                           ),
@@ -343,6 +314,50 @@ class _TalkerScreenState extends State<TalkerScreen> {
   void _showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(text)),
+    );
+  }
+}
+
+class _SearchTextField extends StatelessWidget {
+  const _SearchTextField({
+    Key? key,
+    required this.talkerScreenTheme,
+    required this.controller,
+  }) : super(key: key);
+
+  final TalkerScreenTheme talkerScreenTheme;
+  final TalkerScreenController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: TextFormField(
+        style: theme.textTheme.bodyLarge!.copyWith(
+          color: talkerScreenTheme.textColor,
+        ),
+        onChanged: controller.updateFilterSearchQuery,
+        decoration: InputDecoration(
+          fillColor: theme.cardColor,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: talkerScreenTheme.textColor),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: talkerScreenTheme.textColor),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          prefixIcon: Icon(
+            Icons.search,
+            color: talkerScreenTheme.textColor,
+          ),
+          hintText: 'Search...',
+          hintStyle: theme.textTheme.bodyLarge!.copyWith(
+            color: Colors.grey,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,3 +1,6 @@
+# 3.0.3
+- Update **talker_logger** version to 3.0.4
+
 # 3.0.2
 - Update **talker_logger** version to 3.0.3
 

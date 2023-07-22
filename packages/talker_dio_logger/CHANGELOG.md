@@ -1,3 +1,6 @@
+## 2.2.3
+- Update talker version to 3.0.4
+
 ## 2.2.2
 - Add topics in pubspec.yaml
 - Update talker version to 3.0.2

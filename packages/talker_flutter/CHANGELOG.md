@@ -1,3 +1,9 @@
+# 3.1.9
+- Add topics in pubspec.yaml
+
+# 3.1.8
+- Update **talker** version to 3.0.4
+
 # 3.1.7
 - Set the exact size of the text in the search TextField
 - Fix large text in search bar

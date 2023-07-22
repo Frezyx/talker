@@ -1,3 +1,6 @@
+# 3.0.4
+- - Add topics in pubspec.yaml
+
 # 3.0.3
 - Update **talker_logger** version to 3.0.4
 

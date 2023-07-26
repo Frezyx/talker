@@ -1,3 +1,8 @@
+# 3.0.5
+- Fix StackTrace printning when exits in **TalkerLog**
+
+Thanks to [IlyaZadyabin](https://github.com/IlyaZadyabin)
+
 # 3.0.4
 - - Add topics in pubspec.yaml
 

@@ -24,10 +24,9 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: "12.x"
-          distribution: 'zulu'
+          distribution: "zulu"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.7.12'
           channel: "stable"
 
       - name: Install Dependencies
@@ -66,7 +65,7 @@ jobs:
       #     git config --global user.email youngfrezyx@gmail.com
       #     git config --global user.name Stanislav Ilin
       #     git status
-            
+
       #     git remote add origin https://${{secrets.commit_secret}}@github.com/Frezyx/talker.git
       #     git checkout -b gh-pages
       #     git add --all

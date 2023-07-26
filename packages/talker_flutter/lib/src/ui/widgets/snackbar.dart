@@ -5,19 +5,27 @@ class SnackbarContent extends StatelessWidget {
     Key? key,
     required this.message,
     required this.title,
-    this.bacgroundColor = Colors.red,
+    this.backgroundColor = Colors.red,
+    this.dismissButton,
+    this.titleTextStyle,
+    this.messageTextStyle,
+    this.buttonDismissText,
   }) : super(key: key);
 
   final String title;
   final String message;
-  final Color bacgroundColor;
+  final String? buttonDismissText;
+  final Color backgroundColor;
+  final Widget? dismissButton;
+  final TextStyle? titleTextStyle;
+  final TextStyle? messageTextStyle;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: bacgroundColor,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -39,15 +47,17 @@ class SnackbarContent extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: titleTextStyle ??
+                            const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
                       Text(
                         message,
-                        style: const TextStyle(color: Colors.white),
+                        style: messageTextStyle ??
+                            const TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
@@ -55,10 +65,11 @@ class SnackbarContent extends StatelessWidget {
               ],
             ),
           ),
-          TextButton(
-            onPressed: () => _closeSnackbar(context),
-            child: const Text("Undo"),
-          )
+          dismissButton ??
+              TextButton(
+                onPressed: () => _closeSnackbar(context),
+                child: Text(buttonDismissText ?? "Undo"),
+              )
         ],
       ),
     );

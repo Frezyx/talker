@@ -1,3 +1,6 @@
+# 3.1.10
+- Update **talker** version to 3.0.5
+
 # 3.1.9
 - Add topics in pubspec.yaml
 

@@ -54,8 +54,8 @@ abstract class TalkerDataInterface {
 }
 
 /// Extension to get
-/// display text of [TalkerDataInterface] fileds
-extension FeildsToDisplay on TalkerDataInterface {
+/// display text of [TalkerDataInterface] fields
+extension FieldsToDisplay on TalkerDataInterface {
   /// Displayed title of [TalkerDataInterface]
 
   String get displayTitleWithTime {
@@ -95,5 +95,5 @@ extension FeildsToDisplay on TalkerDataInterface {
   }
 
   /// Displayed tile of [TalkerDataInterface]
-  String get displayTime => TalkerDateTimeFormater(time).timeAndSeconds;
+  String get displayTime => TalkerDateTimeFormatter(time).timeAndSeconds;
 }

@@ -151,8 +151,8 @@ You can use it to transmit data about logs to external sources such as **Crashly
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:talker/talker.dart';
 
-class CrashlitycsTalkerObserver extends TalkerObserver {
-  CrashlitycsTalkerObserver();
+class CrashlyticsTalkerObserver extends TalkerObserver {
+  CrashlyticsTalkerObserver();
 
   @override
   void onError(err) {
@@ -173,8 +173,8 @@ class CrashlitycsTalkerObserver extends TalkerObserver {
   }
 }
 
-final craslyticsTalkerObserver = CrashlitycsTalkerObserver();
-final talker = Talker(observer: craslyticsTalkerObserver);
+final crashlyticsTalkerObserver = CrashlyticsTalkerObserver();
+final talker = Talker(observer: crashlyticsTalkerObserver);
 ```
 
 # Talker Flutter
@@ -348,9 +348,9 @@ dio.interceptors.add(
 
 ## Talker BLoC Logger
 
-Lightweight, simple and pretty solution for logging if your app use [BLoC](https://pub.dev/packages/bloc) as state managment
+Lightweight, simple and pretty solution for logging if your app use [BLoC](https://pub.dev/packages/bloc) as state management
 
-This is how the logs of your BLoC's event callign and state emits will look in the console
+This is how the logs of your BLoC's event calling and state emits will look in the console
 ![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_bloc_logger/preview.png?raw=true)
 
 ### Getting started

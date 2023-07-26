@@ -5,10 +5,10 @@ import 'package:talker_flutter/talker_flutter.dart';
 part 'talker_wrapper_options.dart';
 
 /// Widget to wrap an screen or the entire application
-/// in [Talker] data listerning
+/// in [Talker] data listening
 ///
 /// This is used to display error
-/// and exeption messages via [TalkerListener]
+/// and exception messages via [TalkerListener]
 ///
 /// [TalkerWrapperOptions] options used to customize and filtering
 /// error and exceptions messages output

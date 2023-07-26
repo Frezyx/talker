@@ -29,7 +29,7 @@ void main() {
       final message = error.generateTextMessage();
       expect(
         message,
-        '''[test title] | ${TalkerDateTimeFormater(error.time).timeAndSeconds} | test message
+        '''[test title] | ${TalkerDateTimeFormatter(error.time).timeAndSeconds} | test message
 Invalid argument(s)''',
       );
     });
@@ -54,7 +54,7 @@ Invalid argument(s)''',
       final message = exception.generateTextMessage();
       expect(
         message,
-        '''[test title] | ${TalkerDateTimeFormater(exception.time).timeAndSeconds} | test message
+        '''[test title] | ${TalkerDateTimeFormatter(exception.time).timeAndSeconds} | test message
 Exception''',
       );
 
@@ -83,7 +83,7 @@ Exception''',
       final message = log.generateTextMessage();
       expect(
         message,
-        '''[test title] | ${TalkerDateTimeFormater(log.time).timeAndSeconds} | test message''',
+        '''[test title] | ${TalkerDateTimeFormatter(log.time).timeAndSeconds} | test message''',
       );
     });
   });

@@ -19,7 +19,7 @@ class TalkerMonitor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroudColor,
+      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         title: const FittedBox(
           fit: BoxFit.scaleDown,

@@ -5,19 +5,19 @@ class SnackbarContent extends StatelessWidget {
     Key? key,
     required this.message,
     required this.title,
-    this.bacgroundColor = Colors.red,
+    this.backgroundColor = Colors.red,
   }) : super(key: key);
 
   final String title;
   final String message;
-  final Color bacgroundColor;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: bacgroundColor,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

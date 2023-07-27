@@ -1,3 +1,8 @@
+## 2.2.0
+- Rename (fix typo) **recvie** -> **receive** in BlocEventLog
+- Upgrade **talker** version to 3.1.0
+
+Thanks to [wcoder](https://github.com/wcoder)
 ## 2.1.1
 - Add topics in pubspec.yaml
 - Update talker version to 3.0.4

@@ -1,3 +1,10 @@
+# 3.1.0
+- Rename (fix typo) **LoggerFormater -> **LoggerFormatter** 
+- Rename (fix typo) field **formater** -> **formatter** 
+- Fix internal and docs typos 
+
+Thanks to [wcoder](https://github.com/wcoder)
+
 # 3.0.4
 - Add topics in pubspec.yaml
 

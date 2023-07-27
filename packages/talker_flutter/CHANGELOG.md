@@ -1,3 +1,6 @@
+# 3.1.12
+- Remove using paddingOf to support old flutter versions
+
 # 3.1.11
 - refactor and enhance UI
 - Fix typo **bacgroundColor** -> **backgroundColor** in SnackbarContent constructor

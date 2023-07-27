@@ -1,3 +1,11 @@
+# 3.1.0
+- Rename (fix typo) **LoggerFormater** -> **LoggerFormatter** 
+- Rename (fix typo) Talker field **loggerFormater** -> **loggerFormatter** 
+- Fix internal and docs typos 
+- Update **talker_logger** version to 3.1.0
+
+Thanks to [wcoder](https://github.com/wcoder)
+
 # 3.0.5
 - Fix StackTrace printning when exits in **TalkerLog**
 

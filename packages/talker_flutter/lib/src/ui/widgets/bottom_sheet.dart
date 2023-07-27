@@ -15,17 +15,17 @@ class BaseBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
+    final mq = MediaQuery.paddingOf(context);
     final theme = Theme.of(context);
     return SafeArea(
       bottom: false,
       child: Container(
         margin: EdgeInsets.only(
-          top: mq.padding.top + mq.viewInsets.top + 50,
+          top: mq.top + mq.top + 50,
         ),
         padding: EdgeInsets.only(
           top: 20,
-          bottom: mq.padding.bottom,
+          bottom: mq.bottom,
         ),
         decoration: BoxDecoration(
           color: talkerScreenTheme.backgroudColor,

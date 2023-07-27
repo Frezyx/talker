@@ -9,12 +9,12 @@ class SnackbarContent extends StatelessWidget {
     this.dismissButton,
     this.titleTextStyle,
     this.messageTextStyle,
-    this.buttonDismissText,
+    this.dismissButtonText,
   }) : super(key: key);
 
   final String title;
   final String message;
-  final String? buttonDismissText;
+  final String? dismissButtonText;
   final Color backgroundColor;
   final Widget? dismissButton;
   final TextStyle? titleTextStyle;
@@ -68,7 +68,7 @@ class SnackbarContent extends StatelessWidget {
           dismissButton ??
               TextButton(
                 onPressed: () => _closeSnackbar(context),
-                child: Text(buttonDismissText ?? "Undo"),
+                child: Text(dismissButtonText ?? "Undo"),
               )
         ],
       ),

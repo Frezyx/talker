@@ -6,7 +6,7 @@ void main() {
   // Create instance
   final logger = TalkerLogger(
     //Enable for custom colored logs with Formatter
-    // formater: _ColoredLoggerFormatter(),
+    // formatter: _ColoredLoggerFormatter(),
     settings: const TalkerLoggerSettings(
       level: LogLevel.info,
     ),

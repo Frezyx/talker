@@ -6,4 +6,4 @@ const httpResponseLogColor = Color(0xFF26FF3C);
 const httpRequestLogColor = Color(0xFFF602C1);
 const blocTransitionColor = Color(0xFF56FEA8);
 const blocEventColor = Color(0xFF63FAFE);
-const routeLogcolor = Color(0xFFAF5FFF);
+const routeLogColor = Color(0xFFAF5FFF);

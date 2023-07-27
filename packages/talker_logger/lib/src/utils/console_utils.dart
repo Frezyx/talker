@@ -1,4 +1,4 @@
-/// Сlass that contains methods for working with console output
+/// Class that contains methods for working with console output
 abstract class ConsoleUtils {
   ConsoleUtils._();
 

@@ -49,7 +49,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
       animation: _controller,
       builder: (context, child) {
         return Scaffold(
-          backgroundColor: talkerScreenTheme.backgroudColor,
+          backgroundColor: talkerScreenTheme.backgroundColor,
           floatingActionButton: FloatingActionButton(
             backgroundColor: theme.primaryColor,
             onPressed: () => _showActionsBottomSheet(context),
@@ -66,7 +66,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                 physics: const BouncingScrollPhysics(),
                 slivers: [
                   SliverAppBar(
-                    backgroundColor: talkerScreenTheme.backgroudColor,
+                    backgroundColor: talkerScreenTheme.backgroundColor,
                     elevation: 0,
                     pinned: true,
                     floating: true,

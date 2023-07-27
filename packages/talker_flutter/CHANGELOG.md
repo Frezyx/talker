@@ -1,3 +1,11 @@
+# 3.2.0
+- Rename (fix typo) field **backgroudColor** -> **backgroundColor**
+- Fix internal and docs typos 
+- Update **talker** version to 3.1.0
+- Update **group_button** version to 5.3.2
+
+Thanks to [wcoder](https://github.com/wcoder)
+
 # 3.1.12
 - Remove using paddingOf to support old flutter versions
 

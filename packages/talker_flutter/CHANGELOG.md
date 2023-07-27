@@ -1,3 +1,14 @@
+# 3.1.11
+- refactor and enhance UI
+- Fix typo **bacgroundColor** -> **backgroundColor** in SnackbarContent constructor
+- Add the **dismissButtonText** Widget to SnackbarContent
+- Add the **dismissButton** Widget to SnackbarContent
+- Add the **titleTextStyle** TextStyle to SnackbarContent
+- Add the **messageTextStyle** TextStyle to SnackbarContent
+- Add an **onPressed** callback to SnackbarContent
+- Use paddingOf instead size this method will cause the given [context] to rebuild any time that the [MediaQueryData.padding] property of the ancestor [MediaQuery] changes. Checkout the following PR for more informations about MediaQuery as InheritedModel
+
+Thanks to [jnelle](https://github.com/jnelle)
 # 3.1.10
 - Update **talker** version to 3.0.5
 

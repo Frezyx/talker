@@ -46,7 +46,7 @@ class TalkerLog implements TalkerDataInterface {
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$displayTitleWithTime$message';
+    return '$displayTitleWithTime$message$displayStackTrace';
   }
 
   /// {@macro talker_data_time}

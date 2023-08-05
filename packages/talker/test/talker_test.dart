@@ -73,6 +73,11 @@ void main() {
 
   test('log', () async {
     const testLogMessage = 'Test log message';
+    final talker = Talker(
+      logger: TalkerLogger(
+        output: (message) {},
+      ),
+    );
     talker.log(testLogMessage);
 
     expect(talker.history.length, 1);

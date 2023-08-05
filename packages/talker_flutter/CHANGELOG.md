@@ -1,3 +1,6 @@
+# 3.2.4
+- Fix AppBar title text color
+
 # 3.2.3
 - Add **TalkerView** in package exports
 

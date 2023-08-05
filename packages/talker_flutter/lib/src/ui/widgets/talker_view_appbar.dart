@@ -68,7 +68,9 @@ class TalkerViewAppBar extends StatelessWidget {
         ),
         const SizedBox(width: 10),
       ],
-      title: title != null ? Text(title!) : null,
+      title: title != null
+          ? Text(title!, style: const TextStyle(color: Colors.white))
+          : null,
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         background: SafeArea(

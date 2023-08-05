@@ -1,3 +1,6 @@
+# 3.2.3
+- Add **TalkerView** in package exports
+
 # 3.2.2
 - Fix logs expanding and collapsing in TalkerView
 

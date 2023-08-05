@@ -50,7 +50,7 @@ void main() {
 
   test('Handle exception with logs enabled', () {
     talker.configure(
-      settings: TalkerSettings(useConsoleLogs: false),
+      settings: TalkerSettings(),
       logger: TalkerLogger(
         output: (message) {},
       ),

@@ -1,3 +1,7 @@
+# 3.2.1
+- Refactor TalkerScreen decomposition 
+- Extract TalkerView, TalkerViewAppBar
+
 # 3.2.0
 - Rename (fix typo) field **backgroudColor** -> **backgroundColor**
 - Fix internal and docs typos 

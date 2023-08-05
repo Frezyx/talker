@@ -1,3 +1,7 @@
+# 3.2.5
+- Make **controller**, **theme**, **appBarTitle** not required for TalkerView
+- Make TalkerScreen Stateless instead of Stateful
+
 # 3.2.4
 - Fix AppBar title text color
 

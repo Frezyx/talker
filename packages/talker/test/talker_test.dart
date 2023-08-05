@@ -70,4 +70,16 @@ void main() {
     expect(talker.hashCode, isNotNull);
     expect(talker.hashCode, isNot(0));
   });
+
+  test('log', () async {
+    const testLogMessage = 'Test log message';
+    talker.log(testLogMessage);
+
+    expect(talker.history.length, 1);
+    expect(
+      talker.history.whereType<TalkerLog>().length,
+      1,
+    );
+    expect(talker.history.first.message, testLogMessage);
+  });
 }

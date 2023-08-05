@@ -1,1 +1,1 @@
-export 'talker_screen_controller.dart';
+export 'talker_view_controller.dart';

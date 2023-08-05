@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
-class TalkerScreenController extends ChangeNotifier {
+class TalkerViewController extends ChangeNotifier {
   BaseTalkerFilter _filter = BaseTalkerFilter();
 
   var _expandedLogs = true;

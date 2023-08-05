@@ -1,3 +1,24 @@
+# 3.2.6
+- Fix appbar icon colors
+- Rename part of internal classes
+
+# 3.2.5
+- Make **controller**, **theme**, **appBarTitle** not required for TalkerView
+- Make TalkerScreen Stateless instead of Stateful
+
+# 3.2.4
+- Fix AppBar title text color
+
+# 3.2.3
+- Add **TalkerView** in package exports
+
+# 3.2.2
+- Fix logs expanding and collapsing in TalkerView
+
+# 3.2.1
+- Refactor TalkerScreen decomposition 
+- Extract TalkerView, TalkerViewAppBar
+
 # 3.2.0
 - Rename (fix typo) field **backgroudColor** -> **backgroundColor**
 - Fix internal and docs typos 

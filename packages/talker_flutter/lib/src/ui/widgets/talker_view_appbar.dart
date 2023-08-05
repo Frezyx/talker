@@ -25,7 +25,7 @@ class TalkerViewAppBar extends StatelessWidget {
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
   final GroupButtonController titilesController;
-  final TalkerScreenController controller;
+  final TalkerViewController controller;
 
   final List<String> titles;
   final List<String> unicTitles;
@@ -47,6 +47,7 @@ class TalkerViewAppBar extends StatelessWidget {
       expandedHeight: 180,
       collapsedHeight: 60,
       toolbarHeight: 60,
+      iconTheme: const IconThemeData(color: Colors.white),
       actions: [
         UnconstrainedBox(
           child: _MonitorButton(
@@ -149,7 +150,7 @@ class _SearchTextField extends StatelessWidget {
   }) : super(key: key);
 
   final TalkerScreenTheme talkerScreenTheme;
-  final TalkerScreenController controller;
+  final TalkerViewController controller;
 
   @override
   Widget build(BuildContext context) {

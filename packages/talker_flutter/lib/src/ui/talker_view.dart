@@ -15,6 +15,7 @@ class TalkerView extends StatefulWidget {
     Key? key,
     required this.talker,
     this.controller,
+    this.scrollController,
     this.theme = const TalkerScreenTheme(),
     this.appBarTitle,
     this.itemsBuilder,
@@ -33,7 +34,9 @@ class TalkerView extends StatefulWidget {
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
-  final TalkerScreenController? controller;
+  final TalkerViewController? controller;
+
+  final ScrollController? scrollController;
 
   @override
   State<TalkerView> createState() => _TalkerViewState();
@@ -41,7 +44,7 @@ class TalkerView extends StatefulWidget {
 
 class _TalkerViewState extends State<TalkerView> {
   final _titilesController = GroupButtonController();
-  late final _controller = widget.controller ?? TalkerScreenController();
+  late final _controller = widget.controller ?? TalkerViewController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +60,7 @@ class _TalkerViewState extends State<TalkerView> {
             final titles = data.map((e) => e.title).toList();
             final unicTitles = titles.toSet().toList();
             return CustomScrollView(
+              controller: widget.scrollController,
               physics: const BouncingScrollPhysics(),
               slivers: [
                 TalkerViewAppBar(

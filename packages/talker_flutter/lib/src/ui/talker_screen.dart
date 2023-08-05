@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// UI view for output of all Talker logs and errors
-class TalkerScreen extends StatefulWidget {
+class TalkerScreen extends StatelessWidget {
   const TalkerScreen({
     Key? key,
     required this.talker,
@@ -26,21 +25,13 @@ class TalkerScreen extends StatefulWidget {
   final TalkerDataBuilder? itemsBuilder;
 
   @override
-  State<TalkerScreen> createState() => _TalkerScreenState();
-}
-
-class _TalkerScreenState extends State<TalkerScreen> {
-  final _controller = TalkerScreenController();
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.theme.backgroundColor,
+      backgroundColor: theme.backgroundColor,
       body: TalkerView(
-        talker: widget.talker,
-        theme: widget.theme,
-        appBarTitle: widget.appBarTitle,
-        controller: _controller,
+        talker: talker,
+        theme: theme,
+        appBarTitle: appBarTitle,
       ),
     );
   }

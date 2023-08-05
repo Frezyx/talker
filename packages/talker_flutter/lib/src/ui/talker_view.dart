@@ -14,9 +14,9 @@ class TalkerView extends StatefulWidget {
   const TalkerView({
     Key? key,
     required this.talker,
-    required this.theme,
-    required this.appBarTitle,
-    required this.controller,
+    this.controller,
+    this.theme = const TalkerScreenTheme(),
+    this.appBarTitle,
     this.itemsBuilder,
   }) : super(key: key);
 
@@ -27,13 +27,13 @@ class TalkerView extends StatefulWidget {
   final TalkerScreenTheme theme;
 
   /// Screen [AppBar] title
-  final String appBarTitle;
+  final String? appBarTitle;
 
   /// Optional Builder to customize
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
-  final TalkerScreenController controller;
+  final TalkerScreenController? controller;
 
   @override
   State<TalkerView> createState() => _TalkerViewState();
@@ -41,18 +41,19 @@ class TalkerView extends StatefulWidget {
 
 class _TalkerViewState extends State<TalkerView> {
   final _titilesController = GroupButtonController();
+  late final _controller = widget.controller ?? TalkerScreenController();
 
   @override
   Widget build(BuildContext context) {
     final talkerTheme = widget.theme;
     return AnimatedBuilder(
-      animation: widget.controller,
+      animation: _controller,
       builder: (context, child) {
         return TalkerBuilder(
           talker: widget.talker,
           builder: (context, data) {
             final filtredElements =
-                data.where((e) => widget.controller.filter.filter(e)).toList();
+                data.where((e) => _controller.filter.filter(e)).toList();
             final titles = data.map((e) => e.title).toList();
             final unicTitles = titles.toSet().toList();
             return CustomScrollView(
@@ -65,7 +66,7 @@ class _TalkerViewState extends State<TalkerView> {
                   titilesController: _titilesController,
                   titles: titles,
                   unicTitles: unicTitles,
-                  controller: widget.controller,
+                  controller: _controller,
                   onMonitorTap: () => _openTalkerMonitor(context),
                   onActionsTap: () => _showActionsBottomSheet(context),
                   onSettingsTap: () =>
@@ -83,7 +84,7 @@ class _TalkerViewState extends State<TalkerView> {
                       return TalkerDataCard(
                         data: data,
                         onTap: () => _copyTalkerDataItemText(data),
-                        expanded: widget.controller.expandedLogs,
+                        expanded: _controller.expandedLogs,
                       );
                     },
                     childCount: filtredElements.length,
@@ -99,9 +100,9 @@ class _TalkerViewState extends State<TalkerView> {
 
   void _onToggleTitle(String title, bool selected) {
     if (selected) {
-      widget.controller.addFilterTitle(title);
+      _controller.addFilterTitle(title);
     } else {
-      widget.controller.removeFilterTitle(title);
+      _controller.removeFilterTitle(title);
     }
   }
 
@@ -109,9 +110,8 @@ class _TalkerViewState extends State<TalkerView> {
     List<TalkerDataInterface> filtredElements,
     int i,
   ) {
-    final data = filtredElements[widget.controller.isLogOrderReversed
-        ? filtredElements.length - 1 - i
-        : i];
+    final data = filtredElements[
+        _controller.isLogOrderReversed ? filtredElements.length - 1 - i : i];
     return data;
   }
 
@@ -163,7 +163,7 @@ class _TalkerViewState extends State<TalkerView> {
         return TalkerActionsBottomSheet(
           actions: [
             TalkerActionItem(
-              onTap: widget.controller.toggleLogOrder,
+              onTap: _controller.toggleLogOrder,
               title: 'Reverse logs',
               icon: Icons.swap_vert,
             ),
@@ -174,10 +174,8 @@ class _TalkerViewState extends State<TalkerView> {
             ),
             TalkerActionItem(
               onTap: _toggleLogsExpanded,
-              title: widget.controller.expandedLogs
-                  ? 'Collapse logs'
-                  : 'Expand logs',
-              icon: widget.controller.expandedLogs
+              title: _controller.expandedLogs ? 'Collapse logs' : 'Expand logs',
+              icon: _controller.expandedLogs
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
             ),
@@ -199,7 +197,7 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   Future<void> _shareLogsInFile() async {
-    final path = await widget.controller.saveLogsInFile(
+    final path = await _controller.saveLogsInFile(
       widget.talker.history.text,
     );
     // ignore: deprecated_member_use
@@ -208,11 +206,11 @@ class _TalkerViewState extends State<TalkerView> {
 
   void _cleanHistory() {
     widget.talker.cleanHistory();
-    widget.controller.update();
+    _controller.update();
   }
 
   void _toggleLogsExpanded() {
-    widget.controller.expandedLogs = !widget.controller.expandedLogs;
+    _controller.expandedLogs = !_controller.expandedLogs;
   }
 
   void _copyAllLogs(BuildContext context) {

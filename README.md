@@ -80,6 +80,7 @@ Talker is designed for any level of customization. <br>
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)
+- [Contributors](#contributors)
 
 ## Get Started
 <!-- See all documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or -->
@@ -309,7 +310,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^2.2.2
+  talker_dio_logger: ^2.3.0
 ```
 
 ### Usage
@@ -359,7 +360,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^2.1.1
+  talker_bloc_logger: ^2.2.0
 ```
 
 ### Usage
@@ -431,6 +432,8 @@ Therefore, the project is 100% covered by tests
 ## Additional information
 The project is under development and ready for your pull-requests and issues 👍<br>
 Thank you for support ❤️
+
+## Contributors
 
 <br>
 <div align="center" >

@@ -212,7 +212,7 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   void _toggleLogsExpanded() {
-    widget.controller.expandedLogs = widget.controller.expandedLogs;
+    widget.controller.expandedLogs = !widget.controller.expandedLogs;
   }
 
   void _copyAllLogs(BuildContext context) {

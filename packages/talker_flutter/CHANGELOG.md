@@ -1,3 +1,6 @@
+# 3.2.2
+- Fix logs expanding and collapsing in TalkerView
+
 # 3.2.1
 - Refactor TalkerScreen decomposition 
 - Extract TalkerView, TalkerViewAppBar

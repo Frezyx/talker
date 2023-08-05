@@ -1,3 +1,7 @@
+# 3.1.1
+- Make 100% tests coverage
+- Add Contributors section in project README
+
 # 3.1.0
 - Rename (fix typo) **LoggerFormater** -> **LoggerFormatter** 
 - Rename (fix typo) Talker field **loggerFormater** -> **loggerFormatter** 

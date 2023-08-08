@@ -1,3 +1,8 @@
+# 3.2.7
+- Fix TalkerWrapper error looping
+
+Thanks to [s0nerik](https://github.com/s0nerik)
+
 # 3.2.6
 - Fix appbar icon colors
 - Rename part of internal classes

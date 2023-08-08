@@ -63,7 +63,7 @@ class TalkerWrapper extends StatelessWidget {
   }
 
   static void showAlert(BuildContext context, Widget content) {
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
       SnackBar(
         margin: EdgeInsets.zero,
         behavior: SnackBarBehavior.floating,

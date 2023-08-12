@@ -1,6 +1,7 @@
 name: talker
-description: A new brick created with the Mason CLI.
+description: A brick to make talker (logger / error handling package) initialization by the simplest way
 version: 0.1.0+1
+repository: https://github.com/Frezyx/talker/mason_briks/talker/
 
 environment:
   mason: ">=0.1.0-dev.50 <0.1.0"
@@ -21,7 +22,7 @@ vars:
     type: number
     description: TalkerSettings.maxHistoryItems
     default: 200
-    prompt: Max history items count ?
+    prompt: Max history items(logs) count ?
   # TalkerLoggerSettings
   enable_colors:
     type: boolean

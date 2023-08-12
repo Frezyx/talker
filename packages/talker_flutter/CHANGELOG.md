@@ -1,3 +1,6 @@
+# 3.2.8
+- Add **appBarleading** field to TalkerScreen and TalkerView constructor
+
 # 3.2.7
 - Fix TalkerWrapper error looping
 

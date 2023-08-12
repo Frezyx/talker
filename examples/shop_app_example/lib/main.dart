@@ -66,7 +66,15 @@ class MyApp extends StatelessWidget {
 }
 
 void _initTalker() {
-  final talker = TalkerFlutter.init();
+  final talker = TalkerFlutter.init(
+    settings: TalkerSettings(
+      enabled: kDebugMode,
+      useHistory: kDebugMode,
+      useConsoleLogs: kDebugMode,
+      maxHistoryItems: 10000,
+    ),
+    logger: TalkerLogger(),
+  );
   GetIt.instance.registerSingleton<Talker>(talker);
   talker.verbose('Talker initialization completed');
 

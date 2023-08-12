@@ -1,0 +1,40 @@
+name: talker
+description: A new brick created with the Mason CLI.
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.50 <0.1.0"
+
+vars:
+  # TalkerSettings
+  use_history:
+    type: boolean
+    description: TalkerSettings.useHistory
+    default: true
+    prompt: Use logs history ?
+  use_console_logs:
+    type: boolean
+    description: TalkerSettings.useConsoleLogs
+    default: true
+    prompt: Use console logs ?
+  max_history_items:
+    type: number
+    description: TalkerSettings.maxHistoryItems
+    default: 200
+    prompt: Max history items count ?
+  # TalkerLoggerSettings
+  enable_colors:
+    type: boolean
+    description: TalkerLoggerSettings.enableColors
+    default: true
+    prompt: Enable logs colors in console ?
+  max_log_line_length:
+    type: number
+    description: TalkerLoggerSettings.maxLineWidth
+    default: 110
+    prompt: Log line length
+  log_line_sybol:
+    type: string
+    description: TalkerLoggerSettings.lineSymbol
+    default: '-'
+    prompt: Log line symbol

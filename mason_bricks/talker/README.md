@@ -1,6 +1,6 @@
 # talker
 
-A brick to make [talker](https://pub.dev/packages/talker) (logger / error handling package) initialization by the simplest way
+A brick to make [talker](https://github.com/Frezyx/talker) (logger / error handling package) initialization by the simplest way
 
 [![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
 

@@ -19,6 +19,7 @@ class TalkerView extends StatefulWidget {
     this.theme = const TalkerScreenTheme(),
     this.appBarTitle,
     this.itemsBuilder,
+    this.appBarLeading,
   }) : super(key: key);
 
   /// Talker implementation
@@ -29,6 +30,9 @@ class TalkerView extends StatefulWidget {
 
   /// Screen [AppBar] title
   final String? appBarTitle;
+
+  /// Screen [AppBar] leading
+  final Widget? appBarLeading;
 
   /// Optional Builder to customize
   /// log items cards in list
@@ -65,6 +69,7 @@ class _TalkerViewState extends State<TalkerView> {
               slivers: [
                 TalkerViewAppBar(
                   title: widget.appBarTitle,
+                  leading: widget.appBarLeading,
                   talker: widget.talker,
                   talkerTheme: talkerTheme,
                   titilesController: _titilesController,

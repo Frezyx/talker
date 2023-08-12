@@ -7,7 +7,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 class TalkerViewAppBar extends StatelessWidget {
   const TalkerViewAppBar({
     Key? key,
-    this.title,
+    required this.title,
+    required this.leading,
     required this.talker,
     required this.talkerTheme,
     required this.titilesController,
@@ -21,6 +22,7 @@ class TalkerViewAppBar extends StatelessWidget {
   }) : super(key: key);
 
   final String? title;
+  final Widget? leading;
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;

@@ -9,6 +9,7 @@ class TalkerScreen extends StatelessWidget {
     this.appBarTitle = 'Talker',
     this.theme = const TalkerScreenTheme(),
     this.itemsBuilder,
+    this.appBarLeading,
   }) : super(key: key);
 
   /// Talker implementation
@@ -19,6 +20,9 @@ class TalkerScreen extends StatelessWidget {
 
   /// Screen [AppBar] title
   final String appBarTitle;
+
+  /// Screen [AppBar] leading
+  final Widget? appBarLeading;
 
   /// Optional Builder to customize
   /// log items cards in list
@@ -32,6 +36,7 @@ class TalkerScreen extends StatelessWidget {
         talker: talker,
         theme: theme,
         appBarTitle: appBarTitle,
+        appBarLeading: appBarLeading,
       ),
     );
   }

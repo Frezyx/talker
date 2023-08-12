@@ -1,3 +1,6 @@
+# 3.2.9
+- Fix **appBarleading** showing
+
 # 3.2.8
 - Add **appBarleading** field to TalkerScreen and TalkerView constructor
 

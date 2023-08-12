@@ -49,6 +49,7 @@ class TalkerViewAppBar extends StatelessWidget {
       expandedHeight: 180,
       collapsedHeight: 60,
       toolbarHeight: 60,
+      leading: leading,
       iconTheme: const IconThemeData(color: Colors.white),
       actions: [
         UnconstrainedBox(

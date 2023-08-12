@@ -1,0 +1,18 @@
+import 'package:talker_flutter/talker_flutter.dart';
+
+Talker setupTalker() {
+  return TalkerFlutter.init(
+    settings: TalkerSettings(
+      useHistory: {{use_history}},
+      useConsoleLogs: {{use_console_logs}},
+      maxHistoryItems: {{max_history_items}},
+    ),
+    logger: TalkerLogger(
+      settings: TalkerLoggerSettings(
+        enableColors: {{enable_colors}},
+        maxLineWidth: {{max_log_line_length}},
+        logLineSybol: '{{log_line_sybol}}'
+      )
+    )
+  );
+}

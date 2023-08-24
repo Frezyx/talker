@@ -100,7 +100,7 @@ class TalkerViewAppBar extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               color: selected
                                   ? theme.primaryColor
-                                  : talkerTheme.backgroundColor,
+                                  : talkerTheme.cardColor,
                             ),
                             child: Row(
                               children: [

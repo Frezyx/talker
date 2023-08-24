@@ -92,6 +92,7 @@ class _TalkerViewState extends State<TalkerView> {
                       }
                       return TalkerDataCard(
                         data: data,
+                        backgroundColor: widget.theme.backgroundColor,
                         onTap: () => _copyTalkerDataItemText(data),
                         expanded: _controller.expandedLogs,
                       );

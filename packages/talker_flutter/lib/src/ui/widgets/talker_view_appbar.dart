@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerViewAppBar extends StatelessWidget {
@@ -101,7 +100,7 @@ class TalkerViewAppBar extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               color: selected
                                   ? theme.primaryColor
-                                  : cardBackgroundColor,
+                                  : talkerTheme.backgroundColor,
                             ),
                             child: Row(
                               children: [

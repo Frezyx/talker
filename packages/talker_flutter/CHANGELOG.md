@@ -1,3 +1,6 @@
+# 3.2.10
+- Add TalkerScreenTheme **cardColor** customization field
+
 # 3.2.9
 - Fix **appBarleading** showing
 

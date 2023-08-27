@@ -1,3 +1,12 @@
+# 3.2.10
+- Add TalkerScreenTheme **cardColor** customization field
+
+# 3.2.9
+- Fix **appBarleading** showing
+
+# 3.2.8
+- Add **appBarleading** field to TalkerScreen and TalkerView constructor
+
 # 3.2.7
 - Fix TalkerWrapper error looping
 

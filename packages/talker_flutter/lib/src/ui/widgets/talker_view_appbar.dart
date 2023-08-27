@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerViewAppBar extends StatelessWidget {
   const TalkerViewAppBar({
     Key? key,
-    this.title,
+    required this.title,
+    required this.leading,
     required this.talker,
     required this.talkerTheme,
     required this.titilesController,
@@ -21,6 +21,7 @@ class TalkerViewAppBar extends StatelessWidget {
   }) : super(key: key);
 
   final String? title;
+  final Widget? leading;
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
@@ -47,6 +48,7 @@ class TalkerViewAppBar extends StatelessWidget {
       expandedHeight: 180,
       collapsedHeight: 60,
       toolbarHeight: 60,
+      leading: leading,
       iconTheme: const IconThemeData(color: Colors.white),
       actions: [
         UnconstrainedBox(
@@ -98,7 +100,7 @@ class TalkerViewAppBar extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               color: selected
                                   ? theme.primaryColor
-                                  : cardBackgroundColor,
+                                  : talkerTheme.cardColor,
                             ),
                             child: Row(
                               children: [

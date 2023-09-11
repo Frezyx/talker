@@ -12,6 +12,7 @@ class TalkerSettingsCard extends StatelessWidget {
     required this.enabled,
     required this.onChanged,
     this.canEdit = true,
+    this.backgroundColor = defaultCardBackgroundColor,
   }) : super(key: key);
 
   final String title;
@@ -19,6 +20,7 @@ class TalkerSettingsCard extends StatelessWidget {
   final Function(bool enabled) onChanged;
   final TalkerScreenTheme talkerScreenTheme;
   final bool canEdit;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class TalkerSettingsCard extends StatelessWidget {
         child: TalkerBaseCard(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
               .copyWith(right: 0),
-          color: cardBackgroundColor,
+          color: backgroundColor,
           child: ListTile(
             title: Text(
               title,

@@ -80,6 +80,7 @@ Talker is designed for any level of customization. <br>
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)
+- [Contributors](#contributors)
 
 ## Get Started
 <!-- See all documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or -->
@@ -88,7 +89,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^3.0.0
+  talker: ^3.1.1
 ```
 
 ### Easy to use
@@ -151,8 +152,8 @@ You can use it to transmit data about logs to external sources such as **Crashly
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:talker/talker.dart';
 
-class CrashlitycsTalkerObserver extends TalkerObserver {
-  CrashlitycsTalkerObserver();
+class CrashlyticsTalkerObserver extends TalkerObserver {
+  CrashlyticsTalkerObserver();
 
   @override
   void onError(err) {
@@ -173,8 +174,8 @@ class CrashlitycsTalkerObserver extends TalkerObserver {
   }
 }
 
-final craslyticsTalkerObserver = CrashlitycsTalkerObserver();
-final talker = Talker(observer: craslyticsTalkerObserver);
+final crashlyticsTalkerObserver = CrashlyticsTalkerObserver();
+final talker = Talker(observer: crashlyticsTalkerObserver);
 ```
 
 # Talker Flutter
@@ -186,7 +187,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^3.1.4
+  talker_flutter: ^3.2.10
 ```
 
 ### Setup
@@ -309,7 +310,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^2.0.2
+  talker_dio_logger: ^2.3.0
 ```
 
 ### Usage
@@ -348,9 +349,9 @@ dio.interceptors.add(
 
 ## Talker BLoC Logger
 
-Lightweight, simple and pretty solution for logging if your app use [BLoC](https://pub.dev/packages/bloc) as state managment
+Lightweight, simple and pretty solution for logging if your app use [BLoC](https://pub.dev/packages/bloc) as state management
 
-This is how the logs of your BLoC's event callign and state emits will look in the console
+This is how the logs of your BLoC's event calling and state emits will look in the console
 ![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_bloc_logger/preview.png?raw=true)
 
 ### Getting started
@@ -359,7 +360,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^2.0.0
+  talker_bloc_logger: ^2.2.0
 ```
 
 ### Usage
@@ -431,6 +432,8 @@ Therefore, the project is 100% covered by tests
 ## Additional information
 The project is under development and ready for your pull-requests and issues 👍<br>
 Thank you for support ❤️
+
+## Contributors
 
 <br>
 <div align="center" >

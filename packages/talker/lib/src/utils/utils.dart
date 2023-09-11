@@ -1,2 +1,2 @@
 export 'error_handler.dart';
-export 'time_formater.dart';
+export 'time_formatter.dart';

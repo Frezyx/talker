@@ -38,7 +38,7 @@ class TalkerSettings {
   /// All log and handle error / exception methods are working when [true] and not working when [false]
   bool enabled;
 
-  /// Registered types to make fltering
+  /// Registered types to make filtering
   /// and more easy displaying in talker_flutter
   /// ```dart
   ///class HttpTalkerLog extends TalkerLog {

@@ -19,7 +19,6 @@ void main() {
       final httpLog = HttpTalkerLog('Http good');
       talker.logTyped(httpLog);
 
-      // expect(settings.registeredTypes, contains(httpLog.runtimeType));
       expect(
         talker.history.whereType<HttpTalkerLog>().isNotEmpty,
         true,

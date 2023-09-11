@@ -7,7 +7,7 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 ///
 /// [talker] filed is current [Talker] instance.
 /// Provide your instance if your application used [Talker] as default logger
-/// Commont Talker instance will be used by default
+/// Common Talker instance will be used by default
 class TalkerDioLogger extends Interceptor {
   TalkerDioLogger({
     Talker? talker,
@@ -55,6 +55,10 @@ class TalkerDioLogger extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     super.onRequest(options, handler);
+    final accepted = settings.requestFilter?.call(options) ?? true;
+    if (!accepted) {
+      return;
+    }
     try {
       final message = '${options.uri}';
       final httpLog = DioRequestLog(
@@ -71,6 +75,10 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
+    final accepted = settings.responseFilter?.call(response) ?? true;
+    if (!accepted) {
+      return;
+    }
     try {
       final message = '${response.requestOptions.uri}';
       final httpLog = DioResponseLog(

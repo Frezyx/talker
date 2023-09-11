@@ -8,14 +8,14 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
 

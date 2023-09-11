@@ -35,7 +35,10 @@ class TalkerViewAppBar extends StatelessWidget {
   final VoidCallback onSettingsTap;
   final VoidCallback onActionsTap;
 
-  final Function(String title, bool selected) onToggleTitle;
+  final void Function({
+    required bool selected,
+    required String title,
+  }) onToggleTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +126,10 @@ class TalkerViewAppBar extends StatelessWidget {
                             ),
                           );
                         },
-                        onSelected: (_, i, selected) =>
-                            onToggleTitle(unicTitles[i], selected),
+                        onSelected: (_, i, selected) => onToggleTitle(
+                          title: unicTitles[i],
+                          selected: selected,
+                        ),
                         buttons: unicTitles,
                       ),
                     ],

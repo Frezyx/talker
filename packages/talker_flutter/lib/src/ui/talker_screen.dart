@@ -29,15 +29,14 @@ class TalkerScreen extends StatelessWidget {
   final TalkerDataBuilder? itemsBuilder;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: theme.backgroundColor,
-      body: TalkerView(
-        talker: talker,
-        theme: theme,
-        appBarTitle: appBarTitle,
-        appBarLeading: appBarLeading,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: theme.backgroundColor,
+        body: TalkerView(
+          talker: talker,
+          theme: theme,
+          appBarTitle: appBarTitle,
+          appBarLeading: appBarLeading,
+          itemsBuilder: itemsBuilder,
+        ),
+      );
 }

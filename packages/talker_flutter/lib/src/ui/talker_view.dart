@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
@@ -12,15 +13,13 @@ import 'talker_actions/talker_actions.dart';
 
 class TalkerView extends StatefulWidget {
   const TalkerView({
-    Key? key,
     required this.talker,
-    this.controller,
-    this.scrollController,
+    super.key,
     this.theme = const TalkerScreenTheme(),
     this.appBarTitle,
     this.itemsBuilder,
     this.appBarLeading,
-  }) : super(key: key);
+  });
 
   /// Talker implementation
   final Talker talker;
@@ -38,77 +37,79 @@ class TalkerView extends StatefulWidget {
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
-  final TalkerViewController? controller;
-
-  final ScrollController? scrollController;
-
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
 
 class _TalkerViewState extends State<TalkerView> {
-  final _titilesController = GroupButtonController();
-  late final _controller = widget.controller ?? TalkerViewController();
+  final GroupButtonController _titlesController = GroupButtonController();
+  late final TalkerViewController _controller = TalkerViewController();
+  late final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    final talkerTheme = widget.theme;
+    final TalkerScreenTheme talkerTheme = widget.theme;
     return AnimatedBuilder(
       animation: _controller,
-      builder: (context, child) {
-        return TalkerBuilder(
-          talker: widget.talker,
-          builder: (context, data) {
-            final filtredElements =
-                data.where((e) => _controller.filter.filter(e)).toList();
-            final titles = data.map((e) => e.title).toList();
-            final unicTitles = titles.toSet().toList();
-            return CustomScrollView(
-              controller: widget.scrollController,
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                TalkerViewAppBar(
-                  title: widget.appBarTitle,
-                  leading: widget.appBarLeading,
-                  talker: widget.talker,
-                  talkerTheme: talkerTheme,
-                  titilesController: _titilesController,
-                  titles: titles,
-                  unicTitles: unicTitles,
-                  controller: _controller,
-                  onMonitorTap: () => _openTalkerMonitor(context),
-                  onActionsTap: () => _showActionsBottomSheet(context),
-                  onSettingsTap: () =>
-                      _openTalkerSettings(context, talkerTheme),
-                  onToggleTitle: _onToggleTitle,
+      builder: (BuildContext context, Widget? child) => TalkerBuilder(
+        talker: widget.talker,
+        builder: (BuildContext context, List<TalkerDataInterface> data) {
+          final List<TalkerDataInterface> filteredElements = data
+              .where(
+                (TalkerDataInterface e) => _controller.filter.filter(e),
+              )
+              .toList();
+          final List<String> titles =
+              data.map((TalkerDataInterface e) => e.title).toList();
+          final List<String> unicTitles = titles.toSet().toList();
+          return CustomScrollView(
+            controller: _scrollController,
+            physics: const BouncingScrollPhysics(),
+            slivers: <Widget>[
+              TalkerViewAppBar(
+                title: widget.appBarTitle,
+                leading: widget.appBarLeading,
+                talker: widget.talker,
+                talkerTheme: talkerTheme,
+                titilesController: _titlesController,
+                titles: titles,
+                unicTitles: unicTitles,
+                controller: _controller,
+                onMonitorTap: () => _openTalkerMonitor(context),
+                onActionsTap: () => _showActionsBottomSheet(context),
+                onSettingsTap: () => _openTalkerSettings(context, talkerTheme),
+                onToggleTitle: _onToggleTitle,
+              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 8)),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int i) {
+                    final TalkerDataInterface data =
+                        _getListItem(filteredElements, i);
+                    if (widget.itemsBuilder != null) {
+                      return widget.itemsBuilder!.call(context, data);
+                    }
+                    return TalkerDataCard(
+                      data: data,
+                      backgroundColor: widget.theme.cardColor,
+                      onTap: () => _copyTalkerDataItemText(data),
+                      expanded: _controller.expandedLogs,
+                    );
+                  },
+                  childCount: filteredElements.length,
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 8)),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, i) {
-                      final data = _getListItem(filtredElements, i);
-                      if (widget.itemsBuilder != null) {
-                        return widget.itemsBuilder!.call(context, data);
-                      }
-                      return TalkerDataCard(
-                        data: data,
-                        backgroundColor: widget.theme.cardColor,
-                        onTap: () => _copyTalkerDataItemText(data),
-                        expanded: _controller.expandedLogs,
-                      );
-                    },
-                    childCount: filtredElements.length,
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      },
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
-  void _onToggleTitle(String title, bool selected) {
+  void _onToggleTitle({
+    required bool selected,
+    required String title,
+  }) {
     if (selected) {
       _controller.addFilterTitle(title);
     } else {
@@ -117,61 +118,66 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   TalkerDataInterface _getListItem(
-    List<TalkerDataInterface> filtredElements,
+    List<TalkerDataInterface> filteredElements,
     int i,
   ) {
-    final data = filtredElements[
-        _controller.isLogOrderReversed ? filtredElements.length - 1 - i : i];
+    final TalkerDataInterface data = filteredElements[
+        _controller.isLogOrderReversed ? filteredElements.length - 1 - i : i];
     return data;
   }
 
   void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
-    final talker = ValueNotifier(widget.talker);
+    final ValueNotifier<Talker> talker = ValueNotifier<Talker>(widget.talker);
 
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (context) {
-        return TalkerSettingsBottomSheet(
-          talkerScreenTheme: theme,
-          talker: talker,
-        );
-      },
-    );
-  }
-
-  void _openTalkerMonitor(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => TalkerMonitor(
-          theme: widget.theme,
-          talker: widget.talker,
-        ),
+      builder: (BuildContext context) => TalkerSettingsBottomSheet(
+        talkerScreenTheme: theme,
+        talker: talker,
       ),
     );
   }
 
-  void _copyTalkerDataItemText(TalkerDataInterface data) {
-    final text = data.generateTextMessage();
+  void _openTalkerMonitor(
+    BuildContext context,
+  ) =>
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => TalkerMonitor(
+            theme: widget.theme,
+            talker: widget.talker,
+          ),
+        ),
+      );
+
+  void _copyTalkerDataItemText(
+    TalkerDataInterface data,
+  ) {
+    final String text = data.generateTextMessage();
     Clipboard.setData(ClipboardData(text: text));
     _showSnackBar(context, 'Log item is copied in clipboard');
   }
 
-  void _showSnackBar(BuildContext context, String text) {
+  void _showSnackBar(
+    BuildContext context,
+    String text,
+  ) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(text)),
     );
   }
 
-  Future<void> _showActionsBottomSheet(BuildContext context) async {
-    await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return TalkerActionsBottomSheet(
-          actions: [
+  Future<void> _showActionsBottomSheet(
+    BuildContext context,
+  ) =>
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) => TalkerActionsBottomSheet(
+          actions: <TalkerActionItem>[
             TalkerActionItem(
               onTap: _controller.toggleLogOrder,
               title: 'Reverse logs',
@@ -201,17 +207,22 @@ class _TalkerViewState extends State<TalkerView> {
             ),
           ],
           talkerScreenTheme: widget.theme,
-        );
-      },
-    );
-  }
+        ),
+      );
 
   Future<void> _shareLogsInFile() async {
-    final path = await _controller.saveLogsInFile(
-      widget.talker.history.text,
-    );
-    // ignore: deprecated_member_use
-    await Share.shareFilesWithResult([path]);
+    if (kIsWeb) {
+      _controller.downloadLogsFile(widget.talker.history.text);
+    } else {
+      final String path = await _controller.saveLogsInFile(
+        widget.talker.history.text,
+      );
+      await Share.shareXFiles(
+        <XFile>[
+          XFile(path),
+        ],
+      );
+    }
   }
 
   void _cleanHistory() {
@@ -219,9 +230,8 @@ class _TalkerViewState extends State<TalkerView> {
     _controller.update();
   }
 
-  void _toggleLogsExpanded() {
-    _controller.expandedLogs = !_controller.expandedLogs;
-  }
+  void _toggleLogsExpanded() =>
+      _controller.expandedLogs = !_controller.expandedLogs;
 
   void _copyAllLogs(BuildContext context) {
     Clipboard.setData(ClipboardData(text: widget.talker.history.text));

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
@@ -313,11 +314,18 @@ class _TalkerScreenState extends State<TalkerScreen> {
   }
 
   Future<void> _shareLogsInFile() async {
-    final path = await _controller.saveLogsInFile(
-      widget.talker.history.text,
-    );
-    // ignore: deprecated_member_use
-    await Share.shareFilesWithResult([path]);
+    if (kIsWeb) {
+      _controller.downloadLogsFile(widget.talker.history.text);
+    } else {
+      final String path = await _controller.saveLogsInFile(
+        widget.talker.history.text,
+      );
+      await Share.shareXFiles(
+        <XFile>[
+          XFile(path),
+        ],
+      );
+    }
   }
 
   void _copyTalkerDataItemText(TalkerDataInterface data) {

@@ -1,3 +1,4 @@
+import 'dart:html' hide File;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -64,6 +65,17 @@ class TalkerScreenController extends ChangeNotifier {
     _filter = _filter.copyWith(
         titles: _filter.titles.where((t) => t != title).toList());
     notifyListeners();
+  }
+
+  void downloadLogsFile(String logs) {
+    final Blob blob = Blob(<String>[logs], 'text/plain', 'native');
+    final String fmtDate = DateTime.now().toString().replaceAll(':', ' ');
+
+    AnchorElement(
+      href: Url.createObjectUrlFromBlob(blob),
+    )
+      ..setAttribute('download', 'talker_logs_$fmtDate.txt')
+      ..click();
   }
 
   Future<String> saveLogsInFile(String logs) async {

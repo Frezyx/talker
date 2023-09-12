@@ -1,6 +1,7 @@
-import 'package:universal_html/html.dart';
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html';
 
-void downloadFile(String logs) {
+Future<void> downloadFile(String logs) async {
   final Blob blob = Blob(<String>[logs], 'text/plain', 'native');
   final String fmtDate = DateTime.now().toString().replaceAll(':', ' ');
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/utils/download_logs/download_nonweb_logs.dart'
-    if (kIsWeb) 'package:talker_flutter/src/utils/download_logs/download_web_logs.dart';
+    if (dart.library.html) 'package:talker_flutter/src/utils/download_logs/download_web_logs.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]

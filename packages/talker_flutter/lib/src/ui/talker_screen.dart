@@ -141,7 +141,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                                               ),
                                               const SizedBox(width: 4),
                                               Text(
-                                                value,
+                                                '$value',
                                                 style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.white,

@@ -1,3 +1,16 @@
+## 2.2.0
+- Rename (fix typo) **recvie** -> **receive** in BlocEventLog
+- Upgrade **talker** version to 3.1.0
+
+Thanks to [wcoder](https://github.com/wcoder)
+## 2.1.1
+- Add topics in pubspec.yaml
+- Update talker version to 3.0.4
+- Update sdk version to **'>=2.15.0 <4.0.0'**
+## 2.1.0
+- Add logging for **onChange** method to enable **Cubit**'s logs
+- Add **printEvents**, **printTransitions**, **printChanges** fields in **TalkerBlocLoggerSettings**
+
 ## 2.0.0
 - Upgrade **talker** version to 3.0.0
 

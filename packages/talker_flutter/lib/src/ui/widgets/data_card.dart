@@ -6,18 +6,20 @@ import 'package:talker_flutter/talker_flutter.dart';
 class TalkerDataCard extends StatelessWidget {
   const TalkerDataCard({
     Key? key,
-    this.color,
     required this.data,
     this.onTap,
     this.expanded = true,
     this.margin,
+    this.color,
+    this.backgroundColor = defaultCardBackgroundColor,
   }) : super(key: key);
 
-  final Color? color;
   final TalkerDataInterface data;
   final VoidCallback? onTap;
   final bool expanded;
   final EdgeInsets? margin;
+  final Color? color;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class TalkerDataCard extends StatelessWidget {
         children: [
           TalkerBaseCard(
             color: color,
+            backgroundColor: backgroundColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -149,7 +152,7 @@ class TalkerDataCard extends StatelessWidget {
       return httpRequestLogColor;
     }
     if (data.title == WellKnownTitles.route.title) {
-      return routeLogcolor;
+      return routeLogColor;
     }
     if (data.title == WellKnownTitles.blocTransition.title) {
       return blocTransitionColor;

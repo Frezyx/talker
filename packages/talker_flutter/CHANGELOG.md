@@ -1,3 +1,81 @@
+# 3.2.10
+- Add TalkerScreenTheme **cardColor** customization field
+
+# 3.2.9
+- Fix **appBarleading** showing
+
+# 3.2.8
+- Add **appBarleading** field to TalkerScreen and TalkerView constructor
+
+# 3.2.7
+- Fix TalkerWrapper error looping
+
+Thanks to [s0nerik](https://github.com/s0nerik)
+
+# 3.2.6
+- Fix appbar icon colors
+- Rename part of internal classes
+
+# 3.2.5
+- Make **controller**, **theme**, **appBarTitle** not required for TalkerView
+- Make TalkerScreen Stateless instead of Stateful
+
+# 3.2.4
+- Fix AppBar title text color
+
+# 3.2.3
+- Add **TalkerView** in package exports
+
+# 3.2.2
+- Fix logs expanding and collapsing in TalkerView
+
+# 3.2.1
+- Refactor TalkerScreen decomposition 
+- Extract TalkerView, TalkerViewAppBar
+
+# 3.2.0
+- Rename (fix typo) field **backgroudColor** -> **backgroundColor**
+- Fix internal and docs typos 
+- Update **talker** version to 3.1.0
+- Update **group_button** version to 5.3.2
+
+Thanks to [wcoder](https://github.com/wcoder)
+
+# 3.1.12
+- Remove using paddingOf to support old flutter versions
+
+# 3.1.11
+- refactor and enhance UI
+- Fix typo **bacgroundColor** -> **backgroundColor** in SnackbarContent constructor
+- Add the **dismissButtonText** Widget to SnackbarContent
+- Add the **dismissButton** Widget to SnackbarContent
+- Add the **titleTextStyle** TextStyle to SnackbarContent
+- Add the **messageTextStyle** TextStyle to SnackbarContent
+- Add an **onPressed** callback to SnackbarContent
+- Use paddingOf instead size this method will cause the given [context] to rebuild any time that the [MediaQueryData.padding] property of the ancestor [MediaQuery] changes. Checkout the following PR for more informations about MediaQuery as InheritedModel
+
+Thanks to [jnelle](https://github.com/jnelle)
+# 3.1.10
+- Update **talker** version to 3.0.5
+
+# 3.1.9
+- Add topics in pubspec.yaml
+
+# 3.1.8
+- Update **talker** version to 3.0.4
+
+# 3.1.7
+- Set the exact size of the text in the search TextField
+- Fix large text in search bar
+
+# 3.1.6
+- Update **talker** version to 3.0.2
+
+# 3.1.5
+- Fix typos in package documentation
+
+Thanks to [vicenterusso](https://github.com/vicenterusso)
+
 # 3.1.4
 - Fix TalkerScreen scrolling
 

@@ -1,6 +1,6 @@
-/// Util for [DateTime] formating
-class TalkerDateTimeFormater {
-  const TalkerDateTimeFormater(this.date);
+/// Util for [DateTime] formatting
+class TalkerDateTimeFormatter {
+  const TalkerDateTimeFormatter(this.date);
 
   /// Date
   final DateTime date;

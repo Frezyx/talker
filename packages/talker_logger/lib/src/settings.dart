@@ -4,7 +4,7 @@ import 'package:talker_logger/talker_logger.dart';
 class TalkerLoggerSettings {
   const TalkerLoggerSettings({
     this.colors = const {},
-    this.level = LogLevel.good,
+    this.level = LogLevel.verbose,
     this.lineSymbol = '─',
     this.maxLineWidth = 110,
     this.enableColors = true,

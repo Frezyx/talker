@@ -19,7 +19,7 @@ class TalkerMonitor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroudColor,
+      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         title: const FittedBox(
           fit: BoxFit.scaleDown,
@@ -81,7 +81,7 @@ class TalkerMonitor extends StatelessWidget {
                             style: const TextStyle(color: Colors.green),
                             children: const [
                               TextSpan(
-                                text: ' responses recived',
+                                text: ' responses received',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],
@@ -93,7 +93,7 @@ class TalkerMonitor extends StatelessWidget {
                             style: const TextStyle(color: Colors.red),
                             children: const [
                               TextSpan(
-                                text: ' responses recived',
+                                text: ' responses received',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],

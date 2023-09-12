@@ -9,8 +9,8 @@ class BlocEventLog extends TalkerLog {
     required this.event,
     required this.settings,
   }) : super(settings.printEventFullData
-            ? '${bloc.runtimeType} recive event:\n$event'
-            : '${bloc.runtimeType} recvie event: ${event.runtimeType}');
+            ? '${bloc.runtimeType} receive event:\n$event'
+            : '${bloc.runtimeType} receive event: ${event.runtimeType}');
 
   final Bloc bloc;
   final Object? event;

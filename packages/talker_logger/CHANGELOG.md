@@ -1,3 +1,19 @@
+# 3.1.0
+- Rename (fix typo) **LoggerFormater -> **LoggerFormatter** 
+- Rename (fix typo) field **formater** -> **formatter** 
+- Fix internal and docs typos 
+
+Thanks to [wcoder](https://github.com/wcoder)
+
+# 3.0.4
+- Add topics in pubspec.yaml
+
+# 3.0.3
+- Update sdk version to **'>=2.15.0 <4.0.0'**
+
+# 3.0.2
+- Update **LogLevel** priority list
+
 # 3.0.1
 
 - Move back console_utils export

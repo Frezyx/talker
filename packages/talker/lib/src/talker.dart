@@ -22,7 +22,7 @@ class Talker {
   /// You can set your own [LoggerFilter] [loggerFilter]
   /// to filter talker logs,
   ///
-  /// You can set your own [LoggerFormater] [loggerFormater]
+  /// You can set your own [LoggerFormatter] [loggerFormatter]
   /// to format output of talker logs,
   ///
   /// You can add your own observer to handle errors and logs in other place
@@ -64,7 +64,7 @@ class Talker {
   /// You can set your own [LoggerFilter] [loggerFilter]
   /// to filter talker logs,
   ///
-  /// You can set your own [LoggerFormater] [loggerFormater]
+  /// You can set your own [LoggerFormatter] [loggerFormatter]
   /// to format output of talker logs,
   ///
   /// Also you can set [settings] [TalkerSettings],
@@ -107,7 +107,7 @@ class Talker {
   List<TalkerDataInterface> get history => _history;
 
   /// Handle common exceptions in your code
-  /// [Object] [exception] - excption
+  /// [Object] [exception] - exception
   /// [String?] [msg] - message describes what happened
   /// [StackTrace?] [stackTrace] - stackTrace
   ///
@@ -115,7 +115,7 @@ class Talker {
   /// try {
   ///   // your code...
   /// } catch (e, st) {
-  ///   talker.handle(e, 'Eception in ...', st);
+  ///   talker.handle(e, 'Exception in ...', st);
   /// }
   /// ```
   ///

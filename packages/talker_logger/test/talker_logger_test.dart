@@ -12,7 +12,7 @@ final _messages = <String>[];
 final _formatter = LogLevelLoggerFormater();
 final _logger = TalkerLogger(
   settings: const TalkerLoggerSettings(enableColors: false),
-  formater: _formatter,
+  formatter: _formatter,
   output: (message) => _messages.add(message),
 );
 
@@ -34,7 +34,7 @@ void main() {
     final logger = TalkerLogger(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
-      formater: _formatter,
+      formatter: _formatter,
     );
     _expectInstance(logger);
     // ignore: unnecessary_type_check
@@ -42,9 +42,9 @@ void main() {
     expect(logger.settings.lineSymbol, '#');
 
     // ignore: unnecessary_type_check
-    expect(logger.formater is LoggerFormatter, true);
+    expect(logger.formatter is LoggerFormatter, true);
     // ignore: unnecessary_type_check
-    expect(logger.formater is LogLevelLoggerFormater, true);
+    expect(logger.formatter is LogLevelLoggerFormater, true);
   });
 
   test('Constructor copyWith', () {
@@ -55,7 +55,7 @@ void main() {
     logger = logger.copyWith(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
-      formater: _formatter,
+      formatter: _formatter,
     );
     logger.critical('c');
     logger.critical('c');
@@ -66,9 +66,9 @@ void main() {
     expect(logger.settings.lineSymbol, '#');
 
     // ignore: unnecessary_type_check
-    expect(logger.formater is LoggerFormatter, true);
+    expect(logger.formatter is LoggerFormatter, true);
     // ignore: unnecessary_type_check
-    expect(logger.formater is LogLevelLoggerFormater, true);
+    expect(logger.formatter is LogLevelLoggerFormater, true);
   });
 
   test('Constructor copyWith empty', () {
@@ -76,7 +76,7 @@ void main() {
     var logger = TalkerLogger(
       settings: const TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
-      formater: _formatter,
+      formatter: _formatter,
       output: (message) => messages.add(message),
     );
     logger = logger.copyWith();
@@ -89,9 +89,9 @@ void main() {
     expect(logger.settings.lineSymbol, '#');
 
     // ignore: unnecessary_type_check
-    expect(logger.formater is LoggerFormatter, true);
+    expect(logger.formatter is LoggerFormatter, true);
     // ignore: unnecessary_type_check
-    expect(logger.formater is LogLevelLoggerFormater, true);
+    expect(logger.formatter is LogLevelLoggerFormater, true);
   });
 
   group('TalkerLogger', () {
@@ -135,7 +135,7 @@ void main() {
       final logger = TalkerLogger(
         settings: const TalkerLoggerSettings(enableColors: false),
         output: (message) => _messages.add(message),
-        formater: const ColoredLoggerFormatter(),
+        formatter: const ColoredLoggerFormatter(),
       );
       final str = '────' * 1000;
       logger.log(str);

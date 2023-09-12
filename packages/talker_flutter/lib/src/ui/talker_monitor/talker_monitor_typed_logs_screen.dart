@@ -17,7 +17,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroudColor,
+      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         title: Text('Talker Monitor $typeName'),
       ),

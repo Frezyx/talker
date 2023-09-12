@@ -48,6 +48,21 @@ void main() {
     expect(talker.history.last is TalkerException, true);
   });
 
+  test('Handle exception with logs enabled', () {
+    talker.configure(
+      settings: TalkerSettings(),
+      logger: TalkerLogger(
+        output: (message) {},
+      ),
+    );
+    talker.handle(Exception());
+    talker.handle(Exception(), StackTrace.current, 'Some error');
+    expect(talker.history, isNotEmpty);
+    expect(talker.history.length, 2);
+    expect(talker.history.first is TalkerException, true);
+    expect(talker.history.last is TalkerException, true);
+  });
+
   test('Handle not exception or error', () {
     talker.handle('Text');
     talker.handle(LikeErrorButNot());
@@ -69,5 +84,22 @@ void main() {
 
     expect(talker.hashCode, isNotNull);
     expect(talker.hashCode, isNot(0));
+  });
+
+  test('log', () async {
+    const testLogMessage = 'Test log message';
+    final talker = Talker(
+      logger: TalkerLogger(
+        output: (message) {},
+      ),
+    );
+    talker.log(testLogMessage);
+
+    expect(talker.history.length, 1);
+    expect(
+      talker.history.whereType<TalkerLog>().length,
+      1,
+    );
+    expect(talker.history.first.message, testLogMessage);
   });
 }

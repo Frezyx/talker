@@ -4,7 +4,7 @@ class TalkerLogger {
   TalkerLogger({
     this.settings = const TalkerLoggerSettings(),
     LoggerFilter? filter,
-    this.formater = const ExtendedLoggerFormatter(),
+    this.formatter = const ExtendedLoggerFormatter(),
     void Function(String message)? output,
   }) {
     // ignore: avoid_print
@@ -17,7 +17,7 @@ class TalkerLogger {
   final TalkerLoggerSettings settings;
 
   /// Logs formatter
-  final LoggerFormatter formater;
+  final LoggerFormatter formatter;
 
   late final void Function(String message) _output;
   late final LoggerFilter _filter;
@@ -38,11 +38,11 @@ class TalkerLogger {
     final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
     final selectedLevel = level ?? LogLevel.debug;
     if (_filter.shouldLog(msg, selectedLevel)) {
-      final formatedMsg = formater.fmt(
+      final formattedMsg = formatter.fmt(
         LogDetails(message: msg, level: selectedLevel, pen: selectedPen),
         settings,
       );
-      _output(formatedMsg);
+      _output(formattedMsg);
     }
   }
 
@@ -132,13 +132,13 @@ class TalkerLogger {
 
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,
-    LoggerFormatter? formater,
+    LoggerFormatter? formatter,
     LoggerFilter? filter,
     Function(String message)? output,
   }) {
     return TalkerLogger(
       settings: settings ?? this.settings,
-      formater: formater ?? this.formater,
+      formatter: formatter ?? this.formatter,
       filter: filter ?? _filter,
       output: output ?? _output,
     );

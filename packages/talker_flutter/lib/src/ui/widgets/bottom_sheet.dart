@@ -28,7 +28,7 @@ class BaseBottomSheet extends StatelessWidget {
           bottom: mq.padding.bottom,
         ),
         decoration: BoxDecoration(
-          color: talkerScreenTheme.backgroudColor,
+          color: talkerScreenTheme.backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(

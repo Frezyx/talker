@@ -1,3 +1,8 @@
+# 3.3.0
+- Support web platform downloading logs 
+
+Thanks to [Kabak-Siarhei](https://github.com/Kabak-Siarhei)
+
 # 3.2.10
 - Add TalkerScreenTheme **cardColor** customization field
 

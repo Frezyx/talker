@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
@@ -207,11 +206,9 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   Future<void> _shareLogsInFile() async {
-    final path = await _controller.saveLogsInFile(
+    await _controller.downloadLogsFile(
       widget.talker.history.text,
     );
-    // ignore: deprecated_member_use
-    await Share.shareFilesWithResult([path]);
   }
 
   void _cleanHistory() {

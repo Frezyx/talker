@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:talker_flutter/src/controller/talker_screen_controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
@@ -143,7 +141,7 @@ class _TalkerScreenState extends State<TalkerScreen> {
                                               ),
                                               const SizedBox(width: 4),
                                               Text(
-                                                '$value',
+                                                value,
                                                 style: const TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.white,
@@ -313,20 +311,8 @@ class _TalkerScreenState extends State<TalkerScreen> {
     );
   }
 
-  Future<void> _shareLogsInFile() async {
-    if (kIsWeb) {
-      _controller.downloadLogsFile(widget.talker.history.text);
-    } else {
-      final String path = await _controller.saveLogsInFile(
-        widget.talker.history.text,
-      );
-      await Share.shareXFiles(
-        <XFile>[
-          XFile(path),
-        ],
-      );
-    }
-  }
+  Future<void> _shareLogsInFile() async =>
+      await _controller.downloadLogsFile(widget.talker.history.text);
 
   void _copyTalkerDataItemText(TalkerDataInterface data) {
     final text = data.generateTextMessage();

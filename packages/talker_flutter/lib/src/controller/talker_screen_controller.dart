@@ -1,8 +1,6 @@
-import 'dart:html' hide File;
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:talker_flutter/src/utils/download_logs/download_nonweb_logs.dart'
+    if (kIsWeb) 'package:talker_flutter/src/utils/download_logs/download_web_logs.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
@@ -67,26 +65,7 @@ class TalkerScreenController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void downloadLogsFile(String logs) {
-    final Blob blob = Blob(<String>[logs], 'text/plain', 'native');
-    final String fmtDate = DateTime.now().toString().replaceAll(':', ' ');
-
-    AnchorElement(
-      href: Url.createObjectUrlFromBlob(blob),
-    )
-      ..setAttribute('download', 'talker_logs_$fmtDate.txt')
-      ..click();
-  }
-
-  Future<String> saveLogsInFile(String logs) async {
-    final dir = await getTemporaryDirectory();
-    final dirPath = dir.path;
-    final fmtDate = DateTime.now().toString().replaceAll(":", " ");
-    final file =
-        await File('$dirPath/talker_logs_$fmtDate.txt').create(recursive: true);
-    await file.writeAsString(logs);
-    return file.path;
-  }
+  Future<void> downloadLogsFile(String logs) async => await downloadFile(logs);
 
   /// Redefinition [notifyListeners]
   void update() => notifyListeners();

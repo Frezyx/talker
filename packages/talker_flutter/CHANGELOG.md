@@ -1,3 +1,6 @@
+# 3.3.1
+- Update README docs and examples
+
 # 3.3.0
 - Support web platform downloading logs 
 

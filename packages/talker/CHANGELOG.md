@@ -1,3 +1,7 @@
+# 3.1.2
+- Fix analysis_options.yaml 
+- Update README docs and examples
+
 # 3.1.1
 - Make 100% tests coverage
 - Add Contributors section in project README

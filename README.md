@@ -65,10 +65,11 @@ Talker is designed for any level of customization. <br>
 
 - [Motivation](#motivation)
 - [Packages](#packages)
-- [Get Started](#get-started)
-- [Customization](#⚙️-customization)
-- [TalkerObserver](#talkerobserver)
-  - [Crashlytics integration](#crashlytics-integration)
+- [Talker](#talker)
+  - [Get Started](#get-started)
+  - [Customization](#⚙️-customization)
+  - [Custom logs](#custom-logs)
+  - [TalkerObserver](#talkerobserver)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
   - [TalkerScreen](#talkerscreen)
@@ -78,10 +79,14 @@ Talker is designed for any level of customization. <br>
 - [Integrations](#integrations)
   - [Talker Dio Logger](#talker-dio-logger)
   - [Talker BLoC Logger](#talker-bloc-logger)
+  - [Crashlytics integration](#crashlytics-integration)
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)
 - [Contributors](#contributors)
+
+
+# Talker
 
 ## Get Started
 <!-- See all documentation at [talker web site](https://frezyx.github.io/talker/guide/get-started.html#instalation) or -->
@@ -143,44 +148,62 @@ final talker = Talker(
 ```
 More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
+## Custom logs
+
+With Talker you can create your custom log message types.<br>
+And you have **full customization control** over them!
+
+```dart
+class YourCustomLog extends TalkerLog {
+  YourCustomLog(String message) : super(message);
+
+  /// Your custom log title
+  @override
+  String get title => 'CUSTOM';
+
+  /// Your custom log color
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(121);
+}
+
+final talker = Talker();
+talker.logTyped(YourCustomLog('Something like your own service message'));
+```
+
 ## TalkerObserver
 
 TalkerObserver is a mechanism that allows observing what is happening inside Talker from the outside.
 
-
-### Crashlytics integration
-
-You can use it to transmit data about logs to external sources such as **Crashlytics**, **Sentry**, **Grafana**, or your own analytics service, etc.
-
 ```dart
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:talker/talker.dart';
 
-class CrashlyticsTalkerObserver extends TalkerObserver {
-  CrashlyticsTalkerObserver();
+class ExampleTalkerObserver extends TalkerObserver {
+  ExampleTalkerObserver();
 
   @override
-  void onError(err) {
-      FirebaseCrashlytics.instance.recordError(
-        err.error,
-        err.stackTrace,
-        reason: err.message,
-      );
+  void onError(TalkerError err) {
+    /// Send data to your error tracking system like Sentry or backend
+    super.onError(err);
   }
 
   @override
-  void onException(err) {
-      FirebaseCrashlytics.instance.recordError(
-        err.exception,
-        err.stackTrace,
-        reason: err.message,
-      );
+  void onException(TalkerException exception) {
+    /// Send Exception to your error tracking system like Sentry or backend
+    super.onException(exception);
+  }
+
+  @override
+  void onLog(TalkerDataInterface log) {
+    /// Send log message to Grafana or backend
+    super.onLog(log);
   }
 }
 
-final crashlyticsTalkerObserver = CrashlyticsTalkerObserver();
-final talker = Talker(observer: crashlyticsTalkerObserver);
+final observer = ExampleTalkerObserver();
+final talker = Talker(observer: observer);
 ```
+
+You can use it to transmit data about logs to external sources such as **[Crashlytics](#crashlytics-integration)**, **Sentry**, **Grafana**, or your own analytics service, etc.
 
 # Talker Flutter
 
@@ -387,6 +410,38 @@ import 'package:talker/talker.dart';
 
 final talker = Talker();
 Bloc.observer = TalkerBlocObserver(talker: talker);
+```
+
+### Crashlytics integration
+
+```dart
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:talker/talker.dart';
+
+class CrashlyticsTalkerObserver extends TalkerObserver {
+  CrashlyticsTalkerObserver();
+
+  @override
+  void onError(err) {
+      FirebaseCrashlytics.instance.recordError(
+        err.error,
+        err.stackTrace,
+        reason: err.message,
+      );
+  }
+
+  @override
+  void onException(err) {
+      FirebaseCrashlytics.instance.recordError(
+        err.exception,
+        err.stackTrace,
+        reason: err.message,
+      );
+  }
+}
+
+final crashlyticsTalkerObserver = CrashlyticsTalkerObserver();
+final talker = Talker(observer: crashlyticsTalkerObserver);
 ```
 
 ## Features list

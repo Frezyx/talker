@@ -68,6 +68,7 @@ Talker is designed for any level of customization. <br>
 - [Get Started](#get-started)
 - [Customization](#⚙️-customization)
 - [TalkerObserver](#talkerobserver)
+  - [Crashlytics integration](#crashlytics-integration)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
   - [TalkerScreen](#talkerscreen)
@@ -145,6 +146,9 @@ More examples you can get [here](https://github.com/Frezyx/talker/blob/master/pa
 ## TalkerObserver
 
 TalkerObserver is a mechanism that allows observing what is happening inside Talker from the outside.
+
+
+### Crashlytics integration
 
 You can use it to transmit data about logs to external sources such as **Crashlytics**, **Sentry**, **Grafana**, or your own analytics service, etc.
 

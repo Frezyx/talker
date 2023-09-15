@@ -25,9 +25,11 @@ Future<void> main() async {
 class YourCustomLog extends TalkerLog {
   YourCustomLog(String message) : super(message);
 
+  /// Your custom log title
   @override
   String get title => 'CUSTOM';
 
+  /// Your custom log color
   @override
   AnsiPen get pen => AnsiPen()..xterm(121);
 }

@@ -1,3 +1,6 @@
+# 3.1.3
+- Fix analysis_options.yaml
+
 # 3.1.2
 - Fix analysis_options.yaml 
 - Update README docs and examples

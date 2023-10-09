@@ -244,10 +244,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: dbf0f707c78beedc9200146ad3cb0ab4d5da13c246336987be6940f026500d3a
+      sha256: da3fdfeccc4d4ff2da8f8c556704c08f912542c5fb3cf2233ed75372384a034d
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.1.6"
   process:
     dependency: transitive
     description:
@@ -260,18 +260,18 @@ packages:
     dependency: transitive
     description:
       name: share_plus
-      sha256: "44fc0bc2d35a8fafa1b564e1c6888bdc4fbb2d0197e4a4c21bac0e66123be9cd"
+      sha256: "6cec740fa0943a826951223e76218df002804adb588235a8910dc3d6b0654e11"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.1"
+    version: "7.1.0"
   share_plus_platform_interface:
     dependency: transitive
     description:
       name: share_plus_platform_interface
-      sha256: "0c6e61471bd71b04a138b8b588fa388e66d8b005e6f2deda63371c5c505a0981"
+      sha256: "357412af4178d8e11d14f41723f80f12caea54cf0d5cd29af9dcdab85d58aea7"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.1"
+    version: "3.3.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -313,17 +313,17 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: cac6c1f6acf68419b14567e3ba9375083a3f267a58e088a454c983da1cd7cab4
+      sha256: e0cb07e0bcab6045b86761593ff6f1878b335bfc1978ba48415d0968af68d81e
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.3"
   talker_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "3.3.0"
+    version: "3.4.0"
   talker_logger:
     dependency: transitive
     description:

@@ -1,3 +1,6 @@
+# 3.4.0
+- Bump share_plus package to 7.1.0
+
 # 3.3.1
 - Update README docs and examples
 

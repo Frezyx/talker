@@ -73,6 +73,10 @@ Talker is designed for any level of customization. <br>
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
   - [TalkerScreen](#talkerscreen)
+  - [TalkerRouteObserver](#talkerrouteobserver)
+    - [Navigator](#navigator)
+    - [auto_route](#auto_route)
+    - [go_router](#go_router)
   - [TalkerMonitor](#talkermonitor)
   - [TalkerWrapper](#talkerwrapper)
   - [More Features And Examples](#more-features-and-examples)
@@ -214,7 +218,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^3.5.0
+  talker_flutter: ^3.5.1
 ```
 
 ### Setup
@@ -272,6 +276,52 @@ Navigator.of(context).push(
 );
 ```
 See more in TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
+
+## TalkerRouteObserver
+Observer for a navigator. <br>
+If you want to keep a record of page transitions in your application, you've found what you're looking for.
+
+You can use TalkerRouteObserver with **any routing package**
+
+From auto_route to basic Flutter Navigator
+
+### Navigator
+
+```dart
+final talker = Talker();
+
+MaterialApp(
+  navigatorObservers: [
+    TalkerRouteObserver(talker),
+  ],
+)
+```
+
+### auto_route
+
+```dart
+final talker = Talker();
+
+MaterialApp.router(
+  routerDelegate: AutoRouterDelegate(
+    appRouter,
+    navigatorObservers: () => [
+      TalkerRouteObserver(talker),
+    ],
+  ),
+),
+```
+
+### go_router
+
+```dart
+final talker = Talker();
+
+GoRouter(
+  observers: [TalkerRouteObserver(talker)],
+)
+```
+
 
 ## TalkerMonitor 
 If you want to check the status of your application in a short time<br> 
@@ -413,6 +463,10 @@ Bloc.observer = TalkerBlocObserver(talker: talker);
 ```
 
 ### Crashlytics integration
+
+If you add CrashlyticsTalkerObserver to your application, you will receive notifications about all application errors in the Crashlytics dashboard. <br>
+
+Additionally, you can **configure it to send only specific errors** to Crashlytics from within TalkerObserver.
 
 ```dart
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';

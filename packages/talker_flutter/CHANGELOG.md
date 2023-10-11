@@ -1,3 +1,7 @@
+# 3.5.1
+- Add TalkerRouteObsever documentatuion
+- Fix share_plus version 7.1.0
+
 # 3.5.0
 - Update internal packages versions
 - - Bump share_plus package to 8.0.0

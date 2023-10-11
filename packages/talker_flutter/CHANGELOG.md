@@ -1,3 +1,8 @@
+# 3.5.0
+- Update internal packages versions
+- - Bump share_plus package to 8.0.0
+- - Bump path_provider package to 2.1.1
+
 # 3.4.0
 - Bump share_plus package to 7.1.0
 

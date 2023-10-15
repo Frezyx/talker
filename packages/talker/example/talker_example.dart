@@ -1,7 +1,15 @@
 import 'package:talker/talker.dart';
 
 Future<void> main() async {
-  final talker = Talker();
+  final talker = Talker(
+    logger: TalkerLogger(
+      settings: TalkerLoggerSettings(
+        colors: {
+          LogLevel.warning: AnsiPen()..xterm(204),
+        },
+      ),
+    ),
+  );
 
   /// Logs with LogLevel
   talker.warning('The pizza is over 😥');

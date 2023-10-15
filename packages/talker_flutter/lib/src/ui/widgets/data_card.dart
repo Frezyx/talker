@@ -142,6 +142,13 @@ class TalkerDataCard extends StatelessWidget {
   }
 
   Color get _color {
+    if (data is TalkerLog) {
+      final hexColor = (data as TalkerLog).pen?.toHexColor();
+      if (hexColor != null) {
+        return ColorExt.fromHEX(hexColor);
+      }
+    }
+
     if (data.title == WellKnownTitles.httpError.title) {
       return LogLevel.error.color;
     }

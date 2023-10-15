@@ -2,13 +2,12 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   ansicolor:
-    dependency: transitive
+    dependency: "direct main"
     description:
-      name: ansicolor
-      sha256: "607f8fa9786f392043f169898923e6c59b4518242b68b8862eb8a8b7d9c30b4a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
+      path: "/Users/stanislavilin/Documents/dev/flutter/packages/other/ansicolor-dart"
+      relative: false
+    source: path
+    version: "2.0.2-dev"
   async:
     dependency: transitive
     description:

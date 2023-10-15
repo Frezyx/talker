@@ -24,6 +24,9 @@ dependencies:
   group_button: ^5.3.3
   path_provider: ^2.1.1
   share_plus: ^7.1.0
+  ansicolor: #^2.0.1
+    path:
+      /Users/stanislavilin/Documents/dev/flutter/packages/other/ansicolor-dart
 
 
 dev_dependencies:

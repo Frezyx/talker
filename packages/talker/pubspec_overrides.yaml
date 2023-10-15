@@ -2,3 +2,6 @@ dependency_overrides:
   talker_logger:
     path:
       ../talker_logger
+  ansicolor:
+    path:
+      /Users/stanislavilin/Documents/dev/flutter/packages/other/ansicolor-dart

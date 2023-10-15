@@ -142,15 +142,11 @@ class TalkerDataCard extends StatelessWidget {
   }
 
   Color get _color {
-    if (data is TalkerLog) {
-      final hexColor = (data as TalkerLog).pen?.toHexColor();
-      if (hexColor != null) {
-        return ColorExt.fromHEX(hexColor);
-      }
-    }
+    final colorFromAnsi = _getColorFromAnsi();
+    if (colorFromAnsi != null) return colorFromAnsi;
 
     if (data.title == WellKnownTitles.httpError.title) {
-      return LogLevel.error.color;
+      return errorColor;
     }
     if (data.title == WellKnownTitles.httpResponse.title) {
       return httpResponseLogColor;
@@ -167,7 +163,18 @@ class TalkerDataCard extends StatelessWidget {
     if (data.title == WellKnownTitles.blocEvent.title) {
       return blocEventColor;
     }
-    return data.logLevel.color;
+    return debugColor;
+  }
+
+  Color? _getColorFromAnsi() {
+    final logData = data;
+    if (logData is TalkerLog) {
+      final hexColor = logData.pen?.toHexColor();
+      if (hexColor != null) {
+        return ColorExt.fromHEX(hexColor);
+      }
+    }
+    return null;
   }
 
   String? get _message {

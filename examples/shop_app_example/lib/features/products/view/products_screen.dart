@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/features/products/bloc/products/products_bloc.dart';
 import 'package:talker_shop_app_example/features/products/widgets/widgets.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
@@ -156,20 +155,20 @@ class ExampleWarning extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        border: Border.all(color: LogLevel.warning.color),
+        border: Border.all(color: Colors.orange[800]!),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
           Icon(
             Icons.warning_amber_rounded,
-            color: LogLevel.warning.color,
+            color: Colors.orange[800]!,
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               text,
-              style: TextStyle(color: LogLevel.warning.color),
+              style: TextStyle(color: Colors.orange[800]!),
             ),
           ),
         ],

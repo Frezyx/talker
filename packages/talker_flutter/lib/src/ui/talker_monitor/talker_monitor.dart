@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_typed_logs_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/widgets/widgets.dart';
+import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitor extends StatelessWidget {
@@ -125,7 +126,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: exceptions,
                     title: 'Exceptions',
-                    color: LogLevel.error.color,
+                    color: errorColor,
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${exceptions.length} unresolved exceptions',
@@ -140,7 +141,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: warnings,
                     title: 'Warnings',
-                    color: LogLevel.warning.color,
+                    color: waringinColor,
                     icon: Icons.warning_amber_rounded,
                     subtitle: 'Application has ${warnings.length} warnings',
                     onTap: () =>
@@ -154,7 +155,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: infos,
                     title: 'Infos',
-                    color: LogLevel.info.color,
+                    color: infoColor,
                     icon: Icons.info_outline_rounded,
                     subtitle: 'Info logs count: ${infos.length}',
                     onTap: () => _openTypedLogsScreen(context, infos, 'Infos'),
@@ -167,7 +168,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: verboseDebug,
                     title: 'Verbose & debug',
-                    color: LogLevel.verbose.color,
+                    color: verboseColor,
                     icon: Icons.remove_red_eye_outlined,
                     subtitle:
                         'Verbose and debug logs count: ${verboseDebug.length}',

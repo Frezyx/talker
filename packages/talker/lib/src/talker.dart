@@ -359,8 +359,12 @@ class Talker {
       return;
     }
 
-    data = TalkerLog(message?.toString() ?? '', logLevel: logLevel);
-    _handleLogData(data as TalkerLog, pen: pen);
+    data = TalkerLog(
+      message?.toString() ?? '',
+      logLevel: logLevel,
+      pen: pen ?? logLevel.consoleColor,
+    );
+    _handleLogData(data as TalkerLog);
   }
 
   void _handleErrorData(TalkerDataInterface data) {
@@ -383,7 +387,6 @@ class Talker {
 
   void _handleLogData(
     TalkerLog data, {
-    AnsiPen? pen,
     LogLevel? logLevel,
   }) {
     if (!settings.enabled) {
@@ -400,7 +403,7 @@ class Talker {
       _logger.log(
         data.generateTextMessage(),
         level: logLevel ?? data.logLevel,
-        pen: data.pen ?? pen,
+        pen: data.pen,
       );
     }
   }

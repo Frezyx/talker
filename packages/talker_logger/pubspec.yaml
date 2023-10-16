@@ -16,7 +16,7 @@ environment:
   sdk: '>=2.15.0 <4.0.0'
 
 dependencies:
-  ansicolor: ^2.0.1
+  ansicolor: ^2.0.2
 
 dev_dependencies:
   lint: ^2.0.1

@@ -208,3 +208,12 @@ class TalkerDataCard extends StatelessWidget {
     return 'Type: ${data.exception?.runtimeType.toString() ?? data.error?.runtimeType.toString() ?? ''}';
   }
 }
+
+extension AnsiExtension on AnsiPen {
+  /// Make ansi to hex format
+  String toHexColor() {
+    final ansiColor = fcolor != -1 ? fcolor : bcolor;
+    final hexColor = '#${ansiColor.toRadixString(16)}';
+    return hexColor;
+  }
+}

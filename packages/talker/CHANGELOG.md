@@ -1,3 +1,8 @@
+# 3.1.4
+- Pad minutes and seconds for DateTime formatter
+
+Thanks to [Reprevise](https://github.com/Reprevise)
+
 # 3.1.3
 - Fix analysis_options.yaml
 

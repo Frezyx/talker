@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // Disable flutter logs cut by the console
-    final talker = Talker(loggerOutput: debugPrint);
+    final talker = Talker();
     // Disable flutter logs cut by the console
 
     _dio = Dio();

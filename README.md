@@ -99,7 +99,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^3.1.2
+  talker: ^3.1.4
 ```
 
 ### Easy to use

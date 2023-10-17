@@ -25,31 +25,6 @@ final logLevelPriorityList = [
   LogLevel.verbose,
 ];
 
-/// Extension to get console log title of log level
-extension LogLevelTitle on LogLevel? {
-  /// Console log title of log level
-  String get title {
-    switch (this) {
-      case LogLevel.critical:
-        return 'CRITICAL';
-      case LogLevel.error:
-        return 'ERROR';
-      case LogLevel.warning:
-        return 'WARNING';
-      case LogLevel.verbose:
-        return 'VERBOSE';
-      case LogLevel.info:
-        return 'INFO';
-      case LogLevel.good:
-        return 'GOOD';
-      case LogLevel.debug:
-        return 'DEBUG';
-      default:
-        return 'LOG';
-    }
-  }
-}
-
 /// Extension to get console log [AnsiPen] of log level
 /// to make colored message
 extension ToConsoleColor on LogLevel? {

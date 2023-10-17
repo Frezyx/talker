@@ -13,15 +13,15 @@ void main() {
     LogLevel.good: AnsiPen()..green(),
   };
 
-  final textCases = {
-    LogLevel.critical: 'CRITICAL',
-    LogLevel.error: 'ERROR',
-    LogLevel.warning: 'WARNING',
-    LogLevel.verbose: 'VERBOSE',
-    LogLevel.info: 'INFO',
-    LogLevel.good: 'GOOD',
-    LogLevel.debug: 'DEBUG',
-  };
+  // final textCases = {
+  //   LogLevel.critical: 'CRITICAL',
+  //   LogLevel.error: 'ERROR',
+  //   LogLevel.warning: 'WARNING',
+  //   LogLevel.verbose: 'VERBOSE',
+  //   LogLevel.info: 'INFO',
+  //   LogLevel.good: 'GOOD',
+  //   LogLevel.debug: 'DEBUG',
+  // };
 
   setUp(() {
     ansiColorDisabled = false;
@@ -37,18 +37,18 @@ void main() {
     }
   });
 
-  group('LogLevel_To_Text', () {
-    for (final lvl in textCases.entries) {
-      _testLogLevelToTitle(lvl.key, lvl.value);
-    }
-  });
+  // group('LogLevel_To_Text', () {
+  //   for (final lvl in textCases.entries) {
+  //     _testLogLevelToTitle(lvl.key, lvl.value);
+  //   }
+  // });
 }
 
-void _testLogLevelToTitle(LogLevel logLvl, String title) {
-  test('LVL: $logLvl', () {
-    expect(logLvl.title, title);
-  });
-}
+// void _testLogLevelToTitle(LogLevel logLvl, String title) {
+//   test('LVL: $logLvl', () {
+//     expect(logLvl.title, title);
+//   });
+// }
 
 void _testLogLevelToAnsi(LogLevel logLvl, AnsiPen pen) {
   test('LVL: $logLvl', () {

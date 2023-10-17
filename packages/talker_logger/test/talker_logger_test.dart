@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 class LogLevelLoggerFormater implements LoggerFormatter {
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {
-    return details.level.title;
+    return details.level.toString();
   }
 }
 
@@ -157,7 +157,7 @@ void _testLog(LogLevel level) {
 void _expectMessageType(LogLevel level) {
   expect(_messages, isNotEmpty);
   expect(_messages.length, 1);
-  expect(_messages, contains(level.title));
+  expect(_messages, contains(level.toString()));
 }
 
 void _expectInstance(TalkerLogger logger) {

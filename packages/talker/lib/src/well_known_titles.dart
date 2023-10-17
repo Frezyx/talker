@@ -10,24 +10,18 @@ enum WellKnownTitles {
 }
 
 extension WellKnownTitlesExt on WellKnownTitles {
+  //TODO: customization from Talker constructor
   String get title {
-    switch (this) {
-      case WellKnownTitles.error:
-        return 'ERROR';
-      case WellKnownTitles.exception:
-        return 'EXCEPTION';
-      case WellKnownTitles.httpError:
-        return 'http-error';
-      case WellKnownTitles.httpRequest:
-        return 'http-request';
-      case WellKnownTitles.httpResponse:
-        return 'http-response';
-      case WellKnownTitles.blocEvent:
-        return 'bloc-event';
-      case WellKnownTitles.blocTransition:
-        return 'bloc-transition';
-      case WellKnownTitles.route:
-        return 'ROUTE';
-    }
+    final titles = {
+      WellKnownTitles.error: 'ERROR',
+      WellKnownTitles.exception: 'EXCEPTION',
+      WellKnownTitles.httpError: 'http-error',
+      WellKnownTitles.httpRequest: 'http-request',
+      WellKnownTitles.httpResponse: 'http-response',
+      WellKnownTitles.blocEvent: 'bloc-event',
+      WellKnownTitles.blocTransition: 'bloc-transition',
+      WellKnownTitles.route: 'ROUTE',
+    };
+    return titles[this] ?? 'log';
   }
 }

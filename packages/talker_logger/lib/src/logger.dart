@@ -16,7 +16,8 @@ class TalkerLogger {
   /// Logger settings
   final TalkerLoggerSettings settings;
 
-  /// Logs formatter
+  /// You can setup differen formatter [ExtendedLoggerFormatter, ColoredLoggerFormatter]
+  /// Or your own fuly customized formatter with extends [LoggerFormatter]
   final LoggerFormatter formatter;
 
   late final void Function(String message) _output;
@@ -33,7 +34,6 @@ class TalkerLogger {
   /// logger.log('Log custom message', level: LogLevel.error, pen: AnsiPen()..red());
   /// ```
   /// {@endtemplate}
-
   void log(dynamic msg, {LogLevel? level, AnsiPen? pen}) {
     final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
     final selectedLevel = level ?? LogLevel.debug;
@@ -55,7 +55,6 @@ class TalkerLogger {
   /// logger.critical('Log critical message');
   /// ```
   /// {@endtemplate}
-
   void critical(dynamic msg) => log(msg, level: LogLevel.critical);
 
   /// {@template talker_logger_error_log}
@@ -67,7 +66,6 @@ class TalkerLogger {
   /// logger.error('Log error message');
   /// ```
   /// {@endtemplate}
-
   void error(dynamic msg) => log(msg, level: LogLevel.error);
 
   /// {@template talker_logger_warning_log}
@@ -79,7 +77,6 @@ class TalkerLogger {
   /// logger.warning('Log warning message');
   /// ```
   /// {@endtemplate}
-
   void warning(dynamic msg) => log(msg, level: LogLevel.warning);
 
   /// {@template talker_logger_debug_log}
@@ -142,5 +139,13 @@ class TalkerLogger {
       filter: filter ?? _filter,
       output: output ?? _output,
     );
+  }
+
+  String getTitleByLogLevel(LogLevel logLevel) {
+    final levelTitle = settings.titles[logLevel];
+    if (levelTitle != null) {
+      return levelTitle;
+    }
+    return settings.defaultTitle;
   }
 }

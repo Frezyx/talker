@@ -213,7 +213,7 @@ extension AnsiExtension on AnsiPen {
   /// Make ansi to hex format
   String toHexColor() {
     final ansiColor = fcolor != -1 ? fcolor : bcolor;
-    final hexColor = '#${ansiColor.toRadixString(16)}';
+    final hexColor = '#${ansiColor.toRadixString(16).padLeft(2, '0')}';
     return hexColor;
   }
 }

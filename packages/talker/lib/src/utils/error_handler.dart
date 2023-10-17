@@ -13,13 +13,16 @@ class TalkerErrorHandler {
     if (exception is Error) {
       return TalkerError(
         exception,
+        title: WellKnownTitles.exception.title,
         stackTrace: stackTrace,
         message: msg,
         logLevel: LogLevel.error,
       );
-    } else if (exception is Exception) {
+    }
+    if (exception is Exception) {
       return TalkerException(
         exception,
+        title: WellKnownTitles.error.title,
         stackTrace: stackTrace,
         message: msg,
         logLevel: LogLevel.error,
@@ -27,6 +30,7 @@ class TalkerErrorHandler {
     }
     return TalkerLog(
       exception.toString(),
+      title: WellKnownTitles.exception.title,
       logLevel: LogLevel.error,
       stackTrace: stackTrace,
     );

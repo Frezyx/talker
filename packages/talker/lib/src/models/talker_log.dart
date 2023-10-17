@@ -9,16 +9,14 @@ class TalkerLog implements TalkerDataInterface {
     this.exception,
     this.error,
     this.stackTrace,
-    String? title,
+    this.title = 'Log',
     DateTime? time,
     this.pen,
   }) {
-    _title = title ?? logLevel.title;
     _time = time ?? DateTime.now();
   }
 
   late DateTime _time;
-  late String _title;
 
   /// {@macro talker_data_message}
   @override
@@ -37,7 +35,7 @@ class TalkerLog implements TalkerDataInterface {
 
   /// {@macro talker_data_title}
   @override
-  String get title => _title;
+  final String title;
 
   /// {@macro talker_data_loglevel}
   @override

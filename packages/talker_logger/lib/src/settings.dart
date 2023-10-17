@@ -1,9 +1,21 @@
 import 'package:talker_logger/talker_logger.dart';
 
+const _defaultLogTitles = {
+  LogLevel.critical: 'CRITICAL',
+  LogLevel.error: 'ERROR',
+  LogLevel.warning: 'WARNING',
+  LogLevel.verbose: 'VERBOSE',
+  LogLevel.info: 'INFO',
+  LogLevel.good: 'GOOD',
+  LogLevel.debug: 'DEBUG',
+};
+
 /// Logger customization settings
 class TalkerLoggerSettings {
   const TalkerLoggerSettings({
     this.colors = const {},
+    this.titles = _defaultLogTitles,
+    this.defaultTitle = 'LOG',
     this.level = LogLevel.verbose,
     this.lineSymbol = '─',
     this.maxLineWidth = 110,
@@ -24,6 +36,24 @@ class TalkerLoggerSettings {
   /// );
   /// ```
   final Map<LogLevel, AnsiPen> colors;
+
+  /// Field to setup custom log titles
+  ///```dart
+  /// final logger = TalkerLogger(
+  ///   settings: TalkerLoggerSettings(
+  ///     colors: {
+  ///       LogLevel.critical: 'OH nooo! ☠️☠️☠️',
+  ///       LogLevel.error: '🆘 Lock at me! 🆘',
+  ///       LogLevel.info: 'i',
+  ///     },
+  ///     enableColors: true,
+  ///   ),
+  /// );
+  /// ```
+  final Map<LogLevel, String> titles;
+
+  /// Title of default log without [LogLevel]
+  final String defaultTitle;
 
   /// Current log level
   /// All messages with a priority below this will be ignored

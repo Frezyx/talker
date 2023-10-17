@@ -96,14 +96,12 @@ class Talker {
   /// You can connect a listener to it and catch the received errors
   ///
   /// Or you can add your observer [TalkerObserver] in the settings
-
   Stream<TalkerDataInterface> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
   /// The history stores all information about all events like
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
-
   List<TalkerDataInterface> get history => _history;
 
   /// Handle common exceptions in your code
@@ -120,7 +118,6 @@ class Talker {
   /// ```
   ///
   /// {@macro errorLevel}
-
   void handle(
     Object exception, [
     StackTrace? stackTrace,
@@ -163,7 +160,6 @@ class Talker {
   ///     pen: AnsiPen()..red(),
   ///   );
   /// ```
-
   void log(
     dynamic message, {
     LogLevel logLevel = LogLevel.debug,
@@ -196,7 +192,6 @@ class Talker {
   ///   final httpLog = HttpTalkerLog('Http status: 200');
   ///   talker.logTyped(httpLog);
   /// ```
-
   void logTyped(TalkerLog log, {LogLevel logLevel = LogLevel.debug}) {
     _handleLogData(log, logLevel: logLevel);
   }
@@ -209,7 +204,6 @@ class Talker {
   /// ```dart
   ///   talker.critical('Log critical');
   /// ```
-
   void critical(
     dynamic msg, [
     Object? exception,
@@ -226,7 +220,6 @@ class Talker {
   /// ```dart
   ///   talker.debug('Log debug');
   /// ```
-
   void debug(
     dynamic msg, [
     Object? exception,
@@ -243,7 +236,6 @@ class Talker {
   /// ```dart
   ///   talker.error('Log error');
   /// ```
-
   void error(
     dynamic msg, [
     Object? exception,
@@ -260,7 +252,6 @@ class Talker {
   /// ```dart
   ///   talker.good('Log good');
   /// ```
-
   void good(
     dynamic msg, [
     Object? exception,
@@ -277,7 +268,6 @@ class Talker {
   /// ```dart
   ///   talker.info('Log info');
   /// ```
-
   void info(
     dynamic msg, [
     Object? exception,
@@ -294,7 +284,6 @@ class Talker {
   /// ```dart
   ///   talker.verbose('Log verbose');
   /// ```
-
   void verbose(
     dynamic msg, [
     Object? exception,
@@ -311,7 +300,6 @@ class Talker {
   /// ```dart
   ///   talker.warning('Log warning');
   /// ```
-
   void warning(
     dynamic msg, [
     Object? exception,
@@ -321,7 +309,6 @@ class Talker {
   }
 
   /// Clear log history
-
   void cleanHistory() {
     if (settings.useHistory) {
       _history.clear();
@@ -332,7 +319,6 @@ class Talker {
   ///
   /// If you config package to handle errors or making logs,
   /// this method stop these processes
-
   void disable() {
     settings.enabled = false;
   }
@@ -341,7 +327,6 @@ class Talker {
   ///
   /// The method will return everything back
   /// if the package was suspended by the [disable] method
-
   void enable() {
     settings.enabled = true;
   }
@@ -353,18 +338,17 @@ class Talker {
     LogLevel logLevel, {
     AnsiPen? pen,
   }) {
-    TalkerDataInterface? data;
     if (exception != null) {
       handle(exception, stackTrace, message);
       return;
     }
-
-    data = TalkerLog(
+    final data = TalkerLog(
       message?.toString() ?? '',
+      title: _logger.getTitleByLogLevel(logLevel),
       logLevel: logLevel,
       pen: pen ?? logLevel.consoleColor,
     );
-    _handleLogData(data as TalkerLog);
+    _handleLogData(data);
   }
 
   void _handleErrorData(TalkerDataInterface data) {

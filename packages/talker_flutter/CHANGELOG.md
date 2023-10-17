@@ -1,3 +1,7 @@
+# 3.5.2
+- Bump talker version to 3.1.4
+  - Pad minutes and seconds for DateTime formatter
+
 # 3.5.1
 - Add TalkerRouteObsever documentatuion
 - Fix share_plus version 7.1.0

@@ -9,6 +9,9 @@ class TalkerDateTimeFormatter {
   /// Format ['HH:mm:s ms']
   String get timeAndSeconds {
     final d = date;
-    return '${d.hour}:${d.minute}:${d.second} ${d.millisecond}ms';
+    final minutesPadded = '${d.minute}'.padLeft(2, '0');
+    final secondsPadded = '${d.second}'.padLeft(2, '0');
+
+    return '${d.hour}:$minutesPadded:$secondsPadded ${d.millisecond}ms';
   }
 }

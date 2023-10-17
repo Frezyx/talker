@@ -1,3 +1,6 @@
+## 2.3.1
+- Update **talker** version to 3.1.4
+
 ## 2.3.0
 - Update **talker** version to 3.1.0
 

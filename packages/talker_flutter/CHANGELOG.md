@@ -1,3 +1,8 @@
+# 3.5.3
+- Fix the overflow issue of Talker Monitor
+
+Thanks to [Kabak-Siarhei](https://github.com/Kabak-Siarhei)
+
 # 3.5.2
 - Bump talker version to 3.1.4
   - Pad minutes and seconds for DateTime formatter

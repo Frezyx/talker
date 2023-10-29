@@ -1,3 +1,6 @@
+# 3.5.4
+- Bump share_plus package to 7.2.1
+
 # 3.5.3
 - Fix the overflow issue of Talker Monitor
 

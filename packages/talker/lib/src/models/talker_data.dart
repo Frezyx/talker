@@ -46,7 +46,7 @@ class TalkerData {
   /// {@template talker_data_title}
   /// Title of Talker log
   /// {@endtemplate}
-  final String? title;
+  String? title;
 
   /// {@template talker_data_stackTrace}
   /// StackTrace?] [stackTrace] - stackTrace if [exception] or [error] happened
@@ -59,7 +59,7 @@ class TalkerData {
   DateTime get time => _time;
 
   /// [AnsiPen?] [pen] - sets your own log color for console
-  final AnsiPen? pen;
+  AnsiPen? pen;
 
   /// {@template talker_data_generateTextMessage}
   /// Internal method that generates

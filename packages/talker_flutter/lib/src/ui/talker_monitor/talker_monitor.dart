@@ -44,12 +44,12 @@ class TalkerMonitor extends StatelessWidget {
               .toList();
 
           final httpRequests = data
-              .where((e) => e.title == TalkerKey.httpRequest.title)
+              .where((e) => e.key == TalkerLogType.httpRequest.key)
               .toList();
           final httpErrors =
-              data.where((e) => e.title == TalkerKey.httpError.title).toList();
+              data.where((e) => e.key == TalkerLogType.httpError.key).toList();
           final httpResponses = data
-              .where((e) => e.title == TalkerKey.httpResponse.title)
+              .where((e) => e.key == TalkerLogType.httpResponse.key)
               .toList();
 
           return CustomScrollView(

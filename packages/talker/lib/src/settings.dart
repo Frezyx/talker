@@ -1,35 +1,35 @@
 import 'package:talker/talker.dart';
 
 const _defaultTitles = {
-  TalkerKey.error: 'error',
-  TalkerKey.exception: 'exception',
-  TalkerKey.httpError: 'http-error',
-  TalkerKey.httpRequest: 'http-request',
-  TalkerKey.httpResponse: 'http-response',
-  TalkerKey.blocEvent: 'bloc-event',
-  TalkerKey.blocTransition: 'bloc-transition',
-  TalkerKey.route: 'route',
-  TalkerKey.critical: 'critical',
-  TalkerKey.warning: 'warning',
-  TalkerKey.verbose: 'verbose',
-  TalkerKey.info: 'info',
-  TalkerKey.debug: 'debug',
+  TalkerLogType.error: 'error',
+  TalkerLogType.exception: 'exception',
+  TalkerLogType.httpError: 'http-error',
+  TalkerLogType.httpRequest: 'http-request',
+  TalkerLogType.httpResponse: 'http-response',
+  TalkerLogType.blocEvent: 'bloc-event',
+  TalkerLogType.blocTransition: 'bloc-transition',
+  TalkerLogType.route: 'route',
+  TalkerLogType.critical: 'critical',
+  TalkerLogType.warning: 'warning',
+  TalkerLogType.verbose: 'verbose',
+  TalkerLogType.info: 'info',
+  TalkerLogType.debug: 'debug',
 };
 
 final _defaultColors = {
-  TalkerKey.error: AnsiPen()..red(),
-  TalkerKey.exception: AnsiPen()..red(),
-  TalkerKey.httpError: AnsiPen()..red(),
-  TalkerKey.httpRequest: AnsiPen()..xterm(219),
-  TalkerKey.httpResponse: AnsiPen()..xterm(46),
-  TalkerKey.blocEvent: AnsiPen()..xterm(51),
-  TalkerKey.blocTransition: AnsiPen()..xterm(49),
-  TalkerKey.route: AnsiPen()..xterm(135),
-  TalkerKey.critical: AnsiPen()..red(),
-  TalkerKey.warning: AnsiPen()..yellow(),
-  TalkerKey.verbose: AnsiPen()..gray(),
-  TalkerKey.info: AnsiPen()..blue(),
-  TalkerKey.debug: AnsiPen()..gray(),
+  TalkerLogType.error: AnsiPen()..red(),
+  TalkerLogType.exception: AnsiPen()..red(),
+  TalkerLogType.httpError: AnsiPen()..red(),
+  TalkerLogType.httpRequest: AnsiPen()..xterm(219),
+  TalkerLogType.httpResponse: AnsiPen()..xterm(46),
+  TalkerLogType.blocEvent: AnsiPen()..xterm(51),
+  TalkerLogType.blocTransition: AnsiPen()..xterm(49),
+  TalkerLogType.route: AnsiPen()..xterm(135),
+  TalkerLogType.critical: AnsiPen()..red(),
+  TalkerLogType.warning: AnsiPen()..yellow(),
+  TalkerLogType.verbose: AnsiPen()..gray(),
+  TalkerLogType.info: AnsiPen()..blue(),
+  TalkerLogType.debug: AnsiPen()..gray(),
 };
 
 /// {@template talker_settings}
@@ -42,7 +42,7 @@ class TalkerSettings {
     bool useConsoleLogs = true,
     int maxHistoryItems = 1000,
     this.titles = _defaultTitles,
-    Map<TalkerKey, AnsiPen>? colors,
+    Map<TalkerLogType, AnsiPen>? colors,
     // bool writeToFile = false,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
@@ -97,7 +97,7 @@ class TalkerSettings {
   ///   )
   /// );
   /// ```
-  final Map<TalkerKey, String> titles;
+  final Map<TalkerLogType, String> titles;
 
   /// Custom Logger Colors.
   ///
@@ -122,13 +122,13 @@ class TalkerSettings {
   /// ```
   ///
   /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
-  late final Map<TalkerKey, AnsiPen> colors;
+  late final Map<TalkerLogType, AnsiPen> colors;
 
-  String getTitleByKey(TalkerKey key) {
+  String getTitleByLogType(TalkerLogType key) {
     return titles[key] ?? 'log';
   }
 
-  AnsiPen getAnsiPenByKey(TalkerKey key) {
+  AnsiPen getAnsiPenByLogType(TalkerLogType key) {
     return colors[key] ?? (AnsiPen()..gray());
   }
 
@@ -137,8 +137,8 @@ class TalkerSettings {
     bool? useHistory,
     bool? useConsoleLogs,
     int? maxHistoryItems,
-    Map<TalkerKey, String>? titles,
-    Map<TalkerKey, AnsiPen>? colors,
+    Map<TalkerLogType, String>? titles,
+    Map<TalkerLogType, AnsiPen>? colors,
   }) {
     return TalkerSettings(
       useHistory: useHistory ?? _useHistory,

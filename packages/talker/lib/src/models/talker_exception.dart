@@ -11,7 +11,7 @@ class TalkerException extends TalkerData {
     super.title,
     LogLevel? logLevel,
   }) : super(message, exception: exception) {
-    _key = key ?? TalkerKey.exception.key;
+    _key = key ?? TalkerLogType.exception.key;
     _logLevel = logLevel ?? LogLevel.error;
   }
 

@@ -56,21 +56,14 @@ class Talker {
     _logger = logger ?? TalkerLogger();
     _logger = _logger.copyWith(
       settings: _logger.settings.copyWith(
-        titles: {
-          LogLevel.critical: settings.getTitleByKey(TalkerKey.critical),
-          LogLevel.error: settings.getTitleByKey(TalkerKey.error),
-          LogLevel.warning: settings.getTitleByKey(TalkerKey.warning),
-          LogLevel.verbose: settings.getTitleByKey(TalkerKey.verbose),
-          LogLevel.info: settings.getTitleByKey(TalkerKey.info),
-          LogLevel.debug: settings.getTitleByKey(TalkerKey.debug),
-        },
         colors: {
-          LogLevel.critical: settings.getAnsiPenByKey(TalkerKey.critical),
-          LogLevel.error: settings.getAnsiPenByKey(TalkerKey.error),
-          LogLevel.warning: settings.getAnsiPenByKey(TalkerKey.warning),
-          LogLevel.verbose: settings.getAnsiPenByKey(TalkerKey.verbose),
-          LogLevel.info: settings.getAnsiPenByKey(TalkerKey.info),
-          LogLevel.debug: settings.getAnsiPenByKey(TalkerKey.debug),
+          LogLevel.critical:
+              settings.getAnsiPenByLogType(TalkerLogType.critical),
+          LogLevel.error: settings.getAnsiPenByLogType(TalkerLogType.error),
+          LogLevel.warning: settings.getAnsiPenByLogType(TalkerLogType.warning),
+          LogLevel.verbose: settings.getAnsiPenByLogType(TalkerLogType.verbose),
+          LogLevel.info: settings.getAnsiPenByLogType(TalkerLogType.info),
+          LogLevel.debug: settings.getAnsiPenByLogType(TalkerLogType.debug),
         },
       ),
     );
@@ -219,8 +212,8 @@ class Talker {
   ///   final httpLog = HttpTalkerLog('Http status: 200');
   ///   talker.logTyped(httpLog);
   /// ```
-  void logTyped(TalkerLog log, {LogLevel logLevel = LogLevel.debug}) {
-    _handleLogData(log, logLevel: logLevel);
+  void logTyped(TalkerLog log) {
+    _handleLogData(log);
   }
 
   /// Log a new critical message
@@ -349,13 +342,11 @@ class Talker {
     LogLevel logLevel, {
     AnsiPen? pen,
   }) {
-    if (exception != null) {
-      handle(exception, stackTrace, message);
-      return;
-    }
+    final key = TalkerLogTypeExt.fromLogLevel(logLevel);
     final data = TalkerLog(
       message?.toString() ?? '',
-      title: _logger.getTitleByLogLevel(logLevel),
+      title: settings.getTitleByLogType(key),
+      pen: settings.getAnsiPenByLogType(key),
       logLevel: logLevel,
     );
     _handleLogData(data);
@@ -389,6 +380,12 @@ class Talker {
     final isApproved = _isApprovedByFilter(data);
     if (!isApproved) {
       return;
+    }
+    final key = data.key;
+    if (key != null) {
+      final type = TalkerLogTypeExt.fromKey(key);
+      data.title = settings.getTitleByLogType(type);
+      data.pen = settings.getAnsiPenByLogType(type);
     }
     _observer.onLog(data);
     _talkerStreamController.add(data);

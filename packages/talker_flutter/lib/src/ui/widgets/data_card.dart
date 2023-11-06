@@ -145,22 +145,22 @@ class TalkerDataCard extends StatelessWidget {
     final colorFromAnsi = _getColorFromAnsi();
     if (colorFromAnsi != null) return colorFromAnsi;
 
-    if (data.title == TalkerKey.httpError.title) {
+    if (data.key == TalkerLogType.httpError.key) {
       return errorColor;
     }
-    if (data.title == TalkerKey.httpResponse.title) {
+    if (data.key == TalkerLogType.httpResponse.key) {
       return httpResponseLogColor;
     }
-    if (data.title == TalkerKey.httpRequest.title) {
+    if (data.title == TalkerLogType.httpRequest.title) {
       return httpRequestLogColor;
     }
-    if (data.title == TalkerKey.route.title) {
+    if (data.title == TalkerLogType.route.title) {
       return routeLogColor;
     }
-    if (data.title == TalkerKey.blocTransition.title) {
+    if (data.title == TalkerLogType.blocTransition.title) {
       return blocTransitionColor;
     }
-    if (data.title == TalkerKey.blocEvent.title) {
+    if (data.title == TalkerLogType.blocEvent.title) {
       return blocEventColor;
     }
     return debugColor;
@@ -182,9 +182,9 @@ class TalkerDataCard extends StatelessWidget {
       return null;
     }
     final isHttpLog = [
-      TalkerKey.httpError.title,
-      TalkerKey.httpRequest.title,
-      TalkerKey.httpResponse.title,
+      TalkerLogType.httpError.title,
+      TalkerLogType.httpRequest.title,
+      TalkerLogType.httpResponse.title,
     ].contains(data.title);
     if (isHttpLog) {
       return data.generateTextMessage();

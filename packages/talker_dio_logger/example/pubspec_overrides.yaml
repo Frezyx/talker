@@ -1,0 +1,7 @@
+dependency_overrides:
+  talker_dio_logger:
+    path:
+      ../../talker_dio_logger
+  talker_flutter:
+    path:
+      ../../talker_flutter

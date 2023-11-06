@@ -20,7 +20,7 @@ class BlocEventLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(51);
 
   @override
-  String get title => TalkerKey.blocEvent.title;
+  String get key => TalkerLogType.blocEvent.key;
 
   @override
   String generateTextMessage() {
@@ -51,7 +51,7 @@ class BlocStateLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(49);
 
   @override
-  String get title => TalkerKey.blocTransition.title;
+  String get key => TalkerLogType.blocTransition.key;
 
   @override
   String generateTextMessage() {
@@ -86,7 +86,7 @@ class BlocChangeLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(49);
 
   @override
-  String get title => TalkerKey.blocTransition.title;
+  String get key => TalkerLogType.blocTransition.key;
 
   @override
   String generateTextMessage() {

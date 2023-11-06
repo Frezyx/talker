@@ -1,3 +1,15 @@
+# 3.5.4
+- Bump share_plus package to 7.2.1
+
+# 3.5.3
+- Fix the overflow issue of Talker Monitor
+
+Thanks to [Kabak-Siarhei](https://github.com/Kabak-Siarhei)
+
+# 3.5.2
+- Bump talker version to 3.1.4
+  - Pad minutes and seconds for DateTime formatter
+
 # 3.5.1
 - Add TalkerRouteObsever documentatuion
 - Fix share_plus version 7.1.0

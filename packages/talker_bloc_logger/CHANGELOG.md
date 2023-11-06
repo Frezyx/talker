@@ -1,3 +1,6 @@
+## 2.2.1
+- Update **talker** version to 3.1.4
+
 ## 2.2.0
 - Rename (fix typo) **recvie** -> **receive** in BlocEventLog
 - Upgrade **talker** version to 3.1.0

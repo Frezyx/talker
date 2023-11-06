@@ -1,55 +1,32 @@
 import 'package:talker/talker.dart';
 
-/// Base implementation of [TalkerDataInterface]
+/// Base implementation of [TalkerData]
 /// to handle ONLY [Error]s
-class TalkerError implements TalkerDataInterface {
+class TalkerError extends TalkerData {
   TalkerError(
-    this.error, {
-    this.message,
-    this.logLevel,
-    this.stackTrace,
-    String? title,
-    DateTime? time,
-  }) {
-    _title = title ?? WellKnownTitles.error.title;
-    _time = time ?? DateTime.now();
+    Error error, {
+    String? message,
+    super.stackTrace,
+    String? key,
+    super.title,
+    LogLevel? logLevel,
+  }) : super(message, error: error) {
+    _key = key ?? TalkerKey.error.key;
+    _logLevel = logLevel ?? LogLevel.error;
   }
 
-  late DateTime _time;
-  late String _title;
+  late String _key;
+  late LogLevel _logLevel;
 
-  /// {@macro talker_data_error}
   @override
-  final Error error;
+  String get key => _key;
 
-  /// {@macro talker_data_message}
   @override
-  final String? message;
-
-  /// {@macro talker_data_stackTrace}
-  @override
-  final StackTrace? stackTrace;
-
-  /// {@macro talker_data_title}
-  @override
-  String get title => _title;
-
-  /// {@macro talker_data_loglevel}
-  @override
-  final LogLevel? logLevel;
+  LogLevel? get logLevel => _logLevel;
 
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
     return '$displayTitleWithTime$displayMessage$displayError$displayStackTrace';
   }
-
-  /// {@macro talker_data_time}
-  @override
-  DateTime get time => _time;
-
-  /// {@macro talker_data_exception}
-  /// Not used in [TalkerError]
-  @override
-  final Exception? exception = null;
 }

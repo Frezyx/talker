@@ -36,9 +36,26 @@ class Talker {
   }) {
     _filter = filter;
     this.settings = settings ?? TalkerSettings();
-    _logger = logger ?? TalkerLogger();
+
+    _initLogger(logger);
     _observer = observer ?? const _DefaultTalkerObserver();
     _errorHandler = TalkerErrorHandler(this.settings);
+  }
+
+  void _initLogger(TalkerLogger? logger) {
+    _logger = logger ?? TalkerLogger();
+    _logger = _logger.copyWith(
+      settings: _logger.settings.copyWith(
+        titles: {
+          LogLevel.critical: TalkerKey.critical.getTitle(settings),
+          LogLevel.error: TalkerKey.error.getTitle(settings),
+          LogLevel.warning: TalkerKey.warning.getTitle(settings),
+          LogLevel.verbose: TalkerKey.verbose.getTitle(settings),
+          LogLevel.info: TalkerKey.info.getTitle(settings),
+          LogLevel.debug: TalkerKey.debug.getTitle(settings),
+        },
+      ),
+    );
   }
 
   /// Fields can be setup in [configure()] method
@@ -51,7 +68,7 @@ class Talker {
   late TalkerObserver _observer;
 
   // final _fileManager = FileManager();
-  final _history = <TalkerDataInterface>[];
+  final _history = <TalkerData>[];
 
   /// Setup configuration of Talker
   ///
@@ -87,22 +104,21 @@ class Talker {
     _logger = logger ?? _logger;
   }
 
-  final _talkerStreamController =
-      StreamController<TalkerDataInterface>.broadcast();
+  final _talkerStreamController = StreamController<TalkerData>.broadcast();
 
-  /// Common stream to sent all processed events [TalkerDataInterface]
+  /// Common stream to sent all processed events [TalkerData]
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
   /// You can connect a listener to it and catch the received errors
   ///
   /// Or you can add your observer [TalkerObserver] in the settings
-  Stream<TalkerDataInterface> get stream =>
+  Stream<TalkerData> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
   /// The history stores all information about all events like
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
-  List<TalkerDataInterface> get history => _history;
+  List<TalkerData> get history => _history;
 
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
@@ -244,22 +260,6 @@ class Talker {
     _handleLog(msg, exception, stackTrace, LogLevel.error);
   }
 
-  /// Log a new good message
-  /// [dynamic] [message] - message describes what happened
-  /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
-  ///
-  /// ```dart
-  ///   talker.good('Log good');
-  /// ```
-  void good(
-    dynamic msg, [
-    Object? exception,
-    StackTrace? stackTrace,
-  ]) {
-    _handleLog(msg, exception, stackTrace, LogLevel.good);
-  }
-
   /// Log a new info message
   /// [dynamic] [message] - message describes what happened
   /// [Object?] [exception] - exception if it happened
@@ -351,7 +351,7 @@ class Talker {
     _handleLogData(data);
   }
 
-  void _handleErrorData(TalkerDataInterface data) {
+  void _handleErrorData(TalkerData data) {
     if (!settings.enabled) {
       return;
     }
@@ -392,7 +392,7 @@ class Talker {
     }
   }
 
-  void _handleForOutputs(TalkerDataInterface data) {
+  void _handleForOutputs(TalkerData data) {
     _writeToHistory(data);
     // _writeToFile(data);
   }
@@ -404,7 +404,7 @@ class Talker {
   //   }
   // }
 
-  void _writeToHistory(TalkerDataInterface data) {
+  void _writeToHistory(TalkerData data) {
     if (settings.useHistory && settings.enabled) {
       if (settings.maxHistoryItems <= _history.length) {
         _history.removeAt(0);
@@ -413,7 +413,7 @@ class Talker {
     }
   }
 
-  bool _isApprovedByFilter(TalkerDataInterface data) {
+  bool _isApprovedByFilter(TalkerData data) {
     final approved = _filter?.filter(data) ?? true;
     return approved;
   }

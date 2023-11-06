@@ -20,7 +20,7 @@ class DioRequestLog extends TalkerLog {
   AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
-  String get title => WellKnownTitles.httpRequest.title;
+  String get title => TalkerKey.httpRequest.title;
 
   @override
   String generateTextMessage() {
@@ -59,7 +59,7 @@ class DioResponseLog extends TalkerLog {
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
-  String get title => WellKnownTitles.httpResponse.title;
+  String get title => TalkerKey.httpResponse.title;
 
   @override
   String generateTextMessage() {
@@ -105,7 +105,7 @@ class DioErrorLog extends TalkerLog {
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
-  String get title => WellKnownTitles.httpError.title;
+  String get title => TalkerKey.httpError.title;
 
   @override
   String generateTextMessage() {

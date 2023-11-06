@@ -18,5 +18,5 @@ typedef TalkerExceptionBuilder = Widget Function(
 /// Signature for build custom [TalkerData] widgets
 typedef TalkerDataBuilder = Widget Function(
   BuildContext context,
-  TalkerDataInterface data,
+  TalkerData data,
 );

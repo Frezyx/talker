@@ -14,7 +14,7 @@ class TalkerDataCard extends StatelessWidget {
     this.backgroundColor = defaultCardBackgroundColor,
   }) : super(key: key);
 
-  final TalkerDataInterface data;
+  final TalkerData data;
   final VoidCallback? onTap;
   final bool expanded;
   final EdgeInsets? margin;
@@ -145,22 +145,22 @@ class TalkerDataCard extends StatelessWidget {
     final colorFromAnsi = _getColorFromAnsi();
     if (colorFromAnsi != null) return colorFromAnsi;
 
-    if (data.title == WellKnownTitles.httpError.title) {
+    if (data.title == TalkerKey.httpError.title) {
       return errorColor;
     }
-    if (data.title == WellKnownTitles.httpResponse.title) {
+    if (data.title == TalkerKey.httpResponse.title) {
       return httpResponseLogColor;
     }
-    if (data.title == WellKnownTitles.httpRequest.title) {
+    if (data.title == TalkerKey.httpRequest.title) {
       return httpRequestLogColor;
     }
-    if (data.title == WellKnownTitles.route.title) {
+    if (data.title == TalkerKey.route.title) {
       return routeLogColor;
     }
-    if (data.title == WellKnownTitles.blocTransition.title) {
+    if (data.title == TalkerKey.blocTransition.title) {
       return blocTransitionColor;
     }
-    if (data.title == WellKnownTitles.blocEvent.title) {
+    if (data.title == TalkerKey.blocEvent.title) {
       return blocEventColor;
     }
     return debugColor;
@@ -182,9 +182,9 @@ class TalkerDataCard extends StatelessWidget {
       return null;
     }
     final isHttpLog = [
-      WellKnownTitles.httpError.title,
-      WellKnownTitles.httpRequest.title,
-      WellKnownTitles.httpResponse.title,
+      TalkerKey.httpError.title,
+      TalkerKey.httpRequest.title,
+      TalkerKey.httpResponse.title,
     ].contains(data.title);
     if (isHttpLog) {
       return data.generateTextMessage();

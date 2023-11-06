@@ -1,17 +1,17 @@
-import 'package:talker/src/well_known_titles.dart';
+import 'package:talker/src/talker_key.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('WellKnownTitles', () {
-    test('returns correct title for each enum value', () {
-      expect(WellKnownTitles.error.title, equals('ERROR'));
-      expect(WellKnownTitles.exception.title, equals('EXCEPTION'));
-      expect(WellKnownTitles.httpError.title, equals('http-error'));
-      expect(WellKnownTitles.httpRequest.title, equals('http-request'));
-      expect(WellKnownTitles.httpResponse.title, equals('http-response'));
-      expect(WellKnownTitles.blocEvent.title, equals('bloc-event'));
-      expect(WellKnownTitles.blocTransition.title, equals('bloc-transition'));
-      expect(WellKnownTitles.route.title, equals('ROUTE'));
+  group('TalkerKey', () {
+    test('returns correct key for each enum value', () {
+      expect(TalkerKey.error.key, equals('error'));
+      expect(TalkerKey.exception.key, equals('exception'));
+      expect(TalkerKey.httpError.key, equals('http-error'));
+      expect(TalkerKey.httpRequest.key, equals('http-request'));
+      expect(TalkerKey.httpResponse.key, equals('http-response'));
+      expect(TalkerKey.blocEvent.key, equals('bloc-event'));
+      expect(TalkerKey.blocTransition.key, equals('bloc-transition'));
+      expect(TalkerKey.route.key, equals('route'));
     });
   });
 }

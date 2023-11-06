@@ -45,7 +45,7 @@ void _testFilterBySearchText({
       countFound: 4,
       logCallback: (talker) {
         talker.error('HTTP log');
-        talker.good('Log http request');
+        talker.info('Log http request');
         talker.warning('http');
         talker.debug('Log http');
         talker.verbose('htt request');
@@ -75,7 +75,7 @@ void _testFilterByTypes({
       types: [TalkerError],
       countFound: 2,
       logCallback: (talker) {
-        talker.good('Test log');
+        talker.info('Test log');
         talker.handle(ArgumentError());
         talker.handle(ArgumentError());
       },
@@ -93,7 +93,7 @@ void _testFilterByTitles({
       _testFilterFoundByTitle(
         configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
-        titles: ['ERROR'],
+        titles: ['error'],
         countFound: 1,
         logCallback: (talker) {
           talker.error('Test log');
@@ -103,7 +103,7 @@ void _testFilterByTitles({
       _testFilterFoundByTitle(
         configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
-        titles: ['ERROR', 'EXCEPTION'],
+        titles: ['error', 'exception'],
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
@@ -114,7 +114,7 @@ void _testFilterByTitles({
       _testFilterFoundByTitle(
         configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
-        titles: ['ERROR', 'VERBOSE'],
+        titles: ['error', 'verbose'],
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
@@ -126,7 +126,7 @@ void _testFilterByTitles({
       _testFilterFoundByTitle(
         configureFilter: configureFilter,
         useTalkerFilter: useTalkerFilter,
-        titles: ['VERBOSE'],
+        titles: ['verbose'],
         countFound: 5,
         logCallback: (talker) {
           talker.verbose('Test log');

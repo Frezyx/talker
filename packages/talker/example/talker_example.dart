@@ -17,7 +17,7 @@ Future<void> main() async {
   talker.error('The restaurant is closed ❌');
   talker.info('Ordering from other restaurant...');
   talker.info('Payment started...');
-  talker.good('Payment completed! Waiting for pizza 🍕');
+  talker.info('Payment completed! Waiting for pizza 🍕');
 
   /// [Exception]'s and [Error]'s handling
   try {

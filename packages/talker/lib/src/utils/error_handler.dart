@@ -5,32 +5,42 @@ class TalkerErrorHandler {
 
   final TalkerSettings settings;
 
-  TalkerDataInterface handle(
+  TalkerData handle(
     Object exception, [
     StackTrace? stackTrace,
     String? msg,
   ]) {
+    if (exception is TalkerError) {
+      return exception;
+    }
+    if (exception is TalkerException) {
+      return exception;
+    }
     if (exception is Error) {
+      final errType = TalkerKey.error;
       return TalkerError(
         exception,
-        title: WellKnownTitles.exception.title,
-        stackTrace: stackTrace,
+        key: errType.key,
+        title: errType.getTitle(settings),
         message: msg,
-        logLevel: LogLevel.error,
+        stackTrace: stackTrace,
       );
     }
     if (exception is Exception) {
+      final exceptionType = TalkerKey.exception;
       return TalkerException(
         exception,
-        title: WellKnownTitles.error.title,
-        stackTrace: stackTrace,
+        key: exceptionType.key,
+        title: exceptionType.getTitle(settings),
         message: msg,
-        logLevel: LogLevel.error,
+        stackTrace: stackTrace,
       );
     }
+    final errType = TalkerKey.error;
     return TalkerLog(
       exception.toString(),
-      title: WellKnownTitles.exception.title,
+      key: errType.key,
+      title: errType.getTitle(settings),
       logLevel: LogLevel.error,
       stackTrace: stackTrace,
     );

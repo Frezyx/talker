@@ -6,7 +6,6 @@ const _defaultLogTitles = {
   LogLevel.warning: 'WARNING',
   LogLevel.verbose: 'VERBOSE',
   LogLevel.info: 'INFO',
-  LogLevel.good: 'GOOD',
   LogLevel.debug: 'DEBUG',
 };
 
@@ -67,4 +66,24 @@ class TalkerLoggerSettings {
 
   /// Field for enable and disable colored logs
   final bool enableColors;
+
+  TalkerLoggerSettings copyWith({
+    Map<LogLevel, AnsiPen>? colors,
+    Map<LogLevel, String>? titles,
+    String? defaultTitle,
+    LogLevel? level,
+    String? lineSymbol,
+    int? maxLineWidth,
+    bool? enableColors,
+  }) {
+    return TalkerLoggerSettings(
+      colors: colors ?? this.colors,
+      titles: titles ?? this.titles,
+      defaultTitle: defaultTitle ?? this.defaultTitle,
+      level: level ?? this.level,
+      lineSymbol: lineSymbol ?? this.lineSymbol,
+      maxLineWidth: maxLineWidth ?? this.maxLineWidth,
+      enableColors: enableColors ?? this.enableColors,
+    );
+  }
 }

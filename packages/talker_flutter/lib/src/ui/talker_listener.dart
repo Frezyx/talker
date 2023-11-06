@@ -42,14 +42,14 @@ class TalkerListener extends StatefulWidget {
   final Widget child;
 
   /// Responsible for notify about [Talker] events.
-  final Function(TalkerDataInterface data) listener;
+  final Function(TalkerData data) listener;
 
   @override
   State<TalkerListener> createState() => _TalkerListenerState();
 }
 
 class _TalkerListenerState extends State<TalkerListener> {
-  StreamSubscription<TalkerDataInterface>? _talkerSubscription;
+  StreamSubscription<TalkerData>? _talkerSubscription;
 
   @override
   void initState() {

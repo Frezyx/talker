@@ -3,8 +3,8 @@ import 'package:talker_logger/talker_logger.dart';
 class TalkerLogger {
   TalkerLogger({
     this.settings = const TalkerLoggerSettings(),
-    LoggerFilter? filter,
     this.formatter = const ExtendedLoggerFormatter(),
+    LoggerFilter? filter,
     void Function(String message)? output,
   }) {
     // ignore: avoid_print
@@ -35,8 +35,10 @@ class TalkerLogger {
   /// ```
   /// {@endtemplate}
   void log(dynamic msg, {LogLevel? level, AnsiPen? pen}) {
-    final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
     final selectedLevel = level ?? LogLevel.debug;
+    final selectedPen =
+        pen ?? settings.colors[selectedLevel] ?? selectedLevel.consoleColor;
+
     if (_filter.shouldLog(msg, selectedLevel)) {
       final formattedMsg = formatter.fmt(
         LogDetails(message: msg, level: selectedLevel, pen: selectedPen),
@@ -124,8 +126,6 @@ class TalkerLogger {
   /// logger.good('Log good message');
   /// ```
   /// {@endtemplate}
-
-  void good(dynamic msg) => log(msg, level: LogLevel.good);
 
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,

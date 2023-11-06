@@ -44,13 +44,12 @@ class TalkerMonitor extends StatelessWidget {
               .toList();
 
           final httpRequests = data
-              .where((e) => e.title == WellKnownTitles.httpRequest.title)
+              .where((e) => e.title == TalkerKey.httpRequest.title)
               .toList();
-          final httpErrors = data
-              .where((e) => e.title == WellKnownTitles.httpError.title)
-              .toList();
+          final httpErrors =
+              data.where((e) => e.title == TalkerKey.httpError.title).toList();
           final httpResponses = data
-              .where((e) => e.title == WellKnownTitles.httpResponse.title)
+              .where((e) => e.title == TalkerKey.httpResponse.title)
               .toList();
 
           return CustomScrollView(
@@ -200,7 +199,7 @@ class TalkerMonitor extends StatelessWidget {
 
   void _openTypedLogsScreen(
     BuildContext context,
-    List<TalkerDataInterface> logs,
+    List<TalkerData> logs,
     String typeName,
   ) {
     Navigator.of(context).push(

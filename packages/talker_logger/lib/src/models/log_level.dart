@@ -8,7 +8,6 @@ enum LogLevel {
 
   /// Messages
   info,
-  good,
   debug,
   verbose,
   warning,
@@ -20,7 +19,6 @@ final logLevelPriorityList = [
   LogLevel.error,
   LogLevel.warning,
   LogLevel.info,
-  LogLevel.good,
   LogLevel.debug,
   LogLevel.verbose,
 ];
@@ -43,8 +41,6 @@ extension ToConsoleColor on LogLevel? {
         return AnsiPen()..gray();
       case LogLevel.info:
         return AnsiPen()..blue();
-      case LogLevel.good:
-        return AnsiPen()..green();
       default:
         return AnsiPen()..white();
     }

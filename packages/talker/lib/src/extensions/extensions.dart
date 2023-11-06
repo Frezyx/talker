@@ -1,6 +1,6 @@
 import 'package:talker/talker.dart';
 
-extension TalkerDataInterfaceListExt on List<TalkerDataInterface> {
+extension TalkerDataInterfaceListExt on List<TalkerData> {
   /// The method allows you to get
   /// full text of logs or history
   String get text {

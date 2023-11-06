@@ -60,6 +60,6 @@ class HttpTalkerLog extends TalkerLog {
 
   @override
   String generateTextMessage() {
-    return pen.write(message);
+    return pen.write(message ?? '');
   }
 }

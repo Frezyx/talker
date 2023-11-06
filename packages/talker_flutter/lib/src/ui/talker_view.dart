@@ -115,8 +115,8 @@ class _TalkerViewState extends State<TalkerView> {
     }
   }
 
-  TalkerDataInterface _getListItem(
-    List<TalkerDataInterface> filtredElements,
+  TalkerData _getListItem(
+    List<TalkerData> filtredElements,
     int i,
   ) {
     final data = filtredElements[
@@ -151,7 +151,7 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  void _copyTalkerDataItemText(TalkerDataInterface data) {
+  void _copyTalkerDataItemText(TalkerData data) {
     final text = data.generateTextMessage();
     Clipboard.setData(ClipboardData(text: text));
     _showSnackBar(context, 'Log item is copied in clipboard');

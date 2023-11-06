@@ -17,7 +17,7 @@ class TalkerMonitorCard extends StatelessWidget {
   final String title;
   final String? subtitle;
   final Widget? subtitleWidget;
-  final List<TalkerDataInterface> logs;
+  final List<TalkerData> logs;
   final Color color;
   final IconData icon;
   final VoidCallback? onTap;

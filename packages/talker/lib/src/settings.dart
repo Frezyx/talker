@@ -1,3 +1,21 @@
+import 'package:talker/talker.dart';
+
+const _defaultTitles = {
+  TalkerKey.error: 'error',
+  TalkerKey.exception: 'exception',
+  TalkerKey.httpError: 'http-error',
+  TalkerKey.httpRequest: 'http-request',
+  TalkerKey.httpResponse: 'http-response',
+  TalkerKey.blocEvent: 'bloc-event',
+  TalkerKey.blocTransition: 'bloc-transition',
+  TalkerKey.route: 'route',
+  TalkerKey.critical: 'critical',
+  TalkerKey.warning: 'warning',
+  TalkerKey.verbose: 'verbose',
+  TalkerKey.info: 'info',
+  TalkerKey.debug: 'debug',
+};
+
 /// {@template talker_settings}
 /// This class used for setup [Talker] configuration
 /// {@endtemplate}
@@ -7,6 +25,7 @@ class TalkerSettings {
     bool useHistory = true,
     bool useConsoleLogs = true,
     int? maxHistoryItems = 200,
+    this.titles = _defaultTitles,
     // bool writeToFile = false,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
@@ -38,48 +57,42 @@ class TalkerSettings {
   /// All log and handle error / exception methods are working when [true] and not working when [false]
   bool enabled;
 
-  /// Registered types to make filtering
-  /// and more easy displaying in talker_flutter
+  /// Custom Logger Titles.
+  ///
+  /// The `titles` field is intended for storing custom titles for the logger, associated with various log types.
+  /// Each title is associated with a specific log type represented as an enum called `TalkerTitle`. This allows you to
+  /// provide informative and unique titles for each log type, making logging more readable and informative.
+  ///
+  /// Example usage:
+  ///
   /// ```dart
-  ///class HttpTalkerLog extends TalkerLog {
-  ///   HttpTalkerLog(String message) : super(message);
+  /// final customTitles = {
+  ///   TalkerTitle.info: "Information",
+  ///   TalkerTitle.error: "Error",
+  ///   TalkerTitle.warning: "Warning",
+  /// };
   ///
-  ///   @override
-  ///   AnsiPen get pen => AnsiPen()..xterm(49);
-  ///
-  ///   @override
-  ///   String generateTextMessage() {
-  ///     return pen.write(message);
-  ///   }
-  ///}
-  ///
-  ///void main() {
-  ///   talker.configure(
-  ///     settings: const TalkerSettings(
-  ///       registeredTypes: [HttpTalkerLog],
-  ///     ),
-  ///   );
-  ///
-  ///   final httpLog = HttpTalkerLog('Http good');
-  ///   talker.logTyped(httpLog);
-  /// }
+  /// final logger = Talker(
+  ///   settings: TalkerSettings(
+  ///     titles: customTitles,
+  ///   )
+  /// );
   /// ```
-  // List<Type> get registeredTypes => [
-  //       TalkerLog, TalkerError, TalkerException,
-  //       //...?_registeredTypes
-  //     ];
+  final Map<TalkerKey, String> titles;
 
   TalkerSettings copyWith({
     bool? enabled,
     bool? useHistory,
     bool? useConsoleLogs,
     int? maxHistoryItems,
+    Map<TalkerKey, String>? titles,
   }) {
     return TalkerSettings(
       useHistory: useHistory ?? _useHistory,
       useConsoleLogs: useConsoleLogs ?? _useConsoleLogs,
       maxHistoryItems: maxHistoryItems ?? _maxHistoryItems,
       enabled: enabled ?? this.enabled,
+      titles: titles ?? this.titles,
     );
   }
 }

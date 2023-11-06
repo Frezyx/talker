@@ -41,7 +41,7 @@ void main() {
 }
 
 void _makeLogs(Talker talker) {
-  talker.good('log');
+  talker.error('log');
   talker.info('log');
   talker.verbose('log');
   talker.warning('log');

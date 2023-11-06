@@ -1,3 +1,8 @@
+# 4.0.0-dev.1
+- Add **colors** field in TalkerLoggerSettings class to setup custom colores for default logs
+- Remove deprecated LogLevel title and color extensions
+- **BREAKING**: Remove **LogLevel.good**
+
 # 3.1.0
 - Rename (fix typo) **LoggerFormater -> **LoggerFormatter** 
 - Rename (fix typo) field **formater** -> **formatter** 

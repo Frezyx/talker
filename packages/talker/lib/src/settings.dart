@@ -16,6 +16,22 @@ const _defaultTitles = {
   TalkerKey.debug: 'debug',
 };
 
+final _defaultColors = {
+  TalkerKey.error: AnsiPen()..red(),
+  TalkerKey.exception: AnsiPen()..red(),
+  TalkerKey.httpError: AnsiPen()..red(),
+  TalkerKey.httpRequest: AnsiPen()..xterm(219),
+  TalkerKey.httpResponse: AnsiPen()..xterm(46),
+  TalkerKey.blocEvent: AnsiPen()..xterm(51),
+  TalkerKey.blocTransition: AnsiPen()..xterm(49),
+  TalkerKey.route: AnsiPen()..xterm(135),
+  TalkerKey.critical: AnsiPen()..red(),
+  TalkerKey.warning: AnsiPen()..yellow(),
+  TalkerKey.verbose: AnsiPen()..gray(),
+  TalkerKey.info: AnsiPen()..blue(),
+  TalkerKey.debug: AnsiPen()..gray(),
+};
+
 /// {@template talker_settings}
 /// This class used for setup [Talker] configuration
 /// {@endtemplate}
@@ -24,12 +40,15 @@ class TalkerSettings {
     this.enabled = true,
     bool useHistory = true,
     bool useConsoleLogs = true,
-    int? maxHistoryItems = 200,
+    int maxHistoryItems = 1000,
     this.titles = _defaultTitles,
+    Map<TalkerKey, AnsiPen>? colors,
     // bool writeToFile = false,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
-        _maxHistoryItems = maxHistoryItems ?? 200;
+        _maxHistoryItems = maxHistoryItems {
+    colors = colors ?? _defaultColors;
+  }
   // _writeToFile = writeToFile;
 
   /// By default talker write all Errors / Exceptions and logs in history list
@@ -80,12 +99,46 @@ class TalkerSettings {
   /// ```
   final Map<TalkerKey, String> titles;
 
+  /// Custom Logger Colors.
+  ///
+  /// The `colors` field is designed for setting custom text colors for the logger, associated with specific log keys.
+  /// Each color is associated with a specific log key represented as an enum called `TalkerKey`. This allows you to
+  /// define custom text colors for each log key, enhancing the visual representation of logs in the console.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final customColors = {
+  ///   TalkerKey.info: AnsiPen()..white(bold: true),
+  ///   TalkerKey.error: AnsiPen()..red(bold: true),
+  ///   TalkerKey.warning: AnsiPen()..yellow(bold: true),
+  /// };
+  ///
+  /// final logger = Talker(
+  ///   settings: TalkerSettings(
+  ///     colors: customColors,
+  ///   )
+  /// );
+  /// ```
+  ///
+  /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
+  late final Map<TalkerKey, AnsiPen> colors;
+
+  String getTitleByKey(TalkerKey key) {
+    return titles[key] ?? 'log';
+  }
+
+  AnsiPen getAnsiPenByKey(TalkerKey key) {
+    return colors[key] ?? (AnsiPen()..gray());
+  }
+
   TalkerSettings copyWith({
     bool? enabled,
     bool? useHistory,
     bool? useConsoleLogs,
     int? maxHistoryItems,
     Map<TalkerKey, String>? titles,
+    Map<TalkerKey, AnsiPen>? colors,
   }) {
     return TalkerSettings(
       useHistory: useHistory ?? _useHistory,
@@ -93,6 +146,7 @@ class TalkerSettings {
       maxHistoryItems: maxHistoryItems ?? _maxHistoryItems,
       enabled: enabled ?? this.enabled,
       titles: titles ?? this.titles,
+      colors: colors ?? this.colors,
     );
   }
 }

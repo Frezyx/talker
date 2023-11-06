@@ -34,9 +34,19 @@ class Talker {
     TalkerSettings? settings,
     TalkerFilter? filter,
   }) {
-    _filter = filter;
-    this.settings = settings ?? TalkerSettings();
+    _init(filter, settings, logger, observer);
+  }
 
+  void _init(
+    TalkerFilter? filter,
+    TalkerSettings? settings,
+    TalkerLogger? logger,
+    TalkerObserver? observer,
+  ) {
+    if (filter != null) {
+      _filter = filter;
+    }
+    this.settings = settings ?? TalkerSettings();
     _initLogger(logger);
     _observer = observer ?? const _DefaultTalkerObserver();
     _errorHandler = TalkerErrorHandler(this.settings);
@@ -47,19 +57,27 @@ class Talker {
     _logger = _logger.copyWith(
       settings: _logger.settings.copyWith(
         titles: {
-          LogLevel.critical: TalkerKey.critical.getTitle(settings),
-          LogLevel.error: TalkerKey.error.getTitle(settings),
-          LogLevel.warning: TalkerKey.warning.getTitle(settings),
-          LogLevel.verbose: TalkerKey.verbose.getTitle(settings),
-          LogLevel.info: TalkerKey.info.getTitle(settings),
-          LogLevel.debug: TalkerKey.debug.getTitle(settings),
+          LogLevel.critical: settings.getTitleByKey(TalkerKey.critical),
+          LogLevel.error: settings.getTitleByKey(TalkerKey.error),
+          LogLevel.warning: settings.getTitleByKey(TalkerKey.warning),
+          LogLevel.verbose: settings.getTitleByKey(TalkerKey.verbose),
+          LogLevel.info: settings.getTitleByKey(TalkerKey.info),
+          LogLevel.debug: settings.getTitleByKey(TalkerKey.debug),
+        },
+        colors: {
+          LogLevel.critical: settings.getAnsiPenByKey(TalkerKey.critical),
+          LogLevel.error: settings.getAnsiPenByKey(TalkerKey.error),
+          LogLevel.warning: settings.getAnsiPenByKey(TalkerKey.warning),
+          LogLevel.verbose: settings.getAnsiPenByKey(TalkerKey.verbose),
+          LogLevel.info: settings.getAnsiPenByKey(TalkerKey.info),
+          LogLevel.debug: settings.getAnsiPenByKey(TalkerKey.debug),
         },
       ),
     );
   }
 
   /// Fields can be setup in [configure()] method
-
+  ///
   /// {@macro talker_settings}
   late TalkerSettings settings;
   late TalkerLogger _logger;
@@ -94,14 +112,7 @@ class Talker {
     TalkerObserver? observer,
     TalkerFilter? filter,
   }) {
-    if (filter != null) {
-      _filter = filter;
-    }
-    if (settings != null) {
-      this.settings = settings;
-    }
-    _observer = observer ?? _observer;
-    _logger = logger ?? _logger;
+    _init(filter, settings, logger, observer);
   }
 
   final _talkerStreamController = StreamController<TalkerData>.broadcast();
@@ -346,7 +357,6 @@ class Talker {
       message?.toString() ?? '',
       title: _logger.getTitleByLogLevel(logLevel),
       logLevel: logLevel,
-      pen: pen ?? logLevel.consoleColor,
     );
     _handleLogData(data);
   }

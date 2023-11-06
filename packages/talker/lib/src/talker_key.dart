@@ -1,5 +1,3 @@
-import 'package:talker/talker.dart';
-
 enum TalkerKey {
   /// Logger level
   error('error'),
@@ -20,10 +18,4 @@ enum TalkerKey {
 
   const TalkerKey(this.key);
   final String key;
-}
-
-extension WellKnownTitlesExt on TalkerKey {
-  String getTitle(TalkerSettings settings) {
-    return settings.titles[this] ?? 'log';
-  }
 }

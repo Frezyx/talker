@@ -9,17 +9,28 @@ const _defaultLogTitles = {
   LogLevel.debug: 'DEBUG',
 };
 
+final _defaultColors = {
+  LogLevel.critical: AnsiPen()..red(),
+  LogLevel.error: AnsiPen()..red(),
+  LogLevel.warning: AnsiPen()..yellow(),
+  LogLevel.verbose: AnsiPen()..gray(),
+  LogLevel.info: AnsiPen()..blue(),
+  LogLevel.debug: AnsiPen()..gray(),
+};
+
 /// Logger customization settings
 class TalkerLoggerSettings {
-  const TalkerLoggerSettings({
-    this.colors = const {},
+  TalkerLoggerSettings({
+    Map<LogLevel, AnsiPen>? colors,
     this.titles = _defaultLogTitles,
     this.defaultTitle = 'LOG',
     this.level = LogLevel.verbose,
     this.lineSymbol = '─',
     this.maxLineWidth = 110,
     this.enableColors = true,
-  });
+  }) {
+    colors = colors ?? _defaultColors;
+  }
 
   /// Field to setup custom log colors
   ///```dart
@@ -34,7 +45,7 @@ class TalkerLoggerSettings {
   ///   ),
   /// );
   /// ```
-  final Map<LogLevel, AnsiPen> colors;
+  late final Map<LogLevel, AnsiPen> colors;
 
   /// Field to setup custom log titles
   ///```dart

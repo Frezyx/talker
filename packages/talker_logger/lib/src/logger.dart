@@ -2,11 +2,12 @@ import 'package:talker_logger/talker_logger.dart';
 
 class TalkerLogger {
   TalkerLogger({
-    this.settings = const TalkerLoggerSettings(),
+    TalkerLoggerSettings? settings,
     this.formatter = const ExtendedLoggerFormatter(),
     LoggerFilter? filter,
     void Function(String message)? output,
   }) {
+    settings = settings ?? TalkerLoggerSettings();
     // ignore: avoid_print
     _output = output ?? (String message) => message.split('\n').forEach(print);
     _filter = filter ?? LogLevelFilter(settings.level);
@@ -14,7 +15,7 @@ class TalkerLogger {
   }
 
   /// Logger settings
-  final TalkerLoggerSettings settings;
+  late final TalkerLoggerSettings settings;
 
   /// You can setup differen formatter [ExtendedLoggerFormatter, ColoredLoggerFormatter]
   /// Or your own fuly customized formatter with extends [LoggerFormatter]
@@ -37,7 +38,7 @@ class TalkerLogger {
   void log(dynamic msg, {LogLevel? level, AnsiPen? pen}) {
     final selectedLevel = level ?? LogLevel.debug;
     final selectedPen =
-        pen ?? settings.colors[selectedLevel] ?? selectedLevel.consoleColor;
+        pen ?? settings.colors[selectedLevel] ?? (AnsiPen()..gray());
 
     if (_filter.shouldLog(msg, selectedLevel)) {
       final formattedMsg = formatter.fmt(

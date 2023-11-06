@@ -21,7 +21,7 @@ class TalkerErrorHandler {
       return TalkerError(
         exception,
         key: errType.key,
-        title: errType.getTitle(settings),
+        title: settings.getTitleByKey(errType),
         message: msg,
         stackTrace: stackTrace,
       );
@@ -31,7 +31,7 @@ class TalkerErrorHandler {
       return TalkerException(
         exception,
         key: exceptionType.key,
-        title: exceptionType.getTitle(settings),
+        title: settings.getTitleByKey(exceptionType),
         message: msg,
         stackTrace: stackTrace,
       );
@@ -40,7 +40,7 @@ class TalkerErrorHandler {
     return TalkerLog(
       exception.toString(),
       key: errType.key,
-      title: errType.getTitle(settings),
+      title: settings.getTitleByKey(errType),
       logLevel: LogLevel.error,
       stackTrace: stackTrace,
     );

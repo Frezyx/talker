@@ -7,10 +7,10 @@ class TalkerLogger {
     LoggerFilter? filter,
     void Function(String message)? output,
   }) {
-    settings = settings ?? TalkerLoggerSettings();
+    this.settings = settings ?? TalkerLoggerSettings();
     // ignore: avoid_print
     _output = output ?? (String message) => message.split('\n').forEach(print);
-    _filter = filter ?? LogLevelFilter(settings.level);
+    _filter = filter ?? LogLevelFilter(this.settings.level);
     ansiColorDisabled = false;
   }
 
@@ -140,13 +140,5 @@ class TalkerLogger {
       filter: filter ?? _filter,
       output: output ?? _output,
     );
-  }
-
-  String getTitleByLogLevel(LogLevel logLevel) {
-    final levelTitle = settings.titles[logLevel];
-    if (levelTitle != null) {
-      return levelTitle;
-    }
-    return settings.defaultTitle;
   }
 }

@@ -1,14 +1,5 @@
 import 'package:talker_logger/talker_logger.dart';
 
-const _defaultLogTitles = {
-  LogLevel.critical: 'CRITICAL',
-  LogLevel.error: 'ERROR',
-  LogLevel.warning: 'WARNING',
-  LogLevel.verbose: 'VERBOSE',
-  LogLevel.info: 'INFO',
-  LogLevel.debug: 'DEBUG',
-};
-
 final _defaultColors = {
   LogLevel.critical: AnsiPen()..red(),
   LogLevel.error: AnsiPen()..red(),
@@ -22,14 +13,16 @@ final _defaultColors = {
 class TalkerLoggerSettings {
   TalkerLoggerSettings({
     Map<LogLevel, AnsiPen>? colors,
-    this.titles = _defaultLogTitles,
     this.defaultTitle = 'LOG',
     this.level = LogLevel.verbose,
     this.lineSymbol = '─',
     this.maxLineWidth = 110,
     this.enableColors = true,
   }) {
-    colors = colors ?? _defaultColors;
+    this.colors = _defaultColors;
+    if (colors != null) {
+      _defaultColors.addAll(colors);
+    }
   }
 
   /// Field to setup custom log colors
@@ -46,21 +39,6 @@ class TalkerLoggerSettings {
   /// );
   /// ```
   late final Map<LogLevel, AnsiPen> colors;
-
-  /// Field to setup custom log titles
-  ///```dart
-  /// final logger = TalkerLogger(
-  ///   settings: TalkerLoggerSettings(
-  ///     colors: {
-  ///       LogLevel.critical: 'OH nooo! ☠️☠️☠️',
-  ///       LogLevel.error: '🆘 Lock at me! 🆘',
-  ///       LogLevel.info: 'i',
-  ///     },
-  ///     enableColors: true,
-  ///   ),
-  /// );
-  /// ```
-  final Map<LogLevel, String> titles;
 
   /// Title of default log without [LogLevel]
   final String defaultTitle;
@@ -80,7 +58,6 @@ class TalkerLoggerSettings {
 
   TalkerLoggerSettings copyWith({
     Map<LogLevel, AnsiPen>? colors,
-    Map<LogLevel, String>? titles,
     String? defaultTitle,
     LogLevel? level,
     String? lineSymbol,
@@ -89,7 +66,6 @@ class TalkerLoggerSettings {
   }) {
     return TalkerLoggerSettings(
       colors: colors ?? this.colors,
-      titles: titles ?? this.titles,
       defaultTitle: defaultTitle ?? this.defaultTitle,
       level: level ?? this.level,
       lineSymbol: lineSymbol ?? this.lineSymbol,

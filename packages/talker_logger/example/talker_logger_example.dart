@@ -5,10 +5,13 @@ import 'package:talker_logger/talker_logger.dart';
 void main() {
   // Create instance
   final logger = TalkerLogger(
-    //Enable for custom colored logs with Formatter
-    // formatter: _ColoredLoggerFormatter(),
-    settings: const TalkerLoggerSettings(
-      level: LogLevel.info,
+    settings: TalkerLoggerSettings(
+      // You can setu custom log level to filter logs
+      level: LogLevel.debug,
+      // Setup custom colors for log levels
+      colors: {
+        LogLevel.warning: AnsiPen()..magenta(),
+      },
     ),
   );
 

@@ -11,7 +11,7 @@ class LogLevelLoggerFormater implements LoggerFormatter {
 final _messages = <String>[];
 final _formatter = LogLevelLoggerFormater();
 final _logger = TalkerLogger(
-  settings: const TalkerLoggerSettings(enableColors: false),
+  settings: TalkerLoggerSettings(enableColors: false),
   formatter: _formatter,
   output: (message) => _messages.add(message),
 );
@@ -32,7 +32,7 @@ void main() {
 
   test('Constructor with fields', () {
     final logger = TalkerLogger(
-      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      settings: TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
       formatter: _formatter,
     );
@@ -53,7 +53,7 @@ void main() {
       output: (message) => messages.add(message),
     );
     logger = logger.copyWith(
-      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      settings: TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
       formatter: _formatter,
     );
@@ -74,7 +74,7 @@ void main() {
   test('Constructor copyWith empty', () {
     final messages = <String>[];
     var logger = TalkerLogger(
-      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      settings: TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
       formatter: _formatter,
       output: (message) => messages.add(message),
@@ -118,10 +118,6 @@ void main() {
       _logger.info('Message');
       _expectMessageType(LogLevel.info);
     });
-    test('good', () {
-      _logger.good('Message');
-      _expectMessageType(LogLevel.good);
-    });
     test('verbose', () {
       _logger.verbose('Message');
       _expectMessageType(LogLevel.verbose);
@@ -133,7 +129,7 @@ void main() {
 
     test('Message length', () {
       final logger = TalkerLogger(
-        settings: const TalkerLoggerSettings(enableColors: false),
+        settings: TalkerLoggerSettings(enableColors: false),
         output: (message) => _messages.add(message),
         formatter: const ColoredLoggerFormatter(),
       );

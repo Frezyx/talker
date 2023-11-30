@@ -82,10 +82,18 @@ class TalkerBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
     super.onCreate(bloc);
+    if (!settings.enabled || !settings.printCreations) {
+      return;
+    }
+    _talker.logTyped(BlocCreateLog(bloc: bloc));
   }
 
   @override
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
+    if (!settings.enabled || !settings.printClosings) {
+      return;
+    }
+    _talker.logTyped(BlocCloseLog(bloc: bloc));
   }
 }

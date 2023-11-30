@@ -25,6 +25,9 @@ class Talker {
   /// You can set your own [LoggerFormatter] [loggerFormatter]
   /// to format output of talker logs,
   ///
+  /// You can set your own [TalkerErrorHandler] [TalkerErrorHandler]
+  /// to handle talker logs errors,
+  ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
   /// {@endtemplate}
@@ -33,12 +36,13 @@ class Talker {
     TalkerObserver? observer,
     TalkerSettings? settings,
     TalkerFilter? filter,
+    TalkerErrorHandler? errorHandler,
   }) {
     _filter = filter;
     this.settings = settings ?? TalkerSettings();
     _logger = logger ?? TalkerLogger();
     _observer = observer ?? const _DefaultTalkerObserver();
-    _errorHandler = TalkerErrorHandler(this.settings);
+    _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
   }
 
   /// Fields can be setup in [configure()] method

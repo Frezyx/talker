@@ -1,3 +1,9 @@
+## 2.3.0
+- Add onCreate, onClose logs
+- Add **printClosings** **printCreations** settings fields (false by default)
+
+Thanks to [wcoder](https://github.com/wcoder)
+
 ## 2.2.2
 - Update **talker** version to 3.1.5
 

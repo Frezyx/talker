@@ -1,3 +1,8 @@
+# 3.5.5
+- Add ability to set own ErrorHandler for talker instance
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 # 3.5.4
 - Bump share_plus package to 7.2.1
 

@@ -1,3 +1,8 @@
+# 3.1.5
+- Add ability to set own ErrorHandler 
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 # 3.1.4
 - Pad minutes and seconds for DateTime formatter
 

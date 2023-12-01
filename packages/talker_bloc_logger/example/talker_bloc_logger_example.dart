@@ -4,8 +4,19 @@ import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 void main() async {
   Bloc.observer = TalkerBlocObserver(
     settings: TalkerBlocLoggerSettings(
+      enabled: true,
       printEventFullData: false,
       printStateFullData: false,
+      printChanges: true,
+      printClosings: true,
+      printCreations: true,
+      printEvents: true,
+      printTransitions: true,
+      // If you want log only AuthBloc transitions
+      transitionFilter: (bloc, transition) =>
+          bloc.runtimeType.toString() == 'AuthBloc',
+      // If you want log only AuthBloc events
+      eventFilter: (bloc, event) => bloc.runtimeType.toString() == 'AuthBloc',
     ),
   );
   final somethingBloc = SomethingBloc();

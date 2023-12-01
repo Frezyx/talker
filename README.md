@@ -437,7 +437,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^2.3.0
+  talker_bloc_logger: ^2.3.1
 ```
 
 ### Usage

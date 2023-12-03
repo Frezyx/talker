@@ -1,3 +1,10 @@
+# 3.1.6
+**talker_bloc_logger**
+- Add onCreate, onClose logs
+- Add **printClosings** **printCreations** settings fields (false by default)
+
+Thanks to [cem256](https://github.com/cem256)
+
 # 3.1.5
 - Add ability to set own ErrorHandler 
 

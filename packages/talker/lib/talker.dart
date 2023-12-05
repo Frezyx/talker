@@ -6,4 +6,5 @@ export 'src/models/models.dart';
 export 'src/observer.dart';
 export 'src/settings.dart';
 export 'src/talker.dart';
+export 'src/history.dart';
 export 'src/well_known_titles.dart';

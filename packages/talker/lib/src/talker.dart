@@ -27,6 +27,9 @@ class Talker {
   /// You can set your own [TalkerErrorHandler] [TalkerErrorHandler]
   /// to handle talker logs errors,
   ///
+  /// You can set your own [TalkerHistory] [TalkerHistory]
+  /// to historize talker logs,
+  ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
   /// {@endtemplate}
@@ -36,12 +39,14 @@ class Talker {
     TalkerSettings? settings,
     TalkerFilter? filter,
     TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
   }) {
     _filter = filter;
     this.settings = settings ?? TalkerSettings();
     _logger = logger ?? TalkerLogger();
     _observer = observer ?? const _DefaultTalkerObserver();
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
+    _history = history ?? DefaultTalkerHistory(this.settings);
   }
 
   /// Fields can be setup in [configure()] method
@@ -52,9 +57,9 @@ class Talker {
   late TalkerErrorHandler _errorHandler;
   late TalkerFilter? _filter;
   late TalkerObserver _observer;
+  late TalkerHistory _history;
 
   // final _fileManager = FileManager();
-  final _history = <TalkerDataInterface>[];
 
   /// Setup configuration of Talker
   ///
@@ -72,6 +77,12 @@ class Talker {
   ///
   /// Also you can set [settings] [TalkerSettings],
   ///
+  /// You can set your own [TalkerErrorHandler] [TalkerErrorHandler]
+  /// to handle talker logs errors,
+  ///
+  /// You can set your own [TalkerHistory] [TalkerHistory]
+  /// to historize talker logs,
+  ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
   void configure({
@@ -79,6 +90,8 @@ class Talker {
     TalkerSettings? settings,
     TalkerObserver? observer,
     TalkerFilter? filter,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
   }) {
     if (filter != null) {
       _filter = filter;
@@ -88,6 +101,8 @@ class Talker {
     }
     _observer = observer ?? _observer;
     _logger = logger ?? _logger;
+    _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
+    _history = history ?? DefaultTalkerHistory(this.settings);
   }
 
   final _talkerStreamController =
@@ -107,7 +122,7 @@ class Talker {
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
 
-  List<TalkerDataInterface> get history => _history;
+  List<TalkerDataInterface> get history => _history.history;
 
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
@@ -324,11 +339,8 @@ class Talker {
   }
 
   /// Clear log history
-
   void cleanHistory() {
-    if (settings.useHistory) {
-      _history.clear();
-    }
+    _history.clean();
   }
 
   /// Method stops all [Talker] works
@@ -409,8 +421,7 @@ class Talker {
   }
 
   void _handleForOutputs(TalkerDataInterface data) {
-    _writeToHistory(data);
-    // _writeToFile(data);
+    _history.write(data);
   }
 
   //TODO: recreate file manager logic
@@ -419,15 +430,6 @@ class Talker {
   //     _fileManager.writeToLogFile(data.generateTextMessage());
   //   }
   // }
-
-  void _writeToHistory(TalkerDataInterface data) {
-    if (settings.useHistory && settings.enabled) {
-      if (settings.maxHistoryItems <= _history.length) {
-        _history.removeAt(0);
-      }
-      _history.add(data);
-    }
-  }
 
   bool _isApprovedByFilter(TalkerDataInterface data) {
     final approved = _filter?.filter(data) ?? true;

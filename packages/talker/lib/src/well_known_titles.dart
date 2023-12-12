@@ -6,6 +6,8 @@ enum WellKnownTitles {
   httpResponse,
   blocEvent,
   blocTransition,
+  blocCreate,
+  blocClose,
   route,
 }
 
@@ -26,6 +28,10 @@ extension WellKnownTitlesExt on WellKnownTitles {
         return 'bloc-event';
       case WellKnownTitles.blocTransition:
         return 'bloc-transition';
+      case WellKnownTitles.blocCreate:
+        return 'bloc-create';
+      case WellKnownTitles.blocClose:
+        return 'bloc-close';
       case WellKnownTitles.route:
         return 'ROUTE';
     }

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 
 /// Talker - advanced exception handling and logging

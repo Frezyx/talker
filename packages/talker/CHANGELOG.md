@@ -1,3 +1,20 @@
+# 3.1.7
+- Add package utils export 
+
+Thanks to [Ppito](https://github.com/Ppito)
+
+# 3.1.6
+**talker_bloc_logger**
+- Add onCreate, onClose logs
+- Add **printClosings** **printCreations** settings fields (false by default)
+
+Thanks to [cem256](https://github.com/cem256)
+
+# 3.1.5
+- Add ability to set own ErrorHandler 
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 # 3.1.4
 - Pad minutes and seconds for DateTime formatter
 

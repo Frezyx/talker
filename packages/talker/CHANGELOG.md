@@ -1,3 +1,8 @@
+# 3.1.7
+- Add package utils export 
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 # 3.1.6
 **talker_bloc_logger**
 - Add onCreate, onClose logs

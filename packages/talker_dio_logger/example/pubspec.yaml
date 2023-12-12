@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   dio: ^5.0.0
   talker_dio_logger: ^2.3.1
-  talker_flutter: ^3.5.6    
+  talker_flutter: ^3.5.7    
 
 dev_dependencies:
   flutter_test:

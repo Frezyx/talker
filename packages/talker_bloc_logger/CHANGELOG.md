@@ -1,3 +1,6 @@
+## 2.3.3
+- Update **talker** version to 3.1.7
+
 ## 2.3.2
 - Update **talker** version to 3.1.6
 - Fix last deploy issues (Member not found for WellKnownTitles issue)

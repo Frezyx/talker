@@ -1,3 +1,10 @@
+# 3.2.0
+- Add ability to setup custom history implementation
+- Add **abstract class TalkerHistory**
+- Add **DefaultTalkerHistory** implementation with basic (previous) functionality by default
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 # 3.1.7
 - Add package utils export 
 

@@ -1,3 +1,11 @@
+# 2.4.0
+- Update **talker** version to 3.2.0
+- Add ability to setup custom history implementation
+- Add **abstract class TalkerHistory**
+- Add **DefaultTalkerHistory** implementation with basic (previous) functionality by default
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 ## 2.3.3
 - Update **talker** version to 3.1.7
 

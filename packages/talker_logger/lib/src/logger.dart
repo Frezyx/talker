@@ -17,8 +17,8 @@ class TalkerLogger {
   /// Logger settings
   late final TalkerLoggerSettings settings;
 
-  /// You can setup differen formatter [ExtendedLoggerFormatter, ColoredLoggerFormatter]
-  /// Or your own fuly customized formatter with extends [LoggerFormatter]
+  /// You can setup different formatter [ExtendedLoggerFormatter, ColoredLoggerFormatter]
+  /// Or your own fully customized formatter with extends [LoggerFormatter]
   final LoggerFormatter formatter;
 
   late final void Function(String message) _output;

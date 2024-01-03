@@ -6,4 +6,7 @@
         "source.organizeImports": "explicit"
     },
     "editor.formatOnSave": true,
+    "cSpell.words": [
+        "endtemplate"
+    ],
 }

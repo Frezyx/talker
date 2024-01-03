@@ -19,10 +19,10 @@ class TalkerLoggerSettings {
     this.maxLineWidth = 110,
     this.enableColors = true,
   }) {
-    this.colors = _defaultColors;
     if (colors != null) {
       _defaultColors.addAll(colors);
     }
+    this.colors.addAll(_defaultColors);
   }
 
   /// Field to setup custom log colors
@@ -38,7 +38,8 @@ class TalkerLoggerSettings {
   ///   ),
   /// );
   /// ```
-  late final Map<LogLevel, AnsiPen> colors;
+
+  final Map<LogLevel, AnsiPen> colors = {};
 
   /// Title of default log without [LogLevel]
   final String defaultTitle;

@@ -43,11 +43,13 @@ class TalkerSettings {
     int maxHistoryItems = 1000,
     this.titles = _defaultTitles,
     Map<TalkerLogType, AnsiPen>? colors,
-    // bool writeToFile = false,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
         _maxHistoryItems = maxHistoryItems {
-    colors = colors ?? _defaultColors;
+    if (colors != null) {
+      _defaultColors.addAll(colors);
+    }
+    this.colors.addAll(_defaultColors);
   }
   // _writeToFile = writeToFile;
 
@@ -122,7 +124,7 @@ class TalkerSettings {
   /// ```
   ///
   /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
-  late final Map<TalkerLogType, AnsiPen> colors;
+  final Map<TalkerLogType, AnsiPen> colors = _defaultColors;
 
   String getTitleByLogType(TalkerLogType key) {
     return titles[key] ?? 'log';

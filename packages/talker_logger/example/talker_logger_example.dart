@@ -6,11 +6,11 @@ void main() {
   // Create instance
   final logger = TalkerLogger(
     settings: TalkerLoggerSettings(
-      // You can setu custom log level to filter logs
+      // You can setup custom log level to filter logs
       level: LogLevel.debug,
       // Setup custom colors for log levels
       colors: {
-        LogLevel.warning: AnsiPen()..magenta(),
+        LogLevel.warning: AnsiPen()..cyan(),
       },
     ),
   );

@@ -28,7 +28,7 @@ class Talker {
   /// to handle talker logs errors,
   ///
   /// You can set your own [TalkerHistory] [TalkerHistory]
-  /// to historize talker logs,
+  /// to store talker logs history,
   ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
@@ -52,9 +52,7 @@ class Talker {
     TalkerErrorHandler? errorHandler,
     TalkerHistory? history,
   ) {
-    if (filter != null) {
-      _filter = filter;
-    }
+    _filter = filter ?? _DefaultTalkerFilter();
     this.settings = settings ?? TalkerSettings();
     _initLogger(logger);
     _observer = observer ?? const _DefaultTalkerObserver();
@@ -85,7 +83,7 @@ class Talker {
   late TalkerSettings settings;
   late TalkerLogger _logger;
   late TalkerErrorHandler _errorHandler;
-  late TalkerFilter? _filter;
+  late TalkerFilter _filter;
   late TalkerObserver _observer;
   late TalkerHistory _history;
 
@@ -111,7 +109,7 @@ class Talker {
   /// to handle talker logs errors,
   ///
   /// You can set your own [TalkerHistory] [TalkerHistory]
-  /// to historize talker logs,
+  /// to store talker logs history,
   ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
@@ -428,11 +426,16 @@ class Talker {
   // }
 
   bool _isApprovedByFilter(TalkerData data) {
-    final approved = _filter?.filter(data) ?? true;
+    final approved = _filter.filter(data);
     return approved;
   }
 }
 
 class _DefaultTalkerObserver extends TalkerObserver {
   const _DefaultTalkerObserver();
+}
+
+class _DefaultTalkerFilter extends TalkerFilter {
+  @override
+  bool filter(TalkerData item) => true;
 }

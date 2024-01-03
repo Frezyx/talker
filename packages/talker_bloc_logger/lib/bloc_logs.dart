@@ -104,3 +104,57 @@ class BlocChangeLog extends TalkerLog {
     return sb.toString();
   }
 }
+
+/// [Bloc] created log model
+class BlocCreateLog extends TalkerLog {
+  BlocCreateLog({
+    required this.bloc,
+  }) : super('${bloc.runtimeType} created');
+
+  final BlocBase bloc;
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(8);
+
+  @override
+  String get title => WellKnownTitles.blocCreate.title;
+
+  @override
+  String generateTextMessage() {
+    return _createMessage();
+  }
+
+  String _createMessage() {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime);
+    sb.write('\n$message');
+    return sb.toString();
+  }
+}
+
+/// [Bloc] closed log model
+class BlocCloseLog extends TalkerLog {
+  BlocCloseLog({
+    required this.bloc,
+  }) : super('${bloc.runtimeType} closed');
+
+  final BlocBase bloc;
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(13);
+
+  @override
+  String get title => WellKnownTitles.blocClose.title;
+
+  @override
+  String generateTextMessage() {
+    return _createMessage();
+  }
+
+  String _createMessage() {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime);
+    sb.write('\n$message');
+    return sb.toString();
+  }
+}

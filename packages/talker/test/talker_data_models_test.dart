@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_type_check, leading_newlines_in_multiline_strings
 
-import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 

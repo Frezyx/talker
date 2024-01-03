@@ -1,3 +1,27 @@
+# 3.6.0
+- Add ability to setup custom history implementation
+- Add **abstract class TalkerHistory**
+- Add **DefaultTalkerHistory** implementation with basic (previous) functionality by default
+
+Thanks to [Ppito](https://github.com/Ppito)
+
+# 3.5.7
+- Add package utils export 
+
+Thanks to [Ppito](https://github.com/Ppito)
+
+# 3.5.6
+**talker_bloc_logger**
+- Add onCreate, onClose logs
+- Add **printClosings** **printCreations** settings fields (false by default)
+
+Thanks to [cem256](https://github.com/cem256)
+
+# 3.5.5
+- Add ability to set own ErrorHandler for talker instance
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 # 3.5.4
 - Bump share_plus package to 7.2.1
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 
 /// Talker - advanced exception handling and logging
@@ -25,6 +24,12 @@ class Talker {
   /// You can set your own [LoggerFormatter] [loggerFormatter]
   /// to format output of talker logs,
   ///
+  /// You can set your own [TalkerErrorHandler] [TalkerErrorHandler]
+  /// to handle talker logs errors,
+  ///
+  /// You can set your own [TalkerHistory] [TalkerHistory]
+  /// to historize talker logs,
+  ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
   /// {@endtemplate}
@@ -33,8 +38,10 @@ class Talker {
     TalkerObserver? observer,
     TalkerSettings? settings,
     TalkerFilter? filter,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
   }) {
-    _init(filter, settings, logger, observer);
+    _init(filter, settings, logger, observer, errorHandler, history);
   }
 
   void _init(
@@ -42,6 +49,8 @@ class Talker {
     TalkerSettings? settings,
     TalkerLogger? logger,
     TalkerObserver? observer,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
   ) {
     if (filter != null) {
       _filter = filter;
@@ -49,7 +58,8 @@ class Talker {
     this.settings = settings ?? TalkerSettings();
     _initLogger(logger);
     _observer = observer ?? const _DefaultTalkerObserver();
-    _errorHandler = TalkerErrorHandler(this.settings);
+    _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
+    _history = history ?? DefaultTalkerHistory(this.settings);
   }
 
   void _initLogger(TalkerLogger? logger) {
@@ -77,9 +87,9 @@ class Talker {
   late TalkerErrorHandler _errorHandler;
   late TalkerFilter? _filter;
   late TalkerObserver _observer;
+  late TalkerHistory _history;
 
   // final _fileManager = FileManager();
-  final _history = <TalkerData>[];
 
   /// Setup configuration of Talker
   ///
@@ -97,6 +107,12 @@ class Talker {
   ///
   /// Also you can set [settings] [TalkerSettings],
   ///
+  /// You can set your own [TalkerErrorHandler] [TalkerErrorHandler]
+  /// to handle talker logs errors,
+  ///
+  /// You can set your own [TalkerHistory] [TalkerHistory]
+  /// to historize talker logs,
+  ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
   void configure({
@@ -104,8 +120,10 @@ class Talker {
     TalkerSettings? settings,
     TalkerObserver? observer,
     TalkerFilter? filter,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
   }) {
-    _init(filter, settings, logger, observer);
+    _init(filter, settings, logger, observer, errorHandler, history);
   }
 
   final _talkerStreamController = StreamController<TalkerData>.broadcast();
@@ -122,7 +140,8 @@ class Talker {
   /// The history stores all information about all events like
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
-  List<TalkerData> get history => _history;
+
+  List<TalkerData> get history => _history.history;
 
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
@@ -314,9 +333,7 @@ class Talker {
 
   /// Clear log history
   void cleanHistory() {
-    if (settings.useHistory) {
-      _history.clear();
-    }
+    _history.clean();
   }
 
   /// Method stops all [Talker] works
@@ -400,8 +417,7 @@ class Talker {
   }
 
   void _handleForOutputs(TalkerData data) {
-    _writeToHistory(data);
-    // _writeToFile(data);
+    _history.write(data);
   }
 
   //TODO: recreate file manager logic
@@ -410,15 +426,6 @@ class Talker {
   //     _fileManager.writeToLogFile(data.generateTextMessage());
   //   }
   // }
-
-  void _writeToHistory(TalkerData data) {
-    if (settings.useHistory && settings.enabled) {
-      if (settings.maxHistoryItems <= _history.length) {
-        _history.removeAt(0);
-      }
-      _history.add(data);
-    }
-  }
 
   bool _isApprovedByFilter(TalkerData data) {
     final approved = _filter?.filter(data) ?? true;

@@ -23,7 +23,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^2.2.1
+  talker_bloc_logger: ^2.4.0
 ```
 
 ### Usage
@@ -47,6 +47,31 @@ import 'package:talker/talker.dart';
 
 final talker = Talker();
 Bloc.observer = TalkerBlocObserver(talker: talker);
+```
+
+## Settings
+
+This package has a lot of customization options
+You can enable/disable somethings events, Bloc creation, changes, closing logs, etc...
+
+```dart
+Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      enabled: true,
+      printEventFullData: false,
+      printStateFullData: false,
+      printChanges: true,
+      printClosings: true,
+      printCreations: true,
+      printEvents: true,
+      printTransitions: true,
+      // If you want log only AuthBloc transitions
+      transitionFilter: (bloc, transition) =>
+          bloc.runtimeType.toString() == 'AuthBloc',
+      // If you want log only AuthBloc events
+      eventFilter: (bloc, event) => bloc.runtimeType.toString() == 'AuthBloc',
+    ),
+  );
 ```
 
 ## Additional information

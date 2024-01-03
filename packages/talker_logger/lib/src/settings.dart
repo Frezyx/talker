@@ -38,8 +38,7 @@ class TalkerLoggerSettings {
   ///   ),
   /// );
   /// ```
-
-  final Map<LogLevel, AnsiPen> colors = {};
+  final Map<LogLevel, AnsiPen> colors = _defaultColors;
 
   /// Title of default log without [LogLevel]
   final String defaultTitle;

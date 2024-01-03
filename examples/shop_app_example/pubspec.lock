@@ -424,10 +424,9 @@ packages:
   talker:
     dependency: "direct main"
     description:
-      name: talker
-      sha256: "1e4351253560219859a8e757f5b8dbd266d5c289a50dd90d12da4f3041184392"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/talker"
+      relative: true
+    source: path
     version: "3.2.0"
   talker_bloc_logger:
     dependency: "direct main"

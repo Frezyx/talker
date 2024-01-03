@@ -180,7 +180,7 @@ class TalkerDataCard extends StatelessWidget {
       case TalkerLogType.blocClose:
         return debugColor;
       case TalkerLogType.blocCreate:
-        return debugColor;
+        return blocClosedColor;
     }
   }
 

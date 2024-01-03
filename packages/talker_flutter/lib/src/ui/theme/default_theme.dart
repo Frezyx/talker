@@ -8,9 +8,9 @@ const blocTransitionColor = Color(0xFF56FEA8);
 const blocEventColor = Color(0xFF63FAFE);
 const routeLogColor = Color(0xFFAF5FFF);
 
-final critcalErrorColor = Colors.red[800]!;
+final criticalErrorColor = Colors.red[800]!;
 final errorColor = Colors.red[400]!;
-final waringinColor = Colors.orange[800]!;
+final warningColor = Colors.orange[800]!;
 final verboseColor = Colors.grey[400]!;
 final infoColor = Colors.blue[400]!;
 final goodColor = Colors.green[400]!;

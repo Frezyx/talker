@@ -140,7 +140,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: warnings,
                     title: 'Warnings',
-                    color: waringinColor,
+                    color: warningColor,
                     icon: Icons.warning_amber_rounded,
                     subtitle: 'Application has ${warnings.length} warnings',
                     onTap: () =>

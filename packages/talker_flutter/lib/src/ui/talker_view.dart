@@ -46,7 +46,7 @@ class TalkerView extends StatefulWidget {
 }
 
 class _TalkerViewState extends State<TalkerView> {
-  final _titilesController = GroupButtonController();
+  final _titlesController = GroupButtonController();
   late final _controller = widget.controller ?? TalkerViewController();
 
   @override
@@ -61,7 +61,8 @@ class _TalkerViewState extends State<TalkerView> {
             final filtredElements =
                 data.where((e) => _controller.filter.filter(e)).toList();
             final titles = data.map((e) => e.title).toList();
-            final unicTitles = titles.toSet().toList();
+            final uniqTitles = titles.toSet().toList();
+
             return CustomScrollView(
               controller: widget.scrollController,
               physics: const BouncingScrollPhysics(),
@@ -71,9 +72,9 @@ class _TalkerViewState extends State<TalkerView> {
                   leading: widget.appBarLeading,
                   talker: widget.talker,
                   talkerTheme: talkerTheme,
-                  titilesController: _titilesController,
+                  titlesController: _titlesController,
                   titles: titles,
-                  unicTitles: unicTitles,
+                  uniqTitles: uniqTitles,
                   controller: _controller,
                   onMonitorTap: () => _openTalkerMonitor(context),
                   onActionsTap: () => _showActionsBottomSheet(context),

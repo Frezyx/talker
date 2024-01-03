@@ -357,7 +357,7 @@ class Talker {
     LogLevel logLevel, {
     AnsiPen? pen,
   }) {
-    final key = TalkerLogTypeExt.fromLogLevel(logLevel);
+    final key = TalkerLogType.fromLogLevel(logLevel);
     final data = TalkerLog(
       message?.toString() ?? '',
       title: settings.getTitleByLogType(key),
@@ -397,10 +397,13 @@ class Talker {
       return;
     }
     final key = data.key;
+
+    AnsiPen? customPen;
+
     if (key != null) {
-      final type = TalkerLogTypeExt.fromKey(key);
+      final type = TalkerLogType.fromKey(key);
       data.title = settings.getTitleByLogType(type);
-      data.pen = settings.getAnsiPenByLogType(type);
+      customPen = settings.getAnsiPenByLogType(type);
     }
     _observer.onLog(data);
     _talkerStreamController.add(data);
@@ -409,7 +412,7 @@ class Talker {
       _logger.log(
         data.generateTextMessage(),
         level: logLevel ?? data.logLevel,
-        pen: data.pen,
+        pen: data.pen ?? customPen,
       );
     }
   }

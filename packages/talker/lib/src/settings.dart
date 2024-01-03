@@ -1,35 +1,53 @@
 import 'package:talker/talker.dart';
 
 const _defaultTitles = {
-  TalkerLogType.error: 'error',
-  TalkerLogType.exception: 'exception',
-  TalkerLogType.httpError: 'http-error',
-  TalkerLogType.httpRequest: 'http-request',
-  TalkerLogType.httpResponse: 'http-response',
-  TalkerLogType.blocEvent: 'bloc-event',
-  TalkerLogType.blocTransition: 'bloc-transition',
-  TalkerLogType.route: 'route',
+  /// Base logs section
   TalkerLogType.critical: 'critical',
   TalkerLogType.warning: 'warning',
   TalkerLogType.verbose: 'verbose',
   TalkerLogType.info: 'info',
   TalkerLogType.debug: 'debug',
+  TalkerLogType.error: 'error',
+  TalkerLogType.exception: 'exception',
+
+  /// Http section
+  TalkerLogType.httpError: 'http-error',
+  TalkerLogType.httpRequest: 'http-request',
+  TalkerLogType.httpResponse: 'http-response',
+
+  /// Bloc section
+  TalkerLogType.blocEvent: 'bloc-event',
+  TalkerLogType.blocTransition: 'bloc-transition',
+  TalkerLogType.blocCreate: 'bloc-create',
+  TalkerLogType.blocClose: 'bloc-close',
+
+  /// Flutter section
+  TalkerLogType.route: 'route',
 };
 
 final _defaultColors = {
-  TalkerLogType.error: AnsiPen()..red(),
-  TalkerLogType.exception: AnsiPen()..red(),
-  TalkerLogType.httpError: AnsiPen()..red(),
-  TalkerLogType.httpRequest: AnsiPen()..xterm(219),
-  TalkerLogType.httpResponse: AnsiPen()..xterm(46),
-  TalkerLogType.blocEvent: AnsiPen()..xterm(51),
-  TalkerLogType.blocTransition: AnsiPen()..xterm(49),
-  TalkerLogType.route: AnsiPen()..xterm(135),
+  /// Base logs section
   TalkerLogType.critical: AnsiPen()..red(),
   TalkerLogType.warning: AnsiPen()..yellow(),
   TalkerLogType.verbose: AnsiPen()..gray(),
   TalkerLogType.info: AnsiPen()..blue(),
   TalkerLogType.debug: AnsiPen()..gray(),
+  TalkerLogType.error: AnsiPen()..red(),
+  TalkerLogType.exception: AnsiPen()..red(),
+
+  /// Http section
+  TalkerLogType.httpError: AnsiPen()..red(),
+  TalkerLogType.httpRequest: AnsiPen()..xterm(219),
+  TalkerLogType.httpResponse: AnsiPen()..xterm(46),
+
+  /// Bloc section
+  TalkerLogType.blocEvent: AnsiPen()..xterm(51),
+  TalkerLogType.blocTransition: AnsiPen()..xterm(49),
+  TalkerLogType.blocCreate: AnsiPen()..xterm(35),
+  TalkerLogType.blocClose: AnsiPen()..xterm(198),
+
+  /// Flutter section
+  TalkerLogType.route: AnsiPen()..xterm(135),
 };
 
 /// {@template talker_settings}
@@ -127,11 +145,11 @@ class TalkerSettings {
   final Map<TalkerLogType, AnsiPen> colors = _defaultColors;
 
   String getTitleByLogType(TalkerLogType key) {
-    return titles[key] ?? 'log';
+    return titles[key] ?? key.key;
   }
 
-  AnsiPen getAnsiPenByLogType(TalkerLogType key) {
-    return colors[key] ?? (AnsiPen()..gray());
+  AnsiPen getAnsiPenByLogType(TalkerLogType key, {TalkerData? logData}) {
+    return colors[key] ?? logData?.pen ?? (AnsiPen()..gray());
   }
 
   TalkerSettings copyWith({

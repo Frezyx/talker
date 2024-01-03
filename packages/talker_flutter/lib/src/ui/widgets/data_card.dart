@@ -142,28 +142,46 @@ class TalkerDataCard extends StatelessWidget {
   }
 
   Color get _color {
-    final colorFromAnsi = _getColorFromAnsi();
-    if (colorFromAnsi != null) return colorFromAnsi;
+    // final colorFromAnsi = _getColorFromAnsi();
+    // if (colorFromAnsi != null) return colorFromAnsi;
 
-    if (data.key == TalkerLogType.httpError.key) {
-      return errorColor;
+    final key = data.key;
+
+    if (key == null) return debugColor;
+    final type = TalkerLogType.fromKey(key);
+
+    switch (type) {
+      case TalkerLogType.error:
+        return errorColor;
+      case TalkerLogType.critical:
+        return criticalErrorColor;
+      case TalkerLogType.info:
+        return infoColor;
+      case TalkerLogType.debug:
+        return debugColor;
+      case TalkerLogType.verbose:
+        return verboseColor;
+      case TalkerLogType.warning:
+        return warningColor;
+      case TalkerLogType.exception:
+        return errorColor;
+      case TalkerLogType.httpError:
+        return errorColor;
+      case TalkerLogType.httpRequest:
+        return httpRequestLogColor;
+      case TalkerLogType.httpResponse:
+        return httpResponseLogColor;
+      case TalkerLogType.blocEvent:
+        return blocEventColor;
+      case TalkerLogType.blocTransition:
+        return blocTransitionColor;
+      case TalkerLogType.route:
+        return routeLogColor;
+      case TalkerLogType.blocClose:
+        return debugColor;
+      case TalkerLogType.blocCreate:
+        return debugColor;
     }
-    if (data.key == TalkerLogType.httpResponse.key) {
-      return httpResponseLogColor;
-    }
-    if (data.title == TalkerLogType.httpRequest.title) {
-      return httpRequestLogColor;
-    }
-    if (data.title == TalkerLogType.route.title) {
-      return routeLogColor;
-    }
-    if (data.title == TalkerLogType.blocTransition.title) {
-      return blocTransitionColor;
-    }
-    if (data.title == TalkerLogType.blocEvent.title) {
-      return blocEventColor;
-    }
-    return debugColor;
   }
 
   Color? _getColorFromAnsi() {
@@ -182,9 +200,9 @@ class TalkerDataCard extends StatelessWidget {
       return null;
     }
     final isHttpLog = [
-      TalkerLogType.httpError.title,
-      TalkerLogType.httpRequest.title,
-      TalkerLogType.httpResponse.title,
+      TalkerLogType.httpError.key,
+      TalkerLogType.httpRequest.key,
+      TalkerLogType.httpResponse.key,
     ].contains(data.title);
     if (isHttpLog) {
       return data.generateTextMessage();

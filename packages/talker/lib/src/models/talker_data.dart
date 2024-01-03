@@ -1,4 +1,3 @@
-import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 
 /// Base [Talker] Data transfer object
@@ -59,7 +58,7 @@ class TalkerData {
   DateTime get time => _time;
 
   /// [AnsiPen?] [pen] - sets your own log color for console
-  AnsiPen? pen;
+  final AnsiPen? pen;
 
   /// {@template talker_data_generateTextMessage}
   /// Internal method that generates

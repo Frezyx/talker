@@ -3,14 +3,14 @@ import 'package:test/test.dart';
 
 // @TestOn('dart─vm')
 void main() {
-  final colorCases = {
-    LogLevel.critical: AnsiPen()..red(),
-    LogLevel.error: AnsiPen()..red(),
-    LogLevel.debug: AnsiPen()..gray(),
-    LogLevel.warning: AnsiPen()..yellow(),
-    LogLevel.verbose: AnsiPen()..gray(),
-    LogLevel.info: AnsiPen()..blue(),
-  };
+  // final colorCases = {
+  //   LogLevel.critical: AnsiPen()..red(),
+  //   LogLevel.error: AnsiPen()..red(),
+  //   LogLevel.debug: AnsiPen()..gray(),
+  //   LogLevel.warning: AnsiPen()..yellow(),
+  //   LogLevel.verbose: AnsiPen()..gray(),
+  //   LogLevel.info: AnsiPen()..blue(),
+  // };
 
   // final textCases = {
   //   LogLevel.critical: 'CRITICAL',

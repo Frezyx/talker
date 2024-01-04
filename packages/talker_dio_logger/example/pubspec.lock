@@ -321,24 +321,24 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: "263320fedb70d2b9a5eb22de9b32a717e4da33640881a80f9706f86d679f470e"
+      sha256: "7e201122266de04d5e9006930affda68ec096cb3d3ee2994e78a997b961fd53f"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0-dev.1"
+    version: "4.0.0-dev.2"
   talker_dio_logger:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "4.0.0-dev.1"
+    version: "4.0.0-dev.2"
   talker_flutter:
     dependency: "direct main"
     description:
       path: "../../talker_flutter"
       relative: true
     source: path
-    version: "4.0.0-dev.1"
+    version: "4.0.0-dev.2"
   talker_logger:
     dependency: transitive
     description:

@@ -1,3 +1,6 @@
+# 4.0.0-dev.3
+- Update **talker_logger** settings setup method
+
 # 4.0.0-dev.2
 - Fix types and remove unused code
 

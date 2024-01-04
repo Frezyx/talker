@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:talker_logger/talker_logger.dart';
 
 class TalkerLogger {
@@ -9,7 +11,8 @@ class TalkerLogger {
   }) {
     this.settings = settings ?? TalkerLoggerSettings();
     // ignore: avoid_print
-    _output = output ?? (String message) => message.split('\n').forEach(print);
+    _output = output ??
+        (String message) => message.split('\n').forEach(stdout.writeln);
     _filter = filter ?? LogLevelFilter(this.settings.level);
     ansiColorDisabled = false;
   }

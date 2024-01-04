@@ -387,7 +387,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^2.4.0
+  talker_dio_logger: ^4.0.0-dev.1
 ```
 
 ### Usage
@@ -437,7 +437,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^2.4.0
+  talker_bloc_logger: ^4.0.0-dev.1
 ```
 
 ### Usage

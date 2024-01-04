@@ -8,9 +8,11 @@ class PresentationFrame extends StatelessWidget {
   const PresentationFrame({
     Key? key,
     required this.child,
+    required this.talkerTheme,
   }) : super(key: key);
 
   final Widget child;
+  final TalkerScreenTheme talkerTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class PresentationFrame extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(color: Colors.red),
               child: const Text(
-                'Interact with Application to see canges in Logs Preview',
+                'Interact with Application to see changes in Logs Preview',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -43,7 +45,7 @@ class PresentationFrame extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const _LogsPreview(),
+                  _LogsPreview(talkerTheme: talkerTheme),
                   const SizedBox(width: 20),
                   _ApplicationPreview(mq: mq, child: child),
                   const SizedBox(width: 60),
@@ -208,7 +210,10 @@ class _ApplicationPreview extends StatelessWidget {
 class _LogsPreview extends StatelessWidget {
   const _LogsPreview({
     Key? key,
+    required this.talkerTheme,
   }) : super(key: key);
+
+  final TalkerScreenTheme talkerTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -243,6 +248,7 @@ class _LogsPreview extends StatelessWidget {
                                 final data = reversedLogs[index];
                                 return TalkerDataCard(
                                   data: data,
+                                  color: data.getFlutterColor(talkerTheme),
                                 );
                               },
                               childCount: reversedLogs.length,

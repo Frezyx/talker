@@ -10,7 +10,7 @@ class TalkerDataCard extends StatelessWidget {
     this.onTap,
     this.expanded = true,
     this.margin,
-    this.color,
+    required this.color,
     this.backgroundColor = defaultCardBackgroundColor,
   }) : super(key: key);
 
@@ -18,13 +18,12 @@ class TalkerDataCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool expanded;
   final EdgeInsets? margin;
-  final Color? color;
+  final Color color;
   final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     final errorMessage = _errorMessage;
-    final color = this.color ?? _color;
     final errorType = _type;
     final message = _message;
     final stackTrace = _stackTrace;
@@ -104,7 +103,7 @@ class TalkerDataCard extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 8),
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: stackTraceBackground,
+                      color: Colors.grey[900],
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
@@ -139,60 +138,6 @@ class TalkerDataCard extends StatelessWidget {
       return null;
     }
     return 'StackTrace:\n${data.stackTrace}';
-  }
-
-  Color get _color {
-    // final colorFromAnsi = _getColorFromAnsi();
-    // if (colorFromAnsi != null) return colorFromAnsi;
-
-    final key = data.key;
-
-    if (key == null) return debugColor;
-    final type = TalkerLogType.fromKey(key);
-
-    switch (type) {
-      case TalkerLogType.error:
-        return errorColor;
-      case TalkerLogType.critical:
-        return criticalErrorColor;
-      case TalkerLogType.info:
-        return infoColor;
-      case TalkerLogType.debug:
-        return debugColor;
-      case TalkerLogType.verbose:
-        return verboseColor;
-      case TalkerLogType.warning:
-        return warningColor;
-      case TalkerLogType.exception:
-        return errorColor;
-      case TalkerLogType.httpError:
-        return errorColor;
-      case TalkerLogType.httpRequest:
-        return httpRequestLogColor;
-      case TalkerLogType.httpResponse:
-        return httpResponseLogColor;
-      case TalkerLogType.blocEvent:
-        return blocEventColor;
-      case TalkerLogType.blocTransition:
-        return blocTransitionColor;
-      case TalkerLogType.route:
-        return routeLogColor;
-      case TalkerLogType.blocClose:
-        return debugColor;
-      case TalkerLogType.blocCreate:
-        return blocClosedColor;
-    }
-  }
-
-  Color? _getColorFromAnsi() {
-    final logData = data;
-    if (logData is TalkerLog) {
-      final hexColor = logData.pen?.toHexColor();
-      if (hexColor != null) {
-        return ColorExt.fromHEX(hexColor);
-      }
-    }
-    return null;
   }
 
   String? get _message {

@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
       ],
       builder: (context, child) {
         return PresentationFrame(
+          talkerTheme: talkerTheme,
           child: TalkerWrapper(
             talker: GetIt.instance<Talker>(),
             child: child!,

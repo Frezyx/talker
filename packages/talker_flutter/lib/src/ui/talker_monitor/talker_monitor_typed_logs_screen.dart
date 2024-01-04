@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:talker_flutter/src/extensions/talker_data.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorTypedLogsScreen extends StatelessWidget {
@@ -31,6 +32,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
                 return TalkerDataCard(
                   data: data,
                   onTap: () => _copyTalkerDataItemText(context, data),
+                  color: data.getFlutterColor(theme),
                 );
               },
               childCount: exceptions.length,

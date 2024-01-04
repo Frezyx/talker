@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor_typed_logs_screen.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/widgets/widgets.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitor extends StatelessWidget {
@@ -110,7 +109,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: errors,
                     title: 'Errors',
-                    color: Colors.red,
+                    color: theme.logColors.getByType(TalkerLogType.error),
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${errors.length} unresolved errors',
@@ -125,7 +124,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: exceptions,
                     title: 'Exceptions',
-                    color: errorColor,
+                    color: theme.logColors.getByType(TalkerLogType.exception),
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${exceptions.length} unresolved exceptions',
@@ -140,7 +139,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: warnings,
                     title: 'Warnings',
-                    color: warningColor,
+                    color: theme.logColors.getByType(TalkerLogType.warning),
                     icon: Icons.warning_amber_rounded,
                     subtitle: 'Application has ${warnings.length} warnings',
                     onTap: () =>
@@ -154,7 +153,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: infos,
                     title: 'Infos',
-                    color: infoColor,
+                    color: theme.logColors.getByType(TalkerLogType.info),
                     icon: Icons.info_outline_rounded,
                     subtitle: 'Info logs count: ${infos.length}',
                     onTap: () => _openTypedLogsScreen(context, infos, 'Infos'),
@@ -167,7 +166,7 @@ class TalkerMonitor extends StatelessWidget {
                   child: TalkerMonitorCard(
                     logs: verboseDebug,
                     title: 'Verbose & debug',
-                    color: verboseColor,
+                    color: theme.logColors.getByType(TalkerLogType.verbose),
                     icon: Icons.remove_red_eye_outlined,
                     subtitle:
                         'Verbose and debug logs count: ${verboseDebug.length}',
@@ -186,16 +185,7 @@ class TalkerMonitor extends StatelessWidget {
     );
   }
 
-  void _openHttpMonitor(BuildContext context) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => TalkerMonitorHttpScreen(
-    //       talker: talker,
-    //       talkerScreenTheme: theme,
-    //     ),
-    //   ),
-    // );
-  }
+  void _openHttpMonitor(BuildContext context) {}
 
   void _openTypedLogsScreen(
     BuildContext context,

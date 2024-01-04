@@ -1,3 +1,6 @@
+# 4.0.0-dev.2
+- Fix types and remove unused code
+
 # 4.0.0-dev.1
 - First version with Logs keys implementation 
 - **BREAKING** TalkerDataInterface deleted

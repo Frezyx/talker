@@ -30,6 +30,7 @@ extension MapTalkerFlutterColorsExt on Map<TalkerLogType, Color> {
 }
 
 const _defaultColors = {
+  /// Base logs section
   TalkerLogType.error: Color.fromARGB(255, 239, 83, 80),
   TalkerLogType.critical: Color.fromARGB(255, 198, 40, 40),
   TalkerLogType.info: Color.fromARGB(255, 66, 165, 245),
@@ -38,16 +39,17 @@ const _defaultColors = {
   TalkerLogType.warning: Color.fromARGB(255, 239, 108, 0),
   TalkerLogType.exception: Color.fromARGB(255, 239, 83, 80),
 
-  /// Http
+  /// Http section
   TalkerLogType.httpError: Color.fromARGB(255, 239, 83, 80),
-
   TalkerLogType.httpRequest: Color(0xFFF602C1),
   TalkerLogType.httpResponse: Color(0xFF26FF3C),
 
-  TalkerLogType.route: Color(0xFFAF5FFF),
-
+  /// Bloc section
   TalkerLogType.blocEvent: Color(0xFF63FAFE),
   TalkerLogType.blocTransition: Color(0xFF56FEA8),
   TalkerLogType.blocClose: Color(0xFFFF005F),
   TalkerLogType.blocCreate: Color(0xFF2B8F33),
+
+  /// Flutter section
+  TalkerLogType.route: Color(0xFFAF5FFF),
 };

@@ -1,3 +1,7 @@
+# 4.0.0-dev.1
+- First version with Logs keys implementation 
+- **BREAKING** TalkerDataInterface deleted
+
 # 3.2.0
 - Add ability to setup custom history implementation
 - Add **abstract class TalkerHistory**

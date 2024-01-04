@@ -16,7 +16,7 @@ environment:
   sdk: '>=2.15.0 <4.0.0'
 
 dependencies:
-  talker: ^3.2.0
+  talker: ^4.0.0-dev.1
   bloc: ^8.1.1
   meta: ^1.8.0
 

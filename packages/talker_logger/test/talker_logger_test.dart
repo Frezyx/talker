@@ -140,6 +140,17 @@ void main() {
         '${'────' * 1000}\n──────────────────────────────────────────────────────────────────────────────────────────────────────────────',
       );
     });
+
+    test('output function is set correctly in the constructor', () {
+      final logs = [];
+      final logger = TalkerLogger(output: (message) => logs.add(message));
+
+      logger.log('Test Message');
+      expect(logs.length, 1);
+
+      logger.log('Test Message');
+      expect(logs.length, 2);
+    });
   });
 }
 

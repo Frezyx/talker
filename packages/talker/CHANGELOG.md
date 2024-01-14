@@ -1,3 +1,7 @@
+# 4.0.0-dev.4
+- Add new tests to make 100% coverage
+- Fix linter issues
+
 # 4.0.0-dev.3
 - Update **talker_logger** settings setup method
 

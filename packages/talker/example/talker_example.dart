@@ -4,7 +4,7 @@ Future<void> main() async {
   final talker = Talker(
     settings: TalkerSettings(
       colors: {
-        TalkerLogType.error: AnsiPen()..cyan(),
+        TalkerLogType.verbose: AnsiPen()..cyan(),
       },
     ),
   );
@@ -14,7 +14,7 @@ Future<void> main() async {
   talker.debug('Thinking about order new one 🤔');
   talker.error('The restaurant is closed ❌');
   talker.info('Ordering from other restaurant...');
-  talker.info('Payment started...');
+  talker.verbose('Payment started...');
   talker.info('Payment completed! Waiting for pizza 🍕');
 
   /// [Exception]'s and [Error]'s handling

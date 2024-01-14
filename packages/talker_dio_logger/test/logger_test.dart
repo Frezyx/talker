@@ -34,9 +34,10 @@ void main() {
     });
 
     test('onResponse method should log http response headers', () {
-      logger = TalkerDioLogger(
+      final logger = TalkerDioLogger(
           talker: talker,
           settings: TalkerDioLoggerSettings(printResponseHeaders: true));
+
       final options = RequestOptions(path: '/test');
       final response = Response(
           requestOptions: options,

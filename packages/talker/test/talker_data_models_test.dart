@@ -7,7 +7,7 @@ const _testMessage = 'test message';
 const _testTitle = 'test title';
 
 void main() {
-  group('TalkerDataInterface models', () {
+  group('TalkerData models', () {
     test('TalkerError', () async {
       final error = TalkerError(
         ArgumentError(),

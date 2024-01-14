@@ -14,13 +14,13 @@ extension TalkerDataFlutterExt on TalkerData {
   }
 }
 
-  // Color? _getColorFromAnsi() {
-  //   final logData = data;
-  //   if (logData is TalkerLog) {
-  //     final hexColor = logData.pen?.toHexColor();
-  //     if (hexColor != null) {
-  //       return ColorExt.fromHEX(hexColor);
-  //     }
-  //   }
-  //   return null;
-  // }
+// Color? _getColorFromAnsi() {
+//   final logData = data;
+//   if (logData is TalkerLog) {
+//     final hexColor = logData.pen?.toHexColor();
+//     if (hexColor != null) {
+//       return ColorExt.fromHEX(hexColor);
+//     }
+//   }
+//   return null;
+// }

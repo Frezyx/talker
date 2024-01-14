@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:talker_flutter/src/extensions/talker_data.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitorTypedLogsScreen extends StatelessWidget {

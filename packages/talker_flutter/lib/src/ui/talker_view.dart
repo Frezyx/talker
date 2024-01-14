@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
-import 'package:talker_flutter/src/extensions/talker_data.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
 import 'package:talker_flutter/src/ui/widgets/talker_view_appbar.dart';

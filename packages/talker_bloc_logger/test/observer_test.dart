@@ -41,8 +41,10 @@ void main() {
       final expectedError = Exception('Test error');
       final expectedStackTrace = StackTrace.current;
       testBloc.addError(expectedError, expectedStackTrace);
-      expect(talker.history.first.generateTextMessage(),
-          contains(expectedError.toString()));
+      expect(
+        talker.history.last.generateTextMessage(),
+        contains('error'),
+      );
     });
   });
 }

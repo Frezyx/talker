@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
+import 'package:talker_dio_logger/dio_logs.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:test/test.dart';
 
@@ -31,6 +32,19 @@ void main() {
       final logMessage = '${response.requestOptions.uri}';
       logger.onResponse(response, ResponseInterceptorHandler());
       expect(talker.history.last.message, logMessage);
+    });
+
+    test('onError should log DioErrorLog', () async {
+      final talker = Talker();
+      final logger = TalkerDioLogger(talker: talker);
+      final dio = Dio();
+      dio.interceptors.add(logger);
+
+      try {
+        await dio.get('asdsada');
+      } catch (_) {}
+      expect(talker.history, isNotEmpty);
+      expect(talker.history.last, isA<DioErrorLog>());
     });
 
     test('onResponse method should log http response headers', () {

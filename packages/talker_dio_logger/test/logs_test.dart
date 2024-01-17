@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/dio_logs.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:test/test.dart';
@@ -7,9 +8,14 @@ void main() {
   group('DioRequestLog', () {
     test('generateTextMessage should include method and message', () {
       final requestOptions = RequestOptions(path: '/test', method: 'GET');
-      final settings = TalkerDioLoggerSettings();
-      final dioRequestLog = DioRequestLog('Test message',
-          requestOptions: requestOptions, settings: settings);
+      final settings = TalkerDioLoggerSettings(
+        requestPen: AnsiPen()..blue(),
+      );
+      final dioRequestLog = DioRequestLog(
+        'Test message',
+        requestOptions: requestOptions,
+        settings: settings,
+      );
 
       final result = dioRequestLog.generateTextMessage();
 
@@ -59,7 +65,9 @@ void main() {
           'content-type': ['application/json']
         }),
       );
-      final settings = TalkerDioLoggerSettings();
+      final settings = TalkerDioLoggerSettings(
+        responsePen: AnsiPen()..blue(),
+      );
       final dioResponseLog = DioResponseLog('Test message',
           response: response, settings: settings);
 
@@ -121,7 +129,9 @@ void main() {
         requestOptions: RequestOptions(path: '/test', method: 'GET'),
         message: 'Error message',
       );
-      final settings = TalkerDioLoggerSettings();
+      final settings = TalkerDioLoggerSettings(
+        errorPen: AnsiPen()..blue(),
+      );
       final dioErrorLog = DioErrorLog('Error title',
           dioException: dioException, settings: settings);
 
@@ -209,7 +219,5 @@ void main() {
             '}',
           ));
     });
-
-    // Add more tests for DioErrorLog as needed
   });
 }

@@ -17,7 +17,7 @@ environment:
   sdk: '>=2.15.0 <4.0.0'
 
 dependencies:
-  dio: ^5.2.0
+  dio: ^5.4.0
   talker: ^4.0.0-dev.4
 
 dev_dependencies:

@@ -114,7 +114,7 @@ class DioErrorLog extends TalkerLog {
     final responseMessage = dioException.message;
     final statusCode = dioException.response?.statusCode;
     final data = dioException.response?.data;
-    final headers = dioException.requestOptions.headers;
+    final headers = dioException.response?.headers;
 
     if (statusCode != null) {
       msg += '\nStatus: ${dioException.response?.statusCode}';
@@ -125,8 +125,8 @@ class DioErrorLog extends TalkerLog {
       final prettyData = encoder.convert(data);
       msg += '\nData: $prettyData';
     }
-    if (headers.isNotEmpty) {
-      final prettyHeaders = encoder.convert(headers);
+    if (!(headers?.isEmpty ?? true)) {
+      final prettyHeaders = encoder.convert(headers!.map);
       msg += '\nHeaders: $prettyHeaders';
     }
     return msg;

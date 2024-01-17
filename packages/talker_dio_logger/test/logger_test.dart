@@ -49,7 +49,7 @@ void main() {
           '[http-response] [GET] /test\n'
           'Status: 200\n'
           'Headers: {\n'
-          '  "header": [\n'
+          '  "HEADER": [\n'
           '    "VALUE"\n'
           '  ]\n'
           '}');

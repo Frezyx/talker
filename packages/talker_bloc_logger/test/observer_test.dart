@@ -46,6 +46,34 @@ void main() {
         contains('error'),
       );
     });
+
+    test('onChange is called with correct parameters', () async {
+      final updatedObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(enabled: true, printChanges: true),
+        talker: talker,
+      );
+      Bloc.observer = updatedObserver;
+
+      final expectedEvent = 'test_event';
+      final expectedState = 'test_state';
+      testBloc.add(expectedEvent);
+      await Future.delayed(const Duration(milliseconds: 10));
+      final log = talker.history.last;
+      expect(log.generateTextMessage(), contains(expectedState));
+    });
+
+    test('onClose is called with correct parameters', () async {
+      final talkerBlocObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(enabled: true, printClosings: true),
+        talker: talker,
+      );
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
+      await testBloc.close();
+
+      expect(talker.history, isNotEmpty);
+      expect(talker.history.last.generateTextMessage(), contains('closed'));
+    });
   });
 }
 

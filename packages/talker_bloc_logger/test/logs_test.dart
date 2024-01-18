@@ -61,12 +61,20 @@ void main() {
       final fakeSettings = TalkerBlocLoggerSettings();
 
       final log = BlocChangeLog(
-          bloc: fakeBloc, change: fakeChange, settings: fakeSettings);
+        bloc: fakeBloc,
+        change: fakeChange,
+        settings: fakeSettings,
+      );
 
       expect(log.bloc, fakeBloc);
       expect(log.change, fakeChange);
       expect(log.settings, fakeSettings);
       expect(log.key, TalkerLogType.blocTransition.key);
+
+      final message = log.generateTextMessage();
+      expect(message, isA<String>());
+      expect(message, isNotEmpty);
+      expect(message, contains('change'));
     });
   });
 
@@ -78,6 +86,11 @@ void main() {
 
       expect(log.bloc, fakeBloc);
       expect(log.key, TalkerLogType.blocCreate.key);
+
+      final message = log.generateTextMessage();
+      expect(message, isA<String>());
+      expect(message, isNotEmpty);
+      expect(message, contains('create'));
     });
   });
 
@@ -89,6 +102,11 @@ void main() {
 
       expect(log.bloc, fakeBloc);
       expect(log.key, TalkerLogType.blocClose.key);
+
+      final message = log.generateTextMessage();
+      expect(message, isA<String>());
+      expect(message, isNotEmpty);
+      expect(message, contains('close'));
     });
   });
 }

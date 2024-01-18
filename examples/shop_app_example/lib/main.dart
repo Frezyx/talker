@@ -19,17 +19,23 @@ import 'firebase_options.dart';
 void main() {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await _initFirease();
+    await _initFirebase();
     _initTalker();
     _registerRepositories();
-    Bloc.observer = TalkerBlocObserver(talker: GetIt.instance<Talker>());
+    Bloc.observer = TalkerBlocObserver(
+      talker: GetIt.instance<Talker>(),
+      settings: const TalkerBlocLoggerSettings(
+        printCreations: true,
+        printClosings: true,
+      ),
+    );
     runApp(const MyApp());
   }, (Object error, StackTrace stack) {
     GetIt.instance<Talker>().handle(error, stack, 'Uncaught app exception');
   });
 }
 
-Future<void> _initFirease() async {
+Future<void> _initFirebase() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -55,6 +61,7 @@ class MyApp extends StatelessWidget {
       ],
       builder: (context, child) {
         return PresentationFrame(
+          talkerTheme: talkerTheme,
           child: TalkerWrapper(
             talker: GetIt.instance<Talker>(),
             child: child!,

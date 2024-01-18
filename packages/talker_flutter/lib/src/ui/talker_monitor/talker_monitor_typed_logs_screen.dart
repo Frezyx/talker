@@ -12,7 +12,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
 
   final String typeName;
   final TalkerScreenTheme theme;
-  final List<TalkerDataInterface> exceptions;
+  final List<TalkerData> exceptions;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
                 return TalkerDataCard(
                   data: data,
                   onTap: () => _copyTalkerDataItemText(context, data),
+                  color: data.getFlutterColor(theme),
                 );
               },
               childCount: exceptions.length,
@@ -41,7 +42,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
     );
   }
 
-  void _copyTalkerDataItemText(BuildContext context, TalkerDataInterface data) {
+  void _copyTalkerDataItemText(BuildContext context, TalkerData data) {
     final text = data.generateTextMessage();
     Clipboard.setData(ClipboardData(text: text));
     _showSnackBar(context, 'Log item is copied in clipboard');

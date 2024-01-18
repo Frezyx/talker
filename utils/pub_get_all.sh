@@ -8,6 +8,11 @@ echo "talker_flutter"
 cd ../talker_flutter
 flutter pub get
 
+echo "talker_flutter_example"
+cd example
+flutter pub get
+cd ..
+
 echo "talker_logger"
 cd ../talker_logger
 flutter pub get

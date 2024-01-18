@@ -1,3 +1,35 @@
+# 4.0.0-dev.4
+- Add new tests to make 100% coverage
+- Fix linter issues
+
+# 4.0.0-dev.3
+- Update **talker_logger** settings setup method
+
+# 4.0.0-dev.2
+- Fix types and remove unused code
+
+# 4.0.0-dev.1
+- First version with Logs keys implementation 
+- **BREAKING** TalkerDataInterface deleted
+- Add new talker colors customization
+
+# 2.4.0
+- Update **talker** version to 3.2.0
+- Add ability to setup custom history implementation
+- Add **abstract class TalkerHistory**
+- Add **DefaultTalkerHistory** implementation with basic (previous) functionality by default
+
+Thanks to [Ppito](https://github.com/Ppito)
+
+## 2.3.4
+- Update **talker** version to 3.1.7
+
+## 2.3.3
+- Update **talker** version to 3.1.6
+
+## 2.3.2
+- Update **talker** version to 3.1.5
+
 ## 2.3.1
 - Update **talker** version to 3.1.4
 

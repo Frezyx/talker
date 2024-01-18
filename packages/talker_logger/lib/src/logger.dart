@@ -1,22 +1,27 @@
+import 'dart:io';
+
 import 'package:talker_logger/talker_logger.dart';
 
 class TalkerLogger {
   TalkerLogger({
-    this.settings = const TalkerLoggerSettings(),
-    LoggerFilter? filter,
+    TalkerLoggerSettings? settings,
     this.formatter = const ExtendedLoggerFormatter(),
+    LoggerFilter? filter,
     void Function(String message)? output,
   }) {
+    this.settings = settings ?? TalkerLoggerSettings();
     // ignore: avoid_print
-    _output = output ?? (String message) => message.split('\n').forEach(print);
-    _filter = filter ?? LogLevelFilter(settings.level);
+    _output = output ??
+        (String message) => message.split('\n').forEach(stdout.writeln);
+    _filter = filter ?? LogLevelFilter(this.settings.level);
     ansiColorDisabled = false;
   }
 
   /// Logger settings
-  final TalkerLoggerSettings settings;
+  late final TalkerLoggerSettings settings;
 
-  /// Logs formatter
+  /// You can setup different formatter [ExtendedLoggerFormatter, ColoredLoggerFormatter]
+  /// Or your own fully customized formatter with extends [LoggerFormatter]
   final LoggerFormatter formatter;
 
   late final void Function(String message) _output;
@@ -33,10 +38,11 @@ class TalkerLogger {
   /// logger.log('Log custom message', level: LogLevel.error, pen: AnsiPen()..red());
   /// ```
   /// {@endtemplate}
-
   void log(dynamic msg, {LogLevel? level, AnsiPen? pen}) {
-    final selectedPen = pen ?? settings.colors[level] ?? level.consoleColor;
     final selectedLevel = level ?? LogLevel.debug;
+    final selectedPen =
+        pen ?? settings.colors[selectedLevel] ?? (AnsiPen()..gray());
+
     if (_filter.shouldLog(msg, selectedLevel)) {
       final formattedMsg = formatter.fmt(
         LogDetails(message: msg, level: selectedLevel, pen: selectedPen),
@@ -55,7 +61,6 @@ class TalkerLogger {
   /// logger.critical('Log critical message');
   /// ```
   /// {@endtemplate}
-
   void critical(dynamic msg) => log(msg, level: LogLevel.critical);
 
   /// {@template talker_logger_error_log}
@@ -67,7 +72,6 @@ class TalkerLogger {
   /// logger.error('Log error message');
   /// ```
   /// {@endtemplate}
-
   void error(dynamic msg) => log(msg, level: LogLevel.error);
 
   /// {@template talker_logger_warning_log}
@@ -79,7 +83,6 @@ class TalkerLogger {
   /// logger.warning('Log warning message');
   /// ```
   /// {@endtemplate}
-
   void warning(dynamic msg) => log(msg, level: LogLevel.warning);
 
   /// {@template talker_logger_debug_log}
@@ -127,8 +130,6 @@ class TalkerLogger {
   /// logger.good('Log good message');
   /// ```
   /// {@endtemplate}
-
-  void good(dynamic msg) => log(msg, level: LogLevel.good);
 
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,

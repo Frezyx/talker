@@ -146,7 +146,7 @@ class CustomLog extends TalkerLog {
 
   @override
   String generateTextMessage() {
-    return '| Custom leading | ' + message;
+    return '| Custom leading | ' + (message ?? '');
   }
 }
 

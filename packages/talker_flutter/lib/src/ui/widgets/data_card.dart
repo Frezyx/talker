@@ -10,21 +10,20 @@ class TalkerDataCard extends StatelessWidget {
     this.onTap,
     this.expanded = true,
     this.margin,
-    this.color,
+    required this.color,
     this.backgroundColor = defaultCardBackgroundColor,
   }) : super(key: key);
 
-  final TalkerDataInterface data;
+  final TalkerData data;
   final VoidCallback? onTap;
   final bool expanded;
   final EdgeInsets? margin;
-  final Color? color;
+  final Color color;
   final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     final errorMessage = _errorMessage;
-    final color = this.color ?? _color;
     final errorType = _type;
     final message = _message;
     final stackTrace = _stackTrace;
@@ -104,7 +103,7 @@ class TalkerDataCard extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 8),
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: stackTraceBackground,
+                      color: Colors.grey[900],
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
@@ -141,36 +140,14 @@ class TalkerDataCard extends StatelessWidget {
     return 'StackTrace:\n${data.stackTrace}';
   }
 
-  Color get _color {
-    if (data.title == WellKnownTitles.httpError.title) {
-      return LogLevel.error.color;
-    }
-    if (data.title == WellKnownTitles.httpResponse.title) {
-      return httpResponseLogColor;
-    }
-    if (data.title == WellKnownTitles.httpRequest.title) {
-      return httpRequestLogColor;
-    }
-    if (data.title == WellKnownTitles.route.title) {
-      return routeLogColor;
-    }
-    if (data.title == WellKnownTitles.blocTransition.title) {
-      return blocTransitionColor;
-    }
-    if (data.title == WellKnownTitles.blocEvent.title) {
-      return blocEventColor;
-    }
-    return data.logLevel.color;
-  }
-
   String? get _message {
     if (data is TalkerError || data is TalkerException) {
       return null;
     }
     final isHttpLog = [
-      WellKnownTitles.httpError.title,
-      WellKnownTitles.httpRequest.title,
-      WellKnownTitles.httpResponse.title,
+      TalkerLogType.httpError.key,
+      TalkerLogType.httpRequest.key,
+      TalkerLogType.httpResponse.key,
     ].contains(data.title);
     if (isHttpLog) {
       return data.generateTextMessage();

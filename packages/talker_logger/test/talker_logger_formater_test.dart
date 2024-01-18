@@ -67,7 +67,7 @@ void _testWithoutColors(
         level: LogLevel.debug,
         pen: AnsiPen(),
       ),
-      const TalkerLoggerSettings(enableColors: false),
+      TalkerLoggerSettings(enableColors: false),
     );
 
     expect(fmtMsg, isNotNull);
@@ -97,7 +97,7 @@ void _testFmt(
         level: LogLevel.debug,
         pen: AnsiPen(),
       ),
-      const TalkerLoggerSettings(),
+      TalkerLoggerSettings(),
     );
 
     expect(fmtMsg, isNotNull);

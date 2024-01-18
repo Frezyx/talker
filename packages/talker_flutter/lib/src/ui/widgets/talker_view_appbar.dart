@@ -10,10 +10,10 @@ class TalkerViewAppBar extends StatelessWidget {
     required this.leading,
     required this.talker,
     required this.talkerTheme,
-    required this.titilesController,
+    required this.titlesController,
     required this.controller,
     required this.titles,
-    required this.unicTitles,
+    required this.uniqTitles,
     required this.onMonitorTap,
     required this.onSettingsTap,
     required this.onActionsTap,
@@ -25,11 +25,11 @@ class TalkerViewAppBar extends StatelessWidget {
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
-  final GroupButtonController titilesController;
+  final GroupButtonController titlesController;
   final TalkerViewController controller;
 
-  final List<String> titles;
-  final List<String> unicTitles;
+  final List<String?> titles;
+  final List<String?> uniqTitles;
 
   final VoidCallback onMonitorTap;
   final VoidCallback onSettingsTap;
@@ -90,7 +90,7 @@ class TalkerViewAppBar extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       GroupButton(
-                        controller: titilesController,
+                        controller: titlesController,
                         isRadio: false,
                         buttonBuilder: (selected, value, context) {
                           final count = titles.where((e) => e == value).length;
@@ -124,8 +124,8 @@ class TalkerViewAppBar extends StatelessWidget {
                           );
                         },
                         onSelected: (_, i, selected) =>
-                            onToggleTitle(unicTitles[i], selected),
-                        buttons: unicTitles,
+                            _onToggle(uniqTitles[i], selected),
+                        buttons: uniqTitles,
                       ),
                     ],
                   ),
@@ -141,6 +141,11 @@ class TalkerViewAppBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onToggle(String? title, bool selected) {
+    if (title == null) return;
+    onToggleTitle(title, selected);
   }
 }
 

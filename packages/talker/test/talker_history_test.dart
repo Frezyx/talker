@@ -41,7 +41,7 @@ void main() {
 }
 
 void _makeLogs(Talker talker) {
-  talker.good('log');
+  talker.error('log');
   talker.info('log');
   talker.verbose('log');
   talker.warning('log');
@@ -51,7 +51,7 @@ void _makeLogs(Talker talker) {
 void _configureTalker({
   required bool useHistory,
   required Talker talker,
-  int? maxHistoryItems,
+  int maxHistoryItems = 1000,
 }) {
   talker.configure(
     settings: TalkerSettings(

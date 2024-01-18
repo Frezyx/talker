@@ -1,3 +1,5 @@
+export 'color.dart';
 export 'history.dart';
-export 'log_level.dart';
+export 'iterable.dart';
+export 'talker_data.dart';
 export 'talker_flutter.dart';

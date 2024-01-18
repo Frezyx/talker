@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:talker/src/utils/utils.dart';
 import 'package:talker/talker.dart';
 
 /// Talker - advanced exception handling and logging
@@ -25,6 +24,12 @@ class Talker {
   /// You can set your own [LoggerFormatter] [loggerFormatter]
   /// to format output of talker logs,
   ///
+  /// You can set your own [TalkerErrorHandler] [TalkerErrorHandler]
+  /// to handle talker logs errors,
+  ///
+  /// You can set your own [TalkerHistory] [TalkerHistory]
+  /// to store talker logs history,
+  ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
   /// {@endtemplate}
@@ -33,25 +38,56 @@ class Talker {
     TalkerObserver? observer,
     TalkerSettings? settings,
     TalkerFilter? filter,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
   }) {
-    _filter = filter;
+    _init(filter, settings, logger, observer, errorHandler, history);
+  }
+
+  void _init(
+    TalkerFilter? filter,
+    TalkerSettings? settings,
+    TalkerLogger? logger,
+    TalkerObserver? observer,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
+  ) {
+    _filter = filter ?? _DefaultTalkerFilter();
     this.settings = settings ?? TalkerSettings();
-    _logger = logger ?? TalkerLogger();
+    _initLogger(logger);
     _observer = observer ?? const _DefaultTalkerObserver();
-    _errorHandler = TalkerErrorHandler(this.settings);
+    _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
+    _history = history ?? DefaultTalkerHistory(this.settings);
+  }
+
+  void _initLogger(TalkerLogger? logger) {
+    _logger = logger ?? TalkerLogger();
+    _logger = _logger.copyWith(
+      settings: _logger.settings.copyWith(
+        colors: {
+          LogLevel.critical:
+              settings.getAnsiPenByLogType(TalkerLogType.critical),
+          LogLevel.error: settings.getAnsiPenByLogType(TalkerLogType.error),
+          LogLevel.warning: settings.getAnsiPenByLogType(TalkerLogType.warning),
+          LogLevel.verbose: settings.getAnsiPenByLogType(TalkerLogType.verbose),
+          LogLevel.info: settings.getAnsiPenByLogType(TalkerLogType.info),
+          LogLevel.debug: settings.getAnsiPenByLogType(TalkerLogType.debug),
+        },
+      ),
+    );
   }
 
   /// Fields can be setup in [configure()] method
-
+  ///
   /// {@macro talker_settings}
   late TalkerSettings settings;
   late TalkerLogger _logger;
   late TalkerErrorHandler _errorHandler;
-  late TalkerFilter? _filter;
+  late TalkerFilter _filter;
   late TalkerObserver _observer;
+  late TalkerHistory _history;
 
   // final _fileManager = FileManager();
-  final _history = <TalkerDataInterface>[];
 
   /// Setup configuration of Talker
   ///
@@ -69,6 +105,12 @@ class Talker {
   ///
   /// Also you can set [settings] [TalkerSettings],
   ///
+  /// You can set your own [TalkerErrorHandler] [TalkerErrorHandler]
+  /// to handle talker logs errors,
+  ///
+  /// You can set your own [TalkerHistory] [TalkerHistory]
+  /// to store talker logs history,
+  ///
   /// You can add your own observer to handle errors and logs in other place
   /// [TalkerObserver] [observer],
   void configure({
@@ -76,35 +118,28 @@ class Talker {
     TalkerSettings? settings,
     TalkerObserver? observer,
     TalkerFilter? filter,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
   }) {
-    if (filter != null) {
-      _filter = filter;
-    }
-    if (settings != null) {
-      this.settings = settings;
-    }
-    _observer = observer ?? _observer;
-    _logger = logger ?? _logger;
+    _init(filter, settings, logger, observer, errorHandler, history);
   }
 
-  final _talkerStreamController =
-      StreamController<TalkerDataInterface>.broadcast();
+  final _talkerStreamController = StreamController<TalkerData>.broadcast();
 
-  /// Common stream to sent all processed events [TalkerDataInterface]
+  /// Common stream to sent all processed events [TalkerData]
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
   /// You can connect a listener to it and catch the received errors
   ///
   /// Or you can add your observer [TalkerObserver] in the settings
-
-  Stream<TalkerDataInterface> get stream =>
+  Stream<TalkerData> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
 
   /// The history stores all information about all events like
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
   /// and logs [TalkerLog]s that have been sent
 
-  List<TalkerDataInterface> get history => _history;
+  List<TalkerData> get history => _history.history;
 
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
@@ -120,7 +155,6 @@ class Talker {
   /// ```
   ///
   /// {@macro errorLevel}
-
   void handle(
     Object exception, [
     StackTrace? stackTrace,
@@ -163,7 +197,6 @@ class Talker {
   ///     pen: AnsiPen()..red(),
   ///   );
   /// ```
-
   void log(
     dynamic message, {
     LogLevel logLevel = LogLevel.debug,
@@ -196,9 +229,8 @@ class Talker {
   ///   final httpLog = HttpTalkerLog('Http status: 200');
   ///   talker.logTyped(httpLog);
   /// ```
-
-  void logTyped(TalkerLog log, {LogLevel logLevel = LogLevel.debug}) {
-    _handleLogData(log, logLevel: logLevel);
+  void logTyped(TalkerLog log) {
+    _handleLogData(log);
   }
 
   /// Log a new critical message
@@ -209,7 +241,6 @@ class Talker {
   /// ```dart
   ///   talker.critical('Log critical');
   /// ```
-
   void critical(
     dynamic msg, [
     Object? exception,
@@ -226,7 +257,6 @@ class Talker {
   /// ```dart
   ///   talker.debug('Log debug');
   /// ```
-
   void debug(
     dynamic msg, [
     Object? exception,
@@ -243,30 +273,12 @@ class Talker {
   /// ```dart
   ///   talker.error('Log error');
   /// ```
-
   void error(
     dynamic msg, [
     Object? exception,
     StackTrace? stackTrace,
   ]) {
     _handleLog(msg, exception, stackTrace, LogLevel.error);
-  }
-
-  /// Log a new good message
-  /// [dynamic] [message] - message describes what happened
-  /// [Object?] [exception] - exception if it happened
-  /// [StackTrace?] [stackTrace] - stackTrace if [exception] happened
-  ///
-  /// ```dart
-  ///   talker.good('Log good');
-  /// ```
-
-  void good(
-    dynamic msg, [
-    Object? exception,
-    StackTrace? stackTrace,
-  ]) {
-    _handleLog(msg, exception, stackTrace, LogLevel.good);
   }
 
   /// Log a new info message
@@ -277,7 +289,6 @@ class Talker {
   /// ```dart
   ///   talker.info('Log info');
   /// ```
-
   void info(
     dynamic msg, [
     Object? exception,
@@ -294,7 +305,6 @@ class Talker {
   /// ```dart
   ///   talker.verbose('Log verbose');
   /// ```
-
   void verbose(
     dynamic msg, [
     Object? exception,
@@ -311,7 +321,6 @@ class Talker {
   /// ```dart
   ///   talker.warning('Log warning');
   /// ```
-
   void warning(
     dynamic msg, [
     Object? exception,
@@ -321,18 +330,14 @@ class Talker {
   }
 
   /// Clear log history
-
   void cleanHistory() {
-    if (settings.useHistory) {
-      _history.clear();
-    }
+    _history.clean();
   }
 
   /// Method stops all [Talker] works
   ///
   /// If you config package to handle errors or making logs,
   /// this method stop these processes
-
   void disable() {
     settings.enabled = false;
   }
@@ -341,7 +346,6 @@ class Talker {
   ///
   /// The method will return everything back
   /// if the package was suspended by the [disable] method
-
   void enable() {
     settings.enabled = true;
   }
@@ -353,17 +357,18 @@ class Talker {
     LogLevel logLevel, {
     AnsiPen? pen,
   }) {
-    TalkerDataInterface? data;
-    if (exception != null) {
-      handle(exception, stackTrace, message);
-      return;
-    }
-
-    data = TalkerLog(message?.toString() ?? '', logLevel: logLevel);
-    _handleLogData(data as TalkerLog, pen: pen);
+    final type = TalkerLogType.fromLogLevel(logLevel);
+    final data = TalkerLog(
+      key: type.key,
+      message?.toString() ?? '',
+      title: settings.getTitleByLogType(type),
+      pen: settings.getAnsiPenByLogType(type),
+      logLevel: logLevel,
+    );
+    _handleLogData(data);
   }
 
-  void _handleErrorData(TalkerDataInterface data) {
+  void _handleErrorData(TalkerData data) {
     if (!settings.enabled) {
       return;
     }
@@ -383,16 +388,25 @@ class Talker {
 
   void _handleLogData(
     TalkerLog data, {
-    AnsiPen? pen,
     LogLevel? logLevel,
   }) {
     if (!settings.enabled) {
       return;
     }
+
     final isApproved = _isApprovedByFilter(data);
     if (!isApproved) {
       return;
     }
+
+    final typeKey = data.key;
+    AnsiPen? customPen;
+
+    if (typeKey != null) {
+      final type = TalkerLogType.fromKey(typeKey);
+      data.title = settings.getTitleByLogType(type);
+      customPen = settings.getAnsiPenByLogType(type);
+    } else {}
     _observer.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
@@ -400,14 +414,13 @@ class Talker {
       _logger.log(
         data.generateTextMessage(),
         level: logLevel ?? data.logLevel,
-        pen: data.pen ?? pen,
+        pen: data.pen ?? customPen,
       );
     }
   }
 
-  void _handleForOutputs(TalkerDataInterface data) {
-    _writeToHistory(data);
-    // _writeToFile(data);
+  void _handleForOutputs(TalkerData data) {
+    _history.write(data);
   }
 
   //TODO: recreate file manager logic
@@ -417,21 +430,17 @@ class Talker {
   //   }
   // }
 
-  void _writeToHistory(TalkerDataInterface data) {
-    if (settings.useHistory && settings.enabled) {
-      if (settings.maxHistoryItems <= _history.length) {
-        _history.removeAt(0);
-      }
-      _history.add(data);
-    }
-  }
-
-  bool _isApprovedByFilter(TalkerDataInterface data) {
-    final approved = _filter?.filter(data) ?? true;
+  bool _isApprovedByFilter(TalkerData data) {
+    final approved = _filter.filter(data);
     return approved;
   }
 }
 
 class _DefaultTalkerObserver extends TalkerObserver {
   const _DefaultTalkerObserver();
+}
+
+class _DefaultTalkerFilter extends TalkerFilter {
+  @override
+  bool filter(TalkerData item) => true;
 }

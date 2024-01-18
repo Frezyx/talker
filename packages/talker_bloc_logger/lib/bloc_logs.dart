@@ -17,10 +17,7 @@ class BlocEventLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(51);
-
-  @override
-  String get title => WellKnownTitles.blocEvent.title;
+  String get key => TalkerLogType.blocEvent.key;
 
   @override
   String generateTextMessage() {
@@ -48,10 +45,7 @@ class BlocStateLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  String get title => WellKnownTitles.blocTransition.title;
+  String get key => TalkerLogType.blocTransition.key;
 
   @override
   String generateTextMessage() {
@@ -83,10 +77,7 @@ class BlocChangeLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  String get title => WellKnownTitles.blocTransition.title;
+  String get key => TalkerLogType.blocTransition.key;
 
   @override
   String generateTextMessage() {
@@ -101,6 +92,54 @@ class BlocChangeLog extends TalkerLog {
         '\n${'CURRENT state: ${settings.printStateFullData ? '\n${change.currentState}' : change.currentState.runtimeType}'}');
     sb.write(
         '\n${'NEXT state: ${settings.printStateFullData ? '\n${change.nextState}' : change.nextState.runtimeType}'}');
+    return sb.toString();
+  }
+}
+
+/// [Bloc] created log model
+class BlocCreateLog extends TalkerLog {
+  BlocCreateLog({
+    required this.bloc,
+  }) : super('${bloc.runtimeType} created');
+
+  final BlocBase bloc;
+
+  @override
+  String? get key => TalkerLogType.blocCreate.key;
+
+  @override
+  String generateTextMessage() {
+    return _createMessage();
+  }
+
+  String _createMessage() {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime);
+    sb.write('\n$message');
+    return sb.toString();
+  }
+}
+
+/// [Bloc] closed log model
+class BlocCloseLog extends TalkerLog {
+  BlocCloseLog({
+    required this.bloc,
+  }) : super('${bloc.runtimeType} closed');
+
+  final BlocBase bloc;
+
+  @override
+  String? get key => TalkerLogType.blocClose.key;
+
+  @override
+  String generateTextMessage() {
+    return _createMessage();
+  }
+
+  String _createMessage() {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime);
+    sb.write('\n$message');
     return sb.toString();
   }
 }

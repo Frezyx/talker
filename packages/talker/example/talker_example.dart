@@ -1,15 +1,21 @@
 import 'package:talker/talker.dart';
 
 Future<void> main() async {
-  final talker = Talker();
+  final talker = Talker(
+    settings: TalkerSettings(
+      colors: {
+        TalkerLogType.verbose: AnsiPen()..cyan(),
+      },
+    ),
+  );
 
   /// Logs with LogLevel
   talker.warning('The pizza is over 😥');
   talker.debug('Thinking about order new one 🤔');
   talker.error('The restaurant is closed ❌');
   talker.info('Ordering from other restaurant...');
-  talker.info('Payment started...');
-  talker.good('Payment completed! Waiting for pizza 🍕');
+  talker.verbose('Payment started...');
+  talker.info('Payment completed! Waiting for pizza 🍕');
 
   /// [Exception]'s and [Error]'s handling
   try {

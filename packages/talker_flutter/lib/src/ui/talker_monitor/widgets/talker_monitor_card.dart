@@ -17,7 +17,7 @@ class TalkerMonitorCard extends StatelessWidget {
   final String title;
   final String? subtitle;
   final Widget? subtitleWidget;
-  final List<TalkerDataInterface> logs;
+  final List<TalkerData> logs;
   final Color color;
   final IconData icon;
   final VoidCallback? onTap;
@@ -31,33 +31,37 @@ class TalkerMonitorCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Icon(icon, color: color),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    if (subtitle != null)
-                      Text(
-                        subtitle!,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
+            Flexible(
+              child: Row(
+                children: [
+                  Icon(icon, color: color),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                    if (subtitleWidget != null) subtitleWidget!
-                  ],
-                ),
-              ],
+                        if (subtitle != null)
+                          Text(
+                            subtitle!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                        if (subtitleWidget != null) subtitleWidget!
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             if (onTap != null)
               Icon(Icons.arrow_forward_ios_rounded, color: color),

@@ -8,6 +8,8 @@ class TalkerBlocLoggerSettings {
     this.printChanges = false,
     this.printEventFullData = true,
     this.printStateFullData = true,
+    this.printCreations = false,
+    this.printClosings = false,
     this.transitionFilter,
     this.eventFilter,
   });
@@ -18,6 +20,8 @@ class TalkerBlocLoggerSettings {
   final bool printChanges;
   final bool printEventFullData;
   final bool printStateFullData;
+  final bool printCreations;
+  final bool printClosings;
   final bool Function(Bloc bloc, Transition transition)? transitionFilter;
   final bool Function(Bloc bloc, Object? event)? eventFilter;
 }

@@ -1,3 +1,45 @@
+# 4.0.0-dev.4
+- Add new tests to make 100% coverage
+- Fix linter issues
+
+# 4.0.0-dev.3
+- Update **talker_logger** settings setup method
+
+# 4.0.0-dev.2
+- Fix types and remove unused code
+
+# 4.0.0-dev.1
+- First version with Logs keys implementation 
+- **BREAKING** TalkerDataInterface deleted
+- Add new talker colors customization
+
+# 2.4.0
+- Update **talker** version to 3.2.0
+- Add ability to setup custom history implementation
+- Add **abstract class TalkerHistory**
+- Add **DefaultTalkerHistory** implementation with basic (previous) functionality by default
+
+Thanks to [Ppito](https://github.com/Ppito)
+
+## 2.3.3
+- Update **talker** version to 3.1.7
+
+## 2.3.2
+- Update **talker** version to 3.1.6
+- Fix last deploy issues (Member not found for WellKnownTitles issue)
+
+## 2.3.1
+- Update README.md
+
+## 2.3.0
+- Add onCreate, onClose logs
+- Add **printClosings** **printCreations** settings fields (false by default)
+
+Thanks to [cem256](https://github.com/cem256)
+
+## 2.2.2
+- Update **talker** version to 3.1.5
+
 ## 2.2.1
 - Update **talker** version to 3.1.4
 

@@ -5,10 +5,13 @@ import 'package:talker_logger/talker_logger.dart';
 void main() {
   // Create instance
   final logger = TalkerLogger(
-    //Enable for custom colored logs with Formatter
-    // formatter: _ColoredLoggerFormatter(),
-    settings: const TalkerLoggerSettings(
-      level: LogLevel.info,
+    settings: TalkerLoggerSettings(
+      // You can setup custom log level to filter logs
+      level: LogLevel.debug,
+      // Setup custom colors for log levels
+      colors: {
+        LogLevel.warning: AnsiPen()..cyan(),
+      },
     ),
   );
 
@@ -17,7 +20,6 @@ void main() {
   logger.info('info');
   logger.warning('warning');
   logger.error('error');
-  logger.good('good');
   logger.warning('warning');
   logger.verbose('verbose');
   logger.log('log with level info', level: LogLevel.info);
@@ -35,16 +37,16 @@ void main() {
           "title": "Sample Konfabulator Widget",
           "name": "main_window",
           "width": 500,
-          "height": 500
+          "height": 500,
         },
         "image": {
           "src": "Images/Sun.png",
           "name": "sun1",
           "hOffset": 250,
           "vOffset": 250,
-          "alignment": "center"
+          "alignment": "center",
         },
-      }
+      },
     },
   );
   logger.log(prettyData, pen: AnsiPen()..xterm(46));

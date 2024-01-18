@@ -11,6 +11,6 @@ abstract class TalkerObserver {
   /// Called when [Talker] handle an [TalkerException]
   void onException(TalkerException err) {}
 
-  /// Called when [Talker] handle an [TalkerDataInterface] log
-  void onLog(TalkerDataInterface log) {}
+  /// Called when [Talker] handle an [TalkerData] log
+  void onLog(TalkerData log) {}
 }

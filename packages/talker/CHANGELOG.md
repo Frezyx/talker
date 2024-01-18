@@ -1,3 +1,42 @@
+# 4.0.0-dev.4
+- Add new tests to make 100% coverage
+- Fix linter issues
+
+# 4.0.0-dev.3
+- Update **talker_logger** settings setup method
+
+# 4.0.0-dev.2
+- Fix types and remove unused code
+
+# 4.0.0-dev.1
+- First version with Logs keys implementation 
+- **BREAKING** TalkerDataInterface deleted
+- Add new colors customization
+
+# 3.2.0
+- Add ability to setup custom history implementation
+- Add **abstract class TalkerHistory**
+- Add **DefaultTalkerHistory** implementation with basic (previous) functionality by default
+
+Thanks to [Ppito](https://github.com/Ppito)
+
+# 3.1.7
+- Add package utils export 
+
+Thanks to [Ppito](https://github.com/Ppito)
+
+# 3.1.6
+**talker_bloc_logger**
+- Add onCreate, onClose logs
+- Add **printClosings** **printCreations** settings fields (false by default)
+
+Thanks to [cem256](https://github.com/cem256)
+
+# 3.1.5
+- Add ability to set own ErrorHandler 
+
+Thanks to [Ppito](https://github.com/Ppito)
+
 # 3.1.4
 - Pad minutes and seconds for DateTime formatter
 

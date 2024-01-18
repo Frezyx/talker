@@ -11,24 +11,6 @@ void main() {
   });
 
   group('Talker', () {
-    test('Handle error from log', () {
-      talker.error('Some error', ArgumentError());
-      talker.error('Some error', ArgumentError(), StackTrace.current);
-      expect(talker.history, isNotEmpty);
-      expect(talker.history.length, 2);
-      expect(talker.history.first is TalkerError, true);
-      expect(talker.history.last is TalkerError, true);
-    });
-
-    test('Handle exception from log', () {
-      talker.error('Some error', Exception());
-      talker.error('Some error', Exception(), StackTrace.current);
-      expect(talker.history, isNotEmpty);
-      expect(talker.history.length, 2);
-      expect(talker.history.first is TalkerException, true);
-      expect(talker.history.last is TalkerException, true);
-    });
-
     test('Handle error', () {
       talker.handle(ArgumentError());
       talker.handle(ArgumentError(), StackTrace.current, 'Some error');

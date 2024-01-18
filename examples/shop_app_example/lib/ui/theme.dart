@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 final lightTheme = ThemeData(
   primaryColor: primaryColor,
@@ -24,3 +25,5 @@ final Map<int, Color> _primaryColorCodes = {
   800: _primaryColor.withOpacity(.9),
   900: _primaryColor,
 };
+
+const talkerTheme = TalkerScreenTheme();

@@ -1,6 +1,6 @@
 import 'package:talker/talker.dart';
 
-typedef TalkerFilter = _Filter<TalkerDataInterface>;
+typedef TalkerFilter = _Filter<TalkerData>;
 
 class BaseTalkerFilter implements TalkerFilter {
   BaseTalkerFilter({
@@ -9,10 +9,10 @@ class BaseTalkerFilter implements TalkerFilter {
     this.searchQuery,
   });
 
-  /// List of enabled for filter titles [EXCEPTION], [ERROR], [VERBOSE]
+  /// List of enabled for filter titles [exception], [error], [verbose]
   final List<String> titles;
 
-  /// List of enabled for filter types - subclasses of [TalkerDataInterface]
+  /// List of enabled for filter types - subclasses of [TalkerData]
   /// Like [TalkerError], [TalkerException], [TalkerLog], etc.
   final List<Type> types;
 
@@ -20,7 +20,7 @@ class BaseTalkerFilter implements TalkerFilter {
   final String? searchQuery;
 
   @override
-  bool filter(TalkerDataInterface item) {
+  bool filter(TalkerData item) {
     var match = false;
 
     if (titles.isNotEmpty) {
@@ -46,7 +46,7 @@ class BaseTalkerFilter implements TalkerFilter {
     return match;
   }
 
-  bool _checkTypeMatch(TalkerDataInterface item) {
+  bool _checkTypeMatch(TalkerData item) {
     var match = false;
     for (final type in types) {
       if (item.runtimeType == type) {

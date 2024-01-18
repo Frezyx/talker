@@ -3,7 +3,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 typedef TalkerWidgetBuilder = Widget Function(
   BuildContext context,
-  List<TalkerDataInterface> data,
+  List<TalkerData> data,
 );
 
 class TalkerBuilder extends StatelessWidget {

@@ -73,6 +73,8 @@ Talker is designed for any level of customization. <br>
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
   - [TalkerScreen](#talkerscreen)
+  - [Customization](#customization)
+    - [How to set custom color?](#how-to-set-custom-colors)
   - [TalkerRouteObserver](#talkerrouteobserver)
     - [Navigator](#navigator)
     - [auto_route](#auto_route)
@@ -276,6 +278,37 @@ Navigator.of(context).push(
 );
 ```
 See more in TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
+
+## Customization
+
+Starting from version 4.0.0, you have the ability to fully customize your TalkerScreen display. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
+
+| <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs1.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs2.png" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs3.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs4.png?raw=true" width="250px"></a></p> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+### How to set custom colors ?
+
+To set your custom colors, you need to pass a TalkerScreenTheme object to the TalkerScreen constructor, with a Map containing the desired colors. 
+
+The Map is structured as **{log type: color}**. **TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum.
+
+```dart
+import 'package:talker_flutter/talker_flutter.dart';
+
+final talker = TalkerFlutter.init();
+
+TalkerScreen(
+  talker: talker,
+  theme: TalkerScreenTheme(
+    /// Your custom log colors
+    logColors: {
+      TalkerLogType.httpResponse: Color(0xFF26FF3C),
+      TalkerLogType.error: Colors.redAccent,
+      TalkerLogType.info: Color.fromARGB(255, 0, 255, 247),
+    },
+  )
+)
+```
 
 ## TalkerRouteObserver
 Observer for a navigator. <br>

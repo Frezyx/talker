@@ -68,7 +68,8 @@ Talker is designed for any level of customization. <br>
 - [Talker](#talker)
   - [Get Started](#get-started)
   - [Customization](#⚙️-customization)
-  - [Custom logs](#custom-logs)
+    - [Custom logs](#custom-logs)
+    - [Custom console colors](#custom-logs)
   - [TalkerObserver](#talkerobserver)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
@@ -79,6 +80,7 @@ Talker is designed for any level of customization. <br>
   - [TalkerRouteObserver](#talkerrouteobserver)
     - [Navigator](#navigator)
     - [auto_route](#auto_route)
+    - [auto_route v7](#auto_route-v7)
     - [go_router](#go_router)
   - [TalkerMonitor](#talkermonitor)
   - [TalkerWrapper](#talkerwrapper)
@@ -160,7 +162,7 @@ final talker = Talker(
 ```
 More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
-## Custom logs
+### Custom logs
 
 With Talker you can create your custom log message types.<br>
 And you have **full customization control** over them!
@@ -181,6 +183,28 @@ class YourCustomLog extends TalkerLog {
 final talker = Talker();
 talker.logTyped(YourCustomLog('Something like your own service message'));
 ```
+
+### Custom console colors
+
+Starting from version 4.0.0, you have the ability to fully customize all logs colors. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
+
+The Map is structured as **{TalkerLogType: AnsiPen}**.
+
+**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum. And **AnsiPen** is model to console colors customization
+
+```dart
+final talker = Talker(
+  settings: TalkerSettings(
+    colors: {
+      TalkerLogType.httpResponse: AnsiPen()..red(),
+      TalkerLogType.error: AnsiPen()..green(),
+      // Other colors...
+    },
+  ),
+);
+```
+
+Talker have default color scheme. You can check it in [TalkerSettings](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/settings.dart) class
 
 ## TalkerObserver
 
@@ -359,6 +383,20 @@ final talker = Talker();
 MaterialApp.router(
   routerDelegate: AutoRouterDelegate(
     appRouter,
+    navigatorObservers: () => [
+      TalkerRouteObserver(talker),
+    ],
+  ),
+),
+```
+
+### auto_route v7
+
+```dart
+final talker = Talker();
+
+MaterialApp.router(
+  routerConfig: _appRouter.config(
     navigatorObservers: () => [
       TalkerRouteObserver(talker),
     ],

@@ -75,6 +75,7 @@ Talker is designed for any level of customization. <br>
   - [TalkerScreen](#talkerscreen)
   - [Customization](#customization)
     - [How to set custom color?](#how-to-set-custom-colors)
+    - [TalkerScreenTheme](#talkerscreentheme)
   - [TalkerRouteObserver](#talkerrouteobserver)
     - [Navigator](#navigator)
     - [auto_route](#auto_route)
@@ -83,9 +84,14 @@ Talker is designed for any level of customization. <br>
   - [TalkerWrapper](#talkerwrapper)
   - [More Features And Examples](#more-features-and-examples)
 - [Integrations](#integrations)
-  - [Talker Dio Logger](#talker-dio-logger)
-  - [Talker BLoC Logger](#talker-bloc-logger)
-  - [Crashlytics integration](#crashlytics-integration)
+- [Talker Dio Logger](#talker-dio-logger)
+  - [Customization](#customization-1)
+    - [Off/On http request or reposnse logs](#offon-http-request-or-reposnse-logs)
+    - [Change http logs colors](#change-http-logs-colors)
+    - [Filter http logs](#filter-http-logs)
+  - [Using with Talker!](#using-with-talker-1)
+- [Talker BLoC Logger](#talker-bloc-logger)
+- [Crashlytics integration](#crashlytics-integration)
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)
@@ -310,6 +316,21 @@ TalkerScreen(
 )
 ```
 
+### TalkerScreenTheme
+
+You can set custom backagroud, card and text colors for  TalkerScreen with TalkerScreenTheme
+
+```dart
+TalkerScreenTheme(
+  cardColor: Colors.grey[700]!,
+  backgroundColor: Colors.grey[800]!,
+  textColor: Colors.white,
+  logColors: {
+    /// Your logs colors...
+  },
+)
+```
+
 ## TalkerRouteObserver
 Observer for a navigator. <br>
 If you want to keep a record of page transitions in your application, you've found what you're looking for.
@@ -439,22 +460,68 @@ dio.interceptors.add(
 );
 ```
 
-### Using with Talker
+## Customization
+
+To provide hight usage exp here are a lot of settings and customization fields in TalkerDioLoggerSettings. You can setup all wat you want. For example: 
+
+### Off/on http request or reposnse logs
+
+You can toggle reponse / request printing and headers including
+
+```dart
+final dio = Dio();
+dio.interceptors.add(
+    TalkerDioLogger(
+        settings: const TalkerDioLoggerSettings(
+          // All http responses enabled for console logging
+          printResponseData: true,
+          // All http requests disabled for console logging
+          printRequestData: false,
+          // Reposnse logs including http - headers
+          printResponseHeaders: true,
+          // Request logs without http - headersa
+          printRequestHeaders: false,
+        ),
+    ),
+);
+```
+
+### Change http logs colors
+
+Setup your custom http-log colors. You can set color for requests, responses and errors in TalkerDioLoggerSettings
+
+```dart
+TalkerDioLoggerSettings(
+  // Blue http requests logs in console
+  requestPen: AnsiPen()..blue(),
+  // Green http responses logs in console
+  responsePen: AnsiPen()..green(),
+  // Error http logs in console
+  errorPen: AnsiPen()..red(),
+);
+```
+
+### Filter http logs
+
+For example if your app has a private functionality and you don't need to store this functionality logs in talker - you can use filters
+
+```dart
+TalkerDioLoggerSettings(
+  // All http request without "/secure" in path will be printed in console 
+  requestFilter: (RequestOptions options) => !options.path.contains('/secure'),
+  // All http responses with status codes different than 301 will be printed in console 
+  responseFilter: (response) => response.statusCode != 301,
+)
+```
+
+## Using with Talker!
 You can add your talker instance for TalkerDioLogger if your app already uses Talker.
 In this case, all logs and errors will fall into your unified tracking system
 
 ```dart
 final talker = Talker();
 final dio = Dio();
-dio.interceptors.add(
-    TalkerDioLogger(
-        talker: talker,
-        settings: const TalkerDioLoggerSettings(
-          printRequestHeaders: true,
-          printResponseHeaders: true,
-        ),
-    ),
-);
+dio.interceptors.add(TalkerDioLogger(talker: talker));
 ```
 
 ## Talker BLoC Logger
@@ -482,8 +549,8 @@ import 'package:talker_bloc_observer/talker_bloc_observer.dart';
 Bloc.observer = TalkerBlocObserver();
 ```
 
-### Using with Talker
-You can add your talker instance for TalkerDioLogger if your app already uses Talker.
+### Using with Talker!
+You can add your talker instance for TalkerBlocLogger if your Appication already uses Talker.
 
 In this case, all logs and errors will fall into your unified tracking system
 
@@ -495,7 +562,7 @@ final talker = Talker();
 Bloc.observer = TalkerBlocObserver(talker: talker);
 ```
 
-### Crashlytics integration
+## Crashlytics integration
 
 If you add CrashlyticsTalkerObserver to your application, you will receive notifications about all application errors in the Crashlytics dashboard. <br>
 

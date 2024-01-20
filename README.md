@@ -73,6 +73,7 @@ Talker is designed for any level of customization. <br>
   - [TalkerObserver](#talkerobserver)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
+    - [Log messages integrity](#❗️-log-messages-integrity)
   - [TalkerScreen](#talkerscreen)
   - [Customization](#customization)
     - [How to set custom color?](#how-to-set-custom-colors)
@@ -356,11 +357,10 @@ TalkerScreenTheme(
 ```
 
 ## TalkerRouteObserver
-Observer for a navigator. <br>
+Observer for a navigator.<br>
 If you want to keep a record of page transitions in your application, you've found what you're looking for.
 
-You can use TalkerRouteObserver with **any routing package**
-
+You can use TalkerRouteObserver with **any routing package**<br>
 From auto_route to basic Flutter Navigator
 
 ### Navigator

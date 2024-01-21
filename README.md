@@ -73,7 +73,6 @@ Talker is designed for any level of customization. <br>
   - [TalkerObserver](#talkerobserver)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
-    - [Log messages integrity](#❗️-log-messages-integrity)
   - [TalkerScreen](#talkerscreen)
   - [Customization](#customization)
     - [How to set custom color?](#how-to-set-custom-colors)

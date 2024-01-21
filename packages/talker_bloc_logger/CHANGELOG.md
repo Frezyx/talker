@@ -1,3 +1,9 @@
+# 4.0.0-dev.5
+- Huge documentation update
+- Update talker_flutter styles
+- Add expand / collapse ability for one log card
+- Add colors customization examples
+
 # 4.0.0-dev.4
 - Add new tests to make 100% coverage
 - Fix linter issues

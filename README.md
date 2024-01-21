@@ -184,6 +184,8 @@ final talker = Talker();
 talker.logTyped(YourCustomLog('Something like your own service message'));
 ```
 
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.jpg?raw=true"></a></p>
+
 ### Custom console colors
 
 Starting from version 4.0.0, you have the ability to fully customize all logs colors. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
@@ -198,11 +200,14 @@ final talker = Talker(
     colors: {
       TalkerLogType.httpResponse: AnsiPen()..red(),
       TalkerLogType.error: AnsiPen()..green(),
+      TalkerLogType.info: AnsiPen()..green(),
       // Other colors...
     },
   ),
 );
 ```
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_logs_colors.jpg?raw=true"></a></p>
 
 Talker have default color scheme. You can check it in [TalkerSettings](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/settings.dart) class
 

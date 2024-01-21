@@ -48,7 +48,7 @@ const _defaultColors = {
   TalkerLogType.blocEvent: Color(0xFF63FAFE),
   TalkerLogType.blocTransition: Color(0xFF56FEA8),
   TalkerLogType.blocClose: Color(0xFFFF005F),
-  TalkerLogType.blocCreate: Color(0xFF2B8F33),
+  TalkerLogType.blocCreate: Color.fromARGB(255, 120, 230, 129),
 
   /// Flutter section
   TalkerLogType.route: Color(0xFFAF5FFF),

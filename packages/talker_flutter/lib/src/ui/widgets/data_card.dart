@@ -50,7 +50,6 @@ class TalkerDataCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (onTap != null) Icon(Icons.copy, color: color, size: 18),
                   ],
                 ),
                 if (expanded)
@@ -90,9 +89,11 @@ class TalkerDataCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                if (expanded && message != null)
+                if (message != null)
                   Text(
                     message,
+                    maxLines: expanded ? null : 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: color,
                       fontSize: 12,

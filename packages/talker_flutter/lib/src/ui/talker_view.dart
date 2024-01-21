@@ -132,7 +132,7 @@ class _TalkerViewState extends State<TalkerView> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      isScrollControlled: true,
+      isScrollControlled: false,
       builder: (context) {
         return TalkerSettingsBottomSheet(
           talkerScreenTheme: theme,

@@ -37,6 +37,18 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _expanded = widget.expanded;
+  }
+
+  @override
+  void didUpdateWidget(covariant TalkerDataCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _expanded = widget.expanded;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final errorMessage = _errorMessage;
     final errorType = _type;

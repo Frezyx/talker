@@ -254,7 +254,7 @@ class AddToCartButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all(theme.primaryColor),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0),
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
       ),
@@ -265,11 +265,15 @@ class AddToCartButton extends StatelessWidget {
         ),
         child: Icon(
           Icons.shopping_basket,
+          color: Colors.white,
         ),
       ),
       label: const Row(
         children: [
-          Text('Add to card'),
+          Text(
+            'Add to card',
+            style: TextStyle(color: Colors.white),
+          ),
         ],
       ),
     );

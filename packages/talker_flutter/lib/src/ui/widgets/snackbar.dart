@@ -68,7 +68,11 @@ class SnackbarContent extends StatelessWidget {
           dismissButton ??
               TextButton(
                 onPressed: () => _closeSnackbar(context),
-                child: Text(dismissButtonText ?? "Undo"),
+                child: Text(
+                  dismissButtonText ?? "Undo",
+                  style:
+                      messageTextStyle ?? const TextStyle(color: Colors.white),
+                ),
               )
         ],
       ),

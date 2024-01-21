@@ -200,7 +200,7 @@ final talker = Talker(
     colors: {
       TalkerLogType.httpResponse: AnsiPen()..red(),
       TalkerLogType.error: AnsiPen()..green(),
-      TalkerLogType.info: AnsiPen()..green(),
+      TalkerLogType.info: AnsiPen()..yellow(),
       // Other colors...
     },
   ),

@@ -93,7 +93,7 @@ class _TalkerViewState extends State<TalkerView> {
                       return TalkerDataCard(
                         data: data,
                         backgroundColor: widget.theme.cardColor,
-                        onTap: () => _copyTalkerDataItemText(data),
+                        onCopyTap: () => _copyTalkerDataItemText(data),
                         expanded: _controller.expandedLogs,
                         color: data.getFlutterColor(widget.theme),
                       );
@@ -219,7 +219,7 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   void _toggleLogsExpanded() {
-    _controller.expandedLogs = !_controller.expandedLogs;
+    _controller.toggleExpandedLogs();
   }
 
   void _copyAllLogs(BuildContext context) {

@@ -30,7 +30,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
                 final data = exceptions[index];
                 return TalkerDataCard(
                   data: data,
-                  onTap: () => _copyTalkerDataItemText(context, data),
+                  onCopyTap: () => _copyTalkerDataItemText(context, data),
                   color: data.getFlutterColor(theme),
                 );
               },

@@ -3,10 +3,11 @@ import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerDataCard extends StatelessWidget {
+class TalkerDataCard extends StatefulWidget {
   const TalkerDataCard({
     Key? key,
     required this.data,
+    this.onCopyTap,
     this.onTap,
     this.expanded = true,
     this.margin,
@@ -15,11 +16,25 @@ class TalkerDataCard extends StatelessWidget {
   }) : super(key: key);
 
   final TalkerData data;
+  final VoidCallback? onCopyTap;
   final VoidCallback? onTap;
   final bool expanded;
   final EdgeInsets? margin;
   final Color color;
   final Color backgroundColor;
+
+  @override
+  State<TalkerDataCard> createState() => _TalkerDataCardState();
+}
+
+class _TalkerDataCardState extends State<TalkerDataCard> {
+  var _expanded = false;
+
+  @override
+  void initState() {
+    _expanded = widget.expanded;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,136 +43,149 @@ class TalkerDataCard extends StatelessWidget {
     final message = _message;
     final stackTrace = _stackTrace;
     return Padding(
-      padding: margin ?? const EdgeInsets.only(bottom: 8),
-      child: Stack(
-        children: [
-          TalkerBaseCard(
-            color: color,
-            backgroundColor: backgroundColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${data.title} | ${data.displayTime}',
-                        style: TextStyle(
-                          color: color,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                if (expanded)
-                  Container(
-                    width: double.infinity,
-                    margin: stackTrace != null
-                        ? const EdgeInsets.only(top: 8)
-                        : null,
-                    padding: stackTrace != null
-                        ? const EdgeInsets.all(6)
-                        : EdgeInsets.zero,
-                    decoration: stackTrace != null
-                        ? BoxDecoration(
-                            color: Colors.grey[900],
-                            borderRadius: BorderRadius.circular(10),
-                          )
-                        : null,
+      padding: widget.margin ?? const EdgeInsets.only(bottom: 8),
+      child: GestureDetector(
+        onTap: _onTap,
+        child: TalkerBaseCard(
+          color: widget.color,
+          backgroundColor: widget.backgroundColor,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (expanded && errorType != null)
-                          Text(
-                            errorType,
-                            style: TextStyle(
-                              color: color,
-                              fontSize: 12,
-                            ),
+                        Text(
+                          '${widget.data.title} | ${widget.data.displayTime}',
+                          style: TextStyle(
+                            color: widget.color,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
                           ),
-                        if (expanded && errorMessage != null)
+                        ),
+                        if (message != null)
                           Text(
-                            errorMessage,
+                            message,
+                            maxLines: _expanded ? null : 2,
                             style: TextStyle(
-                              color: color,
+                              color: widget.color,
                               fontSize: 12,
                             ),
                           ),
                       ],
                     ),
                   ),
-                if (message != null)
-                  Text(
-                    message,
-                    maxLines: expanded ? null : 2,
-                    overflow: TextOverflow.ellipsis,
+                  SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      iconSize: 20,
+                      icon: Icon(
+                        Icons.copy,
+                        color: widget.color,
+                      ),
+                      onPressed: widget.onCopyTap,
+                    ),
+                  ),
+                ],
+              ),
+              if (_expanded)
+                Container(
+                  width: double.infinity,
+                  margin:
+                      stackTrace != null ? const EdgeInsets.only(top: 8) : null,
+                  padding: stackTrace != null
+                      ? const EdgeInsets.all(6)
+                      : EdgeInsets.zero,
+                  decoration: stackTrace != null
+                      ? BoxDecoration(
+                          color: Colors.grey[900],
+                          borderRadius: BorderRadius.circular(10),
+                        )
+                      : null,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (_expanded && errorType != null)
+                        Text(
+                          errorType,
+                          style: TextStyle(
+                            color: widget.color,
+                            fontSize: 12,
+                          ),
+                        ),
+                      if (_expanded && errorMessage != null)
+                        Text(
+                          errorMessage,
+                          style: TextStyle(
+                            color: widget.color,
+                            fontSize: 12,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              if (_expanded && stackTrace != null)
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[900],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    stackTrace,
                     style: TextStyle(
-                      color: color,
+                      color: widget.color,
                       fontSize: 12,
                     ),
                   ),
-                if (expanded && stackTrace != null)
-                  Container(
-                    margin: const EdgeInsets.only(top: 8),
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[900],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      stackTrace,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
+                ),
+            ],
           ),
-          Positioned.fill(
-            left: 16,
-            right: 16,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(10),
-                onTap: onTap,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
+  void _onTap() {
+    if (widget.onTap != null) {
+      widget.onTap?.call();
+      return;
+    }
+    setState(() => _expanded = !_expanded);
+  }
+
   String? get _stackTrace {
-    if (data is! TalkerError && data is! TalkerException) {
+    if (widget.data is! TalkerError && widget.data is! TalkerException) {
       return null;
     }
-    return 'StackTrace:\n${data.stackTrace}';
+    return 'StackTrace:\n${widget.data.stackTrace}';
   }
 
   String? get _message {
-    if (data is TalkerError || data is TalkerException) {
+    if (widget.data is TalkerError || widget.data is TalkerException) {
       return null;
     }
     final isHttpLog = [
       TalkerLogType.httpError.key,
       TalkerLogType.httpRequest.key,
       TalkerLogType.httpResponse.key,
-    ].contains(data.title);
+    ].contains(widget.data.title);
     if (isHttpLog) {
-      return data.generateTextMessage();
+      return widget.data.generateTextMessage();
     }
-    return data.displayMessage;
+    return widget.data.displayMessage;
   }
 
   String? get _errorMessage {
-    var txt = data.exception?.toString() ?? data.exception?.toString();
+    var txt =
+        widget.data.exception?.toString() ?? widget.data.exception?.toString();
 
     if ((txt?.isNotEmpty ?? false) && txt!.contains('Source stack:')) {
       txt = 'Data: ${txt.split('Source stack:').first.replaceAll('\n', '')}';
@@ -166,9 +194,9 @@ class TalkerDataCard extends StatelessWidget {
   }
 
   String? get _type {
-    if (data is! TalkerError && data is! TalkerException) {
+    if (widget.data is! TalkerError && widget.data is! TalkerException) {
       return null;
     }
-    return 'Type: ${data.exception?.runtimeType.toString() ?? data.error?.runtimeType.toString() ?? ''}';
+    return 'Type: ${widget.data.exception?.runtimeType.toString() ?? widget.data.error?.runtimeType.toString() ?? ''}';
   }
 }

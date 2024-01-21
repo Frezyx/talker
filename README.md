@@ -184,7 +184,7 @@ final talker = Talker();
 talker.logTyped(YourCustomLog('Something like your own service message'));
 ```
 
-<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.jpg?raw=true"></a></p>
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.png?raw=true"></a></p>
 
 ### Custom console colors
 

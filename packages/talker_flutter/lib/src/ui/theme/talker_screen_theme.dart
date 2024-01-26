@@ -8,8 +8,8 @@ class TalkerScreenTheme {
     this.backgroundColor = const Color(0xFF212121),
     this.textColor = Colors.white,
     this.cardColor = defaultCardBackgroundColor,
-    this.logColors = _defaultColors,
-  });
+    Map<TalkerLogType, Color>? logColors,
+  }) : _customColors = logColors;
 
   /// Background screen color
   final Color backgroundColor;
@@ -20,7 +20,16 @@ class TalkerScreenTheme {
   /// Color of [Talker] data cards
   final Color cardColor;
 
-  final Map<TalkerLogType, Color> logColors;
+  final Map<TalkerLogType, Color>? _customColors;
+
+  Map<TalkerLogType, Color> get logColors {
+    if (_customColors != null) {
+      final customMap = Map<TalkerLogType, Color>.from(_defaultColors);
+      customMap.addAll(_customColors!);
+      return customMap;
+    }
+    return _defaultColors;
+  }
 }
 
 extension MapTalkerFlutterColorsExt on Map<TalkerLogType, Color> {

@@ -26,4 +26,6 @@ final Map<int, Color> _primaryColorCodes = {
   900: _primaryColor,
 };
 
-const talkerTheme = TalkerScreenTheme();
+const talkerTheme = TalkerScreenTheme(
+  logColors: {TalkerLogType.route: Colors.white},
+);

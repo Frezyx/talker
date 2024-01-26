@@ -31,38 +31,47 @@ class _ProductsScreenState extends State<ProductsScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'SHOPY',
-          style: TextStyle(
-            color: theme.primaryColor,
-          ),
+          style: TextStyle(color: Colors.black),
         ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: Icon(
-          Icons.menu,
-          color: theme.primaryColor,
+        centerTitle: false,
+        surfaceTintColor: theme.cardColor,
+        leading: const Icon(
+          Icons.menu_rounded,
+          color: Colors.black,
+          size: 28,
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton.icon(
+              style: ButtonStyle(
+                backgroundColor: const MaterialStatePropertyAll(Colors.black),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+              ),
               onPressed: () => _openTalekrScreen(context),
               icon: const Icon(
                 Icons.document_scanner,
+                color: Colors.white,
               ),
-              label: const Text('Open logs'),
+              label: const Text(
+                'Open logs',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ],
       ),
       body: Column(
         children: [
-          const ExampleWarning(
-            text:
-                'In this example, every second http - request will be intentionally incorrect to show all types of logs in TalkerMonitor',
-          ),
+          const _ExampleWarning(text: _waringText),
           Expanded(
             child: BlocBuilder<ProductsBloc, ProductsState>(
               bloc: _productsBloc,
@@ -70,7 +79,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 if (state is ProductsLoaded) {
                   final products = state.products;
                   return GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10)
+                        .copyWith(bottom: 40),
                     itemCount: products.length,
                     itemBuilder: (context, i) => ProductCard(
                       product: products[i],
@@ -86,29 +96,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   );
                 }
                 if (state is ProductsLoadingFailure) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Ops! Something not working',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w700),
-                        ),
-                        const Text(
-                          'It is special error to check how logs working in differend ways of logic',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.center,
-                        ),
-                        TextButton(
-                          onPressed: _loadProducts,
-                          child: const Text('Try again'),
-                        ),
-                      ],
-                    ),
-                  );
+                  return _ErrorScreen(onReload: _loadProducts);
                 }
                 return const Center(child: CircularProgressIndicator());
               },
@@ -119,20 +107,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  void _openTalekrScreen(BuildContext context) {
-    Navigator.pushNamed(
-      context,
-      Routes.talker,
-    );
-  }
+  void _openTalekrScreen(BuildContext context) =>
+      Navigator.pushNamed(context, Routes.talker);
 
   void _openProductScreen(BuildContext context, List<Product> products, int i) {
     Navigator.pushNamed(
       context,
       Routes.product,
-      arguments: {
-        'productId': products[i].id,
-      },
+      arguments: {'productId': products[i].id},
     );
   }
 
@@ -141,8 +123,42 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 }
 
-class ExampleWarning extends StatelessWidget {
-  const ExampleWarning({
+class _ErrorScreen extends StatelessWidget {
+  const _ErrorScreen({
+    super.key,
+    required this.onReload,
+  });
+
+  final VoidCallback onReload;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'Ops! Something not working',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          ),
+          const Text(
+            'It is special error to check how logs working in differend ways of logic',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            textAlign: TextAlign.center,
+          ),
+          TextButton(
+            onPressed: onReload,
+            child: const Text('Try again'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ExampleWarning extends StatelessWidget {
+  const _ExampleWarning({
     Key? key,
     required this.text,
   }) : super(key: key);
@@ -151,12 +167,15 @@ class ExampleWarning extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.orange[800]!),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
+        color: theme.cardColor,
+        boxShadow: cardShadow,
       ),
       child: Row(
         children: [
@@ -176,3 +195,6 @@ class ExampleWarning extends StatelessWidget {
     );
   }
 }
+
+const _waringText =
+    'In this example, every second http - request will be intentionally incorrect to show all types of logs in TalkerMonitor';

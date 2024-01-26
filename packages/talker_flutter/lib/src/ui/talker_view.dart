@@ -52,60 +52,63 @@ class _TalkerViewState extends State<TalkerView> {
   @override
   Widget build(BuildContext context) {
     final talkerTheme = widget.theme;
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return TalkerBuilder(
-          talker: widget.talker,
-          builder: (context, data) {
-            final filtredElements =
-                data.where((e) => _controller.filter.filter(e)).toList();
-            final titles = data.map((e) => e.title).toList();
-            final uniqTitles = titles.toSet().toList();
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return TalkerBuilder(
+            talker: widget.talker,
+            builder: (context, data) {
+              final filtredElements =
+                  data.where((e) => _controller.filter.filter(e)).toList();
+              final titles = data.map((e) => e.title).toList();
+              final uniqTitles = titles.toSet().toList();
 
-            return CustomScrollView(
-              controller: widget.scrollController,
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                TalkerViewAppBar(
-                  title: widget.appBarTitle,
-                  leading: widget.appBarLeading,
-                  talker: widget.talker,
-                  talkerTheme: talkerTheme,
-                  titlesController: _titlesController,
-                  titles: titles,
-                  uniqTitles: uniqTitles,
-                  controller: _controller,
-                  onMonitorTap: () => _openTalkerMonitor(context),
-                  onActionsTap: () => _showActionsBottomSheet(context),
-                  onSettingsTap: () =>
-                      _openTalkerSettings(context, talkerTheme),
-                  onToggleTitle: _onToggleTitle,
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 8)),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, i) {
-                      final data = _getListItem(filtredElements, i);
-                      if (widget.itemsBuilder != null) {
-                        return widget.itemsBuilder!.call(context, data);
-                      }
-                      return TalkerDataCard(
-                        data: data,
-                        backgroundColor: widget.theme.cardColor,
-                        onCopyTap: () => _copyTalkerDataItemText(data),
-                        expanded: _controller.expandedLogs,
-                        color: data.getFlutterColor(widget.theme),
-                      );
-                    },
-                    childCount: filtredElements.length,
+              return CustomScrollView(
+                controller: widget.scrollController,
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  TalkerViewAppBar(
+                    title: widget.appBarTitle,
+                    leading: widget.appBarLeading,
+                    talker: widget.talker,
+                    talkerTheme: talkerTheme,
+                    titlesController: _titlesController,
+                    titles: titles,
+                    uniqTitles: uniqTitles,
+                    controller: _controller,
+                    onMonitorTap: () => _openTalkerMonitor(context),
+                    onActionsTap: () => _showActionsBottomSheet(context),
+                    onSettingsTap: () =>
+                        _openTalkerSettings(context, talkerTheme),
+                    onToggleTitle: _onToggleTitle,
                   ),
-                ),
-              ],
-            );
-          },
-        );
-      },
+                  const SliverToBoxAdapter(child: SizedBox(height: 8)),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, i) {
+                        final data = _getListItem(filtredElements, i);
+                        if (widget.itemsBuilder != null) {
+                          return widget.itemsBuilder!.call(context, data);
+                        }
+                        return TalkerDataCard(
+                          data: data,
+                          backgroundColor: widget.theme.cardColor,
+                          onCopyTap: () => _copyTalkerDataItemText(data),
+                          expanded: _controller.expandedLogs,
+                          color: data.getFlutterColor(widget.theme),
+                        );
+                      },
+                      childCount: filtredElements.length,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 

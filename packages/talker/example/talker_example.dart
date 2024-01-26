@@ -3,6 +3,9 @@ import 'package:talker/talker.dart';
 Future<void> main() async {
   final talker = Talker(
     settings: TalkerSettings(
+      colors: {
+        TalkerLogType.info: AnsiPen()..yellow(),
+      },
       titles: {
         TalkerLogType.exception: 'Whatever you want',
         TalkerLogType.error: 'E',

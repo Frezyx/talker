@@ -1,3 +1,10 @@
+# 4.0.0-dev.6
+- Make 100% tests coverage 
+- Update example UI
+- Add custom log titles documentation
+- Fix TalkerScreen log colors setup
+- Fix TalkerScreenTheme textColor providing
+
 # 4.0.0-dev.5
 - Huge documentation update
 - Update talker_flutter styles

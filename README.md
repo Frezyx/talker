@@ -69,7 +69,8 @@ Talker is designed for any level of customization. <br>
   - [Get Started](#get-started)
   - [Customization](#⚙️-customization)
     - [Custom logs](#custom-logs)
-    - [Custom console colors](#custom-logs)
+    - [Change log colors](#change-log-colors)
+    - [Change log titles](#change-log-titles)
   - [TalkerObserver](#talkerobserver)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
@@ -186,7 +187,7 @@ talker.logTyped(YourCustomLog('Something like your own service message'));
 
 <p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.png?raw=true"></a></p>
 
-### Custom console colors
+### Change log colors
 
 Starting from version 4.0.0, you have the ability to fully customize all logs colors. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
 
@@ -210,6 +211,31 @@ final talker = Talker(
 <p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_logs_colors.jpg?raw=true"></a></p>
 
 Talker have default color scheme. You can check it in [TalkerSettings](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/settings.dart) class
+
+### Change log titles
+
+Starting from version 4.0.0, you have the ability to fully customize all logs titles. You can set **your own title for any type of logs**.
+
+The Map is structured as **{TalkerLogType: String}**.
+
+**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum.
+
+```dart
+final talker = Talker(
+  settings: TalkerSettings(
+    titles: {
+      TalkerLogType.exception: 'Whatever you want',
+      TalkerLogType.error: 'E',
+      TalkerLogType.info: 'i',
+      // Other titles...
+    },
+  ),
+);
+```
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log_titles.png?raw=true"></a></p>
+
+Talker have default titles scheme. You can check it in [TalkerSettings](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/settings.dart) class
 
 ## TalkerObserver
 

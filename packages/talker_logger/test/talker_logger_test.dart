@@ -101,6 +101,12 @@ void main() {
       }
     });
   });
+
+  test('Base logger test', () {
+    final logger = TalkerLogger();
+    logger.info('Hello');
+  });
+
   group('log methods LogLevel', () {
     test('error', () {
       _logger.error('Message');

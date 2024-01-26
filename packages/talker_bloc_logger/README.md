@@ -17,6 +17,14 @@ Lightweight and customizable [BLoC](https://pub.dev/packages/bloc) state managem
 This is how the logs of your BLoC's event callign and state emits will look in the console
 ![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_bloc_logger/preview.png?raw=true)
 
+<p align="center">For better understanding how it works check <a href="https://frezyx.github.io/talker">
+Web Demo</a> page</p>
+<p align="center">
+<a href="https://frezyx.github.io/talker">
+  <img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/check_web_demo.png?raw=true" width="250px">
+</a>
+</p>
+
 ## Getting started
 Follow these steps to use this package
 

@@ -68,11 +68,15 @@ void main() {
       final settings = TalkerDioLoggerSettings(
         responsePen: AnsiPen()..blue(),
       );
-      final dioResponseLog = DioResponseLog('Test message',
-          response: response, settings: settings);
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
 
       final result = dioResponseLog.generateTextMessage();
 
+      expect(dioResponseLog.pen, isNotNull);
       expect(result, contains('[GET] Test message'));
       expect(result, contains('Status: 200'));
       expect(result, contains('Data: {\n  "key": "value"\n}'));
@@ -87,8 +91,11 @@ void main() {
         statusMessage: 'OK',
       );
       final settings = TalkerDioLoggerSettings(printResponseMessage: true);
-      final dioResponseLog = DioResponseLog('Test message',
-          response: response, settings: settings);
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
 
       final result = dioResponseLog.generateTextMessage();
 

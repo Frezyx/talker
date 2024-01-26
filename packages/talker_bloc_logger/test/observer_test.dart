@@ -108,6 +108,19 @@ void main() {
       expect(log.generateTextMessage(), contains(expectedState));
     });
 
+    test('oncreate ', () async {
+      final talkerBlocObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(enabled: true, printCreations: true),
+        talker: talker,
+      );
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
+
+      await Future.delayed(const Duration(milliseconds: 10));
+      final log = talker.history.last;
+      expect(log.generateTextMessage(), contains('created'));
+    });
+
     test('onClose ', () async {
       final talkerBlocObserver = TalkerBlocObserver(
         settings: TalkerBlocLoggerSettings(enabled: true, printClosings: true),

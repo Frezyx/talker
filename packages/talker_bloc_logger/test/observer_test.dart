@@ -93,11 +93,12 @@ void main() {
     });
 
     test('onChange ', () async {
-      final updatedObserver = TalkerBlocObserver(
+      final talkerBlocObserver = TalkerBlocObserver(
         settings: TalkerBlocLoggerSettings(enabled: true, printChanges: true),
         talker: talker,
       );
-      Bloc.observer = updatedObserver;
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
 
       final expectedEvent = 'test_event';
       final expectedState = 'test_state';

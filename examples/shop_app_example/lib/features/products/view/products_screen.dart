@@ -30,61 +30,45 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'SHOPY',
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: false,
-        surfaceTintColor: theme.cardColor,
-        leading: const Icon(
-          Icons.menu_rounded,
-          color: Colors.black,
-          size: 28,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton.icon(
-              style: ButtonStyle(
-                backgroundColor: const MaterialStatePropertyAll(Colors.black),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
-              ),
-              onPressed: () => _openTalekrScreen(context),
-              icon: const Icon(
-                Icons.document_scanner,
-                color: Colors.white,
-              ),
-              label: const Text(
-                'Open logs',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            title: const Text(
+              'SHOPY',
+              style: TextStyle(color: Colors.black),
             ),
+            centerTitle: false,
+            surfaceTintColor: theme.cardColor,
+            leading: const Icon(
+              Icons.menu_rounded,
+              color: Colors.black,
+              size: 28,
+            ),
+            actions: [
+              _OpenLogsButton(
+                onPressed: () => _openTalekrScreen(context),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          const _ExampleWarning(text: _waringText),
-          Expanded(
-            child: BlocBuilder<ProductsBloc, ProductsState>(
-              bloc: _productsBloc,
-              builder: (context, state) {
-                if (state is ProductsLoaded) {
-                  final products = state.products;
-                  return GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 10)
-                        .copyWith(bottom: 40),
-                    itemCount: products.length,
-                    itemBuilder: (context, i) => ProductCard(
-                      product: products[i],
-                      onTap: () => _openProductScreen(context, products, i),
+          const SliverToBoxAdapter(child: _ExampleWarning()),
+          BlocBuilder<ProductsBloc, ProductsState>(
+            bloc: _productsBloc,
+            builder: (context, state) {
+              if (state is ProductsLoaded) {
+                final products = state.products;
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12)
+                      .copyWith(bottom: 40),
+                  sliver: SliverGrid(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int i) {
+                        return ProductCard(
+                          product: products[i],
+                          onTap: () => _openProductScreen(context, products, i),
+                        );
+                      },
+                      childCount: products.length,
                     ),
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -93,14 +77,22 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                     ),
-                  );
-                }
-                if (state is ProductsLoadingFailure) {
-                  return _ErrorScreen(onReload: _loadProducts);
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
-            ),
+                  ),
+                );
+              }
+              if (state is ProductsLoadingFailure) {
+                return SliverFillRemaining(
+                  child: _ErrorScreen(onReload: _loadProducts),
+                );
+              }
+              return const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -120,6 +112,40 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   void _loadProducts() {
     _productsBloc.add(LoadProducts());
+  }
+}
+
+class _OpenLogsButton extends StatelessWidget {
+  const _OpenLogsButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton.icon(
+        style: ButtonStyle(
+          backgroundColor: const MaterialStatePropertyAll(Colors.black),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+          ),
+        ),
+        onPressed: onPressed,
+        icon: const Icon(
+          Icons.document_scanner,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Open logs',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -160,16 +186,13 @@ class _ErrorScreen extends StatelessWidget {
 class _ExampleWarning extends StatelessWidget {
   const _ExampleWarning({
     Key? key,
-    required this.text,
   }) : super(key: key);
-
-  final String text;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.orange[800]!),
@@ -186,7 +209,7 @@ class _ExampleWarning extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              text,
+              _waringText,
               style: TextStyle(color: Colors.orange[800]!),
             ),
           ),

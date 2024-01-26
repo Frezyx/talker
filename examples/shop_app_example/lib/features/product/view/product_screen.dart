@@ -176,7 +176,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       FloatingActionButton(
-                                        backgroundColor: theme.primaryColor,
+                                        backgroundColor: Colors.black,
                                         child: Icon(
                                           Icons.favorite,
                                           color: product.isFavorite
@@ -213,7 +213,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       );
                     }
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    );
                   },
                 ),
               ],
@@ -248,10 +252,9 @@ class AddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return ElevatedButton.icon(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(theme.primaryColor),
+        backgroundColor: MaterialStateProperty.all(Colors.black),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

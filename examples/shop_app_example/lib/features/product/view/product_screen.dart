@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:talker_shop_app_example/features/product/bloc/bloc.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
@@ -15,7 +15,7 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   final _productBloc = ProductBloc(
-    productsRepository: GetIt.instance<AbstractProductsRepository>(),
+    productsRepository: DI<AbstractProductsRepository>(),
   );
 
   String? _productId;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:talker_shop_app_example/features/products/bloc/products/products_bloc.dart';
 import 'package:talker_shop_app_example/features/products/widgets/widgets.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({
@@ -17,7 +17,7 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   final _productsBloc = ProductsBloc(
-    productsRepository: GetIt.instance<AbstractProductsRepository>(),
+    productsRepository: DI<AbstractProductsRepository>(),
   );
 
   @override

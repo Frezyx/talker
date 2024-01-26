@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 
 class PresentationWidget extends StatelessWidget {
   const PresentationWidget({Key? key, required this.child}) : super(key: key);
@@ -24,7 +24,7 @@ class PresentationWidget extends StatelessWidget {
         const Spacer(flex: 1),
         Expanded(
           flex: 4,
-          child: TalkerScreen(talker: GetIt.instance<Talker>()),
+          child: TalkerScreen(talker: DI<Talker>()),
         ),
         const Spacer(flex: 2),
       ],

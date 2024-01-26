@@ -72,8 +72,7 @@ _flutter.loader = null;
      */
     constructor(validPatterns, policyName = "flutter-js") {
       const patterns = validPatterns || [
-        /\.dart\.js$/,
-        /^flutter_service_worker.js$/
+        /\.js$/,
       ];
       if (window.trustedTypes) {
         this.policy = trustedTypes.createPolicy(policyName, {
@@ -116,10 +115,19 @@ _flutter.loader = null;
      * @returns {Promise} that resolves when the latest serviceWorker is ready.
      */
     loadServiceWorker(settings) {
-      if (!("serviceWorker" in navigator) || settings == null) {
+      if (settings == null) {
         // In the future, settings = null -> uninstall service worker?
+        console.debug("Null serviceWorker configuration. Skipping.");
+        return Promise.resolve();
+      }
+      if (!("serviceWorker" in navigator)) {
+        let errorMessage = "Service Worker API unavailable.";
+        if (!window.isSecureContext) {
+          errorMessage += "\nThe current context is NOT secure."
+          errorMessage += "\nRead more: https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts";
+        }
         return Promise.reject(
-          new Error("Service worker not supported (or configured).")
+          new Error(errorMessage)
         );
       }
       const {
@@ -136,7 +144,7 @@ _flutter.loader = null;
 
       const serviceWorkerActivation = navigator.serviceWorker
         .register(url)
-        .then(this._getNewServiceWorker)
+        .then((serviceWorkerRegistration) => this._getNewServiceWorker(serviceWorkerRegistration, serviceWorkerVersion))
         .then(this._waitForServiceWorkerActivation);
 
       // Timeout race promise
@@ -148,53 +156,47 @@ _flutter.loader = null;
     }
 
     /**
-     * Returns the latest service worker for the given `serviceWorkerRegistrationPromise`.
+     * Returns the latest service worker for the given `serviceWorkerRegistration`.
      *
      * This might return the current service worker, if there's no new service worker
      * awaiting to be installed/updated.
      *
-     * @param {Promise<ServiceWorkerRegistration>} serviceWorkerRegistrationPromise
+     * @param {ServiceWorkerRegistration} serviceWorkerRegistration
+     * @param {String} serviceWorkerVersion
      * @returns {Promise<ServiceWorker>}
      */
-    async _getNewServiceWorker(serviceWorkerRegistrationPromise) {
-      const reg = await serviceWorkerRegistrationPromise;
-
-      if (!reg.active && (reg.installing || reg.waiting)) {
+    async _getNewServiceWorker(serviceWorkerRegistration, serviceWorkerVersion) {
+      if (!serviceWorkerRegistration.active && (serviceWorkerRegistration.installing || serviceWorkerRegistration.waiting)) {
         // No active web worker and we have installed or are installing
         // one for the first time. Simply wait for it to activate.
         console.debug("Installing/Activating first service worker.");
-        return reg.installing || reg.waiting;
-      } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
+        return serviceWorkerRegistration.installing || serviceWorkerRegistration.waiting;
+      } else if (!serviceWorkerRegistration.active.scriptURL.endsWith(serviceWorkerVersion)) {
         // When the app updates the serviceWorkerVersion changes, so we
         // need to ask the service worker to update.
-        return reg.update().then((newReg) => {
-          console.debug("Updating service worker.");
-          return newReg.installing || newReg.waiting || newReg.active;
-        });
+        const newRegistration = await serviceWorkerRegistration.update();
+        console.debug("Updating service worker.");
+        return newRegistration.installing || newRegistration.waiting || newRegistration.active;
       } else {
         console.debug("Loading from existing service worker.");
-        return reg.active;
+        return serviceWorkerRegistration.active;
       }
     }
 
     /**
-     * Returns a Promise that resolves when the `latestServiceWorker` changes its
+     * Returns a Promise that resolves when the `serviceWorker` changes its
      * state to "activated".
      *
-     * @param {Promise<ServiceWorker>} latestServiceWorkerPromise
+     * @param {ServiceWorker} serviceWorker
      * @returns {Promise<void>}
      */
-    async _waitForServiceWorkerActivation(latestServiceWorkerPromise) {
-      const serviceWorker = await latestServiceWorkerPromise;
-
+    async _waitForServiceWorkerActivation(serviceWorker) {
       if (!serviceWorker || serviceWorker.state == "activated") {
         if (!serviceWorker) {
-          return Promise.reject(
-            new Error("Cannot activate a null service worker!")
-          );
+          throw new Error("Cannot activate a null service worker!");
         } else {
           console.debug("Service worker already active.");
-          return Promise.resolve();
+          return;
         }
       }
       return new Promise((resolve, _) => {
@@ -373,4 +375,3 @@ _flutter.loader = null;
 
   _flutter.loader = new FlutterLoader();
 })();
-

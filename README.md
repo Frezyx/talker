@@ -92,8 +92,13 @@ Talker is designed for any level of customization. <br>
     - [Off/On http request or reposnse logs](#offon-http-request-or-reposnse-logs)
     - [Change http logs colors](#change-http-logs-colors)
     - [Filter http logs](#filter-http-logs)
-  - [Using with Talker!](#using-with-talker-1)
+  - [Using with Talker](#using-with-talker)
 - [Talker BLoC Logger](#talker-bloc-logger)
+  - [Customization](#customization-2)
+    - [Off/on events, transitions, changes, creation, close](#offon-events-transitions-changes-creation-close)
+    - [Full/truncated state and event data](#fulltruncated-state-and-event-data)
+    - [Filter bloc logsa](#filter-bloc-logs)
+  - [Using with Talker](#using-with-talker-1)
 - [Crashlytics integration](#crashlytics-integration)
 - [Features list](#features-list)
 - [Coverage](#coverage)
@@ -582,7 +587,7 @@ TalkerDioLoggerSettings(
 )
 ```
 
-## Using with Talker!
+## Using with Talker
 You can add your talker instance for TalkerDioLogger if your app already uses Talker.
 In this case, all logs and errors will fall into your unified tracking system
 
@@ -617,7 +622,57 @@ import 'package:talker_bloc_observer/talker_bloc_observer.dart';
 Bloc.observer = TalkerBlocObserver();
 ```
 
-### Using with Talker!
+## Customization
+
+To provide hight usage exp here are a lot of settings and customization fields in TalkerBlocLoggerSettings. You can setup all wat you want. For example:
+
+### Off/on events, transitions, changes, creation, close
+
+You can toggle all bloc event types printing
+
+```dart
+Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      enabled: true,
+      printChanges: true,
+      printClosings: true,
+      printCreations: true,
+      printEvents: true,
+      printTransitions: true,
+    ),
+  );
+```
+
+### Full/truncated state and event data
+
+You can choose to have the logs of events and states in the BLoC displayed in the console in either full or truncated form
+
+```dart
+Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      printEventFullData: false,
+      printStateFullData: false,
+    ),
+  );
+```
+
+### Filter bloc logs
+
+You can output logs to the console for specific events and states only, using a filter
+
+```dart
+Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      // If you want log only AuthBloc transitions
+      transitionFilter: (bloc, transition) =>
+          bloc.runtimeType.toString() == 'AuthBloc',
+      // If you want log only AuthBloc events
+      eventFilter: (bloc, event) => bloc.runtimeType.toString() == 'AuthBloc',
+    ),
+  );
+```
+
+## Using with Talker!
 You can add your talker instance for TalkerBlocLogger if your Appication already uses Talker.
 
 In this case, all logs and errors will fall into your unified tracking system

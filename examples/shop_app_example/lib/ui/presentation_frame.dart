@@ -63,7 +63,6 @@ class PresentationFrame extends StatelessWidget {
 
 class _TalkerAboutSection extends StatelessWidget {
   const _TalkerAboutSection({
-    super.key,
     required this.mq,
   });
 

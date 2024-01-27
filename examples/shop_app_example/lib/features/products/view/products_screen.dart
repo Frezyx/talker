@@ -47,7 +47,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
             ),
             actions: [
               _OpenLogsButton(
-                onPressed: () => _openTalekrScreen(context),
+                onPressed: () => _openTalkerScreen(context),
               ),
             ],
           ),
@@ -99,7 +99,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  void _openTalekrScreen(BuildContext context) =>
+  void _openTalkerScreen(BuildContext context) =>
       Navigator.pushNamed(context, Routes.talker);
 
   void _openProductScreen(BuildContext context, List<Product> products, int i) {

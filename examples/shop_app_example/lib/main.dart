@@ -20,19 +20,50 @@ void main() {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await _initFirebase();
-    _initTalker();
-    _registerRepositories();
-    Bloc.observer = TalkerBlocObserver(
-      talker: DI<Talker>(),
-      settings: const TalkerBlocLoggerSettings(
-        printCreations: true,
-        printClosings: true,
-      ),
-    );
+    _initDependencies();
     runApp(const MyApp());
   }, (Object error, StackTrace stack) {
     DI<Talker>().handle(error, stack, 'Uncaught app exception');
   });
+}
+
+void _initDependencies() {
+  final talker = TalkerFlutter.init(
+    settings: TalkerSettings(
+      colors: {
+        TalkerLogType.verbose: AnsiPen()..yellow(),
+      },
+    ),
+  );
+  DI.registerSingleton<Talker>(talker);
+  talker.verbose('Talker initialization completed');
+
+  final talkerDioLogger = TalkerDioLogger(
+    talker: talker,
+    settings: const TalkerDioLoggerSettings(
+      printRequestHeaders: true,
+      printResponseHeaders: false,
+      printRequestData: true,
+      printResponseData: false,
+    ),
+  );
+
+  final dio = Dio();
+  dio.interceptors.add(talkerDioLogger);
+
+  DI.registerSingleton<AbstractProductsRepository>(
+    ProductsRepository(dio: dio),
+  );
+  talker.info('Repositories initialization completed');
+
+  Bloc.observer = TalkerBlocObserver(
+    talker: talker,
+    settings: const TalkerBlocLoggerSettings(
+      printCreations: false,
+      printClosings: false,
+      printStateFullData: false,
+    ),
+  );
 }
 
 Future<void> _initFirebase() async {
@@ -46,7 +77,7 @@ Future<void> _initFirebase() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,40 +101,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-}
-
-void _initTalker() {
-  final talker = TalkerFlutter.init();
-  DI.registerSingleton<Talker>(talker);
-  talker.verbose('Talker initialization completed');
-
-  /// This logic is just for example here
-  if (!DI.isRegistered<Talker>()) {
-    DI.registerSingleton<Talker>(talker);
-  } else {
-    talker.warning('Trying to re-register an object in GetIt');
-  }
-
-  /// Dio logger initialization
-  final talkerDioLogger = TalkerDioLogger(
-    talker: DI<Talker>(),
-    settings: const TalkerDioLoggerSettings(
-      printRequestHeaders: true,
-      printResponseHeaders: true,
-      printRequestData: true,
-      printResponseData: true,
-    ),
-  );
-
-  DI.registerSingleton(talkerDioLogger);
-}
-
-void _registerRepositories() {
-  final dio = Dio();
-  dio.interceptors.add(DI<TalkerDioLogger>());
-
-  DI.registerSingleton<AbstractProductsRepository>(
-    ProductsRepository(dio: dio),
-  );
-  DI<Talker>().info('Repositories initialization completed');
 }

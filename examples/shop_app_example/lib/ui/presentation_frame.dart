@@ -6,10 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class PresentationFrame extends StatelessWidget {
   const PresentationFrame({
-    Key? key,
+    super.key,
     required this.child,
     required this.talkerTheme,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final TalkerScreenTheme talkerTheme;
@@ -63,9 +63,9 @@ class PresentationFrame extends StatelessWidget {
 
 class _TalkerAboutSection extends StatelessWidget {
   const _TalkerAboutSection({
-    Key? key,
+    super.key,
     required this.mq,
-  }) : super(key: key);
+  });
 
   final MediaQueryData mq;
 
@@ -85,14 +85,38 @@ class _TalkerAboutSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Spacer(),
-              const Text(
-                'Talker',
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 70,
+              GestureDetector(
+                onTap: _openGitHub,
+                child: Row(
+                  children: [
+                    const Text(
+                      'Talker',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 70,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.clip,
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Text(
+                        'v4.0.0',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.clip,
               ),
               const Text(
                 'Now your app is not\na black box',
@@ -107,9 +131,7 @@ class _TalkerAboutSection extends StatelessWidget {
               Row(
                 children: <Widget>[
                   InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse('https://pub.dev/packages/talker'));
-                    },
+                    onTap: _openPubDev,
                     child: Row(
                       children: [
                         Image.asset('assets/flutter.png', height: 70),
@@ -127,9 +149,7 @@ class _TalkerAboutSection extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse('https://github.com/Frezyx/talker'));
-                    },
+                    onTap: _openGitHub,
                     child: Row(
                       children: [
                         Image.asset('assets/github.png', height: 70),
@@ -154,14 +174,22 @@ class _TalkerAboutSection extends StatelessWidget {
       ),
     );
   }
+
+  void _openGitHub() {
+    launchUrl(Uri.parse('https://github.com/Frezyx/talker'));
+  }
+
+  void _openPubDev() {
+    launchUrl(Uri.parse('https://pub.dev/packages/talker'));
+  }
 }
 
 class _ApplicationPreview extends StatelessWidget {
   const _ApplicationPreview({
-    Key? key,
+    super.key,
     required this.mq,
     required this.child,
-  }) : super(key: key);
+  });
 
   final MediaQueryData mq;
   final Widget child;
@@ -209,9 +237,9 @@ class _ApplicationPreview extends StatelessWidget {
 
 class _LogsPreview extends StatelessWidget {
   const _LogsPreview({
-    Key? key,
+    super.key,
     required this.talkerTheme,
-  }) : super(key: key);
+  });
 
   final TalkerScreenTheme talkerTheme;
 

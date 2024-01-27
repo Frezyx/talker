@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/features/products/bloc/products/products_bloc.dart';
 import 'package:talker_shop_app_example/features/products/widgets/widgets.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({
@@ -18,7 +17,7 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   final _productsBloc = ProductsBloc(
-    productsRepository: GetIt.instance<AbstractProductsRepository>(),
+    productsRepository: DI<AbstractProductsRepository>(),
   );
 
   @override
@@ -31,51 +30,45 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'SHOPY',
-          style: TextStyle(
-            color: theme.primaryColor,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: Icon(
-          Icons.menu,
-          color: theme.primaryColor,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton.icon(
-              onPressed: () => _openTalekrScreen(context),
-              icon: const Icon(
-                Icons.document_scanner,
-              ),
-              label: const Text('Open logs'),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            title: const Text(
+              'SHOPY',
+              style: TextStyle(color: Colors.black),
             ),
+            centerTitle: false,
+            surfaceTintColor: theme.cardColor,
+            leading: const Icon(
+              Icons.menu_rounded,
+              color: Colors.black,
+              size: 28,
+            ),
+            actions: [
+              _OpenLogsButton(
+                onPressed: () => _openTalekrScreen(context),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          const ExampleWarning(
-            text:
-                'In this example, every second http - request will be intentionally incorrect to show all types of logs in TalkerMonitor',
-          ),
-          Expanded(
-            child: BlocBuilder<ProductsBloc, ProductsState>(
-              bloc: _productsBloc,
-              builder: (context, state) {
-                if (state is ProductsLoaded) {
-                  final products = state.products;
-                  return GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    itemCount: products.length,
-                    itemBuilder: (context, i) => ProductCard(
-                      product: products[i],
-                      onTap: () => _openProductScreen(context, products, i),
+          const SliverToBoxAdapter(child: _ExampleWarning()),
+          BlocBuilder<ProductsBloc, ProductsState>(
+            bloc: _productsBloc,
+            builder: (context, state) {
+              if (state is ProductsLoaded) {
+                final products = state.products;
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12)
+                      .copyWith(bottom: 40),
+                  sliver: SliverGrid(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int i) {
+                        return ProductCard(
+                          product: products[i],
+                          onTap: () => _openProductScreen(context, products, i),
+                        );
+                      },
+                      childCount: products.length,
                     ),
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -84,56 +77,36 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                     ),
-                  );
-                }
-                if (state is ProductsLoadingFailure) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Ops! Something not working',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w700),
-                        ),
-                        const Text(
-                          'It is special error to check how logs working in differend ways of logic',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.center,
-                        ),
-                        TextButton(
-                          onPressed: _loadProducts,
-                          child: const Text('Try again'),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
-            ),
+                  ),
+                );
+              }
+              if (state is ProductsLoadingFailure) {
+                return SliverFillRemaining(
+                  child: _ErrorScreen(onReload: _loadProducts),
+                );
+              }
+              return const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  void _openTalekrScreen(BuildContext context) {
-    Navigator.pushNamed(
-      context,
-      Routes.talker,
-    );
-  }
+  void _openTalekrScreen(BuildContext context) =>
+      Navigator.pushNamed(context, Routes.talker);
 
   void _openProductScreen(BuildContext context, List<Product> products, int i) {
     Navigator.pushNamed(
       context,
       Routes.product,
-      arguments: {
-        'productId': products[i].id,
-      },
+      arguments: {'productId': products[i].id},
     );
   }
 
@@ -142,34 +115,102 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 }
 
-class ExampleWarning extends StatelessWidget {
-  const ExampleWarning({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
+class _OpenLogsButton extends StatelessWidget {
+  const _OpenLogsButton({required this.onPressed});
 
-  final String text;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton.icon(
+        style: ButtonStyle(
+          backgroundColor: const MaterialStatePropertyAll(Colors.black),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+          ),
+        ),
+        onPressed: onPressed,
+        icon: const Icon(
+          Icons.document_scanner,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Open logs',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ErrorScreen extends StatelessWidget {
+  const _ErrorScreen({
+    super.key,
+    required this.onReload,
+  });
+
+  final VoidCallback onReload;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'Ops! Something not working',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          ),
+          const Text(
+            'It is special error to check how logs working in differend ways of logic',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            textAlign: TextAlign.center,
+          ),
+          TextButton(
+            onPressed: onReload,
+            child: const Text('Try again'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ExampleWarning extends StatelessWidget {
+  const _ExampleWarning({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        border: Border.all(color: LogLevel.warning.color),
-        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.orange[800]!),
+        borderRadius: BorderRadius.circular(15),
+        color: theme.cardColor,
+        boxShadow: cardShadow,
       ),
       child: Row(
         children: [
           Icon(
             Icons.warning_amber_rounded,
-            color: LogLevel.warning.color,
+            color: Colors.orange[800]!,
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              text,
-              style: TextStyle(color: LogLevel.warning.color),
+              _waringText,
+              style: TextStyle(color: Colors.orange[800]!),
             ),
           ),
         ],
@@ -177,3 +218,6 @@ class ExampleWarning extends StatelessWidget {
     );
   }
 }
+
+const _waringText =
+    'In this example, every second http - request will be intentionally incorrect to show all types of logs in TalkerMonitor';

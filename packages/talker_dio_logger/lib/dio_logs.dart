@@ -8,10 +8,10 @@ const encoder = JsonEncoder.withIndent('  ');
 
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
-    String title, {
+    String message, {
     required this.requestOptions,
     required this.settings,
-  }) : super(title);
+  }) : super(message);
 
   final RequestOptions requestOptions;
   final TalkerDioLoggerSettings settings;
@@ -20,7 +20,7 @@ class DioRequestLog extends TalkerLog {
   AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
-  String get title => WellKnownTitles.httpRequest.title;
+  String get key => TalkerLogType.httpRequest.key;
 
   @override
   String generateTextMessage() {
@@ -47,10 +47,10 @@ class DioRequestLog extends TalkerLog {
 
 class DioResponseLog extends TalkerLog {
   DioResponseLog(
-    String title, {
+    String message, {
     required this.response,
     required this.settings,
-  }) : super(title);
+  }) : super(message);
 
   final Response<dynamic> response;
   final TalkerDioLoggerSettings settings;
@@ -59,7 +59,7 @@ class DioResponseLog extends TalkerLog {
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
-  String get title => WellKnownTitles.httpResponse.title;
+  String get key => TalkerLogType.httpResponse.key;
 
   @override
   String generateTextMessage() {
@@ -105,7 +105,7 @@ class DioErrorLog extends TalkerLog {
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
-  String get title => WellKnownTitles.httpError.title;
+  String get key => TalkerLogType.httpError.key;
 
   @override
   String generateTextMessage() {
@@ -114,7 +114,7 @@ class DioErrorLog extends TalkerLog {
     final responseMessage = dioException.message;
     final statusCode = dioException.response?.statusCode;
     final data = dioException.response?.data;
-    final headers = dioException.requestOptions.headers;
+    final headers = dioException.response?.headers;
 
     if (statusCode != null) {
       msg += '\nStatus: ${dioException.response?.statusCode}';
@@ -125,8 +125,8 @@ class DioErrorLog extends TalkerLog {
       final prettyData = encoder.convert(data);
       msg += '\nData: $prettyData';
     }
-    if (headers.isNotEmpty) {
-      final prettyHeaders = encoder.convert(headers);
+    if (!(headers?.isEmpty ?? true)) {
+      final prettyHeaders = encoder.convert(headers!.map);
       msg += '\nHeaders: $prettyHeaders';
     }
     return msg;

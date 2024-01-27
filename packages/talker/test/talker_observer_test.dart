@@ -1,7 +1,7 @@
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
-final _logsStore = <TalkerDataInterface>[];
+final _logsStore = <TalkerData>[];
 final _errorsStore = <TalkerError>[];
 final _exceptionsStore = <TalkerException>[];
 
@@ -13,7 +13,7 @@ class MockTalkerObserver extends TalkerObserver {
   void onException(TalkerException e) => _exceptionsStore.add(e);
 
   @override
-  void onLog(TalkerDataInterface log) => _logsStore.add(log);
+  void onLog(TalkerData log) => _logsStore.add(log);
 }
 
 void main() {

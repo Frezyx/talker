@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:talker_shop_app_example/features/product/bloc/bloc.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
@@ -15,7 +15,7 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   final _productBloc = ProductBloc(
-    productsRepository: GetIt.instance<AbstractProductsRepository>(),
+    productsRepository: DI<AbstractProductsRepository>(),
   );
 
   String? _productId;
@@ -176,7 +176,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       FloatingActionButton(
-                                        backgroundColor: theme.primaryColor,
+                                        backgroundColor: Colors.black,
                                         child: Icon(
                                           Icons.favorite,
                                           color: product.isFavorite
@@ -213,7 +213,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       );
                     }
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    );
                   },
                 ),
               ],
@@ -248,13 +252,12 @@ class AddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return ElevatedButton.icon(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(theme.primaryColor),
+        backgroundColor: MaterialStateProperty.all(Colors.black),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0),
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
       ),
@@ -265,11 +268,15 @@ class AddToCartButton extends StatelessWidget {
         ),
         child: Icon(
           Icons.shopping_basket,
+          color: Colors.white,
         ),
       ),
       label: const Row(
         children: [
-          Text('Add to card'),
+          Text(
+            'Add to card',
+            style: TextStyle(color: Colors.white),
+          ),
         ],
       ),
     );

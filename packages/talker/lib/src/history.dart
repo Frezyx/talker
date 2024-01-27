@@ -10,11 +10,11 @@ class DefaultTalkerHistory implements TalkerHistory {
   final TalkerSettings settings;
 
   /// Save locally
-  final _history = <TalkerDataInterface>[];
+  final _history = <TalkerData>[];
 
   /// Return list of history
   @override
-  List<TalkerDataInterface> get history => _history;
+  List<TalkerData> get history => _history;
 
   @override
   void clean() {
@@ -25,7 +25,7 @@ class DefaultTalkerHistory implements TalkerHistory {
   }
 
   @override
-  void write(TalkerDataInterface data) {
+  void write(TalkerData data) {
     /// Check if you are authorized to write.
     if (settings.useHistory && settings.enabled) {
       /// Check if you have reached the max number of history and delete them.
@@ -44,12 +44,12 @@ class DefaultTalkerHistory implements TalkerHistory {
 /// and logs [TalkerLog]s that have been sent
 abstract class TalkerHistory {
   /// Return List of [TalkerDataInterface]
-  List<TalkerDataInterface> get history;
+  List<TalkerData> get history;
 
   /// Called when [Talker] handle [cleanHistory].
   /// For example, [TalkerView] handle the [Talker.cleanHistory]
   void clean();
 
   /// Called when [Talker] handle an [TalkerDataInterface] log
-  void write(TalkerDataInterface data);
+  void write(TalkerData data);
 }

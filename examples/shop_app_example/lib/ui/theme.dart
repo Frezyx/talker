@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 final lightTheme = ThemeData(
   primaryColor: primaryColor,
   primarySwatch: primaryColor,
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: const Color(0xffF9F9F9),
+  cardColor: Colors.white,
+  appBarTheme: const AppBarTheme(color: Colors.white),
 );
+
+const cardShadow = [
+  BoxShadow(
+    color: Color(0x11272749),
+    blurRadius: 16,
+    offset: Offset(0, 3),
+    spreadRadius: 0,
+  )
+];
 
 MaterialColor get primaryColor => MaterialColor(
       _primaryColor.value,
@@ -24,3 +36,5 @@ final Map<int, Color> _primaryColorCodes = {
   800: _primaryColor.withOpacity(.9),
   900: _primaryColor,
 };
+
+const talkerTheme = TalkerScreenTheme();

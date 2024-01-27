@@ -17,10 +17,7 @@ class BlocEventLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(51);
-
-  @override
-  String get title => WellKnownTitles.blocEvent.title;
+  String get key => TalkerLogType.blocEvent.key;
 
   @override
   String generateTextMessage() {
@@ -48,10 +45,7 @@ class BlocStateLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  String get title => WellKnownTitles.blocTransition.title;
+  String get key => TalkerLogType.blocTransition.key;
 
   @override
   String generateTextMessage() {
@@ -83,10 +77,7 @@ class BlocChangeLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(49);
-
-  @override
-  String get title => WellKnownTitles.blocTransition.title;
+  String get key => TalkerLogType.blocTransition.key;
 
   @override
   String generateTextMessage() {
@@ -114,10 +105,7 @@ class BlocCreateLog extends TalkerLog {
   final BlocBase bloc;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(8);
-
-  @override
-  String get title => WellKnownTitles.blocCreate.title;
+  String? get key => TalkerLogType.blocCreate.key;
 
   @override
   String generateTextMessage() {
@@ -141,10 +129,7 @@ class BlocCloseLog extends TalkerLog {
   final BlocBase bloc;
 
   @override
-  AnsiPen get pen => AnsiPen()..xterm(13);
-
-  @override
-  String get title => WellKnownTitles.blocClose.title;
+  String? get key => TalkerLogType.blocClose.key;
 
   @override
   String generateTextMessage() {

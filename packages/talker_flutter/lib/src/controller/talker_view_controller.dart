@@ -18,11 +18,10 @@ class TalkerViewController extends ChangeNotifier {
   }
 
   bool get expandedLogs => _expandedLogs;
-  set expandedLogs(bool val) {
-    if (val != _expandedLogs) {
-      _expandedLogs = val;
-      notifyListeners();
-    }
+
+  void toggleExpandedLogs() {
+    _expandedLogs = !_expandedLogs;
+    notifyListeners();
   }
 
   bool get isLogOrderReversed => _isLogOrderReversed;

@@ -21,14 +21,35 @@ void main() {
       testBloc = TestBloc();
     });
 
-    test('onEvent is called with correct parameters', () {
+    test('onEvent full data', () {
       final expectedEvent = 'test_event';
       testBloc.add(expectedEvent);
       expect(
-          talker.history.first.generateTextMessage(), contains(expectedEvent));
+        talker.history.first.generateTextMessage(),
+        contains(expectedEvent),
+      );
     });
 
-    test('onTransition is called with correct parameters', () async {
+    test('onEvent split data', () {
+      talkerBlocObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(
+          enabled: true,
+          printEventFullData: false,
+        ),
+        talker: talker,
+      );
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
+
+      final expectedEvent = 'test_event';
+      testBloc.add(expectedEvent);
+      expect(
+        talker.history.first.generateTextMessage(),
+        contains(expectedEvent.runtimeType.toString()),
+      );
+    });
+
+    test('onTransition full data', () async {
       final expectedEvent = 'test_event';
       final expectedState = 'test_state';
       testBloc.add(expectedEvent);
@@ -37,12 +58,80 @@ void main() {
       expect(log.generateTextMessage(), contains(expectedState));
     });
 
-    test('onError is called with correct parameters', () {
+    test('onTransition split data', () async {
+      talkerBlocObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(
+          enabled: true,
+          printEventFullData: false,
+          printStateFullData: false,
+        ),
+        talker: talker,
+      );
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
+
+      final expectedEvent = 'test_event';
+      final expectedState = 'test_state';
+
+      testBloc.add(expectedEvent);
+      await Future.delayed(const Duration(milliseconds: 10));
+      final log = talker.history.last;
+      expect(
+        log.generateTextMessage(),
+        contains(expectedState.runtimeType.toString()),
+      );
+    });
+
+    test('onError ', () {
       final expectedError = Exception('Test error');
       final expectedStackTrace = StackTrace.current;
       testBloc.addError(expectedError, expectedStackTrace);
-      expect(talker.history.first.generateTextMessage(),
-          contains(expectedError.toString()));
+      expect(
+        talker.history.last.generateTextMessage(),
+        contains('error'),
+      );
+    });
+
+    test('onChange ', () async {
+      final talkerBlocObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(enabled: true, printChanges: true),
+        talker: talker,
+      );
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
+
+      final expectedEvent = 'test_event';
+      final expectedState = 'test_state';
+      testBloc.add(expectedEvent);
+      await Future.delayed(const Duration(milliseconds: 10));
+      final log = talker.history.last;
+      expect(log.generateTextMessage(), contains(expectedState));
+    });
+
+    test('oncreate ', () async {
+      final talkerBlocObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(enabled: true, printCreations: true),
+        talker: talker,
+      );
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
+
+      await Future.delayed(const Duration(milliseconds: 10));
+      final log = talker.history.last;
+      expect(log.generateTextMessage(), contains('created'));
+    });
+
+    test('onClose ', () async {
+      final talkerBlocObserver = TalkerBlocObserver(
+        settings: TalkerBlocLoggerSettings(enabled: true, printClosings: true),
+        talker: talker,
+      );
+      Bloc.observer = talkerBlocObserver;
+      testBloc = TestBloc();
+      await testBloc.close();
+
+      expect(talker.history, isNotEmpty);
+      expect(talker.history.last.generateTextMessage(), contains('closed'));
     });
   });
 }

@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -28,7 +28,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       final product = await _productsRepository.getProduct(event.id);
       emit(ProductLoaded(product));
     } on Exception catch (e, st) {
-      GetIt.instance<Talker>().handle(e, st);
+      DI<Talker>().handle(e, st);
       emit(ProductLoadingFailure());
     }
   }
@@ -41,7 +41,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       await _productsRepository.addToFavorites(event.product.id);
       emit(ProductLoaded(event.product));
     } on Exception catch (e, st) {
-      GetIt.instance<Talker>().handle(e, st);
+      DI<Talker>().handle(e, st);
       // emit(ProductLoadingFailure());
     }
   }
@@ -53,7 +53,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       await _productsRepository.addToCart(event.id);
     } on Exception catch (e, st) {
-      GetIt.instance<Talker>().handle(e, st);
+      DI<Talker>().handle(e, st);
     }
   }
 }

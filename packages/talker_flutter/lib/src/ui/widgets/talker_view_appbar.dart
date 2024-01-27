@@ -10,10 +10,10 @@ class TalkerViewAppBar extends StatelessWidget {
     required this.leading,
     required this.talker,
     required this.talkerTheme,
-    required this.titilesController,
+    required this.titlesController,
     required this.controller,
     required this.titles,
-    required this.unicTitles,
+    required this.uniqTitles,
     required this.onMonitorTap,
     required this.onSettingsTap,
     required this.onActionsTap,
@@ -25,11 +25,11 @@ class TalkerViewAppBar extends StatelessWidget {
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
-  final GroupButtonController titilesController;
+  final GroupButtonController titlesController;
   final TalkerViewController controller;
 
-  final List<String> titles;
-  final List<String> unicTitles;
+  final List<String?> titles;
+  final List<String?> uniqTitles;
 
   final VoidCallback onMonitorTap;
   final VoidCallback onSettingsTap;
@@ -45,34 +45,46 @@ class TalkerViewAppBar extends StatelessWidget {
       elevation: 0,
       pinned: true,
       floating: true,
-      expandedHeight: 180,
+      expandedHeight: 174,
       collapsedHeight: 60,
       toolbarHeight: 60,
       leading: leading,
-      iconTheme: const IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: talkerTheme.textColor),
       actions: [
         UnconstrainedBox(
           child: _MonitorButton(
             talker: talker,
             onPressed: onMonitorTap,
+            talkerTheme: talkerTheme,
           ),
         ),
         UnconstrainedBox(
           child: IconButton(
             onPressed: onSettingsTap,
-            icon: const Icon(Icons.settings_rounded),
+            icon: Icon(
+              Icons.settings_rounded,
+              color: talkerTheme.textColor,
+            ),
           ),
         ),
         UnconstrainedBox(
           child: IconButton(
             onPressed: onActionsTap,
-            icon: const Icon(Icons.menu_rounded),
+            icon: Icon(
+              Icons.menu_rounded,
+              color: talkerTheme.textColor,
+            ),
           ),
         ),
         const SizedBox(width: 10),
       ],
       title: title != null
-          ? Text(title!, style: const TextStyle(color: Colors.white))
+          ? Text(
+              title!,
+              style: TextStyle(
+                color: talkerTheme.textColor,
+              ),
+            )
           : null,
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
@@ -90,7 +102,7 @@ class TalkerViewAppBar extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       GroupButton(
-                        controller: titilesController,
+                        controller: titlesController,
                         isRadio: false,
                         buttonBuilder: (selected, value, context) {
                           final count = titles.where((e) => e == value).length;
@@ -124,8 +136,8 @@ class TalkerViewAppBar extends StatelessWidget {
                           );
                         },
                         onSelected: (_, i, selected) =>
-                            onToggleTitle(unicTitles[i], selected),
-                        buttons: unicTitles,
+                            _onToggle(uniqTitles[i], selected),
+                        buttons: uniqTitles,
                       ),
                     ],
                   ),
@@ -133,7 +145,7 @@ class TalkerViewAppBar extends StatelessWidget {
                 const SizedBox(height: 4),
                 _SearchTextField(
                   controller: controller,
-                  talkerScreenTheme: talkerTheme,
+                  talkerTheme: talkerTheme,
                 ),
               ],
             ),
@@ -142,16 +154,21 @@ class TalkerViewAppBar extends StatelessWidget {
       ),
     );
   }
+
+  void _onToggle(String? title, bool selected) {
+    if (title == null) return;
+    onToggleTitle(title, selected);
+  }
 }
 
 class _SearchTextField extends StatelessWidget {
   const _SearchTextField({
     Key? key,
-    required this.talkerScreenTheme,
+    required this.talkerTheme,
     required this.controller,
   }) : super(key: key);
 
-  final TalkerScreenTheme talkerScreenTheme;
+  final TalkerScreenTheme talkerTheme;
   final TalkerViewController controller;
 
   @override
@@ -161,27 +178,29 @@ class _SearchTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextFormField(
         style: theme.textTheme.bodyLarge!.copyWith(
-          color: talkerScreenTheme.textColor,
+          color: talkerTheme.textColor,
           fontSize: 14,
         ),
         onChanged: controller.updateFilterSearchQuery,
         decoration: InputDecoration(
           fillColor: theme.cardColor,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: talkerScreenTheme.textColor),
+            borderSide: BorderSide(color: talkerTheme.textColor),
             borderRadius: BorderRadius.circular(10),
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: talkerScreenTheme.textColor),
+            borderSide: BorderSide(color: talkerTheme.textColor),
             borderRadius: BorderRadius.circular(10),
           ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16),
           prefixIcon: Icon(
             Icons.search,
-            color: talkerScreenTheme.textColor,
+            color: talkerTheme.textColor,
+            size: 20,
           ),
           hintText: 'Search...',
           hintStyle: theme.textTheme.bodyLarge!.copyWith(
-            color: Colors.grey,
+            color: talkerTheme.textColor,
             fontSize: 14,
           ),
         ),
@@ -195,9 +214,11 @@ class _MonitorButton extends StatelessWidget {
     Key? key,
     required this.talker,
     required this.onPressed,
+    required this.talkerTheme,
   }) : super(key: key);
 
   final Talker talker;
+  final TalkerScreenTheme talkerTheme;
   final VoidCallback onPressed;
 
   @override
@@ -213,7 +234,10 @@ class _MonitorButton extends StatelessWidget {
             Center(
               child: IconButton(
                 onPressed: onPressed,
-                icon: const Icon(Icons.monitor_heart_outlined),
+                icon: Icon(
+                  Icons.monitor_heart_outlined,
+                  color: talkerTheme.textColor,
+                ),
               ),
             ),
             if (haveErrors)

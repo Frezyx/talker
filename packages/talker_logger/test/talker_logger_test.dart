@@ -4,14 +4,14 @@ import 'package:test/test.dart';
 class LogLevelLoggerFormater implements LoggerFormatter {
   @override
   String fmt(LogDetails details, TalkerLoggerSettings settings) {
-    return details.level.title;
+    return details.level.toString();
   }
 }
 
 final _messages = <String>[];
 final _formatter = LogLevelLoggerFormater();
 final _logger = TalkerLogger(
-  settings: const TalkerLoggerSettings(enableColors: false),
+  settings: TalkerLoggerSettings(enableColors: false),
   formatter: _formatter,
   output: (message) => _messages.add(message),
 );
@@ -32,7 +32,7 @@ void main() {
 
   test('Constructor with fields', () {
     final logger = TalkerLogger(
-      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      settings: TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
       formatter: _formatter,
     );
@@ -53,7 +53,7 @@ void main() {
       output: (message) => messages.add(message),
     );
     logger = logger.copyWith(
-      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      settings: TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
       formatter: _formatter,
     );
@@ -74,7 +74,7 @@ void main() {
   test('Constructor copyWith empty', () {
     final messages = <String>[];
     var logger = TalkerLogger(
-      settings: const TalkerLoggerSettings(lineSymbol: '#'),
+      settings: TalkerLoggerSettings(lineSymbol: '#'),
       filter: const LogLevelFilter(LogLevel.critical),
       formatter: _formatter,
       output: (message) => messages.add(message),
@@ -101,6 +101,12 @@ void main() {
       }
     });
   });
+
+  test('Base logger test', () {
+    final logger = TalkerLogger();
+    logger.info('Hello');
+  });
+
   group('log methods LogLevel', () {
     test('error', () {
       _logger.error('Message');
@@ -118,10 +124,6 @@ void main() {
       _logger.info('Message');
       _expectMessageType(LogLevel.info);
     });
-    test('good', () {
-      _logger.good('Message');
-      _expectMessageType(LogLevel.good);
-    });
     test('verbose', () {
       _logger.verbose('Message');
       _expectMessageType(LogLevel.verbose);
@@ -133,7 +135,7 @@ void main() {
 
     test('Message length', () {
       final logger = TalkerLogger(
-        settings: const TalkerLoggerSettings(enableColors: false),
+        settings: TalkerLoggerSettings(enableColors: false),
         output: (message) => _messages.add(message),
         formatter: const ColoredLoggerFormatter(),
       );
@@ -143,6 +145,17 @@ void main() {
         _messages[0],
         '${'────' * 1000}\n──────────────────────────────────────────────────────────────────────────────────────────────────────────────',
       );
+    });
+
+    test('output function is set correctly in the constructor', () {
+      final logs = [];
+      final logger = TalkerLogger(output: (message) => logs.add(message));
+
+      logger.log('Test Message');
+      expect(logs.length, 1);
+
+      logger.log('Test Message');
+      expect(logs.length, 2);
     });
   });
 }
@@ -157,7 +170,7 @@ void _testLog(LogLevel level) {
 void _expectMessageType(LogLevel level) {
   expect(_messages, isNotEmpty);
   expect(_messages.length, 1);
-  expect(_messages, contains(level.title));
+  expect(_messages, contains(level.toString()));
 }
 
 void _expectInstance(TalkerLogger logger) {

@@ -6,30 +6,36 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 import 'package:talker_shop_app_example/ui/presentation_frame.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 
 import 'firebase_options.dart';
 
 void main() {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await _initFirease();
+    await _initFirebase();
     _initTalker();
     _registerRepositories();
-    Bloc.observer = TalkerBlocObserver(talker: GetIt.instance<Talker>());
+    Bloc.observer = TalkerBlocObserver(
+      talker: DI<Talker>(),
+      settings: const TalkerBlocLoggerSettings(
+        printCreations: true,
+        printClosings: true,
+      ),
+    );
     runApp(const MyApp());
   }, (Object error, StackTrace stack) {
-    GetIt.instance<Talker>().handle(error, stack, 'Uncaught app exception');
+    DI<Talker>().handle(error, stack, 'Uncaught app exception');
   });
 }
 
-Future<void> _initFirease() async {
+Future<void> _initFirebase() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -51,12 +57,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: appRoutes,
       navigatorObservers: [
-        TalkerRouteObserver(GetIt.instance<Talker>()),
+        TalkerRouteObserver(DI<Talker>()),
       ],
       builder: (context, child) {
         return PresentationFrame(
+          talkerTheme: talkerTheme,
           child: TalkerWrapper(
-            talker: GetIt.instance<Talker>(),
+            talker: DI<Talker>(),
             child: child!,
           ),
         );
@@ -67,17 +74,19 @@ class MyApp extends StatelessWidget {
 
 void _initTalker() {
   final talker = TalkerFlutter.init();
-  GetIt.instance.registerSingleton<Talker>(talker);
+  DI.registerSingleton<Talker>(talker);
   talker.verbose('Talker initialization completed');
 
   /// This logic is just for example here
-  if (!GetIt.instance.isRegistered<Talker>()) {
-    GetIt.instance.registerSingleton<Talker>(talker);
+  if (!DI.isRegistered<Talker>()) {
+    DI.registerSingleton<Talker>(talker);
   } else {
     talker.warning('Trying to re-register an object in GetIt');
   }
+
+  /// Dio logger initialization
   final talkerDioLogger = TalkerDioLogger(
-    talker: GetIt.instance<Talker>(),
+    talker: DI<Talker>(),
     settings: const TalkerDioLoggerSettings(
       printRequestHeaders: true,
       printResponseHeaders: true,
@@ -85,15 +94,16 @@ void _initTalker() {
       printResponseData: true,
     ),
   );
-  GetIt.instance.registerSingleton(talkerDioLogger);
+
+  DI.registerSingleton(talkerDioLogger);
 }
 
 void _registerRepositories() {
   final dio = Dio();
-  dio.interceptors.add(GetIt.instance<TalkerDioLogger>());
+  dio.interceptors.add(DI<TalkerDioLogger>());
 
-  GetIt.instance.registerSingleton<AbstractProductsRepository>(
+  DI.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(dio: dio),
   );
-  GetIt.instance<Talker>().info('Repositories initialization completed');
+  DI<Talker>().info('Repositories initialization completed');
 }

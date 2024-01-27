@@ -8,7 +8,7 @@ void main() {
       final exception = TalkerException(Exception());
       final log = TalkerLog('message');
 
-      final data = <TalkerDataInterface>[error, exception, log];
+      final data = <TalkerData>[error, exception, log];
       final fullMsg = data.text;
       final expectedMsg =
           '${error.generateTextMessage()}\n${exception.generateTextMessage()}\n${log.generateTextMessage()}\n';

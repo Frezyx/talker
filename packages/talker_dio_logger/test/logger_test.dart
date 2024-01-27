@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
+import 'package:talker_dio_logger/dio_logs.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:test/test.dart';
 
@@ -33,18 +34,36 @@ void main() {
       expect(talker.history.last.message, logMessage);
     });
 
+    test('onError should log DioErrorLog', () async {
+      final talker = Talker();
+      final logger = TalkerDioLogger(talker: talker);
+      final dio = Dio();
+      dio.interceptors.add(logger);
+
+      try {
+        await dio.get('asdsada');
+      } catch (_) {}
+      expect(talker.history, isNotEmpty);
+      expect(talker.history.last, isA<DioErrorLog>());
+    });
+
     test('onResponse method should log http response headers', () {
-      logger = TalkerDioLogger(talker: talker, settings: TalkerDioLoggerSettings(
-        printResponseHeaders: true
-      ));
+      final logger = TalkerDioLogger(
+          talker: talker,
+          settings: TalkerDioLoggerSettings(printResponseHeaders: true));
+
       final options = RequestOptions(path: '/test');
-      final response = Response(requestOptions: options, statusCode: 200, headers: Headers()..add("HEADER",
-      "VALUE"));
+      final response = Response(
+          requestOptions: options,
+          statusCode: 200,
+          headers: Headers()..add("HEADER", "VALUE"));
       logger.onResponse(response, ResponseInterceptorHandler());
-      expect(talker.history.last.generateTextMessage(), '[http-response] [GET] /test\n'
+      expect(
+          talker.history.last.generateTextMessage(),
+          '[http-response] [GET] /test\n'
           'Status: 200\n'
           'Headers: {\n'
-          '  "header": [\n'
+          '  "HEADER": [\n'
           '    "VALUE"\n'
           '  ]\n'
           '}');

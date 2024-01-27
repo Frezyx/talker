@@ -47,7 +47,7 @@ void main() {
       expect(newSettings.enabled, true);
       expect(newSettings.useConsoleLogs, true);
       expect(newSettings.useHistory, true);
-      expect(newSettings.maxHistoryItems, 200);
+      expect(newSettings.maxHistoryItems, 1000);
     });
   });
 }
@@ -60,6 +60,6 @@ class HttpTalkerLog extends TalkerLog {
 
   @override
   String generateTextMessage() {
-    return pen.write(message);
+    return pen.write(message ?? '');
   }
 }

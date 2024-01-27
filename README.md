@@ -68,22 +68,38 @@ Talker is designed for any level of customization. <br>
 - [Talker](#talker)
   - [Get Started](#get-started)
   - [Customization](#⚙️-customization)
-  - [Custom logs](#custom-logs)
+    - [Custom logs](#custom-logs)
+    - [Change log colors](#change-log-colors)
+    - [Change log titles](#change-log-titles)
   - [TalkerObserver](#talkerobserver)
 - [Talker Flutter](#talker-flutter)
   - [Get Started](#get-started-flutter)
   - [TalkerScreen](#talkerscreen)
+  - [Customization](#customization)
+    - [How to set custom color?](#how-to-set-custom-colors)
+    - [TalkerScreenTheme](#talkerscreentheme)
   - [TalkerRouteObserver](#talkerrouteobserver)
     - [Navigator](#navigator)
     - [auto_route](#auto_route)
+    - [auto_route v7](#auto_route-v7)
     - [go_router](#go_router)
   - [TalkerMonitor](#talkermonitor)
   - [TalkerWrapper](#talkerwrapper)
   - [More Features And Examples](#more-features-and-examples)
 - [Integrations](#integrations)
-  - [Talker Dio Logger](#talker-dio-logger)
-  - [Talker BLoC Logger](#talker-bloc-logger)
-  - [Crashlytics integration](#crashlytics-integration)
+- [Talker Dio Logger](#talker-dio-logger)
+  - [Customization](#customization-1)
+    - [Off/On http request or reposnse logs](#offon-http-request-or-reposnse-logs)
+    - [Change http logs colors](#change-http-logs-colors)
+    - [Filter http logs](#filter-http-logs)
+  - [Using with Talker](#using-with-talker)
+- [Talker BLoC Logger](#talker-bloc-logger)
+  - [Customization](#customization-2)
+    - [Off/on events, transitions, changes, creation, close](#offon-events-transitions-changes-creation-close)
+    - [Full/truncated state and event data](#fulltruncated-state-and-event-data)
+    - [Filter bloc logsa](#filter-bloc-logs)
+  - [Using with Talker](#using-with-talker-1)
+- [Crashlytics integration](#crashlytics-integration)
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)
@@ -99,7 +115,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^3.2.0
+  talker: ^4.0.0
 ```
 
 ### Easy to use
@@ -152,7 +168,7 @@ final talker = Talker(
 ```
 More examples you can get [here](https://github.com/Frezyx/talker/blob/master/packages/talker/example/talker_example.dart)
 
-## Custom logs
+### Custom logs
 
 With Talker you can create your custom log message types.<br>
 And you have **full customization control** over them!
@@ -173,6 +189,58 @@ class YourCustomLog extends TalkerLog {
 final talker = Talker();
 talker.logTyped(YourCustomLog('Something like your own service message'));
 ```
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.png?raw=true"></a></p>
+
+### Change log colors
+
+Starting from version 4.0.0, you have the ability to fully customize all logs colors. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
+
+The Map is structured as **{TalkerLogType: AnsiPen}**.
+
+**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum. And **AnsiPen** is model to console colors customization
+
+```dart
+final talker = Talker(
+  settings: TalkerSettings(
+    colors: {
+      TalkerLogType.httpResponse: AnsiPen()..red(),
+      TalkerLogType.error: AnsiPen()..green(),
+      TalkerLogType.info: AnsiPen()..yellow(),
+      // Other colors...
+    },
+  ),
+);
+```
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_logs_colors.jpg?raw=true"></a></p>
+
+Talker have default color scheme. You can check it in [TalkerSettings](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/settings.dart) class
+
+### Change log titles
+
+Starting from version 4.0.0, you have the ability to fully customize all logs titles. You can set **your own title for any type of logs**.
+
+The Map is structured as **{TalkerLogType: String}**.
+
+**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum.
+
+```dart
+final talker = Talker(
+  settings: TalkerSettings(
+    titles: {
+      TalkerLogType.exception: 'Whatever you want',
+      TalkerLogType.error: 'E',
+      TalkerLogType.info: 'i',
+      // Other titles...
+    },
+  ),
+);
+```
+
+<p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log_titles.png?raw=true"></a></p>
+
+Talker have default titles scheme. You can check it in [TalkerSettings](https://github.com/Frezyx/talker/blob/master/packages/talker/lib/src/settings.dart) class
 
 ## TalkerObserver
 
@@ -218,7 +286,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^3.6.0
+  talker_flutter: ^4.0.0
 ```
 
 ### Setup
@@ -277,12 +345,57 @@ Navigator.of(context).push(
 ```
 See more in TalkerScreen [usage example](https://github.com/Frezyx/talker/blob/master/packages/talker_flutter/example/lib/main.dart)
 
+## Customization
+
+Starting from version 4.0.0, you have the ability to fully customize your TalkerScreen display. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
+
+| <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs4.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs1.png" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs2.png?raw=true" width="250px"></a></p> | <p align="left"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/customization/custom_logs3.png?raw=true" width="250px"></a></p> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+
+### How to set custom colors ?
+
+To set your custom colors, you need to pass a TalkerScreenTheme object to the TalkerScreen constructor, with a Map containing the desired colors. 
+
+The Map is structured as **{log type: color}**. **TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum.
+
+```dart
+import 'package:talker_flutter/talker_flutter.dart';
+
+final talker = TalkerFlutter.init();
+
+TalkerScreen(
+  talker: talker,
+  theme: TalkerScreenTheme(
+    /// Your custom log colors
+    logColors: {
+      TalkerLogType.httpResponse: Color(0xFF26FF3C),
+      TalkerLogType.error: Colors.redAccent,
+      TalkerLogType.info: Color.fromARGB(255, 0, 255, 247),
+    },
+  )
+)
+```
+
+### TalkerScreenTheme
+
+You can set custom backagroud, card and text colors for  TalkerScreen with TalkerScreenTheme
+
+```dart
+TalkerScreenTheme(
+  cardColor: Colors.grey[700]!,
+  backgroundColor: Colors.grey[800]!,
+  textColor: Colors.white,
+  logColors: {
+    /// Your logs colors...
+  },
+)
+```
+
 ## TalkerRouteObserver
-Observer for a navigator. <br>
+Observer for a navigator.<br>
 If you want to keep a record of page transitions in your application, you've found what you're looking for.
 
-You can use TalkerRouteObserver with **any routing package**
-
+You can use TalkerRouteObserver with **any routing package**<br>
 From auto_route to basic Flutter Navigator
 
 ### Navigator
@@ -305,6 +418,20 @@ final talker = Talker();
 MaterialApp.router(
   routerDelegate: AutoRouterDelegate(
     appRouter,
+    navigatorObservers: () => [
+      TalkerRouteObserver(talker),
+    ],
+  ),
+),
+```
+
+### auto_route v7
+
+```dart
+final talker = Talker();
+
+MaterialApp.router(
+  routerConfig: _appRouter.config(
     navigatorObservers: () => [
       TalkerRouteObserver(talker),
     ],
@@ -387,7 +514,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^2.4.0
+  talker_dio_logger: ^4.0.0
 ```
 
 ### Usage
@@ -406,22 +533,68 @@ dio.interceptors.add(
 );
 ```
 
-### Using with Talker
+## Customization
+
+To provide hight usage exp here are a lot of settings and customization fields in TalkerDioLoggerSettings. You can setup all wat you want. For example: 
+
+### Off/on http request or reposnse logs
+
+You can toggle reponse / request printing and headers including
+
+```dart
+final dio = Dio();
+dio.interceptors.add(
+    TalkerDioLogger(
+        settings: const TalkerDioLoggerSettings(
+          // All http responses enabled for console logging
+          printResponseData: true,
+          // All http requests disabled for console logging
+          printRequestData: false,
+          // Reposnse logs including http - headers
+          printResponseHeaders: true,
+          // Request logs without http - headersa
+          printRequestHeaders: false,
+        ),
+    ),
+);
+```
+
+### Change http logs colors
+
+Setup your custom http-log colors. You can set color for requests, responses and errors in TalkerDioLoggerSettings
+
+```dart
+TalkerDioLoggerSettings(
+  // Blue http requests logs in console
+  requestPen: AnsiPen()..blue(),
+  // Green http responses logs in console
+  responsePen: AnsiPen()..green(),
+  // Error http logs in console
+  errorPen: AnsiPen()..red(),
+);
+```
+
+### Filter http logs
+
+For example if your app has a private functionality and you don't need to store this functionality logs in talker - you can use filters
+
+```dart
+TalkerDioLoggerSettings(
+  // All http request without "/secure" in path will be printed in console 
+  requestFilter: (RequestOptions options) => !options.path.contains('/secure'),
+  // All http responses with status codes different than 301 will be printed in console 
+  responseFilter: (response) => response.statusCode != 301,
+)
+```
+
+## Using with Talker
 You can add your talker instance for TalkerDioLogger if your app already uses Talker.
 In this case, all logs and errors will fall into your unified tracking system
 
 ```dart
 final talker = Talker();
 final dio = Dio();
-dio.interceptors.add(
-    TalkerDioLogger(
-        talker: talker,
-        settings: const TalkerDioLoggerSettings(
-          printRequestHeaders: true,
-          printResponseHeaders: true,
-        ),
-    ),
-);
+dio.interceptors.add(TalkerDioLogger(talker: talker));
 ```
 
 ## Talker BLoC Logger
@@ -437,7 +610,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^2.4.0
+  talker_bloc_logger: ^4.0.0
 ```
 
 ### Usage
@@ -449,8 +622,58 @@ import 'package:talker_bloc_observer/talker_bloc_observer.dart';
 Bloc.observer = TalkerBlocObserver();
 ```
 
-### Using with Talker
-You can add your talker instance for TalkerDioLogger if your app already uses Talker.
+## Customization
+
+To provide hight usage exp here are a lot of settings and customization fields in TalkerBlocLoggerSettings. You can setup all wat you want. For example:
+
+### Off/on events, transitions, changes, creation, close
+
+You can toggle all bloc event types printing
+
+```dart
+Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      enabled: true,
+      printChanges: true,
+      printClosings: true,
+      printCreations: true,
+      printEvents: true,
+      printTransitions: true,
+    ),
+  );
+```
+
+### Full/truncated state and event data
+
+You can choose to have the logs of events and states in the BLoC displayed in the console in either full or truncated form
+
+```dart
+Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      printEventFullData: false,
+      printStateFullData: false,
+    ),
+  );
+```
+
+### Filter bloc logs
+
+You can output logs to the console for specific events and states only, using a filter
+
+```dart
+Bloc.observer = TalkerBlocObserver(
+    settings: TalkerBlocLoggerSettings(
+      // If you want log only AuthBloc transitions
+      transitionFilter: (bloc, transition) =>
+          bloc.runtimeType.toString() == 'AuthBloc',
+      // If you want log only AuthBloc events
+      eventFilter: (bloc, event) => bloc.runtimeType.toString() == 'AuthBloc',
+    ),
+  );
+```
+
+## Using with Talker!
+You can add your talker instance for TalkerBlocLogger if your Appication already uses Talker.
 
 In this case, all logs and errors will fall into your unified tracking system
 
@@ -462,7 +685,7 @@ final talker = Talker();
 Bloc.observer = TalkerBlocObserver(talker: talker);
 ```
 
-### Crashlytics integration
+## Crashlytics integration
 
 If you add CrashlyticsTalkerObserver to your application, you will receive notifications about all application errors in the Crashlytics dashboard. <br>
 

@@ -1,6 +1,6 @@
 import 'package:talker_flutter/talker_flutter.dart';
 
-extension HistoryListFlutterText on List<TalkerDataInterface> {
+extension HistoryListFlutterText on List<TalkerData> {
   /// The method allows you to get
   /// full text of logs or history
   String get flutterText {

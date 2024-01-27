@@ -4,14 +4,14 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.18.6 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   dio: ^5.0.0
-  talker_dio_logger: ^2.4.0
-  talker_flutter: ^3.6.0    
+  talker_dio_logger: ^4.0.0
+  talker_flutter: ^4.0.0    
 
 dev_dependencies:
   flutter_test:

@@ -7,17 +7,16 @@ const _testMessage = 'test message';
 const _testTitle = 'test title';
 
 void main() {
-  group('TalkerDataInterface models', () {
+  group('TalkerData models', () {
     test('TalkerError', () async {
       final error = TalkerError(
         ArgumentError(),
         message: _testMessage,
-        logLevel: LogLevel.critical,
         stackTrace: StackTrace.empty,
         title: _testTitle,
       );
 
-      expect(error is TalkerDataInterface, true);
+      expect(error is TalkerData, true);
       expect(error is TalkerError, true);
       expect(error.message, _testMessage);
       expect(error.title, _testTitle);
@@ -37,12 +36,11 @@ Invalid argument(s)''',
       final exception = TalkerException(
         Exception(),
         message: _testMessage,
-        logLevel: LogLevel.critical,
         stackTrace: StackTrace.empty,
         title: _testTitle,
       );
 
-      expect(exception is TalkerDataInterface, true);
+      expect(exception is TalkerData, true);
       expect(exception is TalkerException, true);
       expect(exception.message, _testMessage);
       expect(exception.title, _testTitle);
@@ -73,7 +71,7 @@ Exception''',
         title: _testTitle,
       );
 
-      expect(log is TalkerDataInterface, true);
+      expect(log is TalkerData, true);
       expect(log is TalkerLog, true);
       expect(log.message, _testMessage);
       expect(log.title, _testTitle);

@@ -1,3 +1,55 @@
+import 'package:talker/talker.dart';
+
+const _defaultTitles = {
+  /// Base logs section
+  TalkerLogType.critical: 'critical',
+  TalkerLogType.warning: 'warning',
+  TalkerLogType.verbose: 'verbose',
+  TalkerLogType.info: 'info',
+  TalkerLogType.debug: 'debug',
+  TalkerLogType.error: 'error',
+  TalkerLogType.exception: 'exception',
+
+  /// Http section
+  TalkerLogType.httpError: 'http-error',
+  TalkerLogType.httpRequest: 'http-request',
+  TalkerLogType.httpResponse: 'http-response',
+
+  /// Bloc section
+  TalkerLogType.blocEvent: 'bloc-event',
+  TalkerLogType.blocTransition: 'bloc-transition',
+  TalkerLogType.blocCreate: 'bloc-create',
+  TalkerLogType.blocClose: 'bloc-close',
+
+  /// Flutter section
+  TalkerLogType.route: 'route',
+};
+
+final _defaultColors = {
+  /// Base logs section
+  TalkerLogType.critical: AnsiPen()..red(),
+  TalkerLogType.warning: AnsiPen()..yellow(),
+  TalkerLogType.verbose: AnsiPen()..gray(),
+  TalkerLogType.info: AnsiPen()..blue(),
+  TalkerLogType.debug: AnsiPen()..gray(),
+  TalkerLogType.error: AnsiPen()..red(),
+  TalkerLogType.exception: AnsiPen()..red(),
+
+  /// Http section
+  TalkerLogType.httpError: AnsiPen()..red(),
+  TalkerLogType.httpRequest: AnsiPen()..xterm(219),
+  TalkerLogType.httpResponse: AnsiPen()..xterm(46),
+
+  /// Bloc section
+  TalkerLogType.blocEvent: AnsiPen()..xterm(51),
+  TalkerLogType.blocTransition: AnsiPen()..xterm(49),
+  TalkerLogType.blocCreate: AnsiPen()..xterm(35),
+  TalkerLogType.blocClose: AnsiPen()..xterm(198),
+
+  /// Flutter section
+  TalkerLogType.route: AnsiPen()..xterm(135),
+};
+
 /// {@template talker_settings}
 /// This class used for setup [Talker] configuration
 /// {@endtemplate}
@@ -6,11 +58,17 @@ class TalkerSettings {
     this.enabled = true,
     bool useHistory = true,
     bool useConsoleLogs = true,
-    int? maxHistoryItems = 200,
-    // bool writeToFile = false,
+    int maxHistoryItems = 1000,
+    this.titles = _defaultTitles,
+    Map<TalkerLogType, AnsiPen>? colors,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
-        _maxHistoryItems = maxHistoryItems ?? 200;
+        _maxHistoryItems = maxHistoryItems {
+    if (colors != null) {
+      _defaultColors.addAll(colors);
+    }
+    this.colors.addAll(_defaultColors);
+  }
   // _writeToFile = writeToFile;
 
   /// By default talker write all Errors / Exceptions and logs in history list
@@ -38,48 +96,77 @@ class TalkerSettings {
   /// All log and handle error / exception methods are working when [true] and not working when [false]
   bool enabled;
 
-  /// Registered types to make filtering
-  /// and more easy displaying in talker_flutter
+  /// Custom Logger Titles.
+  ///
+  /// The `titles` field is intended for storing custom titles for the logger, associated with various log types.
+  /// Each title is associated with a specific log type represented as an enum called `TalkerTitle`. This allows you to
+  /// provide informative and unique titles for each log type, making logging more readable and informative.
+  ///
+  /// Example usage:
+  ///
   /// ```dart
-  ///class HttpTalkerLog extends TalkerLog {
-  ///   HttpTalkerLog(String message) : super(message);
+  /// final customTitles = {
+  ///   TalkerTitle.info: "Information",
+  ///   TalkerTitle.error: "Error",
+  ///   TalkerTitle.warning: "Warning",
+  /// };
   ///
-  ///   @override
-  ///   AnsiPen get pen => AnsiPen()..xterm(49);
-  ///
-  ///   @override
-  ///   String generateTextMessage() {
-  ///     return pen.write(message);
-  ///   }
-  ///}
-  ///
-  ///void main() {
-  ///   talker.configure(
-  ///     settings: const TalkerSettings(
-  ///       registeredTypes: [HttpTalkerLog],
-  ///     ),
-  ///   );
-  ///
-  ///   final httpLog = HttpTalkerLog('Http good');
-  ///   talker.logTyped(httpLog);
-  /// }
+  /// final logger = Talker(
+  ///   settings: TalkerSettings(
+  ///     titles: customTitles,
+  ///   )
+  /// );
   /// ```
-  // List<Type> get registeredTypes => [
-  //       TalkerLog, TalkerError, TalkerException,
-  //       //...?_registeredTypes
-  //     ];
+  final Map<TalkerLogType, String> titles;
+
+  /// Custom Logger Colors.
+  ///
+  /// The `colors` field is designed for setting custom text colors for the logger, associated with specific log keys.
+  /// Each color is associated with a specific log key represented as an enum called `TalkerKey`. This allows you to
+  /// define custom text colors for each log key, enhancing the visual representation of logs in the console.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final customColors = {
+  ///   TalkerKey.info: AnsiPen()..white(bold: true),
+  ///   TalkerKey.error: AnsiPen()..red(bold: true),
+  ///   TalkerKey.warning: AnsiPen()..yellow(bold: true),
+  /// };
+  ///
+  /// final logger = Talker(
+  ///   settings: TalkerSettings(
+  ///     colors: customColors,
+  ///   )
+  /// );
+  /// ```
+  ///
+  /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
+  final Map<TalkerLogType, AnsiPen> colors = _defaultColors;
+
+  String getTitleByLogType(TalkerLogType key) {
+    return titles[key] ?? key.key;
+  }
+
+  AnsiPen getAnsiPenByLogType(TalkerLogType key, {TalkerData? logData}) {
+    return colors[key] ?? logData?.pen ?? (AnsiPen()..gray());
+  }
 
   TalkerSettings copyWith({
     bool? enabled,
     bool? useHistory,
     bool? useConsoleLogs,
     int? maxHistoryItems,
+    Map<TalkerLogType, String>? titles,
+    Map<TalkerLogType, AnsiPen>? colors,
   }) {
     return TalkerSettings(
       useHistory: useHistory ?? _useHistory,
       useConsoleLogs: useConsoleLogs ?? _useConsoleLogs,
       maxHistoryItems: maxHistoryItems ?? _maxHistoryItems,
       enabled: enabled ?? this.enabled,
+      titles: titles ?? this.titles,
+      colors: colors ?? this.colors,
     );
   }
 }

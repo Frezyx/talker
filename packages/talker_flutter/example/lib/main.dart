@@ -46,7 +46,6 @@ class _BaseExampleState extends State<BaseExample> {
     talker.info('3.............');
     talker.info('2.......');
     talker.info('1');
-    talker.good('Now you can check all Talkler power ⚡');
     super.initState();
   }
 

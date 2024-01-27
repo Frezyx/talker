@@ -1,16 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:talker_shop_app_example/utils/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PresentationFrame extends StatelessWidget {
   const PresentationFrame({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+    required this.talkerTheme,
+  });
 
   final Widget child;
+  final TalkerScreenTheme talkerTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class PresentationFrame extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(color: Colors.red),
               child: const Text(
-                'Interact with Application to see canges in Logs Preview',
+                'Interact with Application to see changes in Logs Preview',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -43,7 +45,7 @@ class PresentationFrame extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const _LogsPreview(),
+                  _LogsPreview(talkerTheme: talkerTheme),
                   const SizedBox(width: 20),
                   _ApplicationPreview(mq: mq, child: child),
                   const SizedBox(width: 60),
@@ -61,9 +63,8 @@ class PresentationFrame extends StatelessWidget {
 
 class _TalkerAboutSection extends StatelessWidget {
   const _TalkerAboutSection({
-    Key? key,
     required this.mq,
-  }) : super(key: key);
+  });
 
   final MediaQueryData mq;
 
@@ -83,14 +84,38 @@ class _TalkerAboutSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Spacer(),
-              const Text(
-                'Talker',
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 70,
+              GestureDetector(
+                onTap: _openGitHub,
+                child: Row(
+                  children: [
+                    const Text(
+                      'Talker',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 70,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.clip,
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Text(
+                        'v4.0.0',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.clip,
               ),
               const Text(
                 'Now your app is not\na black box',
@@ -105,9 +130,7 @@ class _TalkerAboutSection extends StatelessWidget {
               Row(
                 children: <Widget>[
                   InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse('https://pub.dev/packages/talker'));
-                    },
+                    onTap: _openPubDev,
                     child: Row(
                       children: [
                         Image.asset('assets/flutter.png', height: 70),
@@ -125,9 +148,7 @@ class _TalkerAboutSection extends StatelessWidget {
                   ),
                   const SizedBox(width: 20),
                   InkWell(
-                    onTap: () {
-                      launchUrl(Uri.parse('https://github.com/Frezyx/talker'));
-                    },
+                    onTap: _openGitHub,
                     child: Row(
                       children: [
                         Image.asset('assets/github.png', height: 70),
@@ -152,14 +173,22 @@ class _TalkerAboutSection extends StatelessWidget {
       ),
     );
   }
+
+  void _openGitHub() {
+    launchUrl(Uri.parse('https://github.com/Frezyx/talker'));
+  }
+
+  void _openPubDev() {
+    launchUrl(Uri.parse('https://pub.dev/packages/talker'));
+  }
 }
 
 class _ApplicationPreview extends StatelessWidget {
   const _ApplicationPreview({
-    Key? key,
+    super.key,
     required this.mq,
     required this.child,
-  }) : super(key: key);
+  });
 
   final MediaQueryData mq;
   final Widget child;
@@ -207,8 +236,11 @@ class _ApplicationPreview extends StatelessWidget {
 
 class _LogsPreview extends StatelessWidget {
   const _LogsPreview({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.talkerTheme,
+  });
+
+  final TalkerScreenTheme talkerTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -229,7 +261,7 @@ class _LogsPreview extends StatelessWidget {
               height: mediaQuery.size.height,
               alignment: Alignment.center,
               child: TalkerBuilder(
-                  talker: GetIt.instance<Talker>(),
+                  talker: DI<Talker>(),
                   builder: (context, data) {
                     final reversedLogs = data.reversed.toList();
                     return Container(
@@ -243,6 +275,7 @@ class _LogsPreview extends StatelessWidget {
                                 final data = reversedLogs[index];
                                 return TalkerDataCard(
                                   data: data,
+                                  color: data.getFlutterColor(talkerTheme),
                                 );
                               },
                               childCount: reversedLogs.length,

@@ -1,3 +1,46 @@
+# 4.0.0
+- Add ability to customize **colors** and **titles** of any Talker logs
+- Add ability to customize **colors** of any logs in TalkerScreen UI 
+- Add **TalkerLogType** enum for clear differentiation of logs by types.
+- Update TalkerScreen UI (The interface is now even more user-friendly)
+- Huge documentation update
+- Make 100% test coverage of **talker_bloc_logger** and **talker_dio_logger**
+- Add expand / collapse ability for one log card
+- Packages versions synchronization (Now the versions of all core libraries will be identical)
+- **BREAKING** TalkerDataInterface deleted (Now base data class is **TalkerData**)
+
+- Fix: Text color not always visible [issue #174](https://github.com/Frezyx/talker/issues/174)
+- Add custom title format [issue #170](https://github.com/Frezyx/talker/issues/170)
+- Fix: Logger not resets log color [issue #86](https://github.com/Frezyx/talker/issues/86)
+
+Check more details in [documentation](https://github.com/Frezyx/talker)
+
+# 4.0.0-dev.6
+- Make 100% tests coverage 
+- Update example UI
+- Add custom log titles documentation
+- Fix TalkerScreen log colors setup
+- Fix TalkerScreenTheme textColor providing
+
+# 4.0.0-dev.5
+- Huge documentation update
+- Update talker_flutter styles
+- Add expand / collapse ability for one log card
+- Add colors customization examples
+
+# 4.0.0-dev.4
+- Add new tests to make 100% coverage
+- Fix linter issues
+
+# 4.0.0-dev.3
+- Update settings setup method
+- Fix migration issues
+
+# 4.0.0-dev.1
+- Add **colors** field in TalkerLoggerSettings class to setup custom colores for default logs
+- Remove deprecated LogLevel title and color extensions
+- **BREAKING**: Remove **LogLevel.good**
+
 # 3.1.0
 - Rename (fix typo) **LoggerFormater -> **LoggerFormatter** 
 - Rename (fix typo) field **formater** -> **formatter** 

@@ -1,0 +1,28 @@
+{
+    "folders": [
+        {
+            "name": "talker",
+            "path": "../packages/talker"
+        },
+        {
+            "name": "talker_bloc_logger",
+            "path": "../packages/talker_bloc_logger"
+        },
+        {
+            "name": "talker_dio_logger",
+            "path": "../packages/talker_dio_logger"
+        },
+        {
+            "name": "talker_flutter",
+            "path": "../packages/talker_flutter"
+        },
+        {
+            "name": "talker_http_logger",
+            "path": "../packages/talker_http_logger"
+        },
+        {
+            "name": "talker_logger",
+            "path": "../packages/talker_logger"
+        }
+    ]
+}

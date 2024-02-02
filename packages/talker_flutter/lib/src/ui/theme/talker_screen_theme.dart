@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+typedef LogColors = Map<TalkerLogType, Color>;
+
 /// Configuring the UI of [TalkerScreen]
 class TalkerScreenTheme {
   const TalkerScreenTheme({
     this.backgroundColor = const Color(0xFF212121),
     this.textColor = Colors.white,
     this.cardColor = defaultCardBackgroundColor,
-    Map<TalkerLogType, Color>? logColors,
+    LogColors? logColors,
   }) : _customColors = logColors;
 
   /// Background screen color
@@ -30,14 +32,23 @@ class TalkerScreenTheme {
     }
     return _defaultColors;
   }
+
+  factory TalkerScreenTheme.fromTheme(ThemeData theme, [LogColors? logColors]) {
+    return TalkerScreenTheme(
+      backgroundColor: theme.colorScheme.background,
+      textColor: theme.colorScheme.onBackground,
+      cardColor: theme.colorScheme.surface,
+    );
+  }
 }
 
-extension MapTalkerFlutterColorsExt on Map<TalkerLogType, Color> {
+extension MapTalkerFlutterColorsExt on LogColors {
   Color getByType(TalkerLogType type) {
     return this[type] ?? Colors.grey;
   }
 }
 
+// 💡 why not merge this into
 const _defaultColors = {
   /// Base logs section
   TalkerLogType.error: Color.fromARGB(255, 239, 83, 80),

@@ -60,6 +60,7 @@ class TalkerMonitor extends StatelessWidget {
                     logs: httpRequests,
                     title: 'Http Requests',
                     color: Colors.green,
+                    theme: theme,
                     icon: Icons.wifi,
                     onTap: () => _openHttpMonitor(context),
                     subtitleWidget: Column(
@@ -107,6 +108,7 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
+                    theme: theme,
                     logs: errors,
                     title: 'Errors',
                     color: theme.logColors.getByType(TalkerLogType.error),
@@ -122,6 +124,7 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
+                    theme: theme,
                     logs: exceptions,
                     title: 'Exceptions',
                     color: theme.logColors.getByType(TalkerLogType.exception),
@@ -137,6 +140,7 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
+                    theme: theme,
                     logs: warnings,
                     title: 'Warnings',
                     color: theme.logColors.getByType(TalkerLogType.warning),
@@ -151,6 +155,7 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
+                    theme: theme,
                     logs: infos,
                     title: 'Infos',
                     color: theme.logColors.getByType(TalkerLogType.info),
@@ -164,6 +169,7 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
+                    theme: theme,
                     logs: verboseDebug,
                     title: 'Verbose & debug',
                     color: theme.logColors.getByType(TalkerLogType.verbose),

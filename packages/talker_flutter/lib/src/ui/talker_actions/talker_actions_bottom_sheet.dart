@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -21,7 +20,7 @@ class TalkerActionsBottomSheet extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
         decoration: BoxDecoration(
-          color: defaultCardBackgroundColor,
+          color: talkerScreenTheme.backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(

@@ -65,8 +65,7 @@ class Talker {
     _logger = _logger.copyWith(
       settings: _logger.settings.copyWith(
         colors: {
-          LogLevel.critical:
-              settings.getAnsiPenByLogType(TalkerLogType.critical),
+          LogLevel.critical: settings.getAnsiPenByLogType(TalkerLogType.critical),
           LogLevel.error: settings.getAnsiPenByLogType(TalkerLogType.error),
           LogLevel.warning: settings.getAnsiPenByLogType(TalkerLogType.warning),
           LogLevel.verbose: settings.getAnsiPenByLogType(TalkerLogType.verbose),
@@ -121,7 +120,16 @@ class Talker {
     TalkerErrorHandler? errorHandler,
     TalkerHistory? history,
   }) {
-    _init(filter, settings, logger, observer, errorHandler, history);
+    if (filter != null) {
+      _filter = filter;
+    }
+    if (settings != null) {
+      this.settings = settings;
+    }
+    _observer = observer ?? _observer;
+    _logger = logger ?? _logger;
+    _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
+    _history = DefaultTalkerHistory(this.settings, history: _history.history);
   }
 
   final _talkerStreamController = StreamController<TalkerData>.broadcast();
@@ -132,8 +140,7 @@ class Talker {
   /// You can connect a listener to it and catch the received errors
   ///
   /// Or you can add your observer [TalkerObserver] in the settings
-  Stream<TalkerData> get stream =>
-      _talkerStreamController.stream.asBroadcastStream();
+  Stream<TalkerData> get stream => _talkerStreamController.stream.asBroadcastStream();
 
   /// The history stores all information about all events like
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s

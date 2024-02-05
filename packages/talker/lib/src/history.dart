@@ -4,7 +4,11 @@ import 'package:talker/talker.dart';
 /// to save the history locally
 class DefaultTalkerHistory implements TalkerHistory {
   /// Take [TalkerSettings] as required parameter
-  DefaultTalkerHistory(this.settings);
+  DefaultTalkerHistory(this.settings, {List<TalkerData>? history}) {
+    if (history != null) {
+      _history.addAll(history);
+    }
+  }
 
   /// Bring [TalkerSettings] to manage some configuration.
   final TalkerSettings settings;

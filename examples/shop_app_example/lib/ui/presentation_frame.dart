@@ -185,7 +185,6 @@ class _TalkerAboutSection extends StatelessWidget {
 
 class _ApplicationPreview extends StatelessWidget {
   const _ApplicationPreview({
-    super.key,
     required this.mq,
     required this.child,
   });
@@ -236,7 +235,6 @@ class _ApplicationPreview extends StatelessWidget {
 
 class _LogsPreview extends StatelessWidget {
   const _LogsPreview({
-    super.key,
     required this.talkerTheme,
   });
 

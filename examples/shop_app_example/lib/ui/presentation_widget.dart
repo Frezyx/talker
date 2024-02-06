@@ -3,7 +3,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/utils/utils.dart';
 
 class PresentationWidget extends StatelessWidget {
-  const PresentationWidget({Key? key, required this.child}) : super(key: key);
+  const PresentationWidget({super.key, required this.child});
 
   final Widget child;
 

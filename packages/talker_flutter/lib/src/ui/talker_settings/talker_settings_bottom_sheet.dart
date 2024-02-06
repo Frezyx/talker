@@ -19,7 +19,8 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
   final ValueNotifier<Talker> talker;
 
   @override
-  State<TalkerSettingsBottomSheet> createState() => _TalkerSettingsBottomSheetState();
+  State<TalkerSettingsBottomSheet> createState() =>
+      _TalkerSettingsBottomSheetState();
 }
 
 class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
@@ -48,7 +49,8 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
         title: 'Enabled',
         enabled: widget.talker.value.settings.enabled,
         onChanged: (enabled) {
-          (enabled ? widget.talker.value.enable : widget.talker.value.disable).call();
+          (enabled ? widget.talker.value.enable : widget.talker.value.disable)
+              .call();
           widget.talker.notifyListeners();
         },
       ),

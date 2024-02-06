@@ -8,8 +8,8 @@ import 'package:talker_shop_app_example/utils/utils.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -151,7 +151,6 @@ class _OpenLogsButton extends StatelessWidget {
 
 class _ErrorScreen extends StatelessWidget {
   const _ErrorScreen({
-    super.key,
     required this.onReload,
   });
 
@@ -184,9 +183,7 @@ class _ErrorScreen extends StatelessWidget {
 }
 
 class _ExampleWarning extends StatelessWidget {
-  const _ExampleWarning({
-    Key? key,
-  }) : super(key: key);
+  const _ExampleWarning();
 
   @override
   Widget build(BuildContext context) {

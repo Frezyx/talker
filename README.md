@@ -115,7 +115,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^4.0.0
+  talker: ^4.0.1
 ```
 
 ### Easy to use
@@ -286,7 +286,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^4.0.0
+  talker_flutter: ^4.0.1
 ```
 
 ### Setup
@@ -514,7 +514,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.0.0
+  talker_dio_logger: ^4.0.1
 ```
 
 ### Usage
@@ -610,7 +610,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.0.0
+  talker_bloc_logger: ^4.0.1
 ```
 
 ### Usage

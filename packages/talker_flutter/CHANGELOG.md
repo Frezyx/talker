@@ -1,3 +1,8 @@
+# 4.0.1
+- Fix talker configure method problems [issue #186](https://github.com/Frezyx/talker/issues/186)
+
+Thanks to [K1yoshiSho](https://github.com/K1yoshiSho)
+
 # 4.0.0
 - Add ability to customize **colors** and **titles** of any Talker logs
 - Add ability to customize **colors** of any logs in TalkerScreen UI 

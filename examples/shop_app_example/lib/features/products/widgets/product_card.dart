@@ -4,10 +4,10 @@ import 'package:talker_shop_app_example/ui/ui.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    Key? key,
+    super.key,
     required this.product,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final Product product;
   final VoidCallback onTap;

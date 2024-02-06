@@ -6,8 +6,8 @@ import 'package:talker_shop_app_example/utils/utils.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -244,9 +244,9 @@ class _ProductScreenState extends State<ProductScreen> {
 
 class AddToCartButton extends StatelessWidget {
   const AddToCartButton({
-    Key? key,
+    super.key,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
 

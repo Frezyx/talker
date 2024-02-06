@@ -121,7 +121,16 @@ class Talker {
     TalkerErrorHandler? errorHandler,
     TalkerHistory? history,
   }) {
-    _init(filter, settings, logger, observer, errorHandler, history);
+    if (filter != null) {
+      _filter = filter;
+    }
+    if (settings != null) {
+      this.settings = settings;
+    }
+    _observer = observer ?? _observer;
+    _logger = logger ?? _logger;
+    _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
+    _history = DefaultTalkerHistory(this.settings, history: _history.history);
   }
 
   final _talkerStreamController = StreamController<TalkerData>.broadcast();

@@ -38,6 +38,7 @@ class TalkerScreenTheme {
       backgroundColor: theme.colorScheme.background,
       textColor: theme.colorScheme.onBackground,
       cardColor: theme.colorScheme.surface,
+      logColors: logColors,
     );
   }
 }

@@ -49,7 +49,6 @@ extension MapTalkerFlutterColorsExt on LogColors {
   }
 }
 
-// 💡 why not merge this into
 const _defaultColors = {
   /// Base logs section
   TalkerLogType.error: Color.fromARGB(255, 239, 83, 80),

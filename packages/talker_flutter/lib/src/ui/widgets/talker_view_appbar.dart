@@ -109,9 +109,10 @@ class TalkerViewAppBar extends StatelessWidget {
                           return Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
+                              border: Border.all(color: talkerTheme.textColor),
                               borderRadius: BorderRadius.circular(10),
                               color: selected
-                                  ? theme.primaryColor
+                                  ? theme.colorScheme.primaryContainer
                                   : talkerTheme.cardColor,
                             ),
                             child: Row(
@@ -120,7 +121,6 @@ class TalkerViewAppBar extends StatelessWidget {
                                   '$count',
                                   style: const TextStyle(
                                     fontSize: 12,
-                                    color: Colors.white,
                                   ),
                                 ),
                                 const SizedBox(width: 4),
@@ -128,7 +128,6 @@ class TalkerViewAppBar extends StatelessWidget {
                                   '$value',
                                   style: const TextStyle(
                                     fontSize: 12,
-                                    color: Colors.white,
                                   ),
                                 ),
                               ],

@@ -12,6 +12,7 @@ class TalkerMonitorCard extends StatelessWidget {
     required this.color,
     required this.icon,
     this.onTap,
+    required this.theme,
   }) : super(key: key);
 
   final String title;
@@ -21,6 +22,7 @@ class TalkerMonitorCard extends StatelessWidget {
   final Color color;
   final IconData icon;
   final VoidCallback? onTap;
+  final TalkerScreenTheme theme;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class TalkerMonitorCard extends StatelessWidget {
       onTap: onTap,
       child: TalkerBaseCard(
         color: color,
+        backgroundColor: theme.backgroundColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -51,8 +54,8 @@ class TalkerMonitorCard extends StatelessWidget {
                         if (subtitle != null)
                           Text(
                             subtitle!,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: theme.textColor,
                               fontSize: 14,
                             ),
                           ),

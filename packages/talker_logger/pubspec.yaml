@@ -1,6 +1,6 @@
 name: talker_logger
 description: Logger. Easy, customizable, extensible logging, lightweight with filters, formatters, custom logs, log levels.
-version: 4.0.1
+version: 4.0.2
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues

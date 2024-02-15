@@ -1,3 +1,9 @@
+# 4.0.2
+- Fix inconsistent colors at TalkerScreen
+- Add **LogColors** typedef in TalkerTheme ```(Map<TalkerLogType, Color>)```
+
+Thanks to [XanderD99](https://github.com/XanderD99)
+
 # 4.0.1
 - Fix talker configure method problems [issue #186](https://github.com/Frezyx/talker/issues/186)
 

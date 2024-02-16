@@ -53,7 +53,7 @@ class TalkerData {
   final StackTrace? stackTrace;
 
   /// {@template talker_data_time}
-  /// Internal time when the error occurred
+  /// Internal time when the log occurred
   /// {@endtemplate}
   DateTime get time => _time;
 

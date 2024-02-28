@@ -5,8 +5,8 @@ import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 
 /// [BLoC] logger on [Talker] base
 ///
-/// [talker] filed is current [Talker] instance.
-/// Provide your instance if your application used [Talker] as default logger
+/// [talker] field is the current [Talker] instance.
+/// Provide your instance if your application uses [Talker] as the default logger
 /// Common Talker instance will be used by default
 class TalkerBlocObserver extends BlocObserver {
   TalkerBlocObserver({

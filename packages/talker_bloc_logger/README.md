@@ -45,7 +45,7 @@ Bloc.observer = TalkerBlocObserver();
 ```
 
 ## Using with Talker
-You can add your talker instance for TalkerDioLogger if your app already uses Talker.
+You can add your talker instance for TalkerBlocObserver if your app already uses Talker.
 
 In this case, all logs and errors will fall into your unified tracking system
 

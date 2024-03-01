@@ -1,4 +1,4 @@
-import 'package:talker_logger/src/logger_io.dart' if (dart.library.html) 'logger_output_web.dart' as log_output;
+import 'package:talker_logger/src/logger_io.dart' if (dart.library.html) 'logger_web.dart' as log_output;
 import 'package:talker_logger/talker_logger.dart';
 
 class TalkerLogger {

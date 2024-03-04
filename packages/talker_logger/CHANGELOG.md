@@ -1,3 +1,9 @@
+# 4.0.3
+- Support web for talker and talker_logger
+- Update talker_bloc_logger README.md
+
+Thanks to [melodysdreamj](https://github.com/melodysdreamj) and [MiladAtef](https://github.com/MiladAtef)
+
 # 4.0.2
 - Fix inconsistent colors at TalkerScreen
 - Add **LogColors** typedef in TalkerTheme ```(Map<TalkerLogType, Color>)```

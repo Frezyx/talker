@@ -1,5 +1,5 @@
-import 'dart:io';
-
+import 'package:talker_logger/src/logger_io.dart'
+    if (dart.library.html) 'logger_web.dart' as log_output;
 import 'package:talker_logger/talker_logger.dart';
 
 class TalkerLogger {
@@ -11,8 +11,7 @@ class TalkerLogger {
   }) {
     this.settings = settings ?? TalkerLoggerSettings();
     // ignore: avoid_print
-    _output = output ??
-        (String message) => message.split('\n').forEach(stdout.writeln);
+    _output = output ?? log_output.outputLog;
     _filter = filter ?? LogLevelFilter(this.settings.level);
     ansiColorDisabled = false;
   }

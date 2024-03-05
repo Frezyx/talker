@@ -371,7 +371,7 @@ class Talker {
       key: type.key,
       message?.toString() ?? '',
       title: settings.getTitleByLogType(type),
-      exception: Exception(exception),
+      exception: exception,
       stackTrace: stackTrace,
       pen: settings.getAnsiPenByLogType(type),
       logLevel: logLevel,

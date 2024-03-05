@@ -35,7 +35,7 @@ class TalkerData {
   /// {@template talker_data_exception}
   /// [Exception?] [exception] - exception if it happened
   /// {@endtemplate}
-  final Exception? exception;
+  final Object? exception;
 
   /// {@template talker_data_error}
   /// [Error?] [error] - error if it happened

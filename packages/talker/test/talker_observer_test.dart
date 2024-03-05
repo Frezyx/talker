@@ -66,8 +66,7 @@ void main() {
       talker.info(logMessage, exception, stack);
 
       expect(_logsStore.last.message, equals(logMessage));
-      expect(_logsStore.last.exception.toString(),
-          equals('Exception: $exception'));
+      expect(_logsStore.last.exception.toString(), equals(exception));
       expect(_logsStore.last.stackTrace, equals(stack));
 
       expect(_logsStore, isNotEmpty);
@@ -82,8 +81,7 @@ void main() {
       talker.error(logMessage, exception, stack);
 
       expect(_logsStore.last.message, equals(logMessage));
-      expect(_logsStore.last.exception.toString(),
-          equals('Exception: $exception'));
+      expect(_logsStore.last.exception.toString(), equals(exception));
       expect(_logsStore.last.stackTrace, equals(stack));
 
       expect(_logsStore, isNotEmpty);
@@ -98,8 +96,7 @@ void main() {
       talker.verbose(logMessage, exception, stack);
 
       expect(_logsStore.last.message, equals(logMessage));
-      expect(_logsStore.last.exception.toString(),
-          equals('Exception: $exception'));
+      expect(_logsStore.last.exception.toString(), equals(exception));
       expect(_logsStore.last.stackTrace, equals(stack));
 
       expect(_logsStore, isNotEmpty);
@@ -114,8 +111,7 @@ void main() {
       talker.warning(logMessage, exception, stack);
 
       expect(_logsStore.last.message, equals(logMessage));
-      expect(_logsStore.last.exception.toString(),
-          equals('Exception: $exception'));
+      expect(_logsStore.last.exception.toString(), equals(exception));
       expect(_logsStore.last.stackTrace, equals(stack));
 
       expect(_logsStore, isNotEmpty);
@@ -130,8 +126,7 @@ void main() {
       talker.debug(logMessage, exception, stack);
 
       expect(_logsStore.last.message, equals(logMessage));
-      expect(_logsStore.last.exception.toString(),
-          equals('Exception: $exception'));
+      expect(_logsStore.last.exception.toString(), equals(exception));
       expect(_logsStore.last.stackTrace, equals(stack));
 
       expect(_logsStore, isNotEmpty);
@@ -147,8 +142,7 @@ void main() {
       talker.critical(logMessage, exception, stack);
 
       expect(_logsStore.last.message, equals(logMessage));
-      expect(_logsStore.last.exception.toString(),
-          equals('Exception: $exception'));
+      expect(_logsStore.last.exception.toString(), equals(exception));
       expect(_logsStore.last.stackTrace, equals(stack));
 
       expect(_logsStore, isNotEmpty);
@@ -166,8 +160,7 @@ void main() {
           logLevel: LogLevel.debug, exception: exception, stackTrace: stack);
 
       expect(_logsStore.last.message, equals(logMessage));
-      expect(_logsStore.last.exception.toString(),
-          equals('Exception: $exception'));
+      expect(_logsStore.last.exception.toString(), equals(exception));
       expect(_logsStore.last.stackTrace, equals(stack));
 
       expect(_logsStore, isNotEmpty);

@@ -1,3 +1,10 @@
+# 4.1.0
+- Fix Exception and StackTrace is ignored for logs
+- Fix typo at the beginning README.md 
+- Fix TalkerScreen log type selector text colors
+
+Thanks to [qwadrox](https://github.com/qwadrox) and [Danyalo](https://github.com/Danyalo)
+
 # 4.0.3
 - Support web for talker and talker_logger
 - Update talker_bloc_logger README.md

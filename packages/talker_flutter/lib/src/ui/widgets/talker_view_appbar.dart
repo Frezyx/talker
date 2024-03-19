@@ -119,15 +119,17 @@ class TalkerViewAppBar extends StatelessWidget {
                               children: [
                                 Text(
                                   '$count',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 12,
+                                    color: talkerTheme.textColor,
                                   ),
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
                                   '$value',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 12,
+                                    color: talkerTheme.textColor,
                                   ),
                                 ),
                               ],

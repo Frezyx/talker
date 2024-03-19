@@ -127,7 +127,7 @@ Simple and concise syntax will help you with this
 
   final talker = Talker();
 
-  /// Jsut logs
+  /// Just logs
   talker.warning('The pizza is over 😥');
   talker.debug('Thinking about order new one 🤔');
 
@@ -138,7 +138,7 @@ Simple and concise syntax will help you with this
     talker.handle(e, st);
   }
 
-  /// Jsut logs
+  /// Just logs
   talker.info('Ordering from other restaurant...');
   talker.info('Payment started...');
   talker.good('Payment completed. Waiting for pizza 🍕');

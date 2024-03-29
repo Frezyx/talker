@@ -18,6 +18,6 @@ class TalkerLog extends TalkerData {
   /// {@macro talker_data_generateTextMessage}
   @override
   String generateTextMessage() {
-    return '$displayTitleWithTime$displayMessage$displayStackTrace';
+    return '$displayTitleWithTime$displayMessage$displayException$displayStackTrace';
   }
 }

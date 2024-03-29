@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
 
   talker: ^4.1.1
-  group_button: ^5.3.3
+  group_button: ^5.3.4
   path_provider: ^2.1.1
   share_plus: ^7.2.1
 

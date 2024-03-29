@@ -1,3 +1,6 @@
+# 4.1.2
+- [talker_flutter] Bump group_button version to 5.3.4
+
 # 4.1.1
 - Fix TalkerLog.generateTextMessage exception info missing
 

@@ -124,10 +124,10 @@ packages:
     dependency: transitive
     description:
       name: group_button
-      sha256: c10e47213b68438eafdc43a483167ed1d3728d1ccf828cd92b9aac867c8a9106
+      sha256: "0610fcf28ed122bfb4b410fce161a390f7f2531d55d1d65c5375982001415940"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.3"
+    version: "5.3.4"
   js:
     dependency: transitive
     description:
@@ -337,25 +337,25 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: "4e7d69f70579bf12c39206a80b74601b014691e96efd75e4a8a3a075710b859f"
+      sha256: ffc83d15904588f9bf565693f176c1edf21e515abe06792f9dc8577dacf8e1a3
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.1"
+    version: "4.1.2"
   talker_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "4.1.1"
+    version: "4.1.2"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "795f7e434be0449a1b0deb1cc80e7f8ed44ba6083da7050ffcb734f859dddfc6"
+      sha256: f42a300d62e719b8ee129583ab71acac40031f07fea72946e98206734b45858a
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.1"
+    version: "4.1.2"
   term_glyph:
     dependency: transitive
     description:

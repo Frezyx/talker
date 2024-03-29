@@ -1,3 +1,8 @@
+# 4.1.1
+- Fix TalkerLog.generateTextMessage exception info missing
+
+Thanks to [heiha100](https://github.com/heiha100)
+
 # 4.1.0
 - Fix Exception and StackTrace is ignored for logs
 - Fix typo at the beginning README.md 

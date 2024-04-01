@@ -7,6 +7,12 @@ This is how the logs of your grpc requests will look in the console
 ![](preview.jpg)
 
 
+## Note
+
+At the moment, only unary RPCs are supported. Streaming RPCs will probably
+be added in the future. Contributions are welcome!
+
+
 ## Usage
 
 Create an interceptor and instrument your RPC client:

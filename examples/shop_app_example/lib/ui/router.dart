@@ -17,5 +17,24 @@ final appRoutes = <String, WidgetBuilder>{
   Routes.talker: (context) => TalkerScreen(
         talker: DI<Talker>(),
         theme: talkerTheme,
+        customSettings: ValueNotifier([
+          CustomSettingsGroup(
+            name: 'Website settings',
+            isEnabled: true,
+            onChangedIsEnabled: (_) {},
+            items: [
+              CustomSettingsItemBool(
+                name: 'Disable remote logs',
+                value: false,
+                onChanged: (_) {},
+              ),
+              CustomSettingsItemString(
+                name: 'Domain',
+                value: 'https://example.com',
+                onChanged: (_) {},
+              ),
+            ],
+          ),
+        ]),
       ),
 };

@@ -10,6 +10,7 @@ class TalkerScreen extends StatelessWidget {
     this.theme = const TalkerScreenTheme(),
     this.itemsBuilder,
     this.appBarLeading,
+    this.customSettings,
   }) : super(key: key);
 
   /// Talker implementation
@@ -28,6 +29,9 @@ class TalkerScreen extends StatelessWidget {
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
+  /// Optional custom settings
+  final ValueNotifier<List<CustomSettingsGroup>>? customSettings;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +41,7 @@ class TalkerScreen extends StatelessWidget {
         theme: theme,
         appBarTitle: appBarTitle,
         appBarLeading: appBarLeading,
+        customSettings: customSettings,
       ),
     );
   }

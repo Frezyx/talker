@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scrollBehavior: WebScrollBehavior(),
+      scrollBehavior: kIsWeb ? WebScrollBehavior() : null,
       title: 'Talker shop app',
       theme: lightTheme,
       initialRoute: Routes.productsList,

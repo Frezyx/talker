@@ -1,25 +1,24 @@
-name: talker_dio_logger
-description: Lightweight and customizable dio http client logger on talker base
+name: talker_riverpod_logger
+description: Lightweight and customizable Riverpod state management library logger on talker base.
 version: 4.2.0
-
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues
 
 topics:
-  - network
-  - http
-  - dio
+  - riverpod
+  - state
   - logging
   - log
 
 environment:
-  sdk: '>=2.15.0 <4.0.0'
+  sdk: ">=2.15.0 <4.0.0"
 
 dependencies:
-  dio: ^5.4.0
   talker: ^4.2.0
+  riverpod: ^2.5.0
+  meta: ^1.8.0
 
 dev_dependencies:
-  lints: ^2.0.0
+  lints: ^2.0.1
   test: ^1.23.1

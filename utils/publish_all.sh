@@ -19,3 +19,7 @@ cd ../../
 cd packages/talker_bloc_logger
 flutter pub publish
 cd ../../
+
+cd packages/talker_riverpod_logger
+flutter pub publish
+cd ../../

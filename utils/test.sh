@@ -19,3 +19,7 @@ dart test
 echo "talker_bloc_logger"
 cd ../talker_bloc_logger
 dart test
+
+echo "talker_riverpod_logger"
+cd ../talker_riverpod_logger
+dart test

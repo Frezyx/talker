@@ -21,6 +21,12 @@ enum TalkerLogType {
   blocClose('bloc-close'),
   blocCreate('bloc-create'),
 
+  /// Riverpod section
+  riverpodAdd('riverpod-add'),
+  riverpodUpdate('riverpod-update'),
+  riverpodDispose('riverpod-dispose'),
+  riverpodFail('riverpod-fail'),
+
   /// Flutter section
   route('route');
 

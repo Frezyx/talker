@@ -1,3 +1,6 @@
+# 4.1.4
+- [talker_logger] Fix default logs printing method
+
 # 4.1.3
 - [talker_flutter] Bump share_plus version to 8.0.2
 - [talker_flutter] Bump path_provider version to 2.1.2

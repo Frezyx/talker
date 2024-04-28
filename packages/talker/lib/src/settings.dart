@@ -21,7 +21,7 @@ const _defaultTitles = {
   TalkerLogType.blocCreate: 'bloc-create',
   TalkerLogType.blocClose: 'bloc-close',
 
-  /// Bloc section
+  /// Riverpod section
   TalkerLogType.riverpodAdd: 'riverpod-add',
   TalkerLogType.riverpodUpdate: 'riverpod-update',
   TalkerLogType.riverpodDispose: 'riverpod-dispose',

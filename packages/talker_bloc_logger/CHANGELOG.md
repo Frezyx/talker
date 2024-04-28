@@ -1,5 +1,8 @@
-# 4.2.0
-- Add [talker_riverpod_logger](https://pub.dev/packages/talker_riverpod_logger)
+# 4.1.5
+- [talker_flutter] Bump share_plus version to 9.0.0
+
+# 4.1.4
+- [talker_logger] Fix default logs printing method
 
 # 4.1.3
 - [talker_flutter] Bump share_plus version to 8.0.2

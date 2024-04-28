@@ -284,18 +284,18 @@ packages:
     dependency: transitive
     description:
       name: share_plus
-      sha256: "05ec043470319bfbabe0adbc90d3a84cbff0426b9d9f3a6e2ad3e131fa5fa629"
+      sha256: ef3489a969683c4f3d0239010cc8b7a2a46543a8d139e111c06c558875083544
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.2"
+    version: "9.0.0"
   share_plus_platform_interface:
     dependency: transitive
     description:
       name: share_plus_platform_interface
-      sha256: "251eb156a8b5fa9ce033747d73535bf53911071f8d3b6f4f0b578505ce0d4496"
+      sha256: "0f9e4418835d1b2c3ae78fdb918251959106cefdbc4dd43526e182f80e82f6d4"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -337,7 +337,7 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: "94eae57b0f7bc69de61b0c19caa979400f2bd82169f15589751afed0af1e3566"
+      sha256: "7fd2118fbdd35ee9004d1ed326d101cdbabe5fed3575e9e9aa050535e019e885"
       url: "https://pub.dev"
     source: hosted
     version: "4.1.5"
@@ -352,7 +352,7 @@ packages:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "72060da28a82dbedf64cab4c3d792c3aac7d48afb0887049791faac6ed0726d8"
+      sha256: d09f459ff09ab510f74f4384d674dccce0a85ecf8b5733258ffdc9869d082505
       url: "https://pub.dev"
     source: hosted
     version: "4.1.5"
@@ -448,10 +448,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "5a751eddf9db89b3e5f9d50c20ab8612296e4e8db69009788d6c8b060a84191c"
+      sha256: "7dacfda1edcca378031db9905ad7d7bd56b29fd1a90b0908b71a52a12c41e36b"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.5"
+    version: "5.0.3"
   xdg_directories:
     dependency: transitive
     description:

@@ -124,10 +124,10 @@ packages:
     dependency: transitive
     description:
       name: group_button
-      sha256: c10e47213b68438eafdc43a483167ed1d3728d1ccf828cd92b9aac867c8a9106
+      sha256: "0610fcf28ed122bfb4b410fce161a390f7f2531d55d1d65c5375982001415940"
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.3"
+    version: "5.3.4"
   http_parser:
     dependency: transitive
     description:
@@ -220,10 +220,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider
-      sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
+      sha256: c9e7d3a4cd1410877472158bee69963a4579f78b68c65a2b7d40d1a7a88bb161
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.3"
   path_provider_android:
     dependency: transitive
     description:
@@ -236,10 +236,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "19314d595120f82aca0ba62787d58dde2cc6b5df7d2f0daf72489e38d1b57f2d"
+      sha256: "5a7999be66e000916500be4f15a3633ebceb8302719b47b9cc49ce924125350f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   path_provider_linux:
     dependency: transitive
     description:
@@ -292,18 +292,18 @@ packages:
     dependency: transitive
     description:
       name: share_plus
-      sha256: f74fc3f1cbd99f39760182e176802f693fa0ec9625c045561cfad54681ea93dd
+      sha256: ef3489a969683c4f3d0239010cc8b7a2a46543a8d139e111c06c558875083544
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.1"
+    version: "9.0.0"
   share_plus_platform_interface:
     dependency: transitive
     description:
       name: share_plus_platform_interface
-      sha256: df08bc3a07d01f5ea47b45d03ffcba1fa9cd5370fb44b3f38c70e42cced0f956
+      sha256: "0f9e4418835d1b2c3ae78fdb918251959106cefdbc4dd43526e182f80e82f6d4"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.1"
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -345,7 +345,7 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: "4e7d69f70579bf12c39206a80b74601b014691e96efd75e4a8a3a075710b859f"
+      sha256: "7fd2118fbdd35ee9004d1ed326d101cdbabe5fed3575e9e9aa050535e019e885"
       url: "https://pub.dev"
     source: hosted
     version: "4.1.5"
@@ -367,7 +367,7 @@ packages:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "795f7e434be0449a1b0deb1cc80e7f8ed44ba6083da7050ffcb734f859dddfc6"
+      sha256: d09f459ff09ab510f74f4384d674dccce0a85ecf8b5733258ffdc9869d082505
       url: "https://pub.dev"
     source: hosted
     version: "4.1.5"
@@ -451,6 +451,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "13.0.0"
+  web:
+    dependency: transitive
+    description:
+      name: web
+      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
   win32:
     dependency: transitive
     description:
@@ -468,5 +476,5 @@ packages:
     source: hosted
     version: "0.2.0+3"
 sdks:
-  dart: ">=3.2.0-0 <4.0.0"
-  flutter: ">=3.13.0"
+  dart: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"

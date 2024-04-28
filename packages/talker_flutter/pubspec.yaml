@@ -23,7 +23,7 @@ dependencies:
   talker: ^4.1.4
   group_button: ^5.3.4
   path_provider: ^2.1.2
-  share_plus: ^8.0.2
+  share_plus: ^9.0.0
 
 
 dev_dependencies:

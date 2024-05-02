@@ -13,12 +13,6 @@ class TestNotifier extends StateNotifier<String> {
   }
 }
 
-final List<String> array = [];
-
-class TestErrorNotifier extends StateNotifier<String> {
-  TestErrorNotifier() : super(array.first);
-}
-
 ProviderContainer createContainer({
   ProviderContainer? parent,
   List<Override> overrides = const [],
@@ -38,7 +32,7 @@ void main() {
     late Talker talker;
     late ProviderContainer container;
     late StateNotifierProvider<TestNotifier, String> provider;
-    late StateNotifierProvider<TestErrorNotifier, String> errorProvider;
+    late FutureProvider<String> errorProvider;
     late TalkerRiverpodObserver talkerRiverpodObserver;
 
     setUp(() {
@@ -55,14 +49,11 @@ void main() {
       provider = StateNotifierProvider<TestNotifier, String>(
         (ref) => TestNotifier(),
       );
-      errorProvider = StateNotifierProvider<TestErrorNotifier, String>(
-        (ref) => TestErrorNotifier(),
-      );
+      errorProvider = FutureProvider<String>((ref) => throw ("Error"));
       container = createContainer(
         observers: [talkerRiverpodObserver],
         overrides: [
           provider.overrideWith((ref) => TestNotifier()),
-          errorProvider.overrideWith((ref) => TestErrorNotifier())
         ],
       );
     });
@@ -95,7 +86,7 @@ void main() {
     test('providerDidFail', () async {
       container.read(errorProvider);
       await Future.delayed(const Duration(milliseconds: 10));
-      final log = talker.history.last;
+      final log = talker.history.first;
       expect(log.generateTextMessage(), contains('failed'));
     });
   });

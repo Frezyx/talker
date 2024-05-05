@@ -21,6 +21,12 @@ const _defaultTitles = {
   TalkerLogType.blocCreate: 'bloc-create',
   TalkerLogType.blocClose: 'bloc-close',
 
+  /// Riverpod section
+  TalkerLogType.riverpodAdd: 'riverpod-add',
+  TalkerLogType.riverpodUpdate: 'riverpod-update',
+  TalkerLogType.riverpodDispose: 'riverpod-dispose',
+  TalkerLogType.riverpodFail: 'riverpod-fail',
+
   /// Flutter section
   TalkerLogType.route: 'route',
 };
@@ -45,6 +51,12 @@ final _defaultColors = {
   TalkerLogType.blocTransition: AnsiPen()..xterm(49),
   TalkerLogType.blocCreate: AnsiPen()..xterm(35),
   TalkerLogType.blocClose: AnsiPen()..xterm(198),
+
+  /// Riverpod section
+  TalkerLogType.riverpodAdd: AnsiPen()..xterm(51),
+  TalkerLogType.riverpodUpdate: AnsiPen()..xterm(49),
+  TalkerLogType.riverpodDispose: AnsiPen()..xterm(198),
+  TalkerLogType.riverpodFail: AnsiPen()..red(),
 
   /// Flutter section
   TalkerLogType.route: AnsiPen()..xterm(135),

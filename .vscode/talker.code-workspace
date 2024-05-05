@@ -23,6 +23,10 @@
         {
             "name": "talker_logger",
             "path": "../packages/talker_logger"
+        },
+        {
+            "name": "talker_riverpod_logger",
+            "path": "../packages/talker_riverpod_logger"
         }
     ]
 }

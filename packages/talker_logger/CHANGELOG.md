@@ -1,3 +1,6 @@
+# 4.2.0
+- Initial release of [talker_riverpod_logger](https://pub.dev/packages/talker_riverpod_logger)
+
 # 4.1.5
 - [talker_flutter] Bump share_plus version to 9.0.0
 

@@ -31,7 +31,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_riverpod_logger: ^4.2.0
+  talker_riverpod_logger: ^1.0.0
 ```
 
 ### Usage
@@ -117,7 +117,7 @@ TalkerRiverpodObserver(
     printProviderDisposed: true,
     printProviderFailed: true,
     // If you want log only AuthProvider events
-      eventFilter: (provider) => provider.runtimeType == 'AuthProvider<User>',
+    eventFilter: (provider) => provider.runtimeType == 'AuthProvider<User>',
   ),
 )
 ```

@@ -119,13 +119,16 @@ class DioErrorLog extends TalkerLog {
     if (statusCode != null) {
       msg += '\nStatus: ${dioException.response?.statusCode}';
     }
-    msg += '\nMessage: $responseMessage';
 
-    if (data != null) {
+    if (settings.printErrorMessage && responseMessage != null) {
+      msg += '\nMessage: $responseMessage';
+    }
+
+    if (settings.printErrorData && data != null) {
       final prettyData = encoder.convert(data);
       msg += '\nData: $prettyData';
     }
-    if (!(headers?.isEmpty ?? true)) {
+    if (settings.printErrorHeaders && !(headers?.isEmpty ?? true)) {
       final prettyHeaders = encoder.convert(headers!.map);
       msg += '\nHeaders: $prettyHeaders';
     }

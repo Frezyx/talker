@@ -1,23 +1,20 @@
 import 'package:talker/src/utils/time_format.dart';
 import 'package:talker/talker.dart';
 
-
 /// Base [Talker] Data transfer object
 /// Objects of this type are passed through
 /// handlers observer and stream
 class TalkerData {
-  TalkerData(
-    this.message, {
-    this.logLevel,
-    this.exception,
-    this.error,
-    this.stackTrace,
-    this.title = 'log',
-    DateTime? time,
-    this.pen,
-    this.key,
-    this.timeFormat
-  }) {
+  TalkerData(this.message,
+      {this.logLevel,
+      this.exception,
+      this.error,
+      this.stackTrace,
+      this.title = 'log',
+      DateTime? time,
+      this.pen,
+      this.key,
+      this.timeFormat}) {
     _time = time ?? DateTime.now();
   }
 
@@ -125,5 +122,6 @@ extension FieldsToDisplay on TalkerData {
   }
 
   /// Displayed tile of [TalkerData]
-  String get displayTime => TalkerDateTimeFormatter(time, timeFormat: timeFormat).format;
+  String get displayTime =>
+      TalkerDateTimeFormatter(time, timeFormat: timeFormat).format;
 }

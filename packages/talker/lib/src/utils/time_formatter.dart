@@ -1,6 +1,5 @@
 import 'package:talker/src/utils/time_format.dart';
 
-
 /// Utility class for [DateTime] formatting.
 class TalkerDateTimeFormatter {
   /// Constructs a [TalkerDateTimeFormatter] with the given [date].

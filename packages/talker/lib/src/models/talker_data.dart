@@ -1,4 +1,6 @@
+import 'package:talker/src/utils/time_format.dart';
 import 'package:talker/talker.dart';
+
 
 /// Base [Talker] Data transfer object
 /// Objects of this type are passed through
@@ -14,6 +16,7 @@ class TalkerData {
     DateTime? time,
     this.pen,
     this.key,
+    this.timeFormat
   }) {
     _time = time ?? DateTime.now();
   }
@@ -56,6 +59,11 @@ class TalkerData {
   /// Internal time when the log occurred
   /// {@endtemplate}
   DateTime get time => _time;
+
+  /// {@template talker_data_timeFormat}
+  /// Time format to display time
+  /// {@endtemplate}
+  final TimeFormat? timeFormat;
 
   /// [AnsiPen?] [pen] - sets your own log color for console
   final AnsiPen? pen;
@@ -117,5 +125,5 @@ extension FieldsToDisplay on TalkerData {
   }
 
   /// Displayed tile of [TalkerData]
-  String get displayTime => TalkerDateTimeFormatter(time).timeAndSeconds;
+  String get displayTime => TalkerDateTimeFormatter(time, timeFormat: timeFormat).format;
 }

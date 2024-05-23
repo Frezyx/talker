@@ -169,7 +169,7 @@ class BarButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(backgroundColor),
+        backgroundColor: WidgetStateProperty.all(backgroundColor),
       ),
       child: Text(
         title,

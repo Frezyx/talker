@@ -35,8 +35,8 @@ class TalkerScreenTheme {
 
   factory TalkerScreenTheme.fromTheme(ThemeData theme, [LogColors? logColors]) {
     return TalkerScreenTheme(
-      backgroundColor: theme.colorScheme.background,
-      textColor: theme.colorScheme.onBackground,
+      backgroundColor: theme.colorScheme.surface,
+      textColor: theme.colorScheme.onSurface,
       cardColor: theme.colorScheme.surface,
       logColors: logColors,
     );

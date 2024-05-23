@@ -126,8 +126,8 @@ class _OpenLogsButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton.icon(
         style: ButtonStyle(
-          backgroundColor: const MaterialStatePropertyAll(Colors.black),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          backgroundColor: const WidgetStatePropertyAll(Colors.black),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             ),

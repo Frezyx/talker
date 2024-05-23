@@ -31,6 +31,9 @@ class TalkerDioLogger extends Interceptor {
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
+    bool? printErrorData,
+    bool? printErrorHeaders,
+    bool? printErrorMessage,
     bool? printRequestData,
     bool? printRequestHeaders,
     AnsiPen? requestPen,
@@ -41,6 +44,9 @@ class TalkerDioLogger extends Interceptor {
       printRequestData: printRequestData,
       printRequestHeaders: printRequestHeaders,
       printResponseData: printResponseData,
+      printErrorData: printErrorData,
+      printErrorHeaders: printErrorHeaders,
+      printErrorMessage: printErrorMessage,
       printResponseHeaders: printResponseHeaders,
       printResponseMessage: printResponseMessage,
       requestPen: requestPen,
@@ -95,6 +101,10 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
+    final accepted = settings.errorFilter?.call(err) ?? true;
+    if (!accepted) {
+      return;
+    }
     try {
       final message = '${err.requestOptions.uri}';
       final httpErrorLog = DioErrorLog(

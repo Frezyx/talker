@@ -151,6 +151,42 @@ void main() {
     });
 
     test(
+        'generateTextMessage should not include data, header and message if disabled',
+        () {
+      final dioException = DioException(
+          requestOptions: RequestOptions(path: '/test', method: 'GET'),
+          message: 'Error message',
+          response: Response(
+              requestOptions: RequestOptions(path: '/test', method: 'GET'),
+              headers: Headers.fromMap(
+                {
+                  'content-type': ['application/json'],
+                },
+              )));
+      final settings = TalkerDioLoggerSettings(
+        errorPen: AnsiPen()..blue(),
+        printErrorData: false,
+        printErrorHeaders: false,
+        printErrorMessage: false,
+      );
+      final dioErrorLog = DioErrorLog('Error title',
+          dioException: dioException, settings: settings);
+
+      final result = dioErrorLog.generateTextMessage();
+      expect(result, contains('[log] [GET] Error title'));
+      expect(result, isNot(contains('Message: Error message')));
+      expect(
+          result,
+          isNot(contains(
+            'Headers: {\n'
+            '  "content-type": [\n'
+            '    "application/json"\n'
+            '  ]\n'
+            '}',
+          )));
+    });
+
+    test(
         'generateTextMessage should include status if response has a status code',
         () {
       final response = Response(

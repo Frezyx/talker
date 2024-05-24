@@ -2,13 +2,29 @@ import 'package:riverpod/riverpod.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
+String _defaultMessage({
+  required ProviderBase<Object?> provider,
+  required String suffix,
+}) {
+  if (provider.name == null) {
+    return '${provider.runtimeType} $suffix';
+  }
+
+  return '${provider.name} | ${provider.runtimeType} $suffix';
+}
+
 /// [Riverpod] add provider log model
 class RiverpodAddLog extends TalkerLog {
   RiverpodAddLog({
     required this.provider,
     required this.value,
     required this.settings,
-  }) : super('${provider.runtimeType} initialized');
+  }) : super(
+          _defaultMessage(
+            provider: provider,
+            suffix: 'initialized',
+          ),
+        );
 
   final ProviderBase<Object?> provider;
   final Object? value;
@@ -39,7 +55,12 @@ class RiverpodUpdateLog extends TalkerLog {
     required this.previousValue,
     required this.newValue,
     required this.settings,
-  }) : super('${provider.runtimeType} updated');
+  }) : super(
+          _defaultMessage(
+            provider: provider,
+            suffix: 'updated',
+          ),
+        );
 
   final ProviderBase<Object?> provider;
   final Object? previousValue;
@@ -71,7 +92,12 @@ class RiverpodDisposeLog extends TalkerLog {
   RiverpodDisposeLog({
     required this.provider,
     required this.settings,
-  }) : super('${provider.runtimeType} disposed');
+  }) : super(
+          _defaultMessage(
+            provider: provider,
+            suffix: 'disposed',
+          ),
+        );
 
   final ProviderBase<Object?> provider;
   final TalkerRiverpodLoggerSettings settings;
@@ -99,7 +125,12 @@ class RiverpodFailLog extends TalkerLog {
     required this.providerError,
     required this.providerStackTrace,
     required this.settings,
-  }) : super('${provider.runtimeType} failed');
+  }) : super(
+          _defaultMessage(
+            provider: provider,
+            suffix: 'failed',
+          ),
+        );
 
   final ProviderBase<Object?> provider;
   final Object providerError;

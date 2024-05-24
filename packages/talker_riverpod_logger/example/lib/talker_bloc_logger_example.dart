@@ -21,14 +21,17 @@ import 'models.dart';
 /// Creates a [Repository].
 ///
 /// This will correctly wait until the configurations are available.
-final repositoryProvider = FutureProvider<Repository>((ref) async {
-  final repository = Repository();
-  // Releases the resources when the provider is destroyed.
-  // This will stop pending HTTP requests.
-  ref.onDispose(repository.dispose);
+final repositoryProvider = FutureProvider<Repository>(
+  (ref) async {
+    final repository = Repository();
+    // Releases the resources when the provider is destroyed.
+    // This will stop pending HTTP requests.
+    ref.onDispose(repository.dispose);
 
-  return repository;
-});
+    return repository;
+  },
+  name: 'repositoryProvider',
+);
 
 Future<void> main() async {
   // Where the state of our providers will be stored.

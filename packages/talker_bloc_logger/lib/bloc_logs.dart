@@ -48,7 +48,8 @@ class BlocStateLog extends TalkerLog {
   String get key => TalkerLogType.blocTransition.key;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return _createMessage();
   }
 

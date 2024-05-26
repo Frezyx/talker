@@ -101,7 +101,7 @@ void main() {
         time: dateTime,
       );
 
-      final displayTime = talkerData.displayTime;
+      final displayTime = talkerData.displayTime();
       expect(displayTime,
           equals(TalkerDateTimeFormatter(dateTime).timeAndSeconds));
     });

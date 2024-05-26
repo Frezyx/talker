@@ -1,3 +1,4 @@
+import 'package:talker/src/utils/time_format.dart';
 import 'package:talker/talker.dart';
 
 /// Base implementation of [TalkerData]
@@ -17,7 +18,8 @@ class TalkerLog extends TalkerData {
 
   /// {@macro talker_data_generateTextMessage}
   @override
-  String generateTextMessage() {
-    return '$displayTitleWithTime$displayMessage$displayException$displayStackTrace';
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$displayMessage$displayException$displayStackTrace';
   }
 }

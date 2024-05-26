@@ -1,3 +1,6 @@
+# 1.0.3
+- [talker_riverpod_logger] Include Provider's name in logs output
+
 # 1.0.2
 - [talker_flutter] Support for Flutter 3.22, fix new version deprecations
 

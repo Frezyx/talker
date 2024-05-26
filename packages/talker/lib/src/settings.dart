@@ -1,3 +1,4 @@
+import 'package:talker/src/utils/time_format.dart';
 import 'package:talker/talker.dart';
 
 const _defaultTitles = {
@@ -73,9 +74,11 @@ class TalkerSettings {
     int maxHistoryItems = 1000,
     this.titles = _defaultTitles,
     Map<TalkerLogType, AnsiPen>? colors,
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
-        _maxHistoryItems = maxHistoryItems {
+        _maxHistoryItems = maxHistoryItems,
+        _timeFormat = timeFormat {
     if (colors != null) {
       _defaultColors.addAll(colors);
     }
@@ -98,6 +101,10 @@ class TalkerSettings {
   /// Max records count in history list
   int get maxHistoryItems => _maxHistoryItems;
   final int _maxHistoryItems;
+
+  /// the time format of the logs [TimeFormat]
+  TimeFormat get timeFormat => _timeFormat;
+  final TimeFormat _timeFormat;
 
   /// Use writing talker records in file
   // bool get writeToFile => _writeToFile && enabled;

@@ -391,7 +391,7 @@ class Talker {
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
       _logger.log(
-        data.generateTextMessage(),
+        data.generateTextMessage(timeFormat: settings.timeFormat),
         level: data.logLevel ?? LogLevel.error,
       );
     }
@@ -423,7 +423,7 @@ class Talker {
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
       _logger.log(
-        data.generateTextMessage(),
+        data.generateTextMessage(timeFormat: settings.timeFormat),
         level: logLevel ?? data.logLevel,
         pen: data.pen ?? customPen,
       );

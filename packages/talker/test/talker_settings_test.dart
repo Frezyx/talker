@@ -1,3 +1,4 @@
+import 'package:talker/src/utils/time_format.dart';
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
@@ -59,7 +60,7 @@ class HttpTalkerLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..blue();
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return pen.write(message ?? '');
   }
 }

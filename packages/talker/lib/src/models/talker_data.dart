@@ -5,16 +5,17 @@ import 'package:talker/talker.dart';
 /// Objects of this type are passed through
 /// handlers observer and stream
 class TalkerData {
-  TalkerData(this.message,
-      {this.logLevel,
-      this.exception,
-      this.error,
-      this.stackTrace,
-      this.title = 'log',
-      DateTime? time,
-      this.pen,
-      this.key,
-      this.timeFormat}) {
+  TalkerData(
+    this.message, {
+    this.logLevel,
+    this.exception,
+    this.error,
+    this.stackTrace,
+    this.title = 'log',
+    DateTime? time,
+    this.pen,
+    this.key,
+  }) {
     _time = time ?? DateTime.now();
   }
 
@@ -57,11 +58,6 @@ class TalkerData {
   /// {@endtemplate}
   DateTime get time => _time;
 
-  /// {@template talker_data_timeFormat}
-  /// Time format to display time
-  /// {@endtemplate}
-  final TimeFormat? timeFormat;
-
   /// [AnsiPen?] [pen] - sets your own log color for console
   final AnsiPen? pen;
 
@@ -75,8 +71,9 @@ class TalkerData {
   /// [TalkerError] -> [TalkerError.generateTextMessage]
   ///
   /// {@endtemplate}
-  String generateTextMessage() {
-    return '$displayTitleWithTime$message$displayStackTrace';
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$message$displayStackTrace';
   }
 }
 
@@ -85,7 +82,8 @@ class TalkerData {
 extension FieldsToDisplay on TalkerData {
   /// Displayed title of [TalkerData]
 
-  String get displayTitleWithTime {
+  String displayTitleWithTime(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return '[$title] | $displayTime | ';
   }
 
@@ -122,6 +120,6 @@ extension FieldsToDisplay on TalkerData {
   }
 
   /// Displayed tile of [TalkerData]
-  String get displayTime =>
+  String displayTime({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) =>
       TalkerDateTimeFormatter(time, timeFormat: timeFormat).format;
 }

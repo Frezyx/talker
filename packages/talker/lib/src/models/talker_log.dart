@@ -1,4 +1,3 @@
-import 'package:talker/src/utils/time_format.dart';
 import 'package:talker/talker.dart';
 
 /// Base implementation of [TalkerData]

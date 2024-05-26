@@ -84,7 +84,7 @@ extension FieldsToDisplay on TalkerData {
 
   String displayTitleWithTime(
       {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
-    return '[$title] | $displayTime | ';
+    return '[$title] | ${displayTime(timeFormat: timeFormat)} | ';
   }
 
   /// Displayed stackTrace of [TalkerData]

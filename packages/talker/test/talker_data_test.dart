@@ -44,7 +44,7 @@ void main() {
       expect(
         generatedMessage,
         equals(
-          '${talkerData.displayTitleWithTime}${talkerData.displayMessage}${talkerData.displayStackTrace}',
+          '${talkerData.displayTitleWithTime()}${talkerData.displayMessage}${talkerData.displayStackTrace}',
         ),
       );
     });
@@ -58,7 +58,7 @@ void main() {
         time: dateTime,
       );
 
-      final displayTitleWithTime = talkerData.displayTitleWithTime;
+      final displayTitleWithTime = talkerData.displayTitleWithTime();
       expect(
           displayTitleWithTime,
           equals(

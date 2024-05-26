@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  backgroundColor: WidgetStateProperty.all(Colors.red),
                 ),
                 onPressed: () {
                   _dio.get('htt://jsonplaceholder.typicode.com/todos');

@@ -169,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  fixnum:
+    dependency: transitive
+    description:
+      name: fixnum
+      sha256: "25517a4deb0c03aa0f32fd12db525856438902d9c16536311e76cdc57b31d7d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -451,35 +459,35 @@ packages:
       path: "../../packages/talker"
       relative: true
     source: path
-    version: "4.2.0"
+    version: "4.2.3"
   talker_bloc_logger:
     dependency: "direct main"
     description:
       path: "../../packages/talker_bloc_logger"
       relative: true
     source: path
-    version: "4.2.0"
+    version: "4.2.3"
   talker_dio_logger:
     dependency: "direct main"
     description:
       path: "../../packages/talker_dio_logger"
       relative: true
     source: path
-    version: "4.2.0"
+    version: "4.2.3"
   talker_flutter:
     dependency: "direct main"
     description:
       path: "../../packages/talker_flutter"
       relative: true
     source: path
-    version: "4.2.0"
+    version: "4.2.3"
   talker_logger:
     dependency: "direct overridden"
     description:
       path: "../../packages/talker_logger"
       relative: true
     source: path
-    version: "4.2.0"
+    version: "4.2.3"
   term_glyph:
     dependency: transitive
     description:
@@ -572,10 +580,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "22c94e5ad1e75f9934b766b53c742572ee2677c56bc871d850a57dad0f82127f"
+      sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.2"
+    version: "4.4.0"
   vector_math:
     dependency: transitive
     description:

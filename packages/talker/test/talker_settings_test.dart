@@ -60,7 +60,8 @@ class HttpTalkerLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..blue();
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return pen.write(message ?? '');
   }
 }

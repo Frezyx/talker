@@ -43,7 +43,8 @@ class RiverpodAddLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime);
     sb.write('\n$message');
-    sb.write('\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}');
+    sb.write(
+        '\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}');
     return sb.toString();
   }
 }
@@ -60,7 +61,9 @@ class RiverpodUpdateLog extends TalkerLog {
                 provider: provider,
                 suffix: 'updated',
               ) +
-              (settings.printStateFullData ? '\nPREVIOUS state:\n$previousValue\nNEW state:\n$newValue' : ''),
+              (settings.printStateFullData
+                  ? '\nPREVIOUS state:\n$previousValue\nNEW state:\n$newValue'
+                  : ''),
         );
 
   final ProviderBase<Object?> provider;
@@ -80,8 +83,10 @@ class RiverpodUpdateLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime);
     sb.write('\n$message');
-    sb.write('\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}');
-    sb.write('\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}');
+    sb.write(
+        '\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}');
+    sb.write(
+        '\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}');
     return sb.toString();
   }
 }
@@ -129,7 +134,9 @@ class RiverpodFailLog extends TalkerLog {
                 provider: provider,
                 suffix: 'failed',
               ) +
-              (settings.printFailFullData ? '\nERROR:\n$providerError\nSTACK TRACE:\n$providerStackTrace' : ''),
+              (settings.printFailFullData
+                  ? '\nERROR:\n$providerError\nSTACK TRACE:\n$providerStackTrace'
+                  : ''),
         );
 
   final ProviderBase<Object?> provider;

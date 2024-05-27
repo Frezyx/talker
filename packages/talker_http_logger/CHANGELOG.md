@@ -1,3 +1,6 @@
+## 0.1.0-dev.4
+- [talker_riverpod_logger] Include Provider's name in logs output
+
 ## 0.1.0-dev.3
 
 - [talker] Bump version to 4.1.4

@@ -8,6 +8,7 @@ class TalkerRiverpodLoggerSettings {
     this.printProviderDisposed = false,
     this.printProviderFailed = true,
     this.printStateFullData = true,
+    this.printFailFullData = true,
     this.providerFilter,
   });
 
@@ -17,5 +18,6 @@ class TalkerRiverpodLoggerSettings {
   final bool printProviderDisposed;
   final bool printProviderFailed;
   final bool printStateFullData;
+  final bool printFailFullData;
   final bool Function(ProviderBase<Object?> provider)? providerFilter;
 }

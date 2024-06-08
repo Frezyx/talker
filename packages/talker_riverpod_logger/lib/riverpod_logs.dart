@@ -21,9 +21,10 @@ class RiverpodAddLog extends TalkerLog {
     required this.settings,
   }) : super(
           _defaultMessage(
-            provider: provider,
-            suffix: 'initialized',
-          ),
+                provider: provider,
+                suffix: 'initialized',
+              ) +
+              (settings.printStateFullData ? '\nINITIAL state: \n$value' : ''),
         );
 
   final ProviderBase<Object?> provider;
@@ -57,9 +58,12 @@ class RiverpodUpdateLog extends TalkerLog {
     required this.settings,
   }) : super(
           _defaultMessage(
-            provider: provider,
-            suffix: 'updated',
-          ),
+                provider: provider,
+                suffix: 'updated',
+              ) +
+              (settings.printStateFullData
+                  ? '\nPREVIOUS state:\n$previousValue\nNEW state:\n$newValue'
+                  : ''),
         );
 
   final ProviderBase<Object?> provider;
@@ -127,9 +131,12 @@ class RiverpodFailLog extends TalkerLog {
     required this.settings,
   }) : super(
           _defaultMessage(
-            provider: provider,
-            suffix: 'failed',
-          ),
+                provider: provider,
+                suffix: 'failed',
+              ) +
+              (settings.printFailFullData
+                  ? '\nERROR:\n$providerError\nSTACK TRACE:\n$providerStackTrace'
+                  : ''),
         );
 
   final ProviderBase<Object?> provider;

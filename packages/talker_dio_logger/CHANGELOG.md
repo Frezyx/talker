@@ -1,5 +1,12 @@
+# 4.2.4
+- [talker_riverpod_logger] Print missing data on TalkerScreen 
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff)
+
 # 4.2.3
 - [talker_riverpod_logger] Include Provider's name in logs output
+
+Thanks to [KoheiKanagu](https://github.com/KoheiKanagu)
 
 # 4.2.2
 - [talker_flutter] Support for Flutter 3.22, fix new version deprecations
@@ -11,8 +18,12 @@
   - `printErrorMessage`
   - `errorFilter`
 
+Thanks to [Ali1Ammar](https://github.com/Ali1Ammar)
+
 # 4.2.0
 - Initial release of [talker_riverpod_logger](https://pub.dev/packages/talker_riverpod_logger)
+
+Thanks to [jbdujardin](https://github.com/jbdujardin)
 
 
 # 4.1.5

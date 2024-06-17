@@ -51,7 +51,7 @@ class TalkerMonitorCard extends StatelessWidget {
                         if (subtitle != null)
                           Text(
                             subtitle!,
-                            style: TextStyle(fontSize: 14),
+                            style: const TextStyle(fontSize: 14),
                           ),
                         if (subtitleWidget != null) subtitleWidget!
                       ],

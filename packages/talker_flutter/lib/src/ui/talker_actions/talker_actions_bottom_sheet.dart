@@ -57,7 +57,7 @@ class _ActionTile extends StatelessWidget {
           onTap: () => _onTap(context),
           title: Text(
             action.title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
@@ -66,7 +66,7 @@ class _ActionTile extends StatelessWidget {
             action.icon,
           ),
         ),
-        if (showDivider) Divider(height: 1),
+        if (showDivider) const Divider(height: 1),
       ],
     );
   }

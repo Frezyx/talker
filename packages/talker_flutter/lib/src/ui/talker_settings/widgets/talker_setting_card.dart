@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/src/ui/widgets/base_card.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerSettingsCard extends StatelessWidget {
   const TalkerSettingsCard({
     Key? key,
-    required this.talkerScreenTheme,
     required this.title,
     required this.enabled,
     required this.onChanged,
@@ -16,7 +14,6 @@ class TalkerSettingsCard extends StatelessWidget {
   final String title;
   final bool enabled;
   final Function(bool enabled) onChanged;
-  final TalkerScreenTheme talkerScreenTheme;
   final bool canEdit;
 
   @override
@@ -29,13 +26,10 @@ class TalkerSettingsCard extends StatelessWidget {
         child: TalkerBaseCard(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
               .copyWith(right: 0),
-          color: talkerScreenTheme.textColor,
-          backgroundColor: talkerScreenTheme.cardColor,
           child: ListTile(
             title: Text(
               title,
-              style: TextStyle(
-                color: talkerScreenTheme.textColor,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),

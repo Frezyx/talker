@@ -6,18 +6,18 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
   const TalkerMonitorTypedLogsScreen({
     Key? key,
     required this.exceptions,
-    required this.theme,
+    required this.logColors,
     required this.typeName,
   }) : super(key: key);
 
   final String typeName;
-  final TalkerScreenTheme theme;
   final List<TalkerData> exceptions;
+
+  final LogColors logColors;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         title: Text('Talker Monitor $typeName'),
       ),
@@ -28,11 +28,11 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final data = exceptions[index];
+
                 return TalkerDataCard(
                   data: data,
                   onCopyTap: () => _copyTalkerDataItemText(context, data),
-                  color: data.getFlutterColor(theme),
-                  backgroundColor: theme.cardColor,
+                  color: logColors.fromTalkerData(data),
                 );
               },
               childCount: exceptions.length,

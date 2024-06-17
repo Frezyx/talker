@@ -15,17 +15,18 @@ class TalkerView extends StatefulWidget {
     required this.talker,
     this.controller,
     this.scrollController,
-    this.theme = const TalkerScreenTheme(),
     this.appBarTitle,
     this.itemsBuilder,
     this.appBarLeading,
-  }) : super(key: key);
+    final LogColors? logColors,
+  })  : logColors = logColors ?? defaultColors,
+        super(key: key);
 
   /// Talker implementation
   final Talker talker;
 
   /// Theme for customize [TalkerScreen]
-  final TalkerScreenTheme theme;
+  final LogColors logColors;
 
   /// Screen [AppBar] title
   final String? appBarTitle;
@@ -51,7 +52,6 @@ class _TalkerViewState extends State<TalkerView> {
 
   @override
   Widget build(BuildContext context) {
-    final talkerTheme = widget.theme;
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: AnimatedBuilder(
@@ -73,15 +73,13 @@ class _TalkerViewState extends State<TalkerView> {
                     title: widget.appBarTitle,
                     leading: widget.appBarLeading,
                     talker: widget.talker,
-                    talkerTheme: talkerTheme,
                     titlesController: _titlesController,
                     titles: titles,
                     uniqTitles: uniqTitles,
                     controller: _controller,
                     onMonitorTap: () => _openTalkerMonitor(context),
                     onActionsTap: () => _showActionsBottomSheet(context),
-                    onSettingsTap: () =>
-                        _openTalkerSettings(context, talkerTheme),
+                    onSettingsTap: () => _openTalkerSettings(context),
                     onToggleTitle: _onToggleTitle,
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 8)),
@@ -94,10 +92,9 @@ class _TalkerViewState extends State<TalkerView> {
                         }
                         return TalkerDataCard(
                           data: data,
-                          backgroundColor: widget.theme.cardColor,
                           onCopyTap: () => _copyTalkerDataItemText(data),
                           expanded: _controller.expandedLogs,
-                          color: data.getFlutterColor(widget.theme),
+                          color: widget.logColors.fromTalkerData(data),
                         );
                       },
                       childCount: filtredElements.length,
@@ -129,7 +126,7 @@ class _TalkerViewState extends State<TalkerView> {
     return data;
   }
 
-  void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
+  void _openTalkerSettings(BuildContext context) {
     final talker = ValueNotifier(widget.talker);
 
     showModalBottomSheet(
@@ -138,7 +135,6 @@ class _TalkerViewState extends State<TalkerView> {
       isScrollControlled: false,
       builder: (context) {
         return TalkerSettingsBottomSheet(
-          talkerScreenTheme: theme,
           talker: talker,
         );
       },
@@ -149,8 +145,8 @@ class _TalkerViewState extends State<TalkerView> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => TalkerMonitor(
-          theme: widget.theme,
           talker: widget.talker,
+          logColors: widget.logColors,
         ),
       ),
     );
@@ -204,7 +200,6 @@ class _TalkerViewState extends State<TalkerView> {
               icon: Icons.ios_share_outlined,
             ),
           ],
-          talkerScreenTheme: widget.theme,
         );
       },
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -9,10 +8,9 @@ class TalkerDataCard extends StatefulWidget {
     required this.data,
     this.onCopyTap,
     this.onTap,
-    this.expanded = true,
+    this.expanded = false,
     this.margin,
     required this.color,
-    this.backgroundColor = defaultCardBackgroundColor,
   }) : super(key: key);
 
   final TalkerData data;
@@ -21,7 +19,6 @@ class TalkerDataCard extends StatefulWidget {
   final bool expanded;
   final EdgeInsets? margin;
   final Color color;
-  final Color backgroundColor;
 
   @override
   State<TalkerDataCard> createState() => _TalkerDataCardState();
@@ -52,7 +49,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   Widget build(BuildContext context) {
     final errorMessage = _errorMessage;
     final errorType = _type;
-    final message = _message;
+    final message = _message ?? _type;
     final stackTrace = _stackTrace;
     return Padding(
       padding: widget.margin ?? const EdgeInsets.only(bottom: 8),
@@ -60,7 +57,6 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
         onTap: _onTap,
         child: TalkerBaseCard(
           color: widget.color,
-          backgroundColor: widget.backgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -73,8 +69,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                       children: [
                         Text(
                           '${widget.data.title} | ${widget.data.displayTime}',
-                          style: TextStyle(
-                            color: widget.color,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
                           ),
@@ -83,10 +78,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                           Text(
                             message,
                             maxLines: _expanded ? null : 2,
-                            style: TextStyle(
-                              color: widget.color,
-                              fontSize: 12,
-                            ),
+                            style: const TextStyle(fontSize: 12),
                           ),
                       ],
                     ),
@@ -97,10 +89,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       iconSize: 20,
-                      icon: Icon(
-                        Icons.copy,
-                        color: widget.color,
-                      ),
+                      icon: const Icon(Icons.copy),
                       onPressed: widget.onCopyTap,
                     ),
                   ),
@@ -115,49 +104,40 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                       ? const EdgeInsets.all(6)
                       : EdgeInsets.zero,
                   decoration: stackTrace != null
-                      ? BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(10),
-                        )
+                      ? BoxDecoration(borderRadius: BorderRadius.circular(10))
                       : null,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (_expanded && errorType != null)
+                      if (_expanded && errorType != null && message == null)
                         Text(
                           errorType,
-                          style: TextStyle(
-                            color: widget.color,
-                            fontSize: 12,
-                          ),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       if (_expanded && errorMessage != null)
                         Text(
                           errorMessage,
-                          style: TextStyle(
-                            color: widget.color,
-                            fontSize: 12,
-                          ),
+                          style: const TextStyle(fontSize: 12),
                         ),
                     ],
                   ),
                 ),
-              if (_expanded && stackTrace != null)
+              if (_expanded && stackTrace != null) ...[
                 Container(
-                  margin: const EdgeInsets.only(top: 8),
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: Colors.grey[900],
+                    color: Theme.of(context).colorScheme.errorContainer,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
                     stackTrace,
                     style: TextStyle(
-                      color: widget.color,
                       fontSize: 12,
+                      color: Theme.of(context).colorScheme.onErrorContainer,
                     ),
                   ),
                 ),
+              ]
             ],
           ),
         ),

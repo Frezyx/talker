@@ -23,8 +23,9 @@ class DioRequestLog extends TalkerLog {
   String get key => TalkerLogType.httpRequest.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     var msg = '[$title] [${requestOptions.method}] $message';
 
     final data = requestOptions.data;
@@ -63,8 +64,9 @@ class DioResponseLog extends TalkerLog {
   String get key => TalkerLogType.httpResponse.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     var msg = '[$title] [${response.requestOptions.method}] $message';
 
     final responseMessage = response.statusMessage;
@@ -110,8 +112,9 @@ class DioErrorLog extends TalkerLog {
   String get key => TalkerLogType.httpError.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     var msg = '[$title] [${dioException.requestOptions.method}] $message';
 
     final responseMessage = dioException.message;

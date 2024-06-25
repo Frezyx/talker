@@ -20,8 +20,9 @@ class BlocEventLog extends TalkerLog {
   String get key => TalkerLogType.blocEvent.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     return _createMessage();
   }
 
@@ -49,8 +50,9 @@ class BlocStateLog extends TalkerLog {
   String get key => TalkerLogType.blocTransition.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     return _createMessage();
   }
 
@@ -82,8 +84,9 @@ class BlocChangeLog extends TalkerLog {
   String get key => TalkerLogType.blocTransition.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     return _createMessage();
   }
 
@@ -111,8 +114,9 @@ class BlocCreateLog extends TalkerLog {
   String? get key => TalkerLogType.blocCreate.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     return _createMessage();
   }
 
@@ -136,8 +140,9 @@ class BlocCloseLog extends TalkerLog {
   String? get key => TalkerLogType.blocClose.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     return _createMessage();
   }
 

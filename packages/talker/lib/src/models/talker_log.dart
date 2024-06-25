@@ -17,7 +17,8 @@ class TalkerLog extends TalkerData {
 
   /// {@macro talker_data_generateTextMessage}
   @override
-  String generateTextMessage() {
-    return '$displayTitleWithTime$displayMessage$displayException$displayStackTrace';
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$displayMessage$displayException$displayStackTrace';
   }
 }

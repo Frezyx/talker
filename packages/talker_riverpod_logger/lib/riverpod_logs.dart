@@ -35,7 +35,8 @@ class RiverpodAddLog extends TalkerLog {
   String get key => TalkerLogType.riverpodAdd.key;
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return _createMessage();
   }
 
@@ -75,7 +76,8 @@ class RiverpodUpdateLog extends TalkerLog {
   String get key => TalkerLogType.riverpodUpdate.key;
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return _createMessage();
   }
 
@@ -110,7 +112,8 @@ class RiverpodDisposeLog extends TalkerLog {
   String get key => TalkerLogType.riverpodDispose.key;
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return _createMessage();
   }
 
@@ -148,7 +151,8 @@ class RiverpodFailLog extends TalkerLog {
   String? get key => TalkerLogType.riverpodFail.key;
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return _createMessage();
   }
 

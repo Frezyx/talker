@@ -1,3 +1,8 @@
+# 0.1.0-dev.6
+- [talker_flutter] Custom logs timestamp formattings
+
+Thanks to [abdelaziz-mahdy](https://github.com/abdelaziz-mahdy)
+
 # 0.1.0-dev.5
 - [talker_riverpod_logger] Print missing data on TalkerScreen 
 

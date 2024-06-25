@@ -1,3 +1,8 @@
+# 1.0.4
+- [talker_riverpod_logger] Print missing data on TalkerScreen 
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff)
+
 # 1.0.3
 - [talker_riverpod_logger] Include Provider's name in logs output
 
@@ -13,3 +18,5 @@
 
 # 1.0.0
 - Initial release of [talker_riverpod_logger](https://pub.dev/packages/talker_riverpod_logger)
+
+Thanks to [jbdujardin](https://github.com/jbdujardin)

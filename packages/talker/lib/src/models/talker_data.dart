@@ -70,7 +70,8 @@ class TalkerData {
   /// [TalkerError] -> [TalkerError.generateTextMessage]
   ///
   /// {@endtemplate}
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return '${displayTitleWithTime(timeFormat: timeFormat)}$message$displayStackTrace';
   }
 }
@@ -80,7 +81,8 @@ class TalkerData {
 extension FieldsToDisplay on TalkerData {
   /// Displayed title of [TalkerData]
 
-  String displayTitleWithTime({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String displayTitleWithTime(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return '[$title] | ${displayTime(timeFormat: timeFormat)} | ';
   }
 

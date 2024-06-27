@@ -1,3 +1,8 @@
+# 4.3.1
+- [talker_flutter] Fix showing times on FlutterScreen cards
+
+Thanks to [fieldOfView](https://github.com/fieldOfView)
+
 # 4.3.0
 - [talker_flutter] Custom logs timestamp formattings
 

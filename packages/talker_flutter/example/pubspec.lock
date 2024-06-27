@@ -337,7 +337,7 @@ packages:
     dependency: transitive
     description:
       name: talker
-      sha256: be2b3987fc64eb4eeb3c738cc89189eab49a36348c7b7bcf0e4fbf1473c913e9
+      sha256: "9384aad65c72fecc4a37aeb95379716073e315e37e15cbb23a374cf3a828d60e"
       url: "https://pub.dev"
     source: hosted
     version: "4.3.1"
@@ -352,7 +352,7 @@ packages:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "5837cf93cf2e37016c68da19536033ffc2af2ef0c12e33e926321fd20060d105"
+      sha256: ed79a64aa1a0a71958258ea2f3d014f68ccdd8a41d436446e8603d90bc61c720
       url: "https://pub.dev"
     source: hosted
     version: "4.3.1"

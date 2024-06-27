@@ -35,17 +35,15 @@ class RiverpodAddLog extends TalkerLog {
   String get key => TalkerLogType.riverpodAdd.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
-    return _createMessage();
+  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-        '\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}');
+    sb.write('\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}');
     return sb.toString();
   }
 }
@@ -62,9 +60,7 @@ class RiverpodUpdateLog extends TalkerLog {
                 provider: provider,
                 suffix: 'updated',
               ) +
-              (settings.printStateFullData
-                  ? '\nPREVIOUS state:\n$previousValue\nNEW state:\n$newValue'
-                  : ''),
+              (settings.printStateFullData ? '\nPREVIOUS state:\n$previousValue\nNEW state:\n$newValue' : ''),
         );
 
   final ProviderBase<Object?> provider;
@@ -79,17 +75,15 @@ class RiverpodUpdateLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-        '\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}');
-    sb.write(
-        '\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}');
+    sb.write('\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}');
+    sb.write('\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}');
     return sb.toString();
   }
 }
@@ -116,12 +110,12 @@ class RiverpodDisposeLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     return sb.toString();
   }
@@ -139,9 +133,7 @@ class RiverpodFailLog extends TalkerLog {
                 provider: provider,
                 suffix: 'failed',
               ) +
-              (settings.printFailFullData
-                  ? '\nERROR:\n$providerError\nSTACK TRACE:\n$providerStackTrace'
-                  : ''),
+              (settings.printFailFullData ? '\nERROR:\n$providerError\nSTACK TRACE:\n$providerStackTrace' : ''),
         );
 
   final ProviderBase<Object?> provider;
@@ -156,12 +148,12 @@ class RiverpodFailLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write('\n${'ERROR: \n$providerError'}');
     sb.write('\n${'STACK TRACE: \n$providerStackTrace'}');

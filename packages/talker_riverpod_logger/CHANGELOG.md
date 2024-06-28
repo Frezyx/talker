@@ -1,3 +1,8 @@
+# 1.1.2
+- [talker_riverpod_logger] Fix issue with display time inside riverpod package
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff)
+
 # 1.1.1
 - [talker_flutter] Fix showing times on FlutterScreen cards
 

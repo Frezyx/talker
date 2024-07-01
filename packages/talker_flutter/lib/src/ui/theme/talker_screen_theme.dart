@@ -1,55 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
+import 'package:talker/talker.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 typedef LogColors = Map<TalkerLogType, Color>;
 
-/// Configuring the UI of [TalkerScreen]
-class TalkerScreenTheme {
-  const TalkerScreenTheme({
-    this.backgroundColor = const Color(0xFF212121),
-    this.textColor = Colors.white,
-    this.cardColor = defaultCardBackgroundColor,
-    LogColors? logColors,
-  }) : _customColors = logColors;
-
-  /// Background screen color
-  final Color backgroundColor;
-
-  /// Color of text on screen
-  final Color textColor;
-
-  /// Color of [Talker] data cards
-  final Color cardColor;
-
-  final Map<TalkerLogType, Color>? _customColors;
-
-  Map<TalkerLogType, Color> get logColors {
-    if (_customColors != null) {
-      final customMap = Map<TalkerLogType, Color>.from(_defaultColors);
-      customMap.addAll(_customColors!);
-      return customMap;
-    }
-    return _defaultColors;
-  }
-
-  factory TalkerScreenTheme.fromTheme(ThemeData theme, [LogColors? logColors]) {
-    return TalkerScreenTheme(
-      backgroundColor: theme.colorScheme.surface,
-      textColor: theme.colorScheme.onSurface,
-      cardColor: theme.colorScheme.surface,
-      logColors: logColors,
-    );
-  }
-}
-
 extension MapTalkerFlutterColorsExt on LogColors {
+  Color fromTalkerData(final TalkerData data) {
+    final key = data.key;
+
+    if (key == null) return Colors.grey;
+    final type = TalkerLogType.fromKey(key);
+    return getByType(type);
+  }
+
   Color getByType(TalkerLogType type) {
     return this[type] ?? Colors.grey;
   }
 }
 
-const _defaultColors = {
+const defaultColors = <TalkerLogType, Color>{
   /// Base logs section
   TalkerLogType.error: Color.fromARGB(255, 239, 83, 80),
   TalkerLogType.critical: Color.fromARGB(255, 198, 40, 40),

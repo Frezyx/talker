@@ -8,12 +8,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 class TalkerSettingsBottomSheet extends StatefulWidget {
   const TalkerSettingsBottomSheet({
     Key? key,
-    required this.talkerScreenTheme,
     required this.talker,
   }) : super(key: key);
-
-  /// Theme for customize [TalkerScreen]
-  final TalkerScreenTheme talkerScreenTheme;
 
   /// Talker implementation
   final ValueNotifier<Talker> talker;
@@ -39,13 +35,11 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
         child: Text(
           'Basic settings',
           style: theme.textTheme.titleLarge?.copyWith(
-            color: widget.talkerScreenTheme.textColor,
             fontWeight: FontWeight.w700,
           ),
         ),
       ),
       TalkerSettingsCard(
-        talkerScreenTheme: widget.talkerScreenTheme,
         title: 'Enabled',
         enabled: widget.talker.value.settings.enabled,
         onChanged: (enabled) {
@@ -56,7 +50,6 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       ),
       TalkerSettingsCard(
         canEdit: widget.talker.value.settings.enabled,
-        talkerScreenTheme: widget.talkerScreenTheme,
         title: 'Use console logs',
         enabled: widget.talker.value.settings.useConsoleLogs,
         onChanged: (enabled) {
@@ -70,7 +63,6 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       ),
       TalkerSettingsCard(
         canEdit: widget.talker.value.settings.enabled,
-        talkerScreenTheme: widget.talkerScreenTheme,
         title: 'Use history',
         enabled: widget.talker.value.settings.useHistory,
         onChanged: (enabled) {
@@ -144,7 +136,6 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
 
     return BaseBottomSheet(
       title: 'Talker Settings',
-      talkerScreenTheme: widget.talkerScreenTheme,
       child: Expanded(
         child: CustomScrollView(
           slivers: [

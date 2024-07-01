@@ -145,7 +145,9 @@ class CustomLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(49);
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     return '| Custom leading | ' + (message ?? '');
   }
 }

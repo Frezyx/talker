@@ -35,13 +35,14 @@ class RiverpodAddLog extends TalkerLog {
   String get key => TalkerLogType.riverpodAdd.key;
 
   @override
-  String generateTextMessage() {
-    return _createMessage();
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write(
         '\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}');
@@ -75,13 +76,15 @@ class RiverpodUpdateLog extends TalkerLog {
   String get key => TalkerLogType.riverpodUpdate.key;
 
   @override
-  String generateTextMessage() {
-    return _createMessage();
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write(
         '\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}');
@@ -110,13 +113,15 @@ class RiverpodDisposeLog extends TalkerLog {
   String get key => TalkerLogType.riverpodDispose.key;
 
   @override
-  String generateTextMessage() {
-    return _createMessage();
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     return sb.toString();
   }
@@ -148,13 +153,15 @@ class RiverpodFailLog extends TalkerLog {
   String? get key => TalkerLogType.riverpodFail.key;
 
   @override
-  String generateTextMessage() {
-    return _createMessage();
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    return _createMessage(timeFormat: timeFormat);
   }
 
-  String _createMessage() {
+  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write('\n${'ERROR: \n$providerError'}');
     sb.write('\n${'STACK TRACE: \n$providerStackTrace'}');

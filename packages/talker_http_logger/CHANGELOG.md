@@ -1,3 +1,18 @@
+# 0.1.0-dev.8
+- [talker_riverpod_logger] Fix issue with display time inside riverpod package
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff)
+
+# 0.1.0-dev.7
+- [talker_flutter] Fix showing times on FlutterScreen cards
+
+Thanks to [fieldOfView](https://github.com/fieldOfView)
+
+# 0.1.0-dev.6
+- [talker_flutter] Custom logs timestamp formattings
+
+Thanks to [abdelaziz-mahdy](https://github.com/abdelaziz-mahdy)
+
 # 0.1.0-dev.5
 - [talker_riverpod_logger] Print missing data on TalkerScreen 
 

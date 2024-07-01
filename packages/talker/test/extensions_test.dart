@@ -9,7 +9,7 @@ void main() {
       final log = TalkerLog('message');
 
       final data = <TalkerData>[error, exception, log];
-      final fullMsg = data.text;
+      final fullMsg = data.text();
       final expectedMsg =
           '${error.generateTextMessage()}\n${exception.generateTextMessage()}\n${log.generateTextMessage()}\n';
       expect(fullMsg, expectedMsg);

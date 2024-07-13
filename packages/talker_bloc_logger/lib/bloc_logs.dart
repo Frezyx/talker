@@ -92,7 +92,7 @@ class BlocChangeLog extends TalkerLog {
 
   String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime());
     sb.write('\n$message');
     sb.write(
         '\n${'CURRENT state: ${settings.printStateFullData ? '\n${change.currentState}' : change.currentState.runtimeType}'}');
@@ -122,7 +122,7 @@ class BlocCreateLog extends TalkerLog {
 
   String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime());
     sb.write('\n$message');
     return sb.toString();
   }
@@ -148,7 +148,7 @@ class BlocCloseLog extends TalkerLog {
 
   String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime);
+    sb.write(displayTitleWithTime());
     sb.write('\n$message');
     return sb.toString();
   }

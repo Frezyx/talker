@@ -1,3 +1,8 @@
+# 1.1.3
+- [talker_bloc_logger] Fix bloc logs TimeFormat
+
+Thanks to [Mooyeee](https://github.com/Mooyeee)
+
 # 1.1.2
 - [talker_riverpod_logger] Fix issue with display time inside riverpod package
 

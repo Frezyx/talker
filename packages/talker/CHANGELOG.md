@@ -1,3 +1,8 @@
+# 4.3.4
+- [riverpod_logger] Duplicated state logs fixes
+
+Thanks to [ArinFaraj](https://github.com/ArinFaraj)
+
 # 4.3.3
 - [talker_bloc_logger] Fix bloc logs TimeFormat
 

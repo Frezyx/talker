@@ -68,8 +68,9 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${widget.data.title} | ${widget.data.displayTime}',
-                          style: const TextStyle(
+                          '${widget.data.title} | ${widget.data.displayTime()}',
+                          style: TextStyle(
+                            color: widget.color,
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
                           ),

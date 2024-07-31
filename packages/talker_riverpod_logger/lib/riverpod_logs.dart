@@ -34,12 +34,9 @@ class RiverpodAddLog extends TalkerLog {
   String get key => TalkerLogType.riverpodAdd.key;
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
-    return _createMessage(timeFormat: timeFormat);
-  }
-
-  String _createMessage({required TimeFormat timeFormat}) {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
@@ -75,10 +72,6 @@ class RiverpodUpdateLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage(timeFormat: timeFormat);
-  }
-
-  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
@@ -112,10 +105,6 @@ class RiverpodDisposeLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage(timeFormat: timeFormat);
-  }
-
-  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
@@ -149,10 +138,6 @@ class RiverpodFailLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage(timeFormat: timeFormat);
-  }
-
-  String _createMessage({required TimeFormat timeFormat}) {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');

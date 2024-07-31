@@ -1,5 +1,8 @@
+# 0.1.0-dev.11
+- [talker_bloc_logger] Setup common time format from talker settings for Bloc logs
+
 # 0.1.0-dev.10
-- [riverpod_logger] Duplicated state logs fixes
+- [talker_riverpod_logger] Duplicated state logs fixes
 
 Thanks to [ArinFaraj](https://github.com/ArinFaraj)
 

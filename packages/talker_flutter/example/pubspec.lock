@@ -340,14 +340,14 @@ packages:
       sha256: "9384aad65c72fecc4a37aeb95379716073e315e37e15cbb23a374cf3a828d60e"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.5"
+    version: "4.4.0"
   talker_flutter:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "4.3.5"
+    version: "4.4.0"
   talker_logger:
     dependency: transitive
     description:
@@ -355,7 +355,7 @@ packages:
       sha256: ed79a64aa1a0a71958258ea2f3d014f68ccdd8a41d436446e8603d90bc61c720
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.5"
+    version: "4.4.0"
   term_glyph:
     dependency: transitive
     description:

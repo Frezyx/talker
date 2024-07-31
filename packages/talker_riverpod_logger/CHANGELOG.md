@@ -1,3 +1,7 @@
+# 4.4.0
+- [talker] Stable ```TimeFormat``` release (Support of custom time formatting for every talker package)
+- [talker_riverpod_logger] Bump version to talker common versions system
+
 # 1.1.5
 - [talker_bloc_logger] Setup common time format from talker settings for Bloc logs
 

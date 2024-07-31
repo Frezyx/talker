@@ -9,7 +9,6 @@ class TalkerViewAppBar extends StatelessWidget {
     required this.title,
     required this.leading,
     required this.talker,
-    required this.talkerTheme,
     required this.titlesController,
     required this.controller,
     required this.titles,
@@ -24,7 +23,6 @@ class TalkerViewAppBar extends StatelessWidget {
   final Widget? leading;
 
   final Talker talker;
-  final TalkerScreenTheme talkerTheme;
   final GroupButtonController titlesController;
   final TalkerViewController controller;
 
@@ -41,7 +39,6 @@ class TalkerViewAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SliverAppBar(
-      backgroundColor: talkerTheme.backgroundColor,
       elevation: 0,
       pinned: true,
       floating: true,
@@ -49,43 +46,30 @@ class TalkerViewAppBar extends StatelessWidget {
       collapsedHeight: 60,
       toolbarHeight: 60,
       leading: leading,
-      iconTheme: IconThemeData(color: talkerTheme.textColor),
       actions: [
         UnconstrainedBox(
           child: _MonitorButton(
             talker: talker,
             onPressed: onMonitorTap,
-            talkerTheme: talkerTheme,
           ),
         ),
         UnconstrainedBox(
           child: IconButton(
             onPressed: onSettingsTap,
-            icon: Icon(
-              Icons.settings_rounded,
-              color: talkerTheme.textColor,
-            ),
+            icon: const Icon(Icons.settings_rounded),
           ),
         ),
         UnconstrainedBox(
           child: IconButton(
             onPressed: onActionsTap,
-            icon: Icon(
+            icon: const Icon(
               Icons.menu_rounded,
-              color: talkerTheme.textColor,
             ),
           ),
         ),
         const SizedBox(width: 10),
       ],
-      title: title != null
-          ? Text(
-              title!,
-              style: TextStyle(
-                color: talkerTheme.textColor,
-              ),
-            )
-          : null,
+      title: title != null ? Text(title!) : null,
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         background: SafeArea(
@@ -109,28 +93,24 @@ class TalkerViewAppBar extends StatelessWidget {
                           return Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              border: Border.all(color: talkerTheme.textColor),
+                              border: Border.all(
+                                color: theme.colorScheme.onSurface,
+                              ),
                               borderRadius: BorderRadius.circular(10),
                               color: selected
                                   ? theme.colorScheme.primaryContainer
-                                  : talkerTheme.cardColor,
+                                  : theme.colorScheme.surface,
                             ),
                             child: Row(
                               children: [
                                 Text(
                                   '$count',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: talkerTheme.textColor,
-                                  ),
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
                                   '$value',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: talkerTheme.textColor,
-                                  ),
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
@@ -144,10 +124,7 @@ class TalkerViewAppBar extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                _SearchTextField(
-                  controller: controller,
-                  talkerTheme: talkerTheme,
-                ),
+                _SearchTextField(controller: controller),
               ],
             ),
           ),
@@ -165,11 +142,9 @@ class TalkerViewAppBar extends StatelessWidget {
 class _SearchTextField extends StatelessWidget {
   const _SearchTextField({
     Key? key,
-    required this.talkerTheme,
     required this.controller,
   }) : super(key: key);
 
-  final TalkerScreenTheme talkerTheme;
   final TalkerViewController controller;
 
   @override
@@ -179,29 +154,23 @@ class _SearchTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextFormField(
         style: theme.textTheme.bodyLarge!.copyWith(
-          color: talkerTheme.textColor,
           fontSize: 14,
         ),
         onChanged: controller.updateFilterSearchQuery,
         decoration: InputDecoration(
           fillColor: theme.cardColor,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: talkerTheme.textColor),
+            borderSide: BorderSide(color: theme.colorScheme.onSurface),
             borderRadius: BorderRadius.circular(10),
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: talkerTheme.textColor),
+            borderSide: const BorderSide(),
             borderRadius: BorderRadius.circular(10),
           ),
           contentPadding: const EdgeInsets.symmetric(vertical: 16),
-          prefixIcon: Icon(
-            Icons.search,
-            color: talkerTheme.textColor,
-            size: 20,
-          ),
+          prefixIcon: const Icon(Icons.search, size: 20),
           hintText: 'Search...',
           hintStyle: theme.textTheme.bodyLarge!.copyWith(
-            color: talkerTheme.textColor,
             fontSize: 14,
           ),
         ),
@@ -215,11 +184,9 @@ class _MonitorButton extends StatelessWidget {
     Key? key,
     required this.talker,
     required this.onPressed,
-    required this.talkerTheme,
   }) : super(key: key);
 
   final Talker talker;
-  final TalkerScreenTheme talkerTheme;
   final VoidCallback onPressed;
 
   @override
@@ -235,10 +202,7 @@ class _MonitorButton extends StatelessWidget {
             Center(
               child: IconButton(
                 onPressed: onPressed,
-                icon: Icon(
-                  Icons.monitor_heart_outlined,
-                  color: talkerTheme.textColor,
-                ),
+                icon: const Icon(Icons.monitor_heart_outlined),
               ),
             ),
             if (haveErrors)

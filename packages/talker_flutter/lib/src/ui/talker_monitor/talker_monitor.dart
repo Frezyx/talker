@@ -6,20 +6,18 @@ import 'package:talker_flutter/talker_flutter.dart';
 class TalkerMonitor extends StatelessWidget {
   const TalkerMonitor({
     Key? key,
-    required this.theme,
     required this.talker,
+    required this.logColors,
   }) : super(key: key);
-
-  /// Theme for customize [TalkerScreen]
-  final TalkerScreenTheme theme;
 
   /// Talker implementation
   final Talker talker;
 
+  final LogColors logColors;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         title: const FittedBox(
           fit: BoxFit.scaleDown,
@@ -60,7 +58,6 @@ class TalkerMonitor extends StatelessWidget {
                     logs: httpRequests,
                     title: 'Http Requests',
                     color: Colors.green,
-                    theme: theme,
                     icon: Icons.wifi,
                     onTap: () => _openHttpMonitor(context),
                     subtitleWidget: Column(
@@ -69,7 +66,9 @@ class TalkerMonitor extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: '${httpRequests.length}',
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                             children: const [
                               TextSpan(text: ' http requests executed')
                             ],
@@ -80,10 +79,7 @@ class TalkerMonitor extends StatelessWidget {
                             text: '${httpResponses.length} successful',
                             style: const TextStyle(color: Colors.green),
                             children: const [
-                              TextSpan(
-                                text: ' responses received',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                              TextSpan(text: ' responses received'),
                             ],
                           ),
                         ),
@@ -92,10 +88,7 @@ class TalkerMonitor extends StatelessWidget {
                             text: '${httpErrors.length} failure',
                             style: const TextStyle(color: Colors.red),
                             children: const [
-                              TextSpan(
-                                text: ' responses received',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                              TextSpan(text: ' responses received'),
                             ],
                           ),
                         ),
@@ -108,10 +101,9 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
-                    theme: theme,
                     logs: errors,
                     title: 'Errors',
-                    color: theme.logColors.getByType(TalkerLogType.error),
+                    color: logColors.getByType(TalkerLogType.error),
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${errors.length} unresolved errors',
@@ -124,10 +116,9 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
-                    theme: theme,
                     logs: exceptions,
                     title: 'Exceptions',
-                    color: theme.logColors.getByType(TalkerLogType.exception),
+                    color: logColors.getByType(TalkerLogType.exception),
                     icon: Icons.error_outline_rounded,
                     subtitle:
                         'Application has ${exceptions.length} unresolved exceptions',
@@ -140,10 +131,9 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
-                    theme: theme,
                     logs: warnings,
                     title: 'Warnings',
-                    color: theme.logColors.getByType(TalkerLogType.warning),
+                    color: logColors.getByType(TalkerLogType.warning),
                     icon: Icons.warning_amber_rounded,
                     subtitle: 'Application has ${warnings.length} warnings',
                     onTap: () =>
@@ -155,10 +145,9 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
-                    theme: theme,
                     logs: infos,
                     title: 'Infos',
-                    color: theme.logColors.getByType(TalkerLogType.info),
+                    color: logColors.getByType(TalkerLogType.info),
                     icon: Icons.info_outline_rounded,
                     subtitle: 'Info logs count: ${infos.length}',
                     onTap: () => _openTypedLogsScreen(context, infos, 'Infos'),
@@ -169,10 +158,9 @@ class TalkerMonitor extends StatelessWidget {
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
                   child: TalkerMonitorCard(
-                    theme: theme,
                     logs: verboseDebug,
                     title: 'Verbose & debug',
-                    color: theme.logColors.getByType(TalkerLogType.verbose),
+                    color: logColors.getByType(TalkerLogType.verbose),
                     icon: Icons.remove_red_eye_outlined,
                     subtitle:
                         'Verbose and debug logs count: ${verboseDebug.length}',
@@ -202,8 +190,8 @@ class TalkerMonitor extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => TalkerMonitorTypedLogsScreen(
           exceptions: logs,
-          theme: theme,
           typeName: typeName,
+          logColors: logColors,
         ),
       ),
     );

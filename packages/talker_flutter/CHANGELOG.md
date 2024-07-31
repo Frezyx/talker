@@ -1,5 +1,12 @@
+# 4.4.0
+- [talker] Stable ```TimeFormat``` release (Support of custom time formatting for every talker package)
+- [talker_riverpod_logger] Bump version to talker common versions system
+
+# 4.3.5
+- [talker_bloc_logger] Setup common time format from talker settings for Bloc logs
+
 # 4.3.4
-- [riverpod_logger] Duplicated state logs fixes
+- [talker_riverpod_logger] Duplicated state logs fixes
 
 Thanks to [ArinFaraj](https://github.com/ArinFaraj)
 

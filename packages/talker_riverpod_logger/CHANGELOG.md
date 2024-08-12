@@ -1,3 +1,7 @@
+# 4.4.1
+- [talker_flutter] Bump share_plus version to 10.0.1
+- [talker_flutter] Bump path_provider version to 2.1.4
+
 # 4.4.0
 - [talker] Stable ```TimeFormat``` release (Support of custom time formatting for every talker package)
 - [talker_riverpod_logger] Bump version to talker common versions system

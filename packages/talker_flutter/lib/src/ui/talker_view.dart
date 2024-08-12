@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
-import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
 import 'package:talker_flutter/src/ui/widgets/talker_view_appbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -19,6 +18,7 @@ class TalkerView extends StatefulWidget {
     this.appBarTitle,
     this.itemsBuilder,
     this.appBarLeading,
+    required this.customSettings,
   }) : super(key: key);
 
   /// Talker implementation
@@ -41,6 +41,9 @@ class TalkerView extends StatefulWidget {
 
   final ScrollController? scrollController;
 
+  /// Optional custom settings
+  final ValueNotifier<List<CustomSettingsGroup>>? customSettings;
+
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
@@ -60,7 +63,7 @@ class _TalkerViewState extends State<TalkerView> {
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filtredElements =
+              final filteredElements =
                   data.where((e) => _controller.filter.filter(e)).toList();
               final titles = data.map((e) => e.title).toList();
               final uniqTitles = titles.toSet().toList();
@@ -88,7 +91,7 @@ class _TalkerViewState extends State<TalkerView> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {
-                        final data = _getListItem(filtredElements, i);
+                        final data = _getListItem(filteredElements, i);
                         if (widget.itemsBuilder != null) {
                           return widget.itemsBuilder!.call(context, data);
                         }
@@ -100,7 +103,7 @@ class _TalkerViewState extends State<TalkerView> {
                           color: data.getFlutterColor(widget.theme),
                         );
                       },
-                      childCount: filtredElements.length,
+                      childCount: filteredElements.length,
                     ),
                   ),
                 ],
@@ -121,11 +124,11 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   TalkerData _getListItem(
-    List<TalkerData> filtredElements,
+    List<TalkerData> filteredElements,
     int i,
   ) {
-    final data = filtredElements[
-        _controller.isLogOrderReversed ? filtredElements.length - 1 - i : i];
+    final data = filteredElements[
+        _controller.isLogOrderReversed ? filteredElements.length - 1 - i : i];
     return data;
   }
 
@@ -135,12 +138,17 @@ class _TalkerViewState extends State<TalkerView> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      isScrollControlled: false,
+      isScrollControlled: true,
       builder: (context) {
-        return TalkerSettingsBottomSheet(
-          talkerScreenTheme: theme,
-          talker: talker,
-        );
+        return ValueListenableBuilder<List<CustomSettingsGroup>>(
+            valueListenable: widget.customSettings ?? ValueNotifier([]),
+            builder: (context, customSettings, child) {
+              return TalkerSettingsBottomSheet(
+                talkerScreenTheme: theme,
+                talker: talker,
+                customSettings: customSettings,
+              );
+            });
       },
     );
   }

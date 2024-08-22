@@ -3,14 +3,16 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatelessWidget {
-  const TalkerScreen({
+  // TODO: make me const again when theme is removed. Theme cannot be remove rightn now for backward compability reasons.
+  TalkerScreen({
     Key? key,
     required this.talker,
     this.appBarTitle = 'Talker',
     this.itemsBuilder,
     this.appBarLeading,
     LogColors? logColors,
-  })  : logColors = logColors ?? defaultColors,
+    @Deprecated("theme is depricated use logColors instead") this.theme,
+  })  : logColors = logColors ?? theme?.logColors ?? defaultColors,
         super(key: key);
 
   /// Talker implementation
@@ -28,15 +30,29 @@ class TalkerScreen extends StatelessWidget {
 
   final LogColors logColors;
 
+  final TalkerScreenTheme? theme;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final scaffold = Scaffold(
       body: TalkerView(
         talker: talker,
         appBarTitle: appBarTitle,
         appBarLeading: appBarLeading,
         logColors: logColors,
       ),
+    );
+
+    if (theme == null) return scaffold;
+
+    return Theme(
+      data: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          cardColor: theme!.cardColor,
+          backgroundColor: theme!.backgroundColor,
+        ),
+      ),
+      child: scaffold,
     );
   }
 }

@@ -4,6 +4,44 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 typedef LogColors = Map<TalkerLogType, Color>;
 
+class TalkerScreenTheme {
+  const TalkerScreenTheme({
+    this.backgroundColor = const Color(0xFF212121),
+    this.textColor = Colors.white,
+    this.cardColor = const Color.fromARGB(255, 49, 49, 49),
+    @Deprecated("use logColors directly in TalkerScreen") LogColors? logColors,
+  }) : _customColors = logColors;
+
+  /// Background screen color
+  final Color backgroundColor;
+
+  /// Color of text on screen
+  final Color textColor;
+
+  /// Color of [Talker] data cards
+  final Color cardColor;
+
+  final Map<TalkerLogType, Color>? _customColors;
+
+  Map<TalkerLogType, Color> get logColors {
+    if (_customColors != null) {
+      final customMap = Map<TalkerLogType, Color>.from(defaultColors);
+      customMap.addAll(_customColors!);
+      return customMap;
+    }
+    return defaultColors;
+  }
+
+  factory TalkerScreenTheme.fromTheme(ThemeData theme, [LogColors? logColors]) {
+    return TalkerScreenTheme(
+      backgroundColor: theme.colorScheme.surface,
+      textColor: theme.colorScheme.onSurface,
+      cardColor: theme.colorScheme.surface,
+      logColors: logColors,
+    );
+  }
+}
+
 extension MapTalkerFlutterColorsExt on LogColors {
   Color fromTalkerData(final TalkerData data) {
     final key = data.key;

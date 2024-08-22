@@ -23,12 +23,8 @@ class BlocEventLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
-  }
-
-  String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime());
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     return sb.toString();
   }
@@ -53,12 +49,8 @@ class BlocStateLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
-  }
-
-  String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime());
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write(
         '\n${'CURRENT state: ${settings.printStateFullData ? '\n${transition.currentState}' : transition.currentState.runtimeType}'}');
@@ -87,12 +79,8 @@ class BlocChangeLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
-  }
-
-  String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime());
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write(
         '\n${'CURRENT state: ${settings.printStateFullData ? '\n${change.currentState}' : change.currentState.runtimeType}'}');
@@ -117,12 +105,8 @@ class BlocCreateLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
-  }
-
-  String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime());
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     return sb.toString();
   }
@@ -143,12 +127,8 @@ class BlocCloseLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return _createMessage();
-  }
-
-  String _createMessage() {
     final sb = StringBuffer();
-    sb.write(displayTitleWithTime());
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     return sb.toString();
   }

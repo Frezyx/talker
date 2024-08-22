@@ -339,25 +339,19 @@ class Talker {
   }
 
   /// Clear log history
-  void cleanHistory() {
-    _history.clean();
-  }
-
-  /// Method stops all [Talker] works
-  ///
-  /// If you config package to handle errors or making logs,
-  /// this method stop these processes
-  void disable() {
-    settings.enabled = false;
-  }
+  void cleanHistory() => _history.clean();
 
   /// Method run all [Talker] works
   ///
   /// The method will return everything back
   /// if the package was suspended by the [disable] method
-  void enable() {
-    settings.enabled = true;
-  }
+  void enable() => settings.enabled = true;
+
+  /// Method stops all [Talker] works
+  ///
+  /// If you config package to handle errors or making logs,
+  /// this method stop these processes
+  void disable() => settings.enabled = false;
 
   void _handleLog(
     dynamic message,
@@ -433,13 +427,6 @@ class Talker {
   void _handleForOutputs(TalkerData data) {
     _history.write(data);
   }
-
-  //TODO: recreate file manager logic
-  // void _writeToFile(TalkerDataInterface data) {
-  //   if (_settings.writeToFile) {
-  //     _fileManager.writeToLogFile(data.generateTextMessage());
-  //   }
-  // }
 
   bool _isApprovedByFilter(TalkerData data) {
     final approved = _filter.filter(data);

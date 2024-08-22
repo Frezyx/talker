@@ -93,7 +93,7 @@ class TalkerSettings {
   final bool _useHistory;
 
   /// By default talker print all Errors / Exceptions and logs in console.
-  /// If [true] - printing in history [false] - not printing.
+  /// If [true] - printing in console [false] - not printing.
   bool get useConsoleLogs => _useConsoleLogs && enabled;
   final bool _useConsoleLogs;
 
@@ -101,7 +101,7 @@ class TalkerSettings {
   int get maxHistoryItems => _maxHistoryItems;
   final int _maxHistoryItems;
 
-  /// the time format of the logs [TimeFormat]
+  /// The time format of the logs [TimeFormat]
   TimeFormat get timeFormat => _timeFormat;
   final TimeFormat _timeFormat;
 

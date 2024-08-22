@@ -273,7 +273,8 @@ class _LogsPreview extends StatelessWidget {
                                 final data = reversedLogs[index];
                                 return TalkerDataCard(
                                   data: data,
-                                  color: data.getFlutterColor(talkerTheme),
+                                  color: data
+                                      .getFlutterColor(talkerTheme.logColors),
                                 );
                               },
                               childCount: reversedLogs.length,

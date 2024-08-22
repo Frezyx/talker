@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class BaseBottomSheet extends StatelessWidget {
   const BaseBottomSheet({
     Key? key,
-    required this.talkerScreenTheme,
     required this.child,
     required this.title,
   }) : super(key: key);
 
-  final TalkerScreenTheme talkerScreenTheme;
   final Widget child;
   final String title;
 
@@ -28,7 +25,7 @@ class BaseBottomSheet extends StatelessWidget {
           bottom: mq.padding.bottom,
         ),
         decoration: BoxDecoration(
-          color: talkerScreenTheme.backgroundColor,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -40,17 +37,10 @@ class BaseBottomSheet extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.headlineSmall
-                        ?.copyWith(color: talkerScreenTheme.textColor),
-                  ),
+                  Text(title, style: theme.textTheme.headlineSmall),
                   InkWell(
                     onTap: () => Navigator.pop(context),
-                    child: Icon(
-                      Icons.close_rounded,
-                      color: talkerScreenTheme.textColor,
-                    ),
+                    child: const Icon(Icons.close_rounded),
                   ),
                 ],
               ),

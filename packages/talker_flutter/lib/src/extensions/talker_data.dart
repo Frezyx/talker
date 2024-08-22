@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 extension TalkerDataFlutterExt on TalkerData {
-  Color getFlutterColor(TalkerScreenTheme theme) {
+  Color getFlutterColor(LogColors colors) {
     final key = this.key;
 
     if (key == null) return Colors.grey;
     final type = TalkerLogType.fromKey(key);
-    return theme.logColors[type] ?? Colors.grey;
+    return colors[type] ?? Colors.grey;
   }
 }

@@ -19,6 +19,7 @@ class TalkerView extends StatefulWidget {
     this.appBarTitle,
     this.itemsBuilder,
     this.appBarLeading,
+    this.settingsBottomSheetCreator,
   }) : super(key: key);
 
   /// Talker implementation
@@ -41,6 +42,8 @@ class TalkerView extends StatefulWidget {
 
   final ScrollController? scrollController;
 
+  final TalkerSettingsBottomSheetBaseCreator? settingsBottomSheetCreator;
+
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
@@ -48,6 +51,7 @@ class TalkerView extends StatefulWidget {
 class _TalkerViewState extends State<TalkerView> {
   final _titlesController = GroupButtonController();
   late final _controller = widget.controller ?? TalkerViewController();
+  late final _settingsBottomSheetCreator = widget.settingsBottomSheetCreator;
 
   @override
   Widget build(BuildContext context) {
@@ -137,10 +141,17 @@ class _TalkerViewState extends State<TalkerView> {
       backgroundColor: Colors.transparent,
       isScrollControlled: false,
       builder: (context) {
-        return TalkerSettingsBottomSheet(
-          talkerScreenTheme: theme,
-          talker: talker,
-        );
+        if (_settingsBottomSheetCreator != null) {
+          return _settingsBottomSheetCreator!(
+            talkerScreenTheme: theme,
+            talker: talker,
+          );
+        } else {
+          return TalkerSettingsBottomSheet(
+            talkerScreenTheme: theme,
+            talker: talker,
+          );
+        }
       },
     );
   }

@@ -60,10 +60,10 @@ class _TalkerViewState extends State<TalkerView> {
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filtredElements =
+              final filteredElements =
                   data.where((e) => _controller.filter.filter(e)).toList();
               final titles = data.map((e) => e.title).toList();
-              final uniqTitles = titles.toSet().toList();
+              final uniqueTitles = titles.toSet().toList();
 
               return CustomScrollView(
                 controller: widget.scrollController,
@@ -76,7 +76,7 @@ class _TalkerViewState extends State<TalkerView> {
                     talkerTheme: talkerTheme,
                     titlesController: _titlesController,
                     titles: titles,
-                    uniqTitles: uniqTitles,
+                    uniqTitles: uniqueTitles,
                     controller: _controller,
                     onMonitorTap: () => _openTalkerMonitor(context),
                     onActionsTap: () => _showActionsBottomSheet(context),
@@ -88,7 +88,7 @@ class _TalkerViewState extends State<TalkerView> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {
-                        final data = _getListItem(filtredElements, i);
+                        final data = _getListItem(filteredElements, i);
                         if (widget.itemsBuilder != null) {
                           return widget.itemsBuilder!.call(context, data);
                         }
@@ -100,7 +100,7 @@ class _TalkerViewState extends State<TalkerView> {
                           color: data.getFlutterColor(widget.theme),
                         );
                       },
-                      childCount: filtredElements.length,
+                      childCount: filteredElements.length,
                     ),
                   ),
                 ],
@@ -121,11 +121,11 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   TalkerData _getListItem(
-    List<TalkerData> filtredElements,
+    List<TalkerData> filteredElements,
     int i,
   ) {
-    final data = filtredElements[
-        _controller.isLogOrderReversed ? filtredElements.length - 1 - i : i];
+    final data = filteredElements[
+        _controller.isLogOrderReversed ? filteredElements.length - 1 - i : i];
     return data;
   }
 

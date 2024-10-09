@@ -5,18 +5,33 @@ import 'package:talker_flutter/src/ui/talker_settings/talker_setting_card.dart';
 import 'package:talker_flutter/src/ui/widgets/talker_base_bottom_sheet.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerSettingsBottomSheet extends StatefulWidget {
-  const TalkerSettingsBottomSheet({
-    Key? key,
-    required this.talkerScreenTheme,
-    required this.talker,
-  }) : super(key: key);
+// For passing in a SettingsBottomSheetBase Creator to talker_view.dart
+typedef TalkerSettingsBottomSheetBaseCreator = TalkerSettingsBottomSheetBase Function({
+  required TalkerScreenTheme talkerScreenTheme,
+  required ValueNotifier<Talker> talker
+});
+
+abstract class TalkerSettingsBottomSheetBase extends StatefulWidget {
 
   /// Theme for customize [TalkerScreen]
   final TalkerScreenTheme talkerScreenTheme;
 
   /// Talker implementation
   final ValueNotifier<Talker> talker;
+
+  const TalkerSettingsBottomSheetBase({
+    Key? key,
+    required this.talkerScreenTheme,
+    required this.talker,
+  }) : super(key: key);
+}
+
+class TalkerSettingsBottomSheet extends TalkerSettingsBottomSheetBase {
+  const TalkerSettingsBottomSheet({
+    Key? key,
+    required talkerScreenTheme,
+    required talker,
+  }) : super(key: key, talkerScreenTheme: talkerScreenTheme, talker: talker);
 
   @override
   State<TalkerSettingsBottomSheet> createState() =>

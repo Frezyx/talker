@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SnackbarContent extends StatelessWidget {
-  const SnackbarContent({
+class TalkerSnackbarContent extends StatelessWidget {
+  const TalkerSnackbarContent({
     Key? key,
     required this.message,
     required this.title,

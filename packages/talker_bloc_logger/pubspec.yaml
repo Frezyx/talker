@@ -17,9 +17,9 @@ environment:
 
 dependencies:
   talker: ^4.4.1
-  bloc: ^8.1.1
-  meta: ^1.8.0
+  bloc: ^8.1.4
+  meta: ^1.15.0
 
 dev_dependencies:
-  lints: ^2.0.1
-  test: ^1.23.1
+  lints: ^5.0.0
+  test: ^1.25.8

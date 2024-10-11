@@ -185,12 +185,14 @@ And you have **full customization control** over them!
 class YourCustomLog extends TalkerLog {
   YourCustomLog(String message) : super(message);
 
+  /// Your custom log title
   @override
   String get title => 'Custom';
 
   @override
   String? get key => 'custom_log_key';
 
+  /// Your custom log color
   @override
   AnsiPen get pen => AnsiPen()..xterm(121);
 }
@@ -867,6 +869,20 @@ class CrashlyticsTalkerObserver extends TalkerObserver {
 final crashlyticsTalkerObserver = CrashlyticsTalkerObserver();
 final talker = Talker(observer: crashlyticsTalkerObserver);
 ```
+
+## Custom Settings
+
+You can create your own custom settings by creating a Custom TalkerSettingsBottomSheet by 
+subclassing the TalkerSettingsBottomSheetBase, and adding your own TalkerSettingsCard objects
+to the Build() function. 
+
+The shop_with_custom_settings example creates a CustomSettings class to hold setting values
+(all boolean values for now). The TalkerCustomSettingsBottomSheet class implements a custom bottom
+sheet, the custom settings bottom sheet state, and a creator function to be passed into the 
+TalkerScreen() creation function.
+
+This example has two custom flags - one that is enabled/disabled by the "Enable" settings flag, 
+and the other a global custom flag not affected by the "Enable" settings flag.
 
 ## Features list
 

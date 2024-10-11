@@ -78,7 +78,8 @@ class HttpResponseLog extends TalkerLog {
   AnsiPen get pen => (AnsiPen()..xterm(46));
 
   @override
-  String get title => TalkerLogType.httpResponse.key;
+  String get title => TalkerLogType.httpResponse.key +
+                      ' (${response.statusCode})';
 
   @override
   String generateTextMessage(

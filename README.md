@@ -123,7 +123,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^4.4.1
+  talker: ^4.4.2
 ```
 
 ### Easy to use
@@ -294,7 +294,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^4.4.1
+  talker_flutter: ^4.4.2
 ```
 
 ### Setup
@@ -522,7 +522,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.4.1
+  talker_dio_logger: ^4.4.2
 ```
 
 ### Usage
@@ -543,11 +543,11 @@ dio.interceptors.add(
 
 ## Customization
 
-To provide hight usage exp here are a lot of settings and customization fields in TalkerDioLoggerSettings. You can setup all wat you want. For example: 
+To provide height usage exp here are a lot of settings and customization fields in TalkerDioLoggerSettings. You can setup all wat you want. For example: 
 
 ### Off/on http request or reposnse logs
 
-You can toggle reponse / request printing and headers including
+You can toggle response / request printing and headers including
 
 ```dart
 final dio = Dio();
@@ -618,7 +618,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.4.1
+  talker_bloc_logger: ^4.4.2
 ```
 
 ### Usage
@@ -632,7 +632,7 @@ Bloc.observer = TalkerBlocObserver();
 
 ## Customization
 
-To provide hight usage exp here are a lot of settings and customization fields in TalkerBlocLoggerSettings. You can setup all wat you want. For example:
+To provide height usage exp here are a lot of settings and customization fields in TalkerBlocLoggerSettings. You can setup all wat you want. For example:
 
 ### Off/on events, transitions, changes, creation, close
 
@@ -681,7 +681,7 @@ Bloc.observer = TalkerBlocObserver(
 ```
 
 ## Using with Talker!
-You can add your talker instance for TalkerBlocLogger if your Appication already uses Talker.
+You can add your talker instance for TalkerBlocLogger if your Application already uses Talker.
 
 In this case, all logs and errors will fall into your unified tracking system
 
@@ -706,7 +706,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_riverpod_logger: ^4.4.1
+  talker_riverpod_logger: ^4.4.2
 ```
 
 ### Usage
@@ -739,11 +739,11 @@ final container = ProviderContainer(
 
 ## Customization
 
-To provide hight usage exp here are a lot of settings and customization fields in TalkerRiverpodLoggerSettings. You can setup all wat you want. For example:
+To provide height usage exp here are a lot of settings and customization fields in TalkerRiverpodLoggerSettings. You can setup all wat you want. For example:
 
 ### Off/on events, add, update, dispose, fail
 
-You can toggle all riverpod event types printing
+You can toggle all Riverpod event types printing
 
 ```dart
 TalkerRiverpodObserver(
@@ -783,7 +783,7 @@ TalkerRiverpodObserver(
 ```
 
 ## Using with Talker!
-You can add your talker instance for TalkerRiverpodLogger if your Appication already uses Talker.
+You can add your talker instance for TalkerRiverpodLogger if your Application already uses Talker.
 
 In this case, all logs and errors will fall into your unified tracking system
 
@@ -857,6 +857,20 @@ class CrashlyticsTalkerObserver extends TalkerObserver {
 final crashlyticsTalkerObserver = CrashlyticsTalkerObserver();
 final talker = Talker(observer: crashlyticsTalkerObserver);
 ```
+
+## Custom Settings
+
+You can create your own custom settings by creating a Custom TalkerSettingsBottomSheet by 
+subclassing the TalkerSettingsBottomSheetBase, and adding your own TalkerSettingsCard objects
+to the Build() function. 
+
+The shop_with_custom_settings example creates a CustomSettings class to hold setting values
+(all boolean values for now). The TalkerCustomSettingsBottomSheet class implements a custom bottom
+sheet, the custom settings bottom sheet state, and a creator function to be passed into the 
+TalkerScreen() creation function.
+
+This example has two custom flags - one that is enabled/disabled by the "Enable" settings flag, 
+and the other a global custom flag not affected by the "Enable" settings flag.
 
 ## Features list
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <!-- Primary Meta Tags -->
+  <title>Talker</title>
+  <meta name="title" content="Talker">
+  <meta name="description" content="Advanced error handler and logger for dart and flutter apps ☎️">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://frezyx.github.io/talker/">
+  <meta property="og:title" content="Talker">
+  <meta property="og:description" content="Advanced error handler and logger for dart and flutter apps ☎️">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://frezyx.github.io/talker/">
+  <meta property="twitter:title" content="Talker">
+  <meta property="twitter:description" content="Advanced error handler and logger for dart and flutter apps ☎️">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Talker">
+  <link rel="apple-touch-icon" href="/icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+
+  <link rel="manifest" href="/manifest.json">
+</head>
+
+<body>
+  <!-- This script installs service_worker.js to provide PWA functionality to
+       application. For more information, see:
+       https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js', {
+          scope: './'
+        });
+      });
+    }
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
+</body>
+
+</html>

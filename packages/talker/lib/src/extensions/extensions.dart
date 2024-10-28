@@ -12,9 +12,11 @@ extension TalkerDataInterfaceListExt on List<TalkerData> {
   }
 }
 
-extension IterableModifier<E> on Iterable<E> {
+extension TalkerIterableLogTypeModifier<TalkerLogType>
+    on Iterable<TalkerLogType> {
   /// The method allows you to get the first element that satisfies the condition
   /// or null if no element satisfies the condition.
-  E? firstWhereOrNull(bool Function(E element) test) =>
-      cast<E?>().firstWhere((v) => v != null && test(v), orElse: () => null);
+  TalkerLogType? firstWhereOrNull(bool Function(TalkerLogType element) test) =>
+      cast<TalkerLogType?>()
+          .firstWhere((v) => v != null && test(v), orElse: () => null);
 }

@@ -33,33 +33,33 @@ const _defaultTitles = {
 
 final _defaultColors = {
   /// Base logs section
-  TalkerLogType.critical: AnsiPen()..red(),
-  TalkerLogType.warning: AnsiPen()..yellow(),
-  TalkerLogType.verbose: AnsiPen()..gray(),
-  TalkerLogType.info: AnsiPen()..blue(),
-  TalkerLogType.debug: AnsiPen()..gray(),
-  TalkerLogType.error: AnsiPen()..red(),
-  TalkerLogType.exception: AnsiPen()..red(),
+  TalkerLogType.critical.key: AnsiPen()..red(),
+  TalkerLogType.warning.key: AnsiPen()..yellow(),
+  TalkerLogType.verbose.key: AnsiPen()..gray(),
+  TalkerLogType.info.key: AnsiPen()..blue(),
+  TalkerLogType.debug.key: AnsiPen()..gray(),
+  TalkerLogType.error.key: AnsiPen()..red(),
+  TalkerLogType.exception.key: AnsiPen()..red(),
 
   /// Http section
-  TalkerLogType.httpError: AnsiPen()..red(),
-  TalkerLogType.httpRequest: AnsiPen()..xterm(219),
-  TalkerLogType.httpResponse: AnsiPen()..xterm(46),
+  TalkerLogType.httpError.key: AnsiPen()..red(),
+  TalkerLogType.httpRequest.key: AnsiPen()..xterm(219),
+  TalkerLogType.httpResponse.key: AnsiPen()..xterm(46),
 
   /// Bloc section
-  TalkerLogType.blocEvent: AnsiPen()..xterm(51),
-  TalkerLogType.blocTransition: AnsiPen()..xterm(49),
-  TalkerLogType.blocCreate: AnsiPen()..xterm(35),
-  TalkerLogType.blocClose: AnsiPen()..xterm(198),
+  TalkerLogType.blocEvent.key: AnsiPen()..xterm(51),
+  TalkerLogType.blocTransition.key: AnsiPen()..xterm(49),
+  TalkerLogType.blocCreate.key: AnsiPen()..xterm(35),
+  TalkerLogType.blocClose.key: AnsiPen()..xterm(198),
 
   /// Riverpod section
-  TalkerLogType.riverpodAdd: AnsiPen()..xterm(51),
-  TalkerLogType.riverpodUpdate: AnsiPen()..xterm(49),
-  TalkerLogType.riverpodDispose: AnsiPen()..xterm(198),
-  TalkerLogType.riverpodFail: AnsiPen()..red(),
+  TalkerLogType.riverpodAdd.key: AnsiPen()..xterm(51),
+  TalkerLogType.riverpodUpdate.key: AnsiPen()..xterm(49),
+  TalkerLogType.riverpodDispose.key: AnsiPen()..xterm(198),
+  TalkerLogType.riverpodFail.key: AnsiPen()..red(),
 
   /// Flutter section
-  TalkerLogType.route: AnsiPen()..xterm(135),
+  TalkerLogType.route.key: AnsiPen()..xterm(135),
 };
 
 /// {@template talker_settings}
@@ -72,7 +72,7 @@ class TalkerSettings {
     bool useConsoleLogs = true,
     int maxHistoryItems = 1000,
     this.titles = _defaultTitles,
-    Map<TalkerLogType, AnsiPen>? colors,
+    Map<String, AnsiPen>? colors,
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
@@ -160,14 +160,14 @@ class TalkerSettings {
   /// ```
   ///
   /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
-  final Map<TalkerLogType, AnsiPen> colors = _defaultColors;
+  final Map<String, AnsiPen> colors = _defaultColors;
 
   String getTitleByLogType(TalkerLogType key) {
     return titles[key] ?? key.key;
   }
 
-  AnsiPen getAnsiPenByLogType(TalkerLogType key, {TalkerData? logData}) {
-    return colors[key] ?? logData?.pen ?? (AnsiPen()..gray());
+  AnsiPen getAnsiPenByLogType(TalkerLogType type, {TalkerData? logData}) {
+    return colors[type.key] ?? logData?.pen ?? (AnsiPen()..gray());
   }
 
   TalkerSettings copyWith({
@@ -176,7 +176,7 @@ class TalkerSettings {
     bool? useConsoleLogs,
     int? maxHistoryItems,
     Map<TalkerLogType, String>? titles,
-    Map<TalkerLogType, AnsiPen>? colors,
+    Map<String, AnsiPen>? colors,
   }) {
     return TalkerSettings(
       useHistory: useHistory ?? _useHistory,

@@ -4,7 +4,7 @@ Future<void> main() async {
   final talker = Talker(
     settings: TalkerSettings(
       colors: {
-        TalkerLogType.info: AnsiPen()..yellow(),
+        TalkerLogType.info.key: AnsiPen()..yellow(),
       },
       titles: {
         TalkerLogType.exception: 'Whatever you want',

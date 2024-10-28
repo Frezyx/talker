@@ -21,9 +21,14 @@ class TalkerMonitor extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       appBar: AppBar(
-        title: const FittedBox(
+        backgroundColor: theme.backgroundColor,
+        iconTheme: IconThemeData(color: theme.textColor),
+        title: FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text('Talker Monitor'),
+          child: Text(
+            'Talker Monitor',
+            style: TextStyle(color: theme.textColor),
+          ),
         ),
       ),
       body: TalkerBuilder(
@@ -32,24 +37,15 @@ class TalkerMonitor extends StatelessWidget {
           final logs = data.whereType<TalkerLog>().toList();
           final errors = data.whereType<TalkerError>().toList();
           final exceptions = data.whereType<TalkerException>().toList();
-          final warnings =
-              logs.where((e) => e.logLevel == LogLevel.warning).toList();
+          final warnings = logs.where((e) => e.logLevel == LogLevel.warning).toList();
 
           final infos = logs.where((e) => e.logLevel == LogLevel.info).toList();
-          final verboseDebug = logs
-              .where((e) =>
-                  e.logLevel == LogLevel.verbose ||
-                  e.logLevel == LogLevel.debug)
-              .toList();
+          final verboseDebug =
+              logs.where((e) => e.logLevel == LogLevel.verbose || e.logLevel == LogLevel.debug).toList();
 
-          final httpRequests = data
-              .where((e) => e.key == TalkerLogType.httpRequest.key)
-              .toList();
-          final httpErrors =
-              data.where((e) => e.key == TalkerLogType.httpError.key).toList();
-          final httpResponses = data
-              .where((e) => e.key == TalkerLogType.httpResponse.key)
-              .toList();
+          final httpRequests = data.where((e) => e.key == TalkerLogType.httpRequest.key).toList();
+          final httpErrors = data.where((e) => e.key == TalkerLogType.httpError.key).toList();
+          final httpResponses = data.where((e) => e.key == TalkerLogType.httpResponse.key).toList();
 
           return CustomScrollView(
             slivers: [
@@ -70,9 +66,7 @@ class TalkerMonitor extends StatelessWidget {
                           text: TextSpan(
                             text: '${httpRequests.length}',
                             style: const TextStyle(color: Colors.white),
-                            children: const [
-                              TextSpan(text: ' http requests executed')
-                            ],
+                            children: const [TextSpan(text: ' http requests executed')],
                           ),
                         ),
                         RichText(
@@ -113,10 +107,8 @@ class TalkerMonitor extends StatelessWidget {
                     title: 'Errors',
                     color: theme.logColors.getByType(TalkerLogType.error),
                     icon: Icons.error_outline_rounded,
-                    subtitle:
-                        'Application has ${errors.length} unresolved errors',
-                    onTap: () =>
-                        _openTypedLogsScreen(context, errors, 'Errors'),
+                    subtitle: 'Application has ${errors.length} unresolved errors',
+                    onTap: () => _openTypedLogsScreen(context, errors, 'Errors'),
                   ),
                 ),
               ],
@@ -129,10 +121,8 @@ class TalkerMonitor extends StatelessWidget {
                     title: 'Exceptions',
                     color: theme.logColors.getByType(TalkerLogType.exception),
                     icon: Icons.error_outline_rounded,
-                    subtitle:
-                        'Application has ${exceptions.length} unresolved exceptions',
-                    onTap: () =>
-                        _openTypedLogsScreen(context, exceptions, 'Exceptions'),
+                    subtitle: 'Application has ${exceptions.length} unresolved exceptions',
+                    onTap: () => _openTypedLogsScreen(context, exceptions, 'Exceptions'),
                   ),
                 ),
               ],
@@ -146,8 +136,7 @@ class TalkerMonitor extends StatelessWidget {
                     color: theme.logColors.getByType(TalkerLogType.warning),
                     icon: Icons.warning_amber_rounded,
                     subtitle: 'Application has ${warnings.length} warnings',
-                    onTap: () =>
-                        _openTypedLogsScreen(context, warnings, 'Warnings'),
+                    onTap: () => _openTypedLogsScreen(context, warnings, 'Warnings'),
                   ),
                 ),
               ],
@@ -174,8 +163,7 @@ class TalkerMonitor extends StatelessWidget {
                     title: 'Verbose & debug',
                     color: theme.logColors.getByType(TalkerLogType.verbose),
                     icon: Icons.remove_red_eye_outlined,
-                    subtitle:
-                        'Verbose and debug logs count: ${verboseDebug.length}',
+                    subtitle: 'Verbose and debug logs count: ${verboseDebug.length}',
                     onTap: () => _openTypedLogsScreen(
                       context,
                       verboseDebug,

@@ -19,7 +19,12 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       appBar: AppBar(
-        title: Text('Talker Monitor $typeName'),
+        backgroundColor: theme.backgroundColor,
+        iconTheme: IconThemeData(color: theme.textColor),
+        title: Text(
+          'Talker Monitor $typeName',
+          style: TextStyle(color: theme.textColor),
+        ),
       ),
       body: CustomScrollView(
         slivers: [

@@ -72,7 +72,4 @@ final _defaultColors = {
 
   /// Flutter section
   TalkerLogType.route.key: const Color(0xFFAF5FFF),
-
-  // // Test
-  // 'good': const Color(0xFF00FF00),
 };

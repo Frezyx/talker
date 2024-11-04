@@ -367,7 +367,7 @@ class Talker {
       title: settings.getTitleByLogType(type),
       exception: exception,
       stackTrace: stackTrace,
-      pen: settings.getAnsiPenByLogType(type),
+      pen: pen ?? settings.getAnsiPenByLogType(type),
       logLevel: logLevel,
     );
     _handleLogData(data);

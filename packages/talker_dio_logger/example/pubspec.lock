@@ -340,21 +340,21 @@ packages:
       sha256: "556ffa26387072702199a7bcf7c9a4672c46aaf28d99d122d72a2c5b6c9e1614"
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.1"
+    version: "4.4.2"
   talker_dio_logger:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "4.4.1"
+    version: "4.4.2"
   talker_flutter:
     dependency: "direct main"
     description:
       path: "../../talker_flutter"
       relative: true
     source: path
-    version: "4.4.1"
+    version: "4.4.2"
   talker_logger:
     dependency: transitive
     description:
@@ -362,7 +362,7 @@ packages:
       sha256: a0d06d9d29792251145bf19be540bb3bd6c8fb15478b2ea9b26c051dbda39669
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.1"
+    version: "4.4.2"
   term_glyph:
     dependency: transitive
     description:

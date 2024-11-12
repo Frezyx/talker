@@ -1,3 +1,9 @@
+# 4.4.2
+- [talker] Fix provide pen color field in log() method
+- [talker] Android dependecies actualization and bug fixing in example app code
+
+Thanks to [HE-LU](https://github.com/HE-LU) and [venkat9507](https://github.com/venkat9507)
+
 # 4.4.1
 - [talker_flutter] Bump share_plus version to 10.0.1
 - [talker_flutter] Bump path_provider version to 2.1.4

@@ -1,3 +1,9 @@
+# 0.1.0-dev.13
+- [talker] Fix provide pen color field in log() method
+- [talker] Android dependecies actualization and bug fixing in example app code
+
+Thanks to [HE-LU](https://github.com/HE-LU) and [venkat9507](https://github.com/venkat9507)
+
 # 0.1.0-dev.12
 - [talker] Stable ```TimeFormat``` release (Support of custom time formatting for every talker package)
 - [talker_riverpod_logger] Bump version to talker common versions system

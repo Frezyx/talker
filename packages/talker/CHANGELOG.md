@@ -1,3 +1,6 @@
+# 4.4.3
+- [talker_http_logger] Bump http_interceptor package version to **2.0.0**
+
 # 4.4.2
 - [talker] Fix provide pen color field in log() method
 - [talker] Android dependecies actualization and bug fixing in example app code

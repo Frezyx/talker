@@ -1,3 +1,6 @@
+# 0.1.0-dev.14
+- [talker_http_logger] Bump http_interceptor package version to **2.0.0**
+
 # 0.1.0-dev.13
 - [talker] Fix provide pen color field in log() method
 - [talker] Android dependecies actualization and bug fixing in example app code

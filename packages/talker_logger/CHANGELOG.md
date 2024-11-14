@@ -1,3 +1,8 @@
+# 4.4.4
+- [talker_dio_logger] Add enable option field to control log output (on talker_dio_logger level)
+
+Thanks to [weitsai](https://github.com/weitsai)
+
 # 4.4.3
 - [talker_http_logger] Bump http_interceptor package version to **2.0.0**
 

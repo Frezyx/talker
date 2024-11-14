@@ -61,6 +61,9 @@ class TalkerDioLogger extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     super.onRequest(options, handler);
+    if (!settings.enabled) {
+      return;
+    }
     final accepted = settings.requestFilter?.call(options) ?? true;
     if (!accepted) {
       return;
@@ -81,6 +84,9 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
+    if (!settings.enabled) {
+      return;
+    }
     final accepted = settings.responseFilter?.call(response) ?? true;
     if (!accepted) {
       return;
@@ -101,6 +107,9 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
+    if (!settings.enabled) {
+      return;
+    }
     final accepted = settings.errorFilter?.call(err) ?? true;
     if (!accepted) {
       return;

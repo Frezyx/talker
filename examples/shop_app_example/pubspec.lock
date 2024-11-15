@@ -459,35 +459,35 @@ packages:
       path: "../../packages/talker"
       relative: true
     source: path
-    version: "4.4.4"
+    version: "4.4.5"
   talker_bloc_logger:
     dependency: "direct main"
     description:
       path: "../../packages/talker_bloc_logger"
       relative: true
     source: path
-    version: "4.4.4"
+    version: "4.4.5"
   talker_dio_logger:
     dependency: "direct main"
     description:
       path: "../../packages/talker_dio_logger"
       relative: true
     source: path
-    version: "4.4.4"
+    version: "4.4.5"
   talker_flutter:
     dependency: "direct main"
     description:
       path: "../../packages/talker_flutter"
       relative: true
     source: path
-    version: "4.4.4"
+    version: "4.4.5"
   talker_logger:
     dependency: "direct overridden"
     description:
       path: "../../packages/talker_logger"
       relative: true
     source: path
-    version: "4.4.4"
+    version: "4.4.5"
   term_glyph:
     dependency: transitive
     description:

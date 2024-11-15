@@ -1,3 +1,8 @@
+# 0.1.0-dev.16
+- [talker_logger] Add enable option field to control log output (on talker_logger level)
+
+Thanks to [weitsai](https://github.com/weitsai)
+
 # 0.1.0-dev.15
 - [talker_dio_logger] Add enable option field to control log output (on talker_dio_logger level)
 

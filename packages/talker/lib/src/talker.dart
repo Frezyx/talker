@@ -216,6 +216,14 @@ class Talker {
     _handleLog(message, exception, stackTrace, logLevel, pen: pen);
   }
 
+  /// {@macro logCustom}
+  @Deprecated(
+    'Use logCustom instead. '
+    'This feature was deprecated after v4.4.6',
+  )
+  void logTyped(TalkerLog log) => logCustom(log);
+
+  /// {@template logCustom}
   /// Log a new message
   /// created in the full [TalkerLog] model or they subclass
   /// (you can create it by extends of [TalkerLog])
@@ -238,9 +246,8 @@ class Talker {
   ///   final httpLog = HttpTalkerLog('Http status: 200');
   ///   talker.logTyped(httpLog);
   /// ```
-  void logTyped(TalkerLog log) {
-    _handleLogData(log);
-  }
+  /// {@endtemplate}
+  void logCustom(TalkerLog log) => _handleLogData(log);
 
   /// Log a new critical message
   /// [dynamic] [message] - message describes what happened

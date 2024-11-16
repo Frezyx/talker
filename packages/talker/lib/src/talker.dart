@@ -244,7 +244,7 @@ class Talker {
   ///
   ///   //You can add here response model of your request
   ///   final httpLog = HttpTalkerLog('Http status: 200');
-  ///   talker.logTyped(httpLog);
+  ///   talker.logCustom(httpLog);
   /// ```
   /// {@endtemplate}
   void logCustom(TalkerLog log) => _handleLogData(log);

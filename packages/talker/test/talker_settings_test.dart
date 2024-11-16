@@ -17,7 +17,7 @@ void main() {
         logger: TalkerLogger(),
       );
       final httpLog = HttpTalkerLog('Http good');
-      talker.logTyped(httpLog);
+      talker.logCustom(httpLog);
 
       expect(
         talker.history.whereType<HttpTalkerLog>().isNotEmpty,

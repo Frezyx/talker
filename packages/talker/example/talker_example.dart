@@ -30,7 +30,7 @@ Future<void> main() async {
   }
 
   /// Custom logs
-  talker.logTyped(YourCustomLog('Something like your own service message'));
+  talker.logCustom(YourCustomLog('Something like your own service message'));
 }
 
 class YourCustomLog extends TalkerLog {

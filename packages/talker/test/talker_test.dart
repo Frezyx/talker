@@ -1,6 +1,8 @@
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
+import 'talker_settings_test.dart';
+
 class LikeErrorButNot {}
 
 void main() {
@@ -83,5 +85,48 @@ void main() {
       1,
     );
     expect(talker.history.first.message, testLogMessage);
+  });
+
+  test('logCustom', () async {
+    final talker = Talker(
+      logger: TalkerLogger(
+        output: (message) {},
+      ),
+    );
+    final httpLog = HttpTalkerLog('Http good');
+    talker.logCustom(httpLog);
+
+    expect(talker.history.length, 1);
+    expect(
+      talker.history.whereType<TalkerLog>().length,
+      1,
+    );
+    expect(
+      talker.history.whereType<HttpTalkerLog>().length,
+      1,
+    );
+    expect(talker.history.first.message, httpLog.message);
+  });
+
+  test('logTyped', () async {
+    final talker = Talker(
+      logger: TalkerLogger(
+        output: (message) {},
+      ),
+    );
+    final httpLog = HttpTalkerLog('Http good');
+    // ignore: deprecated_member_use_from_same_package
+    talker.logTyped(httpLog);
+
+    expect(talker.history.length, 1);
+    expect(
+      talker.history.whereType<TalkerLog>().length,
+      1,
+    );
+    expect(
+      talker.history.whereType<HttpTalkerLog>().length,
+      1,
+    );
+    expect(talker.history.first.message, httpLog.message);
   });
 }

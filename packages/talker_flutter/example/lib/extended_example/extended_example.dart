@@ -84,7 +84,8 @@ class _ExtendedExampleState extends State<ExtendedExample> {
   }
 
   void _customLog() {
-    _talker.logCustom(CustomLog('Custom log message'));
+    // ignore: deprecated_member_use_from_same_package
+    _talker.logTyped(CustomLog('Custom log message'));
   }
 
   void _criticalLog() {

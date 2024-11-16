@@ -1,3 +1,7 @@
+# 4.4.6
+- [talker] Reanme **logTyped** method to **logCustom**
+- [talker] Add **Deprecated** annotation for logTyped method
+
 # 4.4.5
 - [talker_logger] Add enable option field to control log output (on talker_logger level)
 

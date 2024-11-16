@@ -75,7 +75,7 @@ class TalkerDioLogger extends Interceptor {
         requestOptions: options,
         settings: settings,
       );
-      _talker.logTyped(httpLog);
+      _talker.logCustom(httpLog);
     } catch (_) {
       //pass
     }
@@ -98,7 +98,7 @@ class TalkerDioLogger extends Interceptor {
         settings: settings,
         response: response,
       );
-      _talker.logTyped(httpLog);
+      _talker.logCustom(httpLog);
     } catch (_) {
       //pass
     }
@@ -121,7 +121,7 @@ class TalkerDioLogger extends Interceptor {
         dioException: err,
         settings: settings,
       );
-      _talker.logTyped(httpErrorLog);
+      _talker.logCustom(httpErrorLog);
     } catch (_) {
       //pass
     }

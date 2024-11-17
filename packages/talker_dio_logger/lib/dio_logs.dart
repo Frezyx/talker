@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
-const encoder = JsonEncoder.withIndent('  ');
+const _encoder = JsonEncoder.withIndent('  ');
 
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
@@ -33,11 +33,11 @@ class DioRequestLog extends TalkerLog {
 
     try {
       if (settings.printRequestData && data != null) {
-        final prettyData = encoder.convert(data);
+        final prettyData = _encoder.convert(data);
         msg += '\nData: $prettyData';
       }
       if (settings.printRequestHeaders && headers.isNotEmpty) {
-        final prettyHeaders = encoder.convert(headers);
+        final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }
     } catch (_) {
@@ -81,11 +81,11 @@ class DioResponseLog extends TalkerLog {
 
     try {
       if (settings.printResponseData && data != null) {
-        final prettyData = encoder.convert(data);
+        final prettyData = _encoder.convert(data);
         msg += '\nData: $prettyData';
       }
       if (settings.printResponseHeaders && headers.isNotEmpty) {
-        final prettyHeaders = encoder.convert(headers);
+        final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }
     } catch (_) {
@@ -131,11 +131,11 @@ class DioErrorLog extends TalkerLog {
     }
 
     if (settings.printErrorData && data != null) {
-      final prettyData = encoder.convert(data);
+      final prettyData = _encoder.convert(data);
       msg += '\nData: $prettyData';
     }
     if (settings.printErrorHeaders && !(headers?.isEmpty ?? true)) {
-      final prettyHeaders = encoder.convert(headers!.map);
+      final prettyHeaders = _encoder.convert(headers!.map);
       msg += '\nHeaders: $prettyHeaders';
     }
     return msg;

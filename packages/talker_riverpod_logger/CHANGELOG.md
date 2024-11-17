@@ -1,3 +1,6 @@
+# 4.4.7
+- [talker_dio_logger] Make encoder constant private
+
 # 4.4.6
 - [talker] Reanme **logTyped** method to **logCustom**
 - [talker] Add **Deprecated** annotation for logTyped method

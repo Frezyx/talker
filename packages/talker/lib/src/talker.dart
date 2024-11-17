@@ -219,7 +219,7 @@ class Talker {
   /// {@macro logCustom}
   @Deprecated(
     'Use logCustom instead. '
-    'This feature was deprecated after v4.4.6',
+    'This feature was deprecated after v4.4.7',
   )
   void logTyped(TalkerLog log) => logCustom(log);
 

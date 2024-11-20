@@ -1,10 +1,13 @@
 import 'package:talker/talker.dart';
 
+const _customLogKey = 'your_cutom_log_key';
+
 Future<void> main() async {
   final talker = Talker(
     settings: TalkerSettings(
       colors: {
-        TalkerLogType.info.key: AnsiPen()..yellow(),
+        TalkerLogType.info.key: AnsiPen()..magenta(),
+        _customLogKey: AnsiPen()..green(),
       },
       titles: {
         TalkerLogType.exception: 'Whatever you want',
@@ -36,11 +39,15 @@ Future<void> main() async {
 class YourCustomLog extends TalkerLog {
   YourCustomLog(String message) : super(message);
 
+  /// Your own log key (for color customization in settings)
+  @override
+  String? get key => _customLogKey;
+
   /// Your custom log title
   @override
   String get title => 'CUSTOM';
 
-  /// Your custom log color
-  @override
-  AnsiPen get pen => AnsiPen()..xterm(121);
+  // /// Your custom log color
+  // @override
+  // AnsiPen get pen => AnsiPen()..green();
 }

@@ -62,6 +62,8 @@ final _defaultColors = {
   TalkerLogType.route.key: AnsiPen()..xterm(135),
 };
 
+final _fallbackPen = AnsiPen()..gray();
+
 /// {@template talker_settings}
 /// This class used for setup [Talker] configuration
 /// {@endtemplate}
@@ -166,8 +168,11 @@ class TalkerSettings {
     return titles[key] ?? key.key;
   }
 
-  AnsiPen getAnsiPenByLogType(TalkerLogType type, {TalkerData? logData}) {
-    return colors[type.key] ?? logData?.pen ?? (AnsiPen()..gray());
+  AnsiPen getAnsiPenByLogType(TalkerLogType type, {TalkerData? logData}) =>
+      getPenByLogKey(type.key, fallbackPen: logData?.pen);
+
+  AnsiPen getPenByLogKey(String key, {AnsiPen? fallbackPen}) {
+    return colors[key] ?? fallbackPen ?? _fallbackPen;
   }
 
   TalkerSettings copyWith({

@@ -31,7 +31,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-
+pubspec.lock
 # Web related
 
 # Symbolication related

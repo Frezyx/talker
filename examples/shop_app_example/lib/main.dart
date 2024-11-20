@@ -57,7 +57,7 @@ void _initDependencies() {
   DI.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(dio: dio),
   );
-  talker.logTyped(GoodLog('Repositories initialization completed'));
+  talker.logCustom(GoodLog('Repositories initialization completed'));
 
   Bloc.observer = TalkerBlocObserver(
     talker: talker,

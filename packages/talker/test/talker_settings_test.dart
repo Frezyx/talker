@@ -1,6 +1,8 @@
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
+import '../example/talker_example.dart';
+
 void main() {
   final talker = Talker();
   group('TalkerSettings', () {
@@ -49,6 +51,46 @@ void main() {
       expect(newSettings.useHistory, true);
       expect(newSettings.maxHistoryItems, 1000);
     });
+
+    test('Custom log: colors contains custom pen', () async {
+      final pen = AnsiPen()..green();
+
+      final settings = TalkerSettings(
+        useConsoleLogs: false,
+        colors: {
+          YourCustomLog.logKey: pen,
+        },
+      );
+
+      final talker = Talker(settings: settings);
+
+      final customLog = YourCustomLog('Custom log message');
+      talker.logCustom(customLog);
+
+      expect(
+        settings.colors[YourCustomLog.logKey],
+        pen,
+      );
+    });
+
+    test('Custom log: titles contains custom logs title', () async {
+      final settings = TalkerSettings(
+        useConsoleLogs: false,
+        titles: {
+          YourCustomLog.logKey: 'Custom title',
+        },
+      );
+
+      final talker = Talker(settings: settings);
+
+      final customLog = YourCustomLog('Custom log message');
+      talker.logCustom(customLog);
+
+      expect(
+        settings.titles[YourCustomLog.logKey],
+        'Custom title',
+      );
+    });
   });
 }
 
@@ -59,8 +101,7 @@ class HttpTalkerLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..blue();
 
   @override
-  String generateTextMessage(
-      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return pen.write(message ?? '');
   }
 }

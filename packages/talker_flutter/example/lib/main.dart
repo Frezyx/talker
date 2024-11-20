@@ -10,7 +10,16 @@ import 'package:talker_flutter/talker_flutter.dart';
 ///
 
 void main() {
-  final talker = TalkerFlutter.init();
+  final talker = TalkerFlutter.init(
+    settings: TalkerSettings(
+      colors: {
+        YourCustomLog.logKey: AnsiPen()..green(),
+      },
+      titles: {
+        YourCustomLog.logKey: 'Custom',
+      },
+    ),
+  );
   runZonedGuarded(
     () => runApp(BaseExample(talker: talker)),
     (Object error, StackTrace stack) {
@@ -46,6 +55,7 @@ class _BaseExampleState extends State<BaseExample> {
     talker.info('3.............');
     talker.info('2.......');
     talker.info('1');
+    talker.logCustom(YourCustomLog('Custom log message'));
     super.initState();
   }
 
@@ -60,7 +70,14 @@ class _BaseExampleState extends State<BaseExample> {
       ),
       home: Builder(builder: (context) {
         return Scaffold(
-          body: TalkerScreen(talker: widget.talker),
+          body: TalkerScreen(
+            talker: widget.talker,
+            theme: const TalkerScreenTheme(
+              logColors: {
+                YourCustomLog.logKey: Colors.green,
+              },
+            ),
+          ),
         );
       }),
     );
@@ -73,4 +90,14 @@ class _BaseExampleState extends State<BaseExample> {
       widget.talker.handle(e, st, 'FakeService exception');
     }
   }
+}
+
+class YourCustomLog extends TalkerLog {
+  YourCustomLog(String message) : super(message);
+
+  /// Your own log key (for color customization in settings)
+  static const logKey = 'custom_log_key';
+
+  @override
+  String? get key => logKey;
 }

@@ -123,7 +123,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^4.4.1
+  talker: ^4.4.7
 ```
 
 ### Easy to use
@@ -195,7 +195,7 @@ class YourCustomLog extends TalkerLog {
 }
 
 final talker = Talker();
-talker.logTyped(YourCustomLog('Something like your own service message'));
+talker.logCustom(YourCustomLog('Something like your own service message'));
 ```
 
 <p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.png?raw=true"></a></p>
@@ -294,7 +294,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^4.4.1
+  talker_flutter: ^4.4.7
 ```
 
 ### Setup
@@ -522,7 +522,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.4.1
+  talker_dio_logger: ^4.4.7
 ```
 
 ### Usage
@@ -618,7 +618,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.4.1
+  talker_bloc_logger: ^4.4.7
 ```
 
 ### Usage
@@ -706,7 +706,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_riverpod_logger: ^4.4.1
+  talker_riverpod_logger: ^4.4.7
 ```
 
 ### Usage

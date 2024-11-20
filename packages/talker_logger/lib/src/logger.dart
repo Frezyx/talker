@@ -38,6 +38,9 @@ class TalkerLogger {
   /// ```
   /// {@endtemplate}
   void log(dynamic msg, {LogLevel? level, AnsiPen? pen}) {
+    if (!settings.enable) {
+      return;
+    }
     final selectedLevel = level ?? LogLevel.debug;
     final selectedPen =
         pen ?? settings.colors[selectedLevel] ?? (AnsiPen()..gray());

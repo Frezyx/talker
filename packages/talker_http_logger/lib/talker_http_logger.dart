@@ -17,7 +17,7 @@ class TalkerHttpLogger extends InterceptorContract {
     required BaseRequest request,
   }) async {
     final message = '${request.url}';
-    _talker.logTyped(HttpRequestLog(message, request: request));
+    _talker.logCustom(HttpRequestLog(message, request: request));
     return request;
   }
 
@@ -26,7 +26,7 @@ class TalkerHttpLogger extends InterceptorContract {
     required BaseResponse response,
   }) async {
     final message = '${response.request?.url}';
-    _talker.logTyped(HttpResponseLog(message, response: response));
+    _talker.logCustom(HttpResponseLog(message, response: response));
     return response;
   }
 }

@@ -61,6 +61,9 @@ class TalkerDioLogger extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     super.onRequest(options, handler);
+    if (!settings.enabled) {
+      return;
+    }
     final accepted = settings.requestFilter?.call(options) ?? true;
     if (!accepted) {
       return;
@@ -72,7 +75,7 @@ class TalkerDioLogger extends Interceptor {
         requestOptions: options,
         settings: settings,
       );
-      _talker.logTyped(httpLog);
+      _talker.logCustom(httpLog);
     } catch (_) {
       //pass
     }
@@ -81,6 +84,9 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
+    if (!settings.enabled) {
+      return;
+    }
     final accepted = settings.responseFilter?.call(response) ?? true;
     if (!accepted) {
       return;
@@ -92,7 +98,7 @@ class TalkerDioLogger extends Interceptor {
         settings: settings,
         response: response,
       );
-      _talker.logTyped(httpLog);
+      _talker.logCustom(httpLog);
     } catch (_) {
       //pass
     }
@@ -101,6 +107,9 @@ class TalkerDioLogger extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     super.onError(err, handler);
+    if (!settings.enabled) {
+      return;
+    }
     final accepted = settings.errorFilter?.call(err) ?? true;
     if (!accepted) {
       return;
@@ -112,7 +121,7 @@ class TalkerDioLogger extends Interceptor {
         dioException: err,
         settings: settings,
       );
-      _talker.logTyped(httpErrorLog);
+      _talker.logCustom(httpErrorLog);
     } catch (_) {
       //pass
     }

@@ -13,6 +13,7 @@ final _defaultColors = {
 class TalkerLoggerSettings {
   TalkerLoggerSettings({
     Map<LogLevel, AnsiPen>? colors,
+    this.enable = true,
     this.defaultTitle = 'LOG',
     this.level = LogLevel.verbose,
     this.lineSymbol = '─',
@@ -39,6 +40,9 @@ class TalkerLoggerSettings {
   /// );
   /// ```
   final Map<LogLevel, AnsiPen> colors = _defaultColors;
+
+  ///  Field for enable and disable print logger
+  bool enable;
 
   /// Title of default log without [LogLevel]
   final String defaultTitle;

@@ -1,3 +1,29 @@
+# 4.4.7
+- [talker_dio_logger] Make encoder constant private
+
+# 4.4.6
+- [talker] Reanme **logTyped** method to **logCustom**
+- [talker] Add **Deprecated** annotation for logTyped method
+
+# 4.4.5
+- [talker_logger] Add enable option field to control log output (on talker_logger level)
+
+Thanks to [weitsai](https://github.com/weitsai)
+
+# 4.4.4
+- [talker_dio_logger] Add enable option field to control log output (on talker_dio_logger level)
+
+Thanks to [weitsai](https://github.com/weitsai)
+
+# 4.4.3
+- [talker_http_logger] Bump http_interceptor package version to **2.0.0**
+
+# 4.4.2
+- [talker] Fix provide pen color field in log() method
+- [talker] Android dependecies actualization and bug fixing in example app code
+
+Thanks to [HE-LU](https://github.com/HE-LU) and [venkat9507](https://github.com/venkat9507)
+
 # 4.4.1
 - [talker_flutter] Bump share_plus version to 10.0.1
 - [talker_flutter] Bump path_provider version to 2.1.4

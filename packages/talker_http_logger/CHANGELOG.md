@@ -1,3 +1,29 @@
+# 0.1.0-dev.18
+- [talker_dio_logger] Make encoder constant private
+
+# 0.1.0-dev.17
+- [talker] Reanme **logTyped** method to **logCustom**
+- [talker] Add **Deprecated** annotation for logTyped method
+
+# 0.1.0-dev.16
+- [talker_logger] Add enable option field to control log output (on talker_logger level)
+
+Thanks to [weitsai](https://github.com/weitsai)
+
+# 0.1.0-dev.15
+- [talker_dio_logger] Add enable option field to control log output (on talker_dio_logger level)
+
+Thanks to [weitsai](https://github.com/weitsai)
+
+# 0.1.0-dev.14
+- [talker_http_logger] Bump http_interceptor package version to **2.0.0**
+
+# 0.1.0-dev.13
+- [talker] Fix provide pen color field in log() method
+- [talker] Android dependecies actualization and bug fixing in example app code
+
+Thanks to [HE-LU](https://github.com/HE-LU) and [venkat9507](https://github.com/venkat9507)
+
 # 0.1.0-dev.12
 - [talker] Stable ```TimeFormat``` release (Support of custom time formatting for every talker package)
 - [talker_riverpod_logger] Bump version to talker common versions system

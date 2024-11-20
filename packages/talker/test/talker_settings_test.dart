@@ -52,7 +52,7 @@ void main() {
       expect(newSettings.maxHistoryItems, 1000);
     });
 
-    test('Custom log: colors contains custom pen', () async {
+    test('Custom log: verifies custom pen is applied to settings', () async {
       final pen = AnsiPen()..green();
 
       final settings = TalkerSettings(
@@ -73,7 +73,7 @@ void main() {
       );
     });
 
-    test('Custom log: titles contains custom logs title', () async {
+    test('Custom log: verifies custom title is applied to settings', () async {
       final settings = TalkerSettings(
         useConsoleLogs: false,
         titles: {

@@ -215,17 +215,22 @@ talker.logCustom(YourCustomLog('Something like your own service message'));
 
 Starting from version 4.0.0, you have the ability to fully customize all logs colors. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
 
-The Map is structured as **{TalkerLogType: AnsiPen}**.
+The map is now structured as `{String: AnsiPen}`.
 
-**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum. And **AnsiPen** is model to console colors customization
+### String Key
+The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
+- Default log types are accessible via the `key` field in the `TalkerLogType` enum.
+- Developers can also define **custom log types** by providing their own string values, such as `YourCustomLog.logKey`.
+
 
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     colors: {
-      TalkerLogType.httpResponse: AnsiPen()..red(),
-      TalkerLogType.error: AnsiPen()..green(),
-      TalkerLogType.info: AnsiPen()..yellow(),
+      TalkerLogType.httpResponse.key: AnsiPen()..red(),
+      TalkerLogType.error.key: AnsiPen()..green(),
+      TalkerLogType.info.key: AnsiPen()..yellow(),
+      YourCustomLog.logKey: AnsiPen()..yellow(),
       // Other colors...
     },
   ),
@@ -240,17 +245,21 @@ Talker have default color scheme. You can check it in [TalkerSettings](https://g
 
 Starting from version 4.0.0, you have the ability to fully customize all logs titles. You can set **your own title for any type of logs**.
 
-The Map is structured as **{TalkerLogType: String}**.
+The map is now structured as `{String: AnsiPen}`.
 
-**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum.
+### String Key
+The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
+- Default log types are accessible via the `key` field in the `TalkerLogType` enum.
+- Developers can also define **custom log types** by providing their own string values, such as `YourCustomLog.logKey`.
 
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     titles: {
-      TalkerLogType.exception: 'Whatever you want',
-      TalkerLogType.error: 'E',
-      TalkerLogType.info: 'i',
+      TalkerLogType.exception.key: 'Whatever you want',
+      TalkerLogType.error.key: 'E',
+      TalkerLogType.info.key: 'i',
+      YourCustomLog.logKey: 'Custom',
       // Other titles...
     },
   ),
@@ -384,12 +393,13 @@ final talker = TalkerFlutter.init();
 
 TalkerScreen(
   talker: talker,
-  theme: TalkerScreenTheme(
+  theme: const TalkerScreenTheme(
     /// Your custom log colors
     logColors: {
-      TalkerLogType.httpResponse: Color(0xFF26FF3C),
-      TalkerLogType.error: Colors.redAccent,
-      TalkerLogType.info: Color.fromARGB(255, 0, 255, 247),
+      TalkerLogType.httpResponse.key: Color(0xFF26FF3C),
+      TalkerLogType.error.key: Colors.redAccent,
+      TalkerLogType.info.key: Color.fromARGB(255, 0, 255, 247),
+      YourCustomLog.logKey: Colors.green,
     },
   )
 )

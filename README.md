@@ -220,7 +220,7 @@ The map is now structured as `{String: AnsiPen}`.
 ### String Key
 The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
 - Default log types are accessible via the `key` field in the `TalkerLogType` enum.
-- Developers can also define **custom log types** by providing their own string values, such as `YourCustomLog.logKey`.
+- Developers can also define **custom log pen** by providing their own string values, such as `YourCustomLog.logKey`.
 
 
 ```dart
@@ -250,7 +250,7 @@ The map is now structured as `{String: AnsiPen}`.
 ### String Key
 The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
 - Default log types are accessible via the `key` field in the `TalkerLogType` enum.
-- Developers can also define **custom log types** by providing their own string values, such as `YourCustomLog.logKey`.
+- Developers can also define **custom log title** by providing their own string values, such as `YourCustomLog.logKey`.
 
 ```dart
 final talker = Talker(

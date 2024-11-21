@@ -57,7 +57,7 @@ void main() {
 
         expect(log.message, message);
         expect(log.title, 'log');
-        expect(log.key, null);
+        expect(log.key, _customLog2Key);
         expect(log.pen, null);
         expect(log.logLevel, null);
         expect(log.error, null);

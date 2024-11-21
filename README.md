@@ -185,27 +185,17 @@ And you have **full customization control** over them!
 class YourCustomLog extends TalkerLog {
   YourCustomLog(String message) : super(message);
 
-  /// Your own log key (for color customization in settings)
-  static const logKey = 'custom_log_key';
+  @override
+  String get title => 'Custom';
 
   @override
-  String? get key => logKey;
+  String? get key => 'custom_log_key';
+
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(121);
 }
 
-final talker = Talker(
-    settings: TalkerSettings(
-      colors: {
-        TalkerLogType.info.key: AnsiPen()..magenta(),
-        YourCustomLog.logKey: AnsiPen()..green(),
-      },
-      titles: {
-        TalkerLogType.exception.key: 'Whatever you want',
-        TalkerLogType.error.key: 'E',
-        TalkerLogType.info.key: 'i',
-        YourCustomLog.logKey: 'Custom',
-      },
-    ),
-  );
+final talker = Talker();
 talker.logCustom(YourCustomLog('Something like your own service message'));
 ```
 
@@ -220,7 +210,7 @@ The map is now structured as `{String: AnsiPen}`.
 ### String Key
 The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
 - Default log types are accessible via the `key` field in the `TalkerLogType` enum.
-- Developers can also define **custom log pen** by providing their own string values, such as `YourCustomLog.logKey`.
+- Developers can also define **custom log pen** by providing their own string keys, like `'custom_log_key'`.
 
 
 ```dart
@@ -229,8 +219,7 @@ final talker = Talker(
     colors: {
       TalkerLogType.httpResponse.key: AnsiPen()..red(),
       TalkerLogType.error.key: AnsiPen()..green(),
-      TalkerLogType.info.key: AnsiPen()..yellow(),
-      YourCustomLog.logKey: AnsiPen()..yellow(),
+      'custom_log_key': AnsiPen()..yellow(),
       // Other colors...
     },
   ),
@@ -250,7 +239,7 @@ The map is now structured as `{String: AnsiPen}`.
 ### String Key
 The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
 - Default log types are accessible via the `key` field in the `TalkerLogType` enum.
-- Developers can also define **custom log title** by providing their own string values, such as `YourCustomLog.logKey`.
+- Developers can also define **custom log title** by providing their own string keys, like `'custom_log_key'`.
 
 ```dart
 final talker = Talker(
@@ -259,7 +248,7 @@ final talker = Talker(
       TalkerLogType.exception.key: 'Whatever you want',
       TalkerLogType.error.key: 'E',
       TalkerLogType.info.key: 'i',
-      YourCustomLog.logKey: 'Custom',
+      'custom_log_key': 'New custom title',
       // Other titles...
     },
   ),

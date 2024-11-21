@@ -7,7 +7,6 @@ import 'package:talker_flutter/talker_flutter.dart';
 /// You can see [ExtendedExample] to
 /// check how logs working in realtime
 ///
-///
 
 void main() {
   final talker = TalkerFlutter.init(

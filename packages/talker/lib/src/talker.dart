@@ -411,12 +411,10 @@ class Talker {
       return;
     }
 
-    AnsiPen? logPen;
     final logTypeKey = data.key;
-
     if (logTypeKey != null) {
       data.title = settings.getTitleByLogKey(logTypeKey);
-      logPen = settings.getPenByLogKey(
+      data.pen = settings.getPenByLogKey(
         logTypeKey,
         fallbackPen: data.pen,
       );
@@ -428,7 +426,7 @@ class Talker {
       _logger.log(
         data.generateTextMessage(timeFormat: settings.timeFormat),
         level: logLevel ?? data.logLevel,
-        pen: logPen ?? data.pen,
+        pen: data.pen,
       );
     }
   }

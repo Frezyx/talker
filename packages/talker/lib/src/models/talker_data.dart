@@ -58,7 +58,7 @@ class TalkerData {
   DateTime get time => _time;
 
   /// [AnsiPen?] [pen] - sets your own log color for console
-  final AnsiPen? pen;
+  AnsiPen? pen;
 
   /// {@template talker_data_generateTextMessage}
   /// Internal method that generates

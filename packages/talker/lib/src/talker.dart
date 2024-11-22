@@ -371,10 +371,10 @@ class Talker {
     final data = TalkerLog(
       key: type.key,
       message?.toString() ?? '',
-      title: settings.getTitleByLogType(type),
+      title: settings.getTitleByLogKey(type.key),
       exception: exception,
       stackTrace: stackTrace,
-      pen: pen ?? settings.getAnsiPenByLogType(type),
+      pen: pen ?? settings.getPenByLogKey(type.key),
       logLevel: logLevel,
     );
     _handleLogData(data);
@@ -411,14 +411,14 @@ class Talker {
       return;
     }
 
-    final typeKey = data.key;
-    AnsiPen? customPen;
-
-    if (typeKey != null) {
-      final type = TalkerLogType.fromKey(typeKey);
-      data.title = settings.getTitleByLogType(type);
-      customPen = settings.getAnsiPenByLogType(type);
-    } else {}
+    final logTypeKey = data.key;
+    if (logTypeKey != null) {
+      data.title = settings.getTitleByLogKey(logTypeKey);
+      data.pen = settings.getPenByLogKey(
+        logTypeKey,
+        fallbackPen: data.pen,
+      );
+    }
     _observer.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
@@ -426,7 +426,7 @@ class Talker {
       _logger.log(
         data.generateTextMessage(timeFormat: settings.timeFormat),
         level: logLevel ?? data.logLevel,
-        pen: data.pen ?? customPen,
+        pen: data.pen,
       );
     }
   }

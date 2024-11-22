@@ -6,7 +6,6 @@ extension TalkerDataFlutterExt on TalkerData {
     final key = this.key;
 
     if (key == null) return Colors.grey;
-    final type = TalkerLogType.fromKey(key);
-    return theme.logColors[type] ?? Colors.grey;
+    return theme.logColors[key] ?? Colors.grey;
   }
 }

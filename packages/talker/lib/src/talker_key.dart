@@ -37,8 +37,8 @@ enum TalkerLogType {
     return TalkerLogType.values.firstWhere((e) => e.logLevel == logLevel);
   }
 
-  static TalkerLogType fromKey(String key) {
-    return TalkerLogType.values.firstWhere((e) => e.key == key);
+  static TalkerLogType? fromKey(String key) {
+    return TalkerLogType.values.firstWhereOrNull((e) => e.key == key);
   }
 }
 

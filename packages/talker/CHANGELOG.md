@@ -1,10 +1,15 @@
+# 4.5.1
+- [talker_flutter] Fix mapping LogColors to Flutter Color (Logs screen)
+
 # 4.5.0
 More Flexible Interaction with Custom Logs  
 - **BREAKING** [talker] Change the type of `colors` parameter in the `TalkerSettings` class from `Map<TalkerLogType, AnsiPen>?` to `Map<String, AnsiPen>?`. Custom colors must now use a string key for log types.  
 - **BREAKING** [talker] Change the type of `titles` parameter in the `TalkerSettings` class from `Map<TalkerLogType, String>?` to `Map<String, String>?`. Custom titles must now use a string key for log types.  
 - **BREAKING** [talker_flutter] Change the type of `colors` parameter in the **TalkerScreenTheme** class from `Map<TalkerLogType, Colors>?` to `Map<String, Colors>?`. Custom colors must now use a string key for log types.  
 - [talker] Add new tests and updated existing ones.  
-- [talker] Update the documentation for log customization.  
+- [talker] Update the documentation for log customization.
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff) 
 
 # 4.4.7
 - [talker_dio_logger] Make encoder constant private

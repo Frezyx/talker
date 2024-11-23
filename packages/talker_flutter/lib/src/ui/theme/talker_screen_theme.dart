@@ -45,7 +45,7 @@ class TalkerScreenTheme {
 
 extension MapTalkerFlutterColorsExt on LogColors {
   Color getByType(TalkerLogType type) {
-    return this[type] ?? Colors.grey;
+    return this[type.key] ?? Colors.grey;
   }
 }
 

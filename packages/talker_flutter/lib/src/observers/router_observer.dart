@@ -14,7 +14,7 @@ class TalkerRouteObserver extends NavigatorObserver {
     if (route.settings.name == null) {
       return;
     }
-    talker.logTyped(TalkerRouteLog(route: route));
+    talker.logCustom(TalkerRouteLog(route: route));
   }
 
   @override
@@ -23,7 +23,7 @@ class TalkerRouteObserver extends NavigatorObserver {
     if (route.settings.name == null) {
       return;
     }
-    talker.logTyped(TalkerRouteLog(route: route, isPush: false));
+    talker.logCustom(TalkerRouteLog(route: route, isPush: false));
   }
 }
 

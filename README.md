@@ -123,7 +123,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^4.4.1
+  talker: ^4.5.1
 ```
 
 ### Easy to use
@@ -185,17 +185,18 @@ And you have **full customization control** over them!
 class YourCustomLog extends TalkerLog {
   YourCustomLog(String message) : super(message);
 
-  /// Your custom log title
   @override
-  String get title => 'CUSTOM';
+  String get title => 'Custom';
 
-  /// Your custom log color
+  @override
+  String? get key => 'custom_log_key';
+
   @override
   AnsiPen get pen => AnsiPen()..xterm(121);
 }
 
 final talker = Talker();
-talker.logTyped(YourCustomLog('Something like your own service message'));
+talker.logCustom(YourCustomLog('Something like your own service message'));
 ```
 
 <p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.png?raw=true"></a></p>
@@ -204,17 +205,21 @@ talker.logTyped(YourCustomLog('Something like your own service message'));
 
 Starting from version 4.0.0, you have the ability to fully customize all logs colors. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
 
-The Map is structured as **{TalkerLogType: AnsiPen}**.
+The map is now structured as `{String: AnsiPen}`.
 
-**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum. And **AnsiPen** is model to console colors customization
+### String Key
+The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
+- Default log types are accessible via the `key` field in the `TalkerLogType` enum.
+- Developers can also define **custom log pen** by providing their own string keys, like `'custom_log_key'`.
+
 
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     colors: {
-      TalkerLogType.httpResponse: AnsiPen()..red(),
-      TalkerLogType.error: AnsiPen()..green(),
-      TalkerLogType.info: AnsiPen()..yellow(),
+      TalkerLogType.httpResponse.key: AnsiPen()..red(),
+      TalkerLogType.error.key: AnsiPen()..green(),
+      'custom_log_key': AnsiPen()..yellow(),
       // Other colors...
     },
   ),
@@ -229,17 +234,21 @@ Talker have default color scheme. You can check it in [TalkerSettings](https://g
 
 Starting from version 4.0.0, you have the ability to fully customize all logs titles. You can set **your own title for any type of logs**.
 
-The Map is structured as **{TalkerLogType: String}**.
+The map is now structured as `{String: AnsiPen}`.
 
-**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum.
+### String Key
+The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
+- Default log types are accessible via the `key` field in the `TalkerLogType` enum.
+- Developers can also define **custom log title** by providing their own string keys, like `'custom_log_key'`.
 
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     titles: {
-      TalkerLogType.exception: 'Whatever you want',
-      TalkerLogType.error: 'E',
-      TalkerLogType.info: 'i',
+      TalkerLogType.exception.key: 'Whatever you want',
+      TalkerLogType.error.key: 'E',
+      TalkerLogType.info.key: 'i',
+      'custom_log_key': 'New custom title',
       // Other titles...
     },
   ),
@@ -294,7 +303,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^4.4.1
+  talker_flutter: ^4.5.1
 ```
 
 ### Setup
@@ -373,12 +382,13 @@ final talker = TalkerFlutter.init();
 
 TalkerScreen(
   talker: talker,
-  theme: TalkerScreenTheme(
+  theme: const TalkerScreenTheme(
     /// Your custom log colors
     logColors: {
-      TalkerLogType.httpResponse: Color(0xFF26FF3C),
-      TalkerLogType.error: Colors.redAccent,
-      TalkerLogType.info: Color.fromARGB(255, 0, 255, 247),
+      TalkerLogType.httpResponse.key: Color(0xFF26FF3C),
+      TalkerLogType.error.key: Colors.redAccent,
+      TalkerLogType.info.key: Color.fromARGB(255, 0, 255, 247),
+      YourCustomLog.logKey: Colors.green,
     },
   )
 )
@@ -522,7 +532,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.4.1
+  talker_dio_logger: ^4.5.1
 ```
 
 ### Usage
@@ -618,7 +628,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.4.1
+  talker_bloc_logger: ^4.5.1
 ```
 
 ### Usage
@@ -706,7 +716,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_riverpod_logger: ^4.4.1
+  talker_riverpod_logger: ^4.5.1
 ```
 
 ### Usage

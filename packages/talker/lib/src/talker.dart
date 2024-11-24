@@ -216,6 +216,14 @@ class Talker {
     _handleLog(message, exception, stackTrace, logLevel, pen: pen);
   }
 
+  /// {@macro logCustom}
+  @Deprecated(
+    'Use logCustom instead. '
+    'This feature was deprecated after v4.5.1',
+  )
+  void logTyped(TalkerLog log) => logCustom(log);
+
+  /// {@template logCustom}
   /// Log a new message
   /// created in the full [TalkerLog] model or they subclass
   /// (you can create it by extends of [TalkerLog])
@@ -236,11 +244,10 @@ class Talker {
   ///
   ///   //You can add here response model of your request
   ///   final httpLog = HttpTalkerLog('Http status: 200');
-  ///   talker.logTyped(httpLog);
+  ///   talker.logCustom(httpLog);
   /// ```
-  void logTyped(TalkerLog log) {
-    _handleLogData(log);
-  }
+  /// {@endtemplate}
+  void logCustom(TalkerLog log) => _handleLogData(log);
 
   /// Log a new critical message
   /// [dynamic] [message] - message describes what happened
@@ -364,10 +371,10 @@ class Talker {
     final data = TalkerLog(
       key: type.key,
       message?.toString() ?? '',
-      title: settings.getTitleByLogType(type),
+      title: settings.getTitleByLogKey(type.key),
       exception: exception,
       stackTrace: stackTrace,
-      pen: settings.getAnsiPenByLogType(type),
+      pen: pen ?? settings.getPenByLogKey(type.key),
       logLevel: logLevel,
     );
     _handleLogData(data);
@@ -404,14 +411,14 @@ class Talker {
       return;
     }
 
-    final typeKey = data.key;
-    AnsiPen? customPen;
-
-    if (typeKey != null) {
-      final type = TalkerLogType.fromKey(typeKey);
-      data.title = settings.getTitleByLogType(type);
-      customPen = settings.getAnsiPenByLogType(type);
-    } else {}
+    final logTypeKey = data.key;
+    if (logTypeKey != null) {
+      data.title = settings.getTitleByLogKey(logTypeKey);
+      data.pen = settings.getPenByLogKey(
+        logTypeKey,
+        fallbackPen: data.pen,
+      );
+    }
     _observer.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
@@ -419,7 +426,7 @@ class Talker {
       _logger.log(
         data.generateTextMessage(timeFormat: settings.timeFormat),
         level: logLevel ?? data.logLevel,
-        pen: data.pen ?? customPen,
+        pen: data.pen,
       );
     }
   }

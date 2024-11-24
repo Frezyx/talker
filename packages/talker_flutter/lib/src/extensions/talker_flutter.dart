@@ -19,6 +19,23 @@ extension TalkerFlutter on Talker {
         filter: filter,
       );
 
+  /// init with local database
+  static Future<Talker> initWithDB({
+    TalkerLogger? logger,
+    TalkerObserver? observer,
+    TalkerSettings? settings,
+    TalkerFilter? filter,
+  }) async {
+    return Talker.initWithDB(
+      logger: (logger ?? TalkerLogger()).copyWith(
+        output: _defaultFlutterOutput,
+      ),
+      settings: settings,
+      observer: observer,
+      filter: filter,
+    );
+  }
+
   static dynamic _defaultFlutterOutput(String message) {
     if (kIsWeb) {
       // ignore: avoid_print

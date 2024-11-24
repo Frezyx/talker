@@ -1,0 +1,77 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2732766526390766766",
+      "lastPropertyId": "10:3011623524114326227",
+      "name": "TalkerData",
+      "properties": [
+        {
+          "id": "1:3498377610127543967",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8804727048679347739",
+          "name": "message",
+          "type": 9
+        },
+        {
+          "id": "3:2057168434422229462",
+          "name": "key",
+          "type": 9
+        },
+        {
+          "id": "4:5171479136116245782",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "5:1327192762666128707",
+          "name": "time",
+          "type": 10
+        },
+        {
+          "id": "6:6157106738757531849",
+          "name": "logLevelString",
+          "type": 9
+        },
+        {
+          "id": "7:4125526427669596463",
+          "name": "exceptionMessage",
+          "type": 9
+        },
+        {
+          "id": "8:9082424071939873438",
+          "name": "errorMessage",
+          "type": 9
+        },
+        {
+          "id": "9:5102783334174280861",
+          "name": "stackTraceString",
+          "type": 9
+        },
+        {
+          "id": "10:3011623524114326227",
+          "name": "penColor",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:2732766526390766766",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

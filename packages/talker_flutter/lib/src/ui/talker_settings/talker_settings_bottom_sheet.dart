@@ -79,6 +79,34 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
               useHistory: enabled,
             ),
           );
+          if (enabled == false) {
+            widget.talker.value.configure(
+              settings: widget.talker.value.settings.copyWith(
+                useLocalDatabase: enabled,
+              ),
+            );
+          }
+          widget.talker.notifyListeners();
+        },
+      ),
+      TalkerSettingsCard(
+        canEdit: widget.talker.value.settings.enabled,
+        talkerScreenTheme: widget.talkerScreenTheme,
+        title: 'Use Local Database Beta',
+        enabled: widget.talker.value.settings.useLocalDatabase,
+        onChanged: (enabled) {
+          widget.talker.value.configure(
+            settings: widget.talker.value.settings.copyWith(
+              useLocalDatabase: enabled,
+            ),
+          );
+          if (enabled) {
+            widget.talker.value.configure(
+              settings: widget.talker.value.settings.copyWith(
+                useHistory: enabled,
+              ),
+            );
+          }
           widget.talker.notifyListeners();
         },
       ),

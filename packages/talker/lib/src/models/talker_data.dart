@@ -1,78 +1,138 @@
+import 'package:objectbox/objectbox.dart';
 import 'package:talker/talker.dart';
 
 /// Base [Talker] Data transfer object
 /// Objects of this type are passed through
 /// handlers observer and stream
+@Entity()
 class TalkerData {
-  TalkerData(
-    this.message, {
-    this.logLevel,
-    this.exception,
-    this.error,
-    this.stackTrace,
-    this.title = 'log',
-    DateTime? time,
-    this.pen,
-    this.key,
-  }) {
-    _time = time ?? DateTime.now();
-  }
-
-  late DateTime _time;
-
-  /// {@template talker_data_message}
-  /// [String] [message] - message describes what happened
-  /// {@endtemplate}
-  final String? message;
-
-  final String? key;
-
-  /// {@template talker_data_loglevel}
-  /// [LogLevel] [logLevel] - to control logging output
-  /// {@endtemplate}
-  final LogLevel? logLevel;
-
-  /// {@template talker_data_exception}
-  /// [Exception?] [exception] - exception if it happened
-  /// {@endtemplate}
-  final Object? exception;
-
-  /// {@template talker_data_error}
-  /// [Error?] [error] - error if it happened
-  /// {@endtemplate}
-  final Error? error;
-
-  /// {@template talker_data_title}
-  /// Title of Talker log
-  /// {@endtemplate}
+  @Id()
+  int id;
+  String? message;
+  String? key;
   String? title;
 
-  /// {@template talker_data_stackTrace}
-  /// StackTrace?] [stackTrace] - stackTrace if [exception] or [error] happened
-  /// {@endtemplate}
-  final StackTrace? stackTrace;
+  @Property(type: PropertyType.date)
+  DateTime time;
 
-  /// {@template talker_data_time}
-  /// Internal time when the log occurred
-  /// {@endtemplate}
-  DateTime get time => _time;
+  // Stored versions of previously transient fields
+  String? logLevelString; // Store enum as string
+  String? exceptionMessage; // Store exception message
+  String? errorMessage; // Store error message
+  String? stackTraceString; // Store stack trace as string
+  String? penColor; // Store pen color information
 
-  /// [AnsiPen?] [pen] - sets your own log color for console
-  final AnsiPen? pen;
+  // Runtime-only fields
+  @Transient()
+  LogLevel? _logLevel;
+  @Transient()
+  Object? _exception;
+  @Transient()
+  Error? _error;
+  @Transient()
+  StackTrace? _stackTrace;
+  @Transient()
+  AnsiPen? _pen;
 
-  /// {@template talker_data_generateTextMessage}
-  /// Internal method that generates
-  /// a complete message about the event
-  ///
-  /// See examples:
-  /// [TalkerLog] -> [TalkerLog.generateTextMessage]
-  /// [TalkerException] -> [TalkerException.generateTextMessage]
-  /// [TalkerError] -> [TalkerError.generateTextMessage]
-  ///
-  /// {@endtemplate}
+  // Getters and setters for runtime fields
+  LogLevel? get logLevel => _logLevel;
+  set logLevel(LogLevel? value) {
+    _logLevel = value;
+    logLevelString = value?.toString();
+  }
+
+  Object? get exception => _exception;
+  set exception(Object? value) {
+    _exception = value;
+    exceptionMessage = value?.toString();
+  }
+
+  Error? get error => _error;
+  set error(Error? value) {
+    _error = value;
+    errorMessage = value?.toString();
+  }
+
+  StackTrace? get stackTrace => _stackTrace;
+  set stackTrace(StackTrace? value) {
+    _stackTrace = value;
+    stackTraceString = value?.toString();
+  }
+
+  AnsiPen? get pen => _pen;
+  set pen(AnsiPen? value) {
+    _pen = value;
+    penColor = value?.toString();
+  }
+
+  TalkerData(
+    this.message, {
+    this.id = 0,
+    this.key,
+    this.title = 'log',
+    DateTime? time,
+    LogLevel? logLevel,
+    Object? exception,
+    Error? error,
+    StackTrace? stackTrace,
+    AnsiPen? pen,
+  }) : time = time ?? DateTime.now() {
+    this.logLevel = logLevel;
+    this.exception = exception;
+    this.error = error;
+    this.stackTrace = stackTrace;
+    this.pen = pen;
+  }
+
   String generateTextMessage(
       {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
-    return '${displayTitleWithTime(timeFormat: timeFormat)}$message$displayStackTrace';
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$message$stackTraceString';
+  }
+
+  // Method to reconstruct all transient fields from stored strings
+  void reconstructTransientFields() {
+    reconstructLogLevel();
+    reconstructException();
+    reconstructError();
+    reconstructStackTrace();
+    reconstructPen();
+  }
+
+  // Individual reconstruction methods
+  void reconstructLogLevel() {
+    if (logLevelString != null) {
+      _logLevel = LogLevel.values.firstWhere(
+          (e) => e.toString() == logLevelString,
+          orElse: () => LogLevel.debug // Provide a default value
+          );
+    }
+  }
+
+  void reconstructException() {
+    if (exceptionMessage != null) {
+      _exception = Exception(exceptionMessage);
+    }
+  }
+
+  void reconstructError() {
+    if (errorMessage != null) {
+      _error =
+          ArgumentError(errorMessage!); // Assuming Error has such constructor
+    }
+  }
+
+  void reconstructStackTrace() {
+    if (stackTraceString != null) {
+      _stackTrace = StackTrace.fromString(stackTraceString!);
+    }
+  }
+
+  /// this is not working now facing some issue with penColor
+  void reconstructPen() {
+    if (penColor != null) {
+      // Reconstruct AnsiPen based on your pen color format
+      // _pen = AnsiPen()..xterm(int.parse(penColor!)); // Example reconstruction
+    }
   }
 }
 

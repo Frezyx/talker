@@ -135,11 +135,14 @@ class _TalkerViewState extends State<TalkerView> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      isScrollControlled: false,
+      isScrollControlled: true,
       builder: (context) {
-        return TalkerSettingsBottomSheet(
-          talkerScreenTheme: theme,
-          talker: talker,
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: TalkerSettingsBottomSheet(
+            talkerScreenTheme: theme,
+            talker: talker,
+          ),
         );
       },
     );
@@ -200,6 +203,11 @@ class _TalkerViewState extends State<TalkerView> {
               icon: Icons.delete_outline,
             ),
             TalkerActionItem(
+              onTap: _cleanLocalDatabase,
+              title: 'Clean local database',
+              icon: Icons.file_copy,
+            ),
+            TalkerActionItem(
               onTap: _shareLogsInFile,
               title: 'Share logs file',
               icon: Icons.ios_share_outlined,
@@ -219,6 +227,11 @@ class _TalkerViewState extends State<TalkerView> {
 
   void _cleanHistory() {
     widget.talker.cleanHistory();
+    _controller.update();
+  }
+
+  void _cleanLocalDatabase() {
+    widget.talker.cleanLocalDatabase();
     _controller.update();
   }
 

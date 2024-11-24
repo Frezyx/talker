@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:talker/src/database/db.dart';
 import 'package:talker/talker.dart';
+
+/// local database - objectbox
+late TalkerDataStore? talkerDataStore;
 
 /// Talker - advanced exception handling and logging
 /// for dart/flutter applications
@@ -42,6 +46,39 @@ class Talker {
     TalkerHistory? history,
   }) {
     _init(filter, settings, logger, observer, errorHandler, history);
+  }
+
+  Talker._internal({
+    required this.settings,
+    required TalkerLogger logger,
+    required TalkerObserver observer,
+    required TalkerErrorHandler errorHandler,
+    required TalkerFilter filter,
+    required TalkerHistory history,
+  })  : _logger = logger,
+        _observer = observer,
+        _errorHandler = errorHandler,
+        _filter = filter,
+        _history = history;
+
+  static Future<Talker> initWithDB({
+    TalkerLogger? logger,
+    TalkerObserver? observer,
+    TalkerSettings? settings,
+    TalkerFilter? filter,
+    TalkerErrorHandler? errorHandler,
+    TalkerHistory? history,
+  }) async {
+    talkerDataStore = await TalkerDataStore.create();
+    return Talker._internal(
+      settings: settings ?? TalkerSettings(),
+      logger: logger ?? TalkerLogger(),
+      observer: observer ?? const _DefaultTalkerObserver(),
+      errorHandler:
+          errorHandler ?? TalkerErrorHandler(settings ?? TalkerSettings()),
+      filter: filter ?? _DefaultTalkerFilter(),
+      history: history ?? DefaultTalkerHistory(settings ?? TalkerSettings()),
+    );
   }
 
   void _init(
@@ -143,6 +180,9 @@ class Talker {
   /// Or you can add your observer [TalkerObserver] in the settings
   Stream<TalkerData> get stream =>
       _talkerStreamController.stream.asBroadcastStream();
+
+  List<TalkerData>? get databaseList =>
+      talkerDataStore?.getTalkerDataWithReconstructedFields();
 
   /// The history stores all information about all events like
   /// occurred errors [TalkerError]s, exceptions [TalkerException]s
@@ -341,6 +381,9 @@ class Talker {
   /// Clear log history
   void cleanHistory() => _history.clean();
 
+  /// Clear local database
+  void cleanLocalDatabase() => talkerDataStore?.deleteTalkerData();
+
   /// Method run all [Talker] works
   ///
   /// The method will return everything back
@@ -353,13 +396,13 @@ class Talker {
   /// this method stop these processes
   void disable() => settings.enabled = false;
 
-  void _handleLog(
+  Future<void> _handleLog(
     dynamic message,
     Object? exception,
     StackTrace? stackTrace,
     LogLevel logLevel, {
     AnsiPen? pen,
-  }) {
+  }) async {
     final type = TalkerLogType.fromLogLevel(logLevel);
     final data = TalkerLog(
       key: type.key,

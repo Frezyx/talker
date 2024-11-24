@@ -8,6 +8,13 @@ class DefaultTalkerHistory implements TalkerHistory {
     if (history != null) {
       _history.addAll(history);
     }
+
+    if (talkerDataStore?.getTalkerDataWithReconstructedFields().length !=
+        null) {
+      var result =
+          talkerDataStore?.getTalkerDataWithReconstructedFields() ?? [];
+      _history.addAll(result);
+    }
   }
 
   /// Bring [TalkerSettings] to manage some configuration.
@@ -29,14 +36,20 @@ class DefaultTalkerHistory implements TalkerHistory {
   }
 
   @override
-  void write(TalkerData data) {
+  void write(TalkerData data) async {
     /// Check if you are authorized to write.
+
     if (settings.useHistory && settings.enabled) {
       /// Check if you have reached the max number of history and delete them.
       if (settings.maxHistoryItems <= _history.length) {
         _history.removeAt(0);
       }
       _history.add(data);
+
+      /// check if the permission to store the data in local database is enabled
+      if (settings.useLocalDatabase) {
+        talkerDataStore?.storeTalkerData(data);
+      }
     }
   }
 }

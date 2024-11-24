@@ -69,12 +69,14 @@ class TalkerSettings {
   TalkerSettings({
     this.enabled = true,
     bool useHistory = true,
+    bool useLocalDatabase = true,
     bool useConsoleLogs = true,
     int maxHistoryItems = 1000,
     this.titles = _defaultTitles,
     Map<TalkerLogType, AnsiPen>? colors,
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   })  : _useHistory = useHistory,
+        _useLocalDatabase = useLocalDatabase,
         _useConsoleLogs = useConsoleLogs,
         _maxHistoryItems = maxHistoryItems,
         _timeFormat = timeFormat {
@@ -91,6 +93,9 @@ class TalkerSettings {
   /// If [false] - not writing
   bool get useHistory => _useHistory && enabled;
   final bool _useHistory;
+
+  bool get useLocalDatabase => _useLocalDatabase && _useHistory && enabled;
+  final bool _useLocalDatabase;
 
   /// By default talker print all Errors / Exceptions and logs in console.
   /// If [true] - printing in console [false] - not printing.
@@ -173,6 +178,7 @@ class TalkerSettings {
   TalkerSettings copyWith({
     bool? enabled,
     bool? useHistory,
+    bool? useLocalDatabase,
     bool? useConsoleLogs,
     int? maxHistoryItems,
     Map<TalkerLogType, String>? titles,
@@ -180,6 +186,7 @@ class TalkerSettings {
   }) {
     return TalkerSettings(
       useHistory: useHistory ?? _useHistory,
+      useLocalDatabase: useLocalDatabase ?? _useLocalDatabase,
       useConsoleLogs: useConsoleLogs ?? _useConsoleLogs,
       maxHistoryItems: maxHistoryItems ?? _maxHistoryItems,
       enabled: enabled ?? this.enabled,

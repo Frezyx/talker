@@ -1,3 +1,6 @@
+# 4.5.2
+- [talker_flutter] Add fallback Flutter screen log card color by LogLevel
+
 # 4.5.1
 - [talker_flutter] Fix mapping LogColors to Flutter Color (Logs screen)
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+import '../utils/good_log.dart';
+
 final lightTheme = ThemeData(
   primaryColor: primaryColor,
   primarySwatch: primaryColor,
@@ -37,4 +39,6 @@ final Map<int, Color> _primaryColorCodes = {
   900: _primaryColor,
 };
 
-const talkerTheme = TalkerScreenTheme();
+final talkerTheme = TalkerScreenTheme(logColors: {
+  GoodLog.getKey: const Color(0xff4CAF50),
+});

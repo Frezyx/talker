@@ -1,0 +1,16 @@
+dependency_overrides:
+  talker_logger:
+    path:
+      ../../packages/talker_logger
+  talker:
+    path:
+      ../../packages/talker
+  talker_flutter:
+    path:
+      ../../packages/talker_flutter
+  talker_dio_logger: 
+    path:
+      ../../packages/talker_dio_logger
+  talker_bloc_logger: 
+    path:
+      ../../packages/talker_bloc_logger

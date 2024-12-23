@@ -31,7 +31,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.5.2
+  talker_dio_logger: ^4.5.3
 ```
 
 ### Usage

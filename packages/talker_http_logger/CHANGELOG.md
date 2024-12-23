@@ -1,3 +1,6 @@
+# 0.1.0-dev.22
+- [talker_http_logger] Add HttpErrorLog for wrong http statuses
+
 # 0.1.0-dev.21
 - [talker_flutter] Add fallback Flutter screen log card color by LogLevel
 

@@ -216,6 +216,14 @@ class Talker {
     _handleLog(message, exception, stackTrace, logLevel, pen: pen);
   }
 
+  /// {@macro logCustom}
+  @Deprecated(
+    'Use logCustom instead. '
+    'This feature was deprecated after v4.5.0',
+  )
+  void logTyped(TalkerLog log) => logCustom(log);
+
+  /// {@template logCustom}
   /// Log a new message
   /// created in the full [TalkerLog] model or they subclass
   /// (you can create it by extends of [TalkerLog])
@@ -236,11 +244,10 @@ class Talker {
   ///
   ///   //You can add here response model of your request
   ///   final httpLog = HttpTalkerLog('Http status: 200');
-  ///   talker.logTyped(httpLog);
+  ///   talker.logCustom(httpLog);
   /// ```
-  void logTyped(TalkerLog log) {
-    _handleLogData(log);
-  }
+  /// {@endtemplate}
+  void logCustom(TalkerLog log) => _handleLogData(log);
 
   /// Log a new critical message
   /// [dynamic] [message] - message describes what happened
@@ -339,25 +346,19 @@ class Talker {
   }
 
   /// Clear log history
-  void cleanHistory() {
-    _history.clean();
-  }
-
-  /// Method stops all [Talker] works
-  ///
-  /// If you config package to handle errors or making logs,
-  /// this method stop these processes
-  void disable() {
-    settings.enabled = false;
-  }
+  void cleanHistory() => _history.clean();
 
   /// Method run all [Talker] works
   ///
   /// The method will return everything back
   /// if the package was suspended by the [disable] method
-  void enable() {
-    settings.enabled = true;
-  }
+  void enable() => settings.enabled = true;
+
+  /// Method stops all [Talker] works
+  ///
+  /// If you config package to handle errors or making logs,
+  /// this method stop these processes
+  void disable() => settings.enabled = false;
 
   void _handleLog(
     dynamic message,
@@ -370,10 +371,10 @@ class Talker {
     final data = TalkerLog(
       key: type.key,
       message?.toString() ?? '',
-      title: settings.getTitleByLogType(type),
+      title: settings.getTitleByLogKey(type.key),
       exception: exception,
       stackTrace: stackTrace,
-      pen: settings.getAnsiPenByLogType(type),
+      pen: pen ?? settings.getPenByLogKey(type.key),
       logLevel: logLevel,
     );
     _handleLogData(data);
@@ -391,7 +392,7 @@ class Talker {
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
       _logger.log(
-        data.generateTextMessage(),
+        data.generateTextMessage(timeFormat: settings.timeFormat),
         level: data.logLevel ?? LogLevel.error,
       );
     }
@@ -410,22 +411,22 @@ class Talker {
       return;
     }
 
-    final typeKey = data.key;
-    AnsiPen? customPen;
-
-    if (typeKey != null) {
-      final type = TalkerLogType.fromKey(typeKey);
-      data.title = settings.getTitleByLogType(type);
-      customPen = settings.getAnsiPenByLogType(type);
-    } else {}
+    final logTypeKey = data.key;
+    if (logTypeKey != null) {
+      data.title = settings.getTitleByLogKey(logTypeKey);
+      data.pen = settings.getPenByLogKey(
+        logTypeKey,
+        fallbackPen: data.pen,
+      );
+    }
     _observer.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
       _logger.log(
-        data.generateTextMessage(),
+        data.generateTextMessage(timeFormat: settings.timeFormat),
         level: logLevel ?? data.logLevel,
-        pen: data.pen ?? customPen,
+        pen: data.pen,
       );
     }
   }
@@ -433,13 +434,6 @@ class Talker {
   void _handleForOutputs(TalkerData data) {
     _history.write(data);
   }
-
-  //TODO: recreate file manager logic
-  // void _writeToFile(TalkerDataInterface data) {
-  //   if (_settings.writeToFile) {
-  //     _fileManager.writeToLogFile(data.generateTextMessage());
-  //   }
-  // }
 
   bool _isApprovedByFilter(TalkerData data) {
     final approved = _filter.filter(data);

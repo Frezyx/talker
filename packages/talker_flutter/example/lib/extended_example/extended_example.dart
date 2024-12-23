@@ -84,7 +84,7 @@ class _ExtendedExampleState extends State<ExtendedExample> {
   }
 
   void _customLog() {
-    _talker.logTyped(CustomLog('Custom log message'));
+    _talker.logCustom(CustomLog('Custom log message'));
   }
 
   void _criticalLog() {
@@ -145,7 +145,9 @@ class CustomLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(49);
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     return '| Custom leading | ' + (message ?? '');
   }
 }
@@ -169,7 +171,7 @@ class BarButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(backgroundColor),
+        backgroundColor: WidgetStateProperty.all(backgroundColor),
       ),
       child: Text(
         title,

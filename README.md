@@ -47,6 +47,7 @@ Web Demo</a> page</p>
 ✅ &nbsp;Displays alerts for UI exceptions. <br>
 ✅ &nbsp;Built-in support for dio [HTTP logs](#talker-dio-logger) <br>
 ✅ &nbsp;Built-in support for [BLoC logs](#talker-bloc-logger) <br>
+✅ &nbsp;Built-in support for [Riverpod logs](#talker-riverpod-logger) <br>
 ✅ &nbsp;[Check all features](#features-list)
 
 ## Packages
@@ -59,6 +60,7 @@ Talker is designed for any level of customization. <br>
 | [talker_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_logger) | [![Pub](https://img.shields.io/pub/v/talker_logger.svg?style=flat-square)](https://pub.dev/packages/talker_logger) | Customizable pretty logger for dart/flutter apps |
 | [talker_dio_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_dio_logger) | [![Pub](https://img.shields.io/pub/v/talker_dio_logger.svg?style=flat-square)](https://pub.dev/packages/talker_dio_logger) | Best logger for [dio](https://pub.dev/packages/dio) http calls |
 | [talker_bloc_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_bloc_logger) | [![Pub](https://img.shields.io/pub/v/talker_bloc_logger.svg?style=flat-square)](https://pub.dev/packages/talker_bloc_logger) | Best logger for [BLoC](https://pub.dev/packages/bloc) state management library |
+| [talker_riverpod_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_riverpod_logger) | [![Pub](https://img.shields.io/pub/v/talker_riverpod_logger.svg?style=flat-square)](https://pub.dev/packages/talker_riverpod_logger) | Best logger for [Riverpod](https://pub.dev/packages/riverpod) state management library |
 | [talker_http_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_http_logger) | [![Pub](https://img.shields.io/pub/v/talker_http_logger.svg?style=flat-square)](https://pub.dev/packages/talker_http_logger) | Best logger for [http](https://pub.dev/packages/http) package |
 
 ## Table of contents
@@ -97,8 +99,14 @@ Talker is designed for any level of customization. <br>
   - [Customization](#customization-2)
     - [Off/on events, transitions, changes, creation, close](#offon-events-transitions-changes-creation-close)
     - [Full/truncated state and event data](#fulltruncated-state-and-event-data)
-    - [Filter bloc logsa](#filter-bloc-logs)
+    - [Filter bloc logs](#filter-bloc-logs)
   - [Using with Talker](#using-with-talker-1)
+- [Talker Riverpod Logger](#talker-riverpod-logger)
+  - [Customization](#customization-3)
+    - [Off/on events, add, update, dispose, fail](#offon-events-add-update-dispose-fail)
+    - [Full/truncated state data](#fulltruncated-state-data)
+    - [Filter riverpod logs](#filter-riverpod-logs)
+  - [Using with Talker](#using-with-talker-2)
 - [Crashlytics integration](#crashlytics-integration)
 - [Features list](#features-list)
 - [Coverage](#coverage)
@@ -115,7 +123,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^4.1.4
+  talker: ^4.5.3
 ```
 
 ### Easy to use
@@ -177,17 +185,18 @@ And you have **full customization control** over them!
 class YourCustomLog extends TalkerLog {
   YourCustomLog(String message) : super(message);
 
-  /// Your custom log title
   @override
-  String get title => 'CUSTOM';
+  String get title => 'Custom';
 
-  /// Your custom log color
+  @override
+  String? get key => 'custom_log_key';
+
   @override
   AnsiPen get pen => AnsiPen()..xterm(121);
 }
 
 final talker = Talker();
-talker.logTyped(YourCustomLog('Something like your own service message'));
+talker.logCustom(YourCustomLog('Something like your own service message'));
 ```
 
 <p align="center"><a href="https://frezyx.github.io/talker" align="center"><img src="https://github.com/Frezyx/talker/blob/dev/docs/assets/logger/custom_log.png?raw=true"></a></p>
@@ -196,17 +205,21 @@ talker.logTyped(YourCustomLog('Something like your own service message'));
 
 Starting from version 4.0.0, you have the ability to fully customize all logs colors. You can set **your own color for any type of logs**. For example, you can choose red for HTTP responses and green for errors—whatever suits your preference 😁
 
-The Map is structured as **{TalkerLogType: AnsiPen}**.
+The map is now structured as `{String: AnsiPen}`.
 
-**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum. And **AnsiPen** is model to console colors customization
+### String Key
+The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
+- Default log types are accessible via the `key` field in the `TalkerLogType` enum.
+- Developers can also define **custom log pen** by providing their own string keys, like `'custom_log_key'`.
+
 
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     colors: {
-      TalkerLogType.httpResponse: AnsiPen()..red(),
-      TalkerLogType.error: AnsiPen()..green(),
-      TalkerLogType.info: AnsiPen()..yellow(),
+      TalkerLogType.httpResponse.key: AnsiPen()..red(),
+      TalkerLogType.error.key: AnsiPen()..green(),
+      'custom_log_key': AnsiPen()..yellow(),
       // Other colors...
     },
   ),
@@ -221,17 +234,21 @@ Talker have default color scheme. You can check it in [TalkerSettings](https://g
 
 Starting from version 4.0.0, you have the ability to fully customize all logs titles. You can set **your own title for any type of logs**.
 
-The Map is structured as **{TalkerLogType: String}**.
+The map is now structured as `{String: AnsiPen}`.
 
-**TalkerLogType** is an identifier for a specific log type (e.g., HTTP, error, info, etc.), and each log type in Talker has its own field in the enum.
+### String Key
+The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
+- Default log types are accessible via the `key` field in the `TalkerLogType` enum.
+- Developers can also define **custom log title** by providing their own string keys, like `'custom_log_key'`.
 
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     titles: {
-      TalkerLogType.exception: 'Whatever you want',
-      TalkerLogType.error: 'E',
-      TalkerLogType.info: 'i',
+      TalkerLogType.exception.key: 'Whatever you want',
+      TalkerLogType.error.key: 'E',
+      TalkerLogType.info.key: 'i',
+      'custom_log_key': 'New custom title',
       // Other titles...
     },
   ),
@@ -286,7 +303,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^4.1.4
+  talker_flutter: ^4.5.3
 ```
 
 ### Setup
@@ -365,12 +382,13 @@ final talker = TalkerFlutter.init();
 
 TalkerScreen(
   talker: talker,
-  theme: TalkerScreenTheme(
+  theme: const TalkerScreenTheme(
     /// Your custom log colors
     logColors: {
-      TalkerLogType.httpResponse: Color(0xFF26FF3C),
-      TalkerLogType.error: Colors.redAccent,
-      TalkerLogType.info: Color.fromARGB(255, 0, 255, 247),
+      TalkerLogType.httpResponse.key: Color(0xFF26FF3C),
+      TalkerLogType.error.key: Colors.redAccent,
+      TalkerLogType.info.key: Color.fromARGB(255, 0, 255, 247),
+      YourCustomLog.logKey: Colors.green,
     },
   )
 )
@@ -499,7 +517,7 @@ The talker_flutter package have a lot of another widgets like TalkerBuilder, Tal
 
 In addition to the basic functionality, talker was conceived as a tool for creating lightweight loggers for the main activities of your application
 
-You can use ready out of the box packages like [talker_dio_logger](https://pub.dev/packages/talker_dio_logger) and [talker_bloc_logger](https://pub.dev/packages/talker_bloc_logger) or create your own packages.
+You can use ready out of the box packages like [talker_dio_logger](https://pub.dev/packages/talker_dio_logger), [talker_bloc_logger](https://pub.dev/packages/talker_bloc_logger) and [talker_riverpod_logger](https://pub.dev/packages/talker_riverpod_logger) or create your own packages.
 
 ## Talker Dio Logger
 
@@ -514,7 +532,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.1.4
+  talker_dio_logger: ^4.5.3
 ```
 
 ### Usage
@@ -610,7 +628,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.1.4
+  talker_bloc_logger: ^4.5.3
 ```
 
 ### Usage
@@ -683,6 +701,135 @@ import 'package:talker/talker.dart';
 
 final talker = Talker();
 Bloc.observer = TalkerBlocObserver(talker: talker);
+```
+
+## Talker Riverpod Logger
+
+Lightweight, simple and pretty solution for logging if your app use [Riverpod](https://pub.dev/packages/riverpod) as state management
+
+This is how the logs of your Riverpod's event calling and state emits will look in the console
+![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_riverpod_logger/preview.png?raw=true)
+
+### Getting started
+Follow these steps to use this package
+
+### Add dependency
+```yaml
+dependencies:
+  talker_riverpod_logger: ^4.5.3
+```
+
+### Usage
+Just pass **TalkerRiverpodObserver** to either `ProviderScope` or `ProviderContainer` and it will work
+
+```dart
+import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+
+runApp(
+  ProviderScope(
+    observers: [
+      TalkerRiverpodObserver(),
+    ],
+    child: MyApp(),
+  )
+);
+```
+
+or
+
+```dart
+import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+
+final container = ProviderContainer(
+  observers: [
+    TalkerRiverpodObserver(),
+  ],
+);
+```
+
+## Customization
+
+To provide hight usage exp here are a lot of settings and customization fields in TalkerRiverpodLoggerSettings. You can setup all wat you want. For example:
+
+### Off/on events, add, update, dispose, fail
+
+You can toggle all riverpod event types printing
+
+```dart
+TalkerRiverpodObserver(
+  settings: TalkerRiverpodLoggerSettings(
+    enabled: true,
+    printProviderAdded: true,
+    printProviderUpdated: true,
+    printProviderDisposed: true,
+    printProviderFailed: true,
+  ),
+)
+```
+
+### Full/truncated state data
+
+You can choose to have the logs of states in the Riverpod displayed in the console in either full or truncated form
+
+```dart
+TalkerRiverpodObserver(
+  settings: TalkerRiverpodLoggerSettings(
+    printStateFullData: false,
+  ),
+)
+```
+
+### Filter Riverpod logs
+
+You can output logs to the console for specific events only, using a filter
+
+```dart
+TalkerRiverpodObserver(
+  settings: TalkerRiverpodLoggerSettings(
+    // If you want log only AuthProvider events
+      eventFilter: (provider) => provider.runtimeType == 'AuthProvider<User>',
+  ),
+)
+```
+
+## Using with Talker!
+You can add your talker instance for TalkerRiverpodLogger if your Appication already uses Talker.
+
+In this case, all logs and errors will fall into your unified tracking system
+
+```dart
+import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+import 'package:talker/talker.dart';
+
+final talker = Talker();
+
+runApp(
+  ProviderScope(
+    observers: [
+      TalkerRiverpodObserver(
+        talker: talker,
+      ),
+    ],
+    child: MyApp(),
+  )
+);
+```
+
+or
+
+```dart
+import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+import 'package:talker/talker.dart';
+
+final talker = Talker();
+
+final container = ProviderContainer(
+  observers: [
+    TalkerRiverpodObserver(
+      talker: talker,
+    ),
+  ],
+);
 ```
 
 ## Crashlytics integration

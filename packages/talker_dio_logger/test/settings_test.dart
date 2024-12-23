@@ -10,12 +10,14 @@ void main() {
       final updatedSettings = originalSettings.copyWith(
         printResponseData: false,
         printRequestHeaders: true,
+        printErrorHeaders: false,
         requestPen: AnsiPen()..yellow(),
         responseFilter: null,
       );
 
       expect(updatedSettings.printResponseData, equals(false));
       expect(updatedSettings.printRequestHeaders, equals(true));
+      expect(updatedSettings.printErrorHeaders, equals(false));
       expect(
           updatedSettings.requestPen, isNot(same(originalSettings.requestPen)));
       expect(updatedSettings.responseFilter, isNull);
@@ -46,6 +48,21 @@ void main() {
       expect(settings.responseFilter!(unsuccessfulResponse), equals(false));
     });
 
+    test('errorFilter should return true for cancelled responses', () {
+      final settings = TalkerDioLoggerSettings(
+          errorFilter: (DioException err) =>
+              err.type == DioExceptionType.cancel);
+      final cancelledResponse = DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.cancel);
+      final timeoutResponse = DioException(
+          requestOptions: RequestOptions(path: '/test'),
+          type: DioExceptionType.sendTimeout);
+
+      expect(settings.errorFilter!(cancelledResponse), equals(true));
+      expect(settings.errorFilter!(timeoutResponse), equals(false));
+    });
+
     test(
         'copyWith should create a new instance with updated values for all fields',
         () {
@@ -55,6 +72,8 @@ void main() {
         printResponseMessage: true,
         printRequestData: true,
         printRequestHeaders: false,
+        printErrorHeaders: false,
+        printErrorData: true,
         requestPen: AnsiPen()..green(),
         responsePen: AnsiPen()..cyan(),
         errorPen: AnsiPen()..red(),
@@ -63,6 +82,8 @@ void main() {
       final updatedSettings = originalSettings.copyWith(
         printResponseData: false,
         printRequestHeaders: true,
+        printErrorHeaders: true,
+        printErrorData: false,
         requestPen: AnsiPen()..yellow(),
       );
 
@@ -70,6 +91,8 @@ void main() {
       expect(updatedSettings.printResponseHeaders, equals(false));
       expect(updatedSettings.printResponseMessage, equals(true));
       expect(updatedSettings.printRequestData, equals(true));
+      expect(updatedSettings.printErrorHeaders, equals(true));
+      expect(updatedSettings.printErrorData, equals(false));
       expect(
         updatedSettings.printRequestHeaders,
         equals(true),

@@ -21,6 +21,12 @@ enum TalkerLogType {
   blocClose('bloc-close'),
   blocCreate('bloc-create'),
 
+  /// Riverpod section
+  riverpodAdd('riverpod-add'),
+  riverpodUpdate('riverpod-update'),
+  riverpodDispose('riverpod-dispose'),
+  riverpodFail('riverpod-fail'),
+
   /// Flutter section
   route('route');
 
@@ -31,8 +37,8 @@ enum TalkerLogType {
     return TalkerLogType.values.firstWhere((e) => e.logLevel == logLevel);
   }
 
-  static TalkerLogType fromKey(String key) {
-    return TalkerLogType.values.firstWhere((e) => e.key == key);
+  static TalkerLogType? fromKey(String key) {
+    return TalkerLogType.values.firstWhereOrNull((e) => e.key == key);
   }
 }
 

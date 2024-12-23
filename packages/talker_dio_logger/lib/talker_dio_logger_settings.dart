@@ -4,9 +4,13 @@ import 'package:talker/talker.dart';
 /// [TalkerDioLogger] settings and customization
 class TalkerDioLoggerSettings {
   const TalkerDioLoggerSettings({
+    this.enabled = true,
     this.printResponseData = true,
     this.printResponseHeaders = false,
     this.printResponseMessage = true,
+    this.printErrorData = true,
+    this.printErrorHeaders = true,
+    this.printErrorMessage = true,
     this.printRequestData = true,
     this.printRequestHeaders = false,
     this.requestPen,
@@ -14,7 +18,11 @@ class TalkerDioLoggerSettings {
     this.errorPen,
     this.requestFilter,
     this.responseFilter,
+    this.errorFilter,
   });
+
+  // Print Dio logger if true
+  final bool enabled;
 
   /// Print [response.data] if true
   final bool printResponseData;
@@ -24,6 +32,15 @@ class TalkerDioLoggerSettings {
 
   /// Print [response.statusMessage] if true
   final bool printResponseMessage;
+
+  /// Print [error.response.data] if true
+  final bool printErrorData;
+
+  /// Print [error.response.headers] if true
+  final bool printErrorHeaders;
+
+  /// Print [error.message] if true
+  final bool printErrorMessage;
 
   /// Print [request.data] if true
   final bool printRequestData;
@@ -72,10 +89,17 @@ class TalkerDioLoggerSettings {
   /// You can add your custom logic to log only specific HTTP responses [Response].
   final bool Function(Response response)? responseFilter;
 
+  /// For error filtering.
+  /// You can add your custom logic to log only specific Dio error [DioException].
+  final bool Function(DioException response)? errorFilter;
+
   TalkerDioLoggerSettings copyWith({
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
+    bool? printErrorData,
+    bool? printErrorHeaders,
+    bool? printErrorMessage,
     bool? printRequestData,
     bool? printRequestHeaders,
     AnsiPen? requestPen,
@@ -83,11 +107,15 @@ class TalkerDioLoggerSettings {
     AnsiPen? errorPen,
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
+    bool Function(DioException response)? errorFilter,
   }) {
     return TalkerDioLoggerSettings(
       printResponseData: printResponseData ?? this.printResponseData,
       printResponseHeaders: printResponseHeaders ?? this.printResponseHeaders,
       printResponseMessage: printResponseMessage ?? this.printResponseMessage,
+      printErrorData: printErrorData ?? this.printErrorData,
+      printErrorHeaders: printErrorHeaders ?? this.printErrorHeaders,
+      printErrorMessage: printErrorMessage ?? this.printErrorMessage,
       printRequestData: printRequestData ?? this.printRequestData,
       printRequestHeaders: printRequestHeaders ?? this.printRequestHeaders,
       requestPen: requestPen ?? this.requestPen,
@@ -95,6 +123,7 @@ class TalkerDioLoggerSettings {
       errorPen: errorPen ?? this.errorPen,
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
+      errorFilter: errorFilter ?? this.errorFilter,
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
-const encoder = JsonEncoder.withIndent('  ');
+const _encoder = JsonEncoder.withIndent('  ');
 
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
@@ -23,7 +23,9 @@ class DioRequestLog extends TalkerLog {
   String get key => TalkerLogType.httpRequest.key;
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     var msg = '[$title] [${requestOptions.method}] $message';
 
     final data = requestOptions.data;
@@ -31,11 +33,11 @@ class DioRequestLog extends TalkerLog {
 
     try {
       if (settings.printRequestData && data != null) {
-        final prettyData = encoder.convert(data);
+        final prettyData = _encoder.convert(data);
         msg += '\nData: $prettyData';
       }
       if (settings.printRequestHeaders && headers.isNotEmpty) {
-        final prettyHeaders = encoder.convert(headers);
+        final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }
     } catch (_) {
@@ -62,7 +64,9 @@ class DioResponseLog extends TalkerLog {
   String get key => TalkerLogType.httpResponse.key;
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     var msg = '[$title] [${response.requestOptions.method}] $message';
 
     final responseMessage = response.statusMessage;
@@ -77,11 +81,11 @@ class DioResponseLog extends TalkerLog {
 
     try {
       if (settings.printResponseData && data != null) {
-        final prettyData = encoder.convert(data);
+        final prettyData = _encoder.convert(data);
         msg += '\nData: $prettyData';
       }
       if (settings.printResponseHeaders && headers.isNotEmpty) {
-        final prettyHeaders = encoder.convert(headers);
+        final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }
     } catch (_) {
@@ -108,7 +112,9 @@ class DioErrorLog extends TalkerLog {
   String get key => TalkerLogType.httpError.key;
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
     var msg = '[$title] [${dioException.requestOptions.method}] $message';
 
     final responseMessage = dioException.message;
@@ -119,14 +125,17 @@ class DioErrorLog extends TalkerLog {
     if (statusCode != null) {
       msg += '\nStatus: ${dioException.response?.statusCode}';
     }
-    msg += '\nMessage: $responseMessage';
 
-    if (data != null) {
-      final prettyData = encoder.convert(data);
+    if (settings.printErrorMessage && responseMessage != null) {
+      msg += '\nMessage: $responseMessage';
+    }
+
+    if (settings.printErrorData && data != null) {
+      final prettyData = _encoder.convert(data);
       msg += '\nData: $prettyData';
     }
-    if (!(headers?.isEmpty ?? true)) {
-      final prettyHeaders = encoder.convert(headers!.map);
+    if (settings.printErrorHeaders && !(headers?.isEmpty ?? true)) {
+      final prettyHeaders = _encoder.convert(headers!.map);
       msg += '\nHeaders: $prettyHeaders';
     }
     return msg;

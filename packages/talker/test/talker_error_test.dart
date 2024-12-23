@@ -31,7 +31,7 @@ void main() {
       expect(
         generatedMessage,
         equals(
-          '${talkerError.displayTitleWithTime}${talkerError.displayMessage}${talkerError.displayError}${talkerError.displayStackTrace}',
+          '${talkerError.displayTitleWithTime()}${talkerError.displayMessage}${talkerError.displayError}${talkerError.displayStackTrace}',
         ),
       );
     });

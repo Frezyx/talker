@@ -1,6 +1,8 @@
 import 'package:talker/talker.dart';
 import 'package:test/test.dart';
 
+import '../example/talker_example.dart';
+
 void main() {
   final talker = Talker();
   group('TalkerSettings', () {
@@ -17,7 +19,7 @@ void main() {
         logger: TalkerLogger(),
       );
       final httpLog = HttpTalkerLog('Http good');
-      talker.logTyped(httpLog);
+      talker.logCustom(httpLog);
 
       expect(
         talker.history.whereType<HttpTalkerLog>().isNotEmpty,
@@ -49,6 +51,46 @@ void main() {
       expect(newSettings.useHistory, true);
       expect(newSettings.maxHistoryItems, 1000);
     });
+
+    test('Custom log: verifies custom pen is applied to settings', () async {
+      final pen = AnsiPen()..green();
+
+      final settings = TalkerSettings(
+        useConsoleLogs: false,
+        colors: {
+          YourCustomLog.logKey: pen,
+        },
+      );
+
+      final talker = Talker(settings: settings);
+
+      final customLog = YourCustomLog('Custom log message');
+      talker.logCustom(customLog);
+
+      expect(
+        settings.colors[YourCustomLog.logKey],
+        pen,
+      );
+    });
+
+    test('Custom log: verifies custom title is applied to settings', () async {
+      final settings = TalkerSettings(
+        useConsoleLogs: false,
+        titles: {
+          YourCustomLog.logKey: 'Custom title',
+        },
+      );
+
+      final talker = Talker(settings: settings);
+
+      final customLog = YourCustomLog('Custom log message');
+      talker.logCustom(customLog);
+
+      expect(
+        settings.titles[YourCustomLog.logKey],
+        'Custom title',
+      );
+    });
   });
 }
 
@@ -59,7 +101,8 @@ class HttpTalkerLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..blue();
 
   @override
-  String generateTextMessage() {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return pen.write(message ?? '');
   }
 }

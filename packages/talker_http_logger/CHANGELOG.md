@@ -1,5 +1,12 @@
+# 0.1.0-dev.23
+- [talker_flutter] Add isLogsExpanded and isLogOrderReversed flags to TalkerScreen widget
+
+Thanks to [Ilushnik](https://github.com/Ilushnik) 
+
 # 0.1.0-dev.22
 - [talker_http_logger] Add HttpErrorLog for wrong http statuses
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff) 
 
 # 0.1.0-dev.21
 - [talker_flutter] Add fallback Flutter screen log card color by LogLevel

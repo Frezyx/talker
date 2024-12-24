@@ -11,15 +11,17 @@ import 'talker_actions/talker_actions.dart';
 
 class TalkerView extends StatefulWidget {
   const TalkerView({
-    Key? key,
-    required this.talker,
-    this.controller,
-    this.scrollController,
-    this.theme = const TalkerScreenTheme(),
-    this.appBarTitle,
-    this.itemsBuilder,
-    this.appBarLeading,
-  }) : super(key: key);
+      Key? key,
+      required this.talker,
+      this.controller,
+      this.scrollController,
+      this.theme = const TalkerScreenTheme(),
+      this.appBarTitle,
+      this.itemsBuilder,
+      this.appBarLeading,
+      this.isLogsExpanded = true,
+      this.isLogOrderReversed = true
+      }) : super(key: key);
 
   /// Talker implementation
   final Talker talker;
@@ -41,6 +43,14 @@ class TalkerView extends StatefulWidget {
 
   final ScrollController? scrollController;
 
+  /// if true, all logs will be
+  /// initially expanded
+  final bool isLogsExpanded;
+
+  /// if true, latest logs will be on the top
+  /// of the list
+  final bool isLogOrderReversed;
+
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
@@ -48,6 +58,14 @@ class TalkerView extends StatefulWidget {
 class _TalkerViewState extends State<TalkerView> {
   final _titlesController = GroupButtonController();
   late final _controller = widget.controller ?? TalkerViewController();
+
+  @override
+  void initState() {
+    _controller.init(
+        expandedLogs: widget.isLogsExpanded,
+        isLogOrderReversed: widget.isLogOrderReversed);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

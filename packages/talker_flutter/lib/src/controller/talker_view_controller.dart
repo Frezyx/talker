@@ -7,8 +7,13 @@ import 'package:talker_flutter/talker_flutter.dart';
 class TalkerViewController extends ChangeNotifier {
   BaseTalkerFilter _filter = BaseTalkerFilter();
 
-  var _expandedLogs = true;
+  bool _expandedLogs = true;
   bool _isLogOrderReversed = true;
+
+  void init({bool expandedLogs = true, isLogOrderReversed = true}){
+    _expandedLogs = expandedLogs;
+    _isLogOrderReversed = isLogOrderReversed;
+  }
 
   /// Filter for selecting specific logs and errors
   BaseTalkerFilter get filter => _filter;

@@ -10,8 +10,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'talker_actions/talker_actions.dart';
 
 class TalkerView extends StatefulWidget {
-  const TalkerView({
-    Key? key,
+  const TalkerView(
+      {Key? key,
       required this.talker,
       this.controller,
       this.scrollController,
@@ -20,8 +20,8 @@ class TalkerView extends StatefulWidget {
       this.itemsBuilder,
       this.appBarLeading,
       this.isLogsExpanded = true,
-      this.isLogOrderReversed = true
-  }) : super(key: key);
+      this.isLogOrderReversed = true})
+      : super(key: key);
 
   /// Talker implementation
   final Talker talker;
@@ -43,12 +43,14 @@ class TalkerView extends StatefulWidget {
 
   final ScrollController? scrollController;
 
-  /// if true, all logs will be
-  /// initially expanded
+  /// {@template talker_flutter_is_log_exapanded}
+  /// If true, all logs will be initially expanded
+  /// {@endtemplate}
   final bool isLogsExpanded;
 
-  /// if true, latest logs will be on the top
-  /// of the list
+  /// {@template talker_flutter_is_log_order_reversed}
+  /// if true, latest logs will be on the top of the list
+  /// {@endtemplate}
   final bool isLogOrderReversed;
 
   @override

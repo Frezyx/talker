@@ -4,15 +4,15 @@ import 'package:talker_flutter/talker_flutter.dart';
 /// UI view for output of all Talker logs and errors
 class TalkerScreen extends StatelessWidget {
   const TalkerScreen({
-      Key? key,
-      required this.talker,
-      this.appBarTitle = 'Talker',
-      this.theme = const TalkerScreenTheme(),
-      this.itemsBuilder,
-      this.appBarLeading,
-      this.isLogsExpanded = true,
-      this.isLogOrderReversed = true,
-      }) : super(key: key);
+    Key? key,
+    required this.talker,
+    this.appBarTitle = 'Talker',
+    this.theme = const TalkerScreenTheme(),
+    this.itemsBuilder,
+    this.appBarLeading,
+    this.isLogsExpanded = true,
+    this.isLogOrderReversed = true,
+  }) : super(key: key);
 
   /// Talker implementation
   final Talker talker;
@@ -30,12 +30,10 @@ class TalkerScreen extends StatelessWidget {
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
-  /// if true, all logs will be
-  /// initially expanded
+  ///{@macro talker_flutter_is_log_exapanded}
   final bool isLogsExpanded;
 
-  /// if true, latest logs will be on the top
-  /// of the list
+  ///{@macro talker_flutter_is_log_order_reversed}
   final bool isLogOrderReversed;
 
   @override

@@ -10,16 +10,18 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'talker_actions/talker_actions.dart';
 
 class TalkerView extends StatefulWidget {
-  const TalkerView({
-    Key? key,
-    required this.talker,
-    this.controller,
-    this.scrollController,
-    this.theme = const TalkerScreenTheme(),
-    this.appBarTitle,
-    this.itemsBuilder,
-    this.appBarLeading,
-  }) : super(key: key);
+  const TalkerView(
+      {Key? key,
+      required this.talker,
+      this.controller,
+      this.scrollController,
+      this.theme = const TalkerScreenTheme(),
+      this.appBarTitle,
+      this.itemsBuilder,
+      this.appBarLeading,
+      this.isLogsExpanded = true,
+      this.isLogOrderReversed = true})
+      : super(key: key);
 
   /// Talker implementation
   final Talker talker;
@@ -41,13 +43,27 @@ class TalkerView extends StatefulWidget {
 
   final ScrollController? scrollController;
 
+  /// {@template talker_flutter_is_log_exapanded}
+  /// If true, all logs will be initially expanded
+  /// {@endtemplate}
+  final bool isLogsExpanded;
+
+  /// {@template talker_flutter_is_log_order_reversed}
+  /// if true, latest logs will be on the top of the list
+  /// {@endtemplate}
+  final bool isLogOrderReversed;
+
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
 
 class _TalkerViewState extends State<TalkerView> {
   final _titlesController = GroupButtonController();
-  late final _controller = widget.controller ?? TalkerViewController();
+  late final _controller = widget.controller ??
+      TalkerViewController(
+        expandedLogs: widget.isLogsExpanded,
+        isLogOrderReversed: widget.isLogOrderReversed,
+      );
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,8 @@ class TalkerScreen extends StatelessWidget {
     this.theme = const TalkerScreenTheme(),
     this.itemsBuilder,
     this.appBarLeading,
+    this.isLogsExpanded = true,
+    this.isLogOrderReversed = true,
   }) : super(key: key);
 
   /// Talker implementation
@@ -28,6 +30,12 @@ class TalkerScreen extends StatelessWidget {
   /// log items cards in list
   final TalkerDataBuilder? itemsBuilder;
 
+  ///{@macro talker_flutter_is_log_exapanded}
+  final bool isLogsExpanded;
+
+  ///{@macro talker_flutter_is_log_order_reversed}
+  final bool isLogOrderReversed;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +45,8 @@ class TalkerScreen extends StatelessWidget {
         theme: theme,
         appBarTitle: appBarTitle,
         appBarLeading: appBarLeading,
+        isLogsExpanded: isLogsExpanded,
+        isLogOrderReversed: isLogOrderReversed,
       ),
     );
   }

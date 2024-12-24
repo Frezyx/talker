@@ -5,10 +5,15 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
 class TalkerViewController extends ChangeNotifier {
+  TalkerViewController({bool expandedLogs = true, isLogOrderReversed = true}){
+    _expandedLogs = expandedLogs;
+    _isLogOrderReversed = isLogOrderReversed;
+  }
+
   BaseTalkerFilter _filter = BaseTalkerFilter();
 
-  var _expandedLogs = true;
-  bool _isLogOrderReversed = true;
+  late bool _expandedLogs;
+  late bool _isLogOrderReversed;
 
   /// Filter for selecting specific logs and errors
   BaseTalkerFilter get filter => _filter;

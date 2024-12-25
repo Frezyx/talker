@@ -1,0 +1,11 @@
+name: talker_workspace
+publish_to: none
+environment:
+  sdk: ^3.6.0
+workspace:
+  - packages/talker
+  - packages/talker_flutter
+  - packages/talker_bloc_logger
+  - packages/talker_dio_logger
+  - packages/talker_riverpod_logger
+  - packages/talker_http_logger

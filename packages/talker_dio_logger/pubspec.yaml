@@ -14,7 +14,8 @@ topics:
   - log
 
 environment:
-  sdk: '>=2.15.0 <4.0.0'
+  sdk: ">=3.6.0 <4.0.0"
+resolution: workspace
 
 dependencies:
   dio: ^5.4.0

@@ -13,7 +13,8 @@ topics:
   - tool
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
+resolution: workspace
 
 dependencies:
   talker_logger: ^4.5.4

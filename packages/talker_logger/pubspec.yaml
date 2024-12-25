@@ -13,7 +13,8 @@ topics:
   - cli
 
 environment:
-  sdk: '>=2.15.0 <4.0.0'
+  sdk: ">=3.6.0 <4.0.0"
+resolution: workspace
 
 dependencies:
   ansicolor: ^2.0.2

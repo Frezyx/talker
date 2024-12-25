@@ -98,7 +98,7 @@ class _ExtendedExampleState extends State<ExtendedExample> {
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: Colors.grey[850]?.withOpacity(0.9),
+          color: Colors.grey[850]?.withValues(alpha: 0.9),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Column(

@@ -75,7 +75,7 @@ class _ActionTile extends StatelessWidget {
         ),
         if (showDivider)
           Divider(
-            color: talkerScreenTheme.textColor.withOpacity(0.2),
+            color: talkerScreenTheme.textColor.withValues(alpha: 0.2),
             height: 1,
           ),
       ],

@@ -42,7 +42,7 @@ class TalkerSettingsCard extends StatelessWidget {
             ),
             trailing: CupertinoSwitch(
               value: enabled,
-              trackColor: canEdit ? Colors.red : Colors.grey,
+              inactiveTrackColor: canEdit ? Colors.red : Colors.grey,
               onChanged: canEdit ? onChanged : null,
             ),
           ),

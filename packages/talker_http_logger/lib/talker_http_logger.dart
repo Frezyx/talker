@@ -54,7 +54,8 @@ class HttpRequestLog extends TalkerLog {
   String get key => TalkerLogType.httpRequest.key;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] [${request.method}] $message';
 
     final headers = request.headers;
@@ -86,7 +87,8 @@ class HttpResponseLog extends TalkerLog {
   String get key => TalkerLogType.httpResponse.key;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] [${response.request?.method}] $message';
 
     final headers = response.request?.headers;
@@ -120,7 +122,8 @@ class HttpErrorLog extends TalkerLog {
   String get key => TalkerLogType.httpError.key;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] [${response.request?.method}] $message';
 
     final headers = response.request?.headers;

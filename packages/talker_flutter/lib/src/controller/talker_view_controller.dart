@@ -5,7 +5,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
 class TalkerViewController extends ChangeNotifier {
-  TalkerViewController({bool expandedLogs = true, isLogOrderReversed = true}){
+  TalkerViewController({bool expandedLogs = true, isLogOrderReversed = true}) {
     _expandedLogs = expandedLogs;
     _isLogOrderReversed = isLogOrderReversed;
   }

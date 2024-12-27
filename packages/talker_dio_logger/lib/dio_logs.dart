@@ -23,6 +23,9 @@ class DioRequestLog extends TalkerLog {
   String get key => TalkerLogType.httpRequest.key;
 
   @override
+  LogLevel get logLevel => this.settings.logLevel;
+
+  @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
@@ -62,6 +65,9 @@ class DioResponseLog extends TalkerLog {
 
   @override
   String get key => TalkerLogType.httpResponse.key;
+
+  @override
+  LogLevel get logLevel => this.settings.logLevel;
 
   @override
   String generateTextMessage({
@@ -110,6 +116,9 @@ class DioErrorLog extends TalkerLog {
 
   @override
   String get key => TalkerLogType.httpError.key;
+
+  @override
+  LogLevel get logLevel => LogLevel.error;
 
   @override
   String generateTextMessage({

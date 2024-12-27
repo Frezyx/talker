@@ -428,7 +428,7 @@ class Talker {
     if (settings.useConsoleLogs) {
       _logger.log(
         data.generateTextMessage(timeFormat: settings.timeFormat),
-        level: logLevel ?? data.logLevel,
+        level: logLevel ?? data.logLevel ?? LogLevel.debug,
         pen: data.pen,
       );
     }

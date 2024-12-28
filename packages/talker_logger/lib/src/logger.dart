@@ -26,9 +26,6 @@ class TalkerLogger {
   late final void Function(String message) _output;
   late final LoggerFilter _filter;
 
-  // get filter
-  LoggerFilter get filter => _filter;
-
   /// {@template talker_logger_log}
   /// Log a new custom message
   /// [String] [msg] - message describes what happened

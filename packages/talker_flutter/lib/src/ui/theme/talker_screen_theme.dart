@@ -27,7 +27,7 @@ class TalkerScreenTheme {
   Map<String, Color> get logColors {
     if (_customColors != null) {
       final customMap = Map<String, Color>.from(_defaultColors);
-      customMap.addAll(_customColors!);
+      customMap.addAll(_customColors);
       return customMap;
     }
     return _defaultColors;

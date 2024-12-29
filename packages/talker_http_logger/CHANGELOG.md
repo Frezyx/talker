@@ -1,3 +1,9 @@
+# 0.1.0-dev.24
+- [talker] Add history logging filter by LogLevel
+- [talker_flutter] Fix TalkerScreen does not respect configured LogLevel setting
+
+Thanks to [mylukin](https://github.com/mylukin)
+
 # 0.1.0-dev.23
 - [talker_flutter] Add isLogsExpanded and isLogOrderReversed flags to TalkerScreen widget
 

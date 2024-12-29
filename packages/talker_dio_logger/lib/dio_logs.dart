@@ -23,7 +23,7 @@ class DioRequestLog extends TalkerLog {
   String get key => TalkerLogType.httpRequest.key;
 
   @override
-  LogLevel get logLevel => this.settings.logLevel;
+  LogLevel get logLevel => settings.logLevel;
 
   @override
   String generateTextMessage({
@@ -67,7 +67,7 @@ class DioResponseLog extends TalkerLog {
   String get key => TalkerLogType.httpResponse.key;
 
   @override
-  LogLevel get logLevel => this.settings.logLevel;
+  LogLevel get logLevel => settings.logLevel;
 
   @override
   String generateTextMessage({

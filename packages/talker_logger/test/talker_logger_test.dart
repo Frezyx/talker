@@ -47,6 +47,31 @@ void main() {
     expect(logger.formatter is LogLevelLoggerFormater, true);
   });
 
+  group('filter getter', () {
+    test('should return the filter set in constructor', () {
+      // Arrange
+      final customFilter = LogLevelFilter(LogLevel.error);
+      final logger = TalkerLogger(filter: customFilter);
+
+      // Act
+      final result = logger.filter;
+
+      // Assert
+      expect(result, equals(customFilter));
+    });
+
+    test('should return default LogLevelFilter when no filter provided', () {
+      // Arrange
+      final logger = TalkerLogger();
+
+      // Act
+      final result = logger.filter;
+
+      // Assert
+      expect(result, isA<LogLevelFilter>());
+    });
+  });
+
   test('Constructor copyWith', () {
     final messages = <String>[];
     var logger = TalkerLogger(

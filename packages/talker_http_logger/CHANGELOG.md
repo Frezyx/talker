@@ -1,3 +1,9 @@
+# 0.1.0-dev.26
+- [talker_flutter] Add support WASM for Flutter Web
+- [talker_flutter] Support flutter 3.27, remove deprecations
+
+Thanks to [abdelaziz-mahdy](https://github.com/abdelaziz-mahdy)
+
 # 0.1.0-dev.25
 - [talker_flutter] Add copy functionality for filtered logs
 

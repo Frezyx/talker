@@ -1,3 +1,8 @@
+# 4.5.6
+- [talker_flutter] Add copy functionality for filtered logs
+
+Thanks to [abdelaziz-mahdy](https://github.com/abdelaziz-mahdy)
+
 # 4.5.5
 - [talker] Add history logging filter by LogLevel
 - [talker_flutter] Fix TalkerScreen does not respect configured LogLevel setting

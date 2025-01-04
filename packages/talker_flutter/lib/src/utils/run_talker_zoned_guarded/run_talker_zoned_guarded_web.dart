@@ -6,12 +6,11 @@ import 'package:talker_flutter/talker_flutter.dart';
 Future setupErrorHooks(Talker talker, {bool catchFlutterErrors = true}) async {
   if (catchFlutterErrors) {
     FlutterError.onError = (FlutterErrorDetails details) async {
-      reportError(details.exception, details.stack, talker,
-          errorDetails: details);
+      talker.handle(details.exception, details.stack);
     };
   }
   PlatformDispatcher.instance.onError = (error, stack) {
-    reportError(error, stack, talker);
+    talker.handle(error, stack);
     return true;
   };
 }

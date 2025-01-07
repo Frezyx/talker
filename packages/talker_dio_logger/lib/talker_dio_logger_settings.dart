@@ -5,6 +5,7 @@ import 'package:talker/talker.dart';
 class TalkerDioLoggerSettings {
   const TalkerDioLoggerSettings({
     this.enabled = true,
+    this.logLevel = LogLevel.debug,
     this.printResponseData = true,
     this.printResponseHeaders = false,
     this.printResponseMessage = true,
@@ -23,6 +24,9 @@ class TalkerDioLoggerSettings {
 
   // Print Dio logger if true
   final bool enabled;
+
+  // LogLevel, default is debug
+  final LogLevel logLevel;
 
   /// Print [response.data] if true
   final bool printResponseData;

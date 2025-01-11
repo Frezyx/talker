@@ -13,6 +13,7 @@ class TalkerDioLoggerSettings {
     this.printErrorMessage = true,
     this.printRequestData = true,
     this.printRequestHeaders = false,
+    this.hideHeaderValuesForKeys = const <String>{},
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -93,6 +94,10 @@ class TalkerDioLoggerSettings {
   /// You can add your custom logic to log only specific Dio error [DioException].
   final bool Function(DioException response)? errorFilter;
 
+  /// Header values for the specified keys in the Set will be replaced with *****.
+  /// Case insensitive
+  final Set<String> hideHeaderValuesForKeys;
+
   TalkerDioLoggerSettings copyWith({
     bool? printResponseData,
     bool? printResponseHeaders,
@@ -108,6 +113,7 @@ class TalkerDioLoggerSettings {
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
     bool Function(DioException response)? errorFilter,
+    Set<String>? hideHeaderValuesForKeys,
   }) {
     return TalkerDioLoggerSettings(
       printResponseData: printResponseData ?? this.printResponseData,
@@ -124,6 +130,8 @@ class TalkerDioLoggerSettings {
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
       errorFilter: errorFilter ?? this.errorFilter,
+      hideHeaderValuesForKeys:
+          hideHeaderValuesForKeys ?? this.hideHeaderValuesForKeys,
     );
   }
 }

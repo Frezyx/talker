@@ -72,7 +72,8 @@ void main() {
     test('onRequest method should hide specific header values in logging', () {
       final logger = TalkerDioLogger(
           talker: talker,
-          settings: TalkerDioLoggerSettings(printRequestHeaders: true,
+          settings: TalkerDioLoggerSettings(
+              printRequestHeaders: true,
               hideHeaderValuesForKeys: {'Authorization'}));
 
       final options = RequestOptions(path: '/test', headers: {

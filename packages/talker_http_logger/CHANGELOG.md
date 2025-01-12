@@ -1,3 +1,6 @@
+# 0.1.0-dev.27
+- [talker_flutter] Add new web api support for download logs file
+
 # 0.1.0-dev.26
 - [talker_flutter] Add support WASM for Flutter Web
 - [talker_flutter] Support flutter 3.27, remove deprecations

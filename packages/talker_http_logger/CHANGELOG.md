@@ -1,3 +1,6 @@
+# 0.1.0-dev.28
+- [talker_flutter] Migrate downloadLogs export to new js_interop package
+
 # 0.1.0-dev.27
 - [talker_flutter] Add new web api support for download logs file
 

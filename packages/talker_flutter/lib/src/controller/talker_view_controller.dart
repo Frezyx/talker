@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/utils/download_logs/download_nonweb_logs.dart'
-    if (dart.library.js) 'package:talker_flutter/src/utils/download_logs/download_web_logs.dart';
+import 'package:talker_flutter/src/utils/download_logs/donwload_logs.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]

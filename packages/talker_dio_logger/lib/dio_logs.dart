@@ -5,6 +5,7 @@ import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 const _encoder = JsonEncoder.withIndent('  ');
+const _hiddenValue = '*****';
 
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
@@ -37,6 +38,15 @@ class DioRequestLog extends TalkerLog {
         msg += '\nData: $prettyData';
       }
       if (settings.printRequestHeaders && headers.isNotEmpty) {
+        if (settings.hideHeaderValuesForKeys.isNotEmpty) {
+          headers.updateAll((key, value) {
+            return settings.hideHeaderValuesForKeys
+                    .map((v) => v.toLowerCase())
+                    .contains(key.toLowerCase())
+                ? _hiddenValue
+                : value;
+          });
+        }
         final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }

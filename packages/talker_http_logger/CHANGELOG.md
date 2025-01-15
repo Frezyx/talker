@@ -1,3 +1,8 @@
+# 0.1.0-dev.29
+- [talker_flutter] Correction the import file name in the talker_flutter log downloader web
+
+Thanks to [samanzamani](https://github.com/samanzamani)
+
 # 0.1.0-dev.28
 - [talker_flutter] Migrate downloadLogs export to new js_interop package
 

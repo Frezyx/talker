@@ -13,7 +13,7 @@ topics:
   - ui
 
 environment:
-  sdk: '>=2.15.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
   flutter: '>=1.17.0'
 
 dependencies:
@@ -24,6 +24,7 @@ dependencies:
   group_button: ^5.3.4
   path_provider: ^2.1.4
   share_plus: ^10.0.1
+  web: ^1.1.0
 
 
 dev_dependencies:

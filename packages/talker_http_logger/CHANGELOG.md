@@ -1,3 +1,9 @@
+# 0.1.0-dev.30
+- [talker_flutter] Proper migration of support to the web using both html and wasm
+- [talker_flutter] Update example dart sdk version to '>=3.6.0 <4.0.0'
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff)
+
 # 0.1.0-dev.29
 - [talker_flutter] Correction the import file name in the talker_flutter log downloader web
 

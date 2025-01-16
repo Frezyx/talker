@@ -69,7 +69,7 @@ void main() {
           '}');
     });
 
-    test('onRequest method should hide specific header values in logging', () {
+    test('onRequest method should hide specific header values in log', () {
       final logger = TalkerDioLogger(
           talker: talker,
           settings: TalkerDioLoggerSettings(

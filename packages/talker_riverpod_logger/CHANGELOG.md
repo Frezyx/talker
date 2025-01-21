@@ -1,3 +1,23 @@
+# 4.6.5
+- [talker_bloc_logger] Bump bloc version to 9.0.0
+
+# 4.6.4
+- [talker_flutter] Proper migration of support to the web using both html and wasm
+- [talker_flutter] Update example dart sdk version to '>=3.6.0 <4.0.0'
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff)
+
+# 4.6.3
+- [talker_flutter] Correction the import file name in the talker_flutter log downloader web
+
+Thanks to [samanzamani](https://github.com/samanzamani)
+
+# 4.6.2
+- [talker_flutter] Migrate downloadLogs export to new js_interop package
+
+# 4.6.1
+- [talker_flutter] Add new web api support for download logs file
+
 # 4.6.0
 - [talker_flutter] Add support WASM for Flutter Web
 - [talker_flutter] Support flutter 3.27, remove deprecations

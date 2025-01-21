@@ -73,8 +73,7 @@ void main() {
       final logger = TalkerDioLogger(
           talker: talker,
           settings: TalkerDioLoggerSettings(
-              printRequestHeaders: true,
-              hideHeaderValuesForKeys: {'Authorization'}));
+              printRequestHeaders: true, hiddenHeaders: {'Authorization'}));
 
       final options = RequestOptions(path: '/test', headers: {
         "firstHeader": "firstHeaderValue",

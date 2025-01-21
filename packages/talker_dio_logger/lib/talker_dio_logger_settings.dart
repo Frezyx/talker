@@ -13,7 +13,7 @@ class TalkerDioLoggerSettings {
     this.printErrorMessage = true,
     this.printRequestData = true,
     this.printRequestHeaders = false,
-    this.hideHeaderValuesForKeys = const <String>{},
+    this.hiddenHeaders = const <String>{},
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -96,7 +96,7 @@ class TalkerDioLoggerSettings {
 
   /// Header values for the specified keys in the Set will be replaced with *****.
   /// Case insensitive
-  final Set<String> hideHeaderValuesForKeys;
+  final Set<String> hiddenHeaders;
 
   TalkerDioLoggerSettings copyWith({
     bool? printResponseData,
@@ -113,7 +113,7 @@ class TalkerDioLoggerSettings {
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
     bool Function(DioException response)? errorFilter,
-    Set<String>? hideHeaderValuesForKeys,
+    Set<String>? hiddenHeaders,
   }) {
     return TalkerDioLoggerSettings(
       printResponseData: printResponseData ?? this.printResponseData,
@@ -130,8 +130,7 @@ class TalkerDioLoggerSettings {
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
       errorFilter: errorFilter ?? this.errorFilter,
-      hideHeaderValuesForKeys:
-          hideHeaderValuesForKeys ?? this.hideHeaderValuesForKeys,
+      hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
     );
   }
 }

@@ -72,9 +72,9 @@ class HttpRequestLog extends TalkerLog {
 
     try {
       if (headers.isNotEmpty) {
-        if (settings.hideHeaderValuesForKeys.isNotEmpty) {
+        if (settings.hiddenHeaders.isNotEmpty) {
           headers.updateAll((key, value) {
-            return settings.hideHeaderValuesForKeys
+            return settings.hiddenHeaders
                     .map((v) => v.toLowerCase())
                     .contains(key.toLowerCase())
                 ? _hiddenValue

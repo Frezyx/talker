@@ -6,7 +6,7 @@ void main(List<String> args) async {
   final client = InterceptedClient.build(interceptors: [
     TalkerHttpLogger(
         settings: TalkerHttpLoggerSettings(
-            hideHeaderValuesForKeys: {'Authorization'})),
+            hiddenHeaders: {'Authorization'})),
   ]);
 
   await client.get("https://google.com".toUri(), headers: {

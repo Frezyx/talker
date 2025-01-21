@@ -1,3 +1,6 @@
+# 4.6.5
+- [talker_bloc_logger] Bump bloc version to 9.0.0
+
 # 4.6.4
 - [talker_flutter] Proper migration of support to the web using both html and wasm
 - [talker_flutter] Update example dart sdk version to '>=3.6.0 <4.0.0'

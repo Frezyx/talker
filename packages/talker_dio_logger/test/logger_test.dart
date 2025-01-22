@@ -68,5 +68,28 @@ void main() {
           '  ]\n'
           '}');
     });
+
+    test('onRequest method should hide specific header values in logging', () {
+      final logger = TalkerDioLogger(
+          talker: talker,
+          settings: TalkerDioLoggerSettings(
+              printRequestHeaders: true, hiddenHeaders: {'Authorization'}));
+
+      final options = RequestOptions(path: '/test', headers: {
+        "firstHeader": "firstHeaderValue",
+        "authorization": "bearer super_secret_token",
+        "lastHeader": "lastHeaderValue",
+      });
+      logger.onRequest(options, RequestInterceptorHandler());
+      print(talker.history);
+      expect(
+          talker.history.last.generateTextMessage(),
+          '[http-request] [GET] /test\n'
+          'Headers: {\n'
+          '  "firstHeader": "firstHeaderValue",\n'
+          '  "authorization": "*****",\n'
+          '  "lastHeader": "lastHeaderValue"\n'
+          '}');
+    });
   });
 }

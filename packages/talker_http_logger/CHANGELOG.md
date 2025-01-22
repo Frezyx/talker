@@ -1,3 +1,8 @@
+# 0.1.0-dev.32
+- [talker_dio_logger] Add ``hiddenHeaders`` field in ``TalkerdioLoggerSettings`` to hide specific and sensitive dio logger headers
+
+Thanks to [Ilushnik](https://github.com/Ilushnik)
+
 # 0.1.0-dev.31
 - [talker_bloc_logger] Bump bloc version to 9.0.0
 

@@ -1,5 +1,11 @@
+# 4.6.7
+- [talker_http_logger] Add settings ``TalkerLoggerSettings`` field to setup http logger settings
+- [talker_http_logger] Add ``hiddenHeaders`` field in ``TalkerLoggerSettings`` to hide specific and sensitive http logger headers
+
+Thanks to [Ilushnik](https://github.com/Ilushnik)
+
 # 4.6.6
-- [talker_dio_logger] Add ``hiddenHeaders`` field in ``TalkerdioLoggerSettings`` to hide specific and sensitive dio logger headers
+- [talker_dio_logger] Add ``hiddenHeaders`` field in ``TalkerDioLoggerSettings`` to hide specific and sensitive dio logger headers
 
 Thanks to [Ilushnik](https://github.com/Ilushnik)
 

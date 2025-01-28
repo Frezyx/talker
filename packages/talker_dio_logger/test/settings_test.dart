@@ -110,5 +110,32 @@ void main() {
         equals(originalSettings.errorPen),
       );
     });
+
+    test('default logLevel should be debug', () {
+      final settings = TalkerDioLoggerSettings();
+      expect(settings.logLevel, equals(LogLevel.debug));
+    });
+
+    test('copyWith should preserve logLevel if not specified', () {
+      final originalSettings = TalkerDioLoggerSettings(
+        logLevel: LogLevel.warning,
+      );
+      final updatedSettings = originalSettings.copyWith(
+        printResponseData: false,
+      );
+
+      expect(updatedSettings.logLevel, equals(LogLevel.warning));
+    });
+
+    test('copyWith should update logLevel when specified', () {
+      final originalSettings = TalkerDioLoggerSettings(
+        logLevel: LogLevel.debug,
+      );
+      final updatedSettings = originalSettings.copyWith(
+        logLevel: LogLevel.error,
+      );
+
+      expect(updatedSettings.logLevel, equals(LogLevel.error));
+    });
   });
 }

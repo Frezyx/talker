@@ -58,7 +58,6 @@ class Talker {
     _observer = observer ?? const _DefaultTalkerObserver();
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
     _history = history ?? DefaultTalkerHistory(this.settings);
-    _historyFilter = _logger.filter;
   }
 
   void _initLogger(TalkerLogger? logger) {
@@ -87,7 +86,6 @@ class Talker {
   late TalkerFilter _filter;
   late TalkerObserver _observer;
   late TalkerHistory _history;
-  late LoggerFilter _historyFilter;
 
   // final _fileManager = FileManager();
 
@@ -133,7 +131,6 @@ class Talker {
     _logger = logger ?? _logger;
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
     _history = DefaultTalkerHistory(this.settings, history: _history.history);
-    _historyFilter = _logger.filter;
   }
 
   final _talkerStreamController = StreamController<TalkerData>.broadcast();
@@ -435,11 +432,7 @@ class Talker {
   }
 
   void _handleForOutputs(TalkerData data) {
-    if (_historyFilter.shouldLog(
-        data.generateTextMessage(timeFormat: settings.timeFormat),
-        data.logLevel ?? LogLevel.debug)) {
-      _history.write(data);
-    }
+    _history.write(data);
   }
 
   bool _isApprovedByFilter(TalkerData data) {

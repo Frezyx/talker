@@ -1,21 +1,21 @@
-name: talker_bloc_logger
+name: talker_dio_logger
 
 on:
   push:
     paths:
-      - "packages/talker_bloc_logger/**"
-      - ".github/workflows/talker_bloc_logger.yaml"
+      - "packages/talker_dio_logger/**"
+      - "/talker_dio_logger.yaml"
 
   pull_request:
     paths:
-      - "packages/talker_bloc_logger/**"
-      - ".github/workflows/talker_bloc_logger.yaml"
+      - "packages/talker_dio_logger/**"
+      - "/talker_dio_logger.yaml"
 
 jobs:
   build:
     defaults:
       run:
-        working-directory: packages/talker_bloc_logger
+        working-directory: packages/talker_dio_logger
 
     runs-on: ubuntu-latest
 
@@ -44,7 +44,7 @@ jobs:
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
         with:
-          path: packages/talker_bloc_logger/coverage/lcov.info
+          path: packages/talker_dio_logger/coverage/lcov.info
           min_coverage: 90
 
       - name: Upload coverage to Codecov
@@ -61,4 +61,4 @@ jobs:
       #   uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
       #   with:
       #     min_coverage: 30
-      #     path: talker_bloc_logger_logger/coverage/lcov.info
+      #     path: talker_dio_logger_logger/coverage/lcov.info

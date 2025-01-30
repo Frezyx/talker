@@ -4,12 +4,12 @@ on:
   push:
     paths:
       - "packages/talker/**"
-      - ".github/workflows/talker.yaml"
+      - "/talker.yaml"
 
   pull_request:
     paths:
       - "packages/talker/**"
-      - ".github/workflows/talker.yaml"
+      - "/talker.yaml"
 
 jobs:
   build:

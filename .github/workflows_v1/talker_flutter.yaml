@@ -4,12 +4,12 @@ on:
   push:
     paths:
       - "packages/talker_flutter/**"
-      - ".github/workflows/talker_flutter.yaml"
+      - "/talker_flutter.yaml"
 
   pull_request:
     paths:
       - "packages/talker_flutter/**"
-      - ".github/workflows/talker_flutter.yaml"
+      - "/talker_flutter.yaml"
 
 jobs:
   build:

@@ -1,0 +1,22 @@
+name: talker
+repository: https://github.com/Frezyx/talker
+
+packages:
+  - packages/*
+  - packages/*/*
+  - examples/*
+
+command:
+  version:
+    workspaceChangelog: false
+    fetchTags: false
+    updateGitTagRefs: false
+    includeCommitId: false
+    linkToCommits: false
+
+ide:
+  intellij:
+    moduleNamePrefix: ''
+
+scripts:
+  lint: dart format . --set-exit-if-changed && flutter analyze --fatal-infos .

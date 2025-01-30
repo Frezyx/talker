@@ -13,23 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
       - run: flutter --version
 
-      - name: Cache pub dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.FLUTTER_HOME }}/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: ${{ runner.os }}-pub-
-
-      - name: Download pub dependencies
+      - name: Install dependencies
         run: |
-            flutter pub get
+            dart pub global activate melos
+            dart pub get
+            dart run melos bs
             dart pub global activate peanut
             flutter pub global run peanut
 

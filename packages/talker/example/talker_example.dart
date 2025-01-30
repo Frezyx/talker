@@ -36,7 +36,7 @@ Future<void> main() async {
 }
 
 class YourCustomLog extends TalkerLog {
-  YourCustomLog(String message) : super(message);
+  YourCustomLog(String super.message);
 
   /// Your own log key (for color customization in settings)
   static const logKey = 'custom_log_key';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class ExtendedExample extends StatefulWidget {
-  const ExtendedExample({Key? key}) : super(key: key);
+  const ExtendedExample({super.key});
 
   @override
   State<ExtendedExample> createState() => _ExtendedExampleState();
@@ -139,7 +139,7 @@ class _ExtendedExampleState extends State<ExtendedExample> {
 }
 
 class CustomLog extends TalkerLog {
-  CustomLog(String message) : super(message);
+  CustomLog(String super.message);
 
   @override
   AnsiPen get pen => AnsiPen()..xterm(49);
@@ -148,18 +148,18 @@ class CustomLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    return '| Custom leading | ' + (message ?? '');
+    return '| Custom leading | ${message ?? ''}';
   }
 }
 
 class BarButton extends StatelessWidget {
   const BarButton({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.title,
     this.backgroundColor,
     this.titleColor,
-  }) : super(key: key);
+  });
 
   final VoidCallback onTap;
   final String title;

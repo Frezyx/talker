@@ -11,7 +11,7 @@ import 'talker_actions/talker_actions.dart';
 
 class TalkerView extends StatefulWidget {
   const TalkerView(
-      {Key? key,
+      {super.key,
       required this.talker,
       this.controller,
       this.scrollController,
@@ -20,8 +20,7 @@ class TalkerView extends StatefulWidget {
       this.itemsBuilder,
       this.appBarLeading,
       this.isLogsExpanded = true,
-      this.isLogOrderReversed = true})
-      : super(key: key);
+      this.isLogOrderReversed = true});
 
   /// Talker implementation
   final Talker talker;

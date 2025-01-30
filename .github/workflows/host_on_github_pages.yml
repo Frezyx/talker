@@ -23,6 +23,10 @@ jobs:
             dart pub get
             dart run melos bs
             dart pub global activate peanut
+
+      - name: Build web
+        run: |
+            cd examples/shop_app_example
             flutter pub global run peanut
 
       - name: Deploy to GitHub Pages 🚀

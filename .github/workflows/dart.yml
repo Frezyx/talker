@@ -22,9 +22,28 @@ jobs:
           - talker_logger
           - talker_riverpod_logger
         include:
+          - package: talker
+            path: packages
+            test: true
+          - package: talker_bloc_logger
+            path: packages
+            test: true
+          - package: talker_dio_logger
+            path: packages
+            test: true
           - package: talker_flutter
             path: packages
             test: false
+          - package: talker_http_logger
+            path: packages
+            test: true
+          - package: talker_logger
+            path: packages
+            test: true
+          - package: talker_riverpod_logger
+            path: packages
+            test: true
+
     steps:
       - uses: actions/checkout@v3
 

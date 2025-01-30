@@ -57,6 +57,10 @@ jobs:
       - name: Analyze package
         run: melos exec --scope="${{ matrix.package }}" -- dart analyze --fatal-infos
 
+      - name: Run tests
+        if: matrix.test
+        run: melos exec --scope="${{ matrix.package }}" -- flutter test --coverage
+
       - name: Check Code Coverage
         if: matrix.test
         uses: VeryGoodOpenSource/very_good_coverage@v3.0.0

@@ -54,6 +54,9 @@ jobs:
           dart pub get
           dart run melos bs
 
+      - name: Format package
+        run: melos exec --scope="${{ matrix.package }}" -- dart format . --set-exit-if-changed
+
       - name: Analyze package
         run: melos exec --scope="${{ matrix.package }}" -- dart analyze --fatal-infos
 

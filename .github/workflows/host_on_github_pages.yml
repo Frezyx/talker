@@ -2,9 +2,6 @@ name: Host on GitHub Pages
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -29,8 +26,7 @@ jobs:
         run: |
             dart pub global activate melos
             dart pub get
-            dart run melos bs
-            dart pub global activate peanut
+            dart run melos bs --scope="*shop_app_example*"
 
       - name: Build web
         run: |

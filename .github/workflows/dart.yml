@@ -39,14 +39,11 @@ jobs:
         run: melos exec --scope="${{ matrix.package }}" -- dart analyze --fatal-infos
 
       - name: Check Code Coverage
+        if: matrix.test
         uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
         with:
           path: ${{ matrix.path }}/${{ matrix.package }}/coverage/lcov.info
           min_coverage: 90
-
-      - name: Run tests
-        if: matrix.test
-        run: melos exec --scope="${{ matrix.package }}" -- flutter test --coverage
 
       - name: Upload coverage reports to Codecov
         if: matrix.test

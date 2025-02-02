@@ -40,10 +40,12 @@ class BaseBottomSheet extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.headlineSmall
-                        ?.copyWith(color: talkerScreenTheme.textColor),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: theme.textTheme.headlineSmall
+                          ?.copyWith(color: talkerScreenTheme.textColor),
+                    ),
                   ),
                   InkWell(
                     onTap: () => Navigator.pop(context),

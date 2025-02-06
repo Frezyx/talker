@@ -82,6 +82,7 @@ class DioResponseLog extends TalkerLog {
     final responseMessage = response.statusMessage;
     final data = response.data;
     final headers = response.headers.map;
+    final redirects = response.redirects;
 
     msg += '\nStatus: ${response.statusCode}';
 
@@ -97,6 +98,13 @@ class DioResponseLog extends TalkerLog {
       if (settings.printResponseHeaders && headers.isNotEmpty) {
         final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
+      }
+
+      if (settings.printResponseRedirects && redirects.isNotEmpty) {
+        final prettyRedirects = redirects.map((redirect) {
+          return '[${redirect.statusCode} ${redirect.method} - ${redirect.location}]';
+        }).join('\n');
+        msg += '\nRedirects:\n$prettyRedirects';
       }
     } catch (_) {
       // TODO: add handling can`t convert

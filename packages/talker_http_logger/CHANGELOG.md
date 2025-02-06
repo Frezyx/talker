@@ -1,3 +1,6 @@
+# 0.1.0-dev.35
+- [talker] Fix CustomLogs ``pen`` field ignoring by console [issue#313](https://github.com/Frezyx/talker/issues/313)
+
 # 0.1.0-dev.34
 - [talker_dio_logger] Fix substitution of hidden headers ``hiddenHeaders`` field in ``TalkerDioLoggerSettings``
 

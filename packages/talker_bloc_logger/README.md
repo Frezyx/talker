@@ -31,7 +31,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.6.8
+  talker_bloc_logger: ^4.6.9
 ```
 
 ### Usage

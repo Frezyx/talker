@@ -1,3 +1,6 @@
+# 0.1.0-dev.34
+- [talker_dio_logger] Fix substitution of hidden headers ``hiddenHeaders`` field in ``TalkerDioLoggerSettings``
+
 # 0.1.0-dev.33
 - [talker_http_logger] Add settings ``TalkerLoggerSettings`` field to setup http logger settings
 - [talker_http_logger] Add ``hiddenHeaders`` field in ``TalkerLoggerSettings`` to hide specific and sensitive http logger headers

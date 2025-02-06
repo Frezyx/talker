@@ -19,9 +19,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    // Disable flutter logs cut by the console
+    _initDio();
+    super.initState();
+  }
+
+  void _initDio() {
     final talker = Talker();
-    // Disable flutter logs cut by the console
 
     _dio = Dio();
     _dio.interceptors.add(
@@ -30,10 +33,10 @@ class _MyAppState extends State<MyApp> {
         settings: const TalkerDioLoggerSettings(
           printRequestHeaders: true,
           printResponseHeaders: true,
+          hiddenHeaders: {'Authorization'},
         ),
       ),
     );
-    super.initState();
   }
 
   @override
@@ -73,7 +76,18 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  _dio.post('https://dummyjson.com/products/add');
+                  _dio.post(
+                    'https://dummyjson.com/products/add',
+                    options: Options(
+                      headers: {
+                        'Authorization':
+                            'Bearer wtreverdft43253d62f3rdtgrwf3dedrsewz',
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Dio',
+                        'Platform': 'Flutter',
+                      },
+                    ),
+                  );
                 },
                 child: const Text('POST products request'),
               ),

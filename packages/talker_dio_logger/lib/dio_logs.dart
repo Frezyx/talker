@@ -38,15 +38,15 @@ class DioRequestLog extends TalkerLog {
         msg += '\nData: $prettyData';
       }
       if (settings.printRequestHeaders && headers.isNotEmpty) {
-        if (settings.hiddenHeaders.isNotEmpty) {
-          headers.updateAll((key, value) {
-            return settings.hiddenHeaders
-                    .map((v) => v.toLowerCase())
-                    .contains(key.toLowerCase())
-                ? _hiddenValue
-                : value;
-          });
+        final hiddenHeaders = settings.hiddenHeaders;
+        if (hiddenHeaders.isNotEmpty) {
+          for (final e in hiddenHeaders) {
+            if (headers.containsKey(e)) {
+              headers[e] = _hiddenValue;
+            }
+          }
         }
+
         final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }

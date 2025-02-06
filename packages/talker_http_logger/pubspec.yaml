@@ -1,6 +1,6 @@
 name: talker_http_logger
 description: Lightweight and customizable http client logger on talker base
-version: 0.1.0-dev.35
+version: 0.1.0-dev.36
 homepage: https://github.com/Frezyx/talker
 
 environment:
@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   http_interceptor: ^2.0.0
-  talker: ^4.6.9
+  talker: ^4.6.10
 
 dev_dependencies:
   lints: ^2.0.0

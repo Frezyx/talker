@@ -1,3 +1,8 @@
+# 4.6.10
+- [talker_flutter] Fix search textfield background color become white in light theme
+
+Thanks to [asadman1523](https://github.com/asadman1523)
+
 # 4.6.9
 - [talker] Fix CustomLogs ``pen`` field ignoring by console [issue#313](https://github.com/Frezyx/talker/issues/313)
 

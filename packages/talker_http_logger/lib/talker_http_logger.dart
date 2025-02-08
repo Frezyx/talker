@@ -1,4 +1,4 @@
-library talker_http_logger;
+library;
 
 import 'dart:convert';
 
@@ -48,10 +48,10 @@ const _hiddenValue = '*****';
 
 class HttpRequestLog extends TalkerLog {
   HttpRequestLog(
-    String title, {
+    String super.title, {
     required this.request,
     this.settings = const TalkerHttpLoggerSettings(),
-  }) : super(title);
+  });
 
   final BaseRequest request;
 
@@ -93,10 +93,10 @@ class HttpRequestLog extends TalkerLog {
 
 class HttpResponseLog extends TalkerLog {
   HttpResponseLog(
-    String title, {
+    String super.title, {
     required this.response,
     this.settings = const TalkerHttpLoggerSettings(),
-  }) : super(title);
+  });
 
   final BaseResponse response;
 
@@ -131,10 +131,10 @@ class HttpResponseLog extends TalkerLog {
 
 class HttpErrorLog extends TalkerLog {
   HttpErrorLog(
-    String title, {
+    String super.title, {
     required this.response,
     this.settings = const TalkerHttpLoggerSettings(),
-  }) : super(title);
+  });
 
   final BaseResponse response;
 

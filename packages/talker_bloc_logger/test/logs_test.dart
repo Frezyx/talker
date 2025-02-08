@@ -8,12 +8,13 @@ class FakeBloc extends Bloc<String, String> {
 }
 
 class FakeTransition extends Transition {
-  FakeTransition({required currentState, required event, required nextState})
+  const FakeTransition(
+      {required currentState, required event, required nextState})
       : super(currentState: currentState, event: event, nextState: nextState);
 }
 
 class FakeChange extends Change {
-  FakeChange({required currentState, required nextState})
+  const FakeChange({required currentState, required nextState})
       : super(currentState: currentState, nextState: nextState);
 }
 

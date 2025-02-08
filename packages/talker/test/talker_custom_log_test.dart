@@ -8,7 +8,7 @@ final _customLogTitle = 'Custom';
 final _customLog2Key = 'custom_log_2_key';
 
 class TestCustomLog extends TalkerLog {
-  TestCustomLog(String message) : super(message);
+  TestCustomLog(String super.message);
 
   @override
   String get title => _customLogTitle;
@@ -21,7 +21,7 @@ class TestCustomLog extends TalkerLog {
 }
 
 class Test2CustomLog extends TalkerLog {
-  Test2CustomLog(String message) : super(message);
+  Test2CustomLog(String super.message);
 
   @override
   String? get key => _customLog2Key;

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class CustomErrorMessagesExample extends StatelessWidget {
-  const CustomErrorMessagesExample({Key? key, required this.talker})
-      : super(key: key);
+  const CustomErrorMessagesExample({super.key, required this.talker});
 
   final Talker talker;
 
@@ -22,9 +21,8 @@ class CustomErrorMessagesExample extends StatelessWidget {
 
 class _Home extends StatelessWidget {
   const _Home({
-    Key? key,
     required this.talker,
-  }) : super(key: key);
+  });
 
   final Talker talker;
 
@@ -75,9 +73,9 @@ class _Home extends StatelessWidget {
 
 class ExceptionSnackbar extends StatelessWidget {
   const ExceptionSnackbar({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final TalkerException data;
 

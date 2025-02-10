@@ -1,3 +1,8 @@
+# 0.1.0-dev.37
+- [talker_dio_logger] Add `printResponseRedirects` field into `TalkerDioLoggerSettings` to print Response redirects
+
+Thanks to [federicoviceconti](https://github.com/federicoviceconti)
+
 # 0.1.0-dev.36
 - [talker_flutter] Fix search textfield background color become white in light theme
 

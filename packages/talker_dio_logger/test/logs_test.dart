@@ -52,6 +52,57 @@ void main() {
           result, contains('Headers: {\n  "Authorization": "Bearer Token"\n}'));
     });
 
+    test(
+        'generateTextMessage should include redirects if printResponseRedirects is true',
+        () {
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'GET',
+      );
+      final settings = TalkerDioLoggerSettings(printResponseRedirects: true);
+      final dioRequestLog = DioResponseLog(
+        'Test message',
+        response: Response(
+          requestOptions: requestOptions,
+          redirects: [
+            RedirectRecord(200, 'GET', Uri.parse('about:blank')),
+            RedirectRecord(200, 'POST', Uri.parse('about:blank')),
+          ],
+        ),
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(
+          result,
+          contains(
+              'Redirects:\n[200 GET - about:blank]\n[200 POST - about:blank]'));
+    });
+
+    test(
+        'generateTextMessage should not include redirects if printResponseRedirects is false',
+        () {
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'GET',
+      );
+      final settings = TalkerDioLoggerSettings(printResponseRedirects: false);
+      final dioRequestLog = DioResponseLog(
+        'Test message',
+        response: Response(
+          requestOptions: requestOptions,
+          redirects: [
+            RedirectRecord(200, 'GET', Uri.parse('about:blank')),
+          ],
+        ),
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+      expect(result.contains('Redirects:'), isFalse);
+    });
+
     // Add more tests for DioRequestLog as needed
   });
 

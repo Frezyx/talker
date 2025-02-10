@@ -10,18 +10,18 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'talker_actions/talker_actions.dart';
 
 class TalkerView extends StatefulWidget {
-  const TalkerView(
-      {Key? key,
-      required this.talker,
-      this.controller,
-      this.scrollController,
-      this.theme = const TalkerScreenTheme(),
-      this.appBarTitle,
-      this.itemsBuilder,
-      this.appBarLeading,
-      this.isLogsExpanded = true,
-      this.isLogOrderReversed = true})
-      : super(key: key);
+  const TalkerView({
+    Key? key,
+    required this.talker,
+    this.controller,
+    this.scrollController,
+    this.theme = const TalkerScreenTheme(),
+    this.appBarTitle,
+    this.itemsBuilder,
+    this.appBarLeading,
+    this.isLogsExpanded = true,
+    this.isLogOrderReversed = true,
+  }) : super(key: key);
 
   /// Talker implementation
   final Talker talker;
@@ -153,7 +153,7 @@ class _TalkerViewState extends State<TalkerView> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      isScrollControlled: false,
+      isScrollControlled: true,
       builder: (context) {
         return TalkerSettingsBottomSheet(
           talkerScreenTheme: theme,

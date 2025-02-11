@@ -5,8 +5,7 @@ import 'package:talker_http_logger/talker_http_logger_settings.dart';
 void main(List<String> args) async {
   final client = InterceptedClient.build(interceptors: [
     TalkerHttpLogger(
-        settings: TalkerHttpLoggerSettings(
-            hiddenHeaders: {'Authorization'})),
+        settings: TalkerHttpLoggerSettings(hiddenHeaders: {'Authorization'})),
   ]);
 
   await client.get("https://google.com".toUri(), headers: {

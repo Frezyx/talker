@@ -57,6 +57,7 @@ Future<void> main() async {
 
   final comics = await repository.fetchComics();
   for (final comic in comics) {
+    // ignore: avoid_print
     print(comic.title);
   }
 

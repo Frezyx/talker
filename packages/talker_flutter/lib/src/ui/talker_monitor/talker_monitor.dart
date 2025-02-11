@@ -5,10 +5,10 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerMonitor extends StatelessWidget {
   const TalkerMonitor({
-    Key? key,
+    super.key,
     required this.theme,
     required this.talker,
-  }) : super(key: key);
+  });
 
   /// Theme for customize [TalkerScreen]
   final TalkerScreenTheme theme;

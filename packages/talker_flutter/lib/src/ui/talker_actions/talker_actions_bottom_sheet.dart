@@ -4,10 +4,10 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerActionsBottomSheet extends StatelessWidget {
   const TalkerActionsBottomSheet({
-    Key? key,
+    super.key,
     required this.talkerScreenTheme,
     required this.actions,
-  }) : super(key: key);
+  });
 
   final TalkerScreenTheme talkerScreenTheme;
   final List<TalkerActionItem> actions;
@@ -26,17 +26,13 @@ class TalkerActionsBottomSheet extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ...actions
-                .asMap()
-                .entries
-                .map(
+            ...actions.asMap().entries.map(
                   (e) => _ActionTile(
                     talkerScreenTheme: talkerScreenTheme,
                     action: e.value,
                     showDivider: e.key != actions.length - 1,
                   ),
-                )
-                .toList(),
+                ),
           ],
         ),
       ),
@@ -46,11 +42,10 @@ class TalkerActionsBottomSheet extends StatelessWidget {
 
 class _ActionTile extends StatelessWidget {
   const _ActionTile({
-    Key? key,
     required this.action,
     required this.talkerScreenTheme,
     this.showDivider = true,
-  }) : super(key: key);
+  });
 
   final TalkerActionItem action;
   final TalkerScreenTheme talkerScreenTheme;

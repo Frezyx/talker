@@ -28,11 +28,11 @@ import 'package:talker_flutter/talker_flutter.dart';
 ///
 class TalkerListener extends StatefulWidget {
   const TalkerListener({
-    Key? key,
+    super.key,
     required this.child,
     required this.talker,
     required this.listener,
-  }) : super(key: key);
+  });
 
   /// An [Talker] implementation
   final Talker talker;

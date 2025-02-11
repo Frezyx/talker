@@ -81,6 +81,7 @@ void main() {
         "lastHeader": "lastHeaderValue",
       });
       logger.onRequest(options, RequestInterceptorHandler());
+      // ignore: avoid_print
       print(talker.history);
       expect(
           talker.history.last.generateTextMessage(),

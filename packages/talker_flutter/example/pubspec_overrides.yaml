@@ -1,3 +1,4 @@
+# melos_managed_dependency_overrides: talker_logger
 dependency_overrides:
   talker:
     path:
@@ -5,3 +6,5 @@ dependency_overrides:
   talker_flutter:
     path:
       ../
+  talker_logger:
+    path: ../../talker_logger

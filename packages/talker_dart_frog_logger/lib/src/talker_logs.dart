@@ -1,50 +1,7 @@
 import 'package:dart_frog/dart_frog.dart';
 import 'package:talker/talker.dart';
 
-class TalkerDartFrogLoggerSettings {
-  const TalkerDartFrogLoggerSettings({
-    this.logRequest = true,
-    this.logResponse = true,
-    this.printRequestHeaders = false,
-    this.printResponseHeaders = false,
-    this.printResponseBody = false,
-  });
-
-  final bool logRequest;
-  final bool logResponse;
-  final bool printRequestHeaders;
-  final bool printResponseHeaders;
-  final bool printResponseBody;
-}
-
-Handler loggerMiddleware({
-  required Handler handler,
-  TalkerDartFrogLoggerSettings settings = const TalkerDartFrogLoggerSettings(),
-}) {
-  return (context) async {
-    final talker = context.read<Talker>();
-
-    if (settings.logRequest) {
-      talker.logCustom(RequestLog(context.request, settings: settings));
-    }
-
-    final stopwatch = Stopwatch()..start();
-    final response = await handler(context);
-    stopwatch.stop();
-
-    final time = stopwatch.elapsedMilliseconds;
-
-    if (settings.logResponse) {
-      talker.logCustom(ResponseLog(
-        request: context.request,
-        response: response,
-        settings: settings,
-        resTime: time,
-      ));
-    }
-    return response;
-  };
-}
+import 'settings.dart';
 
 class RequestLog extends TalkerLog {
   RequestLog(this.request, {required this.settings}) : super('req');

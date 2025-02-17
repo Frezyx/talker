@@ -1,4 +1,4 @@
-import 'package:riverpod/riverpod.dart';
+import 'package:riverpod/misc.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 

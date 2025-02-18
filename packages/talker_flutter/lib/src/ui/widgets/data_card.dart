@@ -185,9 +185,9 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
       return null;
     }
     final isHttpLog = [
-      TalkerLogType.httpError.key,
-      TalkerLogType.httpRequest.key,
-      TalkerLogType.httpResponse.key,
+      TalkerKey.httpError,
+      TalkerKey.httpRequest,
+      TalkerKey.httpResponse,
     ].contains(widget.data.title);
     if (isHttpLog) {
       return widget.data.generateTextMessage();

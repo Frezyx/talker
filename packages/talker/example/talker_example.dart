@@ -4,14 +4,14 @@ Future<void> main() async {
   final talker = Talker(
     settings: TalkerSettings(
       colors: {
-        TalkerLogType.info.key: AnsiPen()..magenta(),
-        YourCustomLog.logKey: AnsiPen()..green(),
+        TalkerKey.info: AnsiPen()..magenta(),
+        YourCustomKey.logKey: AnsiPen()..green(),
       },
       titles: {
-        TalkerLogType.exception.key: 'Whatever you want',
-        TalkerLogType.error.key: 'E',
-        TalkerLogType.info.key: 'i',
-        YourCustomLog.logKey: 'Custom',
+        TalkerKey.exception: 'Whatever you want',
+        TalkerKey.error: 'E',
+        TalkerKey.info: 'i',
+        YourCustomKey.logKey: 'Custom',
       },
     ),
   );
@@ -32,11 +32,11 @@ Future<void> main() async {
   }
 
   /// Custom logs
-  talker.logCustom(YourCustomLog('Something like your own service message'));
+  talker.logCustom(YourCustomKey('Something like your own service message'));
 }
 
-class YourCustomLog extends TalkerLog {
-  YourCustomLog(String message) : super(message);
+class YourCustomKey extends TalkerLog {
+  YourCustomKey(String message) : super(message);
 
   /// Your own log key (for color customization in settings)
   static const logKey = 'custom_log_key';

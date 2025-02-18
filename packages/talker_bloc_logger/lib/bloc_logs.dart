@@ -17,7 +17,7 @@ class BlocEventLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  String get key => TalkerLogType.blocEvent.key;
+  String get key => TalkerKey.blocEvent;
 
   @override
   String generateTextMessage({
@@ -43,7 +43,7 @@ class BlocStateLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  String get key => TalkerLogType.blocTransition.key;
+  String get key => TalkerKey.blocTransition;
 
   @override
   String generateTextMessage({
@@ -73,7 +73,7 @@ class BlocChangeLog extends TalkerLog {
   final TalkerBlocLoggerSettings settings;
 
   @override
-  String get key => TalkerLogType.blocTransition.key;
+  String get key => TalkerKey.blocTransition;
 
   @override
   String generateTextMessage({
@@ -99,7 +99,7 @@ class BlocCreateLog extends TalkerLog {
   final BlocBase bloc;
 
   @override
-  String? get key => TalkerLogType.blocCreate.key;
+  String? get key => TalkerKey.blocCreate;
 
   @override
   String generateTextMessage({
@@ -121,7 +121,7 @@ class BlocCloseLog extends TalkerLog {
   final BlocBase bloc;
 
   @override
-  String? get key => TalkerLogType.blocClose.key;
+  String? get key => TalkerKey.blocClose;
 
   @override
   String generateTextMessage({

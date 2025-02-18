@@ -1,65 +1,48 @@
 import 'package:talker/talker.dart';
 
-enum TalkerLogType {
+/// TalkerKey - String key of log type (After 5.0.0)
+/// TalkerLogType (Before 5.0.0)
+abstract class TalkerKey {
+  TalkerKey._();
+
   /// Base logs section
-  error('error'),
-  critical('critical'),
-  info('info'),
-  debug('debug'),
-  verbose('verbose'),
-  warning('warning'),
-  exception('exception'),
+  static const error = 'error';
+  static const critical = 'critical';
+  static const info = 'info';
+  static const debug = 'debug';
+  static const verbose = 'verbose';
+  static const warning = 'warning';
+  static const exception = 'exception';
 
   /// Http section
-  httpError('http-error'),
-  httpRequest('http-request'),
-  httpResponse('http-response'),
+  static const httpError = 'http-error';
+  static const httpRequest = 'http-request';
+  static const httpResponse = 'http-response';
 
   /// Bloc section
-  blocEvent('bloc-event'),
-  blocTransition('bloc-transition'),
-  blocClose('bloc-close'),
-  blocCreate('bloc-create'),
+  static const blocEvent = 'bloc-event';
+  static const blocTransition = 'bloc-transition';
+  static const blocClose = 'bloc-close';
+  static const blocCreate = 'bloc-create';
 
   /// Riverpod section
-  riverpodAdd('riverpod-add'),
-  riverpodUpdate('riverpod-update'),
-  riverpodDispose('riverpod-dispose'),
-  riverpodFail('riverpod-fail'),
+  static const riverpodAdd = 'riverpod-add';
+  static const riverpodUpdate = 'riverpod-update';
+  static const riverpodDispose = 'riverpod-dispose';
+  static const riverpodFail = 'riverpod-fail';
 
   /// Flutter section
-  route('route');
+  static const route = 'route';
 
-  const TalkerLogType(this.key);
-  final String key;
+  static String fromLogLevel(LogLevel logLevel) =>
+      _logLevels[logLevel] ?? TalkerKey.debug;
 
-  static TalkerLogType fromLogLevel(LogLevel logLevel) {
-    return TalkerLogType.values.firstWhere((e) => e.logLevel == logLevel);
-  }
-
-  static TalkerLogType? fromKey(String key) {
-    return TalkerLogType.values.firstWhereOrNull((e) => e.key == key);
-  }
-}
-
-extension TalkerLogTypeExt on TalkerLogType {
-  /// Mapping [TalkerLogType] into [LogLevel]
-  LogLevel get logLevel {
-    switch (this) {
-      case TalkerLogType.error:
-        return LogLevel.error;
-      case TalkerLogType.critical:
-        return LogLevel.critical;
-      case TalkerLogType.info:
-        return LogLevel.info;
-      case TalkerLogType.debug:
-        return LogLevel.debug;
-      case TalkerLogType.verbose:
-        return LogLevel.verbose;
-      case TalkerLogType.warning:
-        return LogLevel.warning;
-      default:
-        return LogLevel.debug;
-    }
-  }
+  static const _logLevels = {
+    LogLevel.error: TalkerKey.error,
+    LogLevel.critical: TalkerKey.critical,
+    LogLevel.info: TalkerKey.info,
+    LogLevel.debug: TalkerKey.debug,
+    LogLevel.verbose: TalkerKey.verbose,
+    LogLevel.warning: TalkerKey.warning,
+  };
 }

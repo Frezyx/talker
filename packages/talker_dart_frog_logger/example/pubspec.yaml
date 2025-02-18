@@ -1,4 +1,4 @@
-name: example_api
+name: example
 description: A new Dart Frog application
 version: 1.0.0+1
 publish_to: none
@@ -7,11 +7,12 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  dart_frog: 1.2.0
+  dart_frog: ^1.1.0
   talker_dart_frog_logger:
     path:
       ../
 
 dev_dependencies:
-  test: ^1.25.15
-  very_good_analysis: ^7.0.0
+  mocktail: ^1.0.3
+  test: ^1.25.5
+  very_good_analysis: ^5.1.0

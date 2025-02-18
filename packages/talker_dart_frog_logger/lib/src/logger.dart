@@ -6,11 +6,10 @@ import 'talker_logs.dart';
 
 Handler loggerMiddleware({
   required Handler handler,
+  required Talker talker,
   TalkerDartFrogLoggerSettings settings = const TalkerDartFrogLoggerSettings(),
 }) {
   return (context) async {
-    final talker = context.read<Talker>();
-
     if (settings.logRequest) {
       final requestLog = RequestLog(context.request, settings: settings);
       talker.logCustom(requestLog);

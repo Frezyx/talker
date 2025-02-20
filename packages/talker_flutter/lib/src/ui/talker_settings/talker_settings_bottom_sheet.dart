@@ -7,10 +7,10 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerSettingsBottomSheet extends StatefulWidget {
   const TalkerSettingsBottomSheet({
-    Key? key,
+    super.key,
     required this.talkerScreenTheme,
     required this.talker,
-  }) : super(key: key);
+  });
 
   /// Theme for customize [TalkerScreen]
   final TalkerScreenTheme talkerScreenTheme;

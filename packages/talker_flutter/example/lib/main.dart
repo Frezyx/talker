@@ -29,9 +29,9 @@ void main() {
 
 class BaseExample extends StatefulWidget {
   const BaseExample({
-    Key? key,
+    super.key,
     required this.talker,
-  }) : super(key: key);
+  });
 
   final Talker talker;
 
@@ -94,7 +94,7 @@ class _BaseExampleState extends State<BaseExample> {
 }
 
 class YourCustomLog extends TalkerLog {
-  YourCustomLog(String message) : super(message);
+  YourCustomLog(String super.message);
 
   /// Your own log key (for color customization in settings)
   static const logKey = 'custom_log_key';

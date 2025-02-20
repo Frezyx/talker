@@ -5,13 +5,13 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerSettingsCard extends StatelessWidget {
   const TalkerSettingsCard({
-    Key? key,
+    super.key,
     required this.talkerScreenTheme,
     required this.title,
     required this.enabled,
     required this.onChanged,
     this.canEdit = true,
-  }) : super(key: key);
+  });
 
   final String title;
   final bool enabled;

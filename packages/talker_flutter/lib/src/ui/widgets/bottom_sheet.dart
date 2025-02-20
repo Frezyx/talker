@@ -3,11 +3,11 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 class BaseBottomSheet extends StatelessWidget {
   const BaseBottomSheet({
-    Key? key,
+    super.key,
     required this.talkerScreenTheme,
     required this.child,
     required this.title,
-  }) : super(key: key);
+  });
 
   final TalkerScreenTheme talkerScreenTheme;
   final Widget child;

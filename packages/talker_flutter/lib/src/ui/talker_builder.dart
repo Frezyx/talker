@@ -8,10 +8,10 @@ typedef TalkerWidgetBuilder = Widget Function(
 
 class TalkerBuilder extends StatelessWidget {
   const TalkerBuilder({
-    Key? key,
+    super.key,
     required this.talker,
     required this.builder,
-  }) : super(key: key);
+  });
 
   final Talker talker;
   final TalkerWidgetBuilder builder;

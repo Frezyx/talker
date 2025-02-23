@@ -1,3 +1,8 @@
+# 4.6.12
+- [talker_flutter] Rename conflict extension `firstWhereOrNull` from `collection`
+
+Thanks to [Bogdan778](https://github.com/Bogdan778)
+
 # 4.6.11
 - [talker_dio_logger] Add `printResponseRedirects` field into `TalkerDioLoggerSettings` to print Response redirects
 

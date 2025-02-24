@@ -71,9 +71,12 @@ void main() {
 
     test('onRequest method should hide specific header values in logging', () {
       final logger = TalkerDioLogger(
-          talker: talker,
-          settings: TalkerDioLoggerSettings(
-              printRequestHeaders: true, hiddenHeaders: {'Authorization'}));
+        talker: talker,
+        settings: TalkerDioLoggerSettings(
+          printRequestHeaders: true,
+          hiddenHeaders: {'Authorization'},
+        ),
+      );
 
       final options = RequestOptions(path: '/test', headers: {
         "firstHeader": "firstHeaderValue",
@@ -81,9 +84,9 @@ void main() {
         "lastHeader": "lastHeaderValue",
       });
       logger.onRequest(options, RequestInterceptorHandler());
-      print(talker.history);
+      final message = talker.history.last.generateTextMessage();
       expect(
-          talker.history.last.generateTextMessage(),
+          message,
           '[http-request] [GET] /test\n'
           'Headers: {\n'
           '  "firstHeader": "firstHeaderValue",\n'

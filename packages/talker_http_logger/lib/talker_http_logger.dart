@@ -68,7 +68,7 @@ class HttpRequestLog extends TalkerLog {
       {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] [${request.method}] $message';
 
-    final headers = request.headers;
+    final headers = Map.from(request.headers);
 
     try {
       if (headers.isNotEmpty) {

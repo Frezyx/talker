@@ -1,3 +1,8 @@
+# 4.6.13
+- [talker_dio_logger] Fix ``hiddenHeaders`` alters the request headers
+
+Thanks to [amrgetment](https://github.com/amrgetment)
+
 # 4.6.12
 - [talker_flutter] Rename conflict extension `firstWhereOrNull` from `collection`
 

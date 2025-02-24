@@ -19,7 +19,7 @@ void main() {
       expect(log.provider, fakeProvider);
       expect(log.value, fakeValue);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.riverpodAdd.key);
+      expect(log.key, TalkerKey.riverpodAdd);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -46,7 +46,7 @@ void main() {
       expect(log.provider, fakeProvider);
       expect(log.value, fakeValue);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.riverpodAdd.key);
+      expect(log.key, TalkerKey.riverpodAdd);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -74,7 +74,7 @@ void main() {
       expect(log.previousValue, fakePreviousValue);
       expect(log.newValue, fakeNewValue);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.riverpodUpdate.key);
+      expect(log.key, TalkerKey.riverpodUpdate);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -104,7 +104,7 @@ void main() {
       expect(log.previousValue, fakePreviousValue);
       expect(log.newValue, fakeNewValue);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.riverpodUpdate.key);
+      expect(log.key, TalkerKey.riverpodUpdate);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -126,7 +126,7 @@ void main() {
 
       expect(log.provider, fakeProvider);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.riverpodDispose.key);
+      expect(log.key, TalkerKey.riverpodDispose);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -150,7 +150,7 @@ void main() {
 
       expect(log.provider, fakeProvider);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.riverpodDispose.key);
+      expect(log.key, TalkerKey.riverpodDispose);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -177,7 +177,7 @@ void main() {
       expect(log.provider, fakeProvider);
       expect(log.providerError, fakeError);
       expect(log.providerStackTrace, fakeStackTrace);
-      expect(log.key, TalkerLogType.riverpodFail.key);
+      expect(log.key, TalkerKey.riverpodFail);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -206,7 +206,7 @@ void main() {
       expect(log.provider, fakeProvider);
       expect(log.providerError, fakeError);
       expect(log.providerStackTrace, fakeStackTrace);
-      expect(log.key, TalkerLogType.riverpodFail.key);
+      expect(log.key, TalkerKey.riverpodFail);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());

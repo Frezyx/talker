@@ -16,31 +16,34 @@ class TalkerErrorHandler {
     if (exception is TalkerException) {
       return exception;
     }
+
+    final errKey = TalkerKey.error;
+    final exceptionKey = TalkerKey.exception;
+
     if (exception is Error) {
-      final errType = TalkerLogType.error;
       return TalkerError(
         exception,
-        key: errType.key,
-        title: settings.getTitleByLogKey(errType.key),
+        key: errKey,
+        title: settings.getTitleByKey(errKey),
         message: msg,
         stackTrace: stackTrace,
       );
     }
+
     if (exception is Exception) {
-      final exceptionType = TalkerLogType.exception;
       return TalkerException(
         exception,
-        key: exceptionType.key,
-        title: settings.getTitleByLogKey(exceptionType.key),
+        key: exceptionKey,
+        title: settings.getTitleByKey(exceptionKey),
         message: msg,
         stackTrace: stackTrace,
       );
     }
-    final errType = TalkerLogType.error;
+
     return TalkerLog(
       exception.toString(),
-      key: errType.key,
-      title: settings.getTitleByLogKey(errType.key),
+      key: errKey,
+      title: settings.getTitleByKey(errKey),
       logLevel: LogLevel.error,
       stackTrace: stackTrace,
     );

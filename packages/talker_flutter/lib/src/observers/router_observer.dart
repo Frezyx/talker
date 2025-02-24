@@ -37,7 +37,7 @@ class TalkerRouteLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..xterm(135);
 
   @override
-  String get key => TalkerLogType.route.key;
+  String get key => TalkerKey.route;
 
   static String _createMessage(
     Route<dynamic> route,

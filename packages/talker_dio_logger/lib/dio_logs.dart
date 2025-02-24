@@ -30,7 +30,7 @@ class DioRequestLog extends TalkerLog {
     var msg = '[$title] [${requestOptions.method}] $message';
 
     final data = requestOptions.data;
-    final headers = requestOptions.headers;
+    final headers = Map.from(requestOptions.headers);
 
     try {
       if (settings.printRequestData && data != null) {

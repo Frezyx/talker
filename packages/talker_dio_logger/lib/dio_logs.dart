@@ -37,15 +37,10 @@ class DioRequestLog extends TalkerLog {
         final prettyData = _encoder.convert(data);
         msg += '\nData: $prettyData';
       }
+
       if (settings.printRequestHeaders && headers.isNotEmpty) {
-        final hiddenHeaders = settings.hiddenHeaders;
-        if (hiddenHeaders.isNotEmpty) {
-          for (final e in hiddenHeaders) {
-            if (headers.containsKey(e)) {
-              headers[e] = _hiddenValue;
-            }
-          }
-        }
+        // HTTP headers are case-insensitive by standard
+        _replaceHiddenHeaders(headers);
 
         final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
@@ -54,6 +49,22 @@ class DioRequestLog extends TalkerLog {
       // TODO: add handling can`t convert
     }
     return msg;
+  }
+
+  void _replaceHiddenHeaders(Map<dynamic, dynamic> headers) {
+    // HTTP headers are case-insensitive by standard
+    final lowerCaseHeaders = <String, String>{};
+    headers.forEach((key, value) {
+      lowerCaseHeaders[key.toLowerCase()] = key;
+    });
+
+    for (final hiddenHeader in settings.hiddenHeaders) {
+      final lowerCaseHiddenHeader = hiddenHeader.toLowerCase();
+      if (lowerCaseHeaders.containsKey(lowerCaseHiddenHeader)) {
+        final originalHeader = lowerCaseHeaders[lowerCaseHiddenHeader]!;
+        headers[originalHeader] = _hiddenValue;
+      }
+    }
   }
 }
 

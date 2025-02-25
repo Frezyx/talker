@@ -34,7 +34,8 @@ class BaseTalkerFilter implements TalkerFilter {
             fullLowerMsg.contains(searchQuery!);
       }
 
-      return (titles.contains(item.title) || _checkTypeMatch(item)) &&
+      return (titles.contains(item.title) || titles.isEmpty) &&
+          (_checkTypeMatch(item) || types.isEmpty) &&
           (match || (searchQuery?.isEmpty ?? true));
     }
   }

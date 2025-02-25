@@ -26,17 +26,12 @@ class TalkerActionsBottomSheet extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ...actions
-                .asMap()
-                .entries
-                .map(
-                  (e) => _ActionTile(
-                    talkerScreenTheme: talkerScreenTheme,
-                    action: e.value,
-                    showDivider: e.key != actions.length - 1,
-                  ),
-                )
-                .toList(),
+            for (int i = 0; i < actions.length; i++)
+              _ActionTile(
+                talkerScreenTheme: talkerScreenTheme,
+                action: actions[i],
+                showDivider: i != actions.length - 1,
+              )
           ],
         ),
       ),

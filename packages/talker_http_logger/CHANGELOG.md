@@ -1,3 +1,9 @@
+# 0.1.0-dev.40
+- [talker] Fix search filtering rules<br>
+  Now ``titles && types && searchQuery`` replace ``titles || types || searchQuery`` logic
+
+Thanks to [N1X41](https://github.com/N1X41)
+
 # 0.1.0-dev.39
 - [talker_dio_logger] Fix ``hiddenHeaders`` alters the request headers
 

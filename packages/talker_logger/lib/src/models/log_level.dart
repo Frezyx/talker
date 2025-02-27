@@ -1,4 +1,4 @@
-/// Level of logs to segmentation фтв control logging output
+/// Level of logs to segmentation and control logging output
 enum LogLevel {
   /// Errors
   error,

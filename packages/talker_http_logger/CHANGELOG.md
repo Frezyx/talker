@@ -1,3 +1,35 @@
+# 0.1.0-dev.40
+- [talker] Fix search filtering rules<br>
+  Now ``titles && types && searchQuery`` replace ``titles || types || searchQuery`` logic
+
+Thanks to [N1X41](https://github.com/N1X41)
+
+# 0.1.0-dev.39
+- [talker_dio_logger] Fix ``hiddenHeaders`` alters the request headers
+
+Thanks to [amrgetment](https://github.com/amrgetment)
+
+# 0.1.0-dev.38
+- [talker_flutter] Rename conflict extension `firstWhereOrNull` from `collection`
+
+Thanks to [Bogdan778](https://github.com/Bogdan778)
+
+# 0.1.0-dev.37
+- [talker_dio_logger] Add `printResponseRedirects` field into `TalkerDioLoggerSettings` to print Response redirects
+
+Thanks to [federicoviceconti](https://github.com/federicoviceconti)
+
+# 0.1.0-dev.36
+- [talker_flutter] Fix search textfield background color become white in light theme
+
+Thanks to [asadman1523](https://github.com/asadman1523)
+
+# 0.1.0-dev.35
+- [talker] Fix CustomLogs ``pen`` field ignoring by console [issue#313](https://github.com/Frezyx/talker/issues/313)
+
+# 0.1.0-dev.34
+- [talker_dio_logger] Fix substitution of hidden headers ``hiddenHeaders`` field in ``TalkerDioLoggerSettings``
+
 # 0.1.0-dev.33
 - [talker_http_logger] Add settings ``TalkerLoggerSettings`` field to setup http logger settings
 - [talker_http_logger] Add ``hiddenHeaders`` field in ``TalkerLoggerSettings`` to hide specific and sensitive http logger headers

@@ -8,6 +8,7 @@ class TalkerDioLoggerSettings {
     this.printResponseData = true,
     this.printResponseHeaders = false,
     this.printResponseMessage = true,
+    this.printResponseRedirects = false,
     this.printErrorData = true,
     this.printErrorHeaders = true,
     this.printErrorMessage = true,
@@ -33,6 +34,9 @@ class TalkerDioLoggerSettings {
 
   /// Print [response.statusMessage] if true
   final bool printResponseMessage;
+
+  /// Print [response.redirects] if true
+  final bool printResponseRedirects;
 
   /// Print [error.response.data] if true
   final bool printErrorData;

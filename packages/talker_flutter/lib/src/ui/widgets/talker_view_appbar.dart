@@ -232,7 +232,7 @@ class _SearchTextField extends StatelessWidget {
         ),
         onChanged: controller.updateFilterSearchQuery,
         decoration: InputDecoration(
-          fillColor: theme.cardColor,
+          fillColor: talkerTheme.backgroundColor,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: talkerTheme.textColor),
             borderRadius: BorderRadius.circular(10),

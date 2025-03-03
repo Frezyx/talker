@@ -145,13 +145,11 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
     return BaseBottomSheet(
       title: 'Talker Settings',
       talkerScreenTheme: widget.talkerScreenTheme,
-      child: Expanded(
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            ...settings.map((e) => SliverToBoxAdapter(child: e)),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final setting in settings) setting,
+        ],
       ),
     );
   }

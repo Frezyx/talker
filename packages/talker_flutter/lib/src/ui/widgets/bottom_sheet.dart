@@ -31,38 +31,43 @@ class BaseBottomSheet extends StatelessWidget {
           color: talkerScreenTheme.backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8)
-                  .copyWith(bottom: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.headlineSmall
-                        ?.copyWith(color: talkerScreenTheme.textColor),
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: Icon(
-                      Icons.close_rounded,
-                      color: talkerScreenTheme.textColor,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8)
+                        .copyWith(bottom: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: theme.textTheme.headlineSmall
+                            ?.copyWith(color: talkerScreenTheme.textColor),
+                      ),
                     ),
-                  ),
-                ],
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(
+                        Icons.close_rounded,
+                        color: talkerScreenTheme.textColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            // Divider(
-            //   color: talkerScreenTheme.textColor,
-            //   endIndent: 10,
-            //   indent: 10,
-            //   height: 1,
-            // ),
-            child,
-          ],
+              // Divider(
+              //   color: talkerScreenTheme.textColor,
+              //   endIndent: 10,
+              //   indent: 10,
+              //   height: 1,
+              // ),
+              child,
+            ],
+          ),
         ),
       ),
     );

@@ -62,7 +62,6 @@ class TalkerMonitor extends StatelessWidget {
                     color: Colors.green,
                     theme: theme,
                     icon: Icons.wifi,
-                    onTap: () => _openHttpMonitor(context),
                     subtitleWidget: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -190,8 +189,6 @@ class TalkerMonitor extends StatelessWidget {
       ),
     );
   }
-
-  void _openHttpMonitor(BuildContext context) {}
 
   void _openTypedLogsScreen(
     BuildContext context,

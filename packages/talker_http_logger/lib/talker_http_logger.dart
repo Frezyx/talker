@@ -61,7 +61,7 @@ class HttpRequestLog extends TalkerLog {
   AnsiPen get pen => (AnsiPen()..xterm(219));
 
   @override
-  String get key => TalkerLogType.httpRequest.key;
+  String get key => TalkerKey.httpRequest;
 
   @override
   String generateTextMessage(
@@ -106,7 +106,7 @@ class HttpResponseLog extends TalkerLog {
   AnsiPen get pen => (AnsiPen()..xterm(46));
 
   @override
-  String get key => TalkerLogType.httpResponse.key;
+  String get key => TalkerKey.httpResponse;
 
   @override
   String generateTextMessage(
@@ -144,7 +144,7 @@ class HttpErrorLog extends TalkerLog {
   AnsiPen get pen => AnsiPen()..red();
 
   @override
-  String get key => TalkerLogType.httpError.key;
+  String get key => TalkerKey.httpError;
 
   @override
   String generateTextMessage(

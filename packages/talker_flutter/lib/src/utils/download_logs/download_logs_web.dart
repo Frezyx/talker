@@ -8,10 +8,11 @@ Future<void> downloadFile(String logs) async {
 
   final fmtDate = DateTime.now().toString().replaceAll(':', ' ');
 
-  final anchor = document.createElement('a') as HTMLAnchorElement
+  final anchor = HTMLAnchorElement()
     ..href = URL.createObjectURL(blob)
     ..download = 'talker_logs_$fmtDate.txt'
-    ..click();
+    ..click()
+    ..remove();
 
   URL.revokeObjectURL(anchor.href);
 }

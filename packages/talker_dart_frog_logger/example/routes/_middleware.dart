@@ -6,7 +6,7 @@ Handler middleware(Handler handler) {
     /// Setup Talker logger only for middleware logs
     final talker = Talker(
       logger: TalkerLogger(
-        formatter: DartFrogLoggerFormatter(),
+        formatter: const DartFrogLoggerFormatter(),
       ),
     );
 

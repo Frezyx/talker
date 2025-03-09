@@ -1,16 +1,14 @@
 name: talker_dart_frog_logger
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: Lightweight and customizable dart_frog logger on talker base
+version: 0.0.1-dev.1
+repository: https://github.com/Frezyx/talker
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=2.19.0 <4.0.0"
 
-# Add regular dependencies here.
 dependencies:
   dart_frog: ^1.2.0
-  talker: ^4.6.11
-  # path: ^1.8.0
+  talker: ^4.6.14
 
 dev_dependencies:
   lints: ^5.0.0

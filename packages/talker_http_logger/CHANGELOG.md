@@ -1,3 +1,9 @@
+# 0.1.0-dev.41
+- [talker_flutter] Remove deprecated dart:html
+- [talker_logger] Remove deprecated dart:html
+
+Thanks to [Mooyeee](https://github.com/Mooyeee)
+
 # 0.1.0-dev.40
 - [talker] Fix search filtering rules<br>
   Now ``titles && types && searchQuery`` replace ``titles || types || searchQuery`` logic

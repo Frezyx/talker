@@ -1,3 +1,8 @@
+# 4.7.1
+- [talker_flutter] Fix scroll issue and widget usability with high text scale
+
+Thanks to [federicoviceconti](https://github.com/federicoviceconti)
+
 # 4.7.0
 - [talker_flutter] Remove deprecated dart:html
 - [talker_logger] Remove deprecated dart:html

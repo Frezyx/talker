@@ -17,6 +17,8 @@ class TalkerDioLogger extends Interceptor {
     _talker = talker ?? Talker();
   }
 
+  static const kDioLogsTimeStampKey = '_talker_dio_logger_ts_';
+
   late Talker _talker;
 
   /// [TalkerDioLogger] settings and customization
@@ -60,7 +62,11 @@ class TalkerDioLogger extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
-    options.extra[kDioLogsTimeStampKey] = DateTime.now().millisecondsSinceEpoch;
+    if (settings.enabled && settings.printResponseTime) {
+      options.extra[kDioLogsTimeStampKey] = DateTime
+          .now()
+          .millisecondsSinceEpoch;
+    }
 
     super.onRequest(options, handler);
     if (!settings.enabled) {

@@ -7,7 +7,7 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 const _encoder = JsonEncoder.withIndent('  ');
 const _hiddenValue = '*****';
 
-const kDioLogsTimeStampKey = '_talker_dio_logger_ts_';
+
 
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
@@ -90,9 +90,7 @@ class DioResponseLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    final responseTime = _getResponseTime(response.requestOptions);
-
-    var msg = '[$title] [${response.requestOptions.method}] [$responseTime ms] $message';
+    var msg = '[$title] [${response.requestOptions.method}] $message';
 
     final responseMessage = response.statusMessage;
     final data = response.data;
@@ -100,6 +98,14 @@ class DioResponseLog extends TalkerLog {
     final redirects = response.redirects;
 
     msg += '\nStatus: ${response.statusCode}';
+
+    if (settings.printResponseTime) {
+      final responseTime = _getResponseTime(response.requestOptions);
+
+      if (responseTime != null) {
+        msg += '\nTime: $responseTime ms';
+      }
+    }
 
     if (settings.printResponseMessage && responseMessage != null) {
       msg += '\nMessage: $responseMessage';
@@ -148,9 +154,7 @@ class DioErrorLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    final responseTime = _getResponseTime(dioException.requestOptions);
-
-    var msg = '[$title] [${dioException.requestOptions.method}] [$responseTime ms] $message';
+    var msg = '[$title] [${dioException.requestOptions.method}] $message';
 
     final responseMessage = dioException.message;
     final statusCode = dioException.response?.statusCode;
@@ -159,6 +163,14 @@ class DioErrorLog extends TalkerLog {
 
     if (statusCode != null) {
       msg += '\nStatus: ${dioException.response?.statusCode}';
+    }
+
+    if (settings.printResponseTime) {
+      final responseTime = _getResponseTime(dioException.requestOptions);
+
+      if (responseTime != null) {
+        msg += '\nTime: $responseTime ms';
+      }
     }
 
     if (settings.printErrorMessage && responseMessage != null) {
@@ -180,12 +192,12 @@ class DioErrorLog extends TalkerLog {
 ///
 /// Get response time
 ///
-int _getResponseTime(RequestOptions options) {
-  final triggerTime = options.extra[kDioLogsTimeStampKey];
+int? _getResponseTime(RequestOptions options) {
+  final triggerTime = options.extra[TalkerDioLogger.kDioLogsTimeStampKey];
 
   if (triggerTime is int) {
     return DateTime.now().millisecondsSinceEpoch - triggerTime;
   }
 
-  return -1;
+  return null;
 }

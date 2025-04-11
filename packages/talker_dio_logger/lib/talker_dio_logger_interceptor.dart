@@ -60,6 +60,8 @@ class TalkerDioLogger extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
+    options.extra[kDioLogsTimeStampKey] = DateTime.now().millisecondsSinceEpoch;
+
     super.onRequest(options, handler);
     if (!settings.enabled) {
       return;

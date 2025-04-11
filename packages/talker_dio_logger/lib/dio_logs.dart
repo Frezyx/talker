@@ -7,6 +7,8 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 const _encoder = JsonEncoder.withIndent('  ');
 const _hiddenValue = '*****';
 
+const kDioLogsTimeStampKey = '_talker_dio_logger_ts_';
+
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
     String message, {
@@ -88,7 +90,9 @@ class DioResponseLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    var msg = '[$title] [${response.requestOptions.method}] $message';
+    final responseTime = _getResponseTime(response.requestOptions);
+
+    var msg = '[$title] [${response.requestOptions.method}] [$responseTime ms] $message';
 
     final responseMessage = response.statusMessage;
     final data = response.data;
@@ -144,7 +148,9 @@ class DioErrorLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    var msg = '[$title] [${dioException.requestOptions.method}] $message';
+    final responseTime = _getResponseTime(dioException.requestOptions);
+
+    var msg = '[$title] [${dioException.requestOptions.method}] [$responseTime ms] $message';
 
     final responseMessage = dioException.message;
     final statusCode = dioException.response?.statusCode;
@@ -169,4 +175,17 @@ class DioErrorLog extends TalkerLog {
     }
     return msg;
   }
+}
+
+///
+/// Get response time
+///
+int _getResponseTime(RequestOptions options) {
+  final triggerTime = options.extra[kDioLogsTimeStampKey];
+
+  if (triggerTime is int) {
+    return DateTime.now().millisecondsSinceEpoch - triggerTime;
+  }
+
+  return -1;
 }

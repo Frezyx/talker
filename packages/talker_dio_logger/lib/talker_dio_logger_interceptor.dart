@@ -63,9 +63,8 @@ class TalkerDioLogger extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     if (settings.enabled && settings.printResponseTime) {
-      options.extra[kDioLogsTimeStampKey] = DateTime
-          .now()
-          .millisecondsSinceEpoch;
+      options.extra[kDioLogsTimeStampKey] =
+          DateTime.now().millisecondsSinceEpoch;
     }
 
     super.onRequest(options, handler);

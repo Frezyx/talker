@@ -7,8 +7,6 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 const _encoder = JsonEncoder.withIndent('  ');
 const _hiddenValue = '*****';
 
-
-
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
     String message, {

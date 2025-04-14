@@ -1,3 +1,9 @@
+# 4.7.2
+- [talker_dio_logger] Add response time to logs
+- Add ``printResponseTime`` field for ``TalkerDioLoggerSettings`` to turn on/off response time printing
+
+Thanks to [troyanskiy](https://github.com/troyanskiy)
+
 # 4.7.1
 - [talker_flutter] Fix scroll issue and widget usability with high text scale
 

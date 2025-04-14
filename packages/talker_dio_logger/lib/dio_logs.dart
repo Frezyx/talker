@@ -97,6 +97,14 @@ class DioResponseLog extends TalkerLog {
 
     msg += '\nStatus: ${response.statusCode}';
 
+    if (settings.printResponseTime) {
+      final responseTime = _getResponseTime(response.requestOptions);
+
+      if (responseTime != null) {
+        msg += '\nTime: $responseTime ms';
+      }
+    }
+
     if (settings.printResponseMessage && responseMessage != null) {
       msg += '\nMessage: $responseMessage';
     }
@@ -155,6 +163,14 @@ class DioErrorLog extends TalkerLog {
       msg += '\nStatus: ${dioException.response?.statusCode}';
     }
 
+    if (settings.printResponseTime) {
+      final responseTime = _getResponseTime(dioException.requestOptions);
+
+      if (responseTime != null) {
+        msg += '\nTime: $responseTime ms';
+      }
+    }
+
     if (settings.printErrorMessage && responseMessage != null) {
       msg += '\nMessage: $responseMessage';
     }
@@ -169,4 +185,17 @@ class DioErrorLog extends TalkerLog {
     }
     return msg;
   }
+}
+
+///
+/// Get response time
+///
+int? _getResponseTime(RequestOptions options) {
+  final triggerTime = options.extra[TalkerDioLogger.kDioLogsTimeStampKey];
+
+  if (triggerTime is int) {
+    return DateTime.now().millisecondsSinceEpoch - triggerTime;
+  }
+
+  return null;
 }

@@ -1,0 +1,16 @@
+name: talker_chopper_logger
+description: Lightweight and customizable Chopper client logger on talker base
+version: 1.0.0
+homepage: https://github.com/Frezyx/talker
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  chopper: ^8.1.0
+  http: ^1.1.0
+  talker: ^4.7.2
+
+dev_dependencies:
+  lints: ^5.1.1
+  test: ^1.25.15

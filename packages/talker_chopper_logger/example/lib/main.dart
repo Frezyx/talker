@@ -1,4 +1,4 @@
-import 'package:example/interceptors/json_content_type_inerceptor.dart';
+import 'package:example/interceptors/json_content_type_interceptor.dart';
 import 'package:example/interceptors/json_headers_interceptor.dart';
 import 'package:example/models/address.dart';
 import 'package:example/models/album.dart';

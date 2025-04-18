@@ -24,14 +24,28 @@ void main() {
         responseFilter: null,
       );
 
+      expect(
+        originalSettings.printResponseData,
+        isNot(same(updatedSettings.printResponseData)),
+      );
       expect(updatedSettings.printResponseData, isFalse);
+      expect(
+        originalSettings.printRequestHeaders,
+        isNot(same(updatedSettings.printRequestHeaders)),
+      );
       expect(updatedSettings.printRequestHeaders, isTrue);
+      expect(
+        originalSettings.printErrorHeaders,
+        isNot(same(updatedSettings.printErrorHeaders)),
+      );
       expect(updatedSettings.printErrorHeaders, isFalse);
       expect(
         updatedSettings.requestPen,
         isNot(same(originalSettings.requestPen)),
       );
       expect(updatedSettings.responseFilter, isNull);
+
+      expect(originalSettings, equals(originalSettings.copyWith()));
     });
 
     test('requestFilter should return true for allowed paths', () {

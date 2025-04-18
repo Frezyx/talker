@@ -25,6 +25,9 @@ class ChopperRequestLog extends TalkerLog {
   String get key => TalkerLogType.httpRequest.key;
 
   @override
+  LogLevel get logLevel => settings.logLevel;
+
+  @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
@@ -91,6 +94,9 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
   String get key => TalkerLogType.httpResponse.key;
 
   @override
+  LogLevel get logLevel => settings.logLevel;
+
+  @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
@@ -147,6 +153,9 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
 
   @override
   String get key => TalkerLogType.httpError.key;
+
+  @override
+  LogLevel get logLevel => LogLevel.error;
 
   @override
   String generateTextMessage({

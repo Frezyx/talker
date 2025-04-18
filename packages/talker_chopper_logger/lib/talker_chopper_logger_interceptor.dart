@@ -27,6 +27,7 @@ class TalkerChopperLogger implements Interceptor {
   /// Method to update [settings] of [TalkerChopperLogger]
   void configure({
     bool? enabled,
+    LogLevel? logLevel,
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
@@ -43,29 +44,27 @@ class TalkerChopperLogger implements Interceptor {
     ResponseFilter? responseFilter,
     ResponseFilter? errorFilter,
     Set<String>? hiddenHeaders,
-  }) {
-    settings = settings.copyWith(
-      enabled: enabled ?? settings.enabled,
-      printRequestData: printRequestData ?? settings.printRequestData,
-      printRequestHeaders: printRequestHeaders ?? settings.printRequestHeaders,
-      printResponseData: printResponseData ?? settings.printResponseData,
-      printErrorData: printErrorData ?? settings.printErrorData,
-      printErrorHeaders: printErrorHeaders ?? settings.printErrorHeaders,
-      printErrorMessage: printErrorMessage ?? settings.printErrorMessage,
-      printResponseHeaders:
-          printResponseHeaders ?? settings.printResponseHeaders,
-      printResponseMessage:
-          printResponseMessage ?? settings.printResponseMessage,
-      requestPen: requestPen ?? settings.requestPen,
-      responsePen: responsePen ?? settings.responsePen,
-      errorPen: errorPen ?? settings.errorPen,
-      requestFilter: requestFilter ?? settings.requestFilter,
-      responseFilter: responseFilter ?? settings.responseFilter,
-      errorFilter: errorFilter ?? settings.errorFilter,
-      hiddenHeaders: hiddenHeaders ?? settings.hiddenHeaders,
-      printResponseTime: printResponseTime ?? settings.printResponseTime,
-    );
-  }
+  }) =>
+      settings = settings.copyWith(
+        enabled: enabled,
+        logLevel: logLevel,
+        printRequestData: printRequestData,
+        printRequestHeaders: printRequestHeaders,
+        printResponseData: printResponseData,
+        printErrorData: printErrorData,
+        printErrorHeaders: printErrorHeaders,
+        printErrorMessage: printErrorMessage,
+        printResponseHeaders: printResponseHeaders,
+        printResponseMessage: printResponseMessage,
+        requestPen: requestPen,
+        responsePen: responsePen,
+        errorPen: errorPen,
+        requestFilter: requestFilter,
+        responseFilter: responseFilter,
+        errorFilter: errorFilter,
+        hiddenHeaders: hiddenHeaders,
+        printResponseTime: printResponseTime,
+      );
 
   @override
   Future<Response<BodyType>> intercept<BodyType>(Chain<BodyType> chain) async {

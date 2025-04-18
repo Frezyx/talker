@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart' show Response, Request;
 import 'package:equatable/equatable.dart';
-import 'package:talker/talker.dart' show AnsiPen;
+import 'package:talker/talker.dart' show AnsiPen, LogLevel;
 
 typedef RequestFilter = bool Function(Request request);
 typedef ResponseFilter = bool Function(Response response);
@@ -8,6 +8,7 @@ typedef ResponseFilter = bool Function(Response response);
 class TalkerChopperLoggerSettings with EquatableMixin {
   const TalkerChopperLoggerSettings({
     this.enabled = true,
+    this.logLevel = LogLevel.debug,
     this.printResponseData = true,
     this.printResponseHeaders = false,
     this.printResponseMessage = true,
@@ -29,6 +30,9 @@ class TalkerChopperLoggerSettings with EquatableMixin {
 
   /// Print Chopper logger if true
   final bool enabled;
+
+  // LogLevel, default is debug
+  final LogLevel logLevel;
 
   /// Print [response.data] if true
   final bool printResponseData;
@@ -111,6 +115,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
 
   TalkerChopperLoggerSettings copyWith({
     bool? enabled,
+    LogLevel? logLevel,
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
@@ -130,6 +135,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
   }) =>
       TalkerChopperLoggerSettings(
         enabled: enabled ?? this.enabled,
+        logLevel: logLevel ?? this.logLevel,
         printResponseData: printResponseData ?? this.printResponseData,
         printResponseHeaders: printResponseHeaders ?? this.printResponseHeaders,
         printResponseMessage: printResponseMessage ?? this.printResponseMessage,

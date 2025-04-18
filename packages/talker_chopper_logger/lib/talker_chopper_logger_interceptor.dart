@@ -15,8 +15,6 @@ class TalkerChopperLogger implements Interceptor {
     _talker = talker ?? Talker();
   }
 
-  static const String kChopperLogsTimeStampKey = '_talker_chopper_logger_ts_';
-
   late Talker _talker;
 
   /// [TalkerChopperLogger] settings and customization

@@ -1,6 +1,6 @@
 # talker_chopper_logger
-Lightweight and customizable [chopper](https://pub.dev/packages/chopper) http client logger on [talker](https://pub.dev/packages/talker) base.<br>
-[Talker](https://github.com/Frezyx/talker) - Advanced exception handling and logging for dart/flutter applications 🚀
+A lightweight, flexible HTTP client logger for [Chopper](https://pub.dev/packages/chopper) built on the [Talker](https://pub.dev/packages/talker) platform,
+offering advanced exception handling and logging for Dart and Flutter applications.
 
 <p>
   <a href="https://github.com/Frezyx/talker"><img src="https://img.shields.io/github/stars/Frezyx/talker?style=social" alt="GitHub"></a>

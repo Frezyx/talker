@@ -652,7 +652,7 @@ final client = ChopperClient(
 
 ## Customization
 
-To offer extensive functionality, [TalkerChopperLoggerSettings](lib/talker_chopper_logger_settings.dart) provides 
+To offer extensive functionality, [TalkerChopperLoggerSettings](packages/talker_chopper_logger/lib/talker_chopper_logger_settings.dart) provides 
 numerous configuration settings and customization options. You can adjust everything to suit your needs. For example:
 
 ### Enable or disable HTTP request or response logs
@@ -683,7 +683,7 @@ final client = ChopperClient(
 ### Change HTTP logs colors
 
 Customize your HTTP log colors by defining specific colors for requests, responses, and errors in 
-[TalkerChopperLoggerSettings](lib/talker_chopper_logger_settings.dart)
+[TalkerChopperLoggerSettings](packages/talker_chopper_logger/lib/talker_chopper_logger_settings.dart)
 
 ```dart
 TalkerChopperLoggerSettings(

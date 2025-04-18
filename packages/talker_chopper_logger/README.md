@@ -15,7 +15,7 @@ offering advanced exception handling and logging for Dart and Flutter applicatio
 
 ## Preview
 This is how the logs of your http requests will look in the console
-![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_chopper_logger/preview_new.png?raw=true)
+![](/docs/assets/talker_chopper_logger/preview.png?raw=true)
 
 <p align="center">For better understanding how it works check <a href="https://frezyx.github.io/talker">
 Web Demo</a> page</p>

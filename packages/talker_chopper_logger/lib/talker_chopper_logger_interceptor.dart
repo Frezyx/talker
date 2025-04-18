@@ -67,6 +67,8 @@ class TalkerChopperLogger implements Interceptor {
 
   @override
   Future<Response<BodyType>> intercept<BodyType>(Chain<BodyType> chain) async {
+    final Stopwatch stopWatch = Stopwatch();
+
     try {
       final Request request = chain.request;
 
@@ -88,7 +90,7 @@ class TalkerChopperLogger implements Interceptor {
         } catch (_) {}
       }
 
-      final Stopwatch stopWatch = Stopwatch()..start();
+      stopWatch.start();
 
       final Response<BodyType> response = await chain.proceed(request);
 
@@ -153,6 +155,10 @@ class TalkerChopperLogger implements Interceptor {
       }
 
       rethrow;
+    } finally {
+      if (stopWatch.isRunning) {
+        stopWatch.stop();
+      }
     }
   }
 }

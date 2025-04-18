@@ -23,7 +23,7 @@ class TalkerChopperLoggerSettings {
     this.errorFilter,
   });
 
-  // Print Chopper logger if true
+  /// Print Chopper logger if true
   final bool enabled;
 
   /// Print [response.data] if true
@@ -106,6 +106,7 @@ class TalkerChopperLoggerSettings {
   final Set<String> hiddenHeaders;
 
   TalkerChopperLoggerSettings copyWith({
+    bool? enabled,
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
@@ -124,6 +125,7 @@ class TalkerChopperLoggerSettings {
     Set<String>? hiddenHeaders,
   }) =>
       TalkerChopperLoggerSettings(
+        enabled: enabled ?? this.enabled,
         printResponseData: printResponseData ?? this.printResponseData,
         printResponseHeaders: printResponseHeaders ?? this.printResponseHeaders,
         printResponseMessage: printResponseMessage ?? this.printResponseMessage,

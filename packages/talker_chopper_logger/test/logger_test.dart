@@ -51,7 +51,7 @@ void main() {
           fakeRequest.url.toString();
 
       await logger.intercept<String>(
-        FakeChain<String>(fakeRequest, fakeResponse),
+        FakeChain<String>(fakeRequest, response: fakeResponse),
       );
 
       expect(talker.history.lastOrNull?.message, logMessage);
@@ -75,7 +75,7 @@ Data: "responseBody"''',
       );
 
       await logger.intercept<String>(
-        FakeChain<String>(fakeRequest, fakeResponse),
+        FakeChain<String>(fakeRequest, response: fakeResponse),
       );
 
       expect(talker.history, isNotEmpty);
@@ -101,7 +101,7 @@ Data: "responseErrorBody"''',
         null,
       );
 
-      await logger.intercept(FakeChain(fakeRequest, fakeResponse));
+      await logger.intercept(FakeChain(fakeRequest, response: fakeResponse));
 
       expect(
         talker.history.lastOrNull?.generateTextMessage(),
@@ -141,6 +141,145 @@ Headers: {
   "lastHeader": "lastHeaderValue"
 }''',
       );
+    });
+
+    test('intercept should show response time when requested', () async {
+      logger.configure(printResponseTime: true);
+
+      final Response<String> fakeResponse = Response<String>(
+        http.Response(
+          'responseBodyBase',
+          200,
+          request: await fakeRequest.toBaseRequest(),
+        ),
+        'responseBody',
+      );
+
+      await logger.intercept(FakeChain(fakeRequest, response: fakeResponse));
+
+      expect(
+        talker.history.lastOrNull?.generateTextMessage(),
+        '''[http-response] [GET] /test
+Status: 200
+Time: 0 ms
+Data: "responseBody"''',
+      );
+    });
+
+    test('intercept should not log if logger is disabled', () async {
+      logger.configure(enabled: false);
+
+      await logger.intercept(FakeChain(fakeRequest));
+
+      expect(talker.history, isEmpty);
+    });
+
+    test(
+      'intercept should not log if request and response are filtered',
+      () async {
+        logger.configure(
+          requestFilter: (_) => false,
+          responseFilter: (_) => false,
+        );
+
+        await logger.intercept(FakeChain(fakeRequest));
+
+        expect(talker.history, isEmpty);
+      },
+    );
+
+    test(
+      'intercept should not log if error is filtered',
+      () async {
+        logger.configure(
+          requestFilter: (_) => false,
+          errorFilter: (_) => false,
+        );
+
+        await logger.intercept(
+          FakeChain(
+            fakeRequest,
+            response: Response<String>(
+              http.Response(
+                'responseErrorBodyBase',
+                400,
+                request: await fakeRequest.toBaseRequest(),
+              ),
+              'responseErrorBody',
+            ),
+          ),
+        );
+
+        expect(talker.history, isEmpty);
+      },
+    );
+
+    test('intercept should log ChopperException', () async {
+      final ChopperException exception = ChopperException(
+        'foo error',
+        request: fakeRequest,
+        response: Response<String>(
+          http.Response(
+            'responseErrorBodyBase',
+            400,
+            request: await fakeRequest.toBaseRequest(),
+          ),
+          'responseErrorBody',
+        ),
+      );
+
+      try {
+        await logger.intercept<String>(
+          FakeChain<String>(fakeRequest, exception: exception),
+        );
+      } catch (err) {
+        expect(
+          err,
+          isA<ChopperException>().having(
+            (ChopperException error) => error.message,
+            'message',
+            contains('foo error'),
+          ),
+        );
+      } finally {
+        expect(talker.history, isNotEmpty);
+        expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+        expect(
+          talker.history.lastOrNull?.generateTextMessage(),
+          '''[http-error] [GET] /test
+Status: 400
+Message: foo error
+Data: "responseErrorBody"''',
+        );
+      }
+    });
+
+    test('intercept should log generic Exception', () async {
+      final Exception exception = Exception('foo error');
+
+      try {
+        await logger.intercept<String>(
+          FakeChain<String>(fakeRequest, exception: exception),
+        );
+      } catch (err) {
+        expect(
+          err,
+          isA<Exception>().having(
+            (Exception error) => error.toString(),
+            'message',
+            contains('foo error'),
+          ),
+        );
+      } finally {
+        expect(talker.history, isNotEmpty);
+        expect(talker.history.lastOrNull, isA<TalkerLog>());
+        expect(
+          RegExp(
+            r'^\[error\] \| \d{2}:\d{2}:\d{2} \d+ms \| Exception: foo error\nException: foo error$',
+          ).hasMatch(talker.history.last.generateTextMessage()),
+          isTrue,
+        );
+      }
     });
   });
 }

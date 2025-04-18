@@ -1,5 +1,5 @@
 import 'package:chopper/chopper.dart'
-    show Chain, ChopperException, Interceptor, Request, Response, applyHeader;
+    show Chain, ChopperException, Interceptor, Request, Response;
 import 'package:talker/talker.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
 
@@ -28,9 +28,11 @@ class TalkerChopperLogger implements Interceptor {
 
   /// Method to update [settings] of [TalkerChopperLogger]
   void configure({
+    bool? enabled,
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
+    bool? printResponseTime,
     bool? printErrorData,
     bool? printErrorHeaders,
     bool? printErrorMessage,
@@ -45,6 +47,7 @@ class TalkerChopperLogger implements Interceptor {
     Set<String>? hiddenHeaders,
   }) {
     settings = settings.copyWith(
+      enabled: enabled ?? settings.enabled,
       printRequestData: printRequestData ?? settings.printRequestData,
       printRequestHeaders: printRequestHeaders ?? settings.printRequestHeaders,
       printResponseData: printResponseData ?? settings.printResponseData,
@@ -62,6 +65,7 @@ class TalkerChopperLogger implements Interceptor {
       responseFilter: responseFilter ?? settings.responseFilter,
       errorFilter: errorFilter ?? settings.errorFilter,
       hiddenHeaders: hiddenHeaders ?? settings.hiddenHeaders,
+      printResponseTime: printResponseTime ?? settings.printResponseTime,
     );
   }
 
@@ -77,13 +81,7 @@ class TalkerChopperLogger implements Interceptor {
           _talker.logCustom(
             ChopperRequestLog(
               request.url.toString(),
-              request: settings.enabled && settings.printResponseTime
-                  ? await applyHeader(
-                      request,
-                      kChopperLogsTimeStampKey,
-                      DateTime.timestamp().millisecondsSinceEpoch.toString(),
-                    ).toBaseRequest()
-                  : await request.toBaseRequest(),
+              request: await request.toBaseRequest(),
               settings: settings,
             ),
           );
@@ -105,6 +103,7 @@ class TalkerChopperLogger implements Interceptor {
                 response.base.request?.url.toString() ?? request.url.toString(),
                 settings: settings,
                 response: response,
+                responseTime: stopWatch.elapsedMilliseconds,
               ),
             );
           } catch (_) {}
@@ -122,6 +121,7 @@ class TalkerChopperLogger implements Interceptor {
                   request: request,
                   response: response,
                 ),
+                responseTime: stopWatch.elapsedMilliseconds,
               ),
             );
           } catch (_) {}
@@ -134,7 +134,7 @@ class TalkerChopperLogger implements Interceptor {
           error.response != null &&
           (settings.errorFilter?.call(error.response!) ?? true)) {
         try {
-          _talker.log(
+          _talker.logCustom(
             ChopperErrorLog<BodyType>(
               error.response!.base.request?.url.toString() ??
                   error.request?.url.toString() ??

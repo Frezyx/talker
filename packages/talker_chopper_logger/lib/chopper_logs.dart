@@ -3,7 +3,6 @@ import 'dart:convert' show JsonEncoder;
 import 'package:chopper/chopper.dart' show ChopperException, Request, Response;
 import 'package:http/http.dart' as http show BaseRequest, Request;
 import 'package:talker/talker.dart';
-import 'package:talker_chopper_logger/talker_chopper_logger_interceptor.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
 
 const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
@@ -83,10 +82,12 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
     String super.message, {
     required this.response,
     required this.settings,
+    this.responseTime = 0,
   });
 
   final Response<BodyType> response;
   final TalkerChopperLoggerSettings settings;
+  final int responseTime;
 
   @override
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
@@ -109,11 +110,7 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
     msg.write('\nStatus: ${response.statusCode}');
 
     if (settings.printResponseTime) {
-      final int? responseTime = _getResponseTime(response.headers);
-
-      if (responseTime != null) {
-        msg.write('\nTime: $responseTime ms');
-      }
+      msg.write('\nTime: $responseTime ms');
     }
 
     if (settings.printResponseMessage && responseMessage != null) {
@@ -143,10 +140,12 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
     String super.title, {
     required this.chopperException,
     required this.settings,
+    this.responseTime = 0,
   });
 
   final ChopperException chopperException;
   final TalkerChopperLoggerSettings settings;
+  final int responseTime;
 
   @override
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
@@ -170,12 +169,8 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
       msg.write('\nStatus: $statusCode');
     }
 
-    if (settings.printResponseTime && (headers?.isNotEmpty ?? false)) {
-      final int? responseTime = _getResponseTime(headers!);
-
-      if (responseTime != null) {
-        msg.write('\nTime: $responseTime ms');
-      }
+    if (settings.printResponseTime) {
+      msg.write('\nTime: $responseTime ms');
     }
 
     if (settings.printErrorMessage &&
@@ -192,18 +187,4 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
     }
     return msg.toString();
   }
-}
-
-///
-/// Get response time
-///
-int? _getResponseTime(Map<String, String> headers) {
-  final int? triggerTime =
-      int.tryParse(headers[TalkerChopperLogger.kChopperLogsTimeStampKey] ?? '');
-
-  if (triggerTime is int) {
-    return DateTime.timestamp().millisecondsSinceEpoch - triggerTime;
-  }
-
-  return null;
 }

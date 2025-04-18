@@ -4,7 +4,6 @@ import 'package:chopper/chopper.dart';
 import 'package:http/http.dart' as http;
 import 'package:talker/talker.dart';
 import 'package:talker_chopper_logger/chopper_logs.dart';
-import 'package:talker_chopper_logger/talker_chopper_logger_interceptor.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
 import 'package:test/test.dart';
 
@@ -179,10 +178,6 @@ void main() {
               200,
               request: await request.toBaseRequest(),
               reasonPhrase: 'OK',
-              headers: {
-                TalkerChopperLogger.kChopperLogsTimeStampKey:
-                    DateTime.timestamp().millisecondsSinceEpoch.toString(),
-              },
             ),
             'responseBody',
           ),
@@ -204,10 +199,6 @@ void main() {
               200,
               request: await request.toBaseRequest(),
               reasonPhrase: 'OK',
-              headers: {
-                TalkerChopperLogger.kChopperLogsTimeStampKey:
-                    DateTime.timestamp().millisecondsSinceEpoch.toString(),
-              },
             ),
             'responseBody',
           ),
@@ -229,10 +220,6 @@ void main() {
             404,
             request: await request.toBaseRequest(),
             reasonPhrase: 'Error message',
-            headers: {
-              TalkerChopperLogger.kChopperLogsTimeStampKey:
-                  DateTime.timestamp().millisecondsSinceEpoch.toString(),
-            },
           ),
           'responseErrorBody',
         ),

@@ -1,7 +1,8 @@
 import 'package:chopper/chopper.dart' show Response, Request;
+import 'package:equatable/equatable.dart';
 import 'package:talker/talker.dart' show AnsiPen;
 
-class TalkerChopperLoggerSettings {
+class TalkerChopperLoggerSettings with EquatableMixin {
   const TalkerChopperLoggerSettings({
     this.enabled = true,
     this.printResponseData = true,
@@ -143,4 +144,25 @@ class TalkerChopperLoggerSettings {
         errorFilter: errorFilter ?? this.errorFilter,
         hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
       );
+
+  @override
+  List<Object?> get props => [
+        enabled,
+        printResponseData,
+        printResponseHeaders,
+        printResponseMessage,
+        printResponseTime,
+        printErrorData,
+        printErrorHeaders,
+        printErrorMessage,
+        printRequestData,
+        printRequestHeaders,
+        requestPen,
+        responsePen,
+        errorPen,
+        requestFilter,
+        responseFilter,
+        errorFilter,
+        hiddenHeaders,
+      ];
 }

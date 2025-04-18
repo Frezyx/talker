@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   chopper: ^8.1.0
+  equatable: ^2.0.7
   http: ^1.1.0
   talker: ^4.7.2
 

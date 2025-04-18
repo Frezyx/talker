@@ -147,5 +147,29 @@ void main() {
         );
       },
     );
+
+    test('default logLevel should be debug', () {
+      final TalkerChopperLoggerSettings settings =
+          const TalkerChopperLoggerSettings();
+      expect(settings.logLevel, equals(LogLevel.debug));
+    });
+
+    test('copyWith should preserve logLevel if not specified', () {
+      final TalkerChopperLoggerSettings originalSettings =
+          const TalkerChopperLoggerSettings(logLevel: LogLevel.warning);
+      final TalkerChopperLoggerSettings updatedSettings =
+          originalSettings.copyWith(printResponseData: false);
+
+      expect(updatedSettings.logLevel, equals(LogLevel.warning));
+    });
+
+    test('copyWith should update logLevel when specified', () {
+      final TalkerChopperLoggerSettings originalSettings =
+          const TalkerChopperLoggerSettings(logLevel: LogLevel.debug);
+      final TalkerChopperLoggerSettings updatedSettings =
+          originalSettings.copyWith(logLevel: LogLevel.error);
+
+      expect(updatedSettings.logLevel, equals(LogLevel.error));
+    });
   });
 }

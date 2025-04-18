@@ -114,6 +114,16 @@ void main() {
         expect(result.contains('Redirect:'), isFalse);
       },
     );
+
+    test('logLevel should return settings logLevel', () {
+      final ChopperRequestLog log = ChopperRequestLog(
+        'Test message',
+        request: request,
+        settings: const TalkerChopperLoggerSettings(logLevel: LogLevel.info),
+      );
+
+      expect(log.logLevel, equals(LogLevel.info));
+    });
   });
 
   group('ChopperResponseLog', () {
@@ -227,6 +237,24 @@ void main() {
       );
 
       expect(log.generateTextMessage(), matches(RegExp(r'Time: \d+ ms')));
+    });
+
+    test('logLevel should return settings logLevel', () async {
+      final ChopperResponseLog<String> log = ChopperResponseLog(
+        'Test message',
+        response: Response<String>(
+          http.Response(
+            'responseBodyBase',
+            200,
+            request: await request.toBaseRequest(),
+            reasonPhrase: 'OK',
+          ),
+          'responseBody',
+        ),
+        settings: const TalkerChopperLoggerSettings(logLevel: LogLevel.warning),
+      );
+
+      expect(log.logLevel, equals(LogLevel.warning));
     });
   });
 
@@ -388,5 +416,27 @@ void main() {
         );
       },
     );
+
+    test('logLevel should always return error level', () async {
+      final ChopperErrorLog log = ChopperErrorLog(
+        'Error title',
+        chopperException: ChopperException(
+          'Error message',
+          request: request,
+          response: Response<String>(
+            http.Response(
+              'responseErrorBodyBase',
+              404,
+              request: await request.toBaseRequest(),
+              reasonPhrase: 'Error message',
+            ),
+            'responseErrorBody',
+          ),
+        ),
+        settings: const TalkerChopperLoggerSettings(logLevel: LogLevel.info),
+      );
+
+      expect(log.logLevel, equals(LogLevel.error));
+    });
   });
 }

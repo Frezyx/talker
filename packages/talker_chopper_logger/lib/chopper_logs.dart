@@ -63,17 +63,12 @@ class ChopperRequestLog extends TalkerLog {
 
   void _replaceHiddenHeaders(Map<String, String> headers) {
     // HTTP headers are case-insensitive by standard
-    final Map<String, String> lowerCaseHeaders = headers.map(
-      (String key, String value) => MapEntry(key.toLowerCase(), key),
-    );
+    final Set<String> hiddenLower = settings.hiddenHeaders
+        .map((String header) => header.toLowerCase())
+        .toSet();
 
-    for (final String hiddenHeader in settings.hiddenHeaders) {
-      final String lowerCaseHiddenHeader = hiddenHeader.toLowerCase();
-      if (lowerCaseHeaders.containsKey(lowerCaseHiddenHeader)) {
-        final String originalHeader = lowerCaseHeaders[lowerCaseHiddenHeader]!;
-        headers[originalHeader] = _hiddenValue;
-      }
-    }
+    headers.updateAll((String k, String v) =>
+        hiddenLower.contains(k.toLowerCase()) ? _hiddenValue : v);
   }
 }
 

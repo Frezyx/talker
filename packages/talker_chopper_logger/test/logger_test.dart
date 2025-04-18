@@ -16,7 +16,7 @@ void main() {
     setUp(() {
       talker = Talker(settings: TalkerSettings(useConsoleLogs: false));
       logger = TalkerChopperLogger(talker: talker);
-      fakeRequest = Request('GET', Uri.parse('/test'), Uri.parse('/'));
+      fakeRequest = Request(HttpMethod.Get, Uri.parse('/test'), Uri.parse('/'));
     });
 
     test('configure method should update logger settings', () {

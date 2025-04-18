@@ -12,7 +12,7 @@ void main() {
   late Request request;
 
   setUp(() {
-    request = Request('GET', Uri.parse('/test'), Uri.parse('/'));
+    request = Request(HttpMethod.Get, Uri.parse('/test'), Uri.parse('/'));
   });
 
   group('ChopperRequestLog', () {
@@ -37,7 +37,7 @@ void main() {
         final ChopperRequestLog log = ChopperRequestLog(
           null,
           request: request.copyWith(
-            method: 'POST',
+            method: HttpMethod.Post,
             body: {'key': 'value'},
           ),
           settings: const TalkerChopperLoggerSettings(printRequestData: true),

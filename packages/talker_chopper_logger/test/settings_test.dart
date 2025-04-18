@@ -9,7 +9,7 @@ void main() {
     late Request fakeRequest;
 
     setUp(() {
-      fakeRequest = Request('GET', Uri.parse('/test'), Uri.parse('/'));
+      fakeRequest = Request(HttpMethod.Get, Uri.parse('/test'), Uri.parse('/'));
     });
 
     test('copyWith should create a new instance with the provided values', () {
@@ -40,13 +40,13 @@ void main() {
       );
 
       final Request allowedRequestOptions = Request(
-        'GET',
+        HttpMethod.Get,
         Uri.parse('/allowed'),
         Uri.parse('/'),
       );
 
       final Request disallowedRequestOptions = Request(
-        'GET',
+        HttpMethod.Get,
         Uri.parse('/disallowed'),
         Uri.parse('/'),
       );

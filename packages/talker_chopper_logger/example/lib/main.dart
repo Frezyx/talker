@@ -448,7 +448,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Talker + Chopper - Example'),
+        centerTitle: true,
+        title: const Text('Talker + Chopper Example'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(

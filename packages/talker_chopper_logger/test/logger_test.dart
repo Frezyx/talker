@@ -166,6 +166,32 @@ Data: "responseBody"''',
       );
     });
 
+    test(
+      'intercept should show response time in error when requested',
+      () async {
+        logger.configure(printResponseTime: true);
+
+        final Response<String> fakeResponse = Response<String>(
+          http.Response(
+            'responseErrorBodyBase',
+            400,
+            request: await fakeRequest.toBaseRequest(),
+          ),
+          'responseErrorBody',
+        );
+
+        await logger.intercept(FakeChain(fakeRequest, response: fakeResponse));
+
+        expect(
+          talker.history.lastOrNull?.generateTextMessage(),
+          '''[http-error] [GET] /test
+Status: 400
+Time: 0 ms
+Data: "responseErrorBody"''',
+        );
+      },
+    );
+
     test('intercept should not log if logger is disabled', () async {
       logger.configure(enabled: false);
 
@@ -253,6 +279,52 @@ Data: "responseErrorBody"''',
         );
       }
     });
+
+    test(
+      'intercept should show response time in ChopperException when requested',
+      () async {
+        logger.configure(printResponseTime: true);
+
+        final ChopperException exception = ChopperException(
+          'foo error',
+          request: fakeRequest,
+          response: Response<String>(
+            http.Response(
+              'responseErrorBodyBase',
+              400,
+              request: await fakeRequest.toBaseRequest(),
+            ),
+            'responseErrorBody',
+          ),
+        );
+
+        try {
+          await logger.intercept<String>(
+            FakeChain<String>(fakeRequest, exception: exception),
+          );
+        } catch (err) {
+          expect(
+            err,
+            isA<ChopperException>().having(
+              (ChopperException error) => error.message,
+              'message',
+              contains('foo error'),
+            ),
+          );
+        } finally {
+          expect(talker.history, isNotEmpty);
+          expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+          expect(
+            talker.history.lastOrNull?.generateTextMessage(),
+            '''[http-error] [GET] /test
+Status: 400
+Time: 0 ms
+Message: foo error
+Data: "responseErrorBody"''',
+          );
+        }
+      },
+    );
 
     test('intercept should log generic Exception', () async {
       final Exception exception = Exception('foo error');

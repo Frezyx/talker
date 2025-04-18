@@ -93,17 +93,17 @@ Talker is designed for any level of customization. <br>
   - [More Features And Examples](#more-features-and-examples)
 - [Integrations](#integrations)
 - [Talker Dio Logger](#talker-dio-logger)
-  - [Customization](#customization-1)
-    - [Off/On http request or reposnse logs](#offon-http-request-or-reposnse-logs)
-    - [Change http logs colors](#change-http-logs-colors)
-    - [Filter http logs](#filter-http-logs)
-  - [Using with Talker](#using-with-talker)
+  - [Customization](#customization-dio)
+    - [Off/On http request or reposnse logs](#offon-http-request-or-reposnse-logs-dio)
+    - [Change http logs colors](#change-http-log-colors-dio)
+    - [Filter http logs](#filter-http-logs-dio)
+  - [Using with Talker](#using-with-talker-dio)
 - [Talker Chopper Logger](#talker-chopper-logger)
-  - [Customization](#customization-1)
-    - [Enable or disable HTTP request or response logs](#enable-or-disable-http-request-or-response-logs)
-    - [Change HTTP logs colors](#change-http-logs-colors)
-    - [Filter HTTP logs](#filter-http-logs)
-    - [Using with existing Talker instance](#using-with-existing-talker-instance)
+  - [Customization](#customization-chopper)
+    - [Enable or disable HTTP request or response logs](#change-http-log-colors-chopper)
+    - [Change HTTP logs colors](#change-http-log-colors-chopper)
+    - [Filter HTTP logs](#filter-http-logs-chopper)
+    - [Using with existing Talker instance](#using-with-existing-talker-instance-chopper)
 - [Talker BLoC Logger](#talker-bloc-logger)
   - [Customization](#customization-2)
     - [Off/on events, transitions, changes, creation, close](#offon-events-transitions-changes-creation-close)
@@ -560,10 +560,12 @@ dio.interceptors.add(
 );
 ```
 
+<a id="customization-dio"></a>
 ## Customization
 
 To provide hight usage exp here are a lot of settings and customization fields in TalkerDioLoggerSettings. You can setup all wat you want. For example: 
 
+<a id="offon-http-request-or-reposnse-logs-dio"></a>
 ### Off/on http request or reposnse logs
 
 You can toggle reponse / request printing and headers including
@@ -586,6 +588,7 @@ dio.interceptors.add(
 );
 ```
 
+<a id="change-http-log-colors-dio"></a>
 ### Change http logs colors
 
 Setup your custom http-log colors. You can set color for requests, responses and errors in TalkerDioLoggerSettings
@@ -601,6 +604,7 @@ TalkerDioLoggerSettings(
 );
 ```
 
+<a id="filter-http-logs-dio"></a>
 ### Filter http logs
 
 For example if your app has a private functionality and you don't need to store this functionality logs in talker - you can use filters
@@ -614,6 +618,7 @@ TalkerDioLoggerSettings(
 )
 ```
 
+<a id="using-with-talker-dio"></a>
 ## Using with Talker
 You can add your talker instance for TalkerDioLogger if your app already uses Talker.
 In this case, all logs and errors will fall into your unified tracking system
@@ -656,6 +661,7 @@ final client = ChopperClient(
 );
 ```
 
+<a id="customization-chopper"></a>
 ## Customization
 
 To offer extensive functionality, [TalkerChopperLoggerSettings](packages/talker_chopper_logger/lib/talker_chopper_logger_settings.dart) provides 
@@ -686,6 +692,7 @@ final client = ChopperClient(
 );
 ```
 
+<a id="change-http-log-colors-chopper"></a>
 ### Change HTTP logs colors
 
 Customize your HTTP log colors by defining specific colors for requests, responses, and errors in 
@@ -702,6 +709,7 @@ TalkerChopperLoggerSettings(
 );
 ```
 
+<a id="filter-http-logs-chopper"></a>
 ### Filter HTTP logs
 
 For instance, if your app includes private functionality that you prefer not to log with talker, you can apply filters.
@@ -715,6 +723,7 @@ TalkerChopperLoggerSettings(
 )
 ```
 
+<a id="using-with-existing-talker-instance-chopper"></a>
 ## Using with existing Talker instance
 
 If your application already uses Talker, simply inject your Talker instance into TalkerChopperLogger so that all logs 

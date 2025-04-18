@@ -2,6 +2,9 @@ import 'package:chopper/chopper.dart' show Response, Request;
 import 'package:equatable/equatable.dart';
 import 'package:talker/talker.dart' show AnsiPen;
 
+typedef RequestFilter = bool Function(Request request);
+typedef ResponseFilter = bool Function(Response response);
+
 class TalkerChopperLoggerSettings with EquatableMixin {
   const TalkerChopperLoggerSettings({
     this.enabled = true,
@@ -92,15 +95,15 @@ class TalkerChopperLoggerSettings with EquatableMixin {
 
   /// For request filtering.
   /// You can add your custom logic to log only specific HTTP requests [Request].
-  final bool Function(Request)? requestFilter;
+  final RequestFilter? requestFilter;
 
   /// For response filtering.
   /// You can add your custom logic to log only specific HTTP responses [Response].
-  final bool Function(Response)? responseFilter;
+  final ResponseFilter? responseFilter;
 
   /// For error filtering.
   /// You can add your custom logic to log only specific Chopper error [Response].
-  final bool Function(Response)? errorFilter;
+  final ResponseFilter? errorFilter;
 
   /// Header values for the specified keys in the Set will be replaced with *****.
   /// Case insensitive
@@ -120,9 +123,9 @@ class TalkerChopperLoggerSettings with EquatableMixin {
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
-    bool Function(Request)? requestFilter,
-    bool Function(Response)? responseFilter,
-    bool Function(Response)? errorFilter,
+    RequestFilter? requestFilter,
+    ResponseFilter? responseFilter,
+    ResponseFilter? errorFilter,
     Set<String>? hiddenHeaders,
   }) =>
       TalkerChopperLoggerSettings(

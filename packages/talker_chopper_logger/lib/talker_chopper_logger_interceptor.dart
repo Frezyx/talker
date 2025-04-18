@@ -39,9 +39,9 @@ class TalkerChopperLogger implements Interceptor {
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
-    bool Function(Request)? requestFilter,
-    bool Function(Response)? responseFilter,
-    bool Function(Response)? errorFilter,
+    RequestFilter? requestFilter,
+    ResponseFilter? responseFilter,
+    ResponseFilter? errorFilter,
     Set<String>? hiddenHeaders,
   }) {
     settings = settings.copyWith(

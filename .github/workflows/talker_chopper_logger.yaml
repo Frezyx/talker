@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v4
       - id: install
         name: Install dependencies
-        run: dart pub get
+        run: dart pub get --no-example
       - name: Format
         run: dart format lib test --set-exit-if-changed
       - name: Analyze

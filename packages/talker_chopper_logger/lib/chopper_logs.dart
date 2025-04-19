@@ -1,8 +1,10 @@
-import 'dart:convert' show JsonEncoder;
+import 'dart:convert' show JsonEncoder, jsonDecode;
 
 import 'package:chopper/chopper.dart' show ChopperException, Request, Response;
-import 'package:http/http.dart' as http show BaseRequest, Request;
+import 'package:http/http.dart' as http
+    show BaseRequest, MultipartFile, MultipartRequest, Request;
 import 'package:talker/talker.dart';
+import 'package:talker_chopper_logger/curl_request.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
 
 const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
@@ -36,26 +38,47 @@ class ChopperRequestLog extends TalkerLog {
 
     final Map<String, String> headers = {...request.headers};
 
+    // HTTP headers are case-insensitive by standard
+    _replaceHiddenHeaders(headers);
+
+    if (settings.printRequestCurl) {
+      msg.write('\n[cURL] ${request.toCurl(headers: headers)}');
+    }
+
     try {
       if (settings.printRequestData) {
         switch (request) {
-          case http.Request req:
-            if (req.body.isNotEmpty) {
-              msg.write('\nData: ${_encoder.convert(req.body)}');
+          case http.Request req when req.body.isNotEmpty:
+            try {
+              // Try to decode the body as JSON
+              msg.write('\nData: ${_encoder.convert(jsonDecode(req.body))}');
+            } on FormatException {
+              // Return original text if it’s not valid JSON
+              msg.write('\nData: ${req.body}');
             }
             break;
-          case Request req:
-            if (req.body != null) {
-              msg.write('\nData: ${_encoder.convert(req.body)}');
-            }
+          case http.MultipartRequest req
+              when req.fields.isNotEmpty || req.files.isNotEmpty:
+            msg.write('\nData: ${_encoder.convert(
+              {
+                ...req.fields,
+                for (final http.MultipartFile file in req.files)
+                  file.field: file.filename ?? ''
+              },
+            )}');
+            break;
+          case Request req when req.body != null:
+            msg.write('\nData: ${_encoder.convert(req.body)}');
+            break;
+          default:
             break;
         }
       }
 
-      if (settings.printRequestHeaders && headers.isNotEmpty) {
-        // HTTP headers are case-insensitive by standard
-        _replaceHiddenHeaders(headers);
+      // HTTP headers are case-insensitive by standard
+      _replaceHiddenHeaders(headers);
 
+      if (settings.printRequestHeaders && headers.isNotEmpty) {
         msg.write('\nHeaders: ${_encoder.convert(headers)}');
       }
     } catch (_) {
@@ -65,6 +88,10 @@ class ChopperRequestLog extends TalkerLog {
   }
 
   void _replaceHiddenHeaders(Map<String, String> headers) {
+    if (settings.hiddenHeaders.isEmpty || headers.isEmpty) {
+      return;
+    }
+
     // HTTP headers are case-insensitive by standard
     final Set<String> hiddenLower = settings.hiddenHeaders
         .map((String header) => header.toLowerCase())

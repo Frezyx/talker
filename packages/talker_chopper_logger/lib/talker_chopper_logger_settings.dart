@@ -19,6 +19,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
     this.printErrorMessage = true,
     this.printRequestData = true,
     this.printRequestHeaders = false,
+    this.printRequestCurl = false,
     this.hiddenHeaders = const <String>{},
     this.requestPen,
     this.responsePen,
@@ -63,6 +64,9 @@ class TalkerChopperLoggerSettings with EquatableMixin {
 
   /// Print [request.headers] if true
   final bool printRequestHeaders;
+
+  /// Prints a curl request equivalent of the network call if true
+  final bool printRequestCurl;
 
   /// Field to set custom http request console logs color
   ///```
@@ -125,6 +129,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
     bool? printErrorMessage,
     bool? printRequestData,
     bool? printRequestHeaders,
+    bool? printRequestCurl,
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
@@ -145,6 +150,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
         printErrorMessage: printErrorMessage ?? this.printErrorMessage,
         printRequestData: printRequestData ?? this.printRequestData,
         printRequestHeaders: printRequestHeaders ?? this.printRequestHeaders,
+        printRequestCurl: printRequestCurl ?? this.printRequestCurl,
         requestPen: requestPen ?? this.requestPen,
         responsePen: responsePen ?? this.responsePen,
         errorPen: errorPen ?? this.errorPen,
@@ -166,6 +172,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
         printErrorMessage,
         printRequestData,
         printRequestHeaders,
+        printRequestCurl,
         requestPen,
         responsePen,
         errorPen,

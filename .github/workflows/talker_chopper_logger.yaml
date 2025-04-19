@@ -17,10 +17,16 @@ env:
 
 jobs:
   test:
+    name: "Test"
     defaults:
       run:
         working-directory: packages/talker_chopper_logger
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - platform: chrome
+          - platform: vm
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v4
@@ -46,20 +52,27 @@ jobs:
         run: dart format lib test --set-exit-if-changed
       - name: Analyze
         run: dart analyze lib test --fatal-warnings
+      - name: Run the project's tests in Chrome
+        if: ${{ matrix.platform == 'chrome' }}
+        run: dart test --platform chrome
       - name: Install coverage dependencies
+        if: ${{ matrix.platform == 'vm' }}
         run: |
           dart pub global activate coverage
           dart pub global activate remove_from_coverage
       - name: Collect and report coverage
+        if: ${{ matrix.platform == 'vm' }}
         run: |
           dart pub global run coverage:test_with_coverage
           dart pub global run remove_from_coverage:remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$'
       - name: Check Code Coverage
+        if: ${{ matrix.platform == 'vm' }}
         uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
         with:
           path: packages/talker_chopper_logger/coverage/lcov.info
           min_coverage: 90
       - name: Upload coverage to Codecov
+        if: ${{ matrix.platform == 'vm' }}
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

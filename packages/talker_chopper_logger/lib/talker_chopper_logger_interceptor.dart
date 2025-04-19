@@ -101,6 +101,7 @@ class TalkerChopperLogger implements Interceptor {
               ChopperResponseLog<BodyType>(
                 response.base.request?.url.toString() ?? request.url.toString(),
                 settings: settings,
+                request: request,
                 response: response,
                 responseTime: stopWatch.elapsedMilliseconds,
               ),
@@ -115,6 +116,7 @@ class TalkerChopperLogger implements Interceptor {
               ChopperErrorLog<BodyType>(
                 response.base.request?.url.toString() ?? request.url.toString(),
                 settings: settings,
+                request: request,
                 chopperException: ChopperException(
                   response.error.toString(),
                   request: request,

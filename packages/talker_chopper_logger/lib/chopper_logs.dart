@@ -33,8 +33,10 @@ class ChopperRequestLog extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    final StringBuffer msg =
-        StringBuffer('[$title] [${request.method}] $message');
+    final StringBuffer msg = StringBuffer();
+    msg.write('[$title]');
+    msg.write(' [${request.method}]');
+    msg.writeln(' $message');
 
     final Map<String, String> headers = {...request.headers};
 
@@ -42,7 +44,7 @@ class ChopperRequestLog extends TalkerLog {
     _replaceHiddenHeaders(headers);
 
     if (settings.printRequestCurl) {
-      msg.write('\n[cURL] ${request.toCurl(headers: headers)}');
+      msg.writeln('[cURL] ${request.toCurl(headers: headers)}');
     }
 
     try {
@@ -51,15 +53,15 @@ class ChopperRequestLog extends TalkerLog {
           case http.Request req when req.body.isNotEmpty:
             try {
               // Try to decode the body as JSON
-              msg.write('\nData: ${_encoder.convert(jsonDecode(req.body))}');
+              msg.writeln('Data: ${_encoder.convert(jsonDecode(req.body))}');
             } on FormatException {
               // Return original text if it’s not valid JSON
-              msg.write('\nData: ${req.body}');
+              msg.writeln('Data: ${req.body}');
             }
             break;
           case http.MultipartRequest req
               when req.fields.isNotEmpty || req.files.isNotEmpty:
-            msg.write('\nData: ${_encoder.convert(
+            msg.writeln('Data: ${_encoder.convert(
               {
                 ...req.fields,
                 for (final http.MultipartFile file in req.files)
@@ -68,7 +70,7 @@ class ChopperRequestLog extends TalkerLog {
             )}');
             break;
           case Request req when req.body != null:
-            msg.write('\nData: ${_encoder.convert(req.body)}');
+            msg.writeln('Data: ${_encoder.convert(req.body)}');
             break;
           default:
             break;
@@ -79,12 +81,12 @@ class ChopperRequestLog extends TalkerLog {
       _replaceHiddenHeaders(headers);
 
       if (settings.printRequestHeaders && headers.isNotEmpty) {
-        msg.write('\nHeaders: ${_encoder.convert(headers)}');
+        msg.writeln('Headers: ${_encoder.convert(headers)}');
       }
     } catch (_) {
       // TODO: add handling can`t convert
     }
-    return msg.toString();
+    return msg.toString().trimRight();
   }
 
   void _replaceHiddenHeaders(Map<String, String> headers) {
@@ -105,11 +107,13 @@ class ChopperRequestLog extends TalkerLog {
 class ChopperResponseLog<BodyType> extends TalkerLog {
   ChopperResponseLog(
     String super.message, {
+    this.request,
     required this.response,
     required this.settings,
     this.responseTime = 0,
   });
 
+  final Request? request;
   final Response<BodyType> response;
   final TalkerChopperLoggerSettings settings;
   final int responseTime;
@@ -127,50 +131,57 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    final StringBuffer msg =
-        StringBuffer('[$title] [${response.base.request?.method}] $message');
+    final StringBuffer msg = StringBuffer();
+    msg.write('[$title]');
+    if (response.base.request?.method.isNotEmpty != null ||
+        request?.method.isNotEmpty != null) {
+      msg.write(' [${response.base.request?.method ?? request?.method}]');
+    }
+    msg.writeln(' $message');
 
     final String? responseMessage = response.base.reasonPhrase;
     final BodyType? data = response.body;
     final Map<String, String> headers = response.headers;
     final bool isRedirect = response.base.isRedirect;
 
-    msg.write('\nStatus: ${response.statusCode}');
+    msg.writeln('Status: ${response.statusCode}');
 
     if (settings.printResponseTime) {
-      msg.write('\nTime: $responseTime ms');
+      msg.writeln('Time: $responseTime ms');
     }
 
     if (settings.printResponseMessage && responseMessage != null) {
-      msg.write('\nMessage: $responseMessage');
+      msg.writeln('Message: $responseMessage');
     }
 
     try {
       if (settings.printResponseData && data != null) {
-        msg.write('\nData: ${_encoder.convert(data)}');
+        msg.writeln('Data: ${_encoder.convert(data)}');
       }
       if (settings.printResponseHeaders && headers.isNotEmpty) {
-        msg.write('\nHeaders: ${_encoder.convert(headers)}');
+        msg.writeln('Headers: ${_encoder.convert(headers)}');
       }
 
       if (settings.printResponseRedirects && isRedirect) {
-        msg.write('\nRedirect: $isRedirect');
+        msg.writeln('Redirect: $isRedirect');
       }
     } catch (_) {
       // TODO: add handling can`t convert
     }
-    return msg.toString();
+    return msg.toString().trimRight();
   }
 }
 
 class ChopperErrorLog<BodyType> extends TalkerLog {
   ChopperErrorLog(
     String super.title, {
+    this.request,
     required this.chopperException,
     required this.settings,
     this.responseTime = 0,
   });
 
+  final Request? request;
   final ChopperException chopperException;
   final TalkerChopperLoggerSettings settings;
   final int responseTime;
@@ -188,8 +199,22 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
-    final StringBuffer msg = StringBuffer(
-        '[$title] [${chopperException.response?.base.request?.method ?? chopperException.request?.method}] $message');
+    final StringBuffer msg = StringBuffer();
+
+    msg.write('[$title]');
+    if (chopperException.response?.base.request?.method != null ||
+        chopperException.request?.method != null) {
+      msg.write(
+        ' [${chopperException.response?.base.request?.method ?? chopperException.request?.method}]',
+      );
+    }
+    if (request?.url != null) {
+      msg.write(' ${request?.url}');
+    }
+    if (message != request?.url.toString()) {
+      msg.write(' $message');
+    }
+    msg.writeln();
 
     final String responseMessage = chopperException.message;
     final int? statusCode = chopperException.response?.statusCode;
@@ -197,25 +222,25 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
     final Map<String, String>? headers = chopperException.response?.headers;
 
     if (statusCode != null) {
-      msg.write('\nStatus: $statusCode');
+      msg.writeln('Status: $statusCode');
     }
 
     if (settings.printResponseTime) {
-      msg.write('\nTime: $responseTime ms');
+      msg.writeln('Time: $responseTime ms');
     }
 
     if (settings.printErrorMessage &&
         responseMessage.isNotEmpty &&
         responseMessage != 'null') {
-      msg.write('\nMessage: $responseMessage');
+      msg.writeln('Message: $responseMessage');
     }
 
     if (settings.printErrorData && body != null) {
-      msg.write('\nData: ${_encoder.convert(body)}');
+      msg.writeln('Data: ${_encoder.convert(body)}');
     }
     if (settings.printErrorHeaders && (headers?.isNotEmpty ?? false)) {
-      msg.write('\nHeaders: ${_encoder.convert(headers)}');
+      msg.writeln('Headers: ${_encoder.convert(headers)}');
     }
-    return msg.toString();
+    return msg.toString().trimRight();
   }
 }

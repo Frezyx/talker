@@ -114,7 +114,7 @@ class TalkerChopperLogger implements Interceptor {
           try {
             _talker.logCustom(
               ChopperErrorLog<BodyType>(
-                response.base.request?.url.toString() ?? request.url.toString(),
+                response.error?.toString() ?? 'HTTP Error ${response.statusCode}',
                 settings: settings,
                 request: request,
                 chopperException: ChopperException(
@@ -137,9 +137,7 @@ class TalkerChopperLogger implements Interceptor {
         try {
           _talker.logCustom(
             ChopperErrorLog<BodyType>(
-              error.response!.base.request?.url.toString() ??
-                  error.request?.url.toString() ??
-                  error.message,
+              error.message,
               settings: settings,
               chopperException: error,
             ),

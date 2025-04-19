@@ -345,7 +345,6 @@ Data: "responseErrorBody"''',
       } finally {
         expect(talker.history, isNotEmpty);
         expect(talker.history.lastOrNull, isA<TalkerLog>());
-        print(talker.history.last.generateTextMessage());
         expect(
           RegExp(
             r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| Exception: foo error\nException: foo error$',

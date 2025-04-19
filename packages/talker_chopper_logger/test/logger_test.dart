@@ -64,6 +64,33 @@ Data: "responseBody"''',
       );
     });
 
+    test('intercept method should log http response without BaseRequest',
+        () async {
+      final Response<String> fakeResponse = Response<String>(
+        http.Response(
+          'responseBodyBase',
+          200,
+        ),
+        'responseBody',
+      );
+
+      final String logMessage = fakeResponse.base.request?.url.toString() ??
+          fakeRequest.url.toString();
+
+      await logger.intercept<String>(
+        FakeChain<String>(fakeRequest, response: fakeResponse),
+      );
+
+      expect(talker.history.lastOrNull?.message, logMessage);
+      expect(talker.history.lastOrNull, isA<ChopperResponseLog<String>>());
+      expect(
+        talker.history.lastOrNull?.generateTextMessage(),
+        '''[http-response] [GET] /test
+Status: 200
+Data: "responseBody"''',
+      );
+    });
+
     test('intercept method should log http response error', () async {
       final Response<String> fakeResponse = Response<String>(
         http.Response(
@@ -273,6 +300,85 @@ Data: "responseErrorBody"''',
         expect(
           talker.history.lastOrNull?.generateTextMessage(),
           '''[http-error] [GET] /test
+Status: 400
+Message: foo error
+Data: "responseErrorBody"''',
+        );
+      }
+    });
+
+    test('intercept should log ChopperException without BaseRequest', () async {
+      final ChopperException exception = ChopperException(
+        'foo error',
+        request: fakeRequest,
+        response: Response<String>(
+          http.Response(
+            'responseErrorBodyBase',
+            400,
+          ),
+          'responseErrorBody',
+        ),
+      );
+
+      try {
+        await logger.intercept<String>(
+          FakeChain<String>(fakeRequest, exception: exception),
+        );
+      } catch (err) {
+        expect(
+          err,
+          isA<ChopperException>().having(
+            (ChopperException error) => error.message,
+            'message',
+            contains('foo error'),
+          ),
+        );
+      } finally {
+        expect(talker.history, isNotEmpty);
+        expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+        expect(
+          talker.history.lastOrNull?.generateTextMessage(),
+          '''[http-error] [GET] /test
+Status: 400
+Message: foo error
+Data: "responseErrorBody"''',
+        );
+      }
+    });
+
+    test(
+        'intercept should log ChopperException without BaseRequest and without Request',
+        () async {
+      final ChopperException exception = ChopperException(
+        'foo error',
+        response: Response<String>(
+          http.Response(
+            'responseErrorBodyBase',
+            400,
+          ),
+          'responseErrorBody',
+        ),
+      );
+
+      try {
+        await logger.intercept<String>(
+          FakeChain<String>(fakeRequest, exception: exception),
+        );
+      } catch (err) {
+        expect(
+          err,
+          isA<ChopperException>().having(
+            (ChopperException error) => error.message,
+            'message',
+            contains('foo error'),
+          ),
+        );
+      } finally {
+        expect(talker.history, isNotEmpty);
+        expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+        expect(
+          talker.history.lastOrNull?.generateTextMessage(),
+          '''[http-error] foo error
 Status: 400
 Message: foo error
 Data: "responseErrorBody"''',

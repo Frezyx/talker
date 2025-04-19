@@ -407,7 +407,6 @@ void main() {
         );
 
         final String out = log.generateTextMessage();
-        print(out);
 
         expect(out, contains('[cURL]'));
         expect(out, contains('curl -v'));

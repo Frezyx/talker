@@ -581,7 +581,7 @@ void main() {
       expect(
         log.generateTextMessage(),
         contains(
-          '[log] [GET] Error title\n'
+          '[log] [GET] /test Error title\n'
           'Message: Error message',
         ),
       );
@@ -618,7 +618,7 @@ void main() {
 
         final String result = log.generateTextMessage();
 
-        expect(result, contains('[log] [GET] Error title'));
+        expect(result, contains('[log] [GET] /test Error title'));
         expect(result, isNot(contains('Message: Error message')));
         expect(
           result,

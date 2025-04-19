@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:chopper/chopper.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:talker/talker.dart';
 import 'package:talker_chopper_logger/chopper_logs.dart';
+import 'package:talker_chopper_logger/curl_request.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
 import 'package:test/test.dart';
 
@@ -37,14 +39,116 @@ void main() {
           null,
           request: request.copyWith(
             method: HttpMethod.Post,
-            body: {'key': 'value'},
+            body: {
+              'foo': 'bar',
+              'baz': 'qux',
+            },
           ),
           settings: const TalkerChopperLoggerSettings(printRequestData: true),
         );
 
         expect(
           log.generateTextMessage(),
-          contains('Data: {\n  "key": "value"\n}'),
+          contains(
+            '''Data: {
+  "foo": "bar",
+  "baz": "qux"
+}''',
+          ),
+        );
+      },
+    );
+
+    test(
+      'generateTextMessage with http.BaseRequest should include form data if printRequestData is true',
+      () async {
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: await request.copyWith(
+            method: HttpMethod.Post,
+            body: {
+              'foo': 'bar',
+              'baz': 'qux',
+            },
+          ).toBaseRequest(),
+          settings: const TalkerChopperLoggerSettings(printRequestData: true),
+        );
+
+        expect(
+          log.generateTextMessage(),
+          contains('Data: foo=bar&baz=qux'),
+        );
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart http.baseRequest should include form data if printRequestData is true',
+      () async {
+        const List<PartValue<Map<String, String>>> parts = [
+          PartValue('1', {'foo': 'bar'}),
+          PartValue('2', {'baz': 'qux'}),
+        ];
+
+        final http.BaseRequest multiPartRequest = await request
+            .copyWith(
+              method: HttpMethod.Post,
+              parts: parts,
+              multipart: true,
+            )
+            .toBaseRequest();
+
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerChopperLoggerSettings(printRequestData: true),
+        );
+
+        expect(
+          log.generateTextMessage(),
+          contains(
+            '''Data: {
+  "1": "{foo: bar}",
+  "2": "{baz: qux}"
+}''',
+          ),
+        );
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart file http.baseRequest should include form data if printRequestData is true',
+      () async {
+        final file = http.MultipartFile.fromBytes(
+          'foo_bar',
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          filename: 'baz_qux',
+          contentType: MediaType.parse('application/octet-stream'),
+        );
+
+        final List<PartValue<http.MultipartFile>> parts = [
+          PartValueFile<http.MultipartFile>(
+            'file',
+            file,
+          ),
+        ];
+
+        final http.BaseRequest multiPartRequest = await request
+            .copyWith(
+              method: HttpMethod.Post,
+              parts: parts,
+              multipart: true,
+            )
+            .toBaseRequest();
+
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerChopperLoggerSettings(printRequestData: true),
+        );
+
+        expect(
+          log.generateTextMessage(),
+          contains('Data: {\n  "foo_bar": "baz_qux"\n}'),
         );
       },
     );
@@ -112,6 +216,210 @@ void main() {
 
         final result = log.generateTextMessage();
         expect(result.contains('Redirect:'), isFalse);
+      },
+    );
+
+    test(
+      'generateTextMessage should include curl command if printRequestCurl is true',
+      () {
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: request,
+          settings: const TalkerChopperLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${request.method}'));
+        expect(out, contains('${request.url}'));
+        expect(out, contains('[cURL] ${request.toCurl()}'));
+      },
+    );
+
+    test(
+      'generateTextMessage should include curl command with headers if printRequestCurl is true',
+      () {
+        final Request requestWithHeaders = request.copyWith(
+          headers: {
+            'foo': 'bar',
+            'baz': 'qux',
+          },
+        );
+
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: requestWithHeaders,
+          settings: const TalkerChopperLoggerSettings(
+            printRequestCurl: true,
+            hiddenHeaders: {'baz'},
+          ),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${requestWithHeaders.method}'));
+        expect(out, contains("-H 'foo: bar'"));
+        expect(out, isNot(contains("-H 'baz: qux'")));
+        expect(out, contains("-H 'baz: *****'"));
+        expect(out, contains('${requestWithHeaders.url}'));
+        expect(
+          out,
+          contains(
+            '[cURL] ${requestWithHeaders.copyWith(headers: {
+                  ...requestWithHeaders.headers,
+                  'baz': '*****',
+                }).toCurl()}',
+          ),
+        );
+      },
+    );
+
+    test(
+      'generateTextMessage should include curl command with body if printRequestCurl is true',
+      () {
+        final Request postRequest = request.copyWith(
+          method: HttpMethod.Post,
+          body: {
+            'foo': 'bar',
+            'baz': 'qux',
+          },
+        );
+
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: postRequest,
+          settings: const TalkerChopperLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${postRequest.method}'));
+        expect(out, contains(r"""-d '{"foo":"bar","baz":"qux"}'"""));
+        expect(out, contains('${postRequest.url}'));
+        expect(out, contains('[cURL] ${postRequest.toCurl()}'));
+      },
+    );
+
+    test(
+      'generateTextMessage with http.baseRequest should include curl command with form data if printRequestCurl is true',
+      () async {
+        final http.BaseRequest postRequest = await request.copyWith(
+          method: HttpMethod.Post,
+          body: {
+            'foo': 'bar',
+            'baz': 'qux',
+          },
+        ).toBaseRequest();
+
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: postRequest,
+          settings: const TalkerChopperLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${postRequest.method}'));
+        expect(
+          out,
+          contains(
+            "-H 'content-type: application/x-www-form-urlencoded; charset=utf-8'",
+          ),
+        );
+        expect(out, contains("-d 'foo=bar&baz=qux'"));
+        expect(out, contains('${postRequest.url}'));
+        expect(out, contains('[cURL] ${postRequest.toCurl()}'));
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart http.baseRequest should include curl command with form data if printRequestCurl is true',
+      () async {
+        const List<PartValue<Map<String, String>>> parts = [
+          PartValue('1', {'foo': 'bar'}),
+          PartValue('2', {'baz': 'qux'}),
+        ];
+
+        final http.BaseRequest multiPartRequest = await request
+            .copyWith(
+              method: HttpMethod.Post,
+              parts: parts,
+              multipart: true,
+            )
+            .toBaseRequest();
+
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerChopperLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${multiPartRequest.method}'));
+        for (final PartValue<Map<String, String>> part in parts) {
+          expect(out, contains("-F '${part.name}=${part.value}'"));
+        }
+        expect(out, contains('${multiPartRequest.url}'));
+        expect(out, contains('[cURL] ${multiPartRequest.toCurl()}'));
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart file http.baseRequest should include curl command with form data if printRequestCurl is true',
+      () async {
+        final file = http.MultipartFile.fromBytes(
+          'foo_bar',
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          filename: 'baz_qux',
+          contentType: MediaType.parse('application/octet-stream'),
+        );
+
+        final List<PartValue<http.MultipartFile>> parts = [
+          PartValueFile<http.MultipartFile>(
+            'file',
+            file,
+          ),
+        ];
+
+        final http.BaseRequest multiPartRequest = await request
+            .copyWith(
+              method: HttpMethod.Post,
+              parts: parts,
+              multipart: true,
+            )
+            .toBaseRequest();
+
+        final ChopperRequestLog log = ChopperRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerChopperLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+        print(out);
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${multiPartRequest.method}'));
+        for (final PartValue<http.MultipartFile> part in parts) {
+          expect(
+            out,
+            contains("-F '${part.value.field}=@${part.value.filename}'"),
+          );
+        }
+        expect(out, contains('${multiPartRequest.url}'));
+        expect(out, contains('[cURL] ${multiPartRequest.toCurl()}'));
       },
     );
 

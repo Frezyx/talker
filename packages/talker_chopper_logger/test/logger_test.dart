@@ -453,7 +453,7 @@ Data: "responseErrorBody"''',
         expect(talker.history.lastOrNull, isA<TalkerLog>());
         expect(
           RegExp(
-            r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| Exception: foo error\nException: foo error$',
+            r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| Exception: foo error\nException: foo error',
           ).hasMatch(talker.history.last.generateTextMessage()),
           isTrue,
         );

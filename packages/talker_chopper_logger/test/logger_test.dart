@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:chopper/chopper.dart';
 import 'package:http/http.dart' as http;
@@ -26,16 +27,150 @@ void main() {
       expect(logger.settings.printRequestData, true);
     });
 
-    test('intercept method should log http request', () async {
-      final String logMessage = fakeRequest.url.toString();
+    test('intercept method should log http GET request', () async {
+      logger.configure(printRequestHeaders: true);
 
       await logger.intercept<String>(FakeChain<String>(fakeRequest));
 
-      expect(talker.history.firstOrNull?.message, logMessage);
+      expect(talker.history.firstOrNull?.message, fakeRequest.url.toString());
       expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
       expect(
         talker.history.firstOrNull?.generateTextMessage(),
         '[http-request] [GET] /test',
+      );
+    });
+
+    test('intercept method should log http POST request', () async {
+      logger.configure(printRequestHeaders: true);
+
+      final Request postRequest = fakeRequest.copyWith(
+        method: HttpMethod.Post,
+        body: {
+          'foo': 'bar',
+          'baz': 'qux',
+        },
+      );
+
+      await logger.intercept<String>(FakeChain<String>(postRequest));
+
+      expect(talker.history.firstOrNull?.message, postRequest.url.toString());
+      expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
+      expect(
+        talker.history.firstOrNull?.generateTextMessage(),
+        '''[http-request] [POST] /test
+Headers: {
+  "content-type": "application/x-www-form-urlencoded; charset=utf-8"
+}
+Data: foo=bar&baz=qux''',
+      );
+    });
+
+    test('intercept method should log http PUT request', () async {
+      logger.configure(printRequestHeaders: true);
+
+      final Request putRequest = fakeRequest.copyWith(
+        method: HttpMethod.Put,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: jsonEncode({
+          'foo': 'bar',
+          'baz': 'qux',
+        }),
+      );
+
+      await logger.intercept<String>(FakeChain<String>(putRequest));
+
+      expect(talker.history.firstOrNull?.message, putRequest.url.toString());
+      expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
+      expect(
+        talker.history.firstOrNull?.generateTextMessage(),
+        '''[http-request] [PUT] /test
+Headers: {
+  "Content-Type": "application/json; charset=utf-8"
+}
+Data: {
+  "foo": "bar",
+  "baz": "qux"
+}''',
+      );
+    });
+
+    test('intercept method should log http PATCH request', () async {
+      logger.configure(printRequestHeaders: true);
+
+      final Request putRequest = fakeRequest.copyWith(
+        method: HttpMethod.Patch,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: jsonEncode({
+          'foo': 'bar',
+          'baz': 'qux',
+        }),
+      );
+
+      await logger.intercept<String>(FakeChain<String>(putRequest));
+
+      expect(talker.history.firstOrNull?.message, putRequest.url.toString());
+      expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
+      expect(
+        talker.history.firstOrNull?.generateTextMessage(),
+        '''[http-request] [PATCH] /test
+Headers: {
+  "Content-Type": "application/json; charset=utf-8"
+}
+Data: {
+  "foo": "bar",
+  "baz": "qux"
+}''',
+      );
+    });
+
+    test('intercept method should log http DELETE request', () async {
+      logger.configure(printRequestHeaders: true);
+
+      final Request deleteRequest =
+          fakeRequest.copyWith(method: HttpMethod.Delete);
+
+      await logger.intercept<String>(FakeChain<String>(deleteRequest));
+
+      expect(talker.history.firstOrNull?.message, deleteRequest.url.toString());
+      expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
+      expect(
+        talker.history.firstOrNull?.generateTextMessage(),
+        '[http-request] [DELETE] /test',
+      );
+    });
+
+    test('intercept method should log http OPTIONS request', () async {
+      logger.configure(printRequestHeaders: true);
+
+      final Request deleteRequest =
+          fakeRequest.copyWith(method: HttpMethod.Options);
+
+      await logger.intercept<String>(FakeChain<String>(deleteRequest));
+
+      expect(talker.history.firstOrNull?.message, deleteRequest.url.toString());
+      expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
+      expect(
+        talker.history.firstOrNull?.generateTextMessage(),
+        '[http-request] [OPTIONS] /test',
+      );
+    });
+
+    test('intercept method should log http HEAD request', () async {
+      logger.configure(printRequestHeaders: true);
+
+      final Request headRequest = fakeRequest.copyWith(method: HttpMethod.Head);
+
+      await logger.intercept<String>(FakeChain<String>(headRequest));
+
+      expect(talker.history.firstOrNull?.message, headRequest.url.toString());
+      expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
+      expect(
+        talker.history.firstOrNull?.generateTextMessage(),
+        '[http-request] [HEAD] /test',
       );
     });
 

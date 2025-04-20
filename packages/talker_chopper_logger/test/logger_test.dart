@@ -93,7 +93,7 @@ Data: "responseBody"''',
       );
     });
 
-    test('intercept method should log http response error', () async {
+    test('intercept method should log http 4xx response error', () async {
       final Response<String> fakeResponse = Response<String>(
         http.Response(
           'responseErrorBodyBase',
@@ -113,6 +113,30 @@ Data: "responseBody"''',
         talker.history.lastOrNull?.generateTextMessage(),
         '''[http-error] [GET] /test
 Status: 400
+Data: "responseErrorBody"''',
+      );
+    });
+
+    test('intercept method should log http 5xx response error', () async {
+      final Response<String> fakeResponse = Response<String>(
+        http.Response(
+          'responseErrorBodyBase',
+          500,
+          request: await fakeRequest.toBaseRequest(),
+        ),
+        'responseErrorBody',
+      );
+
+      await logger.intercept<String>(
+        FakeChain<String>(fakeRequest, response: fakeResponse),
+      );
+
+      expect(talker.history, isNotEmpty);
+      expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+      expect(
+        talker.history.lastOrNull?.generateTextMessage(),
+        '''[http-error] [GET] /test
+Status: 500
 Data: "responseErrorBody"''',
       );
     });

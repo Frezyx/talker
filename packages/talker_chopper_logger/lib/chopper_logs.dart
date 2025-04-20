@@ -47,6 +47,15 @@ class ChopperRequestLog extends TalkerLog {
       msg.writeln('[cURL] ${request.toCurl(headers: headers)}');
     }
 
+    if (settings.printRequestHeaders && headers.isNotEmpty) {
+      try {
+        msg.writeln('Headers: ${_encoder.convert(headers)}');
+      } catch (error, stackTrace) {
+        msg.writeln('Headers: <failed to convert headers: $error>');
+        print('Error converting headers: $error\n$stackTrace');
+      }
+    }
+
     if (settings.printRequestData) {
       switch (request) {
         case http.Request req when req.body.isNotEmpty:
@@ -81,15 +90,6 @@ class ChopperRequestLog extends TalkerLog {
           break;
         default:
           break;
-      }
-    }
-
-    if (settings.printRequestHeaders && headers.isNotEmpty) {
-      try {
-        msg.writeln('Headers: ${_encoder.convert(headers)}');
-      } catch (error, stackTrace) {
-        msg.writeln('Headers: <failed to convert headers: $error>');
-        print('Error converting headers: $error\n$stackTrace');
       }
     }
 
@@ -161,15 +161,6 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
       msg.writeln('Message: $responseMessage');
     }
 
-    if (settings.printResponseData && data != null) {
-      try {
-        msg.writeln('Data: ${_encoder.convert(data)}');
-      } catch (error, stackTrace) {
-        msg.writeln('Data: <failed to convert data: $error>');
-        print('Error converting data: $error\n$stackTrace');
-      }
-    }
-
     if (settings.printResponseHeaders && headers.isNotEmpty) {
       try {
         msg.writeln('Headers: ${_encoder.convert(headers)}');
@@ -182,6 +173,16 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
     if (settings.printResponseRedirects && isRedirect) {
       msg.writeln('Redirect: $isRedirect');
     }
+
+    if (settings.printResponseData && data != null) {
+      try {
+        msg.writeln('Data: ${_encoder.convert(data)}');
+      } catch (error, stackTrace) {
+        msg.writeln('Data: <failed to convert data: $error>');
+        print('Error converting data: $error\n$stackTrace');
+      }
+    }
+
     return msg.toString().trimRight();
   }
 }
@@ -251,12 +252,14 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
       msg.writeln('Message: $responseMessage');
     }
 
-    if (settings.printErrorData && body != null) {
-      msg.writeln('Data: ${_encoder.convert(body)}');
-    }
     if (settings.printErrorHeaders && (headers?.isNotEmpty ?? false)) {
       msg.writeln('Headers: ${_encoder.convert(headers)}');
     }
+
+    if (settings.printErrorData && body != null) {
+      msg.writeln('Data: ${_encoder.convert(body)}');
+    }
+
     return msg.toString().trimRight();
   }
 }

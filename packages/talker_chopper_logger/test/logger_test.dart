@@ -451,10 +451,10 @@ Data: "responseErrorBody"''',
           ),
         );
       } finally {
-        final String out = talker.history.last.generateTextMessage();
-
         expect(talker.history, isNotEmpty);
         expect(talker.history.lastOrNull, isA<TalkerLog>());
+
+        final String out = talker.history.last.generateTextMessage();
         expect(
           RegExp(
             r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| Exception: foo error',
@@ -482,10 +482,9 @@ Data: "responseErrorBody"''',
           ),
         );
       } finally {
-        final String out = talker.history.last.generateTextMessage();
-
         expect(talker.history, isNotEmpty);
         expect(talker.history.lastOrNull, isA<TalkerLog>());
+        final String out = talker.history.last.generateTextMessage();
         expect(
           RegExp(
             r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| TimeoutException: too late',

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:chopper/chopper.dart';
 import 'package:http/http.dart' as http;
 import 'package:talker/talker.dart';
@@ -449,14 +451,48 @@ Data: "responseErrorBody"''',
           ),
         );
       } finally {
+        final String out = talker.history.last.generateTextMessage();
+
         expect(talker.history, isNotEmpty);
         expect(talker.history.lastOrNull, isA<TalkerLog>());
         expect(
           RegExp(
-            r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| Exception: foo error\nException: foo error',
+            r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| Exception: foo error',
+          ).hasMatch(out),
+          isTrue,
+        );
+        expect(out, contains('StackTrace:'));
+      }
+    });
+
+    test('intercept should log Timeout Exception', () async {
+      final TimeoutException exception = TimeoutException("too late");
+
+      try {
+        await logger.intercept<String>(
+          FakeChain<String>(fakeRequest, exception: exception),
+        );
+      } catch (err) {
+        expect(
+          err,
+          isA<Exception>().having(
+            (Exception error) => error.toString(),
+            'message',
+            contains('too late'),
+          ),
+        );
+      } finally {
+        final String out = talker.history.last.generateTextMessage();
+
+        expect(talker.history, isNotEmpty);
+        expect(talker.history.lastOrNull, isA<TalkerLog>());
+        expect(
+          RegExp(
+            r'^\[error\] \| \d{1,2}:\d{1,2}:\d{1,2} \d+ms \| TimeoutException: too late',
           ).hasMatch(talker.history.last.generateTextMessage()),
           isTrue,
         );
+        expect(out, contains('StackTrace:'));
       }
     });
   });

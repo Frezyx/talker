@@ -77,9 +77,6 @@ class ChopperRequestLog extends TalkerLog {
         }
       }
 
-      // HTTP headers are case-insensitive by standard
-      _replaceHiddenHeaders(headers);
-
       if (settings.printRequestHeaders && headers.isNotEmpty) {
         msg.writeln('Headers: ${_encoder.convert(headers)}');
       }

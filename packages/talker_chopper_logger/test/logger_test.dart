@@ -475,8 +475,8 @@ Data: "responseErrorBody"''',
       } catch (err) {
         expect(
           err,
-          isA<Exception>().having(
-            (Exception error) => error.toString(),
+          isA<TimeoutException>().having(
+            (TimeoutException error) => error.toString(),
             'message',
             contains('too late'),
           ),

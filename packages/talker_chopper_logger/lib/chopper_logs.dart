@@ -47,42 +47,52 @@ class ChopperRequestLog extends TalkerLog {
       msg.writeln('[cURL] ${request.toCurl(headers: headers)}');
     }
 
-    try {
-      if (settings.printRequestData) {
-        switch (request) {
-          case http.Request req when req.body.isNotEmpty:
-            try {
-              // Try to decode the body as JSON
-              msg.writeln('Data: ${_encoder.convert(jsonDecode(req.body))}');
-            } on FormatException {
-              // Return original text if it’s not valid JSON
-              msg.writeln('Data: ${req.body}');
-            }
-            break;
-          case http.MultipartRequest req
-              when req.fields.isNotEmpty || req.files.isNotEmpty:
-            msg.writeln('Data: ${_encoder.convert(
-              {
-                ...req.fields,
-                for (final http.MultipartFile file in req.files)
-                  file.field: file.filename ?? ''
-              },
-            )}');
-            break;
-          case Request req when req.body != null:
+    if (settings.printRequestData) {
+      switch (request) {
+        case http.Request req when req.body.isNotEmpty:
+          try {
+            // Try to decode the body as JSON
+            msg.writeln('Data: ${_encoder.convert(jsonDecode(req.body))}');
+          } on FormatException {
+            // Return original text if it’s not valid JSON
+            msg.writeln('Data: ${req.body}');
+          } catch (error, stackTrace) {
+            msg.writeln('Data: <failed to convert data: $error>');
+            print('Error converting data: $error\n$stackTrace');
+          }
+          break;
+        case http.MultipartRequest req
+            when req.fields.isNotEmpty || req.files.isNotEmpty:
+          msg.writeln('Data: ${_encoder.convert(
+            {
+              ...req.fields,
+              for (final http.MultipartFile file in req.files)
+                file.field: file.filename ?? ''
+            },
+          )}');
+          break;
+        case Request req when req.body != null:
+          try {
             msg.writeln('Data: ${_encoder.convert(req.body)}');
-            break;
-          default:
-            break;
-        }
+          } catch (error, stackTrace) {
+            msg.writeln('Data: <failed to convert data: $error>');
+            print('Error converting data: $error\n$stackTrace');
+          }
+          break;
+        default:
+          break;
       }
-
-      if (settings.printRequestHeaders && headers.isNotEmpty) {
-        msg.writeln('Headers: ${_encoder.convert(headers)}');
-      }
-    } catch (_) {
-      // TODO: add handling can`t convert
     }
+
+    if (settings.printRequestHeaders && headers.isNotEmpty) {
+      try {
+        msg.writeln('Headers: ${_encoder.convert(headers)}');
+      } catch (error, stackTrace) {
+        msg.writeln('Headers: <failed to convert headers: $error>');
+        print('Error converting headers: $error\n$stackTrace');
+      }
+    }
+
     return msg.toString().trimRight();
   }
 
@@ -151,19 +161,26 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
       msg.writeln('Message: $responseMessage');
     }
 
-    try {
-      if (settings.printResponseData && data != null) {
+    if (settings.printResponseData && data != null) {
+      try {
         msg.writeln('Data: ${_encoder.convert(data)}');
+      } catch (error, stackTrace) {
+        msg.writeln('Data: <failed to convert data: $error>');
+        print('Error converting data: $error\n$stackTrace');
       }
-      if (settings.printResponseHeaders && headers.isNotEmpty) {
-        msg.writeln('Headers: ${_encoder.convert(headers)}');
-      }
+    }
 
-      if (settings.printResponseRedirects && isRedirect) {
-        msg.writeln('Redirect: $isRedirect');
+    if (settings.printResponseHeaders && headers.isNotEmpty) {
+      try {
+        msg.writeln('Headers: ${_encoder.convert(headers)}');
+      } catch (error, stackTrace) {
+        msg.writeln('Headers: <failed to convert headers: $error>');
+        print('Error converting headers: $error\n$stackTrace');
       }
-    } catch (_) {
-      // TODO: add handling can`t convert
+    }
+
+    if (settings.printResponseRedirects && isRedirect) {
+      msg.writeln('Redirect: $isRedirect');
     }
     return msg.toString().trimRight();
   }

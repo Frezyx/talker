@@ -176,7 +176,7 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
     required this.chopperException,
     required this.settings,
     this.responseTime = 0,
-  });
+  }) : super(exception: chopperException);
 
   final Request? request;
   final ChopperException chopperException;
@@ -212,7 +212,7 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
         ' ${chopperException.response?.base.request?.url ?? chopperException.request?.url ?? request?.url}',
       );
     }
-    msg.writeln(' $message');
+    msg.writeln();
 
     final String responseMessage = chopperException.message;
     final int? statusCode = chopperException.response?.statusCode;

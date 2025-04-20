@@ -176,6 +176,7 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
     required this.chopperException,
     required this.settings,
     this.responseTime = 0,
+    super.stackTrace,
   }) : super(exception: chopperException);
 
   final Request? request;

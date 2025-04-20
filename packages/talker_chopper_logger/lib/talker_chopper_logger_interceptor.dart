@@ -131,7 +131,7 @@ class TalkerChopperLogger implements Interceptor {
       }
 
       return response;
-    } on ChopperException catch (error) {
+    } on ChopperException catch (error, stackTrace) {
       if (settings.enabled &&
           error.response != null &&
           (settings.errorFilter?.call(error.response!) ?? true)) {
@@ -141,6 +141,7 @@ class TalkerChopperLogger implements Interceptor {
               error.message,
               settings: settings,
               chopperException: error,
+              stackTrace: stackTrace,
             ),
           );
         } catch (_) {}

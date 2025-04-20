@@ -109,7 +109,7 @@ Data: "responseBody"''',
       expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
       expect(
         talker.history.lastOrNull?.generateTextMessage(),
-        '''[http-error] [GET] /test HTTP Error 400
+        '''[http-error] [GET] /test
 Status: 400
 Data: "responseErrorBody"''',
       );
@@ -211,7 +211,7 @@ Data: "responseBody"''',
 
         expect(
           talker.history.lastOrNull?.generateTextMessage(),
-          '''[http-error] [GET] /test HTTP Error 400
+          '''[http-error] [GET] /test
 Status: 400
 Time: 0 ms
 Data: "responseErrorBody"''',
@@ -299,7 +299,7 @@ Data: "responseErrorBody"''',
         expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
         expect(
           talker.history.lastOrNull?.generateTextMessage(),
-          '''[http-error] [GET] /test foo error
+          '''[http-error] [GET] /test
 Status: 400
 Message: foo error
 Data: "responseErrorBody"''',
@@ -338,7 +338,7 @@ Data: "responseErrorBody"''',
         expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
         expect(
           talker.history.lastOrNull?.generateTextMessage(),
-          '''[http-error] [GET] /test foo error
+          '''[http-error] [GET] /test
 Status: 400
 Message: foo error
 Data: "responseErrorBody"''',
@@ -378,7 +378,7 @@ Data: "responseErrorBody"''',
         expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
         expect(
           talker.history.lastOrNull?.generateTextMessage(),
-          '''[http-error] foo error
+          '''[http-error]
 Status: 400
 Message: foo error
 Data: "responseErrorBody"''',
@@ -422,7 +422,7 @@ Data: "responseErrorBody"''',
           expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
           expect(
             talker.history.lastOrNull?.generateTextMessage(),
-            '''[http-error] [GET] /test foo error
+            '''[http-error] [GET] /test
 Status: 400
 Time: 0 ms
 Message: foo error

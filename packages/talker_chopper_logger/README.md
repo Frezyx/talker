@@ -82,6 +82,51 @@ final client = ChopperClient(
 );
 ```
 
+### Print HTTP request curl command
+
+You can print the curl command for the HTTP request in the console.
+This is useful for debugging and testing purposes.
+
+```dart
+final client = ChopperClient(
+  /// ... other chopper settings
+  interceptors: [
+    TalkerChopperLogger(
+      talker: _talker,
+      settings: const TalkerChopperLoggerSettings(
+        // Print curl command for HTTP request
+        printRequestCurl: true,
+      ),
+    ),
+  ],
+);
+```
+
+### Hiding sensitive HTTP request headers
+
+You can hide sensitive HTTP request headers such as `Authorization` or `Cookie` in the console logs.
+This is useful for security purposes.
+
+```dart
+final client = ChopperClient(
+  /// ... other chopper settings
+  interceptors: [
+    TalkerChopperLogger(
+      talker: _talker,
+      settings: const TalkerChopperLoggerSettings(
+        printRequestHeaders: true,
+        printResponseHeaders: true,
+        // Hide sensitive HTTP request headers
+        hiddenHeaders: {
+          'authorization',
+          'cookie',
+        },
+      ),
+    ),
+  ],
+);
+```
+
 ### Change HTTP logs colors
 
 Customize your HTTP log colors by defining specific colors for requests, responses, and errors in 

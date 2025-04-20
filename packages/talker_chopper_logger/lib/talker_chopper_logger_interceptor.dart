@@ -76,15 +76,13 @@ class TalkerChopperLogger implements Interceptor {
       final Request request = chain.request;
 
       if (settings.enabled && (settings.requestFilter?.call(request) ?? true)) {
-        try {
-          _talker.logCustom(
-            ChopperRequestLog(
-              request.url.toString(),
-              request: await request.toBaseRequest(),
-              settings: settings,
-            ),
-          );
-        } catch (_) {}
+        _talker.logCustom(
+          ChopperRequestLog(
+            request.url.toString(),
+            request: await request.toBaseRequest(),
+            settings: settings,
+          ),
+        );
       }
 
       stopWatch.start();
@@ -96,37 +94,32 @@ class TalkerChopperLogger implements Interceptor {
       if (response.statusCode < 400) {
         if (settings.enabled &&
             (settings.responseFilter?.call(response) ?? true)) {
-          try {
-            _talker.logCustom(
-              ChopperResponseLog<BodyType>(
-                response.base.request?.url.toString() ?? request.url.toString(),
-                settings: settings,
-                request: request,
-                response: response,
-                responseTime: stopWatch.elapsedMilliseconds,
-              ),
-            );
-          } catch (_) {}
+          _talker.logCustom(
+            ChopperResponseLog<BodyType>(
+              response.base.request?.url.toString() ?? request.url.toString(),
+              settings: settings,
+              request: request,
+              response: response,
+              responseTime: stopWatch.elapsedMilliseconds,
+            ),
+          );
         }
       } else {
         if (settings.enabled &&
             (settings.errorFilter?.call(response) ?? true)) {
-          try {
-            _talker.logCustom(
-              ChopperErrorLog<BodyType>(
-                response.error?.toString() ??
-                    'HTTP Error ${response.statusCode}',
-                settings: settings,
+          _talker.logCustom(
+            ChopperErrorLog<BodyType>(
+              response.error?.toString() ?? 'HTTP Error ${response.statusCode}',
+              settings: settings,
+              request: request,
+              chopperException: ChopperException(
+                response.error.toString(),
                 request: request,
-                chopperException: ChopperException(
-                  response.error.toString(),
-                  request: request,
-                  response: response,
-                ),
-                responseTime: stopWatch.elapsedMilliseconds,
+                response: response,
               ),
-            );
-          } catch (_) {}
+              responseTime: stopWatch.elapsedMilliseconds,
+            ),
+          );
         }
       }
 
@@ -135,24 +128,24 @@ class TalkerChopperLogger implements Interceptor {
       if (settings.enabled &&
           error.response != null &&
           (settings.errorFilter?.call(error.response!) ?? true)) {
-        try {
-          _talker.logCustom(
-            ChopperErrorLog<BodyType>(
-              error.message,
-              settings: settings,
-              chopperException: error,
-              stackTrace: stackTrace,
-            ),
-          );
-        } catch (_) {}
+        _talker.logCustom(
+          ChopperErrorLog<BodyType>(
+            error.message,
+            settings: settings,
+            chopperException: error,
+            stackTrace: stackTrace,
+          ),
+        );
       }
 
       rethrow;
-    } catch (err) {
+    } catch (err, stackTrace) {
       if (settings.enabled) {
-        try {
-          _talker.error(err.toString(), err);
-        } catch (_) {}
+        _talker.error(
+          err.toString(),
+          err,
+          stackTrace,
+        );
       }
 
       rethrow;

@@ -101,6 +101,8 @@ Talker is designed for any level of customization. <br>
 - [Talker Chopper Logger](#talker-chopper-logger)
   - [Customization](#customization-chopper)
     - [Enable or disable HTTP request or response logs](#change-http-log-colors-chopper)
+    - [Print HTTP request curl command](#print-http-request-curl-command-chopper)
+    - [Hide sensitive HTTP request headers](#hide-sensitive-http-request-headers-chopper)
     - [Change HTTP logs colors](#change-http-log-colors-chopper)
     - [Filter HTTP logs](#filter-http-logs-chopper)
     - [Using with existing Talker instance](#using-with-existing-talker-instance-chopper)
@@ -692,6 +694,7 @@ final client = ChopperClient(
 );
 ```
 
+<a id="print-http-request-curl-command-chopper"></a>
 ### Print HTTP request curl command
 
 You can print the curl command for the HTTP request in the console.
@@ -712,6 +715,7 @@ final client = ChopperClient(
 );
 ```
 
+<a id="hide-sensitive-http-request-headers-chopper"></a>
 ### Hiding sensitive HTTP request headers
 
 You can hide sensitive HTTP request headers such as `Authorization` or `Cookie` in the console logs.

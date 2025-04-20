@@ -139,13 +139,9 @@ class TalkerChopperLogger implements Interceptor {
       }
 
       rethrow;
-    } catch (err, stackTrace) {
+    } catch (error, stackTrace) {
       if (settings.enabled) {
-        _talker.error(
-          err.toString(),
-          err,
-          stackTrace,
-        );
+        _talker.error(error.toString(), error, stackTrace);
       }
 
       rethrow;

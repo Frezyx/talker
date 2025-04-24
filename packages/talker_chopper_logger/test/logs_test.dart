@@ -9,6 +9,28 @@ import 'package:talker_chopper_logger/curl_request.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
 import 'package:test/test.dart';
 
+class _MockChopperRequestLog extends ChopperRequestLog {
+  _MockChopperRequestLog(
+    super.title, {
+    required super.request,
+    required super.settings,
+  });
+
+  @override
+  String convert(Object? object) => throw Exception('forced error');
+}
+
+class _MockChopperResponseLog<BodyType> extends ChopperResponseLog<BodyType> {
+  _MockChopperResponseLog(
+    super.title, {
+    required super.response,
+    required super.settings,
+  });
+
+  @override
+  String convert(Object? object) => throw Exception('forced error');
+}
+
 void main() {
   late Request request;
 
@@ -431,6 +453,132 @@ void main() {
 
       expect(log.logLevel, equals(LogLevel.info));
     });
+
+    test('force throw exception on convert headers', () {
+      final ChopperRequestLog log = _MockChopperRequestLog(
+        'Test message',
+        request: request.copyWith(headers: {
+          'foo': 'bar',
+          'baz': 'qux',
+        }),
+        settings: const TalkerChopperLoggerSettings(printRequestHeaders: true),
+      );
+
+      expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+      expect(() => log.generateTextMessage(), returnsNormally);
+
+      final String result = log.generateTextMessage();
+      expect(result, contains('[GET] Test message'));
+      expect(result, contains('Headers: <failed to convert headers:'));
+      expect(result, contains('stackTrace:'));
+    });
+
+    test('force throw exception on convert Request JSON data', () {
+      final ChopperRequestLog log = _MockChopperRequestLog(
+        'Test message',
+        request: request.copyWith(
+          method: HttpMethod.Post,
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: jsonEncode({
+            'foo': 'bar',
+            'baz': 'qux',
+          }),
+        ),
+        settings: const TalkerChopperLoggerSettings(printRequestData: true),
+      );
+
+      expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+      expect(() => log.generateTextMessage(), returnsNormally);
+
+      final String result = log.generateTextMessage();
+      expect(result, contains('[POST] Test message'));
+      expect(result, contains('Data: <failed to convert data:'));
+      expect(result, contains('stackTrace:'));
+    });
+
+    test(
+      'force throw exception on convert BaseRequest with JSON data',
+      () async {
+        final ChopperRequestLog log = _MockChopperRequestLog(
+          'Test message',
+          request: await request
+              .copyWith(
+                method: HttpMethod.Post,
+                headers: {
+                  'content-type': 'application/json',
+                },
+                body: jsonEncode({
+                  'foo': 'bar',
+                  'baz': 'qux',
+                }),
+              )
+              .toBaseRequest(),
+          settings: const TalkerChopperLoggerSettings(printRequestData: true),
+        );
+
+        expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+        expect(() => log.generateTextMessage(), returnsNormally);
+
+        final String result = log.generateTextMessage();
+        expect(result, contains('[POST] Test message'));
+        expect(result, contains('Data: <failed to convert data:'));
+        expect(result, contains('stackTrace:'));
+      },
+    );
+
+    test('force throw exception on convert Request with Form data', () {
+      final ChopperRequestLog log = _MockChopperRequestLog(
+        'Test message',
+        request: request.copyWith(
+          method: HttpMethod.Post,
+          body: {
+            'foo': 'bar',
+            'baz': 'qux',
+          },
+        ),
+        settings: const TalkerChopperLoggerSettings(printRequestData: true),
+      );
+
+      expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+      expect(() => log.generateTextMessage(), returnsNormally);
+
+      final String result = log.generateTextMessage();
+      expect(result, contains('[POST] Test message'));
+      expect(result, contains('Data: <failed to convert data:'));
+      expect(result, contains('stackTrace:'));
+    });
+
+    test(
+        'force throw exception on convert BaseRequest with Form data does not use convert',
+        () async {
+      final ChopperRequestLog log = _MockChopperRequestLog(
+        'Test message',
+        request: await request.copyWith(
+          method: HttpMethod.Post,
+          body: {
+            'foo': 'bar',
+            'baz': 'qux',
+          },
+        ).toBaseRequest(),
+        settings: const TalkerChopperLoggerSettings(printRequestData: true),
+      );
+
+      expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+      expect(() => log.generateTextMessage(), returnsNormally);
+
+      final String result = log.generateTextMessage();
+      expect(
+        result,
+        equals('[log] [POST] Test message\nData: foo=bar&baz=qux'),
+      );
+    });
   });
 
   group('ChopperResponseLog', () {
@@ -562,6 +710,68 @@ void main() {
       );
 
       expect(log.logLevel, equals(LogLevel.warning));
+    });
+
+    test('force throw exception on convert Response headers', () async {
+      final ChopperResponseLog<String> log = _MockChopperResponseLog(
+        'Test message',
+        response: Response<String>(
+          http.Response(
+            jsonEncode({
+              'foo': 'bar',
+              'baz': 'qux',
+            }),
+            200,
+            request: await request.toBaseRequest(),
+            headers: {
+              'content-type': 'application/json',
+            },
+            reasonPhrase: 'OK',
+          ),
+          'responseBody',
+        ),
+        settings: const TalkerChopperLoggerSettings(printResponseHeaders: true),
+      );
+
+      expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+      expect(() => log.generateTextMessage(), returnsNormally);
+
+      final String result = log.generateTextMessage();
+      expect(result, contains('[GET] Test message'));
+      expect(result, contains('Headers: <failed to convert headers:'));
+      expect(result, contains('stackTrace:'));
+    });
+
+    test('force throw exception on convert Response JSON data', () async {
+      final ChopperResponseLog<String> log = _MockChopperResponseLog(
+        'Test message',
+        response: Response<String>(
+          http.Response(
+            jsonEncode({
+              'foo': 'bar',
+              'baz': 'qux',
+            }),
+            200,
+            request: await request.toBaseRequest(),
+            headers: {
+              'content-type': 'application/json',
+            },
+            reasonPhrase: 'OK',
+          ),
+          'responseBody',
+        ),
+        settings: const TalkerChopperLoggerSettings(printResponseData: true),
+      );
+
+      expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+      expect(() => log.generateTextMessage(), returnsNormally);
+
+      final String result = log.generateTextMessage();
+      expect(result, contains('[GET] Test message'));
+      expect(result, contains('Data: <failed to convert data:'));
+      expect(result, contains('stackTrace:'));
     });
   });
 

@@ -97,36 +97,38 @@ class TalkerChopperLogger implements Interceptor {
 
       stopWatch.stop();
 
-      if (response.statusCode < 400) {
-        if (settings.enabled &&
-            (settings.responseFilter?.call(response) ?? true)) {
-          _talker.logCustom(
-            ChopperResponseLog<BodyType>(
-              response.base.request?.url.toString() ?? request.url.toString(),
-              settings: settings,
-              request: request,
-              response: response,
-              responseTime: stopWatch.elapsedMilliseconds,
-            ),
-          );
-        }
-      } else {
-        if (settings.enabled &&
-            (settings.errorFilter?.call(response) ?? true)) {
-          _talker.logCustom(
-            ChopperErrorLog<BodyType>(
-              response.error?.toString() ?? 'HTTP Error ${response.statusCode}',
-              settings: settings,
-              request: request,
-              exception: ChopperException(
-                response.error.toString(),
+      switch (response.statusCode) {
+        case int statusCode when settings.enabled && statusCode < 400:
+          if (settings.responseFilter?.call(response) ?? true) {
+            _talker.logCustom(
+              ChopperResponseLog<BodyType>(
+                response.base.request?.url.toString() ?? request.url.toString(),
+                settings: settings,
                 request: request,
                 response: response,
+                responseTime: stopWatch.elapsedMilliseconds,
               ),
-              responseTime: stopWatch.elapsedMilliseconds,
-            ),
-          );
-        }
+            );
+          }
+          break;
+        case _ when settings.enabled:
+          if (settings.errorFilter?.call(response) ?? true) {
+            _talker.logCustom(
+              ChopperErrorLog<BodyType>(
+                response.error?.toString() ??
+                    'HTTP Error ${response.statusCode}',
+                settings: settings,
+                request: request,
+                exception: ChopperException(
+                  response.error.toString(),
+                  request: request,
+                  response: response,
+                ),
+                responseTime: stopWatch.elapsedMilliseconds,
+              ),
+            );
+          }
+          break;
       }
 
       return response;

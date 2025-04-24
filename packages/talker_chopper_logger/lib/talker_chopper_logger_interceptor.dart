@@ -7,9 +7,10 @@ import 'package:chopper/chopper.dart'
         Request,
         Response;
 import 'package:talker/talker.dart';
+import 'package:talker_chopper_logger/chopper_error_log.dart';
+import 'package:talker_chopper_logger/chopper_request_log.dart';
+import 'package:talker_chopper_logger/chopper_response_log.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
-
-import 'chopper_logs.dart';
 
 // ignore: must_be_immutable
 class TalkerChopperLogger implements Interceptor {

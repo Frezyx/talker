@@ -569,7 +569,7 @@ void main() {
     test('generateTextMessage should include method, title, and message', () {
       final ChopperErrorLog log = ChopperErrorLog(
         'Error title',
-        chopperException: ChopperException(
+        exception: ChopperException(
           'Error message',
           request: request,
         ),
@@ -589,7 +589,7 @@ void main() {
       () async {
         final ChopperErrorLog log = ChopperErrorLog(
           'Error title',
-          chopperException: ChopperException(
+          exception: ChopperException(
             'Error message',
             request: request,
             response: Response<String>(
@@ -637,7 +637,7 @@ void main() {
       () async {
         final ChopperErrorLog log = ChopperErrorLog(
           'Error title',
-          chopperException: ChopperException(
+          exception: ChopperException(
             'Error message',
             request: request,
             response: Response<String>(
@@ -662,7 +662,7 @@ void main() {
       () async {
         final ChopperErrorLog log = ChopperErrorLog(
           'Error title',
-          chopperException: ChopperException(
+          exception: ChopperException(
             'Error message',
             request: request,
             response: Response<Map<String, dynamic>>(
@@ -690,7 +690,7 @@ void main() {
       () async {
         final ChopperErrorLog log = ChopperErrorLog(
           'Error title',
-          chopperException: ChopperException(
+          exception: ChopperException(
             'Error message',
             request: request,
             response: Response<Map<String, dynamic>>(
@@ -724,7 +724,7 @@ void main() {
     test('logLevel should always return error level', () async {
       final ChopperErrorLog log = ChopperErrorLog(
         'Error title',
-        chopperException: ChopperException(
+        exception: ChopperException(
           'Error message',
           request: request,
           response: Response<String>(

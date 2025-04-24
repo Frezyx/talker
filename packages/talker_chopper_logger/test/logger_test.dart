@@ -436,7 +436,16 @@ Data: "responseErrorBody"''',
           http.Response(
             'responseErrorBodyBase',
             400,
-            request: await fakeRequest.toBaseRequest(),
+            request: await fakeRequest.copyWith(
+              headers: {
+                'foo': 'bar',
+                'baz': 'qux',
+              },
+            ).toBaseRequest(),
+            headers: {
+              'lorem': 'ipsum',
+              'ping': 'pong',
+            },
           ),
           'responseErrorBody',
         ),
@@ -463,6 +472,10 @@ Data: "responseErrorBody"''',
           '''[http-error] [GET] /test
 Status: 400
 Message: foo error
+Headers: {
+  "lorem": "ipsum",
+  "ping": "pong"
+}
 Data: "responseErrorBody"''',
         );
       }
@@ -476,6 +489,10 @@ Data: "responseErrorBody"''',
           http.Response(
             'responseErrorBodyBase',
             400,
+            headers: {
+              'lorem': 'ipsum',
+              'ping': 'pong',
+            },
           ),
           'responseErrorBody',
         ),
@@ -502,6 +519,10 @@ Data: "responseErrorBody"''',
           '''[http-error] [GET] /test
 Status: 400
 Message: foo error
+Headers: {
+  "lorem": "ipsum",
+  "ping": "pong"
+}
 Data: "responseErrorBody"''',
         );
       }
@@ -516,6 +537,10 @@ Data: "responseErrorBody"''',
           http.Response(
             'responseErrorBodyBase',
             400,
+            headers: {
+              'lorem': 'ipsum',
+              'ping': 'pong',
+            },
           ),
           'responseErrorBody',
         ),
@@ -542,6 +567,10 @@ Data: "responseErrorBody"''',
           '''[http-error]
 Status: 400
 Message: foo error
+Headers: {
+  "lorem": "ipsum",
+  "ping": "pong"
+}
 Data: "responseErrorBody"''',
         );
       }
@@ -559,7 +588,16 @@ Data: "responseErrorBody"''',
             http.Response(
               'responseErrorBodyBase',
               400,
-              request: await fakeRequest.toBaseRequest(),
+              request: await fakeRequest.copyWith(
+                headers: {
+                  'foo': 'bar',
+                  'baz': 'qux',
+                },
+              ).toBaseRequest(),
+              headers: {
+                'lorem': 'ipsum',
+                'ping': 'pong',
+              },
             ),
             'responseErrorBody',
           ),
@@ -587,6 +625,140 @@ Data: "responseErrorBody"''',
 Status: 400
 Time: 0 ms
 Message: foo error
+Headers: {
+  "lorem": "ipsum",
+  "ping": "pong"
+}
+Data: "responseErrorBody"''',
+          );
+        }
+      },
+    );
+
+    test('intercept should log ChopperHttpException', () async {
+      final exception = ChopperHttpException(
+        Response<String>(
+          http.Response(
+            'responseErrorBodyBase',
+            400,
+            request: await fakeRequest.copyWith(
+              headers: {
+                'foo': 'bar',
+                'baz': 'qux',
+              },
+            ).toBaseRequest(),
+            headers: {
+              'lorem': 'ipsum',
+              'ping': 'pong',
+            },
+          ),
+          'responseErrorBody',
+        ),
+      );
+
+      try {
+        await logger.intercept<String>(
+          FakeChain<String>(fakeRequest, exception: exception),
+        );
+      } catch (err) {
+        expect(err, isA<ChopperHttpException>());
+      } finally {
+        expect(talker.history, isNotEmpty);
+        expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+        expect(
+          talker.history.lastOrNull?.generateTextMessage(),
+          '''[http-error] [GET] /test
+Status: 400
+Headers: {
+  "lorem": "ipsum",
+  "ping": "pong"
+}
+Data: "responseErrorBody"''',
+        );
+      }
+    });
+
+    test('intercept should log ChopperHttpException without BaseRequest',
+        () async {
+      final ChopperHttpException exception = ChopperHttpException(
+        Response<String>(
+          http.Response(
+            'responseErrorBodyBase',
+            400,
+            headers: {
+              'lorem': 'ipsum',
+              'ping': 'pong',
+            },
+          ),
+          'responseErrorBody',
+        ),
+      );
+
+      try {
+        await logger.intercept<String>(
+          FakeChain<String>(fakeRequest, exception: exception),
+        );
+      } catch (err) {
+        expect(err, isA<ChopperHttpException>());
+      } finally {
+        expect(talker.history, isNotEmpty);
+        expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+        expect(
+          talker.history.lastOrNull?.generateTextMessage(),
+          '''[http-error]
+Status: 400
+Headers: {
+  "lorem": "ipsum",
+  "ping": "pong"
+}
+Data: "responseErrorBody"''',
+        );
+      }
+    });
+
+    test(
+      'intercept should show response time in ChopperHttpException when requested',
+      () async {
+        logger.configure(printResponseTime: true);
+
+        final ChopperHttpException exception = ChopperHttpException(
+          Response<String>(
+            http.Response(
+              'responseErrorBodyBase',
+              400,
+              request: await fakeRequest.copyWith(
+                headers: {
+                  'foo': 'bar',
+                  'baz': 'qux',
+                },
+              ).toBaseRequest(),
+              headers: {
+                'lorem': 'ipsum',
+                'ping': 'pong',
+              },
+            ),
+            'responseErrorBody',
+          ),
+        );
+
+        try {
+          await logger.intercept<String>(
+            FakeChain<String>(fakeRequest, exception: exception),
+          );
+        } catch (err) {
+          expect(err, isA<ChopperHttpException>());
+        } finally {
+          expect(talker.history, isNotEmpty);
+          expect(talker.history.lastOrNull, isA<ChopperErrorLog<String>>());
+          expect(
+            talker.history.lastOrNull?.generateTextMessage(),
+            '''[http-error] [GET] /test
+Status: 400
+Time: 0 ms
+Headers: {
+  "lorem": "ipsum",
+  "ping": "pong"
+}
 Data: "responseErrorBody"''',
           );
         }

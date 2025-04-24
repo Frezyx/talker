@@ -1,5 +1,11 @@
 import 'package:chopper/chopper.dart'
-    show Chain, ChopperException, Interceptor, Request, Response;
+    show
+        Chain,
+        ChopperException,
+        ChopperHttpException,
+        Interceptor,
+        Request,
+        Response;
 import 'package:talker/talker.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_settings.dart';
 
@@ -112,7 +118,7 @@ class TalkerChopperLogger implements Interceptor {
               response.error?.toString() ?? 'HTTP Error ${response.statusCode}',
               settings: settings,
               request: request,
-              chopperException: ChopperException(
+              exception: ChopperException(
                 response.error.toString(),
                 request: request,
                 response: response,
@@ -124,24 +130,38 @@ class TalkerChopperLogger implements Interceptor {
       }
 
       return response;
-    } on ChopperException catch (error, stackTrace) {
+    } on ChopperHttpException catch (exception, stackTrace) {
       if (settings.enabled &&
-          error.response != null &&
-          (settings.errorFilter?.call(error.response!) ?? true)) {
+          (settings.errorFilter?.call(exception.response) ?? true)) {
         _talker.logCustom(
           ChopperErrorLog<BodyType>(
-            error.message,
+            exception.toString(),
             settings: settings,
-            chopperException: error,
+            exception: exception,
             stackTrace: stackTrace,
           ),
         );
       }
 
       rethrow;
-    } catch (error, stackTrace) {
+    } on ChopperException catch (exception, stackTrace) {
+      if (settings.enabled &&
+          exception.response != null &&
+          (settings.errorFilter?.call(exception.response!) ?? true)) {
+        _talker.logCustom(
+          ChopperErrorLog<BodyType>(
+            exception.message,
+            settings: settings,
+            exception: exception,
+            stackTrace: stackTrace,
+          ),
+        );
+      }
+
+      rethrow;
+    } catch (exception, stackTrace) {
       if (settings.enabled) {
-        _talker.error(error.toString(), error, stackTrace);
+        _talker.error(exception.toString(), exception, stackTrace);
       }
 
       rethrow;

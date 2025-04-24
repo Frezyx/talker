@@ -4,7 +4,9 @@ import 'dart:convert';
 import 'package:chopper/chopper.dart';
 import 'package:http/http.dart' as http;
 import 'package:talker/talker.dart';
-import 'package:talker_chopper_logger/chopper_logs.dart';
+import 'package:talker_chopper_logger/chopper_error_log.dart';
+import 'package:talker_chopper_logger/chopper_request_log.dart';
+import 'package:talker_chopper_logger/chopper_response_log.dart';
 import 'package:talker_chopper_logger/talker_chopper_logger_interceptor.dart';
 import 'package:test/test.dart';
 

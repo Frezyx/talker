@@ -1,4 +1,5 @@
 import 'dart:convert' show JsonEncoder, jsonDecode;
+import 'package:meta/meta.dart' show visibleForTesting;
 
 import 'package:chopper/chopper.dart'
     show ChopperException, ChopperHttpException, Request, Response;
@@ -30,6 +31,9 @@ class ChopperRequestLog extends TalkerLog {
   @override
   LogLevel get logLevel => settings.logLevel;
 
+  @visibleForTesting
+  String convert(Object? object) => _encoder.convert(object);
+
   @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
@@ -50,30 +54,41 @@ class ChopperRequestLog extends TalkerLog {
 
     if (settings.printRequestHeaders && headers.isNotEmpty) {
       try {
-        msg.writeln('Headers: ${_encoder.convert(headers)}');
+        msg.writeln('Headers: ${convert(headers)}');
       } catch (error, stackTrace) {
-        msg.writeln('Headers: <failed to convert headers: $error>');
-        print('Error converting headers: $error\n$stackTrace');
+        msg.writeln(
+          'Headers: <failed to convert headers: $error\nstackTrace: $stackTrace>',
+        );
       }
     }
 
     if (settings.printRequestData) {
       switch (request) {
         case http.Request req when req.body.isNotEmpty:
+          late final dynamic jsonData;
           try {
-            // Try to decode the body as JSON
-            msg.writeln('Data: ${_encoder.convert(jsonDecode(req.body))}');
-          } on FormatException {
-            // Return original text if it’s not valid JSON
-            msg.writeln('Data: ${req.body}');
+            jsonData = jsonDecode(req.body);
+          } catch (_) {
+            jsonData = null;
+          }
+
+          try {
+            if (jsonData != null) {
+              msg.writeln('Data: ${convert(jsonData)}');
+              break;
+            } else {
+              msg.writeln('Data: ${req.body}');
+              break;
+            }
           } catch (error, stackTrace) {
-            msg.writeln('Data: <failed to convert data: $error>');
-            print('Error converting data: $error\n$stackTrace');
+            msg.writeln(
+              'Data: <failed to convert data: $error\nstackTrace: $stackTrace>',
+            );
           }
           break;
         case http.MultipartRequest req
             when req.fields.isNotEmpty || req.files.isNotEmpty:
-          msg.writeln('Data: ${_encoder.convert(
+          msg.writeln('Data: ${convert(
             {
               ...req.fields,
               for (final http.MultipartFile file in req.files)
@@ -83,10 +98,11 @@ class ChopperRequestLog extends TalkerLog {
           break;
         case Request req when req.body != null:
           try {
-            msg.writeln('Data: ${_encoder.convert(req.body)}');
+            msg.writeln('Data: ${convert(req.body)}');
           } catch (error, stackTrace) {
-            msg.writeln('Data: <failed to convert data: $error>');
-            print('Error converting data: $error\n$stackTrace');
+            msg.writeln(
+              'Data: <failed to convert data: $error\nstackTrace: $stackTrace>',
+            );
           }
           break;
         default:
@@ -135,6 +151,9 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
   @override
   LogLevel get logLevel => settings.logLevel;
 
+  @visibleForTesting
+  String convert(Object? object) => _encoder.convert(object);
+
   @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
@@ -164,10 +183,11 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
 
     if (settings.printResponseHeaders && headers.isNotEmpty) {
       try {
-        msg.writeln('Headers: ${_encoder.convert(headers)}');
+        msg.writeln('Headers: ${convert(headers)}');
       } catch (error, stackTrace) {
-        msg.writeln('Headers: <failed to convert headers: $error>');
-        print('Error converting headers: $error\n$stackTrace');
+        msg.writeln(
+          'Headers: <failed to convert headers: $error\nstackTrace: $stackTrace>',
+        );
       }
     }
 
@@ -177,10 +197,11 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
 
     if (settings.printResponseData && data != null) {
       try {
-        msg.writeln('Data: ${_encoder.convert(data)}');
+        msg.writeln('Data: ${convert(data)}');
       } catch (error, stackTrace) {
-        msg.writeln('Data: <failed to convert data: $error>');
-        print('Error converting data: $error\n$stackTrace');
+        msg.writeln(
+          'Data: <failed to convert data: $error\nstackTrace: $stackTrace>',
+        );
       }
     }
 
@@ -210,6 +231,9 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
 
   @override
   LogLevel get logLevel => LogLevel.error;
+
+  @visibleForTesting
+  String convert(Object? object) => _encoder.convert(object);
 
   @override
   String generateTextMessage({
@@ -256,11 +280,11 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
         }
 
         if (settings.printErrorHeaders && (headers?.isNotEmpty ?? false)) {
-          msg.writeln('Headers: ${_encoder.convert(headers)}');
+          msg.writeln('Headers: ${convert(headers)}');
         }
 
         if (settings.printErrorData && body != null) {
-          msg.writeln('Data: ${_encoder.convert(body)}');
+          msg.writeln('Data: ${convert(body)}');
         }
         break;
       case ChopperHttpException chopperHttpException:
@@ -286,11 +310,11 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
         }
 
         if (settings.printErrorHeaders && headers.isNotEmpty) {
-          msg.writeln('Headers: ${_encoder.convert(headers)}');
+          msg.writeln('Headers: ${convert(headers)}');
         }
 
         if (settings.printErrorData && body != null) {
-          msg.writeln('Data: ${_encoder.convert(body)}');
+          msg.writeln('Data: ${convert(body)}');
         }
         break;
       default:

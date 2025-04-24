@@ -130,38 +130,36 @@ class TalkerChopperLogger implements Interceptor {
       }
 
       return response;
-    } on ChopperHttpException catch (exception, stackTrace) {
-      if (settings.enabled &&
-          (settings.errorFilter?.call(exception.response) ?? true)) {
-        _talker.logCustom(
-          ChopperErrorLog<BodyType>(
-            exception.toString(),
-            settings: settings,
-            exception: exception,
-            stackTrace: stackTrace,
-          ),
-        );
-      }
-
-      rethrow;
-    } on ChopperException catch (exception, stackTrace) {
-      if (settings.enabled &&
-          exception.response != null &&
-          (settings.errorFilter?.call(exception.response!) ?? true)) {
-        _talker.logCustom(
-          ChopperErrorLog<BodyType>(
-            exception.message,
-            settings: settings,
-            exception: exception,
-            stackTrace: stackTrace,
-          ),
-        );
-      }
-
-      rethrow;
     } catch (exception, stackTrace) {
-      if (settings.enabled) {
-        _talker.error(exception.toString(), exception, stackTrace);
+      switch (exception) {
+        case ChopperHttpException ex when settings.enabled:
+          if (settings.errorFilter?.call(ex.response) ?? true) {
+            _talker.logCustom(
+              ChopperErrorLog<BodyType>(
+                ex.toString(),
+                settings: settings,
+                exception: ex,
+                stackTrace: stackTrace,
+              ),
+            );
+          }
+          break;
+        case ChopperException ex when settings.enabled:
+          if (ex.response != null &&
+              (settings.errorFilter?.call(ex.response!) ?? true)) {
+            _talker.logCustom(
+              ChopperErrorLog<BodyType>(
+                ex.message,
+                settings: settings,
+                exception: ex,
+                stackTrace: stackTrace,
+              ),
+            );
+          }
+          break;
+        case _ when settings.enabled:
+          _talker.error(exception.toString(), exception, stackTrace);
+          break;
       }
 
       rethrow;

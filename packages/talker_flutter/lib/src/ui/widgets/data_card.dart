@@ -181,9 +181,6 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _message {
-    if (widget.data is TalkerError || widget.data is TalkerException) {
-      return null;
-    }
     final isHttpLog = [
       TalkerLogType.httpError.key,
       TalkerLogType.httpRequest.key,
@@ -197,7 +194,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
 
   String? get _errorMessage {
     var txt =
-        widget.data.exception?.toString() ?? widget.data.exception?.toString();
+        widget.data.exception?.toString() ?? widget.data.error?.toString();
 
     if ((txt?.isNotEmpty ?? false) && txt!.contains('Source stack:')) {
       txt = 'Data: ${txt.split('Source stack:').first.replaceAll('\n', '')}';

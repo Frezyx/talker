@@ -1,3 +1,8 @@
+# 0.1.0-dev.44
+- [talker_flutter] Fixed missing info and detailed message for exceptions
+
+Thanks to [salarshad](https://github.com/salarshad)
+
 # 0.1.0-dev.43
 - [talker_dio_logger] Add response time to logs
 - Add ``printResponseTime`` field for ``TalkerDioLoggerSettings`` to turn on/off response time printing

@@ -127,6 +127,7 @@ class TalkerDioLoggerSettings {
     bool Function(Response response)? responseFilter,
     bool Function(DioException response)? errorFilter,
     Set<String>? hiddenHeaders,
+    LogLevel? logLevel,
   }) {
     return TalkerDioLoggerSettings(
       printResponseData: printResponseData ?? this.printResponseData,
@@ -145,6 +146,7 @@ class TalkerDioLoggerSettings {
       responseFilter: responseFilter ?? this.responseFilter,
       errorFilter: errorFilter ?? this.errorFilter,
       hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
+      logLevel: logLevel ?? this.logLevel,
     );
   }
 }

@@ -21,3 +21,4 @@ jobs:
     uses: ./.github/workflows/dart_test.yaml
     with:
       package: talker_dio_logger
+

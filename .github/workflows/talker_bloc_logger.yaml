@@ -5,11 +5,16 @@ on:
     paths:
       - "packages/talker_bloc_logger/**"
       - ".github/workflows/talker_bloc_logger.yaml"
-
   pull_request:
     paths:
       - "packages/talker_bloc_logger/**"
       - ".github/workflows/talker_bloc_logger.yaml"
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+permissions: read-all
 
 jobs:
   test:

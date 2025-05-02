@@ -1,3 +1,105 @@
+# 0.1.0-dev.44
+- [talker_flutter] Fixed missing info and detailed message for exceptions
+
+Thanks to [salarshad](https://github.com/salarshad)
+
+# 0.1.0-dev.43
+- [talker_dio_logger] Add response time to logs
+- Add ``printResponseTime`` field for ``TalkerDioLoggerSettings`` to turn on/off response time printing
+
+Thanks to [troyanskiy](https://github.com/troyanskiy)
+
+# 0.1.0-dev.42
+- [talker_flutter] Fix scroll issue and widget usability with high text scale
+
+Thanks to [federicoviceconti](https://github.com/federicoviceconti)
+
+# 0.1.0-dev.41
+- [talker_flutter] Remove deprecated dart:html
+- [talker_logger] Remove deprecated dart:html
+
+Thanks to [Mooyeee](https://github.com/Mooyeee)
+
+# 0.1.0-dev.40
+- [talker] Fix search filtering rules<br>
+  Now ``titles && types && searchQuery`` replace ``titles || types || searchQuery`` logic
+
+Thanks to [N1X41](https://github.com/N1X41)
+
+# 0.1.0-dev.39
+- [talker_dio_logger] Fix ``hiddenHeaders`` alters the request headers
+
+Thanks to [amrgetment](https://github.com/amrgetment)
+
+# 0.1.0-dev.38
+- [talker_flutter] Rename conflict extension `firstWhereOrNull` from `collection`
+
+Thanks to [Bogdan778](https://github.com/Bogdan778)
+
+# 0.1.0-dev.37
+- [talker_dio_logger] Add `printResponseRedirects` field into `TalkerDioLoggerSettings` to print Response redirects
+
+Thanks to [federicoviceconti](https://github.com/federicoviceconti)
+
+# 0.1.0-dev.36
+- [talker_flutter] Fix search textfield background color become white in light theme
+
+Thanks to [asadman1523](https://github.com/asadman1523)
+
+# 0.1.0-dev.35
+- [talker] Fix CustomLogs ``pen`` field ignoring by console [issue#313](https://github.com/Frezyx/talker/issues/313)
+
+# 0.1.0-dev.34
+- [talker_dio_logger] Fix substitution of hidden headers ``hiddenHeaders`` field in ``TalkerDioLoggerSettings``
+
+# 0.1.0-dev.33
+- [talker_http_logger] Add settings ``TalkerLoggerSettings`` field to setup http logger settings
+- [talker_http_logger] Add ``hiddenHeaders`` field in ``TalkerLoggerSettings`` to hide specific and sensitive http logger headers
+
+Thanks to [Ilushnik](https://github.com/Ilushnik)
+
+# 0.1.0-dev.32
+- [talker_dio_logger] Add ``hiddenHeaders`` field in ``TalkerDioLoggerSettings`` to hide specific and sensitive dio logger headers
+
+Thanks to [Ilushnik](https://github.com/Ilushnik)
+
+# 0.1.0-dev.31
+- [talker_bloc_logger] Bump bloc version to 9.0.0
+
+# 0.1.0-dev.30
+- [talker_flutter] Proper migration of support to the web using both html and wasm
+- [talker_flutter] Update example dart sdk version to '>=3.6.0 <4.0.0'
+
+Thanks to [yelmuratoff](https://github.com/yelmuratoff)
+
+# 0.1.0-dev.29
+- [talker_flutter] Correction the import file name in the talker_flutter log downloader web
+
+Thanks to [samanzamani](https://github.com/samanzamani)
+
+# 0.1.0-dev.28
+- [talker_flutter] Migrate downloadLogs export to new js_interop package
+
+# 0.1.0-dev.27
+- [talker_flutter] Add new web api support for download logs file
+
+# 0.1.0-dev.26
+- [talker_flutter] Add support WASM for Flutter Web
+- [talker_flutter] Support flutter 3.27, remove deprecations
+
+Thanks to [abdelaziz-mahdy](https://github.com/abdelaziz-mahdy)
+
+# 0.1.0-dev.25
+- [talker_flutter] Add copy functionality for filtered logs
+
+Thanks to [abdelaziz-mahdy](https://github.com/abdelaziz-mahdy)
+
+# 0.1.0-dev.24
+- [talker] Add history logging filter by LogLevel
+- [talker_flutter] Fix TalkerScreen does not respect configured LogLevel setting
+
+Thanks to [mylukin](https://github.com/mylukin)
+
 # 0.1.0-dev.23
 - [talker_flutter] Add isLogsExpanded and isLogOrderReversed flags to TalkerScreen widget
 

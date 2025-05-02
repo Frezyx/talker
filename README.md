@@ -21,8 +21,8 @@
 <p align="center">
   <a href="https://codecov.io/gh/Frezyx/talker"><img src="https://codecov.io/gh/Frezyx/talker/branch/master/graph/badge.svg" alt="codecov"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://github.com/Frezyx/talker"><img src="https://hits.dwyl.com/Frezyx/talker.svg?style=flat" alt="Repository views"></a>
     <a href="https://github.com/Frezyx/talker"><img src="https://img.shields.io/github/stars/Frezyx/talker?style=social" alt="GitHub"></a>
+<a href="https://pub.dev/packages/talker"><img src="https://pubstats.dev/badges/packages/talker/popularity.svg" alt="PubStats Popularity"></a>
   <br>
   <a href="https://github.com/Frezyx/talker/actions"><img src="https://github.com/Frezyx/talker/workflows/talker/badge.svg" alt="talker"></a>
   <a href="https://github.com/Frezyx/talker_flutter/actions"><img src="https://github.com/Frezyx/talker/workflows/talker_flutter/badge.svg" alt="talker_flutter"></a>
@@ -123,7 +123,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^4.5.4
+  talker: ^4.7.3
 ```
 
 ### Easy to use
@@ -303,7 +303,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^4.5.4
+  talker_flutter: ^4.7.3
 ```
 
 ### Setup
@@ -532,7 +532,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.5.4
+  talker_dio_logger: ^4.7.3
 ```
 
 ### Usage
@@ -628,7 +628,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.5.4
+  talker_bloc_logger: ^4.7.3
 ```
 
 ### Usage
@@ -716,7 +716,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_riverpod_logger: ^4.5.4
+  talker_riverpod_logger: ^4.7.3
 ```
 
 ### Usage

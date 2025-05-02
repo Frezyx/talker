@@ -9,11 +9,14 @@ class TalkerDioLoggerSettings {
     this.printResponseData = true,
     this.printResponseHeaders = false,
     this.printResponseMessage = true,
+    this.printResponseRedirects = false,
+    this.printResponseTime = false,
     this.printErrorData = true,
     this.printErrorHeaders = true,
     this.printErrorMessage = true,
     this.printRequestData = true,
     this.printRequestHeaders = false,
+    this.hiddenHeaders = const <String>{},
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -36,6 +39,12 @@ class TalkerDioLoggerSettings {
 
   /// Print [response.statusMessage] if true
   final bool printResponseMessage;
+
+  /// Print [response.redirects] if true
+  final bool printResponseRedirects;
+
+  /// Print response time if true
+  final bool printResponseTime;
 
   /// Print [error.response.data] if true
   final bool printErrorData;
@@ -97,10 +106,15 @@ class TalkerDioLoggerSettings {
   /// You can add your custom logic to log only specific Dio error [DioException].
   final bool Function(DioException response)? errorFilter;
 
+  /// Header values for the specified keys in the Set will be replaced with *****.
+  /// Case insensitive
+  final Set<String> hiddenHeaders;
+
   TalkerDioLoggerSettings copyWith({
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
+    bool? printResponseTime,
     bool? printErrorData,
     bool? printErrorHeaders,
     bool? printErrorMessage,
@@ -112,11 +126,13 @@ class TalkerDioLoggerSettings {
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
     bool Function(DioException response)? errorFilter,
+    Set<String>? hiddenHeaders,
   }) {
     return TalkerDioLoggerSettings(
       printResponseData: printResponseData ?? this.printResponseData,
       printResponseHeaders: printResponseHeaders ?? this.printResponseHeaders,
       printResponseMessage: printResponseMessage ?? this.printResponseMessage,
+      printResponseTime: printResponseTime ?? this.printResponseTime,
       printErrorData: printErrorData ?? this.printErrorData,
       printErrorHeaders: printErrorHeaders ?? this.printErrorHeaders,
       printErrorMessage: printErrorMessage ?? this.printErrorMessage,
@@ -128,6 +144,7 @@ class TalkerDioLoggerSettings {
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
       errorFilter: errorFilter ?? this.errorFilter,
+      hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
     );
   }
 }

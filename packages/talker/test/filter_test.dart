@@ -150,7 +150,6 @@ void _testFilterFoundBySearchText({
         ? talker.history
         : talker.history.where((e) => filter.filter(e)).toList();
 
-    expect(foundRecords, isNotEmpty);
     expect(foundRecords.length, countFound);
   });
 }

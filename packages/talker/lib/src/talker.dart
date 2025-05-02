@@ -368,13 +368,15 @@ class Talker {
     AnsiPen? pen,
   }) {
     final type = TalkerLogType.fromLogLevel(logLevel);
+    final penByLogKey = settings.getPenByLogKey(type.key);
+    final title = settings.getTitleByLogKey(type.key);
     final data = TalkerLog(
       key: type.key,
       message?.toString() ?? '',
-      title: settings.getTitleByLogKey(type.key),
+      title: title,
       exception: exception,
       stackTrace: stackTrace,
-      pen: pen ?? settings.getPenByLogKey(type.key),
+      pen: pen ?? penByLogKey,
       logLevel: logLevel,
     );
     _handleLogData(data);
@@ -394,6 +396,7 @@ class Talker {
       _logger.log(
         data.generateTextMessage(timeFormat: settings.timeFormat),
         level: data.logLevel ?? LogLevel.error,
+        pen: data.pen,
       );
     }
   }
@@ -402,23 +405,22 @@ class Talker {
     TalkerLog data, {
     LogLevel? logLevel,
   }) {
-    if (!settings.enabled) {
-      return;
-    }
+    /// If the Talker is disabled by settings
+    if (!settings.enabled) return;
 
+    /// If the log is not approved by the filter
     final isApproved = _isApprovedByFilter(data);
-    if (!isApproved) {
-      return;
-    }
+    if (!isApproved) return;
+
+    var pen = data.pen;
 
     final logTypeKey = data.key;
     if (logTypeKey != null) {
       data.title = settings.getTitleByLogKey(logTypeKey);
-      data.pen = settings.getPenByLogKey(
-        logTypeKey,
-        fallbackPen: data.pen,
-      );
+      pen = settings.getPenByLogKey(logTypeKey, fallbackPen: data.pen);
+      data.pen = pen;
     }
+
     _observer.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
@@ -426,7 +428,7 @@ class Talker {
       _logger.log(
         data.generateTextMessage(timeFormat: settings.timeFormat),
         level: logLevel ?? data.logLevel,
-        pen: data.pen,
+        pen: pen,
       );
     }
   }

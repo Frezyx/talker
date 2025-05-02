@@ -21,29 +21,23 @@ class BaseTalkerFilter implements TalkerFilter {
 
   @override
   bool filter(TalkerData item) {
-    var match = false;
-
-    if (titles.isNotEmpty) {
-      match = match || titles.contains(item.title);
-    }
-
-    if (types.isNotEmpty) {
-      match = match || _checkTypeMatch(item);
-    }
-
-    if (searchQuery?.isNotEmpty ?? false) {
-      final fullMsg = item.generateTextMessage();
-      final fullUpperMsg = fullMsg.toUpperCase();
-      final fullLowerMsg = fullMsg.toLowerCase();
-      final textContain = fullUpperMsg.contains(searchQuery!) ||
-          fullLowerMsg.contains(searchQuery!);
-      match = match || textContain;
-    }
-
     if (titles.isEmpty && types.isEmpty && (searchQuery?.isEmpty ?? true)) {
-      match = true;
+      return true;
+    } else {
+      var match = false;
+
+      if (searchQuery?.isNotEmpty ?? false) {
+        final fullMsg = item.generateTextMessage();
+        final fullUpperMsg = fullMsg.toUpperCase();
+        final fullLowerMsg = fullMsg.toLowerCase();
+        match = fullUpperMsg.contains(searchQuery!) ||
+            fullLowerMsg.contains(searchQuery!);
+      }
+
+      return (titles.contains(item.title) || titles.isEmpty) &&
+          (_checkTypeMatch(item) || types.isEmpty) &&
+          (match || (searchQuery?.isEmpty ?? true));
     }
-    return match;
   }
 
   bool _checkTypeMatch(TalkerData item) {

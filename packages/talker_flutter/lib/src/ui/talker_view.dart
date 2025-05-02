@@ -10,18 +10,18 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'talker_actions/talker_actions.dart';
 
 class TalkerView extends StatefulWidget {
-  const TalkerView(
-      {Key? key,
-      required this.talker,
-      this.controller,
-      this.scrollController,
-      this.theme = const TalkerScreenTheme(),
-      this.appBarTitle,
-      this.itemsBuilder,
-      this.appBarLeading,
-      this.isLogsExpanded = true,
-      this.isLogOrderReversed = true})
-      : super(key: key);
+  const TalkerView({
+    Key? key,
+    required this.talker,
+    this.controller,
+    this.scrollController,
+    this.theme = const TalkerScreenTheme(),
+    this.appBarTitle,
+    this.itemsBuilder,
+    this.appBarLeading,
+    this.isLogsExpanded = true,
+    this.isLogOrderReversed = true,
+  }) : super(key: key);
 
   /// Talker implementation
   final Talker talker;
@@ -76,8 +76,7 @@ class _TalkerViewState extends State<TalkerView> {
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filtredElements =
-                  data.where((e) => _controller.filter.filter(e)).toList();
+              final filteredElements = filteredLogs(data);
               final titles = data.map((e) => e.title).toList();
               final uniqTitles = titles.toSet().toList();
 
@@ -104,7 +103,7 @@ class _TalkerViewState extends State<TalkerView> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {
-                        final data = _getListItem(filtredElements, i);
+                        final data = _getListItem(filteredElements, i);
                         if (widget.itemsBuilder != null) {
                           return widget.itemsBuilder!.call(context, data);
                         }
@@ -116,7 +115,7 @@ class _TalkerViewState extends State<TalkerView> {
                           color: data.getFlutterColor(widget.theme),
                         );
                       },
-                      childCount: filtredElements.length,
+                      childCount: filteredElements.length,
                     ),
                   ),
                 ],
@@ -128,6 +127,9 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
+  List<TalkerData> filteredLogs(List<TalkerData> data) =>
+      data.where((e) => _controller.filter.filter(e)).toList();
+
   void _onToggleTitle(String title, bool selected) {
     if (selected) {
       _controller.addFilterTitle(title);
@@ -137,11 +139,11 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   TalkerData _getListItem(
-    List<TalkerData> filtredElements,
+    List<TalkerData> filteredElements,
     int i,
   ) {
-    final data = filtredElements[
-        _controller.isLogOrderReversed ? filtredElements.length - 1 - i : i];
+    final data = filteredElements[
+        _controller.isLogOrderReversed ? filteredElements.length - 1 - i : i];
     return data;
   }
 
@@ -151,7 +153,7 @@ class _TalkerViewState extends State<TalkerView> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      isScrollControlled: false,
+      isScrollControlled: true,
       builder: (context) {
         return TalkerSettingsBottomSheet(
           talkerScreenTheme: theme,
@@ -204,6 +206,11 @@ class _TalkerViewState extends State<TalkerView> {
               icon: Icons.copy,
             ),
             TalkerActionItem(
+              onTap: () => _copyFilteredLogs(context),
+              title: 'Copy filtered logs',
+              icon: Icons.copy,
+            ),
+            TalkerActionItem(
               onTap: _toggleLogsExpanded,
               title: _controller.expandedLogs ? 'Collapse logs' : 'Expand logs',
               icon: _controller.expandedLogs
@@ -247,5 +254,12 @@ class _TalkerViewState extends State<TalkerView> {
         text: widget.talker.history
             .text(timeFormat: widget.talker.settings.timeFormat)));
     _showSnackBar(context, 'All logs copied in buffer');
+  }
+
+  void _copyFilteredLogs(BuildContext context) {
+    Clipboard.setData(ClipboardData(
+        text: filteredLogs(widget.talker.history)
+            .text(timeFormat: widget.talker.settings.timeFormat)));
+    _showSnackBar(context, 'All filtered logs copied in buffer');
   }
 }

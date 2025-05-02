@@ -66,6 +66,57 @@ void main() {
       expect(dioRequestLog.logLevel, equals(LogLevel.info));
     });
 
+    test(
+        'generateTextMessage should include redirects if printResponseRedirects is true',
+        () {
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'GET',
+      );
+      final settings = TalkerDioLoggerSettings(printResponseRedirects: true);
+      final dioRequestLog = DioResponseLog(
+        'Test message',
+        response: Response(
+          requestOptions: requestOptions,
+          redirects: [
+            RedirectRecord(200, 'GET', Uri.parse('about:blank')),
+            RedirectRecord(200, 'POST', Uri.parse('about:blank')),
+          ],
+        ),
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(
+          result,
+          contains(
+              'Redirects:\n[200 GET - about:blank]\n[200 POST - about:blank]'));
+    });
+
+    test(
+        'generateTextMessage should not include redirects if printResponseRedirects is false',
+        () {
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'GET',
+      );
+      final settings = TalkerDioLoggerSettings(printResponseRedirects: false);
+      final dioRequestLog = DioResponseLog(
+        'Test message',
+        response: Response(
+          requestOptions: requestOptions,
+          redirects: [
+            RedirectRecord(200, 'GET', Uri.parse('about:blank')),
+          ],
+        ),
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+      expect(result.contains('Redirects:'), isFalse);
+    });
+
     // Add more tests for DioRequestLog as needed
   });
 
@@ -114,6 +165,80 @@ void main() {
       final result = dioResponseLog.generateTextMessage();
 
       expect(result, contains('Message: OK'));
+    });
+
+    test(
+        'generateTextMessage should include response time if printResponseTime is true',
+        () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET', extra: {
+          TalkerDioLogger.kDioLogsTimeStampKey:
+              DateTime.now().millisecondsSinceEpoch,
+        }),
+        statusCode: 200,
+        statusMessage: 'OK',
+      );
+      final settings = TalkerDioLoggerSettings(printResponseTime: true);
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result = dioResponseLog.generateTextMessage();
+
+      expect(result, matches(RegExp(r'Time: \d+ ms')));
+    });
+
+    test(
+        'generateTextMessage should not include response time if printResponseTime is false',
+        () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET', extra: {
+          TalkerDioLogger.kDioLogsTimeStampKey:
+              DateTime.now().millisecondsSinceEpoch,
+        }),
+        statusCode: 200,
+        statusMessage: 'OK',
+      );
+      final settings = TalkerDioLoggerSettings(printResponseTime: false);
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result = dioResponseLog.generateTextMessage();
+
+      expect(result, isNot(contains('Time:')));
+    });
+
+    test(
+        'generateTextMessage error should include include response time if printResponseTime is true',
+        () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET', extra: {
+          TalkerDioLogger.kDioLogsTimeStampKey:
+              DateTime.now().millisecondsSinceEpoch,
+        }),
+        statusCode: 404,
+      );
+      final dioException = DioException(
+        requestOptions: RequestOptions(path: '/test', method: 'GET', extra: {
+          TalkerDioLogger.kDioLogsTimeStampKey:
+              DateTime.now().millisecondsSinceEpoch,
+        }),
+        response: response,
+        message: 'Error message',
+      );
+
+      final settings = TalkerDioLoggerSettings(printResponseTime: true);
+      final dioErrorLog = DioErrorLog('Error title',
+          dioException: dioException, settings: settings);
+
+      final result = dioErrorLog.generateTextMessage();
+
+      expect(result, matches(RegExp(r'Time: \d+ ms')));
     });
 
     test(

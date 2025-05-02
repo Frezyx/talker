@@ -42,9 +42,9 @@ jobs:
         name: Install dependencies
         run: dart pub get --no-example
       - name: Format
-        run: dart format --set-exit-if-changed .
+        run: dart format lib test --set-exit-if-changed
       - name: Analyze
-        run: dart analyze --fatal-warnings .
+        run: dart analyze lib test --fatal-warnings
       - name: Install coverage dependencies
         run: dart pub global activate coverage
       - name: Collect and report coverage

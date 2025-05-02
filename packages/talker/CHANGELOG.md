@@ -1,3 +1,8 @@
+# 4.7.5
+- Update example application dependencies
+
+Thanks to [apps/renovate](https://github.com/apps/renovate)
+
 # 4.7.4
 - [talker_dio_logger] Add logLevel field to provide in all dIo logs
 

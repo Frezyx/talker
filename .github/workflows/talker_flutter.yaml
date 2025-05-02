@@ -17,7 +17,7 @@ env:
 permissions: read-all
 
 jobs:
-  build:
+  analyze:
     defaults:
       run:
         working-directory: packages/talker_flutter
@@ -31,6 +31,20 @@ jobs:
         with:
           channel: stable
           cache: true
+      - name: Disable Flutter analytics
+        continue-on-error: true
+        run: |
+          set -e
+          FLUTTER_SDK_VERSION=$(flutter --version --machine | yq e -r '.frameworkVersion' -)
+          FLUTTER_SDK_VERSION_MAJOR="${FLUTTER_SDK_VERSION%%\.*}"
+          FLUTTER_SDK_VERSION_MINOR="${FLUTTER_SDK_VERSION#*.}"
+          FLUTTER_SDK_VERSION_MINOR="${FLUTTER_SDK_VERSION_MINOR%.*}"
+          FLUTTER_SDK_VERSION_PATCH="${FLUTTER_SDK_VERSION##*.}"
+          if [[ "$FLUTTER_SDK_VERSION_MAJOR" -gt 3 || ( "$FLUTTER_SDK_VERSION_MAJOR" -eq 3 && "$FLUTTER_SDK_VERSION_MINOR" -gt 15 ) ]]; then
+            flutter config --no-analytics
+          else
+            flutter --disable-telemetry
+          fi
       - name: Install Dependencies
         run: flutter pub get --no-example
       - name: Format

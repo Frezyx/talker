@@ -1,0 +1,60 @@
+name: CI PUSH PR DART TEST
+
+on:
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+permissions: read-all
+
+jobs:
+  test:
+    name: "Dart Test"
+    defaults:
+      run:
+        working-directory: packages/${{ inputs.package }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@v4
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:${{ inputs.package }};commands:test"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:${{ inputs.package }}
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v4
+      - id: install
+        name: Install dependencies
+        run: dart pub get --no-example
+      - name: Format
+        run: dart format --set-exit-if-changed .
+      - name: Analyze
+        run: dart analyze --fatal-warnings .
+      - name: Install coverage dependencies
+        run: dart pub global activate coverage
+      - name: Collect and report coverage
+        run: dart pub global run coverage:test_with_coverage
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
+        with:
+          path: packages/${{ inputs.package }}/coverage/lcov.info
+          min_coverage: 90
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

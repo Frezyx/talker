@@ -1,3 +1,8 @@
+# 4.7.4
+- [talker_dio_logger] Add logLevel field to provide in all dIo logs
+
+Thanks to [mylukin](https://github.com/mylukin)
+
 # 4.7.3
 - [talker_flutter] Fixed missing info and detailed message for exceptions
 

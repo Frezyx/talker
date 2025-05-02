@@ -28,7 +28,7 @@ class TalkerDioLoggerSettings {
   // Print Dio logger if true
   final bool enabled;
 
-  // LogLevel, default is debug
+  // LogLevel of all dio logs. By default set as debug
   final LogLevel logLevel;
 
   /// Print [response.data] if true

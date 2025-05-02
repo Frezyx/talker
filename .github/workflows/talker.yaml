@@ -46,7 +46,7 @@ jobs:
       - name: Format
         run: dart format --set-exit-if-changed .
       - name: Analyze
-        run: flutter analyze --fatal-warnings .
+        run: dart analyze --fatal-warnings .
       - name: Install coverage dependencies
         run: dart pub global activate coverage
       - name: Collect and report coverage

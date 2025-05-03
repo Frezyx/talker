@@ -121,7 +121,6 @@ jobs:
           fi
       - name: Run tests in Chrome
         if: steps.has_tests.outputs.exists == 'true' && inputs.chrome
-        continue-on-error: true
         env:
           SDK: ${{ inputs.sdk }}
         run: |

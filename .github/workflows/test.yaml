@@ -10,12 +10,16 @@ on:
         required: true
         type: string
         description: "dart or flutter"
+permissions:
+  contents: read
 defaults:
   run:
     shell: bash
 env:
   PUB_ENVIRONMENT: bot.github
-permissions: read-all
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -77,9 +81,21 @@ jobs:
         name: Install dependencies
         run: ${{ inputs.sdk }} pub get --no-example
       - name: Format
-        run: dart format lib test --set-exit-if-changed
+        run: |
+          set -e
+          if [[ ${{ steps.has_tests.outputs.exists }} == "true" ]]; then
+            dart format lib test --set-exit-if-changed
+          else
+            dart format lib --set-exit-if-changed
+          fi
       - name: Analyze
-        run: ${{ inputs.sdk }} analyze lib test --fatal-warnings
+        run: |
+          set -e
+          if [[ ${{ steps.has_tests.outputs.exists }} == "true" ]]; then
+            dart analyze lib test --fatal-warnings
+          else
+            dart analyze lib --fatal-warnings
+          fi
       - name: Run tests with coverage
         if: steps.has_tests.outputs.exists == 'true'
         env:

@@ -6,13 +6,19 @@ on:
       package:
         required: true
         type: string
+        description: "Package name to test"
       sdk:
         required: true
         type: string
         description: "dart or flutter"
+      chrome:
+        type: boolean
+        default: true
+        description: "Run tests in Chrome"
       min_coverage:
         type: number
         default: 90
+        description: "Minimum code coverage percentage"
 permissions:
   contents: read
 defaults:
@@ -114,7 +120,7 @@ jobs:
             dart pub global run coverage:test_with_coverage
           fi
       - name: Run tests in Chrome
-        if: steps.has_tests.outputs.exists == 'true'
+        if: steps.has_tests.outputs.exists == 'true' && inputs.chrome
         continue-on-error: true
         env:
           SDK: ${{ inputs.sdk }}

@@ -52,6 +52,20 @@ void main() {
           result, contains('Headers: {\n  "Authorization": "Bearer Token"\n}'));
     });
 
+    test('logLevel should return settings logLevel', () {
+      final requestOptions = RequestOptions(path: '/test', method: 'GET');
+      final settings = TalkerDioLoggerSettings(
+        logLevel: LogLevel.info,
+      );
+      final dioRequestLog = DioRequestLog(
+        'Test message',
+        requestOptions: requestOptions,
+        settings: settings,
+      );
+
+      expect(dioRequestLog.logLevel, equals(LogLevel.info));
+    });
+
     test(
         'generateTextMessage should include redirects if printResponseRedirects is true',
         () {
@@ -252,6 +266,23 @@ void main() {
               '}'));
     });
 
+    test('logLevel should return settings logLevel', () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 200,
+      );
+      final settings = TalkerDioLoggerSettings(
+        logLevel: LogLevel.warning,
+      );
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      expect(dioResponseLog.logLevel, equals(LogLevel.warning));
+    });
+
     // Add more tests for DioResponseLog as needed
   });
 
@@ -386,6 +417,23 @@ void main() {
             '  ]\n'
             '}',
           ));
+    });
+
+    test('logLevel should always return error level', () {
+      final dioException = DioException(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        message: 'Error message',
+      );
+      final settings = TalkerDioLoggerSettings(
+        logLevel: LogLevel.info,
+      );
+      final dioErrorLog = DioErrorLog(
+        'Error title',
+        dioException: dioException,
+        settings: settings,
+      );
+
+      expect(dioErrorLog.logLevel, equals(LogLevel.error));
     });
   });
 }

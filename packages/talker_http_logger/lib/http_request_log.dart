@@ -19,7 +19,7 @@ class HttpRequestLog extends TalkerLog {
   static const String _hiddenValue = '*****';
 
   @override
-  AnsiPen get pen => (AnsiPen()..xterm(219));
+  AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
   String get key => TalkerLogType.httpRequest.key;

@@ -20,7 +20,7 @@ class HttpErrorLog extends TalkerLog {
   static const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
 
   @override
-  AnsiPen get pen => AnsiPen()..red();
+  AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
   String get key => TalkerLogType.httpError.key;

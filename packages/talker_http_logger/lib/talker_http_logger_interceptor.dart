@@ -29,6 +29,7 @@ class TalkerHttpLogger extends InterceptorContract {
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
+    bool? printResponseTime,
     bool? printErrorData,
     bool? printErrorHeaders,
     bool? printErrorMessage,
@@ -62,6 +63,7 @@ class TalkerHttpLogger extends InterceptorContract {
         responseFilter: responseFilter,
         errorFilter: errorFilter,
         hiddenHeaders: hiddenHeaders,
+        printResponseTime: printResponseTime,
       );
 
   @override

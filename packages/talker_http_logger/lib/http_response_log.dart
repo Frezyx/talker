@@ -18,7 +18,7 @@ class HttpResponseLog extends TalkerLog {
   static const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
 
   @override
-  AnsiPen get pen => (AnsiPen()..xterm(46));
+  AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
   String get key => TalkerLogType.httpResponse.key;

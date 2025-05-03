@@ -7,8 +7,9 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  http_interceptor: ^2.0.0
   equatable: ^2.0.7
+  http_interceptor: ^2.0.0
+  meta: ^1.9.1
   talker: ^4.7.5
 
 dev_dependencies:

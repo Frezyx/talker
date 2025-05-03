@@ -1,6 +1,7 @@
 import 'dart:convert' show JsonEncoder;
 
 import 'package:http_interceptor/http_interceptor.dart';
+import 'package:meta/meta.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_http_logger/talker_http_logger_settings.dart';
 
@@ -23,6 +24,12 @@ class HttpResponseLog extends TalkerLog {
   String get key => TalkerLogType.httpResponse.key;
 
   @override
+  LogLevel get logLevel => settings.logLevel;
+
+  @visibleForTesting
+  String convert(Object? object) => _encoder.convert(object);
+
+  @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
@@ -35,7 +42,7 @@ class HttpResponseLog extends TalkerLog {
 
     try {
       if (response.request?.headers.isNotEmpty ?? false) {
-        msg.write('Headers: ${_encoder.convert(response.request?.headers)}');
+        msg.write('Headers: ${convert(response.request?.headers)}');
       }
     } catch (_) {
       // TODO: add handling can`t convert

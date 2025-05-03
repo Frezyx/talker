@@ -22,3 +22,4 @@ jobs:
     with:
       package: talker
       sdk: dart
+

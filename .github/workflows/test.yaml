@@ -113,6 +113,18 @@ jobs:
             dart pub global activate coverage
             dart pub global run coverage:test_with_coverage
           fi
+      - name: Run tests in Chrome
+        if: steps.has_tests.outputs.exists == 'true'
+        continue-on-error: true
+        env:
+          SDK: ${{ inputs.sdk }}
+        run: |
+          set -e
+          if [[ "$SDK" == "flutter" ]]; then
+            flutter test -d chrome
+          else
+            dart test -p chrome
+          fi
       - name: Check Code Coverage
         if: steps.has_tests.outputs.exists == 'true'
         uses: VeryGoodOpenSource/very_good_coverage@v3.0.0

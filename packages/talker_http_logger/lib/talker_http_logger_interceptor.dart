@@ -70,10 +70,9 @@ class TalkerHttpLogger extends InterceptorContract {
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
-    final message = '${request.url}';
     _talker.logCustom(
       HttpRequestLog(
-        message,
+        request.url.toString(),
         request: request,
         settings: settings,
       ),

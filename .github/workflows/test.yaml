@@ -1,4 +1,4 @@
-name: CI Push PR Analyze and Test
+name: CI Analyze and Test
 
 on:
   workflow_call:

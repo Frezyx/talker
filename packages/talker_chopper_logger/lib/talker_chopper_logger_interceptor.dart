@@ -27,8 +27,7 @@ class TalkerChopperLogger implements Interceptor {
   /// [TalkerChopperLogger] settings and customization
   TalkerChopperLoggerSettings settings;
 
-  /// Talker addon functionality
-  /// addon id for create a lot of addons
+  /// Talker addon functionality addon id for creating a lot of addons
   final String? addonId;
 
   /// Method to update [settings] of [TalkerChopperLogger]

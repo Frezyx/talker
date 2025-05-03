@@ -1,0 +1,143 @@
+name: CI Analyze and Test
+
+on:
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+        description: "Package name to test"
+      sdk:
+        required: true
+        type: string
+        description: "dart or flutter"
+      chrome:
+        type: boolean
+        default: true
+        description: "Run tests in Chrome"
+      min_coverage:
+        type: number
+        default: 90
+        description: "Minimum code coverage percentage"
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+env:
+  PUB_ENVIRONMENT: bot.github
+
+jobs:
+  test:
+    name: "Analyze & Test"
+    defaults:
+      run:
+        working-directory: packages/${{ inputs.package }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate SDK
+        if: ${{ inputs.sdk != 'dart' && inputs.sdk != 'flutter' }}
+        run: |
+          echo "Invalid SDK specified. Use 'dart' or 'flutter'." >&2
+          exit 1
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Dart SDK
+        if: ${{ inputs.sdk == 'dart' }}
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Cache Pub hosted dependencies
+        if: ${{ inputs.sdk == 'dart' }}
+        uses: actions/cache@v4
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:${{ runner.os }};pub-cache-hosted;${{ inputs.sdk }}-sdk:stable;packages:${{ inputs.package }};commands:test"
+          restore-keys: |
+            os:${{ runner.os }};pub-cache-hosted;${{ inputs.sdk }}-sdk:stable;packages:${{ inputs.package }}
+            os:${{ runner.os }};pub-cache-hosted;${{ inputs.sdk }}-sdk:stable
+            os:${{ runner.os }};pub-cache-hosted
+            os:${{ runner.os }}
+      - name: Setup Flutter SDK
+        if: ${{ inputs.sdk == 'flutter' }}
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Disable Flutter analytics
+        if: ${{ inputs.sdk == 'flutter' }}
+        continue-on-error: true
+        run: |
+          set -e
+          FLUTTER_SDK_VERSION=$(flutter --version --machine | yq e -r '.frameworkVersion' -)
+          FLUTTER_SDK_VERSION_MAJOR="${FLUTTER_SDK_VERSION%%\.*}"
+          FLUTTER_SDK_VERSION_MINOR="${FLUTTER_SDK_VERSION#*.}"
+          FLUTTER_SDK_VERSION_MINOR="${FLUTTER_SDK_VERSION_MINOR%.*}"
+          FLUTTER_SDK_VERSION_PATCH="${FLUTTER_SDK_VERSION##*.}"
+          if [[ "$FLUTTER_SDK_VERSION_MAJOR" -gt 3 || ( "$FLUTTER_SDK_VERSION_MAJOR" -eq 3 && "$FLUTTER_SDK_VERSION_MINOR" -gt 15 ) ]]; then
+            flutter config --no-analytics
+          else
+            flutter --disable-telemetry
+          fi
+      - name: Determine if tests exist
+        id: has_tests
+        run: echo "exists=$( [ -d test ] && compgen -G 'test/*' >/dev/null && echo true || echo false )" >> $GITHUB_OUTPUT
+      - id: install
+        name: Install dependencies
+        run: ${{ inputs.sdk }} pub get --no-example
+      - name: Format
+        env:
+          HAS_TESTS: ${{ steps.has_tests.outputs.exists }}
+        run: |
+          set -e
+          targets="lib"
+          if [[ "$HAS_TESTS" == "true" ]]; then
+            targets="$targets test"
+          fi
+          dart format $targets --set-exit-if-changed
+      - name: Analyze
+        env:
+          HAS_TESTS: ${{ steps.has_tests.outputs.exists }}
+        run: |
+          set -e
+          targets="lib"
+          if [[ "$HAS_TESTS" == "true" ]]; then
+            targets="$targets test"
+          fi
+          set -e
+          ${{ inputs.sdk }} analyze $targets --fatal-warnings
+      - name: Run tests with coverage
+        if: steps.has_tests.outputs.exists == 'true'
+        env:
+          SDK: ${{ inputs.sdk }}
+        run: |
+          set -e
+          if [[ "$SDK" == "flutter" ]]; then
+            flutter test --coverage
+          else
+            dart pub global activate coverage
+            dart pub global run coverage:test_with_coverage
+          fi
+      - name: Run tests in Chrome
+        if: steps.has_tests.outputs.exists == 'true' && inputs.chrome
+        env:
+          SDK: ${{ inputs.sdk }}
+        run: |
+          set -e
+          if [[ "$SDK" == "flutter" ]]; then
+            flutter test -d chrome
+          else
+            dart test -p chrome
+          fi
+      - name: Check Code Coverage
+        if: steps.has_tests.outputs.exists == 'true'
+        uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
+        with:
+          path: packages/${{ inputs.package }}/coverage/lcov.info
+          min_coverage: ${{ inputs.min_coverage }}
+      - name: Upload coverage to Codecov
+        if: steps.has_tests.outputs.exists == 'true'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

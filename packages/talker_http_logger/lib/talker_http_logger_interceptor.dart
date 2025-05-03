@@ -9,6 +9,7 @@ class TalkerHttpLogger extends InterceptorContract {
   TalkerHttpLogger({
     Talker? talker,
     this.settings = const TalkerHttpLoggerSettings(),
+    this.addonId,
   }) {
     _talker = talker ?? Talker();
   }
@@ -17,6 +18,9 @@ class TalkerHttpLogger extends InterceptorContract {
 
   /// [TalkerHttpLogger] settings and customization
   TalkerHttpLoggerSettings settings;
+
+  /// Talker addon functionality addon id for creating a lot of addons
+  final String? addonId;
 
   /// Method to update [settings] of [TalkerHttpLogger]
   void configure({

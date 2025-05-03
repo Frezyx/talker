@@ -10,6 +10,9 @@ on:
         required: true
         type: string
         description: "dart or flutter"
+      min_coverage:
+        type: number
+        default: 90
 permissions:
   contents: read
 defaults:
@@ -78,21 +81,26 @@ jobs:
         name: Install dependencies
         run: ${{ inputs.sdk }} pub get --no-example
       - name: Format
+        env:
+          HAS_TESTS: ${{ steps.has_tests.outputs.exists }}
         run: |
           set -e
-          if [[ ${{ steps.has_tests.outputs.exists }} == "true" ]]; then
-            dart format lib test --set-exit-if-changed
-          else
-            dart format lib --set-exit-if-changed
+          targets="lib"
+          if [[ "$HAS_TESTS" == "true" ]]; then
+            targets="$targets test"
           fi
+          dart format $targets --set-exit-if-changed
       - name: Analyze
+        env:
+          HAS_TESTS: ${{ steps.has_tests.outputs.exists }}
         run: |
           set -e
-          if [[ ${{ steps.has_tests.outputs.exists }} == "true" ]]; then
-            dart analyze lib test --fatal-warnings
-          else
-            dart analyze lib --fatal-warnings
+          targets="lib"
+          if [[ "$HAS_TESTS" == "true" ]]; then
+            targets="$targets test"
           fi
+          set -e
+          ${{ inputs.sdk }} analyze lib --fatal-warnings
       - name: Run tests with coverage
         if: steps.has_tests.outputs.exists == 'true'
         env:
@@ -110,7 +118,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
         with:
           path: packages/${{ inputs.package }}/coverage/lcov.info
-          min_coverage: 90
+          min_coverage: ${{ inputs.min_coverage }}
       - name: Upload coverage to Codecov
         if: steps.has_tests.outputs.exists == 'true'
         uses: codecov/codecov-action@v5

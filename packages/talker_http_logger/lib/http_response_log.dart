@@ -8,7 +8,7 @@ class HttpResponseLog extends TalkerLog {
   HttpResponseLog(
     super.title, {
     required this.response,
-    this.settings = const TalkerHttpLoggerSettings(),
+    required this.settings,
   });
 
   final BaseResponse response;

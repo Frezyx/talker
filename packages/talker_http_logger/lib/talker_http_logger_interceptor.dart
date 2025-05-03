@@ -29,7 +29,6 @@ class TalkerHttpLogger extends InterceptorContract {
     bool? printResponseData,
     bool? printResponseHeaders,
     bool? printResponseMessage,
-    bool? printResponseTime,
     bool? printErrorData,
     bool? printErrorHeaders,
     bool? printErrorMessage,
@@ -63,20 +62,22 @@ class TalkerHttpLogger extends InterceptorContract {
         responseFilter: responseFilter,
         errorFilter: errorFilter,
         hiddenHeaders: hiddenHeaders,
-        printResponseTime: printResponseTime,
       );
 
   @override
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
-    _talker.logCustom(
-      HttpRequestLog(
-        request.url.toString(),
-        request: request,
-        settings: settings,
-      ),
-    );
+    if (settings.enabled && (settings.requestFilter?.call(request) ?? true)) {
+      _talker.logCustom(
+        HttpRequestLog(
+          request.url.toString(),
+          request: request,
+          settings: settings,
+        ),
+      );
+    }
+
     return request;
   }
 
@@ -86,24 +87,44 @@ class TalkerHttpLogger extends InterceptorContract {
   }) async {
     final String message = '${response.request?.url}';
 
-    if (response.statusCode < 400) {
-      _talker.logCustom(
-        HttpResponseLog(
-          message,
-          response: response,
-          settings: settings,
-        ),
-      );
-    } else {
-      _talker.logCustom(
-        HttpErrorLog(
-          message,
-          response: response,
-          settings: settings,
-        ),
-      );
-    }
+    try {
+      switch (response.statusCode) {
+        case int statusCode when settings.enabled && statusCode < 400:
+          if (settings.responseFilter?.call(response) ?? true) {
+            _talker.logCustom(
+              HttpResponseLog(
+                message,
+                response: response,
+                settings: settings,
+              ),
+            );
+          }
+          break;
+        case _ when settings.enabled:
+          if (settings.errorFilter?.call(response) ?? true) {
+            _talker.logCustom(
+              HttpErrorLog(
+                message,
+                response: response,
+                settings: settings,
+              ),
+            );
+          }
+          break;
+      }
 
-    return response;
+      return response;
+    } catch (exception, stackTrace) {
+      switch (exception) {
+        case ClientException ex when settings.enabled:
+          _talker.error(ex.uri.toString(), ex, stackTrace);
+          break;
+        case _ when settings.enabled:
+          _talker.error(exception.toString(), exception, stackTrace);
+          break;
+      }
+
+      rethrow;
+    }
   }
 }

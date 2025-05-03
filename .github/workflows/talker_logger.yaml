@@ -18,3 +18,4 @@ jobs:
     with:
       package: talker_logger
       sdk: dart
+      chrome: false

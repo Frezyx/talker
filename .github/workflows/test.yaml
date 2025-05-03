@@ -100,7 +100,7 @@ jobs:
             targets="$targets test"
           fi
           set -e
-          ${{ inputs.sdk }} analyze lib --fatal-warnings
+          ${{ inputs.sdk }} analyze $targets --fatal-warnings
       - name: Run tests with coverage
         if: steps.has_tests.outputs.exists == 'true'
         env:

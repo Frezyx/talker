@@ -17,9 +17,6 @@ defaults:
     shell: bash
 env:
   PUB_ENVIRONMENT: bot.github
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   test:

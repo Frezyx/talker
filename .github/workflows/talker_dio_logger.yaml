@@ -18,6 +18,7 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/dart_test.yaml
+    uses: ./.github/workflows/test.yaml
     with:
       package: talker_dio_logger
+      sdk: dart

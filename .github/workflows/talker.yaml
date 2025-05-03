@@ -9,12 +9,8 @@ on:
     paths:
       - "packages/talker/**"
       - ".github/workflows/talker.yaml"
-defaults:
-  run:
-    shell: bash
-env:
-  PUB_ENVIRONMENT: bot.github
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   test:

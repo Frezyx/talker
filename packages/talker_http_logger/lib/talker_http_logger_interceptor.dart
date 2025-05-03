@@ -107,6 +107,7 @@ class TalkerHttpLogger extends InterceptorContract {
             _talker.logCustom(
               HttpErrorLog(
                 message,
+                request: response.request,
                 response: response,
                 settings: settings,
               ),

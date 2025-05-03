@@ -38,14 +38,39 @@ class HttpResponseLog extends TalkerLog {
     msg.write(' [${response.request?.method}]');
     msg.write(' $message');
 
+    final String? data = switch (response) {
+      Response res => res.body,
+      _ => null,
+    };
+
     msg.writeln('Status: ${response.statusCode}');
 
-    try {
-      if (response.request?.headers.isNotEmpty ?? false) {
-        msg.write('Headers: ${convert(response.request?.headers)}');
+    if (settings.printResponseMessage && response.reasonPhrase != null) {
+      msg.writeln('Message: ${response.reasonPhrase}');
+    }
+
+    if (settings.printResponseHeaders && response.headers.isNotEmpty) {
+      try {
+        msg.writeln('Headers: ${convert(response.headers)}');
+      } catch (error, stackTrace) {
+        msg.writeln(
+          'Headers: <failed to convert headers: $error\nstackTrace: $stackTrace>',
+        );
       }
-    } catch (_) {
-      // TODO: add handling can`t convert
+    }
+
+    if (settings.printResponseRedirects && response.isRedirect) {
+      msg.writeln('Redirect: ${response.isRedirect}');
+    }
+
+    if (settings.printResponseData && data != null) {
+      try {
+        msg.writeln('Data: ${convert(data)}');
+      } catch (error, stackTrace) {
+        msg.writeln(
+          'Data: <failed to convert data: $error\nstackTrace: $stackTrace>',
+        );
+      }
     }
 
     return msg.toString().trimRight();

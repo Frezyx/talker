@@ -1,6 +1,6 @@
 name: talker_dio_logger
 description: Lightweight and customizable dio http client logger on talker base
-version: 4.7.2
+version: 4.7.5
 
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
@@ -18,7 +18,7 @@ environment:
 
 dependencies:
   dio: ^5.4.0
-  talker: ^4.7.2
+  talker: ^4.7.5
 
 dev_dependencies:
   lints: ^2.0.0

@@ -1,3 +1,18 @@
+# 0.1.0-dev.46
+- Update example application dependencies
+
+Thanks to [apps/renovate](https://github.com/apps/renovate)
+
+# 0.1.0-dev.45
+- [talker_dio_logger] Add logLevel field to provide in all dIo logs
+
+Thanks to [mylukin](https://github.com/mylukin)
+
+# 0.1.0-dev.44
+- [talker_flutter] Fixed missing info and detailed message for exceptions
+
+Thanks to [salarshad](https://github.com/salarshad)
+
 # 0.1.0-dev.43
 - [talker_dio_logger] Add response time to logs
 - Add ``printResponseTime`` field for ``TalkerDioLoggerSettings`` to turn on/off response time printing

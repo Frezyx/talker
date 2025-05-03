@@ -18,6 +18,50 @@ class TalkerHttpLogger extends InterceptorContract {
   /// [TalkerHttpLogger] settings and customization
   TalkerHttpLoggerSettings settings;
 
+  /// Method to update [settings] of [TalkerHttpLogger]
+  void configure({
+    bool? enabled,
+    LogLevel? logLevel,
+    bool? printResponseData,
+    bool? printResponseHeaders,
+    bool? printResponseMessage,
+    bool? printResponseTime,
+    bool? printErrorData,
+    bool? printErrorHeaders,
+    bool? printErrorMessage,
+    bool? printRequestData,
+    bool? printRequestHeaders,
+    bool? printRequestCurl,
+    AnsiPen? requestPen,
+    AnsiPen? responsePen,
+    AnsiPen? errorPen,
+    RequestFilter? requestFilter,
+    ResponseFilter? responseFilter,
+    ResponseFilter? errorFilter,
+    Set<String>? hiddenHeaders,
+  }) =>
+      settings = settings.copyWith(
+        enabled: enabled,
+        logLevel: logLevel,
+        printRequestData: printRequestData,
+        printRequestHeaders: printRequestHeaders,
+        printRequestCurl: printRequestCurl,
+        printResponseData: printResponseData,
+        printErrorData: printErrorData,
+        printErrorHeaders: printErrorHeaders,
+        printErrorMessage: printErrorMessage,
+        printResponseHeaders: printResponseHeaders,
+        printResponseMessage: printResponseMessage,
+        requestPen: requestPen,
+        responsePen: responsePen,
+        errorPen: errorPen,
+        requestFilter: requestFilter,
+        responseFilter: responseFilter,
+        errorFilter: errorFilter,
+        hiddenHeaders: hiddenHeaders,
+        printResponseTime: printResponseTime,
+      );
+
   @override
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,

@@ -14,6 +14,8 @@ class TalkerHttpLogger extends InterceptorContract {
     _talker = talker ?? Talker();
   }
 
+  static const String kLogsTimeStamp = '_talker_http_logger_ts_';
+
   late final Talker _talker;
 
   /// [TalkerHttpLogger] settings and customization
@@ -74,7 +76,12 @@ class TalkerHttpLogger extends InterceptorContract {
       _talker.logCustom(
         HttpRequestLog(
           request.url.toString(),
-          request: request,
+          request: switch (settings.printResponseTime) {
+            true => request
+              ..headers[kLogsTimeStamp] =
+                  DateTime.timestamp().millisecondsSinceEpoch.toString(),
+            false => request
+          },
           settings: settings,
         ),
       );

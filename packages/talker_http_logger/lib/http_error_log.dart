@@ -3,9 +3,10 @@ import 'dart:convert' show JsonEncoder;
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:meta/meta.dart';
 import 'package:talker/talker.dart';
+import 'package:talker_http_logger/response_time.dart';
 import 'package:talker_http_logger/talker_http_logger_settings.dart';
 
-class HttpErrorLog extends TalkerLog {
+class HttpErrorLog extends TalkerLog with ResponseTime {
   HttpErrorLog(
     super.title, {
     this.request,
@@ -48,6 +49,14 @@ class HttpErrorLog extends TalkerLog {
       Exception ex => ex.toString(),
       _ => message,
     };
+
+    if (settings.printResponseTime) {
+      final int? responseTime = getResponseTime(response.headers);
+
+      if (responseTime != null) {
+        msg.writeln('Time: $responseTime ms');
+      }
+    }
 
     if (settings.printErrorMessage && (responseMessage?.isNotEmpty ?? false)) {
       msg.writeln('Message: $responseMessage');

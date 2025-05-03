@@ -4,8 +4,9 @@ import 'package:http_interceptor/http_interceptor.dart';
 import 'package:meta/meta.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_http_logger/talker_http_logger_settings.dart';
+import 'package:talker_http_logger/response_time.dart';
 
-class HttpResponseLog extends TalkerLog {
+class HttpResponseLog extends TalkerLog with ResponseTime {
   HttpResponseLog(
     super.title, {
     required this.response,
@@ -44,6 +45,14 @@ class HttpResponseLog extends TalkerLog {
     };
 
     msg.writeln('Status: ${response.statusCode}');
+
+    if (settings.printResponseTime) {
+      final int? responseTime = getResponseTime(response.headers);
+
+      if (responseTime != null) {
+        msg.writeln('Time: $responseTime ms');
+      }
+    }
 
     if (settings.printResponseMessage && response.reasonPhrase != null) {
       msg.writeln('Message: ${response.reasonPhrase}');

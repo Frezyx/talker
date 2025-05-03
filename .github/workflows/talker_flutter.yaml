@@ -22,3 +22,4 @@ jobs:
     with:
       package: talker_flutter
       sdk: flutter
+

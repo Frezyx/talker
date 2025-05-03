@@ -22,7 +22,7 @@ class TalkerChopperLogger implements Interceptor {
     _talker = talker ?? Talker();
   }
 
-  late Talker _talker;
+  late final Talker _talker;
 
   /// [TalkerChopperLogger] settings and customization
   TalkerChopperLoggerSettings settings;

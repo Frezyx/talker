@@ -1,4 +1,4 @@
-import 'dart:convert' show JsonEncoder;
+import 'dart:convert' show JsonEncoder, jsonDecode;
 
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:meta/meta.dart';
@@ -10,14 +10,14 @@ class HttpErrorLog extends TalkerLog with ResponseTime {
   HttpErrorLog(
     super.title, {
     this.request,
-    required this.response,
+    this.response,
     required this.settings,
     super.exception,
     super.stackTrace,
   });
 
   final BaseRequest? request;
-  final BaseResponse response;
+  final BaseResponse? response;
   final TalkerHttpLoggerSettings settings;
 
   static const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
@@ -41,17 +41,28 @@ class HttpErrorLog extends TalkerLog with ResponseTime {
     final StringBuffer msg = StringBuffer();
 
     msg.write('[$title]');
-    msg.writeln(' [${response.request?.method ?? request?.method}]');
-    msg.writeln('Status: ${response.statusCode}');
+    if (response?.request?.method != null || request?.method != null) {
+      msg.write(' [${response?.request?.method ?? request?.method}]');
+    }
+    if (response?.request != null || request != null) {
+      msg.writeln(' ${response?.request?.url ?? request?.url}');
+    } else {
+      msg.writeln();
+    }
+
+    if (response?.statusCode != null) {
+      msg.writeln('Status: ${response?.statusCode}');
+    }
 
     final String? responseMessage = switch (exception) {
       ClientException ex => ex.message,
       Exception ex => ex.toString(),
-      _ => message,
+      _ => null,
     };
 
     if (settings.printResponseTime) {
-      final int? responseTime = getResponseTime(response.headers);
+      final int? responseTime = getResponseTime(response?.headers) ??
+          getResponseTime(response?.request?.headers);
 
       if (responseTime != null) {
         msg.writeln('Time: $responseTime ms');
@@ -62,8 +73,8 @@ class HttpErrorLog extends TalkerLog with ResponseTime {
       msg.writeln('Message: $responseMessage');
     }
 
-    if (settings.printErrorHeaders && response.headers.isNotEmpty) {
-      msg.writeln('Headers: ${convert(response.headers)}');
+    if (settings.printErrorHeaders && (response?.headers.isNotEmpty ?? false)) {
+      msg.writeln('Headers: ${convert(response?.headers)}');
     }
 
     final String? data = switch (response) {
@@ -71,8 +82,14 @@ class HttpErrorLog extends TalkerLog with ResponseTime {
       _ => null,
     };
 
-    if (settings.printErrorData && data != null) {
-      msg.writeln('Data: $data}');
+    if (settings.printErrorData && (data?.isNotEmpty ?? false)) {
+      try {
+        msg.writeln('Data: ${convert(jsonDecode(data!))}');
+      } on FormatException {
+        msg.writeln('Data: ${convert(data)}');
+      } catch (_) {
+        msg.writeln('Data: $data');
+      }
     }
 
     return msg.toString().trimRight();

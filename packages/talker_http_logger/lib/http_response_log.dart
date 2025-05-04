@@ -1,4 +1,4 @@
-import 'dart:convert' show JsonEncoder;
+import 'dart:convert' show JsonEncoder, jsonDecode;
 
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:meta/meta.dart';
@@ -37,7 +37,7 @@ class HttpResponseLog extends TalkerLog with ResponseTime {
     final StringBuffer msg = StringBuffer();
     msg.write('[$title]');
     msg.write(' [${response.request?.method}]');
-    msg.write(' $message');
+    msg.writeln(' $message');
 
     final String? data = switch (response) {
       Response res => res.body,
@@ -47,7 +47,8 @@ class HttpResponseLog extends TalkerLog with ResponseTime {
     msg.writeln('Status: ${response.statusCode}');
 
     if (settings.printResponseTime) {
-      final int? responseTime = getResponseTime(response.headers);
+      final int? responseTime = getResponseTime(response.headers) ??
+          getResponseTime(response.request?.headers);
 
       if (responseTime != null) {
         msg.writeln('Time: $responseTime ms');
@@ -72,8 +73,10 @@ class HttpResponseLog extends TalkerLog with ResponseTime {
       msg.writeln('Redirect: ${response.isRedirect}');
     }
 
-    if (settings.printResponseData && data != null) {
+    if (settings.printResponseData && (data?.isNotEmpty ?? false)) {
       try {
+        msg.writeln('Data: ${convert(jsonDecode(data!))}');
+      } on FormatException {
         msg.writeln('Data: ${convert(data)}');
       } catch (error, stackTrace) {
         msg.writeln(

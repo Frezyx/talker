@@ -96,45 +96,32 @@ class TalkerHttpLogger extends InterceptorContract {
   }) async {
     final String message = '${response.request?.url}';
 
-    try {
-      switch (response.statusCode) {
-        case int statusCode when settings.enabled && statusCode < 400:
-          if (settings.responseFilter?.call(response) ?? true) {
-            _talker.logCustom(
-              HttpResponseLog(
-                message,
-                response: response,
-                settings: settings,
-              ),
-            );
-          }
-          break;
-        case _ when settings.enabled:
-          if (settings.errorFilter?.call(response) ?? true) {
-            _talker.logCustom(
-              HttpErrorLog(
-                message,
-                request: response.request,
-                response: response,
-                settings: settings,
-              ),
-            );
-          }
-          break;
-      }
-
-      return response;
-    } catch (exception, stackTrace) {
-      switch (exception) {
-        case ClientException ex when settings.enabled:
-          _talker.error(ex.uri.toString(), ex, stackTrace);
-          break;
-        case _ when settings.enabled:
-          _talker.error(exception.toString(), exception, stackTrace);
-          break;
-      }
-
-      rethrow;
+    switch (response.statusCode) {
+      case int statusCode when settings.enabled && statusCode < 400:
+        if (settings.responseFilter?.call(response) ?? true) {
+          _talker.logCustom(
+            HttpResponseLog(
+              message,
+              response: response,
+              settings: settings,
+            ),
+          );
+        }
+        break;
+      case _ when settings.enabled:
+        if (settings.errorFilter?.call(response) ?? true) {
+          _talker.logCustom(
+            HttpErrorLog(
+              message,
+              request: response.request,
+              response: response,
+              settings: settings,
+            ),
+          );
+        }
+        break;
     }
+
+    return response;
   }
 }

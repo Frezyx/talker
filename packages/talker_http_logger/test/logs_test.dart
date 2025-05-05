@@ -609,13 +609,14 @@ void main() {
           response: Response(
             'responseBodyBase',
             200,
-            request: request,
+            request: request.copyWith(
+              headers: {
+                TalkerHttpLogger.kLogsTimeStamp:
+                    (DateTime.timestamp().millisecondsSinceEpoch - 123)
+                        .toString(),
+              },
+            ),
             reasonPhrase: 'OK',
-            headers: {
-              TalkerHttpLogger.kLogsTimeStamp:
-                  (DateTime.timestamp().millisecondsSinceEpoch - 123)
-                      .toString(),
-            },
           ),
           settings: const TalkerHttpLoggerSettings(printResponseTime: true),
         );
@@ -632,13 +633,14 @@ void main() {
           response: Response(
             'responseBodyBase',
             200,
-            request: request,
+            request: request.copyWith(
+              headers: {
+                TalkerHttpLogger.kLogsTimeStamp:
+                    (DateTime.timestamp().millisecondsSinceEpoch - 123)
+                        .toString(),
+              },
+            ),
             reasonPhrase: 'OK',
-            headers: {
-              TalkerHttpLogger.kLogsTimeStamp:
-                  (DateTime.timestamp().millisecondsSinceEpoch - 123)
-                      .toString(),
-            },
           ),
           settings: const TalkerHttpLoggerSettings(printResponseTime: false),
         );
@@ -655,12 +657,14 @@ void main() {
         response: Response(
           'responseErrorBodyBase',
           404,
-          request: request,
+          request: request.copyWith(
+            headers: {
+              TalkerHttpLogger.kLogsTimeStamp:
+                  (DateTime.timestamp().millisecondsSinceEpoch - 123)
+                      .toString(),
+            },
+          ),
           reasonPhrase: 'Error message',
-          headers: {
-            TalkerHttpLogger.kLogsTimeStamp:
-                (DateTime.timestamp().millisecondsSinceEpoch - 123).toString(),
-          },
         ),
         settings: const TalkerHttpLoggerSettings(printResponseTime: true),
       );

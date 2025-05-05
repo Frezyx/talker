@@ -303,19 +303,48 @@ Headers: {
       );
     });
 
+    test('interceptRequest should add timestamp to request headers', () async {
+      logger.configure(printResponseTime: true);
+
+      await logger.interceptRequest(request: fakeRequest);
+
+      expect(fakeRequest.headers[TalkerHttpLogger.kLogsTimeStamp], isNotNull);
+      expect(
+        fakeRequest.headers[TalkerHttpLogger.kLogsTimeStamp],
+        isA<String>(),
+      );
+      expect(
+        fakeRequest.headers[TalkerHttpLogger.kLogsTimeStamp],
+        matches(RegExp(r'^\d+$')),
+      );
+      final int? ts = int.tryParse(
+        fakeRequest.headers[TalkerHttpLogger.kLogsTimeStamp] ?? '',
+      );
+      expect(ts, isNotNull);
+      expect(ts, isNonNegative);
+      expect(ts, greaterThan(0));
+      expect(
+        ts,
+        lessThanOrEqualTo(DateTime.timestamp().millisecondsSinceEpoch),
+      );
+
+      final String? log = talker.history.firstOrNull?.generateTextMessage();
+      expect(log, isNotNull);
+      expect(log, isA<String>());
+      expect(log, contains('[http-request] [GET] /test'));
+    });
+
     test('interceptResponse should show response time when requested',
         () async {
       logger.configure(printResponseTime: true);
 
+      // Simulate a request with a timestamp
+      await logger.interceptRequest(request: fakeRequest);
+
       final Response fakeResponse = Response(
         'responseBody',
         200,
-        request: fakeRequest.copyWith(
-          headers: {
-            TalkerHttpLogger.kLogsTimeStamp:
-                (DateTime.timestamp().millisecondsSinceEpoch - 69).toString(),
-          },
-        ),
+        request: fakeRequest,
       );
 
       await logger.interceptResponse(response: fakeResponse);
@@ -334,12 +363,11 @@ Headers: {
       () async {
         logger.configure(printResponseTime: true);
 
+        // Simulate a request with a timestamp
+        await logger.interceptRequest(request: fakeRequest);
+
         final Response fakeResponse =
-            Response('responseErrorBody', 400, request: fakeRequest)
-                .copyWith(headers: {
-          TalkerHttpLogger.kLogsTimeStamp:
-              (DateTime.timestamp().millisecondsSinceEpoch - 69).toString(),
-        });
+            Response('responseErrorBody', 400, request: fakeRequest);
 
         await logger.interceptResponse(response: fakeResponse);
 

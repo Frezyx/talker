@@ -13,5 +13,6 @@ dependencies:
   talker: ^4.7.5
 
 dev_dependencies:
+  http_parser: ^4.1.2
   lints: ^5.1.1
   test: ^1.25.15

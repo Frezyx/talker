@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http_interceptor/http_interceptor.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_http_logger/curl_request.dart';
 import 'package:talker_http_logger/http_error_log.dart';
@@ -8,6 +9,8 @@ import 'package:talker_http_logger/http_request_log.dart';
 import 'package:talker_http_logger/http_response_log.dart';
 import 'package:talker_http_logger/talker_http_logger.dart';
 import 'package:test/test.dart';
+
+import 'helpers/multipart_request_extension.dart';
 
 class _MockHttpRequestLog extends HttpRequestLog {
   _MockHttpRequestLog(
@@ -77,6 +80,60 @@ void main() {
   "baz": "qux"
 }''',
           ),
+        );
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart request should include form data if printRequestData is true',
+      () {
+        final BaseRequest multiPartRequest =
+            request.copyWith(method: HttpMethod.POST).toMultipartRequest([
+          (name: '1', value: {'foo': 'bar'}),
+          (name: '2', value: {'baz': 'qux'}),
+        ]);
+
+        final HttpRequestLog log = HttpRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerHttpLoggerSettings(printRequestData: true),
+        );
+
+        expect(
+          log.generateTextMessage(),
+          contains(
+            '''Data: {
+  "1": "{foo: bar}",
+  "2": "{baz: qux}"
+}''',
+          ),
+        );
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart file request should include form data if printRequestData is true',
+      () {
+        final MultipartFile file = MultipartFile.fromBytes(
+          'foo_bar',
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          filename: 'baz_qux',
+          contentType: MediaType.parse('application/octet-stream'),
+        );
+
+        final BaseRequest multiPartRequest = request
+            .copyWith(method: HttpMethod.POST)
+            .toMultipartRequest([(name: 'file', value: file)]);
+
+        final HttpRequestLog log = HttpRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerHttpLoggerSettings(printRequestData: true),
+        );
+
+        expect(
+          log.generateTextMessage(),
+          contains('Data: {\n  "foo_bar": "baz_qux"\n}'),
         );
       },
     );
@@ -288,6 +345,75 @@ void main() {
         expect(out, contains("""-d '{"foo":"bar","baz":"qux"}'"""));
         expect(out, contains('${postRequest.url}'));
         expect(out, contains('[cURL] ${postRequest.toCurl()}'));
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart baseRequest should include curl command with form data if printRequestCurl is true',
+      () {
+        final List<({String name, Map<String, String> value})> parts = [
+          (name: '1', value: {'foo': 'bar'}),
+          (name: '2', value: {'baz': 'qux'}),
+        ];
+
+        final BaseRequest multiPartRequest =
+            request.copyWith(method: HttpMethod.POST).toMultipartRequest(parts);
+
+        final HttpRequestLog log = HttpRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerHttpLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${multiPartRequest.method}'));
+        for (final ({String name, Map<String, String> value}) part in parts) {
+          expect(out, contains("-F '${part.name}=${part.value}'"));
+        }
+        expect(out, contains('${multiPartRequest.url}'));
+        expect(out, contains('[cURL] ${multiPartRequest.toCurl()}'));
+      },
+    );
+
+    test(
+      'generateTextMessage with multipart file request should include curl command with form data if printRequestCurl is true',
+      () async {
+        final MultipartFile file = MultipartFile.fromBytes(
+          'foo_bar',
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          filename: 'baz_qux',
+          contentType: MediaType.parse('application/octet-stream'),
+        );
+
+        final List<({String name, MultipartFile value})> parts = [
+          (name: 'file', value: file),
+        ];
+
+        final BaseRequest multiPartRequest =
+            request.copyWith(method: HttpMethod.POST).toMultipartRequest(parts);
+
+        final HttpRequestLog log = HttpRequestLog(
+          null,
+          request: multiPartRequest,
+          settings: const TalkerHttpLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${multiPartRequest.method}'));
+        for (final ({String name, MultipartFile value}) part in parts) {
+          expect(
+            out,
+            contains("-F '${part.value.field}=@${part.value.filename}'"),
+          );
+        }
+        expect(out, contains('${multiPartRequest.url}'));
+        expect(out, contains('[cURL] ${multiPartRequest.toCurl()}'));
       },
     );
 

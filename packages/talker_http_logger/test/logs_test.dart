@@ -35,6 +35,22 @@ class _MockHttpResponseLog extends HttpResponseLog {
   String convert(Object? object) => throw Exception('forced error');
 }
 
+class _MockHttpErrorLog extends HttpErrorLog {
+  _MockHttpErrorLog(
+    super.title, {
+    // ignore: unused_element_parameter
+    super.request,
+    super.response,
+    required super.settings,
+    super.exception,
+    // ignore: unused_element_parameter
+    super.stackTrace,
+  });
+
+  @override
+  String convert(Object? object) => throw Exception('forced error');
+}
+
 void main() {
   late Request request;
 
@@ -765,6 +781,57 @@ void main() {
     });
 
     test(
+        'generateTextMessage should still work without a request and with ClientException',
+        () {
+      final HttpErrorLog log = HttpErrorLog(
+        'Error title',
+        exception: ClientException(
+          'Error message',
+          request.url,
+        ),
+        settings: TalkerHttpLoggerSettings(
+          errorPen: AnsiPen()..blue(),
+        ),
+      );
+
+      expect(
+        log.generateTextMessage(),
+        contains('[log] /test\nMessage: Error message'),
+      );
+    });
+
+    test(
+        'generateTextMessage should still work without a request with Exception',
+        () {
+      final HttpErrorLog log = HttpErrorLog(
+        'Error title',
+        exception: Exception('Error message'),
+        settings: TalkerHttpLoggerSettings(
+          errorPen: AnsiPen()..blue(),
+        ),
+      );
+
+      expect(
+        log.generateTextMessage(),
+        contains('[log]\nMessage: Exception: Error message'),
+      );
+    });
+
+    test('generateTextMessage should still work without a anything', () {
+      final HttpErrorLog log = HttpErrorLog(
+        'Error title',
+        settings: TalkerHttpLoggerSettings(
+          errorPen: AnsiPen()..blue(),
+        ),
+      );
+
+      expect(
+        log.generateTextMessage(),
+        contains('[log]'),
+      );
+    });
+
+    test(
       'generateTextMessage should not include data, header and message if disabled',
       () {
         final HttpErrorLog log = HttpErrorLog(
@@ -853,6 +920,62 @@ void main() {
           log.generateTextMessage(),
           contains('Data: {\n  "error": "Internal Server Error"\n}'),
         );
+      },
+    );
+
+    test(
+      'generateTextMessage should include data if response has raw data',
+      () {
+        final HttpErrorLog log = HttpErrorLog(
+          'Error title',
+          exception: ClientException(
+            'Error message',
+            request.url,
+          ),
+          response: Response(
+            'Internal Server Error',
+            500,
+            request: request,
+            reasonPhrase: 'Error message',
+          ),
+          settings: const TalkerHttpLoggerSettings(),
+        );
+
+        expect(
+          log.generateTextMessage(),
+          contains('Data: "Internal Server Error"'),
+        );
+      },
+    );
+
+    test(
+      'generateTextMessage should include data if response has bad data',
+      () {
+        final HttpErrorLog log = _MockHttpErrorLog(
+          'Error title',
+          exception: ClientException(
+            'Error message',
+            request.url,
+          ),
+          response: Response(
+            'Internal Server Error',
+            500,
+            request: request,
+            reasonPhrase: 'Error message',
+          ),
+          settings: const TalkerHttpLoggerSettings(),
+        );
+
+        expect(() => log.convert('foo'), throwsA(isA<Exception>()));
+
+        expect(() => log.generateTextMessage(), returnsNormally);
+
+        final String result = log.generateTextMessage();
+        expect(result, contains('[GET] /test'));
+        expect(result, contains('Status: 500'));
+        expect(result, contains('Message: Error message'));
+        expect(result, contains('Data: <failed to convert data:'));
+        expect(result, contains('stackTrace:'));
       },
     );
 

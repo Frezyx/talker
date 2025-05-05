@@ -41,11 +41,15 @@ class HttpErrorLog extends TalkerLog with ResponseTime {
     final StringBuffer msg = StringBuffer();
 
     msg.write('[$title]');
+
     if (response?.request?.method != null || request?.method != null) {
       msg.write(' [${response?.request?.method ?? request?.method}]');
     }
+
     if (response?.request != null || request != null) {
       msg.writeln(' ${response?.request?.url ?? request?.url}');
+    } else if (exception is ClientException) {
+      msg.writeln(' ${(exception as ClientException).uri}');
     } else {
       msg.writeln();
     }
@@ -83,12 +87,23 @@ class HttpErrorLog extends TalkerLog with ResponseTime {
     };
 
     if (settings.printErrorData && (data?.isNotEmpty ?? false)) {
+      late final dynamic jsonData;
       try {
-        msg.writeln('Data: ${convert(jsonDecode(data!))}');
-      } on FormatException {
-        msg.writeln('Data: ${convert(data)}');
+        jsonData = jsonDecode(data!);
       } catch (_) {
-        msg.writeln('Data: $data');
+        jsonData = null;
+      }
+
+      try {
+        if (jsonData != null) {
+          msg.writeln('Data: ${convert(jsonData)}');
+        } else {
+          msg.writeln('Data: ${convert(data)}');
+        }
+      } catch (error, stackTrace) {
+        msg.writeln(
+          'Data: <failed to convert data: $error\nstackTrace: $stackTrace>',
+        );
       }
     }
 

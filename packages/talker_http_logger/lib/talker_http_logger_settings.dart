@@ -1,8 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:http_interceptor/http_interceptor.dart'
     show BaseRequest, BaseResponse;
-import 'package:talker/talker.dart';
-import 'package:equatable/equatable.dart';
 import 'package:talker/talker.dart' show AnsiPen, LogLevel;
+import 'package:talker/talker.dart';
 
 typedef RequestFilter = bool Function(BaseRequest request);
 typedef ResponseFilter = bool Function(BaseResponse response);

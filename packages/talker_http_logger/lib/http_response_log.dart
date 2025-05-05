@@ -3,8 +3,8 @@ import 'dart:convert' show JsonEncoder, jsonDecode;
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:meta/meta.dart';
 import 'package:talker/talker.dart';
-import 'package:talker_http_logger/talker_http_logger_settings.dart';
 import 'package:talker_http_logger/response_time.dart';
+import 'package:talker_http_logger/talker_http_logger_settings.dart';
 
 class HttpResponseLog extends TalkerLog with ResponseTime {
   HttpResponseLog(

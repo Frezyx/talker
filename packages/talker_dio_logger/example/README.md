@@ -1,34 +1,16 @@
-# Example Project
+# example
 
-This example demonstrates the usage of the talker_http_logger package for logging HTTP requests, responses, and
-errors.
+A new Flutter project.
 
-## Setup
+## Getting Started
 
-Install dependencies:
+This project is a starting point for a Flutter application.
 
- ```shell
- flutter pub get
- ```
+A few resources to get you started if this is your first Flutter project:
 
-## Running the Example
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-To run the example application:
-
- ```shell
- flutter run
- ```
-
-## Directory Structure
-
-Within the example directory you will typically find:
-
-- A main entry point that demonstrates the logging functionality.
-- Supporting files or configurations that illustrate how logging is customized using the package's settings.
-
-## Customization
-
-- Adjust logging settings directly within the example code to explore options such as:
-    - Printing request headers and data.
-    - Displaying cURL commands to replicate HTTP requests.
-    - Customizing the output format of errors, responses, and request logs.
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

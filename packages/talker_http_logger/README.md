@@ -1,5 +1,5 @@
 # talker_http_logger
-Lightweight and customizable [http](https://pub.dev/packages/http) client logger on [talker](https://pub.dev/packages/talker) base.<br>
+Lightweight and customizable [http_interceptor](https://pub.dev/packages/http_interceptor) client logger on [talker](https://pub.dev/packages/talker) base.<br>
 [Talker](https://github.com/Frezyx/talker) - Advanced exception handling and logging for dart/flutter applications 🚀
 
 <p>
@@ -27,7 +27,7 @@ dependencies:
 ```
 
 ### Usage
-Just add **TalkerHttpLogger** to your **InterceptedClient** instance and it will work
+Just add **TalkerHttpLogger** to your [**InterceptedClient**](https://pub.dev/packages/http_interceptor) instance and it will work
 
 ```dart
 import 'package:http_interceptor/http_interceptor.dart';

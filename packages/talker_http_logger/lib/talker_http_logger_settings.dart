@@ -31,7 +31,7 @@ class TalkerHttpLoggerSettings with EquatableMixin {
     this.errorFilter,
   });
 
-  /// Print Chopper logger if true
+  /// Print Http logger if true
   final bool enabled;
 
   // LogLevel, default is debug
@@ -112,7 +112,7 @@ class TalkerHttpLoggerSettings with EquatableMixin {
   final ResponseFilter? responseFilter;
 
   /// For error filtering.
-  /// You can add your custom logic to log only specific Chopper error [Response].
+  /// You can add your custom logic to log only specific HTTP error [Response].
   final ResponseFilter? errorFilter;
 
   /// Header values for the specified keys in the Set will be replaced with *****.

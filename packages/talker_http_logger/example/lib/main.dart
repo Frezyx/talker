@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Talker + Chopper Example'),
+        title: const Text('Talker + Http Example'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),

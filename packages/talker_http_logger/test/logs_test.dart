@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:qs_dart/qs_dart.dart' as qs;
 import 'package:talker/talker.dart';
 import 'package:talker_http_logger/curl_request.dart';
 import 'package:talker_http_logger/http_error_log.dart';
@@ -306,6 +307,37 @@ void main() {
         expect(out, contains('curl -v'));
         expect(out, contains('-X ${postRequest.method}'));
         expect(out, contains(r"""-d '{"foo":"bar","baz":"qux"}'"""));
+        expect(out, contains('${postRequest.url}'));
+        expect(out, contains('[cURL] ${postRequest.toCurl()}'));
+      },
+    );
+
+    test(
+      'generateTextMessage should include curl command with form body if printRequestCurl is true',
+      () {
+        final Request postRequest = request.copyWith(
+          method: HttpMethod.POST,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          },
+          body: qs.encode({
+            'foo': 'bar',
+            'baz': 'qux',
+          }),
+        );
+
+        final HttpRequestLog log = HttpRequestLog(
+          null,
+          request: postRequest,
+          settings: const TalkerHttpLoggerSettings(printRequestCurl: true),
+        );
+
+        final String out = log.generateTextMessage();
+
+        expect(out, contains('[cURL]'));
+        expect(out, contains('curl -v'));
+        expect(out, contains('-X ${postRequest.method}'));
+        expect(out, contains(r"""-d 'foo=bar&baz=qux'"""));
         expect(out, contains('${postRequest.url}'));
         expect(out, contains('[cURL] ${postRequest.toCurl()}'));
       },

@@ -139,7 +139,7 @@ For instance, if your app includes private functionality that you prefer not to 
 
 ```dart
 TalkerHttpLoggerSettings(
-  // All http request without "/secure" in path will be printed in console 
+  // All http requests without "/secure" in path will be printed in console 
   requestFilter: (Request request) => !request.url.path.contains('/secure'),
   // All http responses with status codes different than 301 will be printed in console 
   responseFilter: (Response response) => response.statusCode != 301,

@@ -1,4 +1,4 @@
-import 'package:riverpod/riverpod.dart';
+import 'package:riverpod/misc.dart';
 
 class TalkerRiverpodLoggerSettings {
   const TalkerRiverpodLoggerSettings({

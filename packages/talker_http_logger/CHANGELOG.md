@@ -1,3 +1,7 @@
+# 1.0.0
+
+- Complete overhaul of the package
+
 # 0.1.0-dev.46
 - Update example application dependencies
 

@@ -2,9 +2,9 @@ import 'dart:convert' show JsonEncoder, jsonDecode;
 
 import 'package:http_interceptor/http_interceptor.dart';
 
-const JsonEncoder _encoder = JsonEncoder();
-
 extension CurlRequest on BaseRequest {
+  static const JsonEncoder _encoder = JsonEncoder();
+
   /// Converts the request to a curl command string.
   String toCurl({Map<String, String>? headers}) {
     final List<String> curl = ['curl', '-v', '-X', method];

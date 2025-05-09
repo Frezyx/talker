@@ -30,7 +30,7 @@ void main() {
       expect(log.bloc, fakeBloc);
       expect(log.event, fakeEvent);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.blocEvent.key);
+      expect(log.key, TalkerKey.blocEvent);
     });
   });
 
@@ -50,7 +50,7 @@ void main() {
       expect(log.bloc, fakeBloc);
       expect(log.transition, fakeTransition);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.blocTransition.key);
+      expect(log.key, TalkerKey.blocTransition);
     });
   });
 
@@ -69,7 +69,7 @@ void main() {
       expect(log.bloc, fakeBloc);
       expect(log.change, fakeChange);
       expect(log.settings, fakeSettings);
-      expect(log.key, TalkerLogType.blocTransition.key);
+      expect(log.key, TalkerKey.blocTransition);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -85,7 +85,7 @@ void main() {
       final log = BlocCreateLog(bloc: fakeBloc);
 
       expect(log.bloc, fakeBloc);
-      expect(log.key, TalkerLogType.blocCreate.key);
+      expect(log.key, TalkerKey.blocCreate);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());
@@ -101,7 +101,7 @@ void main() {
       final log = BlocCloseLog(bloc: fakeBloc);
 
       expect(log.bloc, fakeBloc);
-      expect(log.key, TalkerLogType.blocClose.key);
+      expect(log.key, TalkerKey.blocClose);
 
       final message = log.generateTextMessage();
       expect(message, isA<String>());

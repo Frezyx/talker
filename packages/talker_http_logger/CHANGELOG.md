@@ -2,6 +2,11 @@
 
 - Complete overhaul of the package
 
+#  0.1.0-dev.47
+- [talker_flutter] fix: propagate `itemsBuilder` to `TalkerView`
+
+Thanks to [AhmedEzio47](https://github.com/AhmedEzio47)
+
 # 0.1.0-dev.46
 - Update example application dependencies
 

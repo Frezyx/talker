@@ -1,3 +1,8 @@
+# 4.7.6
+- [talker_flutter] fix: propagate `itemsBuilder` to `TalkerView`
+
+Thanks to [AhmedEzio47](https://github.com/AhmedEzio47)
+
 # 4.7.5
 - Update example application dependencies
 

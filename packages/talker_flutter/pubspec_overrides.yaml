@@ -2,3 +2,6 @@ dependency_overrides:
   talker:
     path:
       ../talker
+  talker_logger:
+    path:
+      ../talker_logger

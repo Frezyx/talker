@@ -1,3 +1,8 @@
+# 0.1.0-dev.48
+- [talker_logger] chore: update logger output type for improved clarity
+
+Thanks to [techouse](https://github.com/techouse)
+
 #  0.1.0-dev.47
 - [talker_flutter] fix: propagate `itemsBuilder` to `TalkerView`
 

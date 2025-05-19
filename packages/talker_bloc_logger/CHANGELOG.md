@@ -1,3 +1,13 @@
+# 4.7.8
+- [talker_flutter] fix: respect custom TalkerLogger output in TalkerFlutter.init
+
+Thanks to [techouse](https://github.com/techouse)
+
+# 4.7.7
+- [talker_logger] chore: update logger output type for improved clarity
+
+Thanks to [techouse](https://github.com/techouse)
+
 # 4.7.6
 - [talker_flutter] fix: propagate `itemsBuilder` to `TalkerView`
 

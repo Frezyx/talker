@@ -1,4 +1,4 @@
-4.7.5
-4.7.6
-[talker_flutter] fix: propagate `itemsBuilder` to `TalkerView`
-AhmedEzio47
+4.7.7
+4.7.8
+[talker_flutter] fix: respect custom TalkerLogger output in TalkerFlutter.init
+techouse

@@ -72,8 +72,8 @@ class BlocChangeLog extends TalkerLog {
     required this.change,
     required this.settings,
   }) : super('${bloc.runtimeType} changed'
-            '\n${'CURRENT state: ${settings.printStateFullData ? '\n${change.currentState}' : change.currentState.runtimeType}'}'
-            '\n${'NEXT state: ${settings.printStateFullData ? '\n${change.nextState}' : change.nextState.runtimeType}'}');
+            '\nCURRENT state: ${_formatStateDetails(state: change.currentState, printFullData: settings.printStateFullData)}'
+            '\nNEXT state: ${_formatStateDetails(state: change.nextState, printFullData: settings.printStateFullData)}');
 
   final BlocBase bloc;
   final Change change;

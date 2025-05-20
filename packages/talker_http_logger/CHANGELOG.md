@@ -1,3 +1,8 @@
+# 0.1.0-dev.50
+- [talker_bloc_logger] show full data of Bloc logs in Flutter Talker
+
+Thanks to [Mooyeee](https://github.com/Mooyeee)
+
 # 0.1.0-dev.49
 - [talker_flutter] fix: respect custom TalkerLogger output in TalkerFlutter.init
 

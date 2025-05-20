@@ -37,9 +37,16 @@ class BlocStateLog extends TalkerLog {
     required this.transition,
     required this.settings,
   }) : super('${bloc.runtimeType} with event ${transition.event.runtimeType}'
-            '\n${'CURRENT state: ${settings.printStateFullData ? '\n${transition.currentState}' : transition.currentState.runtimeType}'}'
-            '\n${'NEXT state: ${settings.printStateFullData ? '\n${transition.nextState}' : transition.nextState.runtimeType}'}');
+            '\nCURRENT state: ${_formatCurrentState(transition.currentState, settings)}'
+            '\nNEXT state: ${_formatNextState(transition.nextState, settings)}');
 
+  String _formatCurrentState(Object? currentState, TalkerBlocLoggerSettings settings) {
+    return settings.printStateFullData ? '\n$currentState' : currentState.runtimeType.toString();
+  }
+
+  String _formatNextState(Object? nextState, TalkerBlocLoggerSettings settings) {
+    return settings.printStateFullData ? '\n$nextState' : nextState.runtimeType.toString();
+  }
   final Bloc bloc;
   final Transition transition;
   final TalkerBlocLoggerSettings settings;

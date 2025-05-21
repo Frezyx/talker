@@ -1,3 +1,23 @@
+# 0.1.0-dev.50
+- [talker_bloc_logger] show full data of Bloc logs in Flutter Talker
+
+Thanks to [Mooyeee](https://github.com/Mooyeee)
+
+# 0.1.0-dev.49
+- [talker_flutter] fix: respect custom TalkerLogger output in TalkerFlutter.init
+
+Thanks to [techouse](https://github.com/techouse)
+
+# 0.1.0-dev.48
+- [talker_logger] chore: update logger output type for improved clarity
+
+Thanks to [techouse](https://github.com/techouse)
+
+#  0.1.0-dev.47
+- [talker_flutter] fix: propagate `itemsBuilder` to `TalkerView`
+
+Thanks to [AhmedEzio47](https://github.com/AhmedEzio47)
+
 # 0.1.0-dev.46
 - Update example application dependencies
 

@@ -42,6 +42,7 @@ class TalkerScreen extends StatelessWidget {
       backgroundColor: theme.backgroundColor,
       body: TalkerView(
         talker: talker,
+        itemsBuilder: itemsBuilder,
         theme: theme,
         appBarTitle: appBarTitle,
         appBarLeading: appBarLeading,

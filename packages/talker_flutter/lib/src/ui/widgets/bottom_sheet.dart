@@ -61,12 +61,6 @@ class BaseBottomSheet extends StatelessWidget {
                   ],
                 ),
               ),
-              // Divider(
-              //   color: talkerScreenTheme.textColor,
-              //   endIndent: 10,
-              //   indent: 10,
-              //   height: 1,
-              // ),
               child,
             ],
           ),

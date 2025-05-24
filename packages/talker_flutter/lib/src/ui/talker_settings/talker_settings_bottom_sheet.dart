@@ -28,6 +28,8 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
 }
 
 class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
+  late final listenableCustomSettings = ValueNotifier(widget.customSettings);
+
   @override
   void initState() {
     widget.talker.addListener(() => setState(() {}));
@@ -86,43 +88,55 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
           widget.talker.notifyListeners();
         },
       ),
-      ...widget.customSettings.map((CustomSettingsGroup group) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Text(
-                group.name,
-                textAlign: TextAlign.start,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: widget.talkerScreenTheme.textColor,
-                  fontWeight: FontWeight.w700,
+      ...listenableCustomSettings.value.map(
+        (CustomSettingsGroup group) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: Text(
+                  group.title,
+                  textAlign: TextAlign.start,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: widget.talkerScreenTheme.textColor,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-            if (group.showEnabled)
               TalkerSettingsCard(
                 talkerScreenTheme: widget.talkerScreenTheme,
                 title: 'Enabled',
-                enabled: group.isEnabled,
-                onChanged: group.onChangedIsEnabled,
+                enabled: group.enabled,
+                onChanged: (val) {
+                  group.onChanged.call(val);
+                  widget.talker.notifyListeners();
+                },
               ),
-            ...group.items.map(
-              (CustomSettingsItem item) => TalkerSettingsCard(
-                canEdit: group.isEnabled || !group.showEnabled,
-                talkerScreenTheme: widget.talkerScreenTheme,
-                title: item.name,
-                trailing: item.widgetBuilder(
-                  context,
-                  item.value,
-                  group.isEnabled,
+              ...group.items.map(
+                (CustomSettingsItem item) => TalkerSettingsCard(
+                  canEdit: group.enabled,
+                  enabled: item.value,
+                  talkerScreenTheme: widget.talkerScreenTheme,
+                  title: item.name,
+                  onChanged: (val) {
+                    item.onChanged(val);
+                    widget.talker.notifyListeners();
+                  },
+                  trailing: item.widgetBuilder(
+                    context,
+                    item.value,
+                    group.enabled,
+                  ),
                 ),
               ),
-            ),
-          ],
-        );
-      }),
+            ],
+          );
+        },
+      ),
       // Padding(
       //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       //   child: Text(
@@ -186,14 +200,12 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
     return BaseBottomSheet(
       title: 'Talker Settings',
       talkerScreenTheme: widget.talkerScreenTheme,
-      heightFactor: 0.9,
-      child: Expanded(
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            ...settings.map((e) => SliverToBoxAdapter(child: e)),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          ...settings,
+        ],
       ),
     );
   }

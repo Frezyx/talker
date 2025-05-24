@@ -10,7 +10,7 @@ class TalkerScreen extends StatelessWidget {
     this.theme = const TalkerScreenTheme(),
     this.itemsBuilder,
     this.appBarLeading,
-    this.customSettings,
+    this.customSettings = const [],
     this.isLogsExpanded = true,
     this.isLogOrderReversed = true,
   }) : super(key: key);
@@ -32,7 +32,7 @@ class TalkerScreen extends StatelessWidget {
   final TalkerDataBuilder? itemsBuilder;
 
   /// Optional custom settings
-  final ValueNotifier<List<CustomSettingsGroup>>? customSettings;
+  final List<CustomSettingsGroup> customSettings;
 
   ///{@macro talker_flutter_is_log_exapanded}
   final bool isLogsExpanded;

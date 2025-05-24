@@ -18,7 +18,7 @@ class TalkerView extends StatefulWidget {
     this.appBarTitle,
     this.itemsBuilder,
     this.appBarLeading,
-    required this.customSettings,
+    this.customSettings = const [],
     this.isLogsExpanded = true,
     this.isLogOrderReversed = true,
   }) : super(key: key);
@@ -44,7 +44,7 @@ class TalkerView extends StatefulWidget {
   final ScrollController? scrollController;
 
   /// Optional custom settings
-  final ValueNotifier<List<CustomSettingsGroup>>? customSettings;
+  final List<CustomSettingsGroup> customSettings;
 
   /// {@template talker_flutter_is_log_exapanded}
   /// If true, all logs will be initially expanded
@@ -158,15 +158,11 @@ class _TalkerViewState extends State<TalkerView> {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) {
-        return ValueListenableBuilder<List<CustomSettingsGroup>>(
-            valueListenable: widget.customSettings ?? ValueNotifier([]),
-            builder: (context, customSettings, child) {
-              return TalkerSettingsBottomSheet(
-                talkerScreenTheme: theme,
-                talker: talker,
-                customSettings: customSettings,
-              );
-            });
+        return TalkerSettingsBottomSheet(
+          talkerScreenTheme: theme,
+          talker: talker,
+          customSettings: widget.customSettings,
+        );
       },
     );
   }

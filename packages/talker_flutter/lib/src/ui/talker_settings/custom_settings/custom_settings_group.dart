@@ -1,17 +1,20 @@
 import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
 
 class CustomSettingsGroup {
-  final String name;
-  final bool showEnabled;
-  final bool isEnabled;
-  final Function(bool isEnabled)? onChangedIsEnabled;
+  CustomSettingsGroup({
+    required this.title,
+    this.enabled = true,
+    Function(bool val)? onToggleEnabled,
+    this.items = const [],
+  }) : _onToggleEnabled = onToggleEnabled;
+
+  late final Function(bool val)? _onToggleEnabled;
+  final String title;
+  bool enabled;
   final List<CustomSettingsItem> items;
 
-  const CustomSettingsGroup({
-    required this.name,
-    this.showEnabled = true,
-    this.isEnabled = true,
-    this.onChangedIsEnabled,
-    this.items = const [],
-  });
+  void onChanged(bool val) {
+    _onToggleEnabled?.call(val);
+    enabled = val;
+  }
 }

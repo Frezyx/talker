@@ -31,7 +31,7 @@ class RiverpodAddLog extends TalkerLog {
   final TalkerRiverpodLoggerSettings settings;
 
   @override
-  String get key => TalkerLogType.riverpodAdd.key;
+  String get key => TalkerKey.riverpodAdd;
 
   @override
   String generateTextMessage({
@@ -66,7 +66,7 @@ class RiverpodUpdateLog extends TalkerLog {
   final TalkerRiverpodLoggerSettings settings;
 
   @override
-  String get key => TalkerLogType.riverpodUpdate.key;
+  String get key => TalkerKey.riverpodUpdate;
 
   @override
   String generateTextMessage({
@@ -99,7 +99,7 @@ class RiverpodDisposeLog extends TalkerLog {
   final TalkerRiverpodLoggerSettings settings;
 
   @override
-  String get key => TalkerLogType.riverpodDispose.key;
+  String get key => TalkerKey.riverpodDispose;
 
   @override
   String generateTextMessage({
@@ -132,7 +132,7 @@ class RiverpodFailLog extends TalkerLog {
   final TalkerRiverpodLoggerSettings settings;
 
   @override
-  String? get key => TalkerLogType.riverpodFail.key;
+  String? get key => TalkerKey.riverpodFail;
 
   @override
   String generateTextMessage({

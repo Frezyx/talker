@@ -1,0 +1,4 @@
+4.7.8
+4.7.9
+[talker_bloc_logger] show full data of Bloc logs in Flutter Talker
+Mooyeee

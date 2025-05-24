@@ -19,6 +19,8 @@ class TalkerView extends StatefulWidget {
     this.itemsBuilder,
     this.appBarLeading,
     required this.customSettings,
+    this.isLogsExpanded = true,
+    this.isLogOrderReversed = true,
   }) : super(key: key);
 
   /// Talker implementation
@@ -44,13 +46,27 @@ class TalkerView extends StatefulWidget {
   /// Optional custom settings
   final ValueNotifier<List<CustomSettingsGroup>>? customSettings;
 
+  /// {@template talker_flutter_is_log_exapanded}
+  /// If true, all logs will be initially expanded
+  /// {@endtemplate}
+  final bool isLogsExpanded;
+
+  /// {@template talker_flutter_is_log_order_reversed}
+  /// if true, latest logs will be on the top of the list
+  /// {@endtemplate}
+  final bool isLogOrderReversed;
+
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
 
 class _TalkerViewState extends State<TalkerView> {
   final _titlesController = GroupButtonController();
-  late final _controller = widget.controller ?? TalkerViewController();
+  late final _controller = widget.controller ??
+      TalkerViewController(
+        expandedLogs: widget.isLogsExpanded,
+        isLogOrderReversed: widget.isLogOrderReversed,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +79,7 @@ class _TalkerViewState extends State<TalkerView> {
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filteredElements =
-                  data.where((e) => _controller.filter.filter(e)).toList();
+              final filteredElements = filteredLogs(data);
               final titles = data.map((e) => e.title).toList();
               final uniqTitles = titles.toSet().toList();
 
@@ -114,6 +129,9 @@ class _TalkerViewState extends State<TalkerView> {
       ),
     );
   }
+
+  List<TalkerData> filteredLogs(List<TalkerData> data) =>
+      data.where((e) => _controller.filter.filter(e)).toList();
 
   void _onToggleTitle(String title, bool selected) {
     if (selected) {
@@ -196,6 +214,11 @@ class _TalkerViewState extends State<TalkerView> {
               icon: Icons.copy,
             ),
             TalkerActionItem(
+              onTap: () => _copyFilteredLogs(context),
+              title: 'Copy filtered logs',
+              icon: Icons.copy,
+            ),
+            TalkerActionItem(
               onTap: _toggleLogsExpanded,
               title: _controller.expandedLogs ? 'Collapse logs' : 'Expand logs',
               icon: _controller.expandedLogs
@@ -239,5 +262,12 @@ class _TalkerViewState extends State<TalkerView> {
         text: widget.talker.history
             .text(timeFormat: widget.talker.settings.timeFormat)));
     _showSnackBar(context, 'All logs copied in buffer');
+  }
+
+  void _copyFilteredLogs(BuildContext context) {
+    Clipboard.setData(ClipboardData(
+        text: filteredLogs(widget.talker.history)
+            .text(timeFormat: widget.talker.settings.timeFormat)));
+    _showSnackBar(context, 'All filtered logs copied in buffer');
   }
 }

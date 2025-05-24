@@ -71,6 +71,8 @@ class _BaseExampleState extends State<BaseExample> {
         return Scaffold(
           body: TalkerScreen(
             talker: widget.talker,
+            isLogsExpanded: true,
+            isLogOrderReversed: true,
             theme: const TalkerScreenTheme(
               logColors: {
                 YourCustomLog.logKey: Colors.green,

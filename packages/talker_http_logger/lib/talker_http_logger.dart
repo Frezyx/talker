@@ -4,20 +4,26 @@ import 'dart:convert';
 
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:talker/talker.dart';
+import 'package:talker_http_logger/talker_http_logger_settings.dart';
 
 class TalkerHttpLogger extends InterceptorContract {
-  TalkerHttpLogger({Talker? talker}) {
+  TalkerHttpLogger(
+      {Talker? talker, this.settings = const TalkerHttpLoggerSettings()}) {
     _talker = talker ?? Talker();
   }
 
   late Talker _talker;
+
+  /// [TalkerHttpLogger] settings and customization
+  TalkerHttpLoggerSettings settings;
 
   @override
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
     final message = '${request.url}';
-    _talker.logCustom(HttpRequestLog(message, request: request));
+    _talker.logCustom(
+        HttpRequestLog(message, request: request, settings: settings));
     return request;
   }
 
@@ -38,14 +44,18 @@ class TalkerHttpLogger extends InterceptorContract {
 }
 
 const encoder = JsonEncoder.withIndent('  ');
+const _hiddenValue = '*****';
 
 class HttpRequestLog extends TalkerLog {
   HttpRequestLog(
     String title, {
     required this.request,
+    this.settings = const TalkerHttpLoggerSettings(),
   }) : super(title);
 
   final BaseRequest request;
+
+  final TalkerHttpLoggerSettings settings;
 
   @override
   AnsiPen get pen => (AnsiPen()..xterm(219));
@@ -54,13 +64,23 @@ class HttpRequestLog extends TalkerLog {
   String get key => TalkerLogType.httpRequest.key;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] [${request.method}] $message';
 
-    final headers = request.headers;
+    final headers = Map.from(request.headers);
 
     try {
       if (headers.isNotEmpty) {
+        if (settings.hiddenHeaders.isNotEmpty) {
+          headers.updateAll((key, value) {
+            return settings.hiddenHeaders
+                    .map((v) => v.toLowerCase())
+                    .contains(key.toLowerCase())
+                ? _hiddenValue
+                : value;
+          });
+        }
         final prettyHeaders = encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }
@@ -75,9 +95,12 @@ class HttpResponseLog extends TalkerLog {
   HttpResponseLog(
     String title, {
     required this.response,
+    this.settings = const TalkerHttpLoggerSettings(),
   }) : super(title);
 
   final BaseResponse response;
+
+  final TalkerHttpLoggerSettings settings;
 
   @override
   AnsiPen get pen => (AnsiPen()..xterm(46));
@@ -86,7 +109,8 @@ class HttpResponseLog extends TalkerLog {
   String get key => TalkerLogType.httpResponse.key;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] [${response.request?.method}] $message';
 
     final headers = response.request?.headers;
@@ -109,9 +133,12 @@ class HttpErrorLog extends TalkerLog {
   HttpErrorLog(
     String title, {
     required this.response,
+    this.settings = const TalkerHttpLoggerSettings(),
   }) : super(title);
 
   final BaseResponse response;
+
+  final TalkerHttpLoggerSettings settings;
 
   @override
   AnsiPen get pen => AnsiPen()..red();
@@ -120,7 +147,8 @@ class HttpErrorLog extends TalkerLog {
   String get key => TalkerLogType.httpError.key;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] [${response.request?.method}] $message';
 
     final headers = response.request?.headers;

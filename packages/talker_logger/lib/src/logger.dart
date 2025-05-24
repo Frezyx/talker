@@ -1,13 +1,16 @@
 import 'package:talker_logger/src/logger_io.dart'
+    if (dart.library.js_interop) 'logger_web.dart'
     if (dart.library.html) 'logger_web.dart' as log_output;
 import 'package:talker_logger/talker_logger.dart';
+
+typedef LoggerOutput = void Function(String message);
 
 class TalkerLogger {
   TalkerLogger({
     TalkerLoggerSettings? settings,
     this.formatter = const ExtendedLoggerFormatter(),
     LoggerFilter? filter,
-    void Function(String message)? output,
+    LoggerOutput? output,
   }) {
     this.settings = settings ?? TalkerLoggerSettings();
     // ignore: avoid_print
@@ -23,8 +26,11 @@ class TalkerLogger {
   /// Or your own fully customized formatter with extends [LoggerFormatter]
   final LoggerFormatter formatter;
 
-  late final void Function(String message) _output;
+  late final LoggerOutput _output;
   late final LoggerFilter _filter;
+
+  // get filter
+  LoggerFilter get filter => _filter;
 
   /// {@template talker_logger_log}
   /// Log a new custom message
@@ -96,7 +102,6 @@ class TalkerLogger {
   /// logger.debug('Log debug message');
   /// ```
   /// {@endtemplate}
-
   void debug(dynamic msg) => log(msg);
 
   /// {@template talker_logger_verbose_log}
@@ -108,7 +113,6 @@ class TalkerLogger {
   /// logger.verbose('Log verbose message');
   /// ```
   /// {@endtemplate}
-
   void verbose(dynamic msg) => log(msg, level: LogLevel.verbose);
 
   /// {@template talker_logger_info_log}
@@ -120,7 +124,6 @@ class TalkerLogger {
   /// logger.info('Log info message');
   /// ```
   /// {@endtemplate}
-
   void info(dynamic msg) => log(msg, level: LogLevel.info);
 
   /// {@template talker_logger_good_log}
@@ -132,18 +135,16 @@ class TalkerLogger {
   /// logger.good('Log good message');
   /// ```
   /// {@endtemplate}
-
   TalkerLogger copyWith({
     TalkerLoggerSettings? settings,
     LoggerFormatter? formatter,
     LoggerFilter? filter,
-    Function(String message)? output,
-  }) {
-    return TalkerLogger(
-      settings: settings ?? this.settings,
-      formatter: formatter ?? this.formatter,
-      filter: filter ?? _filter,
-      output: output ?? _output,
-    );
-  }
+    LoggerOutput? output,
+  }) =>
+      TalkerLogger(
+        settings: settings ?? this.settings,
+        formatter: formatter ?? this.formatter,
+        filter: filter ?? _filter,
+        output: output ?? _output,
+      );
 }

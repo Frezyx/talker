@@ -3,7 +3,7 @@ import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class TalkerViewAppBar extends StatelessWidget {
+class TalkerViewAppBar extends StatefulWidget {
   const TalkerViewAppBar({
     Key? key,
     required this.title,
@@ -38,51 +38,102 @@ class TalkerViewAppBar extends StatelessWidget {
   final Function(String title, bool selected) onToggleTitle;
 
   @override
+  State<TalkerViewAppBar> createState() => _TalkerViewAppBarState();
+}
+
+class _TalkerViewAppBarState extends State<TalkerViewAppBar>
+    with WidgetsBindingObserver {
+  final GlobalKey _groupButtonKey = GlobalKey();
+
+  final GlobalKey _searchTextFieldKey = GlobalKey();
+
+  double? _spaceBarHeight;
+
+  final double _defaultSpaceBarHeight = 50;
+
+  final double _defaultToolbarHeight = 60;
+
+  static const double _padding = 8;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance
+      ..addObserver(this)
+      ..addPostFrameCallback(_addPostFrameCallback);
+    super.initState();
+  }
+
+  @override
+  void didChangeMetrics() {
+    _calculateHeight();
+    super.didChangeMetrics();
+  }
+
+  void _addPostFrameCallback(Duration timestamp) => _calculateHeight();
+
+  void _calculateHeight() {
+    final groupBtnRenderBox =
+        _groupButtonKey.currentContext?.findRenderObject() as RenderBox?;
+    if (groupBtnRenderBox == null) return;
+
+    final searchFieldRenderBox =
+        _searchTextFieldKey.currentContext?.findRenderObject() as RenderBox?;
+    if (searchFieldRenderBox == null) return;
+
+    setState(() {
+      _spaceBarHeight = searchFieldRenderBox.size.height +
+          groupBtnRenderBox.size.height +
+          _defaultToolbarHeight +
+          _padding;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SliverAppBar(
-      backgroundColor: talkerTheme.backgroundColor,
+      backgroundColor: widget.talkerTheme.backgroundColor,
       elevation: 0,
       pinned: true,
       floating: true,
-      expandedHeight: 174,
-      collapsedHeight: 60,
-      toolbarHeight: 60,
-      leading: leading,
-      iconTheme: IconThemeData(color: talkerTheme.textColor),
+      expandedHeight: _spaceBarHeight ?? _defaultSpaceBarHeight,
+      collapsedHeight: _defaultToolbarHeight,
+      toolbarHeight: _defaultToolbarHeight,
+      leading: widget.leading,
+      iconTheme: IconThemeData(color: widget.talkerTheme.textColor),
       actions: [
         UnconstrainedBox(
           child: _MonitorButton(
-            talker: talker,
-            onPressed: onMonitorTap,
-            talkerTheme: talkerTheme,
+            talker: widget.talker,
+            onPressed: widget.onMonitorTap,
+            talkerTheme: widget.talkerTheme,
           ),
         ),
         UnconstrainedBox(
           child: IconButton(
-            onPressed: onSettingsTap,
+            onPressed: widget.onSettingsTap,
             icon: Icon(
               Icons.settings_rounded,
-              color: talkerTheme.textColor,
+              color: widget.talkerTheme.textColor,
             ),
           ),
         ),
         UnconstrainedBox(
           child: IconButton(
-            onPressed: onActionsTap,
+            onPressed: widget.onActionsTap,
             icon: Icon(
               Icons.menu_rounded,
-              color: talkerTheme.textColor,
+              color: widget.talkerTheme.textColor,
             ),
           ),
         ),
         const SizedBox(width: 10),
       ],
-      title: title != null
+      title: widget.title != null
           ? Text(
-              title!,
+              widget.title!,
               style: TextStyle(
-                color: talkerTheme.textColor,
+                color: widget.talkerTheme.textColor,
               ),
             )
           : null,
@@ -93,60 +144,57 @@ class TalkerViewAppBar extends StatelessWidget {
             padding: const EdgeInsets.only(top: 60),
             child: Column(
               children: [
-                SizedBox(
-                  height: 50,
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      GroupButton(
-                        controller: titlesController,
-                        isRadio: false,
-                        buttonBuilder: (selected, value, context) {
-                          final count = titles.where((e) => e == value).length;
-                          return Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: talkerTheme.textColor),
-                              borderRadius: BorderRadius.circular(10),
-                              color: selected
-                                  ? theme.colorScheme.primaryContainer
-                                  : talkerTheme.cardColor,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: GroupButton(
+                    key: _groupButtonKey,
+                    controller: widget.titlesController,
+                    isRadio: false,
+                    buttonBuilder: (selected, value, context) {
+                      final count =
+                          widget.titles.where((e) => e == value).length;
+                      return Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(color: widget.talkerTheme.textColor),
+                          borderRadius: BorderRadius.circular(10),
+                          color: selected
+                              ? theme.colorScheme.primaryContainer
+                              : widget.talkerTheme.cardColor,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              '$count',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: widget.talkerTheme.textColor,
+                              ),
                             ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  '$count',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: talkerTheme.textColor,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '$value',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: talkerTheme.textColor,
-                                  ),
-                                ),
-                              ],
+                            const SizedBox(width: 4),
+                            Text(
+                              '$value',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: widget.talkerTheme.textColor,
+                              ),
                             ),
-                          );
-                        },
-                        onSelected: (_, i, selected) =>
-                            _onToggle(uniqTitles[i], selected),
-                        buttons: uniqTitles,
-                      ),
-                    ],
+                          ],
+                        ),
+                      );
+                    },
+                    onSelected: (_, i, selected) =>
+                        _onToggle(widget.uniqTitles[i], selected),
+                    buttons: widget.uniqTitles,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: _padding),
                 _SearchTextField(
-                  controller: controller,
-                  talkerTheme: talkerTheme,
+                  key: _searchTextFieldKey,
+                  controller: widget.controller,
+                  talkerTheme: widget.talkerTheme,
                 ),
               ],
             ),
@@ -158,16 +206,16 @@ class TalkerViewAppBar extends StatelessWidget {
 
   void _onToggle(String? title, bool selected) {
     if (title == null) return;
-    onToggleTitle(title, selected);
+    widget.onToggleTitle(title, selected);
   }
 }
 
 class _SearchTextField extends StatelessWidget {
   const _SearchTextField({
-    Key? key,
+    super.key,
     required this.talkerTheme,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final TalkerScreenTheme talkerTheme;
   final TalkerViewController controller;
@@ -184,7 +232,7 @@ class _SearchTextField extends StatelessWidget {
         ),
         onChanged: controller.updateFilterSearchQuery,
         decoration: InputDecoration(
-          fillColor: theme.cardColor,
+          fillColor: talkerTheme.backgroundColor,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: talkerTheme.textColor),
             borderRadius: BorderRadius.circular(10),

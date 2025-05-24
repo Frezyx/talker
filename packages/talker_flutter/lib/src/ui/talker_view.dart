@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
-import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
 import 'package:talker_flutter/src/ui/widgets/talker_view_appbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -19,6 +18,7 @@ class TalkerView extends StatefulWidget {
     this.appBarTitle,
     this.itemsBuilder,
     this.appBarLeading,
+    this.customSettings = const [],
     this.isLogsExpanded = true,
     this.isLogOrderReversed = true,
   }) : super(key: key);
@@ -42,6 +42,9 @@ class TalkerView extends StatefulWidget {
   final TalkerViewController? controller;
 
   final ScrollController? scrollController;
+
+  /// Optional custom settings
+  final List<CustomSettingsGroup> customSettings;
 
   /// {@template talker_flutter_is_log_exapanded}
   /// If true, all logs will be initially expanded
@@ -158,6 +161,7 @@ class _TalkerViewState extends State<TalkerView> {
         return TalkerSettingsBottomSheet(
           talkerScreenTheme: theme,
           talker: talker,
+          customSettings: widget.customSettings,
         );
       },
     );

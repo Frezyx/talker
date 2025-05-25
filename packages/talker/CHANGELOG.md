@@ -1,3 +1,8 @@
+# 4.8.0
+- [talker_flutter] Add custom settings section
+
+Thanks to [zvikarp](https://github.com/zvikarp)
+
 # 4.7.9
 - [talker_bloc_logger] show full data of Bloc logs in Flutter Talker
 

@@ -7,11 +7,13 @@ class BaseBottomSheet extends StatelessWidget {
     required this.talkerScreenTheme,
     required this.child,
     required this.title,
+    this.heightFactor,
   }) : super(key: key);
 
   final TalkerScreenTheme talkerScreenTheme;
   final Widget child;
   final String title;
+  final double? heightFactor;
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +61,6 @@ class BaseBottomSheet extends StatelessWidget {
                   ],
                 ),
               ),
-              // Divider(
-              //   color: talkerScreenTheme.textColor,
-              //   endIndent: 10,
-              //   indent: 10,
-              //   height: 1,
-              // ),
               child,
             ],
           ),

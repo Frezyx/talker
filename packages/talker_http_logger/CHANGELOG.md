@@ -2,6 +2,11 @@
 
 - Complete overhaul of the package
 
+# 0.1.0-dev.51
+- [talker_flutter] Add custom settings section
+
+Thanks to [zvikarp](https://github.com/zvikarp)
+
 # 0.1.0-dev.50
 - [talker_bloc_logger] show full data of Bloc logs in Flutter Talker
 

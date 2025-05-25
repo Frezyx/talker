@@ -68,17 +68,8 @@ class _BaseExampleState extends State<BaseExample> {
         scaffoldBackgroundColor: Colors.grey[100],
       ),
       home: Builder(builder: (context) {
-        return Scaffold(
-          body: TalkerScreen(
-            talker: widget.talker,
-            isLogsExpanded: true,
-            isLogOrderReversed: true,
-            theme: const TalkerScreenTheme(
-              logColors: {
-                YourCustomLog.logKey: Colors.green,
-              },
-            ),
-          ),
+        return _HomeScreen(
+          talker: widget.talker,
         );
       }),
     );
@@ -90,6 +81,52 @@ class _BaseExampleState extends State<BaseExample> {
     } catch (e, st) {
       widget.talker.handle(e, st, 'FakeService exception');
     }
+  }
+}
+
+class _HomeScreen extends StatefulWidget {
+  const _HomeScreen({
+    required this.talker,
+  });
+
+  final Talker talker;
+
+  @override
+  State<_HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<_HomeScreen> {
+  var _settingField = true;
+  var _shareSentryReports = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: TalkerScreen(
+        talker: widget.talker,
+        isLogsExpanded: true,
+        isLogOrderReversed: true,
+        customSettings: [
+          CustomSettingsGroup(
+            title: 'Your debug custom settings',
+            enabled: _settingField,
+            onToggleEnabled: (val) => setState(() => _settingField = val),
+            items: [
+              CustomSettingsItemBool(
+                name: 'Share reports to Sentry',
+                value: _shareSentryReports,
+                onChanged: (val) => setState(() => _shareSentryReports = val),
+              ),
+            ],
+          ),
+        ],
+        theme: const TalkerScreenTheme(
+          logColors: {
+            YourCustomLog.logKey: Colors.green,
+          },
+        ),
+      ),
+    );
   }
 }
 

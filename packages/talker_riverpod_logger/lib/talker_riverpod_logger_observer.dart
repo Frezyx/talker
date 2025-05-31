@@ -108,8 +108,12 @@ class TalkerRiverpodObserver extends ProviderObserver {
       return;
     }
 
-    final errorFiltered = settings.didFailFilter?.call(error) ?? true;
-    if (!errorFiltered) {
+    try {
+      final errorFiltered = settings.didFailFilter?.call(error) ?? true;
+      if (!errorFiltered) {
+        return;
+      }
+    } catch (_) {
       return;
     }
 

@@ -107,6 +107,12 @@ class TalkerRiverpodObserver extends ProviderObserver {
     if (!accepted) {
       return;
     }
+
+    final errorFiltered = settings.didFailFilter?.call(error) ?? true;
+    if (!errorFiltered) {
+      return;
+    }
+
     _talker.logCustom(
       RiverpodFailLog(
         provider: provider,

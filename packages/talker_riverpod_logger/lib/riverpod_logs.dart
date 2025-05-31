@@ -10,7 +10,20 @@ String _defaultMessage({
     return '${provider.runtimeType} $suffix';
   }
 
-  return '${provider.name} | ${provider.runtimeType} $suffix';
+  var output = "";
+  final name = provider.name;
+  if (name != null) {
+    var fullName = name;
+
+    final family = provider.argument;
+    if (family != null) {
+      fullName += '($family)';
+    }
+
+    output += fullName;
+  }
+
+  return '$output | ${provider.runtimeType} $suffix';
 }
 
 /// [Riverpod] add provider log model

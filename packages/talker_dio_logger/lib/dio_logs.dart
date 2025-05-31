@@ -48,6 +48,12 @@ class DioRequestLog extends TalkerLog {
         final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
       }
+
+      final extra = Map.from(requestOptions.extra);
+      if (settings.printRequestExtra && extra.isNotEmpty) {
+        final prettyExtra = _encoder.convert(extra);
+        msg += '\nExtra: $prettyExtra';
+      }
     } catch (_) {
       // TODO: add handling can`t convert
     }

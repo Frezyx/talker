@@ -6,19 +6,7 @@ String _defaultMessage({
   required ProviderBase<Object?> provider,
   required String suffix,
 }) {
-  var output = "";
-
-  final name = provider.name;
-  if (name != null) output += "$name | ";
-
-  output += "${provider.runtimeType}";
-
-  final family = provider.argument;
-  if (family != null) output += '($family)';
-
-  output += ' $suffix';
-
-  return output;
+  return "$provider $suffix";
 }
 
 /// [Riverpod] add provider log model

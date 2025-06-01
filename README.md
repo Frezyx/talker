@@ -194,6 +194,7 @@ class YourCustomLog extends TalkerLog {
     /// Log color 
     static get getPen => AnsiPen()..yellow(); 
 
+    //! Needed because of limitations involving custom colors, titles, and keys
     @override 
     String get title => getTitle; 
 
@@ -232,7 +233,7 @@ final talker = Talker(
 
       // Custom Logs can be defined
 
-      // from the custom log's key name
+      // ... from the custom log's key name
       'custom_log_key': AnsiPen()..yellow(),
 
       // ... or from the variable

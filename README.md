@@ -194,7 +194,10 @@ class YourCustomLog extends TalkerLog {
     /// Log color 
     static get getPen => AnsiPen()..yellow(); 
 
-    //! Needed because of limitations involving custom colors, titles, and keys
+    /// The following overrides are required because the base class expects instance getters,
+    /// but we use static getters to allow for easy customization and reuse of colors, titles, and keys.
+    /// This approach works around limitations in the base class API, which does not support passing custom values
+    /// directly to the constructor or as parameters, so we override the instance getters to return the static values.
     @override 
     String get title => getTitle; 
 
@@ -228,8 +231,8 @@ final talker = Talker(
     colors: {
       // Colors for default log types can be defined with AnsiPen
       TalkerLogType.httpResponse.key: AnsiPen()..red(),
-      TalkerLogType.error.key: AnsiPen..green(),
-      TalkerLogType.info.key: AnsiPen..blue(),
+      TalkerLogType.error.key: AnsiPen()..green(),
+      TalkerLogType.info.key: AnsiPen()..blue(),
 
       // Custom Logs can be defined
 
@@ -237,7 +240,7 @@ final talker = Talker(
       'custom_log_key': AnsiPen()..yellow(),
 
       // ... or from the variable
-      YourCustomLog.getKey: AnsiPen().yellow(),
+      YourCustomLog.getKey: AnsiPen()..yellow(),
 
       // ... or using the variable and the previously defined custom color for conformity
       YourCustomLog.getKey: YourCustomLog.getPen
@@ -415,7 +418,7 @@ TalkerScreen(
   theme: const TalkerScreenTheme(
     logColors: {
 
-      // Default log type colors can be overriden from the color object
+      // Default log type colors can be overridden from the color object
       TalkerLogType.httpResponse.key: Color(0xFF26FF3C),
       // ... or from flutter material colors
       TalkerLogType.error.key: Colors.redAccent,

@@ -186,7 +186,7 @@ class YourCustomLog extends TalkerLog {
     YourCustomLog(String super.message); 
 
     /// Log title 
-    static get getTitle => 'new custom title!';
+    static get getTitle => 'Custom';
 
     /// Log key 
     static get getKey => 'custom_log_key';
@@ -230,7 +230,7 @@ final talker = Talker(
       TalkerLogType.error.key: AnsiPen..green(),
       TalkerLogType.info.key: AnsiPen..blue(),
 
-      // Custom Logs vv
+      // Custom Logs can be defined
 
       // from the custom log's key name
       'custom_log_key': AnsiPen()..yellow(),
@@ -269,9 +269,9 @@ final talker = Talker(
       TalkerLogType.error.key: 'E',
       TalkerLogType.info.key: 'i',
 
-      // Custom Logs vv
+      // Custom Logs can be defined
 
-      // from the custom log's key name
+      // ... from the custom log's key name
       'custom_log_key': "new custom title!",
 
       // ... or from the variable
@@ -412,8 +412,8 @@ final talker = TalkerFlutter.init();
 TalkerScreen(
   talker: talker,
   theme: const TalkerScreenTheme(
-    /// Your custom log colors
     logColors: {
+
       // Default log type colors can be overriden from the color object
       TalkerLogType.httpResponse.key: Color(0xFF26FF3C),
       // ... or from flutter material colors
@@ -421,16 +421,17 @@ TalkerScreen(
       // ... or from ARGB values
       TalkerLogType.info.key: Color.fromARGB(255, 0, 255, 247),
 
-      // Custom Logs vv
-
-      // Custom logs can override their terminal colors using the key string
+      // Custom logs can override their terminal colors 
+      
+      // ... using the key string
       'custom_log_key': Colors.green,
       
       // ... or from the variable
       YourCustomLog.getKey: Colors.green,
 
-      // ... but they cannot use the previously defined color from the custom log extension, because flutter doesn't display ansi colors in widgets.
-      // However, you can use material colors, the color object, or ARGB values for them
+      // ... but they cannot use the previously defined color from the custom log object,
+      // ... because flutter doesn't display ansi colors in widgets.
+      // ... However, you can use material colors, the color object, or ARGB values for them
       YourCustomLog.getKey: Color(0xFF26FF3C)
     },
   )

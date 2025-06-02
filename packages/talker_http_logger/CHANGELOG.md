@@ -1,3 +1,8 @@
+# 0.1.0-dev.52
+- [talker_dio_logger] Add logging of request`s extra
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
 # 0.1.0-dev.51
 - [talker_flutter] Add custom settings section
 

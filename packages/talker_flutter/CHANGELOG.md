@@ -1,3 +1,8 @@
+# 4.8.1
+- [talker_dio_logger] Add logging of request`s extra
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
 # 4.8.0
 - [talker_flutter] Add custom settings section
 

@@ -1,6 +1,6 @@
 name: talker
 description: Advanced error handler and logger package for flutter and dart. App monitoring, logs history, report sharing, custom logs, and etc.
-version: 4.8.1
+version: 4.8.2
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues
@@ -16,7 +16,7 @@ environment:
   sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
-  talker_logger: ^4.8.1
+  talker_logger: ^4.8.2
 
 dev_dependencies:
   lints: ^2.0.0

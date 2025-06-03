@@ -1,3 +1,10 @@
+# 4.8.2
+- [talker] Add `CustomLog` Documentation
+- [example] Update plugin com.android.application to v8.10.1
+- [example] Update dependency gradle to v8.14.1
+
+Thanks to [MeyerOppelt](https://github.com/MeyerOppelt)
+
 # 4.8.1
 - [talker_dio_logger] Add logging of request`s extra
 

@@ -1,3 +1,9 @@
+# 1.0.0
+
+- Complete overhaul of the package
+
+Thanks to [techouse](https://github.com/techouse)
+
 # 0.1.0-dev.53
 - [talker] Add `CustomLog` Documentation
 - [example] Update plugin com.android.application to v8.10.1

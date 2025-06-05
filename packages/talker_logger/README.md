@@ -23,7 +23,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_logger: ^4.8.0
+  talker_logger: ^4.8.2
 ```
 
 ### Easy to use

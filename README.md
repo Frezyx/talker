@@ -123,7 +123,7 @@ Follow these steps to the coolest experience in error handling
 ### Add dependency
 ```yaml
 dependencies:
-  talker: ^4.8.0
+  talker: ^4.8.2
 ```
 
 ### Easy to use
@@ -182,18 +182,31 @@ With Talker you can create your custom log message types.<br>
 And you have **full customization control** over them!
 
 ```dart
-class YourCustomLog extends TalkerLog {
-  YourCustomLog(String message) : super(message);
+class YourCustomLog extends TalkerLog { 
+    YourCustomLog(String super.message); 
 
-  @override
-  String get title => 'Custom';
+    /// Log title 
+    static get getTitle => 'Custom';
 
-  @override
-  String? get key => 'custom_log_key';
+    /// Log key 
+    static get getKey => 'custom_log_key';
 
-  @override
-  AnsiPen get pen => AnsiPen()..xterm(121);
-}
+    /// Log color 
+    static get getPen => AnsiPen()..yellow(); 
+
+    /// The following overrides are required because the base class expects instance getters,
+    /// but we use static getters to allow for easy customization and reuse of colors, titles, and keys.
+    /// This approach works around limitations in the base class API, which does not support passing custom values
+    /// directly to the constructor or as parameters, so we override the instance getters to return the static values.
+    @override 
+    String get title => getTitle; 
+
+    @override 
+    String get key => getKey; 
+
+    @override 
+    AnsiPen get pen => getPen; 
+ } 
 
 final talker = Talker();
 talker.logCustom(YourCustomLog('Something like your own service message'));
@@ -212,15 +225,25 @@ The `String` key serves as an identifier for a specific log type (e.g., HTTP, er
 - Default log types are accessible via the `key` field in the `TalkerLogType` enum.
 - Developers can also define **custom log pen** by providing their own string keys, like `'custom_log_key'`.
 
-
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     colors: {
+      // Colors for default log types can be defined with AnsiPen
       TalkerLogType.httpResponse.key: AnsiPen()..red(),
       TalkerLogType.error.key: AnsiPen()..green(),
+      TalkerLogType.info.key: AnsiPen()..blue(),
+
+      // Custom Logs can be defined
+
+      // ... from the custom log's key name
       'custom_log_key': AnsiPen()..yellow(),
-      // Other colors...
+
+      // ... or from the variable
+      YourCustomLog.getKey: AnsiPen()..yellow(),
+
+      // ... or using the variable and the previously defined custom color for conformity
+      YourCustomLog.getKey: YourCustomLog.getPen
     },
   ),
 );
@@ -238,18 +261,28 @@ The map is now structured as `{String: AnsiPen}`.
 
 ### String Key
 The `String` key serves as an identifier for a specific log type (e.g., HTTP, error, info, etc.). 
-- Default log types are accessible via the `key` field in the `TalkerLogType` enum.
+- Default log types are accessible via the `getKey` field in the `TalkerLogType` enum.
 - Developers can also define **custom log title** by providing their own string keys, like `'custom_log_key'`.
 
 ```dart
 final talker = Talker(
   settings: TalkerSettings(
     titles: {
+      // Titles for default log types can be defined with strings
       TalkerLogType.exception.key: 'Whatever you want',
       TalkerLogType.error.key: 'E',
       TalkerLogType.info.key: 'i',
-      'custom_log_key': 'New custom title',
-      // Other titles...
+
+      // Custom Logs can be defined
+
+      // ... from the custom log's key name
+      'custom_log_key': "new custom title!",
+
+      // ... or from the variable
+      YourCustomLog.getKey: "new custom title!",
+
+      // ... or using the variable and the previously defined custom title for conformity
+      YourCustomLog.getKey: YourCustomLog.getTitle      
     },
   ),
 );
@@ -303,7 +336,7 @@ Talker Flutter is an extension for the Dart Talker package that adds extra funct
 ### Add dependency
 ```yaml
 dependencies:
-  talker_flutter: ^4.8.0
+  talker_flutter: ^4.8.2
 ```
 
 ### Setup
@@ -383,12 +416,27 @@ final talker = TalkerFlutter.init();
 TalkerScreen(
   talker: talker,
   theme: const TalkerScreenTheme(
-    /// Your custom log colors
     logColors: {
+
+      // Default log type colors can be overridden from the color object
       TalkerLogType.httpResponse.key: Color(0xFF26FF3C),
+      // ... or from flutter material colors
       TalkerLogType.error.key: Colors.redAccent,
+      // ... or from ARGB values
       TalkerLogType.info.key: Color.fromARGB(255, 0, 255, 247),
-      YourCustomLog.logKey: Colors.green,
+
+      // Custom logs can override their terminal colors 
+      
+      // ... using the key string
+      'custom_log_key': Colors.green,
+      
+      // ... or from the variable
+      YourCustomLog.getKey: Colors.green,
+
+      // ... but they cannot use the previously defined color from the custom log object,
+      // ... because flutter doesn't display ansi colors in widgets.
+      // ... However, you can use material colors, the color object, or ARGB values for them
+      YourCustomLog.getKey: Color(0xFF26FF3C)
     },
   )
 )
@@ -532,7 +580,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_dio_logger: ^4.8.0
+  talker_dio_logger: ^4.8.2
 ```
 
 ### Usage
@@ -628,7 +676,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_bloc_logger: ^4.8.0
+  talker_bloc_logger: ^4.8.2
 ```
 
 ### Usage
@@ -716,7 +764,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_riverpod_logger: ^4.8.0
+  talker_riverpod_logger: ^4.8.2
 ```
 
 ### Usage

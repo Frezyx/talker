@@ -10,6 +10,7 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
     Key? key,
     required this.talkerScreenTheme,
     required this.talker,
+    required this.customSettings,
   }) : super(key: key);
 
   /// Theme for customize [TalkerScreen]
@@ -18,12 +19,17 @@ class TalkerSettingsBottomSheet extends StatefulWidget {
   /// Talker implementation
   final ValueNotifier<Talker> talker;
 
+  /// Custom settings
+  final List<CustomSettingsGroup> customSettings;
+
   @override
   State<TalkerSettingsBottomSheet> createState() =>
       _TalkerSettingsBottomSheetState();
 }
 
 class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
+  late final listenableCustomSettings = ValueNotifier(widget.customSettings);
+
   @override
   void initState() {
     widget.talker.addListener(() => setState(() {}));
@@ -80,6 +86,55 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
             ),
           );
           widget.talker.notifyListeners();
+        },
+      ),
+      ...listenableCustomSettings.value.map(
+        (CustomSettingsGroup group) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: Text(
+                  group.title,
+                  textAlign: TextAlign.start,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: widget.talkerScreenTheme.textColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              TalkerSettingsCard(
+                talkerScreenTheme: widget.talkerScreenTheme,
+                title: 'Enabled',
+                enabled: group.enabled,
+                onChanged: (val) {
+                  group.onChanged.call(val);
+                  widget.talker.notifyListeners();
+                },
+              ),
+              ...group.items.map(
+                (CustomSettingsItem item) => TalkerSettingsCard(
+                  canEdit: group.enabled,
+                  enabled: item.value,
+                  talkerScreenTheme: widget.talkerScreenTheme,
+                  title: item.name,
+                  onChanged: (val) {
+                    item.onChanged(val);
+                    widget.talker.notifyListeners();
+                  },
+                  trailing: item.widgetBuilder(
+                    context,
+                    item.value,
+                    group.enabled,
+                  ),
+                ),
+              ),
+            ],
+          );
         },
       ),
       // Padding(
@@ -145,13 +200,12 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
     return BaseBottomSheet(
       title: 'Talker Settings',
       talkerScreenTheme: widget.talkerScreenTheme,
-      child: Expanded(
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            ...settings.map((e) => SliverToBoxAdapter(child: e)),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          ...settings,
+        ],
       ),
     );
   }

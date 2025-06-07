@@ -8,16 +8,18 @@ class TalkerSettingsCard extends StatelessWidget {
     Key? key,
     required this.talkerScreenTheme,
     required this.title,
-    required this.enabled,
-    required this.onChanged,
+    this.enabled = false,
+    this.onChanged,
     this.canEdit = true,
+    this.trailing,
   }) : super(key: key);
 
   final String title;
   final bool enabled;
-  final Function(bool enabled) onChanged;
+  final Function(bool enabled)? onChanged;
   final TalkerScreenTheme talkerScreenTheme;
   final bool canEdit;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {

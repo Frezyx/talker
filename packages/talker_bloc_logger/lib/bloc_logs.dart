@@ -36,7 +36,9 @@ class BlocStateLog extends TalkerLog {
     required this.bloc,
     required this.transition,
     required this.settings,
-  }) : super('${bloc.runtimeType} with event ${transition.event.runtimeType}');
+  }) : super('${bloc.runtimeType} with event ${transition.event.runtimeType}'
+            '\nCURRENT state: ${_formatCurrentState(transition.currentState, settings)}'
+            '\nNEXT state: ${_formatNextState(transition.nextState, settings)}');
 
   final Bloc bloc;
   final Transition transition;
@@ -52,10 +54,6 @@ class BlocStateLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-        '\n${'CURRENT state: ${settings.printStateFullData ? '\n${transition.currentState}' : transition.currentState.runtimeType}'}');
-    sb.write(
-        '\n${'NEXT state: ${settings.printStateFullData ? '\n${transition.nextState}' : transition.nextState.runtimeType}'}');
     return sb.toString();
   }
 }
@@ -66,7 +64,9 @@ class BlocChangeLog extends TalkerLog {
     required this.bloc,
     required this.change,
     required this.settings,
-  }) : super('${bloc.runtimeType} changed');
+  }) : super('${bloc.runtimeType} changed'
+            '\nCURRENT state: ${_formatCurrentState(change.currentState, settings)}'
+            '\nNEXT state: ${_formatNextState(change.nextState, settings)}');
 
   final BlocBase bloc;
   final Change change;
@@ -82,12 +82,26 @@ class BlocChangeLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-        '\n${'CURRENT state: ${settings.printStateFullData ? '\n${change.currentState}' : change.currentState.runtimeType}'}');
-    sb.write(
-        '\n${'NEXT state: ${settings.printStateFullData ? '\n${change.nextState}' : change.nextState.runtimeType}'}');
     return sb.toString();
   }
+}
+
+String _formatCurrentState(
+  Object? currentState,
+  TalkerBlocLoggerSettings settings,
+) {
+  return settings.printStateFullData
+      ? '\n$currentState'
+      : currentState.runtimeType.toString();
+}
+
+String _formatNextState(
+  Object? nextState,
+  TalkerBlocLoggerSettings settings,
+) {
+  return settings.printStateFullData
+      ? '\n$nextState'
+      : nextState.runtimeType.toString();
 }
 
 /// [Bloc] created log model

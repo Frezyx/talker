@@ -1,3 +1,78 @@
+# 4.8.2
+- [talker] Add `CustomLog` Documentation
+- [example] Update plugin com.android.application to v8.10.1
+- [example] Update dependency gradle to v8.14.1
+
+Thanks to [MeyerOppelt](https://github.com/MeyerOppelt)
+
+# 4.8.1
+- [talker_dio_logger] Add logging of request`s extra
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
+# 4.8.0
+- [talker_flutter] Add custom settings section
+
+Thanks to [zvikarp](https://github.com/zvikarp)
+
+# 4.7.9
+- [talker_bloc_logger] show full data of Bloc logs in Flutter Talker
+
+Thanks to [Mooyeee](https://github.com/Mooyeee)
+
+# 4.7.8
+- [talker_flutter] fix: respect custom TalkerLogger output in TalkerFlutter.init
+
+Thanks to [techouse](https://github.com/techouse)
+
+# 4.7.7
+- [talker_logger] chore: update logger output type for improved clarity
+
+Thanks to [techouse](https://github.com/techouse)
+
+# 4.7.6
+- [talker_flutter] fix: propagate `itemsBuilder` to `TalkerView`
+
+Thanks to [AhmedEzio47](https://github.com/AhmedEzio47)
+
+# 4.7.5
+- Update example application dependencies
+
+Thanks to [apps/renovate](https://github.com/apps/renovate)
+
+# 4.7.4
+- [talker_dio_logger] Add logLevel field to provide in all dIo logs
+
+Thanks to [mylukin](https://github.com/mylukin)
+
+# 4.7.3
+- [talker_flutter] Fixed missing info and detailed message for exceptions
+
+Thanks to [salarshad](https://github.com/salarshad)
+
+# 4.7.2
+- [talker_dio_logger] Add response time to logs
+- Add ``printResponseTime`` field for ``TalkerDioLoggerSettings`` to turn on/off response time printing
+
+Thanks to [troyanskiy](https://github.com/troyanskiy)
+
+# 4.7.1
+- [talker_flutter] Fix scroll issue and widget usability with high text scale
+
+Thanks to [federicoviceconti](https://github.com/federicoviceconti)
+
+# 4.7.0
+- [talker_flutter] Remove deprecated dart:html
+- [talker_logger] Remove deprecated dart:html
+
+Thanks to [Mooyeee](https://github.com/Mooyeee)
+
+# 4.6.14
+- [talker] Fix search filtering rules<br>
+  Now ``titles && types && searchQuery`` replace ``titles || types || searchQuery`` logic
+
+Thanks to [N1X41](https://github.com/N1X41)
+
 # 4.6.13
 - [talker_dio_logger] Fix ``hiddenHeaders`` alters the request headers
 

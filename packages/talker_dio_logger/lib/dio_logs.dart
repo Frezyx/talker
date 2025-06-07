@@ -24,6 +24,9 @@ class DioRequestLog extends TalkerLog {
   String get key => TalkerKey.httpRequest;
 
   @override
+  LogLevel get logLevel => settings.logLevel;
+
+  @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
@@ -44,6 +47,12 @@ class DioRequestLog extends TalkerLog {
 
         final prettyHeaders = _encoder.convert(headers);
         msg += '\nHeaders: $prettyHeaders';
+      }
+
+      final extra = Map.from(requestOptions.extra);
+      if (settings.printRequestExtra && extra.isNotEmpty) {
+        final prettyExtra = _encoder.convert(extra);
+        msg += '\nExtra: $prettyExtra';
       }
     } catch (_) {
       // TODO: add handling can`t convert
@@ -85,6 +94,9 @@ class DioResponseLog extends TalkerLog {
   String get key => TalkerKey.httpResponse;
 
   @override
+  LogLevel get logLevel => settings.logLevel;
+
+  @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
@@ -96,6 +108,14 @@ class DioResponseLog extends TalkerLog {
     final redirects = response.redirects;
 
     msg += '\nStatus: ${response.statusCode}';
+
+    if (settings.printResponseTime) {
+      final responseTime = _getResponseTime(response.requestOptions);
+
+      if (responseTime != null) {
+        msg += '\nTime: $responseTime ms';
+      }
+    }
 
     if (settings.printResponseMessage && responseMessage != null) {
       msg += '\nMessage: $responseMessage';
@@ -141,6 +161,9 @@ class DioErrorLog extends TalkerLog {
   String get key => TalkerKey.httpError;
 
   @override
+  LogLevel get logLevel => LogLevel.error;
+
+  @override
   String generateTextMessage({
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
@@ -153,6 +176,14 @@ class DioErrorLog extends TalkerLog {
 
     if (statusCode != null) {
       msg += '\nStatus: ${dioException.response?.statusCode}';
+    }
+
+    if (settings.printResponseTime) {
+      final responseTime = _getResponseTime(dioException.requestOptions);
+
+      if (responseTime != null) {
+        msg += '\nTime: $responseTime ms';
+      }
     }
 
     if (settings.printErrorMessage && responseMessage != null) {
@@ -169,4 +200,17 @@ class DioErrorLog extends TalkerLog {
     }
     return msg;
   }
+}
+
+///
+/// Get response time
+///
+int? _getResponseTime(RequestOptions options) {
+  final triggerTime = options.extra[TalkerDioLogger.kDioLogsTimeStampKey];
+
+  if (triggerTime is int) {
+    return DateTime.now().millisecondsSinceEpoch - triggerTime;
+  }
+
+  return null;
 }

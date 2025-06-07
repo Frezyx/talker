@@ -1,3 +1,8 @@
+# 4.8.3
+- [talker_riverpod_logger] add an error filter
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
 # 0.1.0-dev.53
 - [talker] Add `CustomLog` Documentation
 - [example] Update plugin com.android.application to v8.10.1

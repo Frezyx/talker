@@ -66,13 +66,12 @@ class Talker {
     _logger = _logger.copyWith(
       settings: _logger.settings.copyWith(
         colors: {
-          LogLevel.critical:
-              settings.getAnsiPenByLogType(TalkerLogType.critical),
-          LogLevel.error: settings.getAnsiPenByLogType(TalkerLogType.error),
-          LogLevel.warning: settings.getAnsiPenByLogType(TalkerLogType.warning),
-          LogLevel.verbose: settings.getAnsiPenByLogType(TalkerLogType.verbose),
-          LogLevel.info: settings.getAnsiPenByLogType(TalkerLogType.info),
-          LogLevel.debug: settings.getAnsiPenByLogType(TalkerLogType.debug),
+          LogLevel.critical: settings.getPenByKey(TalkerKey.critical),
+          LogLevel.error: settings.getPenByKey(TalkerKey.error),
+          LogLevel.warning: settings.getPenByKey(TalkerKey.warning),
+          LogLevel.verbose: settings.getPenByKey(TalkerKey.verbose),
+          LogLevel.info: settings.getPenByKey(TalkerKey.info),
+          LogLevel.debug: settings.getPenByKey(TalkerKey.debug),
         },
       ),
     );
@@ -370,11 +369,11 @@ class Talker {
     LogLevel logLevel, {
     AnsiPen? pen,
   }) {
-    final type = TalkerLogType.fromLogLevel(logLevel);
-    final penByLogKey = settings.getPenByLogKey(type.key);
-    final title = settings.getTitleByLogKey(type.key);
+    final key = TalkerKey.fromLogLevel(logLevel);
+    final penByLogKey = settings.getPenByKey(key);
+    final title = settings.getTitleByKey(key);
     final data = TalkerLog(
-      key: type.key,
+      key: key,
       message?.toString() ?? '',
       title: title,
       exception: exception,
@@ -417,10 +416,10 @@ class Talker {
 
     var pen = data.pen;
 
-    final logTypeKey = data.key;
-    if (logTypeKey != null) {
-      data.title = settings.getTitleByLogKey(logTypeKey);
-      pen = settings.getPenByLogKey(logTypeKey, fallbackPen: data.pen);
+    final key = data.key;
+    if (key != null) {
+      data.title = settings.getTitleByKey(key);
+      pen = settings.getPenByKey(key, fallbackPen: data.pen);
       data.pen = pen;
     }
 

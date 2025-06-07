@@ -21,7 +21,7 @@ class DioRequestLog extends TalkerLog {
   AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
-  String get key => TalkerLogType.httpRequest.key;
+  String get key => TalkerKey.httpRequest;
 
   @override
   LogLevel get logLevel => settings.logLevel;
@@ -91,7 +91,7 @@ class DioResponseLog extends TalkerLog {
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
-  String get key => TalkerLogType.httpResponse.key;
+  String get key => TalkerKey.httpResponse;
 
   @override
   LogLevel get logLevel => settings.logLevel;
@@ -158,7 +158,7 @@ class DioErrorLog extends TalkerLog {
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
-  String get key => TalkerLogType.httpError.key;
+  String get key => TalkerKey.httpError;
 
   @override
   LogLevel get logLevel => LogLevel.error;

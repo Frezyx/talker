@@ -33,7 +33,7 @@ void _initDependencies() {
   final talker = TalkerFlutter.init(
     settings: TalkerSettings(
       colors: {
-        TalkerLogType.verbose.key: AnsiPen()..yellow(),
+        TalkerKey.verbose: AnsiPen()..yellow(),
         GoodLog.getKey: GoodLog.getPen,
       },
     ),

@@ -1,4 +1,4 @@
-4.8.1
 4.8.2
-[talker] Add `CustomLog` Documentation
-MeyerOppelt
+5.0.0-dev.1
+[talker] Brand new simplified TalkerKeys API (String Log key)
+Frezyx

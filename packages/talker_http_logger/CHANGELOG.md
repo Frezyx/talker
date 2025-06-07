@@ -1,3 +1,8 @@
+# 0.1.0-dev.54
+- [talker] Brand new simplified TalkerKeys API (String Log key)
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 0.1.0-dev.53
 - [talker] Add `CustomLog` Documentation
 - [example] Update plugin com.android.application to v8.10.1

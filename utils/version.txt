@@ -1,4 +1,4 @@
-4.8.1
 4.8.2
-[talker] Add `CustomLog` Documentation
-MeyerOppelt
+4.8.3
+[talker_riverpod_logger] add an error filter
+lucavenir

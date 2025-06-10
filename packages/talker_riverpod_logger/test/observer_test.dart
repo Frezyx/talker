@@ -89,5 +89,29 @@ void main() {
       final log = talker.history.first;
       expect(log.generateTextMessage(), contains('failed'));
     });
+
+    test('providerDidFail with filter', () async {
+      talkerRiverpodObserver = TalkerRiverpodObserver(
+        talker: talker,
+        settings: TalkerRiverpodLoggerSettings(
+          enabled: true,
+          printProviderDisposed: true,
+          didFailFilter: (error) {
+            if (error is Exception) return true;
+            return false;
+          },
+        ),
+      );
+      container = createContainer(
+        observers: [talkerRiverpodObserver],
+        overrides: [
+          provider.overrideWith((ref) => TestNotifier()),
+        ],
+      );
+      container.read(errorProvider);
+      await Future.delayed(const Duration(milliseconds: 10));
+      final log = talker.history;
+      expect(log.whereType<RiverpodFailLog>(), isEmpty);
+    });
   });
 }

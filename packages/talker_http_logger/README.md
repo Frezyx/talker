@@ -1,5 +1,5 @@
 # talker_http_logger
-Lightweight and customizable [http](https://pub.dev/packages/http) client logger on [talker](https://pub.dev/packages/talker) base.<br>
+Lightweight and customizable [http_interceptor](https://pub.dev/packages/http_interceptor) client logger on [talker](https://pub.dev/packages/talker) base.<br>
 [Talker](https://github.com/Frezyx/talker) - Advanced exception handling and logging for dart/flutter applications 🚀
 
 <p>
@@ -15,7 +15,7 @@ Lightweight and customizable [http](https://pub.dev/packages/http) client logger
 
 ## Preview
 This is how the logs of your http requests will look in the console
-![](https://github.com/Frezyx/talker/blob/dev/docs/assets/talker_http_logger/preview.png?raw=true)
+![](/docs/assets/talker_http_logger/preview.png?raw=true)
 
 ## Getting started
 Follow these steps to use this package
@@ -23,11 +23,11 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_http_logger: ^0.1.0-dev.55
+  talker_http_logger: ^1.0.0
 ```
 
 ### Usage
-Just add **TalkerHttpLogger** to your **InterceptedClient** instance and it will work
+Just add **TalkerHttpLogger** to your [**InterceptedClient**](https://pub.dev/packages/http_interceptor) instance and it will work
 
 ```dart
 import 'package:http_interceptor/http_interceptor.dart';
@@ -35,7 +35,13 @@ import 'package:talker_http_logger/talker_http_logger.dart';
 
 void main() async {
   final client = InterceptedClient.build(interceptors: [
-    TalkerHttpLogger(),
+    TalkerHttpLogger(
+      settings: const TalkerHttpLoggerSettings(
+        printRequestHeaders: true,
+        printResponseHeaders: true,
+        printResponseMessage: true,
+      ),
+    ),
   ]);
 
   await client.get("https://google.com".toUri());
@@ -52,13 +58,92 @@ import 'package:http_interceptor/http_interceptor.dart';
 import 'package:talker_http_logger/talker_http_logger.dart';
 
 void main() async {
-  final talker = Talker();
-  final client = InterceptedClient.build(interceptors: [
-    TalkerHttpLogger(talker: talker),
-  ]);
+  final _talker = Talker();
+  final client = InterceptedClient.build(
+    /// ... other settings
+    interceptors: [
+      TalkerHttpLogger(
+        /// ... other Talker HTTP Logger settings
+        talker: _talker,
+      ),
+    ]
+  );
 
   await client.get("https://google.com".toUri());
-}
+```
+
+### Print HTTP request curl command
+
+You can print the curl command for the HTTP request in the console.
+This is useful for debugging and testing purposes.
+
+```dart
+final client = InterceptedClient.build(
+  /// ... other settings
+  interceptors: [
+    TalkerHttpLogger(
+      talker: _talker,
+      settings: const TalkerHttpLoggerSettings(
+        // Print curl command for HTTP request
+        printRequestCurl: true,
+      ),
+    ),
+  ],
+);
+```
+
+### Hiding sensitive HTTP request headers
+
+You can hide sensitive HTTP request headers such as `Authorization` or `Cookie` in the console logs.
+This is useful for security purposes.
+
+```dart
+final client = InterceptedClient(
+  /// ... other settings
+  interceptors: [
+    TalkerHttpLogger(
+      talker: _talker,
+      settings: const TalkerHttpLoggerSettings(
+        printRequestHeaders: true,
+        printResponseHeaders: true,
+        // Hide sensitive HTTP request headers
+        hiddenHeaders: {
+          'authorization',
+          'cookie',
+        },
+      ),
+    ),
+  ],
+);
+```
+
+### Change HTTP logs colors
+
+Customize your HTTP log colors by defining specific colors for requests, responses, and errors in 
+[TalkerHttpLoggerSettings](lib/talker_http_logger_settings.dart)
+
+```dart
+TalkerHttpLoggerSettings(
+  // Blue HTTP requests logs in console
+  requestPen: AnsiPen()..blue(),
+  // Green HTTP responses logs in console
+  responsePen: AnsiPen()..green(),
+  // Error HTTP logs in console
+  errorPen: AnsiPen()..red(),
+);
+```
+
+### Filter HTTP logs
+
+For instance, if your app includes private functionality that you prefer not to log with talker, you can apply filters.
+
+```dart
+TalkerHttpLoggerSettings(
+  // All http requests without "/secure" in path will be printed in console 
+  requestFilter: (Request request) => !request.url.path.contains('/secure'),
+  // All http responses with status codes different than 301 will be printed in console 
+  responseFilter: (Response response) => response.statusCode != 301,
+)
 ```
 
 ## Additional information

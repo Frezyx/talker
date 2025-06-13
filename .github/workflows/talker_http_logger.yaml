@@ -1,0 +1,20 @@
+name: talker_http_logger
+
+on:
+  push:
+    paths:
+      - "packages/talker_http_logger/**"
+      - ".github/workflows/talker_http_logger.yaml"
+  pull_request:
+    paths:
+      - "packages/talker_http_logger/**"
+      - ".github/workflows/talker_http_logger.yaml"
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
+    with:
+      package: talker_http_logger
+      sdk: dart

@@ -1,4 +1,9 @@
-# 4.8.3
+# 0.1.0-dev.55
+- [talker_riverpod_logger] add family arguments to the logs
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
+# 0.1.0-dev.54
 - [talker_riverpod_logger] add an error filter
 
 Thanks to [lucavenir](https://github.com/lucavenir)

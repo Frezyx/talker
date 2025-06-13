@@ -8,9 +8,9 @@ dependencies:
   crypto: ^3.0.0
   dio: ^5.1.1
   freezed_annotation: ^3.0.0
-  json_annotation: ^4.8.0
+  json_annotation: ^4.8.3
   riverpod: ^2.5.0
-  talker_riverpod_logger: ^4.8.0
+  talker_riverpod_logger: ^4.8.3
 
 dev_dependencies:
   build_runner: ^2.0.0

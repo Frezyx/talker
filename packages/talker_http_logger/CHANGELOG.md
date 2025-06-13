@@ -1,3 +1,20 @@
+# 4.8.3
+- [talker_riverpod_logger] add an error filter
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
+# 0.1.0-dev.53
+- [talker] Add `CustomLog` Documentation
+- [example] Update plugin com.android.application to v8.10.1
+- [example] Update dependency gradle to v8.14.1
+
+Thanks to [MeyerOppelt](https://github.com/MeyerOppelt)
+
+# 0.1.0-dev.52
+- [talker_dio_logger] Add logging of request`s extra
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
 # 0.1.0-dev.51
 - [talker_flutter] Add custom settings section
 

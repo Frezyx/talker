@@ -1,4 +1,4 @@
-4.7.9
-4.8.0
-[talker_flutter] Add custom settings section
-zvikarp
+4.8.2
+4.8.3
+[talker_riverpod_logger] add an error filter
+lucavenir

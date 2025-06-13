@@ -9,8 +9,8 @@ environment:
 dependencies:
   equatable: ^2.0.7
   http_interceptor: ^2.0.0
-  talker: ^4.8.3
   meta: ^1.9.1
+  talker: ^4.8.4
 
 dev_dependencies:
   http_parser: ^4.1.2

@@ -1,8 +1,15 @@
 # 1.0.0
-
 - Complete overhaul of the package
 
 Thanks to [techouse](https://github.com/techouse)
+
+# 0.1.0-dev.55
+- [talker_riverpod_logger] add family arguments to the logs
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
+# 0.1.0-dev.54
+- [talker_riverpod_logger] add an error filter
 
 # 0.1.0-dev.53
 - [talker] Add `CustomLog` Documentation

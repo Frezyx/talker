@@ -173,12 +173,10 @@ class Talker {
   ]) {
     final data = _errorHandler.handle(exception, stackTrace, msg?.toString());
     if (data is TalkerError) {
-      _observer.onError(data);
       _handleErrorData(data);
       return;
     }
     if (data is TalkerException) {
-      _observer.onException(data);
       _handleErrorData(data);
       return;
     }
@@ -385,13 +383,16 @@ class Talker {
   }
 
   void _handleErrorData(TalkerData data) {
-    if (!settings.enabled) {
-      return;
-    }
+    // If the Talker is disabled by settings
+    if (!settings.enabled) return;
+
+    // If the log is not approved by the filter
     final isApproved = _isApprovedByFilter(data);
-    if (!isApproved) {
-      return;
-    }
+    if (!isApproved) return;
+
+    if (data is TalkerError) _observer.onError(data);
+    if (data is TalkerException) _observer.onException(data);
+
     _talkerStreamController.add(data);
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
@@ -407,15 +408,15 @@ class Talker {
     TalkerLog data, {
     LogLevel? logLevel,
   }) {
-    /// If the Talker is disabled by settings
+    // If the Talker is disabled by settings
     if (!settings.enabled) return;
 
-    /// If the log is not approved by the filter
+    // If the log is not approved by the filter
     final isApproved = _isApprovedByFilter(data);
     if (!isApproved) return;
 
+    // Log customization setup and configuration
     var pen = data.pen;
-
     final key = data.key;
     if (key != null) {
       data.title = settings.getTitleByKey(key);

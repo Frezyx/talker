@@ -1,4 +1,4 @@
-4.8.2
 4.8.3
-[talker_riverpod_logger] add an error filter
+4.8.4
+[talker_riverpod_logger] add family arguments to the logs
 lucavenir

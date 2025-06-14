@@ -72,7 +72,7 @@ class TalkerData {
   /// {@endtemplate}
   String generateTextMessage(
       {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
-    return '${displayTitleWithTime(timeFormat: timeFormat)}$message$displayStackTrace';
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$displayMessage$displayException$displayError$displayStackTrace';
   }
 }
 

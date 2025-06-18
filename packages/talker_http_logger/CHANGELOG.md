@@ -1,3 +1,8 @@
+# 4.9.0
+- [talker_flutter] chore: update share_plus to v11.0.0
+
+Thanks to [jeroenbell](https://github.com/jeroenbell)
+
 # 1.0.0
 - Complete overhaul of the package
 

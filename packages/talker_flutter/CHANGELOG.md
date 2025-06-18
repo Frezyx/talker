@@ -1,3 +1,8 @@
+# 5.0.0-dev.2
+- [talker] Fix errors and exceptions filtering for observer
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.1
 - [talker] Brand new simplified TalkerKeys API (String Log key)
 

@@ -1,4 +1,4 @@
-4.8.2
 5.0.0-dev.1
-[talker] Brand new simplified TalkerKeys API (String Log key)
+5.0.0-dev.2
+[talker] Fix errors and exceptions filtering for observer
 Frezyx

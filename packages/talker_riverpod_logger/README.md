@@ -31,7 +31,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_riverpod_logger: ^4.8.4
+  talker_riverpod_logger: ^4.9.0
 ```
 
 ### Usage

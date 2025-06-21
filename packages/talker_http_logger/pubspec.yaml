@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   http_interceptor: ^2.0.0
-  talker: ^5.0.0-dev.2
+  talker: ^5.0.0-dev.3
 
 dev_dependencies:
   lints: ^2.0.0

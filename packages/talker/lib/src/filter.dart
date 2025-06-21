@@ -90,6 +90,7 @@ class BaseTalkerFilter implements TalkerFilter {
     List<String>? titles,
     @Deprecated('Use keys instead. This feature will be removed in v5.0.0')
     List<Type>? types,
+    List<String>? keys,
     String? searchQuery,
   }) {
     return BaseTalkerFilter(
@@ -97,6 +98,7 @@ class BaseTalkerFilter implements TalkerFilter {
       titles: titles ?? this.titles,
       // ignore: deprecated_member_use_from_same_package
       types: types ?? this.types,
+      keys: keys ?? this.keys,
       searchQuery: searchQuery ?? this.searchQuery,
     );
   }

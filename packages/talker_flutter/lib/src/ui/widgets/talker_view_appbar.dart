@@ -10,14 +10,14 @@ class TalkerViewAppBar extends StatefulWidget {
     required this.leading,
     required this.talker,
     required this.talkerTheme,
-    required this.titlesController,
+    required this.keysController,
     required this.controller,
-    required this.titles,
-    required this.uniqTitles,
+    required this.keys,
+    required this.uniqKeys,
     required this.onMonitorTap,
     required this.onSettingsTap,
     required this.onActionsTap,
-    required this.onToggleTitle,
+    required this.onToggleKey,
   }) : super(key: key);
 
   final String? title;
@@ -25,17 +25,17 @@ class TalkerViewAppBar extends StatefulWidget {
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
-  final GroupButtonController titlesController;
+  final GroupButtonController keysController;
   final TalkerViewController controller;
 
-  final List<String?> titles;
-  final List<String?> uniqTitles;
+  final List<String?> keys;
+  final List<String?> uniqKeys;
 
   final VoidCallback onMonitorTap;
   final VoidCallback onSettingsTap;
   final VoidCallback onActionsTap;
 
-  final Function(String title, bool selected) onToggleTitle;
+  final Function(String key, bool selected) onToggleKey;
 
   @override
   State<TalkerViewAppBar> createState() => _TalkerViewAppBarState();
@@ -91,6 +91,11 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final uniqKeys = widget.uniqKeys;
+    final titles = uniqKeys
+        .map((e) => e != null ? widget.talker.settings.getTitleByKey(e) : null)
+        .toList()
+      ..removeWhere((e) => e == null);
     return SliverAppBar(
       backgroundColor: widget.talkerTheme.backgroundColor,
       elevation: 0,
@@ -149,11 +154,10 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GroupButton(
                     key: _groupButtonKey,
-                    controller: widget.titlesController,
+                    controller: widget.keysController,
                     isRadio: false,
                     buttonBuilder: (selected, value, context) {
-                      final count =
-                          widget.titles.where((e) => e == value).length;
+                      final count = widget.keys.where((e) => e == value).length;
                       return Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -185,9 +189,11 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                         ),
                       );
                     },
-                    onSelected: (_, i, selected) =>
-                        _onToggle(widget.uniqTitles[i], selected),
-                    buttons: widget.uniqTitles,
+                    onSelected: (_, i, selected) => _onToggleKey(
+                      uniqKeys[i],
+                      selected,
+                    ),
+                    buttons: titles,
                   ),
                 ),
                 const SizedBox(height: _padding),
@@ -204,9 +210,9 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
     );
   }
 
-  void _onToggle(String? title, bool selected) {
-    if (title == null) return;
-    widget.onToggleTitle(title, selected);
+  void _onToggleKey(String? key, bool selected) {
+    if (key == null) return;
+    widget.onToggleKey(key, selected);
   }
 }
 

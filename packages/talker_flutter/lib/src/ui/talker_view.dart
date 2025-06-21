@@ -80,27 +80,26 @@ class _TalkerViewState extends State<TalkerView> {
             talker: widget.talker,
             builder: (context, data) {
               final filteredElements = filteredLogs(data);
-              final titles = data.map((e) => e.title).toList();
-              final uniqTitles = titles.toSet().toList();
+              final keys = data.map((e) => e.key).toList();
+              final uniqKeys = keys.toSet().toList();
 
               return CustomScrollView(
                 controller: widget.scrollController,
                 physics: const BouncingScrollPhysics(),
                 slivers: [
                   TalkerViewAppBar(
+                    keys: keys,
+                    uniqKeys: uniqKeys,
                     title: widget.appBarTitle,
                     leading: widget.appBarLeading,
                     talker: widget.talker,
                     talkerTheme: talkerTheme,
-                    titlesController: _titlesController,
-                    titles: titles,
-                    uniqTitles: uniqTitles,
+                    keysController: _titlesController,
                     controller: _controller,
                     onMonitorTap: () => _openTalkerMonitor(context),
-                    onActionsTap: () => _showActionsBottomSheet(context),
-                    onSettingsTap: () =>
-                        _openTalkerSettings(context, talkerTheme),
-                    onToggleTitle: _onToggleTitle,
+                    onActionsTap: () => _openActions(context),
+                    onSettingsTap: () => _openSettings(context, talkerTheme),
+                    onToggleKey: _onToggleKey,
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 8)),
                   SliverList(
@@ -133,12 +132,10 @@ class _TalkerViewState extends State<TalkerView> {
   List<TalkerData> filteredLogs(List<TalkerData> data) =>
       data.where((e) => _controller.filter.filter(e)).toList();
 
-  void _onToggleTitle(String title, bool selected) {
-    if (selected) {
-      _controller.addFilterTitle(title);
-    } else {
-      _controller.removeFilterTitle(title);
-    }
+  void _onToggleKey(String key, bool selected) {
+    final action =
+        selected ? _controller.addFilterKey : _controller.removeFilterKey;
+    action(key);
   }
 
   TalkerData _getListItem(
@@ -150,7 +147,7 @@ class _TalkerViewState extends State<TalkerView> {
     return data;
   }
 
-  void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
+  void _openSettings(BuildContext context, TalkerScreenTheme theme) {
     final talker = ValueNotifier(widget.talker);
 
     showModalBottomSheet(
@@ -191,7 +188,7 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  Future<void> _showActionsBottomSheet(BuildContext context) async {
+  Future<void> _openActions(BuildContext context) async {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,

@@ -42,29 +42,17 @@ class TalkerViewController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Method adds an type to the filter
-  void addFilterType(Type type) {
-    _filter = _filter.copyWith(types: [..._filter.types, type]);
+  /// Method adds an key to the filter
+  void addFilterKey(String key) {
+    _filter = _filter.copyWith(keys: [..._filter.keys, key]);
     notifyListeners();
   }
 
-  /// Method removes an type from the filter
-  void removeFilterType(Type type) {
-    _filter =
-        _filter.copyWith(types: _filter.types.where((t) => t != type).toList());
-    notifyListeners();
-  }
-
-  /// Method adds an title to the filter
-  void addFilterTitle(String title) {
-    _filter = _filter.copyWith(titles: [..._filter.titles, title]);
-    notifyListeners();
-  }
-
-  /// Method removes an title from the filter
-  void removeFilterTitle(String title) {
+  /// Method removes an key from the filter
+  void removeFilterKey(String key) {
     _filter = _filter.copyWith(
-        titles: _filter.titles.where((t) => t != title).toList());
+      keys: _filter.keys.where((t) => t != key).toList(),
+    );
     notifyListeners();
   }
 

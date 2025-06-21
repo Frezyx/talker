@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 typedef LogColors = Map<String, Color>;
@@ -74,3 +73,5 @@ final _defaultColors = {
   /// Flutter section
   TalkerKey.route: const Color(0xFFAF5FFF),
 };
+
+const defaultCardBackgroundColor = Color.fromARGB(255, 49, 49, 49);

@@ -25,6 +25,7 @@ class TalkerViewAppBar extends StatefulWidget {
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
+
   final GroupButtonController keysController;
   final TalkerViewController controller;
 

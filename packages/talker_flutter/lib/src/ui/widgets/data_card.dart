@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 

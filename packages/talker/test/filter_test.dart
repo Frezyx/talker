@@ -195,4 +195,62 @@ void _testFilterFoundByTitle(
     expect(foundRecords, isNotEmpty);
     expect(foundRecords.length, countFound);
   });
+
+  group('BaseTalkerFilter - keys filtering', () {
+    final matchingKey = 'test_key';
+    final nonMatchingKey = 'other_key';
+
+    TalkerData createData(String key, String msg) {
+      return TalkerLog(msg, key: key);
+    }
+
+    test('should allow item with matching key', () {
+      final filter = BaseTalkerFilter(keys: [matchingKey]);
+
+      final item = createData(matchingKey, 'Log message');
+
+      expect(filter.filter(item), isTrue);
+    });
+
+    test('should reject item with non-matching key', () {
+      final filter = BaseTalkerFilter(keys: [matchingKey]);
+
+      final item = createData(nonMatchingKey, 'Another log');
+
+      expect(filter.filter(item), isFalse);
+    });
+
+    test('should allow item with matching key and matching search query', () {
+      final filter = BaseTalkerFilter(
+        keys: [matchingKey],
+        searchQuery: 'important',
+      );
+
+      final item = createData(matchingKey, 'Important log happened');
+
+      expect(filter.filter(item), isTrue);
+    });
+
+    test('should reject item with matching key but not matching search query',
+        () {
+      final filter = BaseTalkerFilter(
+        keys: [matchingKey],
+        searchQuery: 'missing',
+      );
+
+      final item = createData(matchingKey, 'Some other log');
+
+      expect(filter.filter(item), isFalse);
+    });
+
+    test('should ignore key filtering if keys list is empty', () {
+      final filter = BaseTalkerFilter(keys: []);
+
+      final item = createData(nonMatchingKey, 'Anything goes');
+
+      // Falls back to deprecated _oldFilterLogic, which might return true or false depending on other fields.
+      // But since all deprecated fields are empty here, the logic returns true.
+      expect(filter.filter(item), isTrue);
+    });
+  });
 }

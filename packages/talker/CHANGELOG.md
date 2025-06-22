@@ -1,3 +1,9 @@
+# 4.9.1
+- [talker_http_logger] chore(deps): update plugin org.jetbrains.kotlin.android to v2
+- [talker_http_logger] chore(deps): update plugin com.android.application to v8.10.1
+
+Thanks to [renovate](https://github.com/renovate)
+
 # 4.9.0
 - [talker_flutter] chore: update share_plus to v11.0.0
 

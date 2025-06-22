@@ -1,4 +1,4 @@
-4.8.4
 4.9.0
-[talker_flutter] chore: update share_plus to v11.0.0
-jeroenbell
+4.9.1
+[talker_http_logger] chore(deps): update plugin org.jetbrains.kotlin.android to v2
+renovate

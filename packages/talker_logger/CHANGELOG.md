@@ -1,3 +1,8 @@
+# 5.0.0-dev.4
+- [talker_dio_logger] Remove unused addonId field from dio_logger
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.3
 - [talker] Upgrade **BaseTalkerFilter** class - add new filtering way by **List<String> keys** filed
 - [talker] Deperecate **titles** and **types** fields from **BaseTalkerFilter**

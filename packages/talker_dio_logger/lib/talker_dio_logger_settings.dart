@@ -155,7 +155,8 @@ class TalkerDioLoggerSettings {
       errorPen: errorPen ?? this.errorPen,
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
-      responseDataConverter: responseDataConverter ?? this.responseDataConverter,
+      responseDataConverter:
+          responseDataConverter ?? this.responseDataConverter,
       errorFilter: errorFilter ?? this.errorFilter,
       hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
       logLevel: logLevel ?? this.logLevel,

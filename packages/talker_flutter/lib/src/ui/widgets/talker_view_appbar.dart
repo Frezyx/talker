@@ -92,11 +92,7 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final uniqKeys = widget.uniqKeys;
-    final titles = uniqKeys
-        .map((e) => e != null ? widget.talker.settings.getTitleByKey(e) : null)
-        .toList()
-      ..removeWhere((e) => e == null);
+    final uniqKeys = widget.uniqKeys..removeWhere((e) => e == null);
     return SliverAppBar(
       backgroundColor: widget.talkerTheme.backgroundColor,
       elevation: 0,
@@ -157,8 +153,11 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                     key: _groupButtonKey,
                     controller: widget.keysController,
                     isRadio: false,
-                    buttonBuilder: (selected, value, context) {
-                      final count = widget.keys.where((e) => e == value).length;
+                    buttonBuilder: (selected, key, context) {
+                      final count = widget.keys.where((e) => e == key).length;
+                      final title = key != null
+                          ? widget.talker.settings.getTitleByKey(key)
+                          : 'undefined';
                       return Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -180,7 +179,7 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '$value',
+                              title,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: widget.talkerTheme.textColor,
@@ -194,7 +193,7 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                       uniqKeys[i],
                       selected,
                     ),
-                    buttons: titles,
+                    buttons: uniqKeys,
                   ),
                 ),
                 const SizedBox(height: _padding),

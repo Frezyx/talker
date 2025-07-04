@@ -54,9 +54,17 @@ void main() {
         () {
       final settings = TalkerDioLoggerSettings(
           responseDataConverter: (Response response) => "msg");
-      final successfulResponse = Response(data: "msg");
+
+      final successfulResponse = Response(
+        data: "msg",
+        requestOptions: RequestOptions(path: '/test'),
+        statusCode: 200,
+      );
+
       expect(
-          settings.responseDataConverter!(successfulResponse), equals("msg"));
+        settings.responseDataConverter!(successfulResponse),
+        equals("msg"),
+      );
     });
 
     test('errorFilter should return true for cancelled responses', () {

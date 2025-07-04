@@ -18,6 +18,7 @@ class TalkerDioLoggerSettings {
     this.printRequestHeaders = false,
     this.printRequestExtra = false,
     this.hiddenHeaders = const <String>{},
+    this.responseDataConverter,
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -106,6 +107,9 @@ class TalkerDioLoggerSettings {
   /// You can add your custom logic to log only specific HTTP responses [Response].
   final bool Function(Response response)? responseFilter;
 
+  /// response data converter.
+  final String Function(Response response)? responseDataConverter;
+
   /// For error filtering.
   /// You can add your custom logic to log only specific Dio error [DioException].
   final bool Function(DioException response)? errorFilter;
@@ -130,6 +134,7 @@ class TalkerDioLoggerSettings {
     AnsiPen? errorPen,
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
+    String Function(Response response)? responseDataConverter,
     bool Function(DioException response)? errorFilter,
     Set<String>? hiddenHeaders,
     LogLevel? logLevel,
@@ -150,6 +155,8 @@ class TalkerDioLoggerSettings {
       errorPen: errorPen ?? this.errorPen,
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
+      responseDataConverter:
+          responseDataConverter ?? this.responseDataConverter,
       errorFilter: errorFilter ?? this.errorFilter,
       hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
       logLevel: logLevel ?? this.logLevel,

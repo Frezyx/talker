@@ -1,3 +1,8 @@
+# 4.9.2
+- [talker_dio_logger] Add response data converter ``responseDataConverter`` field for ``TalkerDioLoggerSettings``
+
+Thanks to [zhengbomo](https://github.com/zhengbomo)
+
 # 4.9.1
 - [talker_http_logger] chore(deps): update plugin org.jetbrains.kotlin.android to v2
 - [talker_http_logger] chore(deps): update plugin com.android.application to v8.10.1

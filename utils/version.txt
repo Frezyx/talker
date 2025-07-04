@@ -1,4 +1,4 @@
-4.9.0
 4.9.1
-[talker_http_logger] chore(deps): update plugin org.jetbrains.kotlin.android to v2
-renovate
+4.9.2
+[talker_dio_logger] Add response data converter ``responseDataConverter`` field for ``TalkerDioLoggerSettings``
+zhengbomo

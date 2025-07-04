@@ -50,11 +50,13 @@ void main() {
       expect(settings.responseFilter!(unsuccessfulResponse), equals(false));
     });
 
-    test('responseDataConverter should return true for successful responses', () {
+    test('responseDataConverter should return true for successful responses',
+        () {
       final settings = TalkerDioLoggerSettings(
           responseDataConverter: (Response response) => "msg");
       final successfulResponse = Response(data: "msg");
-      expect(settings.responseDataConverter!(successfulResponse), equals("msg"));
+      expect(
+          settings.responseDataConverter!(successfulResponse), equals("msg"));
     });
 
     test('errorFilter should return true for cancelled responses', () {

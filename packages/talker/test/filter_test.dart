@@ -13,7 +13,7 @@ void main() {
     _testFilterBySearchText(useTalkerFilter: true);
 
     test('copyWith', () {
-      final filter = BaseTalkerFilter(
+      final filter = TalkerFilter(
         titles: ['Error'],
         types: [Exception],
       );
@@ -137,8 +137,7 @@ void _testFilterFoundBySearchText({
   required int countFound,
   required bool useTalkerFilter,
 }) {
-  final filter =
-      BaseTalkerFilter(types: [], titles: [], searchQuery: searchQuery);
+  final filter = TalkerFilter(types: [], titles: [], searchQuery: searchQuery);
 
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
 
@@ -160,7 +159,7 @@ void _testFilterFoundByType({
   required int countFound,
   required bool useTalkerFilter,
 }) {
-  final filter = BaseTalkerFilter(types: types);
+  final filter = TalkerFilter(types: types);
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
 
   test(
@@ -180,7 +179,7 @@ void _testFilterFoundByTitle(
     required Function(Talker) logCallback,
     required int countFound,
     required bool useTalkerFilter}) {
-  final filter = BaseTalkerFilter(titles: titles);
+  final filter = TalkerFilter(titles: titles);
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
 
   test(
@@ -205,7 +204,7 @@ void _testFilterFoundByTitle(
     }
 
     test('should allow item with matching key', () {
-      final filter = BaseTalkerFilter(keys: [matchingKey]);
+      final filter = TalkerFilter(keys: [matchingKey]);
 
       final item = createData(matchingKey, 'Log message');
 
@@ -213,7 +212,7 @@ void _testFilterFoundByTitle(
     });
 
     test('should reject item with non-matching key', () {
-      final filter = BaseTalkerFilter(keys: [matchingKey]);
+      final filter = TalkerFilter(keys: [matchingKey]);
 
       final item = createData(nonMatchingKey, 'Another log');
 
@@ -221,7 +220,7 @@ void _testFilterFoundByTitle(
     });
 
     test('should allow item with matching key and matching search query', () {
-      final filter = BaseTalkerFilter(
+      final filter = TalkerFilter(
         keys: [matchingKey],
         searchQuery: 'important',
       );
@@ -233,7 +232,7 @@ void _testFilterFoundByTitle(
 
     test('should reject item with matching key but not matching search query',
         () {
-      final filter = BaseTalkerFilter(
+      final filter = TalkerFilter(
         keys: [matchingKey],
         searchQuery: 'missing',
       );
@@ -244,7 +243,7 @@ void _testFilterFoundByTitle(
     });
 
     test('should ignore key filtering if keys list is empty', () {
-      final filter = BaseTalkerFilter(keys: []);
+      final filter = TalkerFilter(keys: []);
 
       final item = createData(nonMatchingKey, 'Anything goes');
 

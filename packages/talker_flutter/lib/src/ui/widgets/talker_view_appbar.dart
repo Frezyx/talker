@@ -10,7 +10,6 @@ class TalkerViewAppBar extends StatefulWidget {
     required this.leading,
     required this.talker,
     required this.talkerTheme,
-    required this.keysController,
     required this.controller,
     required this.keys,
     required this.uniqKeys,
@@ -26,7 +25,6 @@ class TalkerViewAppBar extends StatefulWidget {
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
 
-  final GroupButtonController keysController;
   final TalkerViewController controller;
 
   final List<String?> keys;
@@ -45,8 +43,8 @@ class TalkerViewAppBar extends StatefulWidget {
 class _TalkerViewAppBarState extends State<TalkerViewAppBar>
     with WidgetsBindingObserver {
   final GlobalKey _groupButtonKey = GlobalKey();
-
   final GlobalKey _searchTextFieldKey = GlobalKey();
+  final _bcontroller = GroupButtonController();
 
   double? _spaceBarHeight;
 
@@ -61,6 +59,9 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
     WidgetsBinding.instance
       ..addObserver(this)
       ..addPostFrameCallback(_addPostFrameCallback);
+    final indexes =
+        widget.talker.filter.keys.map((e) => widget.keys.indexOf(e)).toList();
+    _bcontroller.selectIndexes(indexes);
     super.initState();
   }
 
@@ -151,7 +152,7 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GroupButton(
                     key: _groupButtonKey,
-                    controller: widget.keysController,
+                    controller: _bcontroller,
                     isRadio: false,
                     buttonBuilder: (selected, key, context) {
                       final count = widget.keys.where((e) => e == key).length;

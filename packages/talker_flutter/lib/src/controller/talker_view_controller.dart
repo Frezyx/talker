@@ -4,20 +4,28 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
 class TalkerViewController extends ChangeNotifier {
-  TalkerViewController({bool expandedLogs = true, isLogOrderReversed = true}) {
-    _expandedLogs = expandedLogs;
-    _isLogOrderReversed = isLogOrderReversed;
-  }
+  TalkerViewController({
+    required Talker talker,
+    bool expandedLogs = true,
+    isLogOrderReversed = true,
+  })  : _talker = talker,
+        _expandedLogs = expandedLogs,
+        _isLogOrderReversed = isLogOrderReversed;
 
-  BaseTalkerFilter _filter = BaseTalkerFilter();
+  final Talker _talker;
 
-  late bool _expandedLogs;
-  late bool _isLogOrderReversed;
+  /// Filter for selecting specific logs and errors on [TalkerScreen] and [TalkerView]
+  /// by their keys [TalkerData.key] and by string query [TalkerFilter.searchQuery]
+  /// Works only on screen (don't affect [Talker.filter])
+  TalkerFilter _uiFilter = TalkerFilter();
+
+  bool _expandedLogs;
+  bool _isLogOrderReversed;
 
   /// Filter for selecting specific logs and errors
-  BaseTalkerFilter get filter => _filter;
-  set filter(BaseTalkerFilter val) {
-    _filter = val;
+  TalkerFilter get filter => _uiFilter;
+  set filter(TalkerFilter val) {
+    _uiFilter = val;
     notifyListeners();
   }
 
@@ -38,20 +46,20 @@ class TalkerViewController extends ChangeNotifier {
 
   /// Method for updating a search query based on errors and logs
   void updateFilterSearchQuery(String query) {
-    _filter = _filter.copyWith(searchQuery: query);
+    _uiFilter = _uiFilter.copyWith(searchQuery: query);
     notifyListeners();
   }
 
   /// Method adds an key to the filter
   void addFilterKey(String key) {
-    _filter = _filter.copyWith(keys: [..._filter.keys, key]);
+    _uiFilter = _uiFilter.copyWith(keys: [..._uiFilter.keys, key]);
     notifyListeners();
   }
 
   /// Method removes an key from the filter
   void removeFilterKey(String key) {
-    _filter = _filter.copyWith(
-      keys: _filter.keys.where((t) => t != key).toList(),
+    _uiFilter = _uiFilter.copyWith(
+      keys: _uiFilter.keys.where((t) => t != key).toList(),
     );
     notifyListeners();
   }

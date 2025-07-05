@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/widgets/talker_view_appbar.dart';
@@ -61,9 +60,9 @@ class TalkerView extends StatefulWidget {
 }
 
 class _TalkerViewState extends State<TalkerView> {
-  final _titlesController = GroupButtonController();
   late final _controller = widget.controller ??
       TalkerViewController(
+        talker: widget.talker,
         expandedLogs: widget.isLogsExpanded,
         isLogOrderReversed: widget.isLogOrderReversed,
       );
@@ -79,7 +78,7 @@ class _TalkerViewState extends State<TalkerView> {
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filteredElements = filteredLogs(data);
+              final filteredElements = _getFilteredLogs(data);
               final keys = data.map((e) => e.key).toList();
               final uniqKeys = keys.toSet().toList();
 
@@ -94,7 +93,6 @@ class _TalkerViewState extends State<TalkerView> {
                     leading: widget.appBarLeading,
                     talker: widget.talker,
                     talkerTheme: talkerTheme,
-                    keysController: _titlesController,
                     controller: _controller,
                     onMonitorTap: () => _openTalkerMonitor(context),
                     onActionsTap: () => _openActions(context),
@@ -129,7 +127,7 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  List<TalkerData> filteredLogs(List<TalkerData> data) =>
+  List<TalkerData> _getFilteredLogs(List<TalkerData> data) =>
       data.where((e) => _controller.filter.filter(e)).toList();
 
   void _onToggleKey(String key, bool selected) {
@@ -259,7 +257,7 @@ class _TalkerViewState extends State<TalkerView> {
 
   void _copyFilteredLogs(BuildContext context) {
     Clipboard.setData(ClipboardData(
-        text: filteredLogs(widget.talker.history)
+        text: _getFilteredLogs(widget.talker.history)
             .text(timeFormat: widget.talker.settings.timeFormat)));
     _showSnackBar(context, 'All filtered logs copied in buffer');
   }

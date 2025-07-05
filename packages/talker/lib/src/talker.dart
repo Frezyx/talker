@@ -152,6 +152,12 @@ class Talker {
 
   List<TalkerData> get history => _history.history;
 
+  /// [TalkerFilter] [filter] - filter for selecting specific logs and errors
+  /// by their keys [TalkerData.key] and by string query [TalkerFilter.searchQuery]
+  /// You can set it in [configure] method
+  /// or change it later
+  TalkerFilter get filter => _filter;
+
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
   /// [String?] [msg] - message describes what happened

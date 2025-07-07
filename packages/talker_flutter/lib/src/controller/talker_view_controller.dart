@@ -29,6 +29,21 @@ class TalkerViewController extends ChangeNotifier {
     notifyListeners();
   }
 
+  TalkerFilter get talkerFilter => _talker.filter;
+  void addTalkerFilterKey(String key) {
+    final updatedKeys = [..._talker.filter.keys, key];
+    final updatedFilter = _talker.filter.copyWith(keys: updatedKeys);
+    _talker.configure(filter: updatedFilter);
+    notifyListeners();
+  }
+
+  void removeTalkerFilterKey(String key) {
+    final updatedKeys = [..._talker.filter.keys]..remove(key);
+    final updatedFilter = _talker.filter.copyWith(keys: updatedKeys);
+    _talker.configure(filter: updatedFilter);
+    notifyListeners();
+  }
+
   bool get expandedLogs => _expandedLogs;
 
   void toggleExpandedLogs() {

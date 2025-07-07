@@ -1,4 +1,4 @@
-library talker_http_logger;
+library;
 
 import 'dart:convert';
 
@@ -10,6 +10,13 @@ class TalkerHttpLogger extends InterceptorContract {
   TalkerHttpLogger(
       {Talker? talker, this.settings = const TalkerHttpLoggerSettings()}) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.httpRequest,
+        TalkerKey.httpResponse,
+        TalkerKey.httpError,
+      ],
+    );
   }
 
   late Talker _talker;
@@ -48,10 +55,10 @@ const _hiddenValue = '*****';
 
 class HttpRequestLog extends TalkerLog {
   HttpRequestLog(
-    String title, {
+    super.title, {
     required this.request,
     this.settings = const TalkerHttpLoggerSettings(),
-  }) : super(title);
+  });
 
   final BaseRequest request;
 
@@ -93,10 +100,10 @@ class HttpRequestLog extends TalkerLog {
 
 class HttpResponseLog extends TalkerLog {
   HttpResponseLog(
-    String title, {
+    super.title, {
     required this.response,
     this.settings = const TalkerHttpLoggerSettings(),
-  }) : super(title);
+  });
 
   final BaseResponse response;
 
@@ -131,10 +138,10 @@ class HttpResponseLog extends TalkerLog {
 
 class HttpErrorLog extends TalkerLog {
   HttpErrorLog(
-    String title, {
+    String super.title, {
     required this.response,
     this.settings = const TalkerHttpLoggerSettings(),
-  }) : super(title);
+  });
 
   final BaseResponse response;
 

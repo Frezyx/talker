@@ -16,9 +16,9 @@ class TalkerDioLogger extends Interceptor {
     _talker = talker ?? Talker();
     _talker.settings.registerKeys(
       [
-        TalkerKey.httpError,
         TalkerKey.httpRequest,
         TalkerKey.httpResponse,
+        TalkerKey.httpError,
       ],
     );
   }

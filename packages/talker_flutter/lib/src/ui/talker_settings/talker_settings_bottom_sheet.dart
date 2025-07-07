@@ -43,10 +43,10 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Text(
-          'Basic settings',
+          'Talker settings',
           style: theme.textTheme.titleLarge?.copyWith(
             color: widget.talkerScreenTheme.textColor,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -198,7 +198,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
     ];
 
     return BaseBottomSheet(
-      title: 'Talker Settings',
+      title: 'Settings',
       talkerScreenTheme: widget.talkerScreenTheme,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

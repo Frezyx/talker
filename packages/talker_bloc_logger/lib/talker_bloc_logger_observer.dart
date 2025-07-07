@@ -14,6 +14,14 @@ class TalkerBlocObserver extends BlocObserver {
     this.settings = const TalkerBlocLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.blocEvent,
+        TalkerKey.blocTransition,
+        TalkerKey.blocCreate,
+        TalkerKey.blocClose,
+      ],
+    );
   }
 
   late Talker _talker;

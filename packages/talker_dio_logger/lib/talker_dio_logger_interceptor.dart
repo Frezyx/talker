@@ -24,6 +24,9 @@ class TalkerDioLogger extends Interceptor {
   TalkerDioLoggerSettings settings;
 
   /// Method to update [settings] of [TalkerDioLogger]
+  @Deprecated(
+    'Will be removed in 5.0.0 version. Setup settings in constructor',
+  )
   void configure({
     bool? printResponseData,
     bool? printResponseHeaders,

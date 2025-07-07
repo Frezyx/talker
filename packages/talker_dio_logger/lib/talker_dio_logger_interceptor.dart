@@ -14,6 +14,13 @@ class TalkerDioLogger extends Interceptor {
     this.settings = const TalkerDioLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.httpError,
+        TalkerKey.httpRequest,
+        TalkerKey.httpResponse,
+      ],
+    );
   }
 
   static const kDioLogsTimeStampKey = '_talker_dio_logger_ts_';

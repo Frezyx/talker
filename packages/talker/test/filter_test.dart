@@ -93,7 +93,7 @@ void _testFilterFoundBySearchText({
   required int countFound,
   required bool useTalkerFilter,
 }) {
-  final filter = TalkerFilter(keys: [], searchQuery: searchQuery);
+  final filter = TalkerFilter(enabledKeys: [], searchQuery: searchQuery);
 
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
 
@@ -114,7 +114,7 @@ void _testFilterFoundByKey(
     required Function(Talker) logCallback,
     required int countFound,
     required bool useTalkerFilter}) {
-  final filter = TalkerFilter(keys: keys);
+  final filter = TalkerFilter(enabledKeys: keys);
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
 
   test(
@@ -139,7 +139,7 @@ void _testFilterFoundByKey(
     }
 
     test('should allow item with matching key', () {
-      final filter = TalkerFilter(keys: [matchingKey]);
+      final filter = TalkerFilter(enabledKeys: [matchingKey]);
 
       final item = createData(matchingKey, 'Log message');
 
@@ -147,7 +147,7 @@ void _testFilterFoundByKey(
     });
 
     test('should reject item with non-matching key', () {
-      final filter = TalkerFilter(keys: [matchingKey]);
+      final filter = TalkerFilter(enabledKeys: [matchingKey]);
 
       final item = createData(nonMatchingKey, 'Another log');
 
@@ -156,7 +156,7 @@ void _testFilterFoundByKey(
 
     test('should allow item with matching key and matching search query', () {
       final filter = TalkerFilter(
-        keys: [matchingKey],
+        enabledKeys: [matchingKey],
         searchQuery: 'important',
       );
 
@@ -168,7 +168,7 @@ void _testFilterFoundByKey(
     test('should reject item with matching key but not matching search query',
         () {
       final filter = TalkerFilter(
-        keys: [matchingKey],
+        enabledKeys: [matchingKey],
         searchQuery: 'missing',
       );
 
@@ -178,7 +178,7 @@ void _testFilterFoundByKey(
     });
 
     test('should ignore key filtering if keys list is empty', () {
-      final filter = TalkerFilter(keys: []);
+      final filter = TalkerFilter(enabledKeys: []);
 
       final item = createData(nonMatchingKey, 'Anything goes');
 

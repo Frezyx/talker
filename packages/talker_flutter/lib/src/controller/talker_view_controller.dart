@@ -49,14 +49,16 @@ class TalkerViewController extends ChangeNotifier {
 
   /// Method adds an key to the filter
   void addFilterKey(String key) {
-    _uiFilter = _uiFilter.copyWith(keys: [..._uiFilter.keys, key]);
+    _uiFilter = _uiFilter.copyWith(
+      enabledKeys: [..._uiFilter.enabledKeys, key],
+    );
     notifyListeners();
   }
 
   /// Method removes an key from the filter
   void removeFilterKey(String key) {
     _uiFilter = _uiFilter.copyWith(
-      keys: _uiFilter.keys.where((t) => t != key).toList(),
+      enabledKeys: _uiFilter.enabledKeys.where((t) => t != key).toList(),
     );
     notifyListeners();
   }

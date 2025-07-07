@@ -2,7 +2,8 @@ import 'package:talker/talker.dart';
 
 class TalkerFilter implements _Filter<TalkerData> {
   TalkerFilter({
-    this.keys = const [],
+    this.enabledKeys = const [],
+    this.disabledKeys = const [],
     this.searchQuery,
   });
 
@@ -10,7 +11,13 @@ class TalkerFilter implements _Filter<TalkerData> {
   /// This is a new way to filter logs by their keys.
   /// Keys are unique identifiers for logs, which can be set when creating a log.
   /// All original talker keys here [TalkerKey]
-  final List<String> keys;
+  final List<String> enabledKeys;
+
+  /// List of disabled for filter keys
+  /// This is a new way to filter logs by their keys.
+  /// Keys are unique identifiers for logs, which can be set when creating a log.
+  /// All original talker keys here [TalkerKey]
+  final List<String> disabledKeys;
 
   /// String query for filtering logs
   final String? searchQuery;
@@ -18,7 +25,8 @@ class TalkerFilter implements _Filter<TalkerData> {
   @override
   bool filter(TalkerData item) {
     var searchMatch = true;
-    var keysMatch = true;
+    var enabledKeysMatch = true;
+    var disabledKeysMatch = true;
 
     final query = searchQuery?.toLowerCase();
     if (query != null && query.isNotEmpty) {
@@ -26,19 +34,25 @@ class TalkerFilter implements _Filter<TalkerData> {
       searchMatch = message.contains(query);
     }
 
-    if (keys.isNotEmpty) {
-      keysMatch = keys.contains(item.key);
+    if (enabledKeys.isNotEmpty) {
+      enabledKeysMatch = enabledKeys.contains(item.key);
     }
 
-    return searchMatch && keysMatch;
+    if (disabledKeys.isNotEmpty) {
+      disabledKeysMatch = !disabledKeys.contains(item.key);
+    }
+
+    return searchMatch && enabledKeysMatch && disabledKeysMatch;
   }
 
   TalkerFilter copyWith({
-    List<String>? keys,
+    List<String>? enabledKeys,
+    List<String>? disabledKeys,
     String? searchQuery,
   }) {
     return TalkerFilter(
-      keys: keys ?? this.keys,
+      enabledKeys: enabledKeys ?? this.enabledKeys,
+      disabledKeys: disabledKeys ?? this.disabledKeys,
       searchQuery: searchQuery ?? this.searchQuery,
     );
   }

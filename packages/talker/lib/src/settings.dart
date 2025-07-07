@@ -168,6 +168,24 @@ class TalkerSettings {
   /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
   final Map<String, AnsiPen> colors = _defaultColors;
 
+  /// A list of [TalkerKey]s that can be included in filter by [TalkerScreen] settings
+  /// This allows you to register custom keys that can be used for filtering logs in the Talker UI.
+  final List<String> registeredKeys = [];
+
+  /// Registers multiple custom keys for filtering logs in the Talker UI
+  void registerKeys(List<String> keys) {
+    for (final key in keys) {
+      _registerKey(key);
+    }
+  }
+
+  /// Registers a custom key for filtering logs in the Talker UI
+  void _registerKey(String key) {
+    if (!registeredKeys.contains(key)) {
+      registeredKeys.add(key);
+    }
+  }
+
   String getTitleByKey(String key) => titles[key] ?? key;
 
   AnsiPen getPenByKey(String key, {AnsiPen? fallbackPen}) {

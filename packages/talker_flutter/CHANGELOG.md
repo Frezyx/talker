@@ -1,3 +1,15 @@
+# 5.0.0-dev.5
+- [talker] Add ``registeredKeys`` field into ``TalkerSettings`` for third-party packages
+- [talker] Remove deprecated ``titles`` and ``types`` from ``TalkerFilter``
+- [talker] Add ``enabledKeys`` and ``disabledKeys`` fields into ``TalkerFilter`` to replace old filtering logic
+- [talker_flutter] Add ``TalkerFilter`` configuration on ``TalkerScreen``
+- [talker_dio_logger] Add ``TalkerKey``s registration
+- [talker_http_logger] Add ``TalkerKey``s registration
+- [talker_bloc_logger] Add ``TalkerKey``s registration
+- [talker_riverpod_logger] Add ``TalkerKey``s registration
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.4
 - [talker_dio_logger] Remove unused addonId field from dio_logger
 
@@ -412,8 +424,8 @@ Thanks to [Kabak-Siarhei](https://github.com/Kabak-Siarhei)
 
 # 3.5.0
 - Update internal packages versions
-- - Bump share_plus package to 8.0.0
-- - Bump path_provider package to 2.1.1
+-Bump share_plus package to 8.0.0
+-Bump path_provider package to 2.1.1
 
 # 3.4.0
 - Bump share_plus package to 7.1.0

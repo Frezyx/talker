@@ -1,3 +1,8 @@
+# 5.0.0-dev.6
+- - [talker_dio_logger] Add ``FormData`` parser for request logs data
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.5
 - [talker] Add ``registeredKeys`` field into ``TalkerSettings`` for third-party packages
 - [talker] Remove deprecated ``titles`` and ``types`` from ``TalkerFilter``

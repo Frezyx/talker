@@ -37,8 +37,25 @@ class DioRequestLog extends TalkerLog {
 
     try {
       if (settings.printRequestData && data != null) {
-        final prettyData = _encoder.convert(data);
-        msg += '\nData: $prettyData';
+        // If data is FormData, convert it to a map for better readability
+        if (data is FormData) {
+          final formDataMap = <String, dynamic>{};
+          for (var field in data.fields) {
+            formDataMap[field.key] = field.value;
+          }
+          for (var file in data.files) {
+            formDataMap[file.key] = {
+              'filename': file.value.filename,
+              'contentType': file.value.contentType,
+              'bytes': file.value.length,
+            };
+          }
+
+          msg += '\nData: ${_encoder.convert(formDataMap)}';
+        } else {
+          final prettyData = _encoder.convert(data);
+          msg += '\nData: $prettyData';
+        }
       }
 
       if (settings.printRequestHeaders && headers.isNotEmpty) {

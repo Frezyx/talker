@@ -1,3 +1,8 @@
+# 5.0.0-dev.7
+- - [talker_dio_logger] Fix ``FormData``s ``contentType`` field
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.6
 - - [talker_dio_logger] Add ``FormData`` parser for request logs data
 

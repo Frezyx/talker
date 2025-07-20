@@ -46,7 +46,7 @@ class DioRequestLog extends TalkerLog {
           for (var file in data.files) {
             formDataMap[file.key] = {
               'filename': file.value.filename,
-              'contentType': file.value.contentType,
+              'contentType': file.value.contentType.toString(),
               'bytes': file.value.length,
             };
           }

@@ -140,7 +140,8 @@ class DioResponseLog extends TalkerLog {
 
     try {
       if (settings.printResponseData && data != null) {
-        final prettyData = _encoder.convert(data);
+        final prettyData = settings.responseDataConverter?.call(response) ??
+            _encoder.convert(data);
         msg += '\nData: $prettyData';
       }
       if (settings.printResponseHeaders && headers.isNotEmpty) {

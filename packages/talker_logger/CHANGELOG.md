@@ -40,6 +40,37 @@ Thanks to [Frezyx](https://github.com/Frezyx)
 - [talker] Brand new simplified TalkerKeys API (String Log key)
 
 Thanks to [Frezyx](https://github.com/Frezyx)
+# 4.9.3
+- [talker] chore(deps): update dependency gradle to v8.14.3
+[talker] chore(deps): update plugin com.android.application to v8.11.1
+
+Thanks to [renovate](https://github.com/renovate)
+
+# 4.9.2
+- [talker_dio_logger] Add response data converter ``responseDataConverter`` field for ``TalkerDioLoggerSettings``
+
+Thanks to [zhengbomo](https://github.com/zhengbomo)
+
+# 4.9.1
+- [talker_http_logger] chore(deps): update plugin org.jetbrains.kotlin.android to v2
+- [talker_http_logger] chore(deps): update plugin com.android.application to v8.10.1
+
+Thanks to [renovate](https://github.com/renovate)
+
+# 4.9.0
+- [talker_flutter] chore: update share_plus to v11.0.0
+
+Thanks to [jeroenbell](https://github.com/jeroenbell)
+
+# 4.8.4
+- [talker_riverpod_logger] add family arguments to the logs
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
+# 4.8.3
+- [talker_riverpod_logger] add an error filter
+
+Thanks to [lucavenir](https://github.com/lucavenir)
 
 # 4.8.2
 - [talker] Add `CustomLog` Documentation

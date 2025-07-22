@@ -1,4 +1,4 @@
-4.9.1
 4.9.2
-[talker_dio_logger] Add response data converter ``responseDataConverter`` field for ``TalkerDioLoggerSettings``
-zhengbomo
+4.9.3
+[talker] chore(deps): update dependency gradle to v8.14.3
+renovate

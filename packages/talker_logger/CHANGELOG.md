@@ -1,3 +1,9 @@
+# 4.9.3
+- [talker] chore(deps): update dependency gradle to v8.14.3
+[talker] chore(deps): update plugin com.android.application to v8.11.1
+
+Thanks to [renovate](https://github.com/renovate)
+
 # 4.9.2
 - [talker_dio_logger] Add response data converter ``responseDataConverter`` field for ``TalkerDioLoggerSettings``
 

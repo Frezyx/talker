@@ -1,3 +1,8 @@
+# 5.0.0-dev.8
+- - [talker] Sync release and prerelease versions
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.7
 - - [talker_dio_logger] Fix ``FormData``s ``contentType`` field
 

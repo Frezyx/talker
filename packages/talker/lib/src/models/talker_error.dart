@@ -10,19 +10,12 @@ class TalkerError extends TalkerData {
     String? key,
     super.title,
     LogLevel? logLevel,
-  }) : super(message, error: error) {
-    _key = key ?? TalkerLogType.error.key;
-    _logLevel = logLevel ?? LogLevel.error;
-  }
-
-  late String _key;
-  late LogLevel _logLevel;
-
-  @override
-  String get key => _key;
-
-  @override
-  LogLevel? get logLevel => _logLevel;
+  }) : super(
+    message,
+    logLevel: logLevel ?? LogLevel.error,
+    error: error,
+    key: key ?? TalkerLogType.error.key,
+  );
 
   /// {@macro talker_data_generateTextMessage}
   @override

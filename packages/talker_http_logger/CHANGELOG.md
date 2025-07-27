@@ -1,3 +1,77 @@
+# 5.0.0-dev.9
+- - [talker_http_logger] Add ``TalkerKey``s registration
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.8
+- - [talker] Sync release and prerelease versions
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.7
+- - [talker_dio_logger] Fix ``FormData``s ``contentType`` field
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.6
+- - [talker_dio_logger] Add ``FormData`` parser for request logs data
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.5
+- [talker] Add ``registeredKeys`` field into ``TalkerSettings`` for third-party packages
+- [talker] Remove deprecated ``titles`` and ``types`` from ``TalkerFilter``
+- [talker] Add ``enabledKeys`` and ``disabledKeys`` fields into ``TalkerFilter`` to replace old filtering logic
+- [talker_flutter] Add ``TalkerFilter`` configuration on ``TalkerScreen``
+- [talker_dio_logger] Add ``TalkerKey``s registration
+- [talker_http_logger] Add ``TalkerKey``s registration
+- [talker_bloc_logger] Add ``TalkerKey``s registration
+- [talker_riverpod_logger] Add ``TalkerKey``s registration
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.4
+- [talker_dio_logger] Remove unused addonId field from dio_logger
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.3
+- [talker] Upgrade **BaseTalkerFilter** class - add new filtering way by **List<String> keys** field
+- [talker] Deprecate **titles** and **types** fields from **BaseTalkerFilter**
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.2
+- [talker] Fix errors and exceptions filtering for observer
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 0.1.0-dev.54
+- [talker] Brand new simplified TalkerKeys API (String Log key)
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+# 4.9.3
+- [talker] chore(deps): update dependency gradle to v8.14.3
+[talker] chore(deps): update plugin com.android.application to v8.11.1
+
+Thanks to [renovate](https://github.com/renovate)
+
+# 4.9.2
+- [talker_dio_logger] Add response data converter ``responseDataConverter`` field for ``TalkerDioLoggerSettings``
+
+Thanks to [zhengbomo](https://github.com/zhengbomo)
+
+# 4.9.1
+- [talker_http_logger] chore(deps): update plugin org.jetbrains.kotlin.android to v2
+- [talker_http_logger] chore(deps): update plugin com.android.application to v8.10.1
+
+Thanks to [renovate](https://github.com/renovate)
+
+# 4.9.0
+- [talker_flutter] chore: update share_plus to v11.0.0
+
+Thanks to [jeroenbell](https://github.com/jeroenbell)
+
 # 1.0.0
 - Complete overhaul of the package
 

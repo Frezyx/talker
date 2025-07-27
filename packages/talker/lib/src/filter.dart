@@ -1,64 +1,58 @@
 import 'package:talker/talker.dart';
 
-typedef TalkerFilter = _Filter<TalkerData>;
-
-class BaseTalkerFilter implements TalkerFilter {
-  BaseTalkerFilter({
-    this.titles = const [],
-    this.types = const [],
+class TalkerFilter implements _Filter<TalkerData> {
+  TalkerFilter({
+    this.enabledKeys = const [],
+    this.disabledKeys = const [],
     this.searchQuery,
   });
 
-  /// List of enabled for filter titles [exception], [error], [verbose]
-  final List<String> titles;
+  /// List of enabled for filter keys
+  /// This is a new way to filter logs by their keys.
+  /// Keys are unique identifiers for logs, which can be set when creating a log.
+  /// All original talker keys here [TalkerKey]
+  final List<String> enabledKeys;
 
-  /// List of enabled for filter types - subclasses of [TalkerData]
-  /// Like [TalkerError], [TalkerException], [TalkerLog], etc.
-  final List<Type> types;
+  /// List of disabled for filter keys
+  /// This is a new way to filter logs by their keys.
+  /// Keys are unique identifiers for logs, which can be set when creating a log.
+  /// All original talker keys here [TalkerKey]
+  final List<String> disabledKeys;
 
   /// String query for filtering logs
   final String? searchQuery;
 
   @override
   bool filter(TalkerData item) {
-    if (titles.isEmpty && types.isEmpty && (searchQuery?.isEmpty ?? true)) {
-      return true;
-    } else {
-      var match = false;
+    var searchMatch = true;
+    var enabledKeysMatch = true;
+    var disabledKeysMatch = true;
 
-      if (searchQuery?.isNotEmpty ?? false) {
-        final fullMsg = item.generateTextMessage();
-        final fullUpperMsg = fullMsg.toUpperCase();
-        final fullLowerMsg = fullMsg.toLowerCase();
-        match = fullUpperMsg.contains(searchQuery!) ||
-            fullLowerMsg.contains(searchQuery!);
-      }
-
-      return (titles.contains(item.title) || titles.isEmpty) &&
-          (_checkTypeMatch(item) || types.isEmpty) &&
-          (match || (searchQuery?.isEmpty ?? true));
+    final query = searchQuery?.toLowerCase();
+    if (query != null && query.isNotEmpty) {
+      final message = item.generateTextMessage().toLowerCase();
+      searchMatch = message.contains(query);
     }
+
+    if (enabledKeys.isNotEmpty) {
+      enabledKeysMatch = enabledKeys.contains(item.key);
+    }
+
+    if (disabledKeys.isNotEmpty) {
+      disabledKeysMatch = !disabledKeys.contains(item.key);
+    }
+
+    return searchMatch && enabledKeysMatch && disabledKeysMatch;
   }
 
-  bool _checkTypeMatch(TalkerData item) {
-    var match = false;
-    for (final type in types) {
-      if (item.runtimeType == type) {
-        match = true;
-        break;
-      }
-    }
-    return match;
-  }
-
-  BaseTalkerFilter copyWith({
-    List<String>? titles,
-    List<Type>? types,
+  TalkerFilter copyWith({
+    List<String>? enabledKeys,
+    List<String>? disabledKeys,
     String? searchQuery,
   }) {
-    return BaseTalkerFilter(
-      titles: titles ?? this.titles,
-      types: types ?? this.types,
+    return TalkerFilter(
+      enabledKeys: enabledKeys ?? this.enabledKeys,
+      disabledKeys: disabledKeys ?? this.disabledKeys,
       searchQuery: searchQuery ?? this.searchQuery,
     );
   }

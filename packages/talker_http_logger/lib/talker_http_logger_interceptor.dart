@@ -12,6 +12,13 @@ class TalkerHttpLogger extends InterceptorContract {
     this.addonId,
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.httpRequest,
+        TalkerKey.httpResponse,
+        TalkerKey.httpError,
+      ],
+    );
   }
 
   static const String kLogsTimeStamp = 'x-talker-http-logger-ts';

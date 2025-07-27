@@ -15,8 +15,8 @@ extension TalkerDataFlutterExt on TalkerData {
   Color? _getColorByLogLevel(TalkerScreenTheme theme) {
     final logLevel = this.logLevel;
     if (logLevel != null) {
-      final type = TalkerLogType.fromLogLevel(logLevel);
-      return theme.logColors[type.key] ?? Colors.grey;
+      final key = TalkerKey.fromLogLevel(logLevel);
+      return theme.logColors[key] ?? Colors.grey;
     }
     return null;
   }

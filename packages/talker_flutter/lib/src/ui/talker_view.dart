@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
 import 'package:talker_flutter/src/ui/widgets/talker_view_appbar.dart';
@@ -61,9 +60,9 @@ class TalkerView extends StatefulWidget {
 }
 
 class _TalkerViewState extends State<TalkerView> {
-  final _titlesController = GroupButtonController();
   late final _controller = widget.controller ??
       TalkerViewController(
+        talker: widget.talker,
         expandedLogs: widget.isLogsExpanded,
         isLogOrderReversed: widget.isLogOrderReversed,
       );
@@ -79,28 +78,26 @@ class _TalkerViewState extends State<TalkerView> {
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filteredElements = filteredLogs(data);
-              final titles = data.map((e) => e.title).toList();
-              final uniqTitles = titles.toSet().toList();
+              final filteredElements = _getFilteredLogs(data);
+              final keys = data.map((e) => e.key).toList();
+              final uniqKeys = keys.toSet().toList();
 
               return CustomScrollView(
                 controller: widget.scrollController,
                 physics: const BouncingScrollPhysics(),
                 slivers: [
                   TalkerViewAppBar(
+                    keys: keys,
+                    uniqKeys: uniqKeys,
                     title: widget.appBarTitle,
                     leading: widget.appBarLeading,
                     talker: widget.talker,
                     talkerTheme: talkerTheme,
-                    titlesController: _titlesController,
-                    titles: titles,
-                    uniqTitles: uniqTitles,
                     controller: _controller,
                     onMonitorTap: () => _openTalkerMonitor(context),
-                    onActionsTap: () => _showActionsBottomSheet(context),
-                    onSettingsTap: () =>
-                        _openTalkerSettings(context, talkerTheme),
-                    onToggleTitle: _onToggleTitle,
+                    onActionsTap: () => _openActions(context),
+                    onSettingsTap: () => _openSettings(context, talkerTheme),
+                    onToggleKey: _onToggleKey,
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 8)),
                   SliverList(
@@ -130,15 +127,13 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  List<TalkerData> filteredLogs(List<TalkerData> data) =>
+  List<TalkerData> _getFilteredLogs(List<TalkerData> data) =>
       data.where((e) => _controller.filter.filter(e)).toList();
 
-  void _onToggleTitle(String title, bool selected) {
-    if (selected) {
-      _controller.addFilterTitle(title);
-    } else {
-      _controller.removeFilterTitle(title);
-    }
+  void _onToggleKey(String key, bool selected) {
+    final action =
+        selected ? _controller.addFilterKey : _controller.removeFilterKey;
+    action(key);
   }
 
   TalkerData _getListItem(
@@ -150,7 +145,7 @@ class _TalkerViewState extends State<TalkerView> {
     return data;
   }
 
-  void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
+  void _openSettings(BuildContext context, TalkerScreenTheme theme) {
     final talker = ValueNotifier(widget.talker);
 
     showModalBottomSheet(
@@ -191,7 +186,7 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  Future<void> _showActionsBottomSheet(BuildContext context) async {
+  Future<void> _openActions(BuildContext context) async {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -262,7 +257,7 @@ class _TalkerViewState extends State<TalkerView> {
 
   void _copyFilteredLogs(BuildContext context) {
     Clipboard.setData(ClipboardData(
-        text: filteredLogs(widget.talker.history)
+        text: _getFilteredLogs(widget.talker.history)
             .text(timeFormat: widget.talker.settings.timeFormat)));
     _showSnackBar(context, 'All filtered logs copied in buffer');
   }

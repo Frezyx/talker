@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -182,10 +181,10 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
 
   String? get _message {
     final isHttpLog = [
-      TalkerLogType.httpError.key,
-      TalkerLogType.httpRequest.key,
-      TalkerLogType.httpResponse.key,
-    ].contains(widget.data.title);
+      TalkerKey.httpError,
+      TalkerKey.httpRequest,
+      TalkerKey.httpResponse,
+    ].contains(widget.data.key);
     if (isHttpLog) {
       return widget.data.generateTextMessage();
     }

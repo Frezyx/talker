@@ -13,6 +13,7 @@ void main() {
         printErrorHeaders: false,
         requestPen: AnsiPen()..yellow(),
         responseFilter: null,
+        responseDataConverter: null,
       );
 
       expect(updatedSettings.printResponseData, equals(false));
@@ -21,6 +22,7 @@ void main() {
       expect(
           updatedSettings.requestPen, isNot(same(originalSettings.requestPen)));
       expect(updatedSettings.responseFilter, isNull);
+      expect(updatedSettings.responseDataConverter, isNull);
     });
 
     test('requestFilter should return true for allowed paths', () {
@@ -46,6 +48,23 @@ void main() {
 
       expect(settings.responseFilter!(successfulResponse), equals(true));
       expect(settings.responseFilter!(unsuccessfulResponse), equals(false));
+    });
+
+    test('responseDataConverter should return true for successful responses',
+        () {
+      final settings = TalkerDioLoggerSettings(
+          responseDataConverter: (Response response) => "msg");
+
+      final successfulResponse = Response(
+        data: "msg",
+        requestOptions: RequestOptions(path: '/test'),
+        statusCode: 200,
+      );
+
+      expect(
+        settings.responseDataConverter!(successfulResponse),
+        equals("msg"),
+      );
     });
 
     test('errorFilter should return true for cancelled responses', () {

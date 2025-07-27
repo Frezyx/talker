@@ -61,6 +61,7 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
       ..addPostFrameCallback(_addPostFrameCallback);
     final indexes = widget.talker.filter.enabledKeys
         .map((e) => widget.keys.indexOf(e))
+        .where((index) => index >= 0)
         .toList();
     _bcontroller.selectIndexes(indexes);
     super.initState();

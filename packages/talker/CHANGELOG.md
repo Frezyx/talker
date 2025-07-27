@@ -1,3 +1,8 @@
+# 5.0.0-dev.10
+- - [talker_chopper_logger] Release logger for Chopper http clint package
+
+Thanks to [techouse](https://github.com/techouse)
+
 # 5.0.0-dev.9
 - - [talker_http_logger] Add ``TalkerKey``s registration
 

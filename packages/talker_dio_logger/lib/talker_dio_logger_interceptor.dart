@@ -12,9 +12,15 @@ class TalkerDioLogger extends Interceptor {
   TalkerDioLogger({
     Talker? talker,
     this.settings = const TalkerDioLoggerSettings(),
-    this.addonId,
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.httpRequest,
+        TalkerKey.httpResponse,
+        TalkerKey.httpError,
+      ],
+    );
   }
 
   static const kDioLogsTimeStampKey = '_talker_dio_logger_ts_';
@@ -24,11 +30,10 @@ class TalkerDioLogger extends Interceptor {
   /// [TalkerDioLogger] settings and customization
   TalkerDioLoggerSettings settings;
 
-  /// Talker addon functionality
-  /// addon id for create a lot of addons
-  final String? addonId;
-
   /// Method to update [settings] of [TalkerDioLogger]
+  @Deprecated(
+    'Will be removed in 5.0.0 version. Setup settings in constructor',
+  )
   void configure({
     bool? printResponseData,
     bool? printResponseHeaders,

@@ -23,7 +23,7 @@ class HttpRequestLog extends TalkerLog {
   AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
-  String get key => TalkerLogType.httpRequest.key;
+  String get key => TalkerKey.httpRequest;
 
   @override
   LogLevel get logLevel => settings.logLevel;

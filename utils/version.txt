@@ -1,4 +1,4 @@
-4.9.2
-4.9.3
-[talker] chore(deps): update dependency gradle to v8.14.3
-renovate
+5.0.0-dev.7
+5.0.0-dev.8
+- [talker] Sync release and prerelease versions
+Frezyx

@@ -1,3 +1,50 @@
+# 5.0.0-dev.8
+- - [talker] Sync release and prerelease versions
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.7
+- - [talker_dio_logger] Fix ``FormData``s ``contentType`` field
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.6
+- - [talker_dio_logger] Add ``FormData`` parser for request logs data
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.5
+- [talker] Add ``registeredKeys`` field into ``TalkerSettings`` for third-party packages
+- [talker] Remove deprecated ``titles`` and ``types`` from ``TalkerFilter``
+- [talker] Add ``enabledKeys`` and ``disabledKeys`` fields into ``TalkerFilter`` to replace old filtering logic
+- [talker_flutter] Add ``TalkerFilter`` configuration on ``TalkerScreen``
+- [talker_dio_logger] Add ``TalkerKey``s registration
+- [talker_http_logger] Add ``TalkerKey``s registration
+- [talker_bloc_logger] Add ``TalkerKey``s registration
+- [talker_riverpod_logger] Add ``TalkerKey``s registration
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.4
+- [talker_dio_logger] Remove unused addonId field from dio_logger
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.3
+- [talker] Upgrade **BaseTalkerFilter** class - add new filtering way by **List<String> keys** field
+- [talker] Deprecate **titles** and **types** fields from **BaseTalkerFilter**
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.2
+- [talker] Fix errors and exceptions filtering for observer
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.0.0-dev.1
+- [talker] Brand new simplified TalkerKeys API (String Log key)
+
+Thanks to [Frezyx](https://github.com/Frezyx)
 # 4.9.3
 - [talker] chore(deps): update dependency gradle to v8.14.3
 [talker] chore(deps): update plugin com.android.application to v8.11.1
@@ -423,8 +470,8 @@ Thanks to [Kabak-Siarhei](https://github.com/Kabak-Siarhei)
 
 # 3.5.0
 - Update internal packages versions
-- - Bump share_plus package to 8.0.0
-- - Bump path_provider package to 2.1.1
+-Bump share_plus package to 8.0.0
+-Bump path_provider package to 2.1.1
 
 # 3.4.0
 - Bump share_plus package to 7.1.0
@@ -559,7 +606,7 @@ Thanks to [zezo357](https://github.com/zezo357)
 
 # 3.0.0-dev.9
 
-- Update TalkerFlutter extension (Remove deprecated fileds)
+- Update TalkerFlutter extension (Remove deprecated fields)
 - Update talker version to 3.0.0-dev.10
 
 # 3.0.0-dev.8
@@ -706,7 +753,7 @@ Now you can extend your flutter app logs.
 
 ## 1.6.0
 - **FIX**: Logs cutting by flutter via print method. 
-Now Talker constructor have output filed to provide callback.
+Now Talker constructor have output field to provide callback.
 For flutter applications, you need to pass debugPrint as output method
 See more in talker_flutter initialization on project README.md
 - **INFO**: Update talker to 1.3.0 version

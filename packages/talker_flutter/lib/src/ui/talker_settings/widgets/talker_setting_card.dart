@@ -29,11 +29,11 @@ class TalkerSettingsCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: TalkerBaseCard(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
-              .copyWith(right: 0),
+          padding: const EdgeInsets.only(left: 8),
           color: talkerScreenTheme.textColor,
           backgroundColor: talkerScreenTheme.cardColor,
           child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 8),
             title: Text(
               title,
               style: TextStyle(

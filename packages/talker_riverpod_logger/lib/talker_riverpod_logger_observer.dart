@@ -14,6 +14,14 @@ class TalkerRiverpodObserver extends ProviderObserver {
     this.settings = const TalkerRiverpodLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.riverpodAdd,
+        TalkerKey.riverpodUpdate,
+        TalkerKey.riverpodDispose,
+        TalkerKey.riverpodFail,
+      ],
+    );
   }
 
   late Talker _talker;

@@ -3,30 +3,11 @@ import 'package:test/test.dart';
 
 void main() {
   group('TalkerFilter', () {
-    _testFilterByTitles(useTalkerFilter: false);
-    _testFilterByTitles(useTalkerFilter: true);
-
-    _testFilterByTypes(useTalkerFilter: false);
-    _testFilterByTypes(useTalkerFilter: true);
+    _testFilterByKeys(useTalkerFilter: false);
+    _testFilterByKeys(useTalkerFilter: true);
 
     _testFilterBySearchText(useTalkerFilter: false);
     _testFilterBySearchText(useTalkerFilter: true);
-
-    test('copyWith', () {
-      final filter = BaseTalkerFilter(
-        titles: ['Error'],
-        types: [Exception],
-      );
-      final newFilter = filter.copyWith(titles: ['LOG']);
-      expect(filter == newFilter, false);
-      expect(filter.titles == newFilter.titles, false);
-      expect(filter.titles.first == newFilter.titles.first, false);
-
-      final typesChangesFilter = filter.copyWith(types: [Error]);
-      expect(filter == typesChangesFilter, false);
-      expect(filter.types == typesChangesFilter.types, false);
-      expect(filter.types.first == typesChangesFilter.types.first, false);
-    });
   });
 }
 
@@ -50,49 +31,24 @@ void _testFilterBySearchText({
   });
 }
 
-void _testFilterByTypes({
-  required bool useTalkerFilter,
-}) {
-  group('By type', () {
-    _testFilterFoundByType(
-      useTalkerFilter: useTalkerFilter,
-      types: [TalkerLog],
-      countFound: 1,
-      logCallback: (talker) {
-        talker.error('Test log');
-      },
-    );
-    _testFilterFoundByType(
-      useTalkerFilter: useTalkerFilter,
-      types: [TalkerError],
-      countFound: 2,
-      logCallback: (talker) {
-        talker.info('Test log');
-        talker.handle(ArgumentError());
-        talker.handle(ArgumentError());
-      },
-    );
-  });
-}
-
-void _testFilterByTitles({
+void _testFilterByKeys({
   required bool useTalkerFilter,
 }) {
   return group(
     'By title',
     () {
-      _testFilterFoundByTitle(
+      _testFilterFoundByKey(
         useTalkerFilter: useTalkerFilter,
-        titles: ['error'],
+        keys: ['error'],
         countFound: 1,
         logCallback: (talker) {
           talker.error('Test log');
         },
       );
 
-      _testFilterFoundByTitle(
+      _testFilterFoundByKey(
         useTalkerFilter: useTalkerFilter,
-        titles: ['error', 'exception'],
+        keys: ['error', 'exception'],
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
@@ -100,9 +56,9 @@ void _testFilterByTitles({
         },
       );
 
-      _testFilterFoundByTitle(
+      _testFilterFoundByKey(
         useTalkerFilter: useTalkerFilter,
-        titles: ['error', 'verbose'],
+        keys: ['error', 'verbose'],
         countFound: 2,
         logCallback: (talker) {
           talker.error('Test log');
@@ -111,9 +67,9 @@ void _testFilterByTitles({
         },
       );
 
-      _testFilterFoundByTitle(
+      _testFilterFoundByKey(
         useTalkerFilter: useTalkerFilter,
-        titles: ['verbose'],
+        keys: ['verbose'],
         countFound: 5,
         logCallback: (talker) {
           talker.verbose('Test log');
@@ -137,8 +93,7 @@ void _testFilterFoundBySearchText({
   required int countFound,
   required bool useTalkerFilter,
 }) {
-  final filter =
-      BaseTalkerFilter(types: [], titles: [], searchQuery: searchQuery);
+  final filter = TalkerFilter(enabledKeys: [], searchQuery: searchQuery);
 
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
 
@@ -154,37 +109,16 @@ void _testFilterFoundBySearchText({
   });
 }
 
-void _testFilterFoundByType({
-  required List<Type> types,
-  required Function(Talker talker) logCallback,
-  required int countFound,
-  required bool useTalkerFilter,
-}) {
-  final filter = BaseTalkerFilter(types: types);
-  final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
-
-  test(
-      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${types.join(',')}',
-      () {
-    logCallback.call(talker);
-    final foundRecords = useTalkerFilter
-        ? talker.history
-        : talker.history.where((e) => filter.filter(e)).toList();
-    expect(foundRecords, isNotEmpty);
-    expect(foundRecords.length, countFound);
-  });
-}
-
-void _testFilterFoundByTitle(
-    {required List<String> titles,
+void _testFilterFoundByKey(
+    {required List<String> keys,
     required Function(Talker) logCallback,
     required int countFound,
     required bool useTalkerFilter}) {
-  final filter = BaseTalkerFilter(titles: titles);
+  final filter = TalkerFilter(enabledKeys: keys);
   final talker = useTalkerFilter ? Talker(filter: filter) : Talker();
 
   test(
-      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${titles.join(',')}',
+      'Found $countFound ${useTalkerFilter ? 'By Talker' : 'By Filter'} in ${keys.join(',')}',
       () {
     logCallback.call(talker);
 
@@ -194,5 +128,63 @@ void _testFilterFoundByTitle(
 
     expect(foundRecords, isNotEmpty);
     expect(foundRecords.length, countFound);
+  });
+
+  group('BaseTalkerFilter - keys filtering', () {
+    final matchingKey = 'test_key';
+    final nonMatchingKey = 'other_key';
+
+    TalkerData createData(String key, String msg) {
+      return TalkerLog(msg, key: key);
+    }
+
+    test('should allow item with matching key', () {
+      final filter = TalkerFilter(enabledKeys: [matchingKey]);
+
+      final item = createData(matchingKey, 'Log message');
+
+      expect(filter.filter(item), isTrue);
+    });
+
+    test('should reject item with non-matching key', () {
+      final filter = TalkerFilter(enabledKeys: [matchingKey]);
+
+      final item = createData(nonMatchingKey, 'Another log');
+
+      expect(filter.filter(item), isFalse);
+    });
+
+    test('should allow item with matching key and matching search query', () {
+      final filter = TalkerFilter(
+        enabledKeys: [matchingKey],
+        searchQuery: 'important',
+      );
+
+      final item = createData(matchingKey, 'Important log happened');
+
+      expect(filter.filter(item), isTrue);
+    });
+
+    test('should reject item with matching key but not matching search query',
+        () {
+      final filter = TalkerFilter(
+        enabledKeys: [matchingKey],
+        searchQuery: 'missing',
+      );
+
+      final item = createData(matchingKey, 'Some other log');
+
+      expect(filter.filter(item), isFalse);
+    });
+
+    test('should ignore key filtering if keys list is empty', () {
+      final filter = TalkerFilter(enabledKeys: []);
+
+      final item = createData(nonMatchingKey, 'Anything goes');
+
+      // Falls back to deprecated _oldFilterLogic, which might return true or false depending on other fields.
+      // But since all deprecated fields are empty here, the logic returns true.
+      expect(filter.filter(item), isTrue);
+    });
   });
 }

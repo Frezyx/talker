@@ -21,7 +21,7 @@ class DioRequestLog extends TalkerLog {
   AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
 
   @override
-  String get key => TalkerLogType.httpRequest.key;
+  String get key => TalkerKey.httpRequest;
 
   @override
   LogLevel get logLevel => settings.logLevel;
@@ -37,8 +37,25 @@ class DioRequestLog extends TalkerLog {
 
     try {
       if (settings.printRequestData && data != null) {
-        final prettyData = _encoder.convert(data);
-        msg += '\nData: $prettyData';
+        // If data is FormData, convert it to a map for better readability
+        if (data is FormData) {
+          final formDataMap = <String, dynamic>{};
+          for (var field in data.fields) {
+            formDataMap[field.key] = field.value;
+          }
+          for (var file in data.files) {
+            formDataMap[file.key] = {
+              'filename': file.value.filename,
+              'contentType': file.value.contentType.toString(),
+              'bytes': file.value.length,
+            };
+          }
+
+          msg += '\nData: ${_encoder.convert(formDataMap)}';
+        } else {
+          final prettyData = _encoder.convert(data);
+          msg += '\nData: $prettyData';
+        }
       }
 
       if (settings.printRequestHeaders && headers.isNotEmpty) {
@@ -91,7 +108,7 @@ class DioResponseLog extends TalkerLog {
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
-  String get key => TalkerLogType.httpResponse.key;
+  String get key => TalkerKey.httpResponse;
 
   @override
   LogLevel get logLevel => settings.logLevel;
@@ -159,7 +176,7 @@ class DioErrorLog extends TalkerLog {
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
-  String get key => TalkerLogType.httpError.key;
+  String get key => TalkerKey.httpError;
 
   @override
   LogLevel get logLevel => LogLevel.error;

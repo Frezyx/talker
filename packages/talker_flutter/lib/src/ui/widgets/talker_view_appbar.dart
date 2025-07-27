@@ -10,14 +10,13 @@ class TalkerViewAppBar extends StatefulWidget {
     required this.leading,
     required this.talker,
     required this.talkerTheme,
-    required this.titlesController,
     required this.controller,
-    required this.titles,
-    required this.uniqTitles,
+    required this.keys,
+    required this.uniqKeys,
     required this.onMonitorTap,
     required this.onSettingsTap,
     required this.onActionsTap,
-    required this.onToggleTitle,
+    required this.onToggleKey,
   }) : super(key: key);
 
   final String? title;
@@ -25,17 +24,17 @@ class TalkerViewAppBar extends StatefulWidget {
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
-  final GroupButtonController titlesController;
+
   final TalkerViewController controller;
 
-  final List<String?> titles;
-  final List<String?> uniqTitles;
+  final List<String?> keys;
+  final List<String?> uniqKeys;
 
   final VoidCallback onMonitorTap;
   final VoidCallback onSettingsTap;
   final VoidCallback onActionsTap;
 
-  final Function(String title, bool selected) onToggleTitle;
+  final Function(String key, bool selected) onToggleKey;
 
   @override
   State<TalkerViewAppBar> createState() => _TalkerViewAppBarState();
@@ -44,8 +43,8 @@ class TalkerViewAppBar extends StatefulWidget {
 class _TalkerViewAppBarState extends State<TalkerViewAppBar>
     with WidgetsBindingObserver {
   final GlobalKey _groupButtonKey = GlobalKey();
-
   final GlobalKey _searchTextFieldKey = GlobalKey();
+  final _bcontroller = GroupButtonController();
 
   double? _spaceBarHeight;
 
@@ -60,6 +59,11 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
     WidgetsBinding.instance
       ..addObserver(this)
       ..addPostFrameCallback(_addPostFrameCallback);
+    final indexes = widget.talker.filter.enabledKeys
+        .map((e) => widget.keys.indexOf(e))
+        .where((index) => index >= 0)
+        .toList();
+    _bcontroller.selectIndexes(indexes);
     super.initState();
   }
 
@@ -91,6 +95,7 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final uniqKeys = widget.uniqKeys..removeWhere((e) => e == null);
     return SliverAppBar(
       backgroundColor: widget.talkerTheme.backgroundColor,
       elevation: 0,
@@ -149,11 +154,13 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GroupButton(
                     key: _groupButtonKey,
-                    controller: widget.titlesController,
+                    controller: _bcontroller,
                     isRadio: false,
-                    buttonBuilder: (selected, value, context) {
-                      final count =
-                          widget.titles.where((e) => e == value).length;
+                    buttonBuilder: (selected, key, context) {
+                      final count = widget.keys.where((e) => e == key).length;
+                      final title = key != null
+                          ? widget.talker.settings.getTitleByKey(key)
+                          : 'undefined';
                       return Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -175,7 +182,7 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '$value',
+                              title,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: widget.talkerTheme.textColor,
@@ -185,9 +192,11 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
                         ),
                       );
                     },
-                    onSelected: (_, i, selected) =>
-                        _onToggle(widget.uniqTitles[i], selected),
-                    buttons: widget.uniqTitles,
+                    onSelected: (_, i, selected) => _onToggleKey(
+                      uniqKeys[i],
+                      selected,
+                    ),
+                    buttons: uniqKeys,
                   ),
                 ),
                 const SizedBox(height: _padding),
@@ -204,9 +213,9 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
     );
   }
 
-  void _onToggle(String? title, bool selected) {
-    if (title == null) return;
-    widget.onToggleTitle(title, selected);
+  void _onToggleKey(String? key, bool selected) {
+    if (key == null) return;
+    widget.onToggleKey(key, selected);
   }
 }
 

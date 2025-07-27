@@ -2,64 +2,64 @@ import 'package:talker/talker.dart';
 
 final _defaultTitles = {
   /// Base logs section
-  TalkerLogType.critical.key: 'critical',
-  TalkerLogType.warning.key: 'warning',
-  TalkerLogType.verbose.key: 'verbose',
-  TalkerLogType.info.key: 'info',
-  TalkerLogType.debug.key: 'debug',
-  TalkerLogType.error.key: 'error',
-  TalkerLogType.exception.key: 'exception',
+  TalkerKey.critical: 'critical',
+  TalkerKey.warning: 'warning',
+  TalkerKey.verbose: 'verbose',
+  TalkerKey.info: 'info',
+  TalkerKey.debug: 'debug',
+  TalkerKey.error: 'error',
+  TalkerKey.exception: 'exception',
 
   /// Http section
-  TalkerLogType.httpError.key: 'http-error',
-  TalkerLogType.httpRequest.key: 'http-request',
-  TalkerLogType.httpResponse.key: 'http-response',
+  TalkerKey.httpError: 'http-error',
+  TalkerKey.httpRequest: 'http-request',
+  TalkerKey.httpResponse: 'http-response',
 
   /// Bloc section
-  TalkerLogType.blocEvent.key: 'bloc-event',
-  TalkerLogType.blocTransition.key: 'bloc-transition',
-  TalkerLogType.blocCreate.key: 'bloc-create',
-  TalkerLogType.blocClose.key: 'bloc-close',
+  TalkerKey.blocEvent: 'bloc-event',
+  TalkerKey.blocTransition: 'bloc-transition',
+  TalkerKey.blocCreate: 'bloc-create',
+  TalkerKey.blocClose: 'bloc-close',
 
   /// Riverpod section
-  TalkerLogType.riverpodAdd.key: 'riverpod-add',
-  TalkerLogType.riverpodUpdate.key: 'riverpod-update',
-  TalkerLogType.riverpodDispose.key: 'riverpod-dispose',
-  TalkerLogType.riverpodFail.key: 'riverpod-fail',
+  TalkerKey.riverpodAdd: 'riverpod-add',
+  TalkerKey.riverpodUpdate: 'riverpod-update',
+  TalkerKey.riverpodDispose: 'riverpod-dispose',
+  TalkerKey.riverpodFail: 'riverpod-fail',
 
   /// Flutter section
-  TalkerLogType.route.key: 'route',
+  TalkerKey.route: 'route',
 };
 
 final _defaultColors = {
   /// Base logs section
-  TalkerLogType.critical.key: AnsiPen()..red(),
-  TalkerLogType.warning.key: AnsiPen()..yellow(),
-  TalkerLogType.verbose.key: AnsiPen()..gray(),
-  TalkerLogType.info.key: AnsiPen()..blue(),
-  TalkerLogType.debug.key: AnsiPen()..gray(),
-  TalkerLogType.error.key: AnsiPen()..red(),
-  TalkerLogType.exception.key: AnsiPen()..red(),
+  TalkerKey.critical: AnsiPen()..red(),
+  TalkerKey.warning: AnsiPen()..yellow(),
+  TalkerKey.verbose: AnsiPen()..gray(),
+  TalkerKey.info: AnsiPen()..blue(),
+  TalkerKey.debug: AnsiPen()..gray(),
+  TalkerKey.error: AnsiPen()..red(),
+  TalkerKey.exception: AnsiPen()..red(),
 
   /// Http section
-  TalkerLogType.httpError.key: AnsiPen()..red(),
-  TalkerLogType.httpRequest.key: AnsiPen()..xterm(219),
-  TalkerLogType.httpResponse.key: AnsiPen()..xterm(46),
+  TalkerKey.httpError: AnsiPen()..red(),
+  TalkerKey.httpRequest: AnsiPen()..xterm(219),
+  TalkerKey.httpResponse: AnsiPen()..xterm(46),
 
   /// Bloc section
-  TalkerLogType.blocEvent.key: AnsiPen()..xterm(51),
-  TalkerLogType.blocTransition.key: AnsiPen()..xterm(49),
-  TalkerLogType.blocCreate.key: AnsiPen()..xterm(35),
-  TalkerLogType.blocClose.key: AnsiPen()..xterm(198),
+  TalkerKey.blocEvent: AnsiPen()..xterm(51),
+  TalkerKey.blocTransition: AnsiPen()..xterm(49),
+  TalkerKey.blocCreate: AnsiPen()..xterm(35),
+  TalkerKey.blocClose: AnsiPen()..xterm(198),
 
   /// Riverpod section
-  TalkerLogType.riverpodAdd.key: AnsiPen()..xterm(51),
-  TalkerLogType.riverpodUpdate.key: AnsiPen()..xterm(49),
-  TalkerLogType.riverpodDispose.key: AnsiPen()..xterm(198),
-  TalkerLogType.riverpodFail.key: AnsiPen()..red(),
+  TalkerKey.riverpodAdd: AnsiPen()..xterm(51),
+  TalkerKey.riverpodUpdate: AnsiPen()..xterm(49),
+  TalkerKey.riverpodDispose: AnsiPen()..xterm(198),
+  TalkerKey.riverpodFail: AnsiPen()..red(),
 
   /// Flutter section
-  TalkerLogType.route.key: AnsiPen()..xterm(135),
+  TalkerKey.route: AnsiPen()..xterm(135),
 };
 
 final _fallbackPen = AnsiPen()..gray();
@@ -130,9 +130,9 @@ class TalkerSettings {
   ///
   /// ```dart
   /// final customTitles = {
-  ///   TalkerTitle.info.key: "Information",
-  ///   TalkerTitle.error.key: "Error",
-  ///   TalkerTitle.warning.key: "Warning",
+  ///   TalkerKey.info: "Information",
+  ///   TalkerKey.error: "Error",
+  ///   TalkerKey.warning: "Warning",
   /// };
   ///
   /// final logger = Talker(
@@ -153,9 +153,9 @@ class TalkerSettings {
   ///
   /// ```dart
   /// final customColors = {
-  ///   TalkerKey.info.key: AnsiPen()..white(bold: true),
-  ///   TalkerKey.error.key: AnsiPen()..red(bold: true),
-  ///   TalkerKey.warning.key: AnsiPen()..yellow(bold: true),
+  ///   TalkerKey.info: AnsiPen()..white(bold: true),
+  ///   TalkerKey.error: AnsiPen()..red(bold: true),
+  ///   TalkerKey.warning: AnsiPen()..yellow(bold: true),
   /// };
   ///
   /// final logger = Talker(
@@ -168,14 +168,27 @@ class TalkerSettings {
   /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
   final Map<String, AnsiPen> colors = _defaultColors;
 
-  String getTitleByLogKey(String key) {
-    return titles[key] ?? key;
+  /// A list of [TalkerKey]s that can be included in filter by [TalkerScreen] settings
+  /// This allows you to register custom keys that can be used for filtering logs in the Talker UI.
+  final List<String> registeredKeys = [];
+
+  /// Registers multiple custom keys for filtering logs in the Talker UI
+  void registerKeys(List<String> keys) {
+    for (final key in keys) {
+      _registerKey(key);
+    }
   }
 
-  AnsiPen getAnsiPenByLogType(TalkerLogType type, {TalkerData? logData}) =>
-      getPenByLogKey(type.key, fallbackPen: logData?.pen);
+  /// Registers a custom key for filtering logs in the Talker UI
+  void _registerKey(String key) {
+    if (!registeredKeys.contains(key)) {
+      registeredKeys.add(key);
+    }
+  }
 
-  AnsiPen getPenByLogKey(String key, {AnsiPen? fallbackPen}) {
+  String getTitleByKey(String key) => titles[key] ?? key;
+
+  AnsiPen getPenByKey(String key, {AnsiPen? fallbackPen}) {
     return colors[key] ?? fallbackPen ?? _fallbackPen;
   }
 

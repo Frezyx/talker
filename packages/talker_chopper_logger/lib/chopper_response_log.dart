@@ -25,7 +25,7 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
   @override
-  String get key => TalkerLogType.httpResponse.key;
+  String get key => TalkerKey.httpResponse;
 
   @override
   LogLevel get logLevel => settings.logLevel;

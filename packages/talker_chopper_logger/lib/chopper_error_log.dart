@@ -26,7 +26,7 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
-  String get key => TalkerLogType.httpError.key;
+  String get key => TalkerKey.httpError;
 
   @override
   LogLevel get logLevel => LogLevel.error;

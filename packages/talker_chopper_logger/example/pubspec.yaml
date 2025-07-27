@@ -9,8 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  talker_chopper_logger: 
-    path: ../
+  talker_chopper_logger: ^5.0.0-dev.9
   talker_flutter: ^5.0.0-dev.9
   chopper: ^8.2.0
   json_annotation: ^4.9.0

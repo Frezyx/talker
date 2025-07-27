@@ -907,7 +907,7 @@ This is how the logs of your http requests will look in the console
 ### Add dependency
 ```yaml
 dependencies:
-  talker_chopper_logger: ^1.0.0
+  talker_chopper_logger: ^5.0.0-dev.9
 ```
 
 ### Usage

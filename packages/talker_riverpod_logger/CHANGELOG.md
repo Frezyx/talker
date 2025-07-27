@@ -1,3 +1,8 @@
+# 5.0.0-dev.9
+- - [talker_http_logger] Add ``TalkerKey``s registration
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.8
 - - [talker] Sync release and prerelease versions
 

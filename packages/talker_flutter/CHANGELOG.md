@@ -31,8 +31,8 @@ Thanks to [Frezyx](https://github.com/Frezyx)
 Thanks to [Frezyx](https://github.com/Frezyx)
 
 # 5.0.0-dev.3
-- [talker] Upgrade **BaseTalkerFilter** class - add new filtering way by **List<String> keys** filed
-- [talker] Deperecate **titles** and **types** fields from **BaseTalkerFilter**
+- [talker] Upgrade **BaseTalkerFilter** class - add new filtering way by **List<String> keys** field
+- [talker] Deprecate **titles** and **types** fields from **BaseTalkerFilter**
 
 Thanks to [Frezyx](https://github.com/Frezyx)
 
@@ -606,7 +606,7 @@ Thanks to [zezo357](https://github.com/zezo357)
 
 # 3.0.0-dev.9
 
-- Update TalkerFlutter extension (Remove deprecated fileds)
+- Update TalkerFlutter extension (Remove deprecated fields)
 - Update talker version to 3.0.0-dev.10
 
 # 3.0.0-dev.8
@@ -753,7 +753,7 @@ Now you can extend your flutter app logs.
 
 ## 1.6.0
 - **FIX**: Logs cutting by flutter via print method. 
-Now Talker constructor have output filed to provide callback.
+Now Talker constructor have output field to provide callback.
 For flutter applications, you need to pass debugPrint as output method
 See more in talker_flutter initialization on project README.md
 - **INFO**: Update talker to 1.3.0 version

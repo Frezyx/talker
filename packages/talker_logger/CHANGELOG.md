@@ -32,7 +32,7 @@ Thanks to [Frezyx](https://github.com/Frezyx)
 
 # 5.0.0-dev.3
 - [talker] Upgrade **BaseTalkerFilter** class - add new filtering way by **List<String> keys** field
-- [talker] Deperecate **titles** and **types** fields from **BaseTalkerFilter**
+- [talker] Deprecate **titles** and **types** fields from **BaseTalkerFilter**
 
 Thanks to [Frezyx](https://github.com/Frezyx)
 

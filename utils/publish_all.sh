@@ -31,3 +31,7 @@ cd ../../
 cd packages/talker_http_logger
 flutter pub publish
 cd ../../
+
+cd packages/talker_chopper_logger
+flutter pub publish
+cd ../../

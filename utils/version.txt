@@ -1,4 +1,4 @@
-5.0.0-dev.9
 5.0.0-dev.10
-- [talker_chopper_logger] Release logger for Chopper http clint package
-techouse
+5.0.0-dev.11
+- [talker_chopper_logger] Add ``TalkerKey``s registration
+Frezyx

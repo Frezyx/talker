@@ -20,6 +20,13 @@ class TalkerChopperLogger implements Interceptor {
     this.addonId,
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.httpRequest,
+        TalkerKey.httpResponse,
+        TalkerKey.httpError,
+      ],
+    );
   }
 
   late final Talker _talker;

@@ -58,6 +58,7 @@ class Talker {
     _observer = observer ?? const _DefaultTalkerObserver();
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
     _history = history ?? DefaultTalkerHistory(this.settings);
+    _historyFilter = _logger.filter;
   }
 
   void _initLogger(TalkerLogger? logger) {
@@ -65,13 +66,12 @@ class Talker {
     _logger = _logger.copyWith(
       settings: _logger.settings.copyWith(
         colors: {
-          LogLevel.critical:
-              settings.getAnsiPenByLogType(TalkerLogType.critical),
-          LogLevel.error: settings.getAnsiPenByLogType(TalkerLogType.error),
-          LogLevel.warning: settings.getAnsiPenByLogType(TalkerLogType.warning),
-          LogLevel.verbose: settings.getAnsiPenByLogType(TalkerLogType.verbose),
-          LogLevel.info: settings.getAnsiPenByLogType(TalkerLogType.info),
-          LogLevel.debug: settings.getAnsiPenByLogType(TalkerLogType.debug),
+          LogLevel.critical: settings.getPenByKey(TalkerKey.critical),
+          LogLevel.error: settings.getPenByKey(TalkerKey.error),
+          LogLevel.warning: settings.getPenByKey(TalkerKey.warning),
+          LogLevel.verbose: settings.getPenByKey(TalkerKey.verbose),
+          LogLevel.info: settings.getPenByKey(TalkerKey.info),
+          LogLevel.debug: settings.getPenByKey(TalkerKey.debug),
         },
       ),
     );
@@ -86,6 +86,7 @@ class Talker {
   late TalkerFilter _filter;
   late TalkerObserver _observer;
   late TalkerHistory _history;
+  late LoggerFilter _historyFilter;
 
   // final _fileManager = FileManager();
 
@@ -131,6 +132,7 @@ class Talker {
     _logger = logger ?? _logger;
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
     _history = DefaultTalkerHistory(this.settings, history: _history.history);
+    _historyFilter = _logger.filter;
   }
 
   final _talkerStreamController = StreamController<TalkerData>.broadcast();
@@ -149,6 +151,12 @@ class Talker {
   /// and logs [TalkerLog]s that have been sent
 
   List<TalkerData> get history => _history.history;
+
+  /// [TalkerFilter] [filter] - filter for selecting specific logs and errors
+  /// by their keys [TalkerData.key] and by string query [TalkerFilter.searchQuery]
+  /// You can set it in [configure] method
+  /// or change it later
+  TalkerFilter get filter => _filter;
 
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
@@ -171,12 +179,10 @@ class Talker {
   ]) {
     final data = _errorHandler.handle(exception, stackTrace, msg?.toString());
     if (data is TalkerError) {
-      _observer.onError(data);
       _handleErrorData(data);
       return;
     }
     if (data is TalkerException) {
-      _observer.onException(data);
       _handleErrorData(data);
       return;
     }
@@ -216,6 +222,14 @@ class Talker {
     _handleLog(message, exception, stackTrace, logLevel, pen: pen);
   }
 
+  /// {@macro logCustom}
+  @Deprecated(
+    'Use logCustom instead. '
+    'This feature was deprecated after v4.5.0',
+  )
+  void logTyped(TalkerLog log) => logCustom(log);
+
+  /// {@template logCustom}
   /// Log a new message
   /// created in the full [TalkerLog] model or they subclass
   /// (you can create it by extends of [TalkerLog])
@@ -236,11 +250,10 @@ class Talker {
   ///
   ///   //You can add here response model of your request
   ///   final httpLog = HttpTalkerLog('Http status: 200');
-  ///   talker.logTyped(httpLog);
+  ///   talker.logCustom(httpLog);
   /// ```
-  void logTyped(TalkerLog log) {
-    _handleLogData(log);
-  }
+  /// {@endtemplate}
+  void logCustom(TalkerLog log) => _handleLogData(log);
 
   /// Log a new critical message
   /// [dynamic] [message] - message describes what happened
@@ -339,25 +352,19 @@ class Talker {
   }
 
   /// Clear log history
-  void cleanHistory() {
-    _history.clean();
-  }
-
-  /// Method stops all [Talker] works
-  ///
-  /// If you config package to handle errors or making logs,
-  /// this method stop these processes
-  void disable() {
-    settings.enabled = false;
-  }
+  void cleanHistory() => _history.clean();
 
   /// Method run all [Talker] works
   ///
   /// The method will return everything back
   /// if the package was suspended by the [disable] method
-  void enable() {
-    settings.enabled = true;
-  }
+  void enable() => settings.enabled = true;
+
+  /// Method stops all [Talker] works
+  ///
+  /// If you config package to handle errors or making logs,
+  /// this method stop these processes
+  void disable() => settings.enabled = false;
 
   void _handleLog(
     dynamic message,
@@ -366,33 +373,39 @@ class Talker {
     LogLevel logLevel, {
     AnsiPen? pen,
   }) {
-    final type = TalkerLogType.fromLogLevel(logLevel);
+    final key = TalkerKey.fromLogLevel(logLevel);
+    final penByLogKey = settings.getPenByKey(key);
+    final title = settings.getTitleByKey(key);
     final data = TalkerLog(
-      key: type.key,
+      key: key,
       message?.toString() ?? '',
-      title: settings.getTitleByLogType(type),
+      title: title,
       exception: exception,
       stackTrace: stackTrace,
-      pen: settings.getAnsiPenByLogType(type),
+      pen: pen ?? penByLogKey,
       logLevel: logLevel,
     );
     _handleLogData(data);
   }
 
   void _handleErrorData(TalkerData data) {
-    if (!settings.enabled) {
-      return;
-    }
+    // If the Talker is disabled by settings
+    if (!settings.enabled) return;
+
+    // If the log is not approved by the filter
     final isApproved = _isApprovedByFilter(data);
-    if (!isApproved) {
-      return;
-    }
+    if (!isApproved) return;
+
+    if (data is TalkerError) _observer.onError(data);
+    if (data is TalkerException) _observer.onException(data);
+
     _talkerStreamController.add(data);
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
       _logger.log(
-        data.generateTextMessage(),
+        data.generateTextMessage(timeFormat: settings.timeFormat),
         level: data.logLevel ?? LogLevel.error,
+        pen: data.pen,
       );
     }
   }
@@ -401,45 +414,41 @@ class Talker {
     TalkerLog data, {
     LogLevel? logLevel,
   }) {
-    if (!settings.enabled) {
-      return;
-    }
+    // If the Talker is disabled by settings
+    if (!settings.enabled) return;
 
+    // If the log is not approved by the filter
     final isApproved = _isApprovedByFilter(data);
-    if (!isApproved) {
-      return;
+    if (!isApproved) return;
+
+    // Log customization setup and configuration
+    var pen = data.pen;
+    final key = data.key;
+    if (key != null) {
+      data.title = settings.getTitleByKey(key);
+      pen = settings.getPenByKey(key, fallbackPen: data.pen);
+      data.pen = pen;
     }
 
-    final typeKey = data.key;
-    AnsiPen? customPen;
-
-    if (typeKey != null) {
-      final type = TalkerLogType.fromKey(typeKey);
-      data.title = settings.getTitleByLogType(type);
-      customPen = settings.getAnsiPenByLogType(type);
-    } else {}
     _observer.onLog(data);
     _talkerStreamController.add(data);
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
       _logger.log(
-        data.generateTextMessage(),
+        data.generateTextMessage(timeFormat: settings.timeFormat),
         level: logLevel ?? data.logLevel,
-        pen: data.pen ?? customPen,
+        pen: pen,
       );
     }
   }
 
   void _handleForOutputs(TalkerData data) {
-    _history.write(data);
+    if (_historyFilter.shouldLog(
+        data.generateTextMessage(timeFormat: settings.timeFormat),
+        data.logLevel ?? LogLevel.debug)) {
+      _history.write(data);
+    }
   }
-
-  //TODO: recreate file manager logic
-  // void _writeToFile(TalkerDataInterface data) {
-  //   if (_settings.writeToFile) {
-  //     _fileManager.writeToLogFile(data.generateTextMessage());
-  //   }
-  // }
 
   bool _isApprovedByFilter(TalkerData data) {
     final approved = _filter.filter(data);

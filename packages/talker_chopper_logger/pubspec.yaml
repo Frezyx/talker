@@ -1,0 +1,28 @@
+name: talker_chopper_logger
+description: A lightweight, flexible HTTP client logger for Chopper built on the Talker platform, offering advanced exception handling and logging for Dart and Flutter applications.
+version: 5.0.0-dev.12
+homepage: https://github.com/Frezyx/talker
+repository: https://github.com/Frezyx/talker
+issue_tracker: https://github.com/Frezyx/talker/issues
+
+topics:
+  - network
+  - http
+  - chopper
+  - logging
+  - log
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  chopper: ^8.2.0
+  equatable: ^2.0.7
+  http: ^1.4.0
+  meta: ^1.15.0
+  talker: ^5.0.0-dev.12
+
+dev_dependencies:
+  http_parser: ^4.1.2
+  lints: ^5.1.1
+  test: ^1.25.15

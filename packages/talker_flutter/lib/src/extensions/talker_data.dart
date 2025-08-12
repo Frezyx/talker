@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 extension TalkerDataFlutterExt on TalkerData {
+  /// If [Talker Data][key] field is not provided trying to use color by [LogLevel]
   Color getFlutterColor(TalkerScreenTheme theme) {
-    // final colorFromAnsi = _getColorFromAnsi();
-    // if (colorFromAnsi != null) return logsColors.colorFromAnsi;
+    Color? color;
+    if (key != null) {
+      color = theme.logColors[key];
+    }
+    color ??= _getColorByLogLevel(theme);
+    return color ?? Colors.grey;
+  }
 
-    final key = this.key;
-
-    if (key == null) return Colors.grey;
-    final type = TalkerLogType.fromKey(key);
-    return theme.logColors[type] ?? Colors.grey;
+  Color? _getColorByLogLevel(TalkerScreenTheme theme) {
+    final logLevel = this.logLevel;
+    if (logLevel != null) {
+      final key = TalkerKey.fromLogLevel(logLevel);
+      return theme.logColors[key] ?? Colors.grey;
+    }
+    return null;
   }
 }
-
-// Color? _getColorFromAnsi() {
-//   final logData = data;
-//   if (logData is TalkerLog) {
-//     final hexColor = logData.pen?.toHexColor();
-//     if (hexColor != null) {
-//       return ColorExt.fromHEX(hexColor);
-//     }
-//   }
-//   return null;
-// }

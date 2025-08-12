@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/ui/theme/default_theme.dart';
 import 'package:talker_flutter/src/ui/widgets/base_card.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -72,7 +71,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${widget.data.title} | ${widget.data.displayTime}',
+                          '${widget.data.title} | ${widget.data.displayTime()}',
                           style: TextStyle(
                             color: widget.color,
                             fontWeight: FontWeight.w700,
@@ -181,14 +180,11 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _message {
-    if (widget.data is TalkerError || widget.data is TalkerException) {
-      return null;
-    }
     final isHttpLog = [
-      TalkerLogType.httpError.key,
-      TalkerLogType.httpRequest.key,
-      TalkerLogType.httpResponse.key,
-    ].contains(widget.data.title);
+      TalkerKey.httpError,
+      TalkerKey.httpRequest,
+      TalkerKey.httpResponse,
+    ].contains(widget.data.key);
     if (isHttpLog) {
       return widget.data.generateTextMessage();
     }
@@ -197,7 +193,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
 
   String? get _errorMessage {
     var txt =
-        widget.data.exception?.toString() ?? widget.data.exception?.toString();
+        widget.data.exception?.toString() ?? widget.data.error?.toString();
 
     if ((txt?.isNotEmpty ?? false) && txt!.contains('Source stack:')) {
       txt = 'Data: ${txt.split('Source stack:').first.replaceAll('\n', '')}';

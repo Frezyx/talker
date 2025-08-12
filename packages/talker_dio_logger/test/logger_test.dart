@@ -49,8 +49,9 @@ void main() {
 
     test('onResponse method should log http response headers', () {
       final logger = TalkerDioLogger(
-          talker: talker,
-          settings: TalkerDioLoggerSettings(printResponseHeaders: true));
+        talker: talker,
+        settings: TalkerDioLoggerSettings(printResponseHeaders: true),
+      );
 
       final options = RequestOptions(path: '/test');
       final response = Response(
@@ -67,6 +68,77 @@ void main() {
           '    "VALUE"\n'
           '  ]\n'
           '}');
+    });
+
+    test('onRequest method should hide specific header values in logging', () {
+      final logger = TalkerDioLogger(
+        talker: talker,
+        settings: TalkerDioLoggerSettings(
+          printRequestHeaders: true,
+          hiddenHeaders: {'Authorization'},
+        ),
+      );
+
+      final options = RequestOptions(path: '/test', headers: {
+        "firstHeader": "firstHeaderValue",
+        "authorization": "bearer super_secret_token",
+        "lastHeader": "lastHeaderValue",
+      });
+      logger.onRequest(options, RequestInterceptorHandler());
+      final message = talker.history.last.generateTextMessage();
+      expect(
+          message,
+          '[http-request] [GET] /test\n'
+          'Headers: {\n'
+          '  "firstHeader": "firstHeaderValue",\n'
+          '  "authorization": "*****",\n'
+          '  "lastHeader": "lastHeaderValue"\n'
+          '}');
+    });
+
+    test('onRequest method should log extra params if enabled', () {
+      final logger = TalkerDioLogger(
+        talker: talker,
+        settings: TalkerDioLoggerSettings(printRequestExtra: true),
+      );
+      const extra = {
+        "key1": "value",
+        "key2": 99,
+        "key3": {"nestedKey": "nestedValue"},
+        "key4": [1, 2, 3],
+        "key5": true,
+        "key6": null,
+        "key7": 3.14,
+        "key8": ["array", "of", "strings"],
+      };
+      final options = RequestOptions(path: '/test', extra: extra);
+      logger.onRequest(options, RequestInterceptorHandler());
+      final message = talker.history.last.generateTextMessage();
+      expect(
+        message,
+        contains(
+          'Extra: {\n'
+          '  "key1": "value",\n'
+          '  "key2": 99,\n'
+          '  "key3": {\n'
+          '    "nestedKey": "nestedValue"\n'
+          '  },\n'
+          '  "key4": [\n'
+          '    1,\n'
+          '    2,\n'
+          '    3\n'
+          '  ],\n'
+          '  "key5": true,\n'
+          '  "key6": null,\n'
+          '  "key7": 3.14,\n'
+          '  "key8": [\n'
+          '    "array",\n'
+          '    "of",\n'
+          '    "strings"\n'
+          '  ]\n'
+          '}',
+        ),
+      );
     });
   });
 }

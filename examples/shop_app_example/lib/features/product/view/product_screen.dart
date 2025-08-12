@@ -254,8 +254,8 @@ class AddToCartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.black),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        backgroundColor: WidgetStateProperty.all(Colors.black),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

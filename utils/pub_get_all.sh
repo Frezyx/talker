@@ -21,8 +21,20 @@ echo "talker_dio_logger"
 cd ../talker_dio_logger
 flutter pub get
 
+echo "talker_chopper_logger"
+cd ../talker_chopper_logger
+flutter pub get
+
 echo "talker_bloc_logger"
 cd ../talker_bloc_logger
+flutter pub get
+
+echo "talker_http_logger"
+cd ../talker_http_logger
+flutter pub get
+
+echo "talker_riverpod_logger"
+cd ../talker_riverpod_logger
 flutter pub get
 
 echo "shop_app_example"

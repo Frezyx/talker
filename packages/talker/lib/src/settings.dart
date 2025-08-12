@@ -1,54 +1,68 @@
 import 'package:talker/talker.dart';
 
-const _defaultTitles = {
+final _defaultTitles = {
   /// Base logs section
-  TalkerLogType.critical: 'critical',
-  TalkerLogType.warning: 'warning',
-  TalkerLogType.verbose: 'verbose',
-  TalkerLogType.info: 'info',
-  TalkerLogType.debug: 'debug',
-  TalkerLogType.error: 'error',
-  TalkerLogType.exception: 'exception',
+  TalkerKey.critical: 'critical',
+  TalkerKey.warning: 'warning',
+  TalkerKey.verbose: 'verbose',
+  TalkerKey.info: 'info',
+  TalkerKey.debug: 'debug',
+  TalkerKey.error: 'error',
+  TalkerKey.exception: 'exception',
 
   /// Http section
-  TalkerLogType.httpError: 'http-error',
-  TalkerLogType.httpRequest: 'http-request',
-  TalkerLogType.httpResponse: 'http-response',
+  TalkerKey.httpError: 'http-error',
+  TalkerKey.httpRequest: 'http-request',
+  TalkerKey.httpResponse: 'http-response',
 
   /// Bloc section
-  TalkerLogType.blocEvent: 'bloc-event',
-  TalkerLogType.blocTransition: 'bloc-transition',
-  TalkerLogType.blocCreate: 'bloc-create',
-  TalkerLogType.blocClose: 'bloc-close',
+  TalkerKey.blocEvent: 'bloc-event',
+  TalkerKey.blocTransition: 'bloc-transition',
+  TalkerKey.blocCreate: 'bloc-create',
+  TalkerKey.blocClose: 'bloc-close',
+
+  /// Riverpod section
+  TalkerKey.riverpodAdd: 'riverpod-add',
+  TalkerKey.riverpodUpdate: 'riverpod-update',
+  TalkerKey.riverpodDispose: 'riverpod-dispose',
+  TalkerKey.riverpodFail: 'riverpod-fail',
 
   /// Flutter section
-  TalkerLogType.route: 'route',
+  TalkerKey.route: 'route',
 };
 
 final _defaultColors = {
   /// Base logs section
-  TalkerLogType.critical: AnsiPen()..red(),
-  TalkerLogType.warning: AnsiPen()..yellow(),
-  TalkerLogType.verbose: AnsiPen()..gray(),
-  TalkerLogType.info: AnsiPen()..blue(),
-  TalkerLogType.debug: AnsiPen()..gray(),
-  TalkerLogType.error: AnsiPen()..red(),
-  TalkerLogType.exception: AnsiPen()..red(),
+  TalkerKey.critical: AnsiPen()..red(),
+  TalkerKey.warning: AnsiPen()..yellow(),
+  TalkerKey.verbose: AnsiPen()..gray(),
+  TalkerKey.info: AnsiPen()..blue(),
+  TalkerKey.debug: AnsiPen()..gray(),
+  TalkerKey.error: AnsiPen()..red(),
+  TalkerKey.exception: AnsiPen()..red(),
 
   /// Http section
-  TalkerLogType.httpError: AnsiPen()..red(),
-  TalkerLogType.httpRequest: AnsiPen()..xterm(219),
-  TalkerLogType.httpResponse: AnsiPen()..xterm(46),
+  TalkerKey.httpError: AnsiPen()..red(),
+  TalkerKey.httpRequest: AnsiPen()..xterm(219),
+  TalkerKey.httpResponse: AnsiPen()..xterm(46),
 
   /// Bloc section
-  TalkerLogType.blocEvent: AnsiPen()..xterm(51),
-  TalkerLogType.blocTransition: AnsiPen()..xterm(49),
-  TalkerLogType.blocCreate: AnsiPen()..xterm(35),
-  TalkerLogType.blocClose: AnsiPen()..xterm(198),
+  TalkerKey.blocEvent: AnsiPen()..xterm(51),
+  TalkerKey.blocTransition: AnsiPen()..xterm(49),
+  TalkerKey.blocCreate: AnsiPen()..xterm(35),
+  TalkerKey.blocClose: AnsiPen()..xterm(198),
+
+  /// Riverpod section
+  TalkerKey.riverpodAdd: AnsiPen()..xterm(51),
+  TalkerKey.riverpodUpdate: AnsiPen()..xterm(49),
+  TalkerKey.riverpodDispose: AnsiPen()..xterm(198),
+  TalkerKey.riverpodFail: AnsiPen()..red(),
 
   /// Flutter section
-  TalkerLogType.route: AnsiPen()..xterm(135),
+  TalkerKey.route: AnsiPen()..xterm(135),
 };
+
+final _fallbackPen = AnsiPen()..gray();
 
 /// {@template talker_settings}
 /// This class used for setup [Talker] configuration
@@ -59,15 +73,21 @@ class TalkerSettings {
     bool useHistory = true,
     bool useConsoleLogs = true,
     int maxHistoryItems = 1000,
-    this.titles = _defaultTitles,
-    Map<TalkerLogType, AnsiPen>? colors,
+    Map<String, String>? titles,
+    Map<String, AnsiPen>? colors,
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   })  : _useHistory = useHistory,
         _useConsoleLogs = useConsoleLogs,
-        _maxHistoryItems = maxHistoryItems {
+        _maxHistoryItems = maxHistoryItems,
+        _timeFormat = timeFormat {
     if (colors != null) {
       _defaultColors.addAll(colors);
     }
+    if (titles != null) {
+      _defaultTitles.addAll(titles);
+    }
     this.colors.addAll(_defaultColors);
+    this.titles.addAll(_defaultTitles);
   }
   // _writeToFile = writeToFile;
 
@@ -79,13 +99,17 @@ class TalkerSettings {
   final bool _useHistory;
 
   /// By default talker print all Errors / Exceptions and logs in console.
-  /// If [true] - printing in history [false] - not printing.
+  /// If [true] - printing in console [false] - not printing.
   bool get useConsoleLogs => _useConsoleLogs && enabled;
   final bool _useConsoleLogs;
 
   /// Max records count in history list
   int get maxHistoryItems => _maxHistoryItems;
   final int _maxHistoryItems;
+
+  /// The time format of the logs [TimeFormat]
+  TimeFormat get timeFormat => _timeFormat;
+  final TimeFormat _timeFormat;
 
   /// Use writing talker records in file
   // bool get writeToFile => _writeToFile && enabled;
@@ -106,9 +130,9 @@ class TalkerSettings {
   ///
   /// ```dart
   /// final customTitles = {
-  ///   TalkerTitle.info: "Information",
-  ///   TalkerTitle.error: "Error",
-  ///   TalkerTitle.warning: "Warning",
+  ///   TalkerKey.info: "Information",
+  ///   TalkerKey.error: "Error",
+  ///   TalkerKey.warning: "Warning",
   /// };
   ///
   /// final logger = Talker(
@@ -117,7 +141,7 @@ class TalkerSettings {
   ///   )
   /// );
   /// ```
-  final Map<TalkerLogType, String> titles;
+  final Map<String, String> titles = _defaultTitles;
 
   /// Custom Logger Colors.
   ///
@@ -142,14 +166,30 @@ class TalkerSettings {
   /// ```
   ///
   /// By using the `colors` field, you can customize the text colors for specific log keys in the console.
-  final Map<TalkerLogType, AnsiPen> colors = _defaultColors;
+  final Map<String, AnsiPen> colors = _defaultColors;
 
-  String getTitleByLogType(TalkerLogType key) {
-    return titles[key] ?? key.key;
+  /// A list of [TalkerKey]s that can be included in filter by [TalkerScreen] settings
+  /// This allows you to register custom keys that can be used for filtering logs in the Talker UI.
+  final List<String> registeredKeys = [];
+
+  /// Registers multiple custom keys for filtering logs in the Talker UI
+  void registerKeys(List<String> keys) {
+    for (final key in keys) {
+      _registerKey(key);
+    }
   }
 
-  AnsiPen getAnsiPenByLogType(TalkerLogType key, {TalkerData? logData}) {
-    return colors[key] ?? logData?.pen ?? (AnsiPen()..gray());
+  /// Registers a custom key for filtering logs in the Talker UI
+  void _registerKey(String key) {
+    if (!registeredKeys.contains(key)) {
+      registeredKeys.add(key);
+    }
+  }
+
+  String getTitleByKey(String key) => titles[key] ?? key;
+
+  AnsiPen getPenByKey(String key, {AnsiPen? fallbackPen}) {
+    return colors[key] ?? fallbackPen ?? _fallbackPen;
   }
 
   TalkerSettings copyWith({
@@ -157,8 +197,8 @@ class TalkerSettings {
     bool? useHistory,
     bool? useConsoleLogs,
     int? maxHistoryItems,
-    Map<TalkerLogType, String>? titles,
-    Map<TalkerLogType, AnsiPen>? colors,
+    Map<String, String>? titles,
+    Map<String, AnsiPen>? colors,
   }) {
     return TalkerSettings(
       useHistory: useHistory ?? _useHistory,

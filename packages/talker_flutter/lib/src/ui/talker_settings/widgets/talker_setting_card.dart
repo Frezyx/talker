@@ -8,16 +8,18 @@ class TalkerSettingsCard extends StatelessWidget {
     Key? key,
     required this.talkerScreenTheme,
     required this.title,
-    required this.enabled,
-    required this.onChanged,
+    this.enabled = false,
+    this.onChanged,
     this.canEdit = true,
+    this.trailing,
   }) : super(key: key);
 
   final String title;
   final bool enabled;
-  final Function(bool enabled) onChanged;
+  final Function(bool enabled)? onChanged;
   final TalkerScreenTheme talkerScreenTheme;
   final bool canEdit;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +29,11 @@ class TalkerSettingsCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: TalkerBaseCard(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
-              .copyWith(right: 0),
+          padding: const EdgeInsets.only(left: 8),
           color: talkerScreenTheme.textColor,
           backgroundColor: talkerScreenTheme.cardColor,
           child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 8),
             title: Text(
               title,
               style: TextStyle(
@@ -42,7 +44,7 @@ class TalkerSettingsCard extends StatelessWidget {
             ),
             trailing: CupertinoSwitch(
               value: enabled,
-              trackColor: canEdit ? Colors.red : Colors.grey,
+              inactiveTrackColor: canEdit ? Colors.red : Colors.grey,
               onChanged: canEdit ? onChanged : null,
             ),
           ),

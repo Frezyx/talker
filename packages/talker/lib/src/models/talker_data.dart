@@ -58,7 +58,7 @@ class TalkerData {
   DateTime get time => _time;
 
   /// [AnsiPen?] [pen] - sets your own log color for console
-  final AnsiPen? pen;
+  AnsiPen? pen;
 
   /// {@template talker_data_generateTextMessage}
   /// Internal method that generates
@@ -70,8 +70,9 @@ class TalkerData {
   /// [TalkerError] -> [TalkerError.generateTextMessage]
   ///
   /// {@endtemplate}
-  String generateTextMessage() {
-    return '$displayTitleWithTime$message$displayStackTrace';
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$message$displayStackTrace';
   }
 }
 
@@ -80,8 +81,9 @@ class TalkerData {
 extension FieldsToDisplay on TalkerData {
   /// Displayed title of [TalkerData]
 
-  String get displayTitleWithTime {
-    return '[$title] | $displayTime | ';
+  String displayTitleWithTime(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return '[$title] | ${displayTime(timeFormat: timeFormat)} | ';
   }
 
   /// Displayed stackTrace of [TalkerData]
@@ -117,5 +119,6 @@ extension FieldsToDisplay on TalkerData {
   }
 
   /// Displayed tile of [TalkerData]
-  String get displayTime => TalkerDateTimeFormatter(time).timeAndSeconds;
+  String displayTime({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) =>
+      TalkerDateTimeFormatter(time, timeFormat: timeFormat).format;
 }

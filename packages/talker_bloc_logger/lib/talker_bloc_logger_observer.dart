@@ -14,6 +14,14 @@ class TalkerBlocObserver extends BlocObserver {
     this.settings = const TalkerBlocLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.blocEvent,
+        TalkerKey.blocTransition,
+        TalkerKey.blocCreate,
+        TalkerKey.blocClose,
+      ],
+    );
   }
 
   late Talker _talker;
@@ -30,7 +38,7 @@ class TalkerBlocObserver extends BlocObserver {
     if (!accepted) {
       return;
     }
-    _talker.logTyped(
+    _talker.logCustom(
       BlocEventLog(
         bloc: bloc,
         event: event,
@@ -50,7 +58,7 @@ class TalkerBlocObserver extends BlocObserver {
     if (!accepted) {
       return;
     }
-    _talker.logTyped(BlocStateLog(
+    _talker.logCustom(BlocStateLog(
       bloc: bloc,
       transition: transition,
       settings: settings,
@@ -63,7 +71,7 @@ class TalkerBlocObserver extends BlocObserver {
     if (!settings.enabled || !settings.printChanges) {
       return;
     }
-    _talker.logTyped(
+    _talker.logCustom(
       BlocChangeLog(
         bloc: bloc,
         change: change,
@@ -85,7 +93,7 @@ class TalkerBlocObserver extends BlocObserver {
     if (!settings.enabled || !settings.printCreations) {
       return;
     }
-    _talker.logTyped(BlocCreateLog(bloc: bloc));
+    _talker.logCustom(BlocCreateLog(bloc: bloc));
   }
 
   @override
@@ -94,6 +102,6 @@ class TalkerBlocObserver extends BlocObserver {
     if (!settings.enabled || !settings.printClosings) {
       return;
     }
-    _talker.logTyped(BlocCloseLog(bloc: bloc));
+    _talker.logCustom(BlocCloseLog(bloc: bloc));
   }
 }

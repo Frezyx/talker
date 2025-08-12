@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/src/utils/download_logs/download_nonweb_logs.dart'
-    if (dart.library.html) 'package:talker_flutter/src/utils/download_logs/download_web_logs.dart';
+import 'package:talker_flutter/src/utils/download_logs/donwload_logs.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Controller to work with [TalkerScreen]
 class TalkerViewController extends ChangeNotifier {
-  BaseTalkerFilter _filter = BaseTalkerFilter();
+  TalkerViewController({
+    required Talker talker,
+    bool expandedLogs = true,
+    isLogOrderReversed = true,
+  })  : _expandedLogs = expandedLogs,
+        _isLogOrderReversed = isLogOrderReversed;
 
-  var _expandedLogs = true;
-  bool _isLogOrderReversed = true;
+  /// Filter for selecting specific logs and errors on [TalkerScreen] and [TalkerView]
+  /// by their keys [TalkerData.key] and by string query [TalkerFilter.searchQuery]
+  /// Works only on screen (don't affect [Talker.filter])
+  TalkerFilter _uiFilter = TalkerFilter();
+
+  bool _expandedLogs;
+  bool _isLogOrderReversed;
 
   /// Filter for selecting specific logs and errors
-  BaseTalkerFilter get filter => _filter;
-  set filter(BaseTalkerFilter val) {
-    _filter = val;
+  TalkerFilter get filter => _uiFilter;
+  set filter(TalkerFilter val) {
+    _uiFilter = val;
     notifyListeners();
   }
 
@@ -34,33 +43,23 @@ class TalkerViewController extends ChangeNotifier {
 
   /// Method for updating a search query based on errors and logs
   void updateFilterSearchQuery(String query) {
-    _filter = _filter.copyWith(searchQuery: query);
+    _uiFilter = _uiFilter.copyWith(searchQuery: query);
     notifyListeners();
   }
 
-  /// Method adds an type to the filter
-  void addFilterType(Type type) {
-    _filter = _filter.copyWith(types: [..._filter.types, type]);
+  /// Method adds an key to the filter
+  void addFilterKey(String key) {
+    _uiFilter = _uiFilter.copyWith(
+      enabledKeys: [..._uiFilter.enabledKeys, key],
+    );
     notifyListeners();
   }
 
-  /// Method removes an type from the filter
-  void removeFilterType(Type type) {
-    _filter =
-        _filter.copyWith(types: _filter.types.where((t) => t != type).toList());
-    notifyListeners();
-  }
-
-  /// Method adds an title to the filter
-  void addFilterTitle(String title) {
-    _filter = _filter.copyWith(titles: [..._filter.titles, title]);
-    notifyListeners();
-  }
-
-  /// Method removes an title from the filter
-  void removeFilterTitle(String title) {
-    _filter = _filter.copyWith(
-        titles: _filter.titles.where((t) => t != title).toList());
+  /// Method removes an key from the filter
+  void removeFilterKey(String key) {
+    _uiFilter = _uiFilter.copyWith(
+      enabledKeys: _uiFilter.enabledKeys.where((t) => t != key).toList(),
+    );
     notifyListeners();
   }
 

@@ -8,7 +8,7 @@
 PRODUCT_NAME = example
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.Frezyx.talker;
+PRODUCT_BUNDLE_IDENTIFIER = com.Frezyx.example
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example.talker_flutter. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 com.Frezyx. All rights reserved.

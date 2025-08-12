@@ -11,7 +11,7 @@ class TalkerException extends TalkerData {
     super.title,
     LogLevel? logLevel,
   }) : super(message, exception: exception) {
-    _key = key ?? TalkerLogType.exception.key;
+    _key = key ?? TalkerKey.exception;
     _logLevel = logLevel ?? LogLevel.error;
   }
 
@@ -26,7 +26,8 @@ class TalkerException extends TalkerData {
 
   /// {@macro talker_data_generateTextMessage}
   @override
-  String generateTextMessage() {
-    return '$displayTitleWithTime$displayMessage$displayException$displayStackTrace';
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$displayMessage$displayException$displayStackTrace';
   }
 }

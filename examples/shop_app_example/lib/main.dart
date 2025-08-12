@@ -12,6 +12,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_shop_app_example/repositories/products/products.dart';
 import 'package:talker_shop_app_example/ui/presentation_frame.dart';
 import 'package:talker_shop_app_example/ui/ui.dart';
+import 'package:talker_shop_app_example/utils/good_log.dart';
+import 'package:talker_shop_app_example/utils/scroll_behavior.dart';
 import 'package:talker_shop_app_example/utils/utils.dart';
 
 import 'firebase_options.dart';
@@ -31,7 +33,8 @@ void _initDependencies() {
   final talker = TalkerFlutter.init(
     settings: TalkerSettings(
       colors: {
-        TalkerLogType.verbose: AnsiPen()..yellow(),
+        TalkerKey.verbose: AnsiPen()..yellow(),
+        GoodLog.getKey: GoodLog.getPen,
       },
     ),
   );
@@ -54,7 +57,7 @@ void _initDependencies() {
   DI.registerSingleton<AbstractProductsRepository>(
     ProductsRepository(dio: dio),
   );
-  talker.info('Repositories initialization completed');
+  talker.logCustom(GoodLog('Repositories initialization completed'));
 
   Bloc.observer = TalkerBlocObserver(
     talker: talker,
@@ -82,6 +85,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scrollBehavior: kIsWeb ? WebScrollBehavior() : null,
       title: 'Talker shop app',
       theme: lightTheme,
       initialRoute: Routes.productsList,

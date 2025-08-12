@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:group_button/group_button.dart';
 import 'package:talker_flutter/src/controller/controller.dart';
 import 'package:talker_flutter/src/ui/talker_monitor/talker_monitor.dart';
-import 'package:talker_flutter/src/ui/talker_settings/talker_settings.dart';
 import 'package:talker_flutter/src/ui/widgets/talker_view_appbar.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -19,6 +17,9 @@ class TalkerView extends StatefulWidget {
     this.appBarTitle,
     this.itemsBuilder,
     this.appBarLeading,
+    this.customSettings = const [],
+    this.isLogsExpanded = true,
+    this.isLogOrderReversed = true,
   }) : super(key: key);
 
   /// Talker implementation
@@ -41,13 +42,30 @@ class TalkerView extends StatefulWidget {
 
   final ScrollController? scrollController;
 
+  /// Optional custom settings
+  final List<CustomSettingsGroup> customSettings;
+
+  /// {@template talker_flutter_is_log_exapanded}
+  /// If true, all logs will be initially expanded
+  /// {@endtemplate}
+  final bool isLogsExpanded;
+
+  /// {@template talker_flutter_is_log_order_reversed}
+  /// if true, latest logs will be on the top of the list
+  /// {@endtemplate}
+  final bool isLogOrderReversed;
+
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
 
 class _TalkerViewState extends State<TalkerView> {
-  final _titlesController = GroupButtonController();
-  late final _controller = widget.controller ?? TalkerViewController();
+  late final _controller = widget.controller ??
+      TalkerViewController(
+        talker: widget.talker,
+        expandedLogs: widget.isLogsExpanded,
+        isLogOrderReversed: widget.isLogOrderReversed,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -60,35 +78,32 @@ class _TalkerViewState extends State<TalkerView> {
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filtredElements =
-                  data.where((e) => _controller.filter.filter(e)).toList();
-              final titles = data.map((e) => e.title).toList();
-              final uniqTitles = titles.toSet().toList();
+              final filteredElements = _getFilteredLogs(data);
+              final keys = data.map((e) => e.key).toList();
+              final uniqKeys = keys.toSet().toList();
 
               return CustomScrollView(
                 controller: widget.scrollController,
                 physics: const BouncingScrollPhysics(),
                 slivers: [
                   TalkerViewAppBar(
+                    keys: keys,
+                    uniqKeys: uniqKeys,
                     title: widget.appBarTitle,
                     leading: widget.appBarLeading,
                     talker: widget.talker,
                     talkerTheme: talkerTheme,
-                    titlesController: _titlesController,
-                    titles: titles,
-                    uniqTitles: uniqTitles,
                     controller: _controller,
                     onMonitorTap: () => _openTalkerMonitor(context),
-                    onActionsTap: () => _showActionsBottomSheet(context),
-                    onSettingsTap: () =>
-                        _openTalkerSettings(context, talkerTheme),
-                    onToggleTitle: _onToggleTitle,
+                    onActionsTap: () => _openActions(context),
+                    onSettingsTap: () => _openSettings(context, talkerTheme),
+                    onToggleKey: _onToggleKey,
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 8)),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, i) {
-                        final data = _getListItem(filtredElements, i);
+                        final data = _getListItem(filteredElements, i);
                         if (widget.itemsBuilder != null) {
                           return widget.itemsBuilder!.call(context, data);
                         }
@@ -100,7 +115,7 @@ class _TalkerViewState extends State<TalkerView> {
                           color: data.getFlutterColor(widget.theme),
                         );
                       },
-                      childCount: filtredElements.length,
+                      childCount: filteredElements.length,
                     ),
                   ),
                 ],
@@ -112,34 +127,36 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  void _onToggleTitle(String title, bool selected) {
-    if (selected) {
-      _controller.addFilterTitle(title);
-    } else {
-      _controller.removeFilterTitle(title);
-    }
+  List<TalkerData> _getFilteredLogs(List<TalkerData> data) =>
+      data.where((e) => _controller.filter.filter(e)).toList();
+
+  void _onToggleKey(String key, bool selected) {
+    final action =
+        selected ? _controller.addFilterKey : _controller.removeFilterKey;
+    action(key);
   }
 
   TalkerData _getListItem(
-    List<TalkerData> filtredElements,
+    List<TalkerData> filteredElements,
     int i,
   ) {
-    final data = filtredElements[
-        _controller.isLogOrderReversed ? filtredElements.length - 1 - i : i];
+    final data = filteredElements[
+        _controller.isLogOrderReversed ? filteredElements.length - 1 - i : i];
     return data;
   }
 
-  void _openTalkerSettings(BuildContext context, TalkerScreenTheme theme) {
+  void _openSettings(BuildContext context, TalkerScreenTheme theme) {
     final talker = ValueNotifier(widget.talker);
 
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      isScrollControlled: false,
+      isScrollControlled: true,
       builder: (context) {
         return TalkerSettingsBottomSheet(
           talkerScreenTheme: theme,
           talker: talker,
+          customSettings: widget.customSettings,
         );
       },
     );
@@ -157,7 +174,8 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   void _copyTalkerDataItemText(TalkerData data) {
-    final text = data.generateTextMessage();
+    final text =
+        data.generateTextMessage(timeFormat: widget.talker.settings.timeFormat);
     Clipboard.setData(ClipboardData(text: text));
     _showSnackBar(context, 'Log item is copied in clipboard');
   }
@@ -168,7 +186,7 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  Future<void> _showActionsBottomSheet(BuildContext context) async {
+  Future<void> _openActions(BuildContext context) async {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -184,6 +202,11 @@ class _TalkerViewState extends State<TalkerView> {
             TalkerActionItem(
               onTap: () => _copyAllLogs(context),
               title: 'Copy all logs',
+              icon: Icons.copy,
+            ),
+            TalkerActionItem(
+              onTap: () => _copyFilteredLogs(context),
+              title: 'Copy filtered logs',
               icon: Icons.copy,
             ),
             TalkerActionItem(
@@ -212,7 +235,7 @@ class _TalkerViewState extends State<TalkerView> {
 
   Future<void> _shareLogsInFile() async {
     await _controller.downloadLogsFile(
-      widget.talker.history.text,
+      widget.talker.history.text(timeFormat: widget.talker.settings.timeFormat),
     );
   }
 
@@ -226,7 +249,16 @@ class _TalkerViewState extends State<TalkerView> {
   }
 
   void _copyAllLogs(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: widget.talker.history.text));
+    Clipboard.setData(ClipboardData(
+        text: widget.talker.history
+            .text(timeFormat: widget.talker.settings.timeFormat)));
     _showSnackBar(context, 'All logs copied in buffer');
+  }
+
+  void _copyFilteredLogs(BuildContext context) {
+    Clipboard.setData(ClipboardData(
+        text: _getFilteredLogs(widget.talker.history)
+            .text(timeFormat: widget.talker.settings.timeFormat)));
+    _showSnackBar(context, 'All filtered logs copied in buffer');
   }
 }

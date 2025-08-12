@@ -7,10 +7,18 @@ import 'package:talker_flutter/talker_flutter.dart';
 /// You can see [ExtendedExample] to
 /// check how logs working in realtime
 ///
-///
 
 void main() {
-  final talker = TalkerFlutter.init();
+  final talker = TalkerFlutter.init(
+    settings: TalkerSettings(
+      colors: {
+        YourCustomLog.logKey: AnsiPen()..green(),
+      },
+      titles: {
+        YourCustomLog.logKey: 'Custom',
+      },
+    ),
+  );
   runZonedGuarded(
     () => runApp(BaseExample(talker: talker)),
     (Object error, StackTrace stack) {
@@ -46,6 +54,7 @@ class _BaseExampleState extends State<BaseExample> {
     talker.info('3.............');
     talker.info('2.......');
     talker.info('1');
+    talker.logCustom(YourCustomLog('Custom log message'));
     super.initState();
   }
 
@@ -59,8 +68,8 @@ class _BaseExampleState extends State<BaseExample> {
         scaffoldBackgroundColor: Colors.grey[100],
       ),
       home: Builder(builder: (context) {
-        return Scaffold(
-          body: TalkerScreen(talker: widget.talker),
+        return _HomeScreen(
+          talker: widget.talker,
         );
       }),
     );
@@ -73,4 +82,60 @@ class _BaseExampleState extends State<BaseExample> {
       widget.talker.handle(e, st, 'FakeService exception');
     }
   }
+}
+
+class _HomeScreen extends StatefulWidget {
+  const _HomeScreen({
+    required this.talker,
+  });
+
+  final Talker talker;
+
+  @override
+  State<_HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<_HomeScreen> {
+  var _settingField = true;
+  var _shareSentryReports = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: TalkerScreen(
+        talker: widget.talker,
+        isLogsExpanded: true,
+        isLogOrderReversed: true,
+        customSettings: [
+          CustomSettingsGroup(
+            title: 'Your debug custom settings',
+            enabled: _settingField,
+            onToggleEnabled: (val) => setState(() => _settingField = val),
+            items: [
+              CustomSettingsItemBool(
+                name: 'Share reports to Sentry',
+                value: _shareSentryReports,
+                onChanged: (val) => setState(() => _shareSentryReports = val),
+              ),
+            ],
+          ),
+        ],
+        theme: const TalkerScreenTheme(
+          logColors: {
+            YourCustomLog.logKey: Colors.green,
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class YourCustomLog extends TalkerLog {
+  YourCustomLog(String message) : super(message);
+
+  /// Your own log key (for color customization in settings)
+  static const logKey = 'custom_log_key';
+
+  @override
+  String? get key => logKey;
 }

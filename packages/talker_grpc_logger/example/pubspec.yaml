@@ -1,6 +1,7 @@
 name: example
 description: A sample command-line application.
 version: 5.0.0-dev.12
+publish_to: none
 # repository: https://github.com/my_org/my_repo
 
 environment:

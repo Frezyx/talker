@@ -49,7 +49,8 @@ Web Demo</a> page</p>
 ✅ &nbsp;Built-in support for [http logs](#talker-http-logger) <br>
 ✅ &nbsp;Built-in support for [BLoC logs](#talker-bloc-logger) <br>
 ✅ &nbsp;Built-in support for [Riverpod logs](#talker-riverpod-logger) <br>
-✅ &nbsp;Built-in support for Chopper [HTTP logs](#talker-chopper-logger) <br>
+✅ &nbsp;Built-in support for [Chopper HTTP logs](#talker-chopper-logger) <br>
+✅ &nbsp;Built-in support for [GRPC calls](#talker-grpc-logger) <br>
 ✅ &nbsp;[Check all features](#features-list)
 
 ## Packages
@@ -65,6 +66,7 @@ Talker is designed for any level of customization. <br>
 | [talker_riverpod_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_riverpod_logger) | [![Pub](https://img.shields.io/pub/v/talker_riverpod_logger.svg?style=flat-square)](https://pub.dev/packages/talker_riverpod_logger) | Best logger for [Riverpod](https://pub.dev/packages/riverpod) state management library
 | [talker_chopper_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_chopper_logger)   | [![Pub](https://img.shields.io/pub/v/talker_chopper_logger.svg?style=flat-square)](https://pub.dev/packages/talker_chopper_logger)   | Best logger for [Chopper](https://pub.dev/packages/chopper) http calls                                                                           |
 | [talker_http_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_http_logger)         | [![Pub](https://img.shields.io/pub/v/talker_http_logger.svg?style=flat-square)](https://pub.dev/packages/talker_http_logger)         | Best logger for [http](https://pub.dev/packages/http) package                                                                                                    |
+| [talker_grpc_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_grpc_logger)         | [![Pub](https://img.shields.io/pub/v/talker_grpc_logger.svg?style=flat-square)](https://pub.dev/packages/talker_grpc_logger)         | Best logger for [grpc](https://pub.dev/packages/grpc) package                                                                                                    |
 
 ## Table of contents
 
@@ -1059,6 +1061,8 @@ final client = ChopperClient(
   ],
 );
 ```
+
+# Talker GRPC Logger
 
 ## Crashlytics integration
 

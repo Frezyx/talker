@@ -1,0 +1,19 @@
+name: example
+description: A sample command-line application.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.6.2
+
+# Add regular dependencies here.
+dependencies:
+  grpc: ^4.1.0
+  talker: ^4.0.3
+  talker_grpc_logger:
+    path: ../
+
+dev_dependencies:
+  protoc_plugin: ^22.3.0
+  lints: ^5.0.0
+  test: ^1.24.0

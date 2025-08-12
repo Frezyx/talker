@@ -26,8 +26,13 @@ class GrpcRequestLog<Q, R> extends TalkerLog {
   String get title => 'grpc-request';
 
   @override
-  String generateTextMessage() {
-    var time = TalkerDateTimeFormatter(DateTime.now()).timeAndSeconds;
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    var time = TalkerDateTimeFormatter(
+      DateTime.now(),
+      timeFormat: timeFormat,
+    ).timeAndSeconds;
     var msg = '[$title] | $time | [${method.path}]';
 
     msg += '\nRequest: ${request.toString().replaceAll("\n", " ")}';
@@ -80,8 +85,13 @@ class GrpcErrorLog<Q, R> extends TalkerLog {
   String get title => 'grpc-error';
 
   @override
-  String generateTextMessage() {
-    var time = TalkerDateTimeFormatter(DateTime.now()).timeAndSeconds;
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    var time = TalkerDateTimeFormatter(
+      DateTime.now(),
+      timeFormat: timeFormat,
+    ).timeAndSeconds;
     var msg = '[$title] | $time | [${method.path}]';
     msg += '\nDuration: $durationMs ms';
     msg += '\nError code: ${grpcError.codeName}';
@@ -130,8 +140,13 @@ class GrpcResponseLog<Q, R> extends TalkerLog {
   String get title => 'grpc-response';
 
   @override
-  String generateTextMessage() {
-    var time = TalkerDateTimeFormatter(DateTime.now()).timeAndSeconds;
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    var time = TalkerDateTimeFormatter(
+      DateTime.now(),
+      timeFormat: timeFormat,
+    ).timeAndSeconds;
     var msg = '[$title] | $time | [${method.path}]';
     msg += '\nDuration: $durationMs ms';
     return msg;

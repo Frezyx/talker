@@ -19,31 +19,18 @@ Create an interceptor and instrument your RPC client:
 
 ```dart
 import 'package:grpc/grpc.dart';
-import 'package:grpc/grpc_or_grpcweb.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_grpc_logger/talker_grpc_logger.dart';
 
 void main() {
-  // Define port and host as you see fit
-  var host = 'localhost';
-  var port = 50051;
-
-  // transportSecure needs to be true when talking to a server through TLS.
-  // This can be disabled for local development.
-  // GrpcOrGrpcWebClientChannel is a channel type compatible with web and native. There
-  // are other channel types available for each platform.
   late final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-      host: host,
-      port: port,
-      transportSecure: host == 'localhost' ? false : true);
-
-
-  final List<ClientInterceptor> interceptors = [
-    TalkerGrpcLogger()
-  ];
+      host: 'localhost',
+      port: 50051,
+  );
 
   // Generate your RPC client as usual, and use the interceptor to log the requests and responses.
-  late final rpcClient = YourRPCClient(channel, interceptors: interceptors);
+  late final rpcClient = YourRPCClient(channel, interceptors: [
+    TalkerGrpcLogger()
+  ]);
 }
 ```
 
@@ -54,7 +41,6 @@ Very similar to the section above, just pass a Talker instance to the intercepto
 
 ```dart
 import 'package:grpc/grpc.dart';
-import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_grpc_logger/talker_grpc_logger.dart';
 

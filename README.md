@@ -95,24 +95,28 @@ Talker is designed for any level of customization. <br>
   - [More Features And Examples](#more-features-and-examples)
 - [Integrations](#integrations)
 - [Talker Dio Logger](#talker-dio-logger)
+  - [Getting Started](#getting-started)
   - [Customization](#customization-dio)
     - [Off/On http request or reposnse logs](#offon-http-request-or-reposnse-logs-dio)
     - [Change http logs colors](#change-http-log-colors-dio)
     - [Filter http logs](#filter-http-logs-dio)
   - [Using with Talker](#using-with-talker-dio)
 - [Talker BLoC Logger](#talker-bloc-logger)
+  - [Getting Started](#getting-started-1)
   - [Customization](#customization-2)
     - [Off/on events, transitions, changes, creation, close](#offon-events-transitions-changes-creation-close)
     - [Full/truncated state and event data](#fulltruncated-state-and-event-data)
     - [Filter bloc logs](#filter-bloc-logs)
   - [Using with Talker](#using-with-talker-1)
 - [Talker Riverpod Logger](#talker-riverpod-logger)
+  - [Getting Started](#getting-started-2)
   - [Customization](#customization-3)
     - [Off/on events, add, update, dispose, fail](#offon-events-add-update-dispose-fail)
     - [Full/truncated state data](#fulltruncated-state-data)
     - [Filter riverpod logs](#filter-riverpod-logs)
   - [Using with Talker](#using-with-talker-2)
 - [Talker Chopper Logger](#talker-chopper-logger)
+  - [Getting Started](#getting-started-3)
   - [Customization](#customization-chopper)
     - [Enable or disable HTTP request or response logs](#change-http-log-colors-chopper)
     - [Print HTTP request curl command](#print-http-request-curl-command-chopper)
@@ -120,6 +124,9 @@ Talker is designed for any level of customization. <br>
     - [Change HTTP logs colors](#change-http-log-colors-chopper)
     - [Filter HTTP logs](#filter-http-logs-chopper)
     - [Using with existing Talker instance](#using-with-existing-talker-instance-chopper)
+- [Talker GRPC Logger](#talker-grpc-logger)
+  - [Getting Started](#getting-started-4)
+  - [Using with Talker](#using-with-talker-3)
 - [Crashlytics integration](#crashlytics-integration)
 - [Features list](#features-list)
 - [Coverage](#coverage)
@@ -906,6 +913,9 @@ A lightweight, straightforward, and visually appealing logging solution for apps
 This is how the logs of your http requests will look in the console
 ![](docs/assets/talker_chopper_logger/preview.png?raw=true)
 
+### Getting Started
+Follow these steps to use this package
+
 ### Add dependency
 ```yaml
 dependencies:
@@ -1062,7 +1072,87 @@ final client = ChopperClient(
 );
 ```
 
-# Talker GRPC Logger
+## Talker GRPC Logger
+
+### Getting started
+Follow these steps to use this package
+
+### Add dependency
+```yaml
+dependencies:
+  talker_grpc_logger: ^5.0.0-dev.12
+```
+
+### Usage
+
+Create an interceptor and instrument your RPC client:
+
+```dart
+import 'package:grpc/grpc.dart';
+import 'package:talker_grpc_logger/talker_grpc_logger.dart';
+
+void main() {
+  late final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
+      host: 'localhost',
+      port: 50051,
+  );
+
+  // Generate your RPC client as usual, and use the interceptor to log the requests and responses.
+  late final rpcClient = YourRPCClient(channel, interceptors: [
+    TalkerGrpcLogger()
+  ]);
+}
+```
+
+
+### Using with Talker
+
+Very similar to the section above, just pass a Talker instance to the interceptor:
+
+```dart
+import 'package:grpc/grpc.dart';
+import 'package:talker_flutter/talker_flutter.dart';
+import 'package:talker_grpc_logger/talker_grpc_logger.dart';
+
+void main() {
+  // Not mandatory, but useful to see the grpc logs in the Talker screen
+  final talker = TalkerFlutter.init();
+
+  // Define port and host as you see fit
+  var host = 'localhost';
+  var port = 50051;
+
+  // transportSecure needs to be true when talking to a server through TLS.
+  // This can be disabled for local development.
+  // GrpcOrGrpcWebClientChannel is a channel type compatible with web and native. There
+  // are other channel types available for each platform.
+  late final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
+      host: host,
+      port: port,
+      transportSecure: host == 'localhost' ? false : true);
+
+
+  final List<ClientInterceptor> interceptors = [
+    TalkerGrpcLogger(talker: talker)
+  ];
+
+  // Generate your RPC client as usual, and use the interceptor to log the requests and responses.
+  late final rpcClient = YourRPCClient(channel, interceptors: interceptors);
+}
+```
+
+
+### Token obfuscation
+
+`TalkerGrpcLogger` will obfuscate bearer tokens by default. It'll look at the
+metadata of the request and obfuscate the `authorization` header. It'll look
+like `Bearer [obfuscated]` in the logs. It is highly recommended to keep this
+option enabled. If you want to disable it, you can pass `obfuscateToken:
+false`:
+
+```dart
+TalkerGrpcLogger(talker: talker, obfuscateToken: true)
+```
 
 ## Crashlytics integration
 

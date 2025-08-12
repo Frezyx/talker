@@ -4,7 +4,7 @@ Lightweight and customizable [grpc](https://pub.dev/packages/grpc) client logger
 
 ## Preview
 This is how the logs of your grpc requests will look in the console
-![](preview.jpg)
+![](assets/preview.jpg)
 
 
 ## Note

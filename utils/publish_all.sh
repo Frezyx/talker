@@ -35,3 +35,7 @@ cd ../../
 cd packages/talker_chopper_logger
 flutter pub publish
 cd ../../
+
+cd packages/talker_grpc_logger
+flutter pub publish
+cd ../../

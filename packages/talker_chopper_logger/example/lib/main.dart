@@ -1,3 +1,4 @@
+import 'package:chopper/chopper.dart';
 import 'package:example/interceptors/json_content_type_interceptor.dart';
 import 'package:example/interceptors/json_headers_interceptor.dart';
 import 'package:example/models/address.dart';
@@ -11,11 +12,10 @@ import 'package:example/models/photo.dart';
 import 'package:example/models/todo.dart';
 import 'package:example/models/user.dart';
 import 'package:example/services/albums_service.dart';
+import 'package:example/services/articles_service.dart';
 import 'package:example/services/broken_articles_service.dart';
 import 'package:example/services/comments_service.dart';
 import 'package:example/services/converters/json_serializable_converter.dart';
-import 'package:example/services/articles_service.dart';
-import 'package:chopper/chopper.dart';
 import 'package:example/services/photos_service.dart';
 import 'package:example/services/todos_service.dart';
 import 'package:example/services/users_service.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Talker _talker = Talker();
+  final Talker _talker = TalkerFlutter.init();
 
   late final ChopperClient _chopper = ChopperClient(
     baseUrl: Uri.https('jsonplaceholder.typicode.com'),

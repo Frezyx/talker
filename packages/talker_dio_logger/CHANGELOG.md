@@ -1,3 +1,9 @@
+# 5.0.0-dev.13
+- [talker_grpc_logger] Initial release with general package version
+- [talker] Add grpc keys into `TalkerKey` class
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.12
 - - chore(deps): update dependency gradle to v9
 - chore(deps): update plugin com.android.application to v8.12.0

@@ -23,7 +23,7 @@ class GrpcRequestLog<Q, R> extends TalkerLog {
   AnsiPen get pen => (AnsiPen()..xterm(219));
 
   @override
-  String get title => 'grpc-request';
+  String get key => TalkerKey.grpcRequest;
 
   @override
   String generateTextMessage({
@@ -82,7 +82,7 @@ class GrpcErrorLog<Q, R> extends TalkerLog {
   AnsiPen get pen => (AnsiPen()..red());
 
   @override
-  String get title => 'grpc-error';
+  String get key => TalkerKey.grpcError;
 
   @override
   String generateTextMessage({
@@ -137,7 +137,7 @@ class GrpcResponseLog<Q, R> extends TalkerLog {
   AnsiPen get pen => (AnsiPen()..xterm(46));
 
   @override
-  String get title => 'grpc-response';
+  String get key => TalkerKey.grpcResponse;
 
   @override
   String generateTextMessage({

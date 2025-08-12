@@ -31,6 +31,11 @@ abstract class TalkerKey {
   static const riverpodDispose = 'riverpod-dispose';
   static const riverpodFail = 'riverpod-fail';
 
+  /// grpc section
+  static const grpcRequest = 'grpc-request';
+  static const grpcResponse = 'grpc-response';
+  static const grpcError = 'grpc-error';
+
   /// Flutter section
   static const route = 'route';
 

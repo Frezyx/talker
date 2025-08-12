@@ -1,6 +1,6 @@
 name: example
 description: A sample command-line application.
-version: 1.0.0
+version: 5.0.0-dev.12
 # repository: https://github.com/my_org/my_repo
 
 environment:
@@ -9,7 +9,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
   grpc: ^4.1.0
-  talker: ^4.0.3
+  talker: ^5.0.0-dev.12
   talker_grpc_logger:
     path: ../
 

@@ -1,10 +1,9 @@
 /// Implements a gRPC interceptor that logs requests and responses to Talker.
 /// https://pub.dev/documentation/grpc/latest/grpc/ClientInterceptor-class.html
-import 'package:talker/talker.dart';
 import 'package:grpc/grpc.dart';
+import 'package:talker/talker.dart';
 
 import 'grpc_logs.dart';
-
 
 class TalkerGrpcLogger extends ClientInterceptor {
   TalkerGrpcLogger({Talker? talker, this.obfuscateToken = true}) {
@@ -17,7 +16,7 @@ class TalkerGrpcLogger extends ClientInterceptor {
   @override
   ResponseFuture<R> interceptUnary<Q, R>(ClientMethod<Q, R> method, Q request,
       CallOptions options, ClientUnaryInvoker<Q, R> invoker) {
-    _talker.logTyped(GrpcRequestLog(method.path,
+    _talker.logCustom(GrpcRequestLog(method.path,
         method: method,
         request: request,
         options: options,
@@ -28,11 +27,11 @@ class TalkerGrpcLogger extends ClientInterceptor {
 
     response.then((r) {
       Duration elapsedTime = DateTime.now().difference(startTime);
-      _talker.logTyped(GrpcResponseLog(method.path,
+      _talker.logCustom(GrpcResponseLog(method.path,
           method: method, response: r, durationMs: elapsedTime.inMilliseconds));
     }).catchError((e) {
       Duration elapsedTime = DateTime.now().difference(startTime);
-      _talker.logTyped(GrpcErrorLog(method.path,
+      _talker.logCustom(GrpcErrorLog(method.path,
           method: method,
           request: request,
           options: options,
@@ -54,4 +53,3 @@ class TalkerGrpcLogger extends ClientInterceptor {
     return invoker(method, requests, options);
   }
 }
-

@@ -42,7 +42,7 @@ jobs:
           exit 1
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Dart SDK
         if: ${{ inputs.sdk == 'dart' }}
         uses: dart-lang/setup-dart@v1

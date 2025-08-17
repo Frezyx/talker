@@ -1,3 +1,8 @@
+# 5.0.0-dev.15
+- - [talker_grpc_logger] Add test and github workflow
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.0.0-dev.14
 - - [talker_grpc_logger] Add dart-style documentation
 

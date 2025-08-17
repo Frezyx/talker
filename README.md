@@ -127,6 +127,7 @@ Talker is designed for any level of customization. <br>
 - [Talker GRPC Logger](#talker-grpc-logger)
   - [Getting Started](#getting-started-4)
   - [Using with Talker](#using-with-talker-3)
+  - [Token obfuscation](#token-obfuscation)
 - [Crashlytics integration](#crashlytics-integration)
 - [Features list](#features-list)
 - [Coverage](#coverage)

@@ -1,4 +1,4 @@
-5.0.0-dev.14
 5.0.0-dev.15
-- [talker_grpc_logger] Add test and github workflow
-Frezyx
+5.0.0-dev.16
+[common] Optimize images
+renovatebot

@@ -1,3 +1,9 @@
+# 5.0.0-dev.16
+- [common] Update dependency lints to v6
+- [common] Optimize images
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
 # 5.0.0-dev.15
 - - [talker_grpc_logger] Add test and github workflow
 

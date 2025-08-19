@@ -31,7 +31,7 @@ Follow these steps to use this package
 ### Add dependency
 ```yaml
 dependencies:
-  talker_chopper_logger: ^5.0.0-dev.16
+  talker_chopper_logger: ^5.0.0
 ```
 
 ### Usage

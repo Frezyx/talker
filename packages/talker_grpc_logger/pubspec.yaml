@@ -1,6 +1,6 @@
 name: talker_grpc_logger
 description: A lightweight, flexible grpc client logger built on the Talker platform, offering advanced exception handling and logging for Dart and Flutter applications.
-version: 5.0.0-dev.16
+version: 5.0.0
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues
@@ -11,8 +11,8 @@ environment:
 
 dependencies:
   grpc: ^4.0.0
-  talker: ^5.0.0-dev.16
+  talker: ^5.0.0
 
 dev_dependencies:
-  lints: ^6.0.0
+  lints: ^5.0.0
   test: ^1.24.0

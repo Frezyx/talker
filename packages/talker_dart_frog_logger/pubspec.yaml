@@ -1,0 +1,15 @@
+name: talker_dart_frog_logger
+description: Lightweight and customizable dart_frog logger on talker base
+version: 0.0.1-dev.1
+repository: https://github.com/Frezyx/talker
+
+environment:
+  sdk: ">=2.19.0 <4.0.0"
+
+dependencies:
+  dart_frog: ^1.2.0
+  talker: ^4.6.14
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.24.0

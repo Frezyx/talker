@@ -160,14 +160,14 @@ class Talker {
 
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
-  /// [String?] [msg] - message describes what happened
   /// [StackTrace?] [stackTrace] - stackTrace
+  /// [String?] [msg] - message describes what happened
   ///
   /// ```dart
   /// try {
   ///   // your code...
   /// } catch (e, st) {
-  ///   talker.handle(e, 'Exception in ...', st);
+  ///   talker.handle(e, st, 'Exception in ...');
   /// }
   /// ```
   ///

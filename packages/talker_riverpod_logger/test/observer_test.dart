@@ -1,65 +1,19 @@
 // ignore_for_file: invalid_use_of_protected_member, override_on_non_overriding_member
 
-import 'dart:async';
-
 import 'package:riverpod/riverpod.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 import 'package:test/test.dart';
 
-class TestNotifier extends StateNotifier<String> {
-  TestNotifier() : super("Initial State");
-
-  void changeState(String newState) {
-    state = "Updated State";
-  }
-}
-
-class FamilyTestNotifier extends FamilyNotifier<int, String> {
-  @override
-  int build(String arg) {
-    return arg.length;
-  }
-
-  void changeState(String newState) {
-    state = newState.length;
-  }
-}
-
-final familyProvider = NotifierProvider.family<FamilyTestNotifier, int, String>(
-  FamilyTestNotifier.new,
-);
-
-final familyErrorProvider = FutureProvider.family<String, String>(
-  (ref, arg) => throw ("Error"),
-);
-
-ProviderContainer createContainer({
-  ProviderContainer? parent,
-  List<Override> overrides = const [],
-  List<ProviderObserver>? observers,
-}) {
-  final container = ProviderContainer(
-    parent: parent,
-    overrides: overrides,
-    observers: observers,
-  );
-
-  return container;
-}
-
 void main() {
   group('TalkerRiverpodObserver tests', () {
     late Talker talker;
     late ProviderContainer container;
-    late StateNotifierProvider<TestNotifier, String> provider;
-    late FutureProvider<String> errorProvider;
+
     late TalkerRiverpodObserver talkerRiverpodObserver;
 
     setUp(() {
-      talker = Talker(
-        settings: TalkerSettings(useConsoleLogs: false),
-      );
+      talker = Talker(settings: TalkerSettings(useConsoleLogs: false));
       talkerRiverpodObserver = TalkerRiverpodObserver(
         talker: talker,
         settings: TalkerRiverpodLoggerSettings(
@@ -67,21 +21,20 @@ void main() {
           printProviderDisposed: true,
         ),
       );
-      provider = StateNotifierProvider<TestNotifier, String>(
-        (ref) => TestNotifier(),
-      );
-      errorProvider = FutureProvider<String>((ref) => throw ("Error"));
-      container = createContainer(
+
+      container = ProviderContainer.test(
         observers: [talkerRiverpodObserver],
-        overrides: [
-          provider.overrideWith((ref) => TestNotifier()),
-        ],
+        retry: (retryCount, error) => null,
       );
+    });
+
+    tearDown(() {
+      talker.cleanHistory();
     });
 
     test('didAddProvider', () {
       final expectedState = 'Initial State';
-      container.read(provider);
+      container.read(testProvider);
       expect(
         talker.history.first.generateTextMessage(),
         contains(expectedState),
@@ -89,24 +42,33 @@ void main() {
     });
 
     test('didUpdateProvider', () async {
-      final expectedState = 'Updated State';
-      container.read(provider.notifier).changeState("Updated State");
-      await Future.delayed(const Duration(milliseconds: 10));
+      final input = 'Updated State';
+
+      container.listen(testProvider, (previous, next) {});
+      container.read(testProvider);
+      container.read(testProvider.notifier).changeState(input);
+
       final log = talker.history.last;
-      expect(log.generateTextMessage(), contains(expectedState));
+      expect(log.generateTextMessage(), contains(input));
     });
 
     test('didDisposeProvider', () async {
-      container.read(provider);
-      container.dispose();
-      await Future.delayed(const Duration(milliseconds: 10));
+      container.read(testProvider);
+
+      await container.pump();
+
       final log = talker.history.last;
       expect(log.generateTextMessage(), contains('disposed'));
     });
 
     test('providerDidFail', () async {
-      container.read(errorProvider);
-      await Future.delayed(const Duration(milliseconds: 10));
+      final sub = container.listen(errorProvider.future, (previous, next) {});
+      try {
+        final _ = await sub.read();
+      } catch (_) {
+      } finally {
+        sub.close();
+      }
       final log = talker.history.first;
       expect(log.generateTextMessage(), contains('failed'));
     });
@@ -122,21 +84,19 @@ void main() {
       });
       test('didUpdateProvider', () async {
         const arg = "99";
-        const input = "999";
-        const expectedChange = 3;
+
+        container.listen(familyProvider(arg), (previous, next) {});
+
         container.read(familyProvider(arg));
-        await container.pump();
-        container.read(familyProvider(arg).notifier).changeState(input);
-        await container.pump();
+        container.read(familyProvider(arg).notifier).changeState("999");
+
         final generateTextMessage = talker.history.last.generateTextMessage();
         expect(generateTextMessage, contains("($arg)"));
-        expect(generateTextMessage, contains("$expectedChange"));
+        expect(generateTextMessage, contains("3"));
       });
       test('didDisposeProvider', () async {
         const arg = "99";
         container.read(familyProvider(arg));
-        await container.pump();
-        container.dispose();
         await container.pump();
         final generateTextMessage = talker.history.last.generateTextMessage();
         expect(generateTextMessage, contains("($arg)"));
@@ -145,10 +105,18 @@ void main() {
 
       test('providerDidFail', () async {
         const arg = "99";
+        final sub = container.listen(
+          familyErrorProvider(arg).future,
+          (previous, next) {},
+        );
+
         try {
-          final _ = container.read(familyErrorProvider(arg));
-        } catch (_) {}
-        await container.pump();
+          final _ = await sub.read();
+        } catch (_) {
+        } finally {
+          sub.close();
+        }
+
         final log = talker.history.first.generateTextMessage();
         expect(log, contains("($arg)"));
         expect(log, contains('failed'));
@@ -160,22 +128,68 @@ void main() {
             enabled: true,
             printProviderDisposed: true,
             didFailFilter: (error) {
-              if (error is Exception) return true;
-              return false;
+              if (error is Exception) return false;
+              return true;
             },
           ),
         );
-        container = createContainer(
+        container = ProviderContainer.test(
           observers: [talkerRiverpodObserver],
-          overrides: [
-            provider.overrideWith((ref) => TestNotifier()),
-          ],
+          retry: (retryCount, error) => null,
         );
-        container.read(errorProvider);
-        await Future.delayed(const Duration(milliseconds: 10));
+
+        final sub = container.listen(errorProvider.future, (previous, next) {});
+        try {
+          await sub.read();
+        } catch (_) {
+        } finally {
+          sub.close();
+        }
+
         final log = talker.history;
         expect(log.whereType<RiverpodFailLog>(), isEmpty);
       });
     });
   });
 }
+
+class TestNotifier extends Notifier<String> {
+  @override
+  String build() {
+    return "Initial State";
+  }
+
+  void changeState(String newState) {
+    state = "Updated State";
+  }
+}
+
+final testProvider = NotifierProvider.autoDispose<TestNotifier, String>(
+  TestNotifier.new,
+);
+
+class FamilyTestNotifier extends Notifier<int> {
+  FamilyTestNotifier(this.arg);
+  final String arg;
+
+  @override
+  int build() {
+    return arg.length;
+  }
+
+  void changeState(String newState) {
+    state = newState.length;
+  }
+}
+
+final familyProvider = NotifierProvider.family
+    .autoDispose<FamilyTestNotifier, int, String>(FamilyTestNotifier.new);
+
+final familyErrorProvider = FutureProvider.family.autoDispose<String, String>(
+  (ref, arg) =>
+      throw Exception("Exception from familyErrorProvider with arg: $arg"),
+);
+
+final errorProvider = FutureProvider.autoDispose<String>(
+  (ref) => throw Exception("Exception from errorProvider"),
+);

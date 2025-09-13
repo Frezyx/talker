@@ -1,4 +1,4 @@
-import 'package:riverpod/riverpod.dart';
+import 'package:riverpod/legacy.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 import 'package:test/test.dart';
@@ -30,10 +30,7 @@ void main() {
 
   group('RiverpodAddLog with name', () {
     test('Constructor should set values correctly', () {
-      final fakeProvider = StateProvider(
-        (ref) => 0,
-        name: 'fakeProvider',
-      );
+      final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakeValue = Object();
       final fakeSettings = TalkerRiverpodLoggerSettings();
 
@@ -85,10 +82,7 @@ void main() {
 
   group('RiverpodUpdateLog with name', () {
     test('Constructor should set values correctly', () {
-      final fakeProvider = StateProvider(
-        (ref) => 0,
-        name: 'fakeProvider',
-      );
+      final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakePreviousValue = Object();
       final fakeNewValue = Object();
       final fakeSettings = TalkerRiverpodLoggerSettings();
@@ -137,10 +131,7 @@ void main() {
 
   group('RiverpodDisposeLog with name', () {
     test('Constructor should set values correctly', () {
-      final fakeProvider = StateProvider(
-        (ref) => 0,
-        name: 'fakeProvider',
-      );
+      final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakeSettings = TalkerRiverpodLoggerSettings();
 
       final log = RiverpodDisposeLog(
@@ -188,10 +179,7 @@ void main() {
 
   group('RiverpodFailLog with name', () {
     test('Constructor should set values correctly', () {
-      final fakeProvider = StateProvider(
-        (ref) => 0,
-        name: 'fakeProvider',
-      );
+      final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakeError = Object();
       final fakeStackTrace = StackTrace.empty;
       final fakeSettings = TalkerRiverpodLoggerSettings();

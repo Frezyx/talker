@@ -8,7 +8,7 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 /// [talker] field is the current [Talker] instance.
 /// Provide your instance if your application uses [Talker] as the default logger
 /// Common Talker instance will be used by default
-class TalkerRiverpodObserver extends ProviderObserver {
+ final class TalkerRiverpodObserver extends ProviderObserver {
   TalkerRiverpodObserver({
     Talker? talker,
     this.settings = const TalkerRiverpodLoggerSettings(),

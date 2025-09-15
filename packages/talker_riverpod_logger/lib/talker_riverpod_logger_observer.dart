@@ -14,6 +14,14 @@ class TalkerRiverpodObserver extends ProviderObserver {
     this.settings = const TalkerRiverpodLoggerSettings(),
   }) {
     _talker = talker ?? Talker();
+    _talker.settings.registerKeys(
+      [
+        TalkerKey.riverpodAdd,
+        TalkerKey.riverpodUpdate,
+        TalkerKey.riverpodDispose,
+        TalkerKey.riverpodFail,
+      ],
+    );
   }
 
   late Talker _talker;
@@ -103,6 +111,16 @@ class TalkerRiverpodObserver extends ProviderObserver {
     if (!accepted) {
       return;
     }
+
+    try {
+      final errorFiltered = settings.didFailFilter?.call(error) ?? true;
+      if (!errorFiltered) {
+        return;
+      }
+    } catch (_) {
+      return;
+    }
+
     _talker.logCustom(
       RiverpodFailLog(
         provider: context.provider,

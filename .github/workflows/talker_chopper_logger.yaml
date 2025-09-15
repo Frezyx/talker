@@ -1,0 +1,20 @@
+name: talker_chopper_logger
+
+on:
+  push:
+    paths:
+      - "packages/talker_chopper_logger/**"
+      - ".github/workflows/talker_chopper_logger.yaml"
+  pull_request:
+    paths:
+      - "packages/talker_chopper_logger/**"
+      - ".github/workflows/talker_chopper_logger.yaml"
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
+    with:
+      package: talker_chopper_logger
+      sdk: dart

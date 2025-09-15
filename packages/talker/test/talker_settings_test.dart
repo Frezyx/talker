@@ -58,17 +58,17 @@ void main() {
       final settings = TalkerSettings(
         useConsoleLogs: false,
         colors: {
-          YourCustomLog.logKey: pen,
+          YourCustomKey.logKey: pen,
         },
       );
 
       final talker = Talker(settings: settings);
 
-      final customLog = YourCustomLog('Custom log message');
+      final customLog = YourCustomKey('Custom log message');
       talker.logCustom(customLog);
 
       expect(
-        settings.colors[YourCustomLog.logKey],
+        settings.colors[YourCustomKey.logKey],
         pen,
       );
     });
@@ -77,17 +77,17 @@ void main() {
       final settings = TalkerSettings(
         useConsoleLogs: false,
         titles: {
-          YourCustomLog.logKey: 'Custom title',
+          YourCustomKey.logKey: 'Custom title',
         },
       );
 
       final talker = Talker(settings: settings);
 
-      final customLog = YourCustomLog('Custom log message');
+      final customLog = YourCustomKey('Custom log message');
       talker.logCustom(customLog);
 
       expect(
-        settings.titles[YourCustomLog.logKey],
+        settings.titles[YourCustomKey.logKey],
         'Custom title',
       );
     });

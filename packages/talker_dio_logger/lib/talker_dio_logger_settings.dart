@@ -16,7 +16,9 @@ class TalkerDioLoggerSettings {
     this.printErrorMessage = true,
     this.printRequestData = true,
     this.printRequestHeaders = false,
+    this.printRequestExtra = false,
     this.hiddenHeaders = const <String>{},
+    this.responseDataConverter,
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -61,6 +63,9 @@ class TalkerDioLoggerSettings {
   /// Print [request.headers] if true
   final bool printRequestHeaders;
 
+  /// Print [request.extra] if true
+  final bool printRequestExtra;
+
   /// Field to set custom http request console logs color
   ///```
   ///// Red color
@@ -102,6 +107,9 @@ class TalkerDioLoggerSettings {
   /// You can add your custom logic to log only specific HTTP responses [Response].
   final bool Function(Response response)? responseFilter;
 
+  /// response data converter.
+  final String Function(Response response)? responseDataConverter;
+
   /// For error filtering.
   /// You can add your custom logic to log only specific Dio error [DioException].
   final bool Function(DioException response)? errorFilter;
@@ -120,11 +128,13 @@ class TalkerDioLoggerSettings {
     bool? printErrorMessage,
     bool? printRequestData,
     bool? printRequestHeaders,
+    bool? printRequestExtra,
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
+    String Function(Response response)? responseDataConverter,
     bool Function(DioException response)? errorFilter,
     Set<String>? hiddenHeaders,
     LogLevel? logLevel,
@@ -139,11 +149,14 @@ class TalkerDioLoggerSettings {
       printErrorMessage: printErrorMessage ?? this.printErrorMessage,
       printRequestData: printRequestData ?? this.printRequestData,
       printRequestHeaders: printRequestHeaders ?? this.printRequestHeaders,
+      printRequestExtra: printRequestExtra ?? this.printRequestExtra,
       requestPen: requestPen ?? this.requestPen,
       responsePen: responsePen ?? this.responsePen,
       errorPen: errorPen ?? this.errorPen,
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
+      responseDataConverter:
+          responseDataConverter ?? this.responseDataConverter,
       errorFilter: errorFilter ?? this.errorFilter,
       hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
       logLevel: logLevel ?? this.logLevel,

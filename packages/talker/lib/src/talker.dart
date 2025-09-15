@@ -66,13 +66,12 @@ class Talker {
     _logger = _logger.copyWith(
       settings: _logger.settings.copyWith(
         colors: {
-          LogLevel.critical:
-              settings.getAnsiPenByLogType(TalkerLogType.critical),
-          LogLevel.error: settings.getAnsiPenByLogType(TalkerLogType.error),
-          LogLevel.warning: settings.getAnsiPenByLogType(TalkerLogType.warning),
-          LogLevel.verbose: settings.getAnsiPenByLogType(TalkerLogType.verbose),
-          LogLevel.info: settings.getAnsiPenByLogType(TalkerLogType.info),
-          LogLevel.debug: settings.getAnsiPenByLogType(TalkerLogType.debug),
+          LogLevel.critical: settings.getPenByKey(TalkerKey.critical),
+          LogLevel.error: settings.getPenByKey(TalkerKey.error),
+          LogLevel.warning: settings.getPenByKey(TalkerKey.warning),
+          LogLevel.verbose: settings.getPenByKey(TalkerKey.verbose),
+          LogLevel.info: settings.getPenByKey(TalkerKey.info),
+          LogLevel.debug: settings.getPenByKey(TalkerKey.debug),
         },
       ),
     );
@@ -153,16 +152,22 @@ class Talker {
 
   List<TalkerData> get history => _history.history;
 
+  /// [TalkerFilter] [filter] - filter for selecting specific logs and errors
+  /// by their keys [TalkerData.key] and by string query [TalkerFilter.searchQuery]
+  /// You can set it in [configure] method
+  /// or change it later
+  TalkerFilter get filter => _filter;
+
   /// Handle common exceptions in your code
   /// [Object] [exception] - exception
-  /// [String?] [msg] - message describes what happened
   /// [StackTrace?] [stackTrace] - stackTrace
+  /// [String?] [msg] - message describes what happened
   ///
   /// ```dart
   /// try {
   ///   // your code...
   /// } catch (e, st) {
-  ///   talker.handle(e, 'Exception in ...', st);
+  ///   talker.handle(e, st, 'Exception in ...');
   /// }
   /// ```
   ///
@@ -174,12 +179,10 @@ class Talker {
   ]) {
     final data = _errorHandler.handle(exception, stackTrace, msg?.toString());
     if (data is TalkerError) {
-      _observer.onError(data);
       _handleErrorData(data);
       return;
     }
     if (data is TalkerException) {
-      _observer.onException(data);
       _handleErrorData(data);
       return;
     }
@@ -370,11 +373,11 @@ class Talker {
     LogLevel logLevel, {
     AnsiPen? pen,
   }) {
-    final type = TalkerLogType.fromLogLevel(logLevel);
-    final penByLogKey = settings.getPenByLogKey(type.key);
-    final title = settings.getTitleByLogKey(type.key);
+    final key = TalkerKey.fromLogLevel(logLevel);
+    final penByLogKey = settings.getPenByKey(key);
+    final title = settings.getTitleByKey(key);
     final data = TalkerLog(
-      key: type.key,
+      key: key,
       message?.toString() ?? '',
       title: title,
       exception: exception,
@@ -386,13 +389,16 @@ class Talker {
   }
 
   void _handleErrorData(TalkerData data) {
-    if (!settings.enabled) {
-      return;
-    }
+    // If the Talker is disabled by settings
+    if (!settings.enabled) return;
+
+    // If the log is not approved by the filter
     final isApproved = _isApprovedByFilter(data);
-    if (!isApproved) {
-      return;
-    }
+    if (!isApproved) return;
+
+    if (data is TalkerError) _observer.onError(data);
+    if (data is TalkerException) _observer.onException(data);
+
     _talkerStreamController.add(data);
     _handleForOutputs(data);
     if (settings.useConsoleLogs) {
@@ -408,19 +414,19 @@ class Talker {
     TalkerLog data, {
     LogLevel? logLevel,
   }) {
-    /// If the Talker is disabled by settings
+    // If the Talker is disabled by settings
     if (!settings.enabled) return;
 
-    /// If the log is not approved by the filter
+    // If the log is not approved by the filter
     final isApproved = _isApprovedByFilter(data);
     if (!isApproved) return;
 
+    // Log customization setup and configuration
     var pen = data.pen;
-
-    final logTypeKey = data.key;
-    if (logTypeKey != null) {
-      data.title = settings.getTitleByLogKey(logTypeKey);
-      pen = settings.getPenByLogKey(logTypeKey, fallbackPen: data.pen);
+    final key = data.key;
+    if (key != null) {
+      data.title = settings.getTitleByKey(key);
+      pen = settings.getPenByKey(key, fallbackPen: data.pen);
       data.pen = pen;
     }
 

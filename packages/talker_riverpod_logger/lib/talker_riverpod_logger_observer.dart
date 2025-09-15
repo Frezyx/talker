@@ -8,7 +8,7 @@ import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 /// [talker] field is the current [Talker] instance.
 /// Provide your instance if your application uses [Talker] as the default logger
 /// Common Talker instance will be used by default
-class TalkerRiverpodObserver extends ProviderObserver {
+ final class TalkerRiverpodObserver extends ProviderObserver {
   TalkerRiverpodObserver({
     Talker? talker,
     this.settings = const TalkerRiverpodLoggerSettings(),
@@ -30,21 +30,20 @@ class TalkerRiverpodObserver extends ProviderObserver {
   @override
   @mustCallSuper
   void didAddProvider(
-    ProviderBase<Object?> provider,
-    Object? value,
-    ProviderContainer container,
+      ProviderObserverContext context,
+      Object? value,
   ) {
-    super.didAddProvider(provider, value, container);
+    super.didAddProvider(context,value);
     if (!settings.enabled || !settings.printProviderAdded) {
       return;
     }
-    final accepted = settings.providerFilter?.call(provider) ?? true;
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
     if (!accepted) {
       return;
     }
     _talker.logCustom(
       RiverpodAddLog(
-        provider: provider,
+        provider: context.provider,
         value: value,
         settings: settings,
       ),
@@ -54,22 +53,21 @@ class TalkerRiverpodObserver extends ProviderObserver {
   @override
   @mustCallSuper
   void didUpdateProvider(
-    ProviderBase<Object?> provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
+      ProviderObserverContext context,
+      Object? previousValue,
+      Object? newValue,
   ) {
-    super.didUpdateProvider(provider, previousValue, newValue, container);
+    super.didUpdateProvider(context, previousValue, newValue);
     if (!settings.enabled || !settings.printProviderUpdated) {
       return;
     }
-    final accepted = settings.providerFilter?.call(provider) ?? true;
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
     if (!accepted) {
       return;
     }
     _talker.logCustom(
       RiverpodUpdateLog(
-        provider: provider,
+        provider: context.provider,
         previousValue: previousValue,
         newValue: newValue,
         settings: settings,
@@ -80,20 +78,19 @@ class TalkerRiverpodObserver extends ProviderObserver {
   @override
   @mustCallSuper
   void didDisposeProvider(
-    ProviderBase<Object?> provider,
-    ProviderContainer container,
+      ProviderObserverContext context,
   ) {
-    super.didDisposeProvider(provider, container);
+    super.didDisposeProvider(context);
     if (!settings.enabled || !settings.printProviderDisposed) {
       return;
     }
-    final accepted = settings.providerFilter?.call(provider) ?? true;
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
     if (!accepted) {
       return;
     }
     _talker.logCustom(
       RiverpodDisposeLog(
-        provider: provider,
+        provider: context.provider,
         settings: settings,
       ),
     );
@@ -102,16 +99,15 @@ class TalkerRiverpodObserver extends ProviderObserver {
   @override
   @mustCallSuper
   void providerDidFail(
-    ProviderBase<Object?> provider,
+      ProviderObserverContext context,
     Object error,
     StackTrace stackTrace,
-    ProviderContainer container,
   ) {
-    super.providerDidFail(provider, error, stackTrace, container);
+    super.providerDidFail(context, error, stackTrace);
     if (!settings.enabled || !settings.printProviderFailed) {
       return;
     }
-    final accepted = settings.providerFilter?.call(provider) ?? true;
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
     if (!accepted) {
       return;
     }
@@ -127,7 +123,7 @@ class TalkerRiverpodObserver extends ProviderObserver {
 
     _talker.logCustom(
       RiverpodFailLog(
-        provider: provider,
+        provider: context.provider,
         providerError: error,
         providerStackTrace: stackTrace,
         settings: settings,

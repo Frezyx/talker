@@ -87,7 +87,7 @@ class DriftQueryLog extends TalkerLog {
   AnsiPen get pen => settings.queryPen ?? (AnsiPen()..xterm(219));
 
   @override
-  String get key => 'drift-query';
+  String get key => TalkerKey.driftQuery;
 
   @override
   LogLevel get logLevel => settings.logLevel;
@@ -122,7 +122,7 @@ class DriftResultLog extends TalkerLog {
   AnsiPen get pen => settings.resultPen ?? (AnsiPen()..xterm(46));
 
   @override
-  String get key => 'drift-result';
+  String get key => TalkerKey.driftResult;
 
   @override
   LogLevel get logLevel => settings.logLevel;
@@ -170,7 +170,7 @@ class DriftErrorLog extends TalkerLog {
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
 
   @override
-  String get key => 'drift-error';
+  String get key => TalkerKey.driftError;
 
   @override
   LogLevel get logLevel => LogLevel.error;
@@ -203,7 +203,7 @@ class DriftTransactionLog extends TalkerLog {
   AnsiPen get pen => settings.transactionPen ?? (AnsiPen()..xterm(135));
 
   @override
-  String get key => 'drift-transaction';
+  String get key => TalkerKey.driftTransaction;
 
   @override
   LogLevel get logLevel => settings.logLevel;
@@ -230,7 +230,7 @@ class DriftBatchLog extends TalkerLog {
   AnsiPen get pen => settings.batchPen ?? (AnsiPen()..xterm(49));
 
   @override
-  String get key => 'drift-batch';
+  String get key => TalkerKey.driftBatch;
 
   @override
   LogLevel get logLevel => settings.logLevel;

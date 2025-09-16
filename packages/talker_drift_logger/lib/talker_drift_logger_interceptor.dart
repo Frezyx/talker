@@ -13,11 +13,11 @@ class TalkerDriftLogger extends QueryInterceptor {
   }) {
     _talker = talker ?? Talker();
     _talker.settings.registerKeys(const [
-      'drift-query',
-      'drift-result',
-      'drift-error',
-      'drift-transaction',
-      'drift-batch',
+      TalkerKey.driftQuery,
+      TalkerKey.driftResult,
+      TalkerKey.driftError,
+      TalkerKey.driftTransaction,
+      TalkerKey.driftBatch,
     ]);
   }
 
@@ -51,7 +51,9 @@ class TalkerDriftLogger extends QueryInterceptor {
     if (filter == null) return true;
     try {
       return filter(statement, args);
-    } catch (_) {
+    } catch (e, st) {
+      // Surface filter configuration issues for easier debugging
+      _talker.handle(e, st, 'Error in Drift statementFilter');
       return false;
     }
   }
@@ -62,7 +64,9 @@ class TalkerDriftLogger extends QueryInterceptor {
     if (filter == null) return true;
     try {
       return filter(error);
-    } catch (_) {
+    } catch (e, st) {
+      // Surface filter configuration issues for easier debugging
+      _talker.handle(e, st, 'Error in Drift errorFilter');
       return false;
     }
   }
@@ -260,38 +264,41 @@ class TalkerDriftLogger extends QueryInterceptor {
     QueryExecutor executor,
     String statement,
     List<Object?> args,
-  ) {
+  ) async {
     final accepted = _accept(statement, args);
     if (accepted) {
       _talker.logCustom(DriftQueryLog(statement, args: args, settings: settings));
     }
-    int? durationMs;
-    return _run<List<Map<String, Object?>>>(
-      statement,
-      () => executor.runSelect(statement, args),
-      onDone: (ms) {
-        durationMs = ms;
-      },
-      onError: (err, ms) {
-        if (accepted && _acceptError(err)) {
-          _talker.logCustom(
-            DriftErrorLog(statement, settings: settings, dbError: err, args: args, durationMs: ms),
-          );
-        }
-      },
-    ).then((rows) {
+    final sw = Stopwatch()..start();
+    try {
+      final rows = await executor.runSelect(statement, args);
+      sw.stop();
       if (accepted) {
         _talker.logCustom(
           DriftResultLog(
             statement,
             settings: settings,
-            durationMs: durationMs,
+            durationMs: sw.elapsedMilliseconds,
             rowCount: rows.length,
             rows: rows,
           ),
         );
       }
       return rows;
-    });
+    } catch (err) {
+      sw.stop();
+      if (accepted && _acceptError(err)) {
+        _talker.logCustom(
+          DriftErrorLog(
+            statement,
+            settings: settings,
+            dbError: err,
+            args: args,
+            durationMs: sw.elapsedMilliseconds,
+          ),
+        );
+      }
+      rethrow;
+    }
   }
 }

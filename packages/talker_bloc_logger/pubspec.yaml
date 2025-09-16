@@ -1,6 +1,6 @@
 name: talker_bloc_logger
 description: Lightweight and customizable BLoC state management library logger on talker base.
-version: 5.0.0
+version: 5.0.1
 homepage: https://github.com/Frezyx/talker
 repository: https://github.com/Frezyx/talker
 issue_tracker: https://github.com/Frezyx/talker/issues
@@ -16,10 +16,10 @@ environment:
   sdk: '>=2.15.0 <4.0.0'
 
 dependencies:
-  talker: ^5.0.0
+  talker: ^5.0.1
   bloc: ^9.0.0
   meta: ^1.8.0
 
 dev_dependencies:
-  lints: ^5.0.0
+  lints: ^5.0.1
   test: ^1.23.1

@@ -36,6 +36,13 @@ abstract class TalkerKey {
   static const grpcResponse = 'grpc-response';
   static const grpcError = 'grpc-error';
 
+  /// Drift section
+  static const driftQuery = 'drift-query';
+  static const driftResult = 'drift-result';
+  static const driftError = 'drift-error';
+  static const driftTransaction = 'drift-transaction';
+  static const driftBatch = 'drift-batch';
+
   /// Flutter section
   static const route = 'route';
 

@@ -1,4 +1,4 @@
-import 'package:riverpod/riverpod.dart';
+import 'package:riverpod/misc.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
@@ -15,12 +15,7 @@ class RiverpodAddLog extends TalkerLog {
     required this.provider,
     required this.value,
     required this.settings,
-  }) : super(
-          _defaultMessage(
-            provider: provider,
-            suffix: 'initialized',
-          ),
-        );
+  }) : super(_defaultMessage(provider: provider, suffix: 'initialized'));
 
   final ProviderBase<Object?> provider;
   final Object? value;
@@ -37,7 +32,8 @@ class RiverpodAddLog extends TalkerLog {
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write(
-        '\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}');
+      '\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}',
+    );
     return sb.toString();
   }
 }
@@ -49,12 +45,7 @@ class RiverpodUpdateLog extends TalkerLog {
     required this.previousValue,
     required this.newValue,
     required this.settings,
-  }) : super(
-          _defaultMessage(
-            provider: provider,
-            suffix: 'updated',
-          ),
-        );
+  }) : super(_defaultMessage(provider: provider, suffix: 'updated'));
 
   final ProviderBase<Object?> provider;
   final Object? previousValue;
@@ -72,24 +63,19 @@ class RiverpodUpdateLog extends TalkerLog {
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
     sb.write(
-        '\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}');
+      '\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}',
+    );
     sb.write(
-        '\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}');
+      '\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}',
+    );
     return sb.toString();
   }
 }
 
 /// [Riverpod] dispose provider log model
 class RiverpodDisposeLog extends TalkerLog {
-  RiverpodDisposeLog({
-    required this.provider,
-    required this.settings,
-  }) : super(
-          _defaultMessage(
-            provider: provider,
-            suffix: 'disposed',
-          ),
-        );
+  RiverpodDisposeLog({required this.provider, required this.settings})
+    : super(_defaultMessage(provider: provider, suffix: 'disposed'));
 
   final ProviderBase<Object?> provider;
   final TalkerRiverpodLoggerSettings settings;
@@ -115,12 +101,7 @@ class RiverpodFailLog extends TalkerLog {
     required this.providerError,
     required this.providerStackTrace,
     required this.settings,
-  }) : super(
-          _defaultMessage(
-            provider: provider,
-            suffix: 'failed',
-          ),
-        );
+  }) : super(_defaultMessage(provider: provider, suffix: 'failed'));
 
   final ProviderBase<Object?> provider;
   final Object providerError;

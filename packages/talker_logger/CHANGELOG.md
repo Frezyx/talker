@@ -1,3 +1,10 @@
+# 5.0.2
+- [talker_riverpod_logger] Bump riverpod version to 3.0.0
+- adopt Riverpod 3 provider observer signatures with ProviderObserverContext
+- switch to NotifierProvider.autoDispose and ProviderContainer.test from Riverpod 3 APIs
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
 # 5.0.1
 - [talker_flutter] Bump share_plus version to 12.0.0
 - [talker] Fix talker.handle docs to use stack trace before error message

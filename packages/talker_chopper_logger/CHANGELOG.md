@@ -1,3 +1,9 @@
+# 5.0.1
+- [talker_flutter] Bump share_plus version to 12.0.0
+- [talker] Fix talker.handle docs to use stack trace before error message
+
+Thanks to [Ali-Toosi](https://github.com/Ali-Toosi)
+
 # 5.0.0
 - - [talker_chopper_logger] Release logger for Chopper http clint package
 - [talker_grpc_logger] Release logger for gRPC package

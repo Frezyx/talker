@@ -45,8 +45,10 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 5));
 
       // There must be at least one query and one result log
-      final hasQuery = logs.whereType<TalkerLog>().any((e) => e.key == 'drift-query');
-      final hasResult = logs.whereType<TalkerLog>().any((e) => e.key == 'drift-result');
+      final hasQuery =
+          logs.whereType<TalkerLog>().any((e) => e.key == 'drift-query');
+      final hasResult =
+          logs.whereType<TalkerLog>().any((e) => e.key == 'drift-result');
       expect(hasQuery, isTrue);
       expect(hasResult, isTrue);
 
@@ -71,7 +73,8 @@ void main() {
       // Allow stream to emit
       await Future<void>.delayed(const Duration(milliseconds: 5));
 
-      final hasError = logs.whereType<TalkerLog>().any((e) => e.key == 'drift-error');
+      final hasError =
+          logs.whereType<TalkerLog>().any((e) => e.key == 'drift-error');
       expect(hasError, isTrue);
 
       await sub.cancel();

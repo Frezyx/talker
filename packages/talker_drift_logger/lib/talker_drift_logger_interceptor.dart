@@ -93,7 +93,8 @@ class TalkerDriftLogger extends QueryInterceptor {
       onError: (err, ms) {
         if (_acceptError(err)) {
           _talker.logCustom(
-            DriftErrorLog('commit', settings: settings, dbError: err, durationMs: ms),
+            DriftErrorLog('commit',
+                settings: settings, dbError: err, durationMs: ms),
           );
         }
       },
@@ -114,7 +115,8 @@ class TalkerDriftLogger extends QueryInterceptor {
       onError: (err, ms) {
         if (_acceptError(err)) {
           _talker.logCustom(
-            DriftErrorLog('rollback', settings: settings, dbError: err, durationMs: ms),
+            DriftErrorLog('rollback',
+                settings: settings, dbError: err, durationMs: ms),
           );
         }
       },
@@ -122,7 +124,8 @@ class TalkerDriftLogger extends QueryInterceptor {
   }
 
   @override
-  Future<void> runBatched(QueryExecutor executor, BatchedStatements statements) {
+  Future<void> runBatched(
+      QueryExecutor executor, BatchedStatements statements) {
     if (settings.enabled && settings.printBatch) {
       _talker.logCustom(
         DriftBatchLog('batch with ${statements.statements.length} statements',
@@ -140,7 +143,8 @@ class TalkerDriftLogger extends QueryInterceptor {
   ) {
     final accepted = _accept(statement, args);
     if (accepted) {
-      _talker.logCustom(DriftQueryLog(statement, args: args, settings: settings));
+      _talker
+          .logCustom(DriftQueryLog(statement, args: args, settings: settings));
     }
     return _run<int>(
       statement,
@@ -156,7 +160,8 @@ class TalkerDriftLogger extends QueryInterceptor {
       onError: (err, ms) {
         if (accepted && _acceptError(err)) {
           _talker.logCustom(
-            DriftErrorLog(statement, settings: settings, dbError: err, args: args, durationMs: ms),
+            DriftErrorLog(statement,
+                settings: settings, dbError: err, args: args, durationMs: ms),
           );
         }
       },
@@ -171,7 +176,8 @@ class TalkerDriftLogger extends QueryInterceptor {
   ) {
     final accepted = _accept(statement, args);
     if (accepted) {
-      _talker.logCustom(DriftQueryLog(statement, args: args, settings: settings));
+      _talker
+          .logCustom(DriftQueryLog(statement, args: args, settings: settings));
     }
     return _run<int>(
       statement,
@@ -188,7 +194,8 @@ class TalkerDriftLogger extends QueryInterceptor {
       onError: (err, ms) {
         if (accepted && _acceptError(err)) {
           _talker.logCustom(
-            DriftErrorLog(statement, settings: settings, dbError: err, args: args, durationMs: ms),
+            DriftErrorLog(statement,
+                settings: settings, dbError: err, args: args, durationMs: ms),
           );
         }
       },
@@ -203,7 +210,8 @@ class TalkerDriftLogger extends QueryInterceptor {
   ) {
     final accepted = _accept(statement, args);
     if (accepted) {
-      _talker.logCustom(DriftQueryLog(statement, args: args, settings: settings));
+      _talker
+          .logCustom(DriftQueryLog(statement, args: args, settings: settings));
     }
     return _run<int>(
       statement,
@@ -220,7 +228,8 @@ class TalkerDriftLogger extends QueryInterceptor {
       onError: (err, ms) {
         if (accepted && _acceptError(err)) {
           _talker.logCustom(
-            DriftErrorLog(statement, settings: settings, dbError: err, args: args, durationMs: ms),
+            DriftErrorLog(statement,
+                settings: settings, dbError: err, args: args, durationMs: ms),
           );
         }
       },
@@ -235,7 +244,8 @@ class TalkerDriftLogger extends QueryInterceptor {
   ) {
     final accepted = _accept(statement, args);
     if (accepted) {
-      _talker.logCustom(DriftQueryLog(statement, args: args, settings: settings));
+      _talker
+          .logCustom(DriftQueryLog(statement, args: args, settings: settings));
     }
     return _run<void>(
       statement,
@@ -252,7 +262,8 @@ class TalkerDriftLogger extends QueryInterceptor {
       onError: (err, ms) {
         if (accepted && _acceptError(err)) {
           _talker.logCustom(
-            DriftErrorLog(statement, settings: settings, dbError: err, args: args, durationMs: ms),
+            DriftErrorLog(statement,
+                settings: settings, dbError: err, args: args, durationMs: ms),
           );
         }
       },
@@ -267,7 +278,8 @@ class TalkerDriftLogger extends QueryInterceptor {
   ) async {
     final accepted = _accept(statement, args);
     if (accepted) {
-      _talker.logCustom(DriftQueryLog(statement, args: args, settings: settings));
+      _talker
+          .logCustom(DriftQueryLog(statement, args: args, settings: settings));
     }
     final sw = Stopwatch()..start();
     try {

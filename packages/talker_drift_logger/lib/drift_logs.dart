@@ -20,7 +20,8 @@ String _maskPatterns(String value, Set<Pattern> patterns) {
   return v;
 }
 
-List<Object?> _maskArgs(List<Object?> args, TalkerDriftLoggerSettings settings) {
+List<Object?> _maskArgs(
+    List<Object?> args, TalkerDriftLoggerSettings settings) {
   if (args.isEmpty) return args;
   return args.map((e) {
     if (e is String) return _maskPatterns(e, settings.obfuscatePatterns);
@@ -33,7 +34,8 @@ List<Map<String, Object?>> _maskRows(
   TalkerDriftLoggerSettings settings,
 ) {
   if (rows.isEmpty) return rows;
-  final lowerColumns = settings.obfuscateColumns.map((e) => e.toLowerCase()).toSet();
+  final lowerColumns =
+      settings.obfuscateColumns.map((e) => e.toLowerCase()).toSet();
   return rows.map((row) {
     final mapped = <String, Object?>{};
     row.forEach((key, value) {
@@ -93,7 +95,8 @@ class DriftQueryLog extends TalkerLog {
   LogLevel get logLevel => settings.logLevel;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] $message';
     if (settings.printArgs && args.isNotEmpty) {
       msg += '\nArgs: ${_prettyArgs(args, settings)}';
@@ -128,7 +131,8 @@ class DriftResultLog extends TalkerLog {
   LogLevel get logLevel => settings.logLevel;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] $message';
     msg += '\nStatus: ok';
     if (durationMs != null) {
@@ -142,7 +146,8 @@ class DriftResultLog extends TalkerLog {
     }
     if (settings.printResults && rows != null && rows!.isNotEmpty) {
       var toShow = rows!;
-      if (settings.resultRowLimit != null && toShow.length > settings.resultRowLimit!) {
+      if (settings.resultRowLimit != null &&
+          toShow.length > settings.resultRowLimit!) {
         toShow = toShow.sublist(0, settings.resultRowLimit!);
       }
       final pretty = _prettyRows(toShow, settings);
@@ -176,7 +181,8 @@ class DriftErrorLog extends TalkerLog {
   LogLevel get logLevel => LogLevel.error;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] $message';
     if (durationMs != null) {
       msg += '\nTime: $durationMs ms';
@@ -209,7 +215,8 @@ class DriftTransactionLog extends TalkerLog {
   LogLevel get logLevel => settings.logLevel;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     var msg = '[$title] $message';
     if (durationMs != null) {
       msg += '\nTime: $durationMs ms';
@@ -236,7 +243,8 @@ class DriftBatchLog extends TalkerLog {
   LogLevel get logLevel => settings.logLevel;
 
   @override
-  String generateTextMessage({TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
+  String generateTextMessage(
+      {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return '[$title] $message';
   }
 }

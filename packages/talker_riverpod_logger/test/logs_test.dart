@@ -1,3 +1,4 @@
+import 'package:riverpod/experimental/mutation.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
@@ -10,14 +11,16 @@ void main() {
   late Exception exception;
   late StackTrace stackTrace;
   late TalkerRiverpodLoggerSettings settings;
+  late Mutation<Object?> mutation;
 
   setUp(() {
     provider = Provider((ref) => 0);
     namedProvider = Provider((ref) => 0, name: 'some-name');
-    value = FakeObject();
+    value = FakeObject(0);
     exception = FakeException();
     stackTrace = StackTrace.empty;
     settings = const TalkerRiverpodLoggerSettings();
+    mutation = FakeNotifier.mutation;
   });
 
   group('RiverpodAddLog', () {
@@ -165,6 +168,157 @@ void main() {
     //   expect(message, isNot(contains(FakeException.message)));
     // });
   });
+  group('RiverpodMutationErrorLog', () {
+    test('sets values correctly', () {
+      final log = RiverpodMutationErrorLog(
+        provider: provider,
+        mutation: mutation,
+        mutationError: exception,
+        mutationStackTrace: stackTrace,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(log.provider, provider);
+      expect(log.mutation, mutation);
+      expect(log.mutationError, exception);
+      expect(log.mutationStackTrace, stackTrace);
+      expect(log.key, TalkerKey.riverpodMutationFailed);
+      expect(message, isA<String>());
+      expect(message, isNotEmpty);
+      expect(message, contains('failed'));
+      expect(message, contains(FakeException.message));
+    });
+    test('shows provider name if set', () {
+      final log = RiverpodMutationErrorLog(
+        provider: namedProvider,
+        mutation: mutation,
+        mutationError: exception,
+        mutationStackTrace: stackTrace,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(message, contains('some-name'));
+    });
+    // currently not implemented. see issue #433
+    // once fixed, uncomment this test
+    // test('shows limited info with printFailFullData: false', () {
+    //   final settings = TalkerRiverpodLoggerSettings(printFailFullData: false);
+    //   final log = RiverpodMutationErrorLog(
+    //     provider: namedProvider,
+    //     mutation: mutation,
+    //     mutationError: exception,
+    //     mutationStackTrace: stackTrace,
+    //     settings: settings,
+    //   );
+
+    //   final message = log.generateTextMessage();
+    //   expect(message, contains(exception.runtimeType.toString()));
+    //   expect(message, isNot(contains(FakeException.message)));
+    // });
+  });
+  group('RiverpodMutationResetLog', () {
+    test('sets values correctly', () {
+      final log = RiverpodMutationResetLog(
+        provider: provider,
+        mutation: mutation,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(log.provider, provider);
+      expect(log.mutation, mutation);
+      expect(log.settings, settings);
+      expect(log.key, TalkerKey.riverpodMutationReset);
+      expect(message, isA<String>());
+      expect(message, isNotEmpty);
+      expect(message, contains('reset'));
+    });
+    test('shows provider name if set', () {
+      final log = RiverpodMutationResetLog(
+        provider: namedProvider,
+        mutation: mutation,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(message, contains('some-name'));
+    });
+  });
+  group('RiverpodMutationStartLog', () {
+    test('sets values correctly', () {
+      final log = RiverpodMutationStartLog(
+        provider: provider,
+        mutation: mutation,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(log.provider, provider);
+      expect(log.mutation, mutation);
+      expect(log.settings, settings);
+      expect(log.key, TalkerKey.riverpodMutationStart);
+      expect(message, isA<String>());
+      expect(message, isNotEmpty);
+      expect(message, contains('started'));
+    });
+    test('shows provider name if set', () {
+      final log = RiverpodMutationStartLog(
+        provider: namedProvider,
+        mutation: mutation,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(message, contains('some-name'));
+    });
+  });
+  group('RiverpodMutationSuccessLog', () {
+    test('sets values correctly', () {
+      final log = RiverpodMutationSuccessLog(
+        provider: provider,
+        mutation: mutation,
+        result: value,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(log.provider, provider);
+      expect(log.mutation, mutation);
+      expect(log.result, value);
+      expect(log.settings, settings);
+      expect(log.key, TalkerKey.riverpodMutationSuccess);
+      expect(message, isA<String>());
+      expect(message, isNotEmpty);
+      expect(message, contains('succeeded'));
+      expect(message, contains(FakeObject.message(0)));
+    });
+    test('shows provider name if set', () {
+      final log = RiverpodMutationSuccessLog(
+        provider: namedProvider,
+        mutation: mutation,
+        result: value,
+        settings: settings,
+      );
+      final message = log.generateTextMessage();
+
+      expect(message, contains('some-name'));
+    });
+    test('shows limited info with printStateFullData: false', () {
+      final settings = TalkerRiverpodLoggerSettings(printStateFullData: false);
+      final log = RiverpodMutationSuccessLog(
+        provider: provider,
+        mutation: mutation,
+        result: value,
+        settings: settings,
+      );
+
+      final message = log.generateTextMessage();
+      expect(message, contains(value.runtimeType.toString()));
+      expect(message, isNot(contains(FakeObject.message(0))));
+    });
+  });
 }
 
 class FakeObject extends Object {
@@ -182,4 +336,13 @@ class FakeException implements Exception {
   @override
   String toString() => message;
   static const message = 'This is a Fake Exception. Unsurpisingly.';
+}
+
+class FakeNotifier extends Notifier<FakeObject> {
+  @override
+  FakeObject build() {
+    return FakeObject(0);
+  }
+
+  static final mutation = Mutation<FakeObject>();
 }

@@ -1,4 +1,5 @@
 import 'package:riverpod/misc.dart';
+import 'package:talker/talker.dart';
 
 class TalkerRiverpodLoggerSettings {
   const TalkerRiverpodLoggerSettings({
@@ -16,6 +17,14 @@ class TalkerRiverpodLoggerSettings {
     this.didFailFilter,
     this.didFailMutationFilter,
     this.providerFilter,
+    this.providerAddedLevel = LogLevel.debug,
+    this.providerUpdatedLevel = LogLevel.debug,
+    this.providerDisposedLevel = LogLevel.debug,
+    this.providerFailedLevel = LogLevel.error,
+    this.mutationStartLevel = LogLevel.debug,
+    this.mutationSuccessLevel = LogLevel.debug,
+    this.mutationFailedLevel = LogLevel.error,
+    this.mutationResetLevel = LogLevel.debug,
   });
 
   final bool enabled;
@@ -32,4 +41,12 @@ class TalkerRiverpodLoggerSettings {
   final bool Function(Object error)? didFailFilter;
   final bool Function(Object? error)? didFailMutationFilter;
   final bool Function(ProviderBase<Object?> provider)? providerFilter;
+  final LogLevel providerAddedLevel;
+  final LogLevel providerUpdatedLevel;
+  final LogLevel providerDisposedLevel;
+  final LogLevel providerFailedLevel;
+  final LogLevel mutationStartLevel;
+  final LogLevel mutationSuccessLevel;
+  final LogLevel mutationFailedLevel;
+  final LogLevel mutationResetLevel;
 }

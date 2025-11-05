@@ -1,12 +1,13 @@
 // ignore_for_file: invalid_use_of_protected_member, override_on_non_overriding_member
 
+import 'package:riverpod/experimental/mutation.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('TalkerRiverpodObserver tests', () {
+  group('TalkerRiverpodObserver', () {
     late Talker talker;
     late ProviderContainer container;
 
@@ -19,6 +20,7 @@ void main() {
         settings: TalkerRiverpodLoggerSettings(
           enabled: true,
           printProviderDisposed: true,
+          printMutationReset: true,
         ),
       );
 
@@ -71,6 +73,66 @@ void main() {
       }
       final log = talker.history.first;
       expect(log.generateTextMessage(), contains('failed'));
+    });
+
+    test('mutationError', () async {
+      container.listen(testProvider, (previous, next) {});
+      container.listen(TestNotifier.failMutation, (previous, next) {});
+
+      try {
+        await TestNotifier.failMutation.run(container, (transaction) async {
+          transaction.get(testProvider.notifier).fail();
+        });
+      } catch (_) {}
+
+      final log = talker.history.last;
+      expect(log.generateTextMessage(), contains('failed'));
+    });
+
+    test('mutationReset', () async {
+      container.listen(testProvider, (previous, next) {});
+      container.listen(TestNotifier.mutation, (previous, next) {});
+
+      await TestNotifier.mutation.run(container, (transaction) async {
+        return transaction.get(testProvider.notifier).changeState("Some State");
+      });
+
+      TestNotifier.mutation.reset(container);
+
+      final log = talker.history.last;
+      expect(log.generateTextMessage(), contains('reset'));
+    });
+
+    test('mutationStart', () async {
+      container.listen(testProvider, (previous, next) {});
+      container.listen(TestNotifier.mutation, (previous, next) {});
+
+      await TestNotifier.mutation.run(container, (transaction) async {
+        return transaction
+            .get(testProvider.notifier)
+            .changeState("Some mutated state");
+      });
+
+      final logs = talker.history.map((e) => e.generateTextMessage());
+      expect(logs, anyElement(contains('started')));
+    });
+
+    test('mutationSuccess', () async {
+      container.listen(testProvider, (previous, next) {});
+      container.listen(TestNotifier.mutation, (previous, next) {});
+
+      await TestNotifier.mutation.run(container, (transaction) async {
+        return transaction
+            .get(testProvider.notifier)
+            .changeState("Some mutated state");
+      });
+
+      final logs = talker.history.map((e) => e.generateTextMessage());
+      expect(logs, anyElement(contains('succeeded')));
+      expect(
+        logs,
+        anyElement(contains("Mutated Initial State to Some mutated state!")),
+      );
     });
 
     group('with arguments', () {
@@ -149,7 +211,71 @@ void main() {
         final log = talker.history;
         expect(log.whereType<RiverpodFailLog>(), isEmpty);
       });
+
+      test('mutationError', () async {
+        const arg = "99";
+        container.listen(familyProvider(arg), (previous, next) {});
+        container.listen(FamilyTestNotifier.failMutation, (previous, next) {});
+
+        try {
+          await FamilyTestNotifier.failMutation.run(container, (ref) async {
+            ref.get(familyProvider(arg).notifier).fail();
+          });
+        } catch (_) {}
+
+        final log = talker.history.last;
+        expect(log.generateTextMessage(), contains('failed'));
+      });
+
+      test('mutationReset', () async {
+        const arg = "99";
+        container.listen(familyProvider(arg), (previous, next) {});
+        container.listen(FamilyTestNotifier.mutation, (previous, next) {});
+
+        await FamilyTestNotifier.mutation.run(container, (ref) async {
+          return ref
+              .get(familyProvider(arg).notifier)
+              .changeState("Some State");
+        });
+
+        FamilyTestNotifier.mutation.reset(container);
+
+        final log = talker.history.last;
+        expect(log.generateTextMessage(), contains('reset'));
+      });
+
+      test('mutationStart', () async {
+        const arg = "99";
+        container.listen(familyProvider(arg), (previous, next) {});
+        container.listen(FamilyTestNotifier.mutation, (previous, next) {});
+
+        await FamilyTestNotifier.mutation.run(container, (transaction) async {
+          return transaction
+              .get(familyProvider(arg).notifier)
+              .changeState("Some mutated state");
+        });
+
+        final logs = talker.history.map((e) => e.generateTextMessage());
+        expect(logs, anyElement(contains('started')));
+      });
+
+      test('mutationSuccess', () async {
+        const arg = "99";
+        container.listen(familyProvider(arg), (previous, next) {});
+        container.listen(FamilyTestNotifier.mutation, (previous, next) {});
+
+        await FamilyTestNotifier.mutation.run(container, (transaction) async {
+          return transaction
+              .get(familyProvider(arg).notifier)
+              .changeState("Some mutated state");
+        });
+
+        final logs = talker.history.map((e) => e.generateTextMessage());
+        expect(logs, anyElement(contains('succeeded')));
+        expect(logs, anyElement(contains("Mutated 2 to 18!")));
+      });
     });
+    // HERE
   });
 }
 
@@ -159,8 +285,16 @@ class TestNotifier extends Notifier<String> {
     return "Initial State";
   }
 
-  void changeState(String newState) {
-    state = "Updated State";
+  static final mutation = Mutation<String>();
+  String changeState(String newState) {
+    final old = state;
+    state = newState;
+    return "Mutated $old to $state!";
+  }
+
+  static final failMutation = Mutation<void>();
+  void fail() {
+    throw Exception("Failure in TestNotifier");
   }
 }
 
@@ -177,8 +311,17 @@ class FamilyTestNotifier extends Notifier<int> {
     return arg.length;
   }
 
-  void changeState(String newState) {
+  static final mutation = Mutation<String>();
+
+  String changeState(String newState) {
+    final old = state;
     state = newState.length;
+    return "Mutated $old to $state!";
+  }
+
+  static final failMutation = Mutation<void>();
+  void fail() {
+    throw Exception("Failure in FamilyTestNotifier with arg: $arg");
   }
 }
 

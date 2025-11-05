@@ -25,9 +25,7 @@ class RiverpodAddLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-      '\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}',
-    );
+    sb.write('\n${'INITIAL state: ${_printData(settings, value)}'}');
     return sb.toString();
   }
 }
@@ -56,12 +54,8 @@ class RiverpodUpdateLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-      '\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}',
-    );
-    sb.write(
-      '\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}',
-    );
+    sb.write('\n${'PREVIOUS state: ${_printData(settings, previousValue)}'}');
+    sb.write('\n${'NEW state: ${_printData(settings, newValue)}'}');
     return sb.toString();
   }
 }
@@ -112,7 +106,7 @@ class RiverpodFailLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write('\n${'ERROR: \n$providerError'}');
+    sb.write('\n${'ERROR: \n${_printFail(settings, providerError)}'}');
     sb.write('\n${'STACK TRACE: \n$providerStackTrace'}');
     return sb.toString();
   }
@@ -144,7 +138,7 @@ class RiverpodMutationErrorLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write('\n${'ERROR: \n$mutationError'}');
+    sb.write('\n${'ERROR: \n${_printFail(settings, mutationError)}'}');
     sb.write('\n${'STACK TRACE: \n$mutationStackTrace'}');
     return sb.toString();
   }
@@ -226,9 +220,20 @@ class RiverpodMutationSuccessLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-      '\n${'RESULT: ${settings.printStateFullData ? '\n$result' : result.runtimeType}'}',
-    );
+    sb.write('\n${'RESULT: ${_printData(settings, result)}'}');
     return sb.toString();
   }
+}
+
+String _printData(
+  TalkerRiverpodLoggerSettings settings,
+  Object? previousValue,
+) {
+  return settings.printStateFullData
+      ? "\n$previousValue"
+      : "${previousValue.runtimeType}";
+}
+
+String _printFail(TalkerRiverpodLoggerSettings settings, Object? fail) {
+  return settings.printFailFullData ? "\n$fail" : "${fail.runtimeType}";
 }

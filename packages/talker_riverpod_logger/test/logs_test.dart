@@ -152,21 +152,19 @@ void main() {
 
       expect(message, contains('some-name'));
     });
-    // currently not implemented. see issue #433
-    // once fixed, uncomment this test
-    // test('shows limited info with printFailFullData: false', () {
-    //   final settings = TalkerRiverpodLoggerSettings(printFailFullData: false);
-    //   final log = RiverpodFailLog(
-    //     provider: provider,
-    //     settings: settings,
-    //     providerError: exception,
-    //     providerStackTrace: stackTrace,
-    //   );
+    test('shows limited info with printFailFullData: false', () {
+      final settings = TalkerRiverpodLoggerSettings(printFailFullData: false);
+      final log = RiverpodFailLog(
+        provider: provider,
+        settings: settings,
+        providerError: exception,
+        providerStackTrace: stackTrace,
+      );
 
-    //   final message = log.generateTextMessage();
-    //   expect(message, contains(exception.runtimeType.toString()));
-    //   expect(message, isNot(contains(FakeException.message)));
-    // });
+      final message = log.generateTextMessage();
+      expect(message, contains(exception.runtimeType.toString()));
+      expect(message, isNot(contains(FakeException.message)));
+    });
   });
   group('RiverpodMutationErrorLog', () {
     test('sets values correctly', () {
@@ -201,22 +199,20 @@ void main() {
 
       expect(message, contains('some-name'));
     });
-    // currently not implemented. see issue #433
-    // once fixed, uncomment this test
-    // test('shows limited info with printFailFullData: false', () {
-    //   final settings = TalkerRiverpodLoggerSettings(printFailFullData: false);
-    //   final log = RiverpodMutationErrorLog(
-    //     provider: namedProvider,
-    //     mutation: mutation,
-    //     mutationError: exception,
-    //     mutationStackTrace: stackTrace,
-    //     settings: settings,
-    //   );
+    test('shows limited info with printFailFullData: false', () {
+      final settings = TalkerRiverpodLoggerSettings(printFailFullData: false);
+      final log = RiverpodMutationErrorLog(
+        provider: namedProvider,
+        mutation: mutation,
+        mutationError: exception,
+        mutationStackTrace: stackTrace,
+        settings: settings,
+      );
 
-    //   final message = log.generateTextMessage();
-    //   expect(message, contains(exception.runtimeType.toString()));
-    //   expect(message, isNot(contains(FakeException.message)));
-    // });
+      final message = log.generateTextMessage();
+      expect(message, contains(exception.runtimeType.toString()));
+      expect(message, isNot(contains(FakeException.message)));
+    });
   });
   group('RiverpodMutationResetLog', () {
     test('sets values correctly', () {

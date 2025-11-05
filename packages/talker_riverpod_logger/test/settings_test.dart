@@ -12,7 +12,13 @@ void main() {
       expect(settings.printProviderDisposed, false);
       expect(settings.printProviderFailed, true);
       expect(settings.printStateFullData, true);
+      expect(settings.printFailFullData, true);
+      expect(settings.printMutationFailed, true);
+      expect(settings.printMutationReset, false);
+      expect(settings.printMutationStart, true);
+      expect(settings.printMutationSuccess, true);
       expect(settings.providerFilter, isNull);
+      expect(settings.didFailFilter, isNull);
     });
 
     test('Custom settings', () {
@@ -23,7 +29,13 @@ void main() {
         printProviderDisposed: true,
         printProviderFailed: false,
         printStateFullData: false,
+        printFailFullData: false,
+        printMutationFailed: true,
+        printMutationReset: true,
+        printMutationStart: false,
+        printMutationSuccess: false,
         providerFilter: (provider) => true,
+        didFailFilter: (error) => false,
       );
 
       expect(settings.enabled, false);
@@ -32,7 +44,13 @@ void main() {
       expect(settings.printProviderDisposed, true);
       expect(settings.printProviderFailed, false);
       expect(settings.printStateFullData, false);
+      expect(settings.printFailFullData, false);
+      expect(settings.printMutationFailed, true);
+      expect(settings.printMutationReset, true);
+      expect(settings.printMutationStart, false);
+      expect(settings.printMutationSuccess, false);
       expect(settings.providerFilter, isNotNull);
+      expect(settings.didFailFilter, isNotNull);
     });
   });
 }

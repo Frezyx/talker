@@ -164,7 +164,6 @@ void main() {
         expect(generateTextMessage, contains("($arg)"));
         expect(generateTextMessage, contains('disposed'));
       });
-
       test('providerDidFail', () async {
         const arg = "99";
         final sub = container.listen(
@@ -211,7 +210,6 @@ void main() {
         final log = talker.history;
         expect(log.whereType<RiverpodFailLog>(), isEmpty);
       });
-
       test('mutationError', () async {
         const arg = "99";
         container.listen(familyProvider(arg), (previous, next) {});
@@ -226,7 +224,6 @@ void main() {
         final log = talker.history.last;
         expect(log.generateTextMessage(), contains('failed'));
       });
-
       test('mutationReset', () async {
         const arg = "99";
         container.listen(familyProvider(arg), (previous, next) {});
@@ -243,7 +240,6 @@ void main() {
         final log = talker.history.last;
         expect(log.generateTextMessage(), contains('reset'));
       });
-
       test('mutationStart', () async {
         const arg = "99";
         container.listen(familyProvider(arg), (previous, next) {});
@@ -258,7 +254,6 @@ void main() {
         final logs = talker.history.map((e) => e.generateTextMessage());
         expect(logs, anyElement(contains('started')));
       });
-
       test('mutationSuccess', () async {
         const arg = "99";
         container.listen(familyProvider(arg), (previous, next) {});
@@ -275,7 +270,6 @@ void main() {
         expect(logs, anyElement(contains("Mutated 2 to 18!")));
       });
     });
-    // HERE
   });
 }
 

@@ -30,6 +30,10 @@ abstract class TalkerKey {
   static const riverpodUpdate = 'riverpod-update';
   static const riverpodDispose = 'riverpod-dispose';
   static const riverpodFail = 'riverpod-fail';
+  static const riverpodMutationStart = 'riverpod-mutation-start';
+  static const riverpodMutationSuccess = 'riverpod-mutation-success';
+  static const riverpodMutationFailed = 'riverpod-mutation-failed';
+  static const riverpodMutationReset = 'riverpod-mutation-reset';
 
   /// grpc section
   static const grpcRequest = 'grpc-request';

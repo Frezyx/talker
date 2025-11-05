@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('RiverpodAddLog', () {
-    test('Constructor should set values correctly', () {
+    test('sets values correctly', () {
       final fakeProvider = StateProvider((ref) => 0);
       final fakeValue = Object();
       final fakeSettings = TalkerRiverpodLoggerSettings();
@@ -26,10 +26,7 @@ void main() {
       expect(message, isNotEmpty);
       expect(message, contains('initialized'));
     });
-  });
-
-  group('RiverpodAddLog with name', () {
-    test('Constructor should set values correctly', () {
+    test('shows provider name if set', () {
       final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakeValue = Object();
       final fakeSettings = TalkerRiverpodLoggerSettings();
@@ -54,7 +51,7 @@ void main() {
   });
 
   group('RiverpodUpdateLog', () {
-    test('Constructor should set values correctly', () {
+    test('sets values correctly', () {
       final fakeProvider = StateProvider((ref) => 0);
       final fakePreviousValue = Object();
       final fakeNewValue = Object();
@@ -78,10 +75,7 @@ void main() {
       expect(message, isNotEmpty);
       expect(message, contains('updated'));
     });
-  });
-
-  group('RiverpodUpdateLog with name', () {
-    test('Constructor should set values correctly', () {
+    test('shows provider name if set', () {
       final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakePreviousValue = Object();
       final fakeNewValue = Object();
@@ -109,7 +103,7 @@ void main() {
   });
 
   group('RiverpodDisposeLog', () {
-    test('Constructor should set values correctly', () {
+    test('sets values correctly', () {
       final fakeProvider = StateProvider((ref) => 0);
       final fakeSettings = TalkerRiverpodLoggerSettings();
 
@@ -127,10 +121,7 @@ void main() {
       expect(message, isNotEmpty);
       expect(message, contains('disposed'));
     });
-  });
-
-  group('RiverpodDisposeLog with name', () {
-    test('Constructor should set values correctly', () {
+    test('shows provider name if set', () {
       final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakeSettings = TalkerRiverpodLoggerSettings();
 
@@ -152,7 +143,7 @@ void main() {
   });
 
   group('RiverpodFailLog', () {
-    test('Constructor should set values correctly', () {
+    test('sets values correctly', () {
       final fakeProvider = StateProvider((ref) => 0);
       final fakeError = Object();
       final fakeStackTrace = StackTrace.empty;
@@ -175,10 +166,7 @@ void main() {
       expect(message, isNotEmpty);
       expect(message, contains('failed'));
     });
-  });
-
-  group('RiverpodFailLog with name', () {
-    test('Constructor should set values correctly', () {
+    test('shows provider name if set', () {
       final fakeProvider = StateProvider((ref) => 0, name: 'fakeProvider');
       final fakeError = Object();
       final fakeStackTrace = StackTrace.empty;

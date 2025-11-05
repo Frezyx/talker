@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:riverpod/src/framework.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
@@ -106,6 +106,105 @@ base class TalkerRiverpodObserver extends ProviderObserver {
         provider: context.provider,
         providerError: error,
         providerStackTrace: stackTrace,
+        settings: settings,
+      ),
+    );
+  }
+
+  @override
+  @mustCallSuper
+  void mutationError(
+    ProviderObserverContext context,
+    Mutation<Object?> mutation,
+    Object error,
+    StackTrace stackTrace,
+  ) {
+    super.mutationError(context, mutation, error, stackTrace);
+    if (!settings.enabled || !settings.printMutationFailed) return;
+
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
+    if (!accepted) return;
+
+    try {
+      final filtered = settings.didFailMutationFilter?.call(error) ?? true;
+      if (!filtered) return;
+    } catch (_) {
+      return;
+    }
+
+    _talker.logCustom(
+      RiverpodMutationErrorLog(
+        provider: context.provider,
+        mutation: mutation,
+        mutationError: error,
+        mutationStackTrace: stackTrace,
+        settings: settings,
+      ),
+    );
+  }
+
+  @override
+  @mustCallSuper
+  void mutationReset(
+    ProviderObserverContext context,
+    Mutation<Object?> mutation,
+  ) {
+    super.mutationReset(context, mutation);
+    if (!settings.enabled || !settings.printMutationReset) return;
+
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
+    if (!accepted) return;
+
+    _talker.logCustom(
+      RiverpodMutationResetLog(
+        provider: context.provider,
+        mutation: mutation,
+        settings: settings,
+      ),
+    );
+  }
+
+  @override
+  @mustCallSuper
+  void mutationStart(
+    ProviderObserverContext context,
+    Mutation<Object?> mutation,
+  ) {
+    super.mutationStart(context, mutation);
+
+    if (!settings.enabled || !settings.printMutationStart) return;
+
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
+    if (!accepted) return;
+
+    _talker.logCustom(
+      RiverpodMutationStartLog(
+        provider: context.provider,
+        mutation: mutation,
+        settings: settings,
+      ),
+    );
+  }
+
+  @override
+  @mustCallSuper
+  void mutationSuccess(
+    ProviderObserverContext context,
+    Mutation<Object?> mutation,
+    Object? result,
+  ) {
+    super.mutationSuccess(context, mutation, result);
+
+    if (!settings.enabled || !settings.printMutationSuccess) return;
+
+    final accepted = settings.providerFilter?.call(context.provider) ?? true;
+    if (!accepted) return;
+
+    _talker.logCustom(
+      RiverpodMutationSuccessLog(
+        provider: context.provider,
+        mutation: mutation,
+        result: result,
         settings: settings,
       ),
     );

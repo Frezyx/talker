@@ -9,7 +9,7 @@ class RiverpodAddLog extends TalkerLog {
     required this.provider,
     required this.value,
     required this.settings,
-  }) : super("$provider initialized");
+  }) : super("$provider initialized", logLevel: settings.providerAddedLevel);
 
   final ProviderBase<Object?> provider;
   final Object? value;
@@ -37,7 +37,7 @@ class RiverpodUpdateLog extends TalkerLog {
     required this.previousValue,
     required this.newValue,
     required this.settings,
-  }) : super("$provider updated");
+  }) : super("$provider updated", logLevel: settings.providerUpdatedLevel);
 
   final ProviderBase<Object?> provider;
   final Object? previousValue;
@@ -63,7 +63,7 @@ class RiverpodUpdateLog extends TalkerLog {
 /// [Riverpod] dispose provider log model
 class RiverpodDisposeLog extends TalkerLog {
   RiverpodDisposeLog({required this.provider, required this.settings})
-    : super("$provider disposed");
+    : super("$provider disposed", logLevel: settings.providerDisposedLevel);
 
   final ProviderBase<Object?> provider;
   final TalkerRiverpodLoggerSettings settings;
@@ -89,7 +89,7 @@ class RiverpodFailLog extends TalkerLog {
     required this.providerError,
     required this.providerStackTrace,
     required this.settings,
-  }) : super("$provider failed");
+  }) : super("$provider failed", logLevel: settings.providerFailedLevel);
 
   final ProviderBase<Object?> provider;
   final Object providerError;
@@ -120,7 +120,10 @@ class RiverpodMutationErrorLog extends TalkerLog {
     required this.mutationError,
     required this.mutationStackTrace,
     required this.settings,
-  }) : super("$mutation of $provider failed");
+  }) : super(
+         "$mutation of $provider failed",
+         logLevel: settings.mutationFailedLevel,
+       );
 
   @override
   String? get key => TalkerKey.riverpodMutationFailed;
@@ -150,7 +153,10 @@ class RiverpodMutationResetLog extends TalkerLog {
     required this.provider,
     required this.mutation,
     required this.settings,
-  }) : super("$mutation of $provider reset");
+  }) : super(
+         "$mutation of $provider reset",
+         logLevel: settings.mutationResetLevel,
+       );
 
   @override
   String? get key => TalkerKey.riverpodMutationReset;
@@ -176,7 +182,10 @@ class RiverpodMutationStartLog extends TalkerLog {
     required this.provider,
     required this.mutation,
     required this.settings,
-  }) : super("$mutation of $provider started");
+  }) : super(
+         "$mutation of $provider started",
+         logLevel: settings.mutationStartLevel,
+       );
 
   @override
   String? get key => TalkerKey.riverpodMutationStart;
@@ -203,7 +212,10 @@ class RiverpodMutationSuccessLog extends TalkerLog {
     required this.mutation,
     required this.result,
     required this.settings,
-  }) : super("$mutation of $provider succeeded");
+  }) : super(
+         "$mutation of $provider succeeded",
+         logLevel: settings.mutationSuccessLevel,
+       );
 
   @override
   String? get key => TalkerKey.riverpodMutationSuccess;

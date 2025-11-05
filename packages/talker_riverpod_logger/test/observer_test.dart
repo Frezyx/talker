@@ -14,7 +14,12 @@ void main() {
     late TalkerRiverpodObserver talkerRiverpodObserver;
 
     setUp(() {
-      talker = Talker(settings: TalkerSettings(useConsoleLogs: false));
+      talker = Talker(
+        settings: TalkerSettings(useConsoleLogs: false),
+        logger: TalkerLogger(
+          settings: TalkerLoggerSettings(level: LogLevel.verbose),
+        ),
+      );
       talkerRiverpodObserver = TalkerRiverpodObserver(
         talker: talker,
         settings: TalkerRiverpodLoggerSettings(
@@ -42,7 +47,6 @@ void main() {
         contains(expectedState),
       );
     });
-
     test('didUpdateProvider', () async {
       final input = 'Updated State';
 
@@ -53,7 +57,6 @@ void main() {
       final log = talker.history.last;
       expect(log.generateTextMessage(), contains(input));
     });
-
     test('didDisposeProvider', () async {
       container.read(testProvider);
 
@@ -62,7 +65,6 @@ void main() {
       final log = talker.history.last;
       expect(log.generateTextMessage(), contains('disposed'));
     });
-
     test('providerDidFail', () async {
       final sub = container.listen(errorProvider.future, (previous, next) {});
       try {
@@ -74,7 +76,6 @@ void main() {
       final log = talker.history.first;
       expect(log.generateTextMessage(), contains('failed'));
     });
-
     test('mutationError', () async {
       container.listen(testProvider, (previous, next) {});
       container.listen(TestNotifier.failMutation, (previous, next) {});
@@ -88,7 +89,6 @@ void main() {
       final log = talker.history.last;
       expect(log.generateTextMessage(), contains('failed'));
     });
-
     test('mutationReset', () async {
       container.listen(testProvider, (previous, next) {});
       container.listen(TestNotifier.mutation, (previous, next) {});
@@ -102,7 +102,6 @@ void main() {
       final log = talker.history.last;
       expect(log.generateTextMessage(), contains('reset'));
     });
-
     test('mutationStart', () async {
       container.listen(testProvider, (previous, next) {});
       container.listen(TestNotifier.mutation, (previous, next) {});
@@ -116,7 +115,6 @@ void main() {
       final logs = talker.history.map((e) => e.generateTextMessage());
       expect(logs, anyElement(contains('started')));
     });
-
     test('mutationSuccess', () async {
       container.listen(testProvider, (previous, next) {});
       container.listen(TestNotifier.mutation, (previous, next) {});
@@ -268,6 +266,114 @@ void main() {
         final logs = talker.history.map((e) => e.generateTextMessage());
         expect(logs, anyElement(contains('succeeded')));
         expect(logs, anyElement(contains("Mutated 2 to 18!")));
+      });
+    });
+
+    group('with different log levels', () {
+      setUp(() {
+        talker = Talker(
+          settings: TalkerSettings(useConsoleLogs: false),
+          logger: TalkerLogger(
+            settings: TalkerLoggerSettings(level: LogLevel.error),
+          ),
+        );
+        talkerRiverpodObserver = TalkerRiverpodObserver(
+          talker: talker,
+          settings: TalkerRiverpodLoggerSettings(
+            enabled: true,
+            printMutationReset: true,
+            mutationResetLevel: LogLevel.warning,
+          ),
+        );
+
+        container = ProviderContainer.test(
+          observers: [talkerRiverpodObserver],
+          retry: (retryCount, error) => null,
+        );
+      });
+
+      test('didAddProvider', () {
+        container.read(testProvider);
+        expect(talker.history, isEmpty);
+      });
+      test('didUpdateProvider', () async {
+        final input = 'Updated State';
+
+        container.listen(testProvider, (previous, next) {});
+        container.read(testProvider);
+        container.read(testProvider.notifier).changeState(input);
+
+        expect(talker.history, isEmpty);
+      });
+      test('didDisposeProvider', () async {
+        container.read(testProvider);
+
+        await container.pump();
+
+        expect(talker.history, isEmpty);
+      });
+      test('providerDidFail', () async {
+        final sub = container.listen(errorProvider.future, (previous, next) {});
+        try {
+          final _ = await sub.read();
+        } catch (_) {
+        } finally {
+          sub.close();
+        }
+        final log = talker.history.single;
+        expect(log.generateTextMessage(), contains('failed'));
+      });
+      test('mutationError', () async {
+        container.listen(testProvider, (previous, next) {});
+        container.listen(TestNotifier.failMutation, (previous, next) {});
+
+        try {
+          await TestNotifier.failMutation.run(container, (transaction) async {
+            transaction.get(testProvider.notifier).fail();
+          });
+        } catch (_) {}
+
+        final log = talker.history.single;
+        expect(log.generateTextMessage(), contains('failed'));
+      });
+      test('mutationReset', () async {
+        container.listen(testProvider, (previous, next) {});
+        container.listen(TestNotifier.mutation, (previous, next) {});
+
+        await TestNotifier.mutation.run(container, (transaction) async {
+          return transaction
+              .get(testProvider.notifier)
+              .changeState("Some State");
+        });
+
+        TestNotifier.mutation.reset(container);
+
+        final logs = talker.history;
+        expect(logs, isEmpty);
+      });
+      test('mutationStart', () async {
+        container.listen(testProvider, (previous, next) {});
+        container.listen(TestNotifier.mutation, (previous, next) {});
+
+        await TestNotifier.mutation.run(container, (transaction) async {
+          return transaction
+              .get(testProvider.notifier)
+              .changeState("Some mutated state");
+        });
+
+        expect(talker.history, isEmpty);
+      });
+      test('mutationSuccess', () async {
+        container.listen(testProvider, (previous, next) {});
+        container.listen(TestNotifier.mutation, (previous, next) {});
+
+        await TestNotifier.mutation.run(container, (transaction) async {
+          return transaction
+              .get(testProvider.notifier)
+              .changeState("Some mutated state");
+        });
+
+        expect(talker.history, isEmpty);
       });
     });
   });

@@ -9,7 +9,12 @@ class TalkerRiverpodLoggerSettings {
     this.printProviderFailed = true,
     this.printStateFullData = true,
     this.printFailFullData = true,
+    this.printMutationFailed = true,
+    this.printMutationReset = false,
+    this.printMutationStart = true,
+    this.printMutationSuccess = true,
     this.didFailFilter,
+    this.didFailMutationFilter,
     this.providerFilter,
   });
 
@@ -20,6 +25,11 @@ class TalkerRiverpodLoggerSettings {
   final bool printProviderFailed;
   final bool printStateFullData;
   final bool printFailFullData;
+  final bool printMutationFailed;
+  final bool printMutationReset;
+  final bool printMutationStart;
+  final bool printMutationSuccess;
   final bool Function(Object error)? didFailFilter;
+  final bool Function(Object? error)? didFailMutationFilter;
   final bool Function(ProviderBase<Object?> provider)? providerFilter;
 }

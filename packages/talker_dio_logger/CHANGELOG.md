@@ -1,3 +1,8 @@
+# 5.1.0
+- [talker_riverpod_logger] Riverpod 3 mutations support
+
+Thanks to [lucavenir](https://github.com/lucavenir)
+
 # 5.0.2
 - [talker_riverpod_logger] Bump riverpod version to 3.0.0
 - adopt Riverpod 3 provider observer signatures with ProviderObserverContext

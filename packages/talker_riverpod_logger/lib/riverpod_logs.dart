@@ -1,13 +1,7 @@
+import 'package:riverpod/experimental/mutation.dart';
 import 'package:riverpod/misc.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
-
-String _defaultMessage({
-  required ProviderBase<Object?> provider,
-  required String suffix,
-}) {
-  return "$provider $suffix";
-}
 
 /// [Riverpod] add provider log model
 class RiverpodAddLog extends TalkerLog {
@@ -15,7 +9,7 @@ class RiverpodAddLog extends TalkerLog {
     required this.provider,
     required this.value,
     required this.settings,
-  }) : super(_defaultMessage(provider: provider, suffix: 'initialized'));
+  }) : super("$provider initialized", logLevel: settings.providerAddedLevel);
 
   final ProviderBase<Object?> provider;
   final Object? value;
@@ -31,9 +25,7 @@ class RiverpodAddLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-      '\n${'INITIAL state: ${settings.printStateFullData ? '\n$value' : value.runtimeType}'}',
-    );
+    sb.write('\n${'INITIAL state: ${_printData(settings, value)}'}');
     return sb.toString();
   }
 }
@@ -45,7 +37,7 @@ class RiverpodUpdateLog extends TalkerLog {
     required this.previousValue,
     required this.newValue,
     required this.settings,
-  }) : super(_defaultMessage(provider: provider, suffix: 'updated'));
+  }) : super("$provider updated", logLevel: settings.providerUpdatedLevel);
 
   final ProviderBase<Object?> provider;
   final Object? previousValue;
@@ -62,12 +54,8 @@ class RiverpodUpdateLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write(
-      '\n${'PREVIOUS state: ${settings.printStateFullData ? '\n$previousValue' : previousValue.runtimeType}'}',
-    );
-    sb.write(
-      '\n${'NEW state: ${settings.printStateFullData ? '\n$newValue' : newValue.runtimeType}'}',
-    );
+    sb.write('\n${'PREVIOUS state: ${_printData(settings, previousValue)}'}');
+    sb.write('\n${'NEW state: ${_printData(settings, newValue)}'}');
     return sb.toString();
   }
 }
@@ -75,7 +63,7 @@ class RiverpodUpdateLog extends TalkerLog {
 /// [Riverpod] dispose provider log model
 class RiverpodDisposeLog extends TalkerLog {
   RiverpodDisposeLog({required this.provider, required this.settings})
-    : super(_defaultMessage(provider: provider, suffix: 'disposed'));
+    : super("$provider disposed", logLevel: settings.providerDisposedLevel);
 
   final ProviderBase<Object?> provider;
   final TalkerRiverpodLoggerSettings settings;
@@ -101,7 +89,7 @@ class RiverpodFailLog extends TalkerLog {
     required this.providerError,
     required this.providerStackTrace,
     required this.settings,
-  }) : super(_defaultMessage(provider: provider, suffix: 'failed'));
+  }) : super("$provider failed", logLevel: settings.providerFailedLevel);
 
   final ProviderBase<Object?> provider;
   final Object providerError;
@@ -118,8 +106,146 @@ class RiverpodFailLog extends TalkerLog {
     final sb = StringBuffer();
     sb.write(displayTitleWithTime(timeFormat: timeFormat));
     sb.write('\n$message');
-    sb.write('\n${'ERROR: \n$providerError'}');
+    sb.write('\n${'ERROR: \n${_printFail(settings, providerError)}'}');
     sb.write('\n${'STACK TRACE: \n$providerStackTrace'}');
     return sb.toString();
   }
+}
+
+/// [Riverpod] mutation error log model
+class RiverpodMutationErrorLog extends TalkerLog {
+  RiverpodMutationErrorLog({
+    required this.provider,
+    required this.mutation,
+    required this.mutationError,
+    required this.mutationStackTrace,
+    required this.settings,
+  }) : super(
+         "$mutation of $provider failed",
+         logLevel: settings.mutationFailedLevel,
+       );
+
+  @override
+  String? get key => TalkerKey.riverpodMutationFailed;
+
+  final ProviderBase<Object?> provider;
+  final Mutation<Object?> mutation;
+  final Object mutationError;
+  final StackTrace mutationStackTrace;
+  final TalkerRiverpodLoggerSettings settings;
+
+  @override
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
+    sb.write('\n$message');
+    sb.write('\n${'ERROR: \n${_printFail(settings, mutationError)}'}');
+    sb.write('\n${'STACK TRACE: \n$mutationStackTrace'}');
+    return sb.toString();
+  }
+}
+
+/// [Riverpod] mutation reset log model
+class RiverpodMutationResetLog extends TalkerLog {
+  RiverpodMutationResetLog({
+    required this.provider,
+    required this.mutation,
+    required this.settings,
+  }) : super(
+         "$mutation of $provider reset",
+         logLevel: settings.mutationResetLevel,
+       );
+
+  @override
+  String? get key => TalkerKey.riverpodMutationReset;
+
+  final ProviderBase<Object?> provider;
+  final Mutation<Object?> mutation;
+  final TalkerRiverpodLoggerSettings settings;
+
+  @override
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
+    sb.write('\n$message');
+    return sb.toString();
+  }
+}
+
+/// [Riverpod] mutation start log model
+class RiverpodMutationStartLog extends TalkerLog {
+  RiverpodMutationStartLog({
+    required this.provider,
+    required this.mutation,
+    required this.settings,
+  }) : super(
+         "$mutation of $provider started",
+         logLevel: settings.mutationStartLevel,
+       );
+
+  @override
+  String? get key => TalkerKey.riverpodMutationStart;
+
+  final ProviderBase<Object?> provider;
+  final Mutation<Object?> mutation;
+  final TalkerRiverpodLoggerSettings settings;
+
+  @override
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
+    sb.write('\n$message');
+    return sb.toString();
+  }
+}
+
+/// [Riverpod] mutation success log model
+class RiverpodMutationSuccessLog extends TalkerLog {
+  RiverpodMutationSuccessLog({
+    required this.provider,
+    required this.mutation,
+    required this.result,
+    required this.settings,
+  }) : super(
+         "$mutation of $provider succeeded",
+         logLevel: settings.mutationSuccessLevel,
+       );
+
+  @override
+  String? get key => TalkerKey.riverpodMutationSuccess;
+
+  final ProviderBase<Object?> provider;
+  final Mutation<Object?> mutation;
+  final Object? result;
+  final TalkerRiverpodLoggerSettings settings;
+
+  @override
+  String generateTextMessage({
+    TimeFormat timeFormat = TimeFormat.timeAndSeconds,
+  }) {
+    final sb = StringBuffer();
+    sb.write(displayTitleWithTime(timeFormat: timeFormat));
+    sb.write('\n$message');
+    sb.write('\n${'RESULT: ${_printData(settings, result)}'}');
+    return sb.toString();
+  }
+}
+
+String _printData(
+  TalkerRiverpodLoggerSettings settings,
+  Object? previousValue,
+) {
+  return settings.printStateFullData
+      ? "\n$previousValue"
+      : "${previousValue.runtimeType}";
+}
+
+String _printFail(TalkerRiverpodLoggerSettings settings, Object? fail) {
+  return settings.printFailFullData ? "\n$fail" : "${fail.runtimeType}";
 }

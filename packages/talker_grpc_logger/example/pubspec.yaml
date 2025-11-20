@@ -15,6 +15,6 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  protoc_plugin: ^23.0.0
+  protoc_plugin: 24.0.0
   lints: ^5.1.0
   test: ^1.24.0

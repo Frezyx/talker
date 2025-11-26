@@ -1,4 +1,4 @@
-5.0.2
 5.1.0
-[talker_riverpod_logger] Riverpod 3 mutations support 
-lucavenir
+5.1.1
+[talker] chore(deps): update kotlin monorepo 
+renovate

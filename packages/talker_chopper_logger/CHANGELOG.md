@@ -1,3 +1,9 @@
+# 5.1.1
+- [talker] chore(deps): update kotlin monorepo
+- [talker] Bump actions/checkout from 4 to 6
+
+Thanks to [renovate](https://github.com/renovate)
+
 # 5.1.0
 - [talker_riverpod_logger] Riverpod 3 mutations support
 

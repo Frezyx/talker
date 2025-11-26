@@ -70,6 +70,13 @@ final _defaultColors = {
   TalkerKey.blocClose: const Color(0xFFFF005F),
   TalkerKey.blocCreate: const Color.fromARGB(255, 120, 230, 129),
 
+  /// Drift section
+  TalkerKey.driftError: const Color.fromARGB(255, 239, 83, 80),
+  TalkerKey.driftQuery: const Color(0xFFF602C1),
+  TalkerKey.driftResult: const Color(0xFF26FF3C),
+  TalkerKey.driftTransaction: const Color(0xFFAF5FFF),
+  TalkerKey.driftBatch: const Color(0xFF56FEA8),
+
   /// Flutter section
   TalkerKey.route: const Color(0xFFAF5FFF),
 };

@@ -40,6 +40,12 @@ abstract class TalkerKey {
   static const grpcResponse = 'grpc-response';
   static const grpcError = 'grpc-error';
 
+  /// GraphQL section
+  static const graphqlRequest = 'graphql-request';
+  static const graphqlResponse = 'graphql-response';
+  static const graphqlError = 'graphql-error';
+  static const graphqlSubscription = 'graphql-subscription';
+
   /// Flutter section
   static const route = 'route';
 

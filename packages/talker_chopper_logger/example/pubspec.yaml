@@ -19,7 +19,7 @@ dev_dependencies:
   build_runner: ^2.4.15
   chopper_generator: ^8.1.0
   json_serializable: ^6.9.5
-  flutter_lints: ^5.1.1
+  flutter_lints: ^6.0.0
 
 dependency_overrides:
   talker_chopper_logger:

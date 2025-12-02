@@ -57,11 +57,12 @@ void main() {
 
       expect(talker.history.firstOrNull?.message, postRequest.url.toString());
       expect(talker.history.firstOrNull, isA<ChopperRequestLog>());
+      final message = talker.history.firstOrNull?.generateTextMessage();
       expect(
-        talker.history.firstOrNull?.generateTextMessage(),
+        message,
         '''[http-request] [POST] /test
 Headers: {
-  "content-type": "application/x-www-form-urlencoded; charset=utf-8"
+  "content-type": "application/x-www-form-urlencoded"
 }
 Data: foo=bar&baz=qux''',
       );

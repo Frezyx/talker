@@ -1,3 +1,8 @@
+# 5.1.2
+- [talker_chopper_logger] Fix tests and update example
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
 # 5.1.1
 - [talker] chore(deps): update kotlin monorepo
 - [talker] Bump actions/checkout from 4 to 6

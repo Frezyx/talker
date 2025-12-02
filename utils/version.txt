@@ -1,4 +1,4 @@
-5.1.0
 5.1.1
-[talker] chore(deps): update kotlin monorepo 
-renovate
+5.1.2
+[talker_chopper_logger] Fix tests and update example
+Frezyx

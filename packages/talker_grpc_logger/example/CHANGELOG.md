@@ -1,3 +1,8 @@
+# 5.1.3
+- [talker_flutter] Fix TalkerRouteObserver to log routes created with pageBuilder
+
+Thanks to [copilot-swe-agent[agent]](https://github.com/copilot-swe-agent[agent])
+
 # 5.1.2
 - [talker_chopper_logger] Fix tests and update example
 

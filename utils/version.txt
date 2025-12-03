@@ -1,4 +1,4 @@
-5.1.1
 5.1.2
-[talker_chopper_logger] Fix tests and update example
-Frezyx
+5.1.3
+[talker_flutter] Fix TalkerRouteObserver to log routes created with pageBuilder
+copilot-swe-agent[agent]

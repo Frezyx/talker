@@ -1,3 +1,8 @@
+# 5.1.4
+- [talker_flutter] Fix Share button on iOS bump share_plus dependency to version 12.0.1
+
+Thanks to [Memet18](https://github.com/Memet18)
+
 # 5.1.3
 - [talker_flutter] Fix TalkerRouteObserver to log routes created with pageBuilder
 

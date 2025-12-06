@@ -99,10 +99,14 @@ class DioResponseLog extends TalkerLog {
     String message, {
     required this.response,
     required this.settings,
-  }) : super(message);
+  })  : responseTime = _getResponseTime(response.requestOptions),
+        super(message);
 
   final Response<dynamic> response;
   final TalkerDioLoggerSettings settings;
+
+  /// Response time in milliseconds, calculated once when the log is created
+  final int? responseTime;
 
   @override
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
@@ -127,8 +131,6 @@ class DioResponseLog extends TalkerLog {
     msg += '\nStatus: ${response.statusCode}';
 
     if (settings.printResponseTime) {
-      final responseTime = _getResponseTime(response.requestOptions);
-
       if (responseTime != null) {
         msg += '\nTime: $responseTime ms';
       }
@@ -167,10 +169,14 @@ class DioErrorLog extends TalkerLog {
     String title, {
     required this.dioException,
     required this.settings,
-  }) : super(title);
+  })  : responseTime = _getResponseTime(dioException.requestOptions),
+        super(title);
 
   final DioException dioException;
   final TalkerDioLoggerSettings settings;
+
+  /// Response time in milliseconds, calculated once when the log is created
+  final int? responseTime;
 
   @override
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
@@ -197,8 +203,6 @@ class DioErrorLog extends TalkerLog {
     }
 
     if (settings.printResponseTime) {
-      final responseTime = _getResponseTime(dioException.requestOptions);
-
       if (responseTime != null) {
         msg += '\nTime: $responseTime ms';
       }

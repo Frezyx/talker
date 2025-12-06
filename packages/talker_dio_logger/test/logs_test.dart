@@ -214,6 +214,41 @@ void main() {
     });
 
     test(
+        'response time should remain consistent across multiple calls to generateTextMessage',
+        () async {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET', extra: {
+          TalkerDioLogger.kDioLogsTimeStampKey:
+              DateTime.now().millisecondsSinceEpoch - 100, // 100ms ago
+        }),
+        statusCode: 200,
+        statusMessage: 'OK',
+      );
+      final settings = TalkerDioLoggerSettings(printResponseTime: true);
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result1 = dioResponseLog.generateTextMessage();
+      await Future.delayed(Duration(milliseconds: 50));
+      final result2 = dioResponseLog.generateTextMessage();
+      await Future.delayed(Duration(milliseconds: 50));
+      final result3 = dioResponseLog.generateTextMessage();
+
+      // Extract time values from the results
+      final timeRegex = RegExp(r'Time: (\d+) ms');
+      final time1 = int.parse(timeRegex.firstMatch(result1)!.group(1)!);
+      final time2 = int.parse(timeRegex.firstMatch(result2)!.group(1)!);
+      final time3 = int.parse(timeRegex.firstMatch(result3)!.group(1)!);
+
+      // All three calls should return the same time value
+      expect(time1, equals(time2));
+      expect(time2, equals(time3));
+    });
+
+    test(
         'generateTextMessage error should include include response time if printResponseTime is true',
         () {
       final response = Response(
@@ -239,6 +274,38 @@ void main() {
       final result = dioErrorLog.generateTextMessage();
 
       expect(result, matches(RegExp(r'Time: \d+ ms')));
+    });
+
+    test(
+        'error response time should remain consistent across multiple calls to generateTextMessage',
+        () async {
+      final dioException = DioException(
+        requestOptions: RequestOptions(path: '/test', method: 'GET', extra: {
+          TalkerDioLogger.kDioLogsTimeStampKey:
+              DateTime.now().millisecondsSinceEpoch - 100, // 100ms ago
+        }),
+        message: 'Error message',
+      );
+
+      final settings = TalkerDioLoggerSettings(printResponseTime: true);
+      final dioErrorLog = DioErrorLog('Error title',
+          dioException: dioException, settings: settings);
+
+      final result1 = dioErrorLog.generateTextMessage();
+      await Future.delayed(Duration(milliseconds: 50));
+      final result2 = dioErrorLog.generateTextMessage();
+      await Future.delayed(Duration(milliseconds: 50));
+      final result3 = dioErrorLog.generateTextMessage();
+
+      // Extract time values from the results
+      final timeRegex = RegExp(r'Time: (\d+) ms');
+      final time1 = int.parse(timeRegex.firstMatch(result1)!.group(1)!);
+      final time2 = int.parse(timeRegex.firstMatch(result2)!.group(1)!);
+      final time3 = int.parse(timeRegex.firstMatch(result3)!.group(1)!);
+
+      // All three calls should return the same time value
+      expect(time1, equals(time2));
+      expect(time2, equals(time3));
     });
 
     test(

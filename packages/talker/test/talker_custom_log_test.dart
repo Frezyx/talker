@@ -90,6 +90,54 @@ void main() {
         expect(log.stackTrace, null);
         expect(log.time, isNotNull);
       });
+
+      test('custom pen should override default key color', () {
+        // This test verifies the fix for:
+        // https://github.com/Frezyx/talker/issues/313
+        // When a TalkerLog has both a custom pen and a key that matches
+        // a default log type (like 'debug'), the custom pen should be used.
+        final customPen = AnsiPen()..xterm(46);
+        final message = 'WITH A KEY';
+        final talkerLog = TalkerLog(
+          message,
+          pen: customPen,
+          key: TalkerKey.debug, // Uses a key that has a default color
+        );
+
+        talker.configure(
+          settings: TalkerSettings(
+            useConsoleLogs: false,
+          ),
+        );
+        talker.logCustom(talkerLog);
+        final log = talker.history.last;
+
+        expect(log.message, message);
+        expect(log.key, TalkerKey.debug);
+        // The custom pen should be preserved, not overridden by the debug key's default color
+        expect(log.pen, customPen);
+      });
+
+      test('default key color is used when no custom pen provided', () {
+        final message = 'WITHOUT A PEN';
+        final talkerLog = TalkerLog(
+          message,
+          key: TalkerKey.debug, // Uses a key that has a default color
+        );
+
+        talker.configure(
+          settings: TalkerSettings(
+            useConsoleLogs: false,
+          ),
+        );
+        talker.logCustom(talkerLog);
+        final log = talker.history.last;
+
+        expect(log.message, message);
+        expect(log.key, TalkerKey.debug);
+        // When no custom pen is provided, should use the default color for debug key
+        expect(log.pen, isNotNull);
+      });
     });
   });
 }

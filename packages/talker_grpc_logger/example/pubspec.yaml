@@ -9,7 +9,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  grpc: ^4.1.0
+  grpc: 5.0.0
   talker: ^5.1.4
   talker_grpc_logger:
     path: ../

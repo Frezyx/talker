@@ -1,3 +1,8 @@
+# 5.1.5
+- [talker_grpc_logger] Update dependency grpc to v5
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
 # 5.1.4
 - [talker_flutter] Fix Share button on iOS bump share_plus dependency to version 12.0.1
 

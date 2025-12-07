@@ -10,7 +10,7 @@ dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
   riverpod: ^3.0.0
-  talker_riverpod_logger: ^5.1.4
+  talker_riverpod_logger: ^5.1.5
 
 dev_dependencies:
   build_runner: ^2.8.0

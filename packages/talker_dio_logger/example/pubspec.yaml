@@ -9,9 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^5.1.4
-  talker_dio_logger: ^5.1.4
-  talker_flutter: ^5.1.4    
+  dio: ^5.1.5
+  talker_dio_logger: ^5.1.5
+  talker_flutter: ^5.1.5    
 
 dev_dependencies:
   flutter_test:

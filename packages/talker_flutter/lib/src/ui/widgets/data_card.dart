@@ -202,11 +202,11 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _type {
-    final exceptionType = widget.data.exception?.runtimeType.toString();
-    final errorType = widget.data.error?.runtimeType.toString();
-    if (exceptionType == null && errorType == null) {
+    if (widget.data.exception == null && widget.data.error == null) {
       return null;
     }
-    return 'Type: ${exceptionType ?? errorType ?? ''}';
+    final exceptionType = widget.data.exception?.runtimeType.toString();
+    final errorType = widget.data.error?.runtimeType.toString();
+    return 'Type: ${exceptionType ?? errorType}';
   }
 }

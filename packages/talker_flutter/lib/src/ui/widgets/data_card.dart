@@ -180,6 +180,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _message {
+    // For HTTP logs, use the generated text message which includes formatted content
     final isHttpLog = [
       TalkerKey.httpError,
       TalkerKey.httpRequest,
@@ -188,6 +189,21 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
     if (isHttpLog) {
       return widget.data.generateTextMessage();
     }
+    
+    // Check if this is a custom log that has overridden generateTextMessage()
+    // by comparing with the default implementation behavior
+    final generatedMessage = widget.data.generateTextMessage();
+    final expectedDefaultMessage = widget.data.displayTitleWithTime() + 
+                                    widget.data.displayMessage + 
+                                    widget.data.displayException + 
+                                    widget.data.displayStackTrace;
+    
+    // If the generated message is different from default (custom override exists),
+    // use it; otherwise use just the display message to avoid duplication
+    if (generatedMessage != expectedDefaultMessage) {
+      return generatedMessage;
+    }
+    
     return widget.data.displayMessage;
   }
 

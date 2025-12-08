@@ -29,6 +29,9 @@ class TalkerDataCard extends StatefulWidget {
 class _TalkerDataCardState extends State<TalkerDataCard> {
   var _expanded = false;
 
+  // Threshold for detecting custom generateTextMessage() implementations
+  static const int _messageLengthThreshold = 50;
+
   @override
   void initState() {
     _expanded = widget.expanded;
@@ -180,6 +183,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _message {
+    // For HTTP logs, always use the generated text message which includes formatted content
     final isHttpLog = [
       TalkerKey.httpError,
       TalkerKey.httpRequest,
@@ -188,7 +192,25 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
     if (isHttpLog) {
       return widget.data.generateTextMessage();
     }
-    return widget.data.displayMessage;
+    
+    // For custom logs that override generateTextMessage(), detect by checking
+    // if the generated message differs significantly from just the raw message.
+    // This is a heuristic approach that works for most common cases.
+    final generatedMessage = widget.data.generateTextMessage();
+    final rawMessage = widget.data.displayMessage;
+    
+    // If the generated message contains additional content beyond just the raw message
+    // (excluding title/time which are shown separately), use the generated message
+    if (rawMessage.isNotEmpty && generatedMessage.contains(rawMessage)) {
+      // Check if generated message has additional content beyond title/time/message
+      // by looking for newlines or additional text
+      if (generatedMessage.contains('\n') || 
+          generatedMessage.length > rawMessage.length + _messageLengthThreshold) {
+        return generatedMessage;
+      }
+    }
+    
+    return rawMessage;
   }
 
   String? get _errorMessage {

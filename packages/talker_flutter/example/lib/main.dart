@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:talker_example/extended_example/extended_example.dart';
+import 'package:talker_example/custom_logs_example.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// You can see [ExtendedExample] to
@@ -55,6 +56,14 @@ class _BaseExampleState extends State<BaseExample> {
     talker.info('2.......');
     talker.info('1');
     talker.logCustom(YourCustomLog('Custom log message'));
+    
+    // Test custom logs with overridden generateTextMessage() and pen
+    talker.logCustom(CustomFormattedLog(
+      'User login attempt',
+      extraData: 'username: john@example.com',
+    ));
+    talker.logCustom(CustomColorLog('Custom colored log without theme entry'));
+    
     super.initState();
   }
 

@@ -1,3 +1,8 @@
+# Unreleased
+- [talker_flutter] Fix TalkerScreen displaying empty logs for custom logs with overridden generateTextMessage()
+- [talker_flutter] Fix TalkerScreen colors for custom logs by converting AnsiPen to Flutter Colors
+- [talker_flutter] Add AnsiColorConverter utility for automatic pen color conversion
+
 # 5.1.5
 - [talker_grpc_logger] Update dependency grpc to v5
 

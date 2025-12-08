@@ -29,6 +29,9 @@ class TalkerDataCard extends StatefulWidget {
 class _TalkerDataCardState extends State<TalkerDataCard> {
   var _expanded = false;
 
+  // Threshold for detecting custom generateTextMessage() implementations
+  static const int _messageLengthThreshold = 50;
+
   @override
   void initState() {
     _expanded = widget.expanded;
@@ -202,7 +205,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
       // Check if generated message has additional content beyond title/time/message
       // by looking for newlines or additional text
       if (generatedMessage.contains('\n') || 
-          generatedMessage.length > rawMessage.length + 50) {
+          generatedMessage.length > rawMessage.length + _messageLengthThreshold) {
         return generatedMessage;
       }
     }

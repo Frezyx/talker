@@ -3,8 +3,35 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// Utility class to convert AnsiPen colors to Flutter Colors
 class AnsiColorConverter {
+  // Test string used to extract ANSI color codes
+  static const String _testString = 'test';
+  
   // Cache to avoid repeated conversions of the same pen
   static final Map<AnsiPen, Color?> _cache = {};
+
+  // Standard ANSI color mappings
+  static const Map<int, Color> _standardColors = {
+    0: Color(0xFF000000), // Black
+    1: Color(0xFFEF5350), // Red
+    2: Color(0xFF26FF3C), // Green
+    3: Color(0xFFEF6C00), // Yellow
+    4: Color(0xFF42A5F5), // Blue
+    5: Color(0xFFF602C1), // Magenta
+    6: Color(0xFF63FAFE), // Cyan
+    7: Color(0xFFFFFFFF), // White
+  };
+
+  // Bright ANSI color mappings
+  static const Map<int, Color> _brightColors = {
+    0: Color(0xFF9E9E9E), // Bright Black (Gray)
+    1: Color(0xFFFF7676), // Bright Red
+    2: Color(0xFF56FEA8), // Bright Green
+    3: Color(0xFFFFD54F), // Bright Yellow
+    4: Color(0xFF64B5F6), // Bright Blue
+    5: Color(0xFFAF5FFF), // Bright Magenta
+    6: Color(0xFF84FFFF), // Bright Cyan
+    7: Color(0xFFFFFFFF), // Bright White
+  };
 
   /// Attempts to convert an AnsiPen to a Flutter Color
   /// Returns null if conversion is not possible
@@ -21,11 +48,10 @@ class AnsiColorConverter {
     // Try to extract color information from the AnsiPen
     // AnsiPen doesn't expose its internal state directly, so we
     // apply it to a test string and parse the ANSI codes
-    final testString = 'test';
-    final coloredString = pen(testString);
+    final coloredString = pen(_testString);
 
     // If the string hasn't been colored (no ANSI codes), return null
-    if (coloredString == testString) {
+    if (coloredString == _testString) {
       _cache[pen] = null;
       return null;
     }
@@ -90,50 +116,12 @@ class AnsiColorConverter {
 
   /// Converts standard ANSI color (0-7) to Flutter Color
   static Color _standardColorToFlutter(int colorIndex) {
-    switch (colorIndex) {
-      case 0: // Black
-        return const Color(0xFF000000);
-      case 1: // Red
-        return const Color(0xFFEF5350);
-      case 2: // Green
-        return const Color(0xFF26FF3C);
-      case 3: // Yellow
-        return const Color(0xFFEF6C00);
-      case 4: // Blue
-        return const Color(0xFF42A5F5);
-      case 5: // Magenta
-        return const Color(0xFFF602C1);
-      case 6: // Cyan
-        return const Color(0xFF63FAFE);
-      case 7: // White
-        return const Color(0xFFFFFFFF);
-      default:
-        return Colors.grey;
-    }
+    return _standardColors[colorIndex] ?? Colors.grey;
   }
 
   /// Converts bright ANSI color (0-7) to Flutter Color
   static Color _brightColorToFlutter(int colorIndex) {
-    switch (colorIndex) {
-      case 0: // Bright Black (Gray)
-        return const Color(0xFF9E9E9E);
-      case 1: // Bright Red
-        return const Color(0xFFFF7676);
-      case 2: // Bright Green
-        return const Color(0xFF56FEA8);
-      case 3: // Bright Yellow
-        return const Color(0xFFFFD54F);
-      case 4: // Bright Blue
-        return const Color(0xFF64B5F6);
-      case 5: // Bright Magenta
-        return const Color(0xFFAF5FFF);
-      case 6: // Bright Cyan
-        return const Color(0xFF84FFFF);
-      case 7: // Bright White
-        return const Color(0xFFFFFFFF);
-      default:
-        return Colors.grey;
-    }
+    return _brightColors[colorIndex] ?? Colors.grey;
   }
 
   /// Converts xterm-256 color index to Flutter Color

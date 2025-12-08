@@ -3,6 +3,9 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 /// Utility class to convert AnsiPen colors to Flutter Colors
 class AnsiColorConverter {
+  // Cache to avoid repeated conversions of the same pen
+  static final Map<AnsiPen, Color?> _cache = {};
+
   /// Attempts to convert an AnsiPen to a Flutter Color
   /// Returns null if conversion is not possible
   static Color? tryConvertAnsiPenToColor(AnsiPen? pen) {
@@ -10,14 +13,20 @@ class AnsiColorConverter {
       return null;
     }
 
+    // Check cache first
+    if (_cache.containsKey(pen)) {
+      return _cache[pen];
+    }
+
     // Try to extract color information from the AnsiPen
-    // AnsiPen doesn't expose its internal state directly, so we'll
+    // AnsiPen doesn't expose its internal state directly, so we
     // apply it to a test string and parse the ANSI codes
     final testString = 'test';
     final coloredString = pen(testString);
 
     // If the string hasn't been colored (no ANSI codes), return null
     if (coloredString == testString) {
+      _cache[pen] = null;
       return null;
     }
 
@@ -27,18 +36,27 @@ class AnsiColorConverter {
     final match = regex.firstMatch(coloredString);
 
     if (match == null) {
+      _cache[pen] = null;
       return null;
     }
 
     final codes = match.group(1)?.split(';').map(int.tryParse).whereType<int>().toList();
     if (codes == null || codes.isEmpty) {
+      _cache[pen] = null;
       return null;
     }
 
     // Parse ANSI color codes
-    // Standard colors: 30-37 (foreground), 90-97 (bright foreground)
-    // 256 colors: 38;5;<n>
-    // RGB colors: 38;2;<r>;<g>;<b>
+    final color = _parseAnsiCodes(codes);
+    _cache[pen] = color;
+    return color;
+  }
+
+  /// Parse ANSI color codes to extract color
+  /// Standard colors: 30-37 (foreground), 90-97 (bright foreground)
+  /// 256 colors: 38;5;<n>
+  /// RGB colors: 38;2;<r>;<g>;<b>
+  static Color? _parseAnsiCodes(List<int> codes) {
     for (int i = 0; i < codes.length; i++) {
       final code = codes[i];
 
@@ -76,13 +94,13 @@ class AnsiColorConverter {
       case 0: // Black
         return const Color(0xFF000000);
       case 1: // Red
-        return const Color.fromARGB(255, 239, 83, 80);
+        return const Color(0xFFEF5350);
       case 2: // Green
         return const Color(0xFF26FF3C);
       case 3: // Yellow
-        return const Color.fromARGB(255, 239, 108, 0);
+        return const Color(0xFFEF6C00);
       case 4: // Blue
-        return const Color.fromARGB(255, 66, 165, 245);
+        return const Color(0xFF42A5F5);
       case 5: // Magenta
         return const Color(0xFFF602C1);
       case 6: // Cyan
@@ -98,15 +116,15 @@ class AnsiColorConverter {
   static Color _brightColorToFlutter(int colorIndex) {
     switch (colorIndex) {
       case 0: // Bright Black (Gray)
-        return const Color.fromARGB(255, 158, 158, 158);
+        return const Color(0xFF9E9E9E);
       case 1: // Bright Red
-        return const Color.fromARGB(255, 255, 118, 118);
+        return const Color(0xFFFF7676);
       case 2: // Bright Green
         return const Color(0xFF56FEA8);
       case 3: // Bright Yellow
-        return const Color.fromARGB(255, 255, 213, 79);
+        return const Color(0xFFFFD54F);
       case 4: // Bright Blue
-        return const Color.fromARGB(255, 100, 181, 246);
+        return const Color(0xFF64B5F6);
       case 5: // Bright Magenta
         return const Color(0xFFAF5FFF);
       case 6: // Bright Cyan

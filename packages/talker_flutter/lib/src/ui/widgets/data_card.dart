@@ -180,7 +180,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _message {
-    // For HTTP logs, use the generated text message which includes formatted content
+    // For HTTP logs, always use the generated text message which includes formatted content
     final isHttpLog = [
       TalkerKey.httpError,
       TalkerKey.httpRequest,
@@ -190,21 +190,24 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
       return widget.data.generateTextMessage();
     }
     
-    // Check if this is a custom log that has overridden generateTextMessage()
-    // by comparing with the default implementation behavior
+    // For custom logs that override generateTextMessage(), detect by checking
+    // if the generated message differs significantly from just the raw message.
+    // This is a heuristic approach that works for most common cases.
     final generatedMessage = widget.data.generateTextMessage();
-    final expectedDefaultMessage = widget.data.displayTitleWithTime() + 
-                                    widget.data.displayMessage + 
-                                    widget.data.displayException + 
-                                    widget.data.displayStackTrace;
+    final rawMessage = widget.data.displayMessage;
     
-    // If the generated message is different from default (custom override exists),
-    // use it; otherwise use just the display message to avoid duplication
-    if (generatedMessage != expectedDefaultMessage) {
-      return generatedMessage;
+    // If the generated message contains additional content beyond just the raw message
+    // (excluding title/time which are shown separately), use the generated message
+    if (rawMessage.isNotEmpty && generatedMessage.contains(rawMessage)) {
+      // Check if generated message has additional content beyond title/time/message
+      // by looking for newlines or additional text
+      if (generatedMessage.contains('\n') || 
+          generatedMessage.length > rawMessage.length + 50) {
+        return generatedMessage;
+      }
     }
     
-    return widget.data.displayMessage;
+    return rawMessage;
   }
 
   String? get _errorMessage {

@@ -148,7 +148,7 @@ void main() {
 
     test(
         'generateTextMessage should include FormData files metadata if printRequestData is true',
-        () async {
+        () {
       final formData = FormData();
       formData.fields.add(MapEntry('title', 'Test Document'));
       formData.files.add(MapEntry(

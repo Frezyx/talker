@@ -10,7 +10,7 @@ environment:
   sdk: ^3.2.6
 
 dependencies:
-  grpc: 5.0.0
+  grpc: 5.1.0
   talker: ^5.1.6
 
 dev_dependencies:

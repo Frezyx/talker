@@ -1,4 +1,4 @@
-5.1.4
 5.1.5
-[talker_grpc_logger] Update dependency grpc to v5
-renovatebot
+5.1.6
+[talker_dio_logger] Fix printResponseTime display in TalkerScreen showing incorrect/increasing values
+Copilot

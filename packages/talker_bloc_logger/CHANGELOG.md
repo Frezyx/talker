@@ -1,3 +1,8 @@
+# 5.1.6
+- [talker_dio_logger] Fix printResponseTime display in TalkerScreen showing incorrect/increasing values
+
+Thanks to [Copilot](https://github.com/Copilot)
+
 # 5.1.5
 - [talker_grpc_logger] Update dependency grpc to v5
 

@@ -9,9 +9,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker_flutter: ^5.1.5
-  talker_dio_logger: ^5.1.5
-  talker_bloc_logger: ^5.1.5
+  talker_flutter: ^5.1.6
+  talker_dio_logger: ^5.1.6
+  talker_bloc_logger: ^5.1.6
   
   get_it: ^7.6.7
   flutter_bloc: ^9.0.0

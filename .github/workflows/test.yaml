@@ -50,7 +50,7 @@ jobs:
           sdk: stable
       - name: Cache Pub hosted dependencies
         if: ${{ inputs.sdk == 'dart' }}
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: "~/.pub-cache/hosted"
           key: "os:${{ runner.os }};pub-cache-hosted;${{ inputs.sdk }}-sdk:stable;packages:${{ inputs.package }};commands:test"

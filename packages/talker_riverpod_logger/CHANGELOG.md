@@ -1,3 +1,9 @@
+# 5.1.7
+- [talker_grpc_logger] Update dependency grpc to v5.1.0
+- [common] Update actions/cache action to v5
+
+Thanks to [apps/renovate](https://github.com/apps/renovate)
+
 # 5.1.6
 - [talker_dio_logger] Fix printResponseTime display in TalkerScreen showing incorrect/increasing values
 

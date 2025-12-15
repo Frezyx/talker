@@ -1,5 +1,5 @@
 # 5.1.8
-- [talker_logger] Fix iOS simulator print issue by using stdout.writeln instead of print for better output reliability
+- [talker_dio_logger] Add comprehensive test coverage for FormData logging support
 
 Thanks to [Copilot](https://github.com/Copilot)
 

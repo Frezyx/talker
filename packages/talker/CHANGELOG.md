@@ -1,3 +1,8 @@
+# 5.1.8
+- [talker_dio_logger] Add comprehensive test coverage for FormData logging support
+
+Thanks to [Copilot](https://github.com/Copilot)
+
 # 5.1.7
 - [talker_grpc_logger] Update dependency grpc to v5.1.0
 - [common] Update actions/cache action to v5

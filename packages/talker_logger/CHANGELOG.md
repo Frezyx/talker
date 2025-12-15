@@ -1,3 +1,8 @@
+# 5.1.8
+- [talker_logger] Fix iOS simulator print issue by using stdout.writeln instead of print for better output reliability
+
+Thanks to [Copilot](https://github.com/Copilot)
+
 # 5.1.7
 - [talker_grpc_logger] Update dependency grpc to v5.1.0
 - [common] Update actions/cache action to v5

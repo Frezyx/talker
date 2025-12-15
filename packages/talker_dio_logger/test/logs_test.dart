@@ -117,6 +117,176 @@ void main() {
       expect(result.contains('Redirects:'), isFalse);
     });
 
+    test(
+        'generateTextMessage should include FormData fields if printRequestData is true',
+        () {
+      final formData = FormData.fromMap({
+        'username': 'testuser',
+        'email': 'test@example.com',
+        'age': '25',
+      });
+
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'POST',
+        data: formData,
+      );
+      final settings = TalkerDioLoggerSettings(printRequestData: true);
+      final dioRequestLog = DioRequestLog(
+        'Test message',
+        requestOptions: requestOptions,
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('Data:'));
+      expect(result, contains('"username": "testuser"'));
+      expect(result, contains('"email": "test@example.com"'));
+      expect(result, contains('"age": "25"'));
+    });
+
+    test(
+        'generateTextMessage should include FormData files metadata if printRequestData is true',
+        () {
+      final formData = FormData();
+      formData.fields.add(MapEntry('title', 'Test Document'));
+      formData.files.add(MapEntry(
+        'document',
+        MultipartFile.fromString(
+          'test content',
+          filename: 'test.txt',
+        ),
+      ));
+
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'POST',
+        data: formData,
+      );
+      final settings = TalkerDioLoggerSettings(printRequestData: true);
+      final dioRequestLog = DioRequestLog(
+        'Test message',
+        requestOptions: requestOptions,
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('Data:'));
+      expect(result, contains('"title": "Test Document"'));
+      expect(result, contains('"document":'));
+      expect(result, contains('"filename": "test.txt"'));
+      expect(result, contains('"contentType":'));
+      expect(result, contains('"bytes":'));
+    });
+
+    test(
+        'generateTextMessage should include both FormData fields and files if printRequestData is true',
+        () {
+      final formData = FormData();
+      formData.fields.add(MapEntry('username', 'testuser'));
+      formData.fields.add(MapEntry('description', 'Test description'));
+      formData.files.add(MapEntry(
+        'avatar',
+        MultipartFile.fromString(
+          'image data',
+          filename: 'avatar.jpg',
+        ),
+      ));
+      formData.files.add(MapEntry(
+        'document',
+        MultipartFile.fromString(
+          'document data',
+          filename: 'document.pdf',
+        ),
+      ));
+
+      final requestOptions = RequestOptions(
+        path: '/upload',
+        method: 'POST',
+        data: formData,
+      );
+      final settings = TalkerDioLoggerSettings(printRequestData: true);
+      final dioRequestLog = DioRequestLog(
+        'Upload request',
+        requestOptions: requestOptions,
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('Data:'));
+      // Check fields
+      expect(result, contains('"username": "testuser"'));
+      expect(result, contains('"description": "Test description"'));
+      // Check files
+      expect(result, contains('"avatar":'));
+      expect(result, contains('"filename": "avatar.jpg"'));
+      expect(result, contains('"document":'));
+      expect(result, contains('"filename": "document.pdf"'));
+    });
+
+    test(
+        'generateTextMessage should not include FormData if printRequestData is false',
+        () {
+      final formData = FormData.fromMap({
+        'username': 'testuser',
+        'email': 'test@example.com',
+      });
+
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'POST',
+        data: formData,
+      );
+      final settings = TalkerDioLoggerSettings(printRequestData: false);
+      final dioRequestLog = DioRequestLog(
+        'Test message',
+        requestOptions: requestOptions,
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, isNot(contains('Data:')));
+      expect(result, isNot(contains('"username"')));
+      expect(result, isNot(contains('"email"')));
+    });
+
+    test(
+        'generateTextMessage should include headers with FormData if printRequestHeaders is true',
+        () {
+      final formData = FormData.fromMap({'field': 'value'});
+
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'POST',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer token123',
+        },
+      );
+      final settings = TalkerDioLoggerSettings(
+        printRequestData: true,
+        printRequestHeaders: true,
+      );
+      final dioRequestLog = DioRequestLog(
+        'Test message',
+        requestOptions: requestOptions,
+        settings: settings,
+      );
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('Data:'));
+      expect(result, contains('"field": "value"'));
+      expect(result, contains('Headers:'));
+      expect(result, contains('"Content-Type": "multipart/form-data"'));
+      expect(result, contains('"Authorization": "Bearer token123"'));
+    });
+
     // Add more tests for DioRequestLog as needed
   });
 

@@ -173,7 +173,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _stackTrace {
-    if (widget.data is! TalkerError && widget.data is! TalkerException) {
+    if (widget.data.stackTrace == null) {
       return null;
     }
     return 'StackTrace:\n${widget.data.stackTrace}';
@@ -202,9 +202,11 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _type {
-    if (widget.data is! TalkerError && widget.data is! TalkerException) {
+    if (widget.data.exception == null && widget.data.error == null) {
       return null;
     }
-    return 'Type: ${widget.data.exception?.runtimeType.toString() ?? widget.data.error?.runtimeType.toString() ?? ''}';
+    final exceptionType = widget.data.exception?.runtimeType.toString();
+    final errorType = widget.data.error?.runtimeType.toString();
+    return 'Type: ${exceptionType ?? errorType}';
   }
 }

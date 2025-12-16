@@ -1,3 +1,8 @@
+# 5.1.9
+- [talker_flutter] Fix TalkerScreen stack trace display for TalkerLog objects
+
+Thanks to [Copilot](https://github.com/Copilot)
+
 # 5.1.8
 - [talker_dio_logger] Add comprehensive test coverage for FormData logging support
 

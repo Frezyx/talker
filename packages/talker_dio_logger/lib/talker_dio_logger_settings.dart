@@ -17,6 +17,7 @@ class TalkerDioLoggerSettings {
     this.printRequestData = true,
     this.printRequestHeaders = false,
     this.printRequestExtra = false,
+    this.logTimestamp = false,
     this.hiddenHeaders = const <String>{},
     this.responseDataConverter,
     this.requestPen,
@@ -65,6 +66,9 @@ class TalkerDioLoggerSettings {
 
   /// Print [request.extra] if true
   final bool printRequestExtra;
+
+  /// Print timestamp in logs if true
+  final bool logTimestamp;
 
   /// Field to set custom http request console logs color
   ///```
@@ -129,6 +133,7 @@ class TalkerDioLoggerSettings {
     bool? printRequestData,
     bool? printRequestHeaders,
     bool? printRequestExtra,
+    bool? logTimestamp,
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
@@ -150,6 +155,7 @@ class TalkerDioLoggerSettings {
       printRequestData: printRequestData ?? this.printRequestData,
       printRequestHeaders: printRequestHeaders ?? this.printRequestHeaders,
       printRequestExtra: printRequestExtra ?? this.printRequestExtra,
+      logTimestamp: logTimestamp ?? this.logTimestamp,
       requestPen: requestPen ?? this.requestPen,
       responsePen: responsePen ?? this.responsePen,
       errorPen: errorPen ?? this.errorPen,

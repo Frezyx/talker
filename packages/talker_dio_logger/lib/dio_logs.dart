@@ -32,6 +32,11 @@ class DioRequestLog extends TalkerLog {
   }) {
     var msg = '[$title] [${requestOptions.method}] $message';
 
+    if (settings.logTimestamp) {
+      msg +=
+          '\n Date: ${displayTime(timeFormat: TimeFormat.yearMonthDayAndTime)}';
+    }
+
     final data = requestOptions.data;
     final headers = Map.from(requestOptions.headers);
 
@@ -123,6 +128,11 @@ class DioResponseLog extends TalkerLog {
   }) {
     var msg = '[$title] [${response.requestOptions.method}] $message';
 
+    if (settings.logTimestamp) {
+      msg +=
+          '\n Date: ${displayTime(timeFormat: TimeFormat.yearMonthDayAndTime)}';
+    }
+
     final responseMessage = response.statusMessage;
     final data = response.data;
     final headers = response.headers.map;
@@ -192,6 +202,11 @@ class DioErrorLog extends TalkerLog {
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
     var msg = '[$title] [${dioException.requestOptions.method}] $message';
+
+    if (settings.logTimestamp) {
+      msg +=
+          '\n Date: ${displayTime(timeFormat: TimeFormat.yearMonthDayAndTime)}';
+    }
 
     final responseMessage = dioException.message;
     final statusCode = dioException.response?.statusCode;

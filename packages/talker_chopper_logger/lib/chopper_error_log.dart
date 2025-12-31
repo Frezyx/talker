@@ -1,5 +1,3 @@
-import 'dart:convert' show JsonEncoder;
-
 import 'package:chopper/chopper.dart'
     show ChopperException, ChopperHttpException, Request;
 import 'package:meta/meta.dart' show visibleForTesting;
@@ -16,8 +14,6 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
     super.stackTrace,
   });
 
-  static const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
-
   final Request? request;
   final TalkerChopperLoggerSettings settings;
   final int responseTime;
@@ -32,7 +28,7 @@ class ChopperErrorLog<BodyType> extends TalkerLog {
   LogLevel get logLevel => LogLevel.error;
 
   @visibleForTesting
-  String convert(Object? object) => _encoder.convert(object);
+  String convert(Object? object) => settings.jsonFormatter.format(object);
 
   @override
   String generateTextMessage({

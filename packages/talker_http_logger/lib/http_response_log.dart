@@ -1,4 +1,4 @@
-import 'dart:convert' show JsonEncoder, jsonDecode;
+import 'dart:convert' show jsonDecode;
 
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:meta/meta.dart';
@@ -16,8 +16,6 @@ class HttpResponseLog extends TalkerLog with ResponseTime {
   final BaseResponse response;
   final TalkerHttpLoggerSettings settings;
 
-  static const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
-
   @override
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
@@ -28,7 +26,7 @@ class HttpResponseLog extends TalkerLog with ResponseTime {
   LogLevel get logLevel => settings.logLevel;
 
   @visibleForTesting
-  String convert(Object? object) => _encoder.convert(object);
+  String convert(Object? object) => settings.jsonFormatter.format(object);
 
   @override
   String generateTextMessage({

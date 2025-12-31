@@ -1,25 +1,8 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
-const _encoder = JsonEncoder.withIndent('  ');
 const _hiddenValue = '*****';
-
-String _formatData(dynamic data, TalkerDioLoggerSettings settings) {
-  if (settings.prettyFormatter != null) {
-    return settings.prettyFormatter!(data);
-  }
-  final json = _encoder.convert(data);
-  if (settings.stripJsonQuotes) {
-    return json
-        .replaceAll(r'\"', '\x00')
-        .replaceAll('"', '')
-        .replaceAll('\x00', '"');
-  }
-  return json;
-}
 
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
@@ -30,6 +13,8 @@ class DioRequestLog extends TalkerLog {
 
   final RequestOptions requestOptions;
   final TalkerDioLoggerSettings settings;
+
+  String Function(dynamic) get _format => settings.jsonFormatter.format;
 
   @override
   AnsiPen get pen => settings.requestPen ?? (AnsiPen()..xterm(219));
@@ -65,21 +50,21 @@ class DioRequestLog extends TalkerLog {
             };
           }
 
-          msg += '\nData: ${_formatData(formDataMap, settings)}';
+          msg += '\nData: ${_format(formDataMap)}';
         } else {
-          msg += '\nData: ${_formatData(data, settings)}';
+          msg += '\nData: ${_format(data)}';
         }
       }
 
       if (settings.printRequestHeaders && headers.isNotEmpty) {
         // HTTP headers are case-insensitive by standard
         _replaceHiddenHeaders(headers);
-        msg += '\nHeaders: ${_formatData(headers, settings)}';
+        msg += '\nHeaders: ${_format(headers)}';
       }
 
       final extra = Map.from(requestOptions.extra);
       if (settings.printRequestExtra && extra.isNotEmpty) {
-        msg += '\nExtra: ${_formatData(extra, settings)}';
+        msg += '\nExtra: ${_format(extra)}';
       }
     } catch (_) {
       // TODO: add handling can`t convert
@@ -118,6 +103,8 @@ class DioResponseLog extends TalkerLog {
   /// Response time in milliseconds, calculated once when the log is created
   final int? responseTime;
 
+  String Function(dynamic) get _format => settings.jsonFormatter.format;
+
   @override
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
@@ -152,12 +139,12 @@ class DioResponseLog extends TalkerLog {
 
     try {
       if (settings.printResponseData && data != null) {
-        final prettyData = settings.responseDataConverter?.call(response) ??
-            _formatData(data, settings);
+        final prettyData =
+            settings.responseDataConverter?.call(response) ?? _format(data);
         msg += '\nData: $prettyData';
       }
       if (settings.printResponseHeaders && headers.isNotEmpty) {
-        msg += '\nHeaders: ${_formatData(headers, settings)}';
+        msg += '\nHeaders: ${_format(headers)}';
       }
 
       if (settings.printResponseRedirects && redirects.isNotEmpty) {
@@ -186,6 +173,8 @@ class DioErrorLog extends TalkerLog {
 
   /// Response time in milliseconds, calculated once when the log is created
   final int? responseTime;
+
+  String Function(dynamic) get _format => settings.jsonFormatter.format;
 
   @override
   AnsiPen get pen => settings.errorPen ?? (AnsiPen()..red());
@@ -222,10 +211,10 @@ class DioErrorLog extends TalkerLog {
     }
 
     if (settings.printErrorData && data != null) {
-      msg += '\nData: ${_formatData(data, settings)}';
+      msg += '\nData: ${_format(data)}';
     }
     if (settings.printErrorHeaders && !(headers?.isEmpty ?? true)) {
-      msg += '\nHeaders: ${_formatData(headers!.map, settings)}';
+      msg += '\nHeaders: ${_format(headers!.map)}';
     }
     return msg;
   }

@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart' show Response, Request;
 import 'package:equatable/equatable.dart';
-import 'package:talker/talker.dart' show AnsiPen, LogLevel;
+import 'package:talker/talker.dart' show AnsiPen, LogLevel, TalkerJsonFormatter;
 
 typedef RequestFilter = bool Function(Request request);
 typedef ResponseFilter = bool Function(Response response);
@@ -21,6 +21,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
     this.printRequestHeaders = false,
     this.printRequestCurl = false,
     this.hiddenHeaders = const <String>{},
+    this.jsonFormatter = const TalkerJsonFormatter(),
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -117,6 +118,12 @@ class TalkerChopperLoggerSettings with EquatableMixin {
   /// Case insensitive
   final Set<String> hiddenHeaders;
 
+  /// JSON formatter for converting data to pretty string.
+  /// Use [TalkerJsonFormatter] for default formatting,
+  /// [TalkerJsonFormatter(stripQuotes: true)] to strip quotes,
+  /// or [TalkerJsonFormatter.custom(fn)] for custom formatting.
+  final TalkerJsonFormatter jsonFormatter;
+
   TalkerChopperLoggerSettings copyWith({
     bool? enabled,
     LogLevel? logLevel,
@@ -137,6 +144,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
     ResponseFilter? responseFilter,
     ResponseFilter? errorFilter,
     Set<String>? hiddenHeaders,
+    TalkerJsonFormatter? jsonFormatter,
   }) =>
       TalkerChopperLoggerSettings(
         enabled: enabled ?? this.enabled,
@@ -158,6 +166,7 @@ class TalkerChopperLoggerSettings with EquatableMixin {
         responseFilter: responseFilter ?? this.responseFilter,
         errorFilter: errorFilter ?? this.errorFilter,
         hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
+        jsonFormatter: jsonFormatter ?? this.jsonFormatter,
       );
 
   @override
@@ -180,5 +189,6 @@ class TalkerChopperLoggerSettings with EquatableMixin {
         responseFilter,
         errorFilter,
         hiddenHeaders,
+        jsonFormatter,
       ];
 }

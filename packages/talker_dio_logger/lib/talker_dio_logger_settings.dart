@@ -18,6 +18,8 @@ class TalkerDioLoggerSettings {
     this.printRequestHeaders = false,
     this.printRequestExtra = false,
     this.hiddenHeaders = const <String>{},
+    this.stripJsonQuotes = false,
+    this.prettyFormatter,
     this.responseDataConverter,
     this.requestPen,
     this.responsePen,
@@ -107,7 +109,15 @@ class TalkerDioLoggerSettings {
   /// You can add your custom logic to log only specific HTTP responses [Response].
   final bool Function(Response response)? responseFilter;
 
-  /// response data converter.
+  /// Strip double quotes from JSON output.
+  /// Only applies when using default encoder (no prettyFormatter is set).
+  final bool stripJsonQuotes;
+
+  /// Custom formatter for converting data to pretty string.
+  /// If null, uses default JsonEncoder with indent.
+  final String Function(dynamic data)? prettyFormatter;
+
+  /// Response data converter.
   final String Function(Response response)? responseDataConverter;
 
   /// For error filtering.
@@ -134,6 +144,8 @@ class TalkerDioLoggerSettings {
     AnsiPen? errorPen,
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
+    bool? stripJsonQuotes,
+    String Function(dynamic data)? prettyFormatter,
     String Function(Response response)? responseDataConverter,
     bool Function(DioException response)? errorFilter,
     Set<String>? hiddenHeaders,
@@ -155,6 +167,8 @@ class TalkerDioLoggerSettings {
       errorPen: errorPen ?? this.errorPen,
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
+      stripJsonQuotes: stripJsonQuotes ?? this.stripJsonQuotes,
+      prettyFormatter: prettyFormatter ?? this.prettyFormatter,
       responseDataConverter:
           responseDataConverter ?? this.responseDataConverter,
       errorFilter: errorFilter ?? this.errorFilter,

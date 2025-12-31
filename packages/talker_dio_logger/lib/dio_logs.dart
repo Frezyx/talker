@@ -7,6 +7,20 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 const _encoder = JsonEncoder.withIndent('  ');
 const _hiddenValue = '*****';
 
+String _formatData(dynamic data, TalkerDioLoggerSettings settings) {
+  if (settings.prettyFormatter != null) {
+    return settings.prettyFormatter!(data);
+  }
+  final json = _encoder.convert(data);
+  if (settings.stripJsonQuotes) {
+    return json
+        .replaceAll(r'\"', '\x00')
+        .replaceAll('"', '')
+        .replaceAll('\x00', '"');
+  }
+  return json;
+}
+
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
     String message, {
@@ -51,25 +65,21 @@ class DioRequestLog extends TalkerLog {
             };
           }
 
-          msg += '\nData: ${_encoder.convert(formDataMap)}';
+          msg += '\nData: ${_formatData(formDataMap, settings)}';
         } else {
-          final prettyData = _encoder.convert(data);
-          msg += '\nData: $prettyData';
+          msg += '\nData: ${_formatData(data, settings)}';
         }
       }
 
       if (settings.printRequestHeaders && headers.isNotEmpty) {
         // HTTP headers are case-insensitive by standard
         _replaceHiddenHeaders(headers);
-
-        final prettyHeaders = _encoder.convert(headers);
-        msg += '\nHeaders: $prettyHeaders';
+        msg += '\nHeaders: ${_formatData(headers, settings)}';
       }
 
       final extra = Map.from(requestOptions.extra);
       if (settings.printRequestExtra && extra.isNotEmpty) {
-        final prettyExtra = _encoder.convert(extra);
-        msg += '\nExtra: $prettyExtra';
+        msg += '\nExtra: ${_formatData(extra, settings)}';
       }
     } catch (_) {
       // TODO: add handling can`t convert
@@ -143,12 +153,11 @@ class DioResponseLog extends TalkerLog {
     try {
       if (settings.printResponseData && data != null) {
         final prettyData = settings.responseDataConverter?.call(response) ??
-            _encoder.convert(data);
+            _formatData(data, settings);
         msg += '\nData: $prettyData';
       }
       if (settings.printResponseHeaders && headers.isNotEmpty) {
-        final prettyHeaders = _encoder.convert(headers);
-        msg += '\nHeaders: $prettyHeaders';
+        msg += '\nHeaders: ${_formatData(headers, settings)}';
       }
 
       if (settings.printResponseRedirects && redirects.isNotEmpty) {
@@ -213,12 +222,10 @@ class DioErrorLog extends TalkerLog {
     }
 
     if (settings.printErrorData && data != null) {
-      final prettyData = _encoder.convert(data);
-      msg += '\nData: $prettyData';
+      msg += '\nData: ${_formatData(data, settings)}';
     }
     if (settings.printErrorHeaders && !(headers?.isEmpty ?? true)) {
-      final prettyHeaders = _encoder.convert(headers!.map);
-      msg += '\nHeaders: $prettyHeaders';
+      msg += '\nHeaders: ${_formatData(headers!.map, settings)}';
     }
     return msg;
   }

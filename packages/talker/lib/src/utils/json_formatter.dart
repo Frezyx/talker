@@ -30,6 +30,9 @@ class TalkerJsonFormatter {
     }
     final json = _defaultEncoder.convert(data);
     if (stripQuotes) {
+      // Use \x00 (null byte) as a temporary placeholder for escaped quotes.
+      // This is safe because JsonEncoder escapes control characters (U+0000-U+001F)
+      // as \uXXXX sequences, so \x00 never appears in valid JSON output.
       return json
           .replaceAll(r'\"', '\x00')
           .replaceAll('"', '')

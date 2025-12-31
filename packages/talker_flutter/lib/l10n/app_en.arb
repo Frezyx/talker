@@ -1,0 +1,200 @@
+{
+  "@@locale": "en",
+  "talkerMonitor": "Talker Monitor",
+  "@talkerMonitor": {
+    "description": "Title for talker monitor screen"
+  },
+  "talkerMonitorType": "Talker Monitor {typeName}",
+  "@talkerMonitorType": {
+    "description": "Title for typed logs screen",
+    "placeholders": {
+      "typeName": {
+        "type": "String"
+      }
+    }
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings menu title"
+  },
+  "talkerSettings": "Talker settings",
+  "@talkerSettings": {
+    "description": "Talker settings section header"
+  },
+  "packagesSettings": "Packages settings",
+  "@packagesSettings": {
+    "description": "Packages settings section header"
+  },
+  "enabled": "Enabled",
+  "@enabled": {
+    "description": "Label for enabled toggle"
+  },
+  "useConsoleLogs": "Use console logs",
+  "@useConsoleLogs": {
+    "description": "Setting for console logs"
+  },
+  "useHistory": "Use history",
+  "@useHistory": {
+    "description": "Setting for history"
+  },
+  "reverseLogs": "Reverse logs",
+  "@reverseLogs": {
+    "description": "Action to reverse logs order"
+  },
+  "copyAllLogs": "Copy all logs",
+  "@copyAllLogs": {
+    "description": "Action to copy all logs"
+  },
+  "copyFilteredLogs": "Copy filtered logs",
+  "@copyFilteredLogs": {
+    "description": "Action to copy filtered logs"
+  },
+  "expandLogs": "Expand logs",
+  "@expandLogs": {
+    "description": "Action to expand all logs"
+  },
+  "collapseLogs": "Collapse logs",
+  "@collapseLogs": {
+    "description": "Action to collapse all logs"
+  },
+  "cleanHistory": "Clean history",
+  "@cleanHistory": {
+    "description": "Action to clean history"
+  },
+  "shareLogsFile": "Share logs file",
+  "@shareLogsFile": {
+    "description": "Action to share logs file"
+  },
+  "logItemCopied": "Log item is copied in clipboard",
+  "@logItemCopied": {
+    "description": "Snackbar message when log item copied"
+  },
+  "allLogsCopied": "All logs copied in buffer",
+  "@allLogsCopied": {
+    "description": "Snackbar message when all logs copied"
+  },
+  "filteredLogsCopied": "All filtered logs copied in buffer",
+  "@filteredLogsCopied": {
+    "description": "Snackbar message when filtered logs copied"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Undo button text"
+  },
+  "errors": "Errors",
+  "@errors": {
+    "description": "Errors label"
+  },
+  "exceptions": "Exceptions",
+  "@exceptions": {
+    "description": "Exceptions label"
+  },
+  "warnings": "Warnings",
+  "@warnings": {
+    "description": "Warnings label"
+  },
+  "infos": "Infos",
+  "@infos": {
+    "description": "Info logs label"
+  },
+  "verboseDebug": "Verbose & debug",
+  "@verboseDebug": {
+    "description": "Verbose and debug logs label"
+  },
+  "httpRequests": "Http Requests",
+  "@httpRequests": {
+    "description": "HTTP requests label"
+  },
+  "httpRequestsExecuted": "{count} http requests executed",
+  "@httpRequestsExecuted": {
+    "description": "HTTP requests count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "successfulResponses": "{count} successful",
+  "@successfulResponses": {
+    "description": "Successful responses count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "responsesReceived": " responses received",
+  "@responsesReceived": {
+    "description": "Responses received suffix"
+  },
+  "failureResponses": "{count} failure",
+  "@failureResponses": {
+    "description": "Failure responses count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unresolvedErrors": "Application has {count} unresolved errors",
+  "@unresolvedErrors": {
+    "description": "Unresolved errors message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unresolvedExceptions": "Application has {count} unresolved exceptions",
+  "@unresolvedExceptions": {
+    "description": "Unresolved exceptions message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "warningsCount": "Application has {count} warnings",
+  "@warningsCount": {
+    "description": "Warnings count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "infoLogsCount": "Info logs count: {count}",
+  "@infoLogsCount": {
+    "description": "Info logs count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "verboseDebugLogsCount": "Verbose and debug logs count: {count}",
+  "@verboseDebugLogsCount": {
+    "description": "Verbose and debug logs count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "talkerActions": "Talker Actions",
+  "@talkerActions": {
+    "description": "Talker actions bottom sheet title"
+  },
+  "errorOccurred": "Error occurred",
+  "@errorOccurred": {
+    "description": "Default error/exception title"
+  },
+  "data": "Data",
+  "@data": {
+    "description": "Data label prefix"
+  },
+  "type": "Type",
+  "@type": {
+    "description": "Type label prefix"
+  }
+}

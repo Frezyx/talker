@@ -1,0 +1,200 @@
+{
+  "@@locale": "zh",
+  "talkerMonitor": "监控",
+  "@talkerMonitor": {
+    "description": "Title for talker monitor screen"
+  },
+  "talkerMonitorType": "监控 {typeName}",
+  "@talkerMonitorType": {
+    "description": "Title for typed logs screen",
+    "placeholders": {
+      "typeName": {
+        "type": "String"
+      }
+    }
+  },
+  "settings": "设置",
+  "@settings": {
+    "description": "Settings menu title"
+  },
+  "talkerSettings": "设置",
+  "@talkerSettings": {
+    "description": "Talker settings section header"
+  },
+  "packagesSettings": "包设置",
+  "@packagesSettings": {
+    "description": "Packages settings section header"
+  },
+  "enabled": "启用",
+  "@enabled": {
+    "description": "Label for enabled toggle"
+  },
+  "useConsoleLogs": "使用控制台日志",
+  "@useConsoleLogs": {
+    "description": "Setting for console logs"
+  },
+  "useHistory": "使用历史记录",
+  "@useHistory": {
+    "description": "Setting for history"
+  },
+  "reverseLogs": "反转日志",
+  "@reverseLogs": {
+    "description": "Action to reverse logs order"
+  },
+  "copyAllLogs": "复制所有日志",
+  "@copyAllLogs": {
+    "description": "Action to copy all logs"
+  },
+  "copyFilteredLogs": "复制筛选日志",
+  "@copyFilteredLogs": {
+    "description": "Action to copy filtered logs"
+  },
+  "expandLogs": "展开日志",
+  "@expandLogs": {
+    "description": "Action to expand all logs"
+  },
+  "collapseLogs": "折叠日志",
+  "@collapseLogs": {
+    "description": "Action to collapse all logs"
+  },
+  "cleanHistory": "清空历史",
+  "@cleanHistory": {
+    "description": "Action to clean history"
+  },
+  "shareLogsFile": "分享日志文件",
+  "@shareLogsFile": {
+    "description": "Action to share logs file"
+  },
+  "logItemCopied": "日志项已复制到剪贴板",
+  "@logItemCopied": {
+    "description": "Snackbar message when log item copied"
+  },
+  "allLogsCopied": "所有日志已复制到缓冲区",
+  "@allLogsCopied": {
+    "description": "Snackbar message when all logs copied"
+  },
+  "filteredLogsCopied": "所有筛选日志已复制到缓冲区",
+  "@filteredLogsCopied": {
+    "description": "Snackbar message when filtered logs copied"
+  },
+  "undo": "撤销",
+  "@undo": {
+    "description": "Undo button text"
+  },
+  "errors": "错误",
+  "@errors": {
+    "description": "Errors label"
+  },
+  "exceptions": "异常",
+  "@exceptions": {
+    "description": "Exceptions label"
+  },
+  "warnings": "警告",
+  "@warnings": {
+    "description": "Warnings label"
+  },
+  "infos": "信息",
+  "@infos": {
+    "description": "Info logs label"
+  },
+  "verboseDebug": "详细与调试",
+  "@verboseDebug": {
+    "description": "Verbose and debug logs label"
+  },
+  "httpRequests": "Http 请求",
+  "@httpRequests": {
+    "description": "HTTP requests label"
+  },
+  "httpRequestsExecuted": "已执行 {count} 个 http 请求",
+  "@httpRequestsExecuted": {
+    "description": "HTTP requests count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "successfulResponses": "{count} 个成功",
+  "@successfulResponses": {
+    "description": "Successful responses count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "responsesReceived": " 个响应已接收",
+  "@responsesReceived": {
+    "description": "Responses received suffix"
+  },
+  "failureResponses": "{count} 个失败",
+  "@failureResponses": {
+    "description": "Failure responses count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unresolvedErrors": "应用程序有 {count} 个未解决的错误",
+  "@unresolvedErrors": {
+    "description": "Unresolved errors message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unresolvedExceptions": "应用程序有 {count} 个未解决的异常",
+  "@unresolvedExceptions": {
+    "description": "Unresolved exceptions message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "warningsCount": "应用程序有 {count} 个警告",
+  "@warningsCount": {
+    "description": "Warnings count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "infoLogsCount": "信息日志数量: {count}",
+  "@infoLogsCount": {
+    "description": "Info logs count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "verboseDebugLogsCount": "详细与调试日志数量: {count}",
+  "@verboseDebugLogsCount": {
+    "description": "Verbose and debug logs count message",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "talkerActions": "操作",
+  "@talkerActions": {
+    "description": "Talker actions bottom sheet title"
+  },
+  "errorOccurred": "发生错误",
+  "@errorOccurred": {
+    "description": "Default error/exception title"
+  },
+  "data": "数据",
+  "@data": {
+    "description": "Data label prefix"
+  },
+  "type": "类型",
+  "@type": {
+    "description": "Type label prefix"
+  }
+}

@@ -15,7 +15,7 @@ class TalkerActionsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseBottomSheet(
-      title: 'Talker Actions',
+      title: context.l10n.talkerActions,
       talkerScreenTheme: talkerScreenTheme,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),

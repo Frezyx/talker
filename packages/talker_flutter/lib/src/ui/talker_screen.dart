@@ -13,6 +13,8 @@ class TalkerScreen extends StatelessWidget {
     this.customSettings = const [],
     this.isLogsExpanded = true,
     this.isLogOrderReversed = true,
+    this.enableSettings = true,
+    this.enableMonitor = true,
   }) : super(key: key);
 
   /// Talker implementation
@@ -40,6 +42,12 @@ class TalkerScreen extends StatelessWidget {
   ///{@macro talker_flutter_is_log_order_reversed}
   final bool isLogOrderReversed;
 
+  /// Enable or disable buttons in AppBar
+  final bool enableSettings;
+
+  /// Enable or disable buttons in AppBar
+  final bool enableMonitor;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +61,8 @@ class TalkerScreen extends StatelessWidget {
         customSettings: customSettings,
         isLogsExpanded: isLogsExpanded,
         isLogOrderReversed: isLogOrderReversed,
+        enableSettings: enableSettings,
+        enableMonitor: enableMonitor,
       ),
     );
   }

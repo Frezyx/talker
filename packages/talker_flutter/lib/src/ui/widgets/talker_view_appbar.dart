@@ -30,8 +30,8 @@ class TalkerViewAppBar extends StatefulWidget {
   final List<String?> keys;
   final List<String?> uniqKeys;
 
-  final VoidCallback onMonitorTap;
-  final VoidCallback onSettingsTap;
+  final VoidCallback? onMonitorTap;
+  final VoidCallback? onSettingsTap;
   final VoidCallback onActionsTap;
 
   final Function(String key, bool selected) onToggleKey;
@@ -107,22 +107,24 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
       leading: widget.leading,
       iconTheme: IconThemeData(color: widget.talkerTheme.textColor),
       actions: [
-        UnconstrainedBox(
-          child: _MonitorButton(
-            talker: widget.talker,
-            onPressed: widget.onMonitorTap,
-            talkerTheme: widget.talkerTheme,
-          ),
-        ),
-        UnconstrainedBox(
-          child: IconButton(
-            onPressed: widget.onSettingsTap,
-            icon: Icon(
-              Icons.settings_rounded,
-              color: widget.talkerTheme.textColor,
+        if (widget.onMonitorTap != null)
+          UnconstrainedBox(
+            child: _MonitorButton(
+              talker: widget.talker,
+              onPressed: widget.onMonitorTap!,
+              talkerTheme: widget.talkerTheme,
             ),
           ),
-        ),
+        if (widget.onSettingsTap != null)
+          UnconstrainedBox(
+            child: IconButton(
+              onPressed: widget.onSettingsTap,
+              icon: Icon(
+                Icons.settings_rounded,
+                color: widget.talkerTheme.textColor,
+              ),
+            ),
+          ),
         UnconstrainedBox(
           child: IconButton(
             onPressed: widget.onActionsTap,

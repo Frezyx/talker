@@ -20,6 +20,8 @@ class TalkerView extends StatefulWidget {
     this.customSettings = const [],
     this.isLogsExpanded = true,
     this.isLogOrderReversed = true,
+    this.enableSettings = true,
+    this.enableMonitor = true,
   }) : super(key: key);
 
   /// Talker implementation
@@ -54,6 +56,12 @@ class TalkerView extends StatefulWidget {
   /// if true, latest logs will be on the top of the list
   /// {@endtemplate}
   final bool isLogOrderReversed;
+
+  /// Enable or disable buttons in AppBar
+  final bool enableSettings;
+
+  /// Enable or disable buttons in AppBar
+  final bool enableMonitor;
 
   @override
   State<TalkerView> createState() => _TalkerViewState();
@@ -94,9 +102,13 @@ class _TalkerViewState extends State<TalkerView> {
                     talker: widget.talker,
                     talkerTheme: talkerTheme,
                     controller: _controller,
-                    onMonitorTap: () => _openTalkerMonitor(context),
+                    onMonitorTap: widget.enableMonitor
+                        ? () => _openTalkerMonitor(context)
+                        : null,
                     onActionsTap: () => _openActions(context),
-                    onSettingsTap: () => _openSettings(context, talkerTheme),
+                    onSettingsTap: widget.enableSettings
+                        ? () => _openSettings(context, talkerTheme)
+                        : null,
                     onToggleKey: _onToggleKey,
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 8)),

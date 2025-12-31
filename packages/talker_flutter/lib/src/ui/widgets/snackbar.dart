@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talker_flutter/l10n/l10n.dart';
 
 class SnackbarContent extends StatelessWidget {
   const SnackbarContent({
@@ -66,12 +67,14 @@ class SnackbarContent extends StatelessWidget {
             ),
           ),
           dismissButton ??
-              TextButton(
-                onPressed: () => _closeSnackbar(context),
-                child: Text(
-                  dismissButtonText ?? "Undo",
-                  style:
-                      messageTextStyle ?? const TextStyle(color: Colors.white),
+              Builder(
+                builder: (context) => TextButton(
+                  onPressed: () => _closeSnackbar(context),
+                  child: Text(
+                    dismissButtonText ?? context.l10n.undo,
+                    style: messageTextStyle ??
+                        const TextStyle(color: Colors.white),
+                  ),
                 ),
               )
         ],

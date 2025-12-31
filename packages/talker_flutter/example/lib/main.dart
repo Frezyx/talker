@@ -63,6 +63,8 @@ class _BaseExampleState extends State<BaseExample> {
     return MaterialApp(
       title: 'Talker Flutter',
       debugShowCheckedModeBanner: false,
+      supportedLocales: TalkerFlutterLocalizations.supportedLocales,
+      localizationsDelegates: TalkerFlutterLocalizations.localizationsDelegates,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[100],

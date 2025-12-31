@@ -44,7 +44,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Text(
-          'Talker settings',
+          context.l10n.talkerSettings,
           style: theme.textTheme.titleLarge?.copyWith(
             color: widget.talkerScreenTheme.textColor,
             fontWeight: FontWeight.w500,
@@ -53,7 +53,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       ),
       TalkerSettingsCard(
         talkerScreenTheme: widget.talkerScreenTheme,
-        title: 'Enabled',
+        title: context.l10n.enabled,
         enabled: talker.settings.enabled,
         onChanged: (enabled) {
           (enabled ? talker.enable : talker.disable).call();
@@ -63,7 +63,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       TalkerSettingsCard(
         canEdit: talker.settings.enabled,
         talkerScreenTheme: widget.talkerScreenTheme,
-        title: 'Use console logs',
+        title: context.l10n.useConsoleLogs,
         enabled: talker.settings.useConsoleLogs,
         onChanged: (enabled) {
           talker.configure(
@@ -77,7 +77,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       TalkerSettingsCard(
         canEdit: talker.settings.enabled,
         talkerScreenTheme: widget.talkerScreenTheme,
-        title: 'Use history',
+        title: context.l10n.useHistory,
         enabled: talker.settings.useHistory,
         onChanged: (enabled) {
           talker.configure(
@@ -91,7 +91,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Text(
-          'Packages settings',
+          context.l10n.packagesSettings,
           style: theme.textTheme.titleLarge?.copyWith(
             color: widget.talkerScreenTheme.textColor,
             fontWeight: FontWeight.w500,
@@ -130,7 +130,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
               ),
               TalkerSettingsCard(
                 talkerScreenTheme: widget.talkerScreenTheme,
-                title: 'Enabled',
+                title: context.l10n.enabled,
                 enabled: group.enabled,
                 onChanged: (val) {
                   group.onChanged.call(val);
@@ -219,7 +219,7 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
     ];
 
     return BaseBottomSheet(
-      title: 'Settings',
+      title: context.l10n.settings,
       talkerScreenTheme: widget.talkerScreenTheme,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

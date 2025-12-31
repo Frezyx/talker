@@ -19,7 +19,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       appBar: AppBar(
-        title: Text('Talker Monitor $typeName'),
+        title: Text(context.l10n.talkerMonitorType(typeName)),
       ),
       body: CustomScrollView(
         slivers: [
@@ -46,7 +46,7 @@ class TalkerMonitorTypedLogsScreen extends StatelessWidget {
   void _copyTalkerDataItemText(BuildContext context, TalkerData data) {
     final text = data.generateTextMessage();
     Clipboard.setData(ClipboardData(text: text));
-    _showSnackBar(context, 'Log item is copied in clipboard');
+    _showSnackBar(context, context.l10n.logItemCopied);
   }
 
   void _showSnackBar(BuildContext context, String text) {

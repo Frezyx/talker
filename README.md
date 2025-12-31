@@ -380,6 +380,46 @@ talker.critical('❌ Houston, we have a problem!');
 talker.error('🚨 The service is not available');
 ```
 
+### Localization Support
+
+TalkerFlutter comes with built-in localization support for UI components like TalkerScreen, TalkerMonitor, and TalkerWrapper. Currently supported languages:
+- 🇺🇸 English (default)
+- 🇨🇳 Chinese (Simplified)
+
+#### Basic Usage
+
+The package works out of the box in English without any configuration. The localization system includes a safe fallback mechanism, so you don't need to configure delegates if you're okay with English.
+
+#### Full Localization Setup
+
+If you want to enable localization support, add the delegates and supported locales to your MaterialApp:
+
+```dart
+import 'package:talker_flutter/talker_flutter.dart';
+
+MaterialApp(
+  // Add localization delegates
+  localizationsDelegates: TalkerFlutterLocalizations.localizationsDelegates,
+  // Add supported locales
+  supportedLocales: TalkerFlutterLocalizations.supportedLocales,
+  // Optionally set a specific locale
+  locale: const Locale('zh'), // for Chinese
+  // ... your app configuration
+)
+```
+
+#### Available Locales
+
+```dart
+// English (default)
+locale: const Locale('en')
+
+// Chinese (Simplified)
+locale: const Locale('zh')
+```
+
+All TalkerScreen UI elements, including error messages, action buttons, settings labels, and monitor information will be automatically translated based on the device locale or your specified locale.
+
 ### ❗️ Log messages integrity
 Most of flutter logging packages either cut messages in the console, or cant dope colored messages in the iOS console. But Talker is not one of them...
 

@@ -177,7 +177,7 @@ class _TalkerViewState extends State<TalkerView> {
     final text =
         data.generateTextMessage(timeFormat: widget.talker.settings.timeFormat);
     Clipboard.setData(ClipboardData(text: text));
-    _showSnackBar(context, 'Log item is copied in clipboard');
+    _showSnackBar(context, context.l10n.logItemCopied);
   }
 
   void _showSnackBar(BuildContext context, String text) {
@@ -196,34 +196,36 @@ class _TalkerViewState extends State<TalkerView> {
           actions: [
             TalkerActionItem(
               onTap: _controller.toggleLogOrder,
-              title: 'Reverse logs',
+              title: context.l10n.reverseLogs,
               icon: Icons.swap_vert,
             ),
             TalkerActionItem(
               onTap: () => _copyAllLogs(context),
-              title: 'Copy all logs',
+              title: context.l10n.copyAllLogs,
               icon: Icons.copy,
             ),
             TalkerActionItem(
               onTap: () => _copyFilteredLogs(context),
-              title: 'Copy filtered logs',
+              title: context.l10n.copyFilteredLogs,
               icon: Icons.copy,
             ),
             TalkerActionItem(
               onTap: _toggleLogsExpanded,
-              title: _controller.expandedLogs ? 'Collapse logs' : 'Expand logs',
+              title: _controller.expandedLogs
+                  ? context.l10n.collapseLogs
+                  : context.l10n.expandLogs,
               icon: _controller.expandedLogs
                   ? Icons.visibility_outlined
                   : Icons.visibility_off_outlined,
             ),
             TalkerActionItem(
               onTap: _cleanHistory,
-              title: 'Clean history',
+              title: context.l10n.cleanHistory,
               icon: Icons.delete_outline,
             ),
             TalkerActionItem(
               onTap: _shareLogsInFile,
-              title: 'Share logs file',
+              title: context.l10n.shareLogsFile,
               icon: Icons.ios_share_outlined,
             ),
           ],
@@ -252,13 +254,13 @@ class _TalkerViewState extends State<TalkerView> {
     Clipboard.setData(ClipboardData(
         text: widget.talker.history
             .text(timeFormat: widget.talker.settings.timeFormat)));
-    _showSnackBar(context, 'All logs copied in buffer');
+    _showSnackBar(context, context.l10n.allLogsCopied);
   }
 
   void _copyFilteredLogs(BuildContext context) {
     Clipboard.setData(ClipboardData(
         text: _getFilteredLogs(widget.talker.history)
             .text(timeFormat: widget.talker.settings.timeFormat)));
-    _showSnackBar(context, 'All filtered logs copied in buffer');
+    _showSnackBar(context, context.l10n.filteredLogsCopied);
   }
 }

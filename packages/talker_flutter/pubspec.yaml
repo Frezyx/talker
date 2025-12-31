@@ -19,6 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
   talker: ^5.1.9
   group_button: ^5.3.4
@@ -33,3 +36,4 @@ dev_dependencies:
   flutter_lints: ^2.0.1
 
 flutter:
+  generate: true

@@ -34,7 +34,7 @@ class TalkerWrapper extends StatelessWidget {
             options.exceptionAlertBuilder?.call(context, data) ??
                 SnackbarContent(
                   message: _mapErrorMessage(data.displayException),
-                  title: options.errorTitle,
+                  title: options.exceptionTitle(context),
                 ),
           );
           return;
@@ -45,7 +45,7 @@ class TalkerWrapper extends StatelessWidget {
             options.errorAlertBuilder?.call(context, data) ??
                 SnackbarContent(
                   message: _mapErrorMessage(data.displayError),
-                  title: options.errorTitle,
+                  title: options.errorTitle(context),
                 ),
           );
         }

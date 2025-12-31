@@ -256,7 +256,7 @@ class _SearchTextField extends StatelessWidget {
             color: talkerTheme.textColor,
             size: 20,
           ),
-          hintText: 'Search...',
+          hintText: context.l10n.search,
           hintStyle: theme.textTheme.bodyLarge!.copyWith(
             color: talkerTheme.textColor,
             fontSize: 14,

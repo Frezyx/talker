@@ -38,6 +38,6 @@ class TalkerWrapperOptions {
   /// [TalkerWrapper] will show exceptions message if field is [true]
   final bool enableExceptionAlerts;
 
-  /// [TalkerWrapper] will show exceptions message if field is [true]
+  /// [TalkerWrapper] will show log messages if field is [true]
   final bool enableLogAlerts;
 }

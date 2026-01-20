@@ -66,13 +66,14 @@ void main() {
     });
 
     test('displayStackTrace returns correct format', () {
+      final stackTrace = StackTrace.fromString('line 1');
       final talkerData = TalkerData(
         'Test Message',
-        stackTrace: StackTrace.current,
+        stackTrace: stackTrace,
       );
 
       final displayStackTrace = talkerData.displayStackTrace;
-      expect(displayStackTrace, startsWith('\nStackTrace:'));
+      expect(displayStackTrace, equals('\nStackTrace: $stackTrace'));
     });
 
     test('displayException returns correct format', () {

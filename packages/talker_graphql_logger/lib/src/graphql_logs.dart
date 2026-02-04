@@ -44,6 +44,24 @@ String _getOperationName(Request request) {
   return 'Anonymous';
 }
 
+/// Returns the API field name (endpoint) from the request's SelectionSet.
+/// This is the actual field name defined in the GraphQL schema.
+String? _getApiFieldName(Request request) {
+  final definitions = request.operation.document.definitions;
+  for (final definition in definitions) {
+    if (definition is OperationDefinitionNode) {
+      final selections = definition.selectionSet.selections;
+      if (selections.isNotEmpty) {
+        final firstSelection = selections.first;
+        if (firstSelection is FieldNode) {
+          return firstSelection.name.value;
+        }
+      }
+    }
+  }
+  return null;
+}
+
 /// Obfuscates sensitive fields in the variables map.
 Map<String, dynamic> _obfuscateVariables(
   Map<String, dynamic> variables,
@@ -108,8 +126,12 @@ class GraphQLRequestLog extends TalkerLog {
   }) {
     final operationType = _getOperationType(request);
     final operationName = _getOperationName(request);
+    final apiFieldName = _getApiFieldName(request);
 
     var msg = '[$title] [$operationType] $operationName';
+    if (apiFieldName != null) {
+      msg += '\nEndpoint: $apiFieldName';
+    }
 
     try {
       final variables = request.variables;
@@ -180,8 +202,12 @@ class GraphQLResponseLog extends TalkerLog {
   }) {
     final operationType = _getOperationType(request);
     final operationName = _getOperationName(request);
+    final apiFieldName = _getApiFieldName(request);
 
     var msg = '[$title] [$operationType] $operationName';
+    if (apiFieldName != null) {
+      msg += '\nEndpoint: $apiFieldName';
+    }
     msg += '\nDuration: $durationMs ms';
 
     try {
@@ -254,8 +280,12 @@ class GraphQLErrorLog extends TalkerLog {
   }) {
     final operationType = _getOperationType(request);
     final operationName = _getOperationName(request);
+    final apiFieldName = _getApiFieldName(request);
 
     var msg = '[$title] [$operationType] $operationName';
+    if (apiFieldName != null) {
+      msg += '\nEndpoint: $apiFieldName';
+    }
     msg += '\nDuration: $durationMs ms';
 
     // Log GraphQL errors
@@ -344,8 +374,12 @@ class GraphQLSubscriptionLog extends TalkerLog {
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
     final operationName = _getOperationName(request);
+    final apiFieldName = _getApiFieldName(request);
 
     var msg = '[$title] [Subscription] $operationName';
+    if (apiFieldName != null) {
+      msg += '\nEndpoint: $apiFieldName';
+    }
     msg += '\nEvent: ${eventType.name}';
 
     try {

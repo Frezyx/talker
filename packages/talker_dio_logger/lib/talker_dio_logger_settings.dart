@@ -18,6 +18,8 @@ class TalkerDioLoggerSettings {
     this.printRequestHeaders = false,
     this.printRequestExtra = false,
     this.logTimestamp = false,
+    this.timestampFormat = TimeFormat.yearMonthDayAndTime,
+    this.timestampLabel = 'Date',
     this.hiddenHeaders = const <String>{},
     this.responseDataConverter,
     this.requestPen,
@@ -69,6 +71,14 @@ class TalkerDioLoggerSettings {
 
   /// Print timestamp in logs if true
   final bool logTimestamp;
+
+  /// The [TimeFormat] used when [logTimestamp] is enabled.
+  /// Defaults to [TimeFormat.yearMonthDayAndTime].
+  final TimeFormat timestampFormat;
+
+  /// The label printed before the timestamp value when [logTimestamp] is enabled.
+  /// Defaults to `'Date'`.
+  final String timestampLabel;
 
   /// Field to set custom http request console logs color
   ///```
@@ -134,6 +144,8 @@ class TalkerDioLoggerSettings {
     bool? printRequestHeaders,
     bool? printRequestExtra,
     bool? logTimestamp,
+    TimeFormat? timestampFormat,
+    String? timestampLabel,
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
@@ -156,6 +168,8 @@ class TalkerDioLoggerSettings {
       printRequestHeaders: printRequestHeaders ?? this.printRequestHeaders,
       printRequestExtra: printRequestExtra ?? this.printRequestExtra,
       logTimestamp: logTimestamp ?? this.logTimestamp,
+      timestampFormat: timestampFormat ?? this.timestampFormat,
+      timestampLabel: timestampLabel ?? this.timestampLabel,
       requestPen: requestPen ?? this.requestPen,
       responsePen: responsePen ?? this.responsePen,
       errorPen: errorPen ?? this.errorPen,

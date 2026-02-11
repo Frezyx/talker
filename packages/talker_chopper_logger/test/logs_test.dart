@@ -355,7 +355,7 @@ void main() {
         expect(
           out,
           contains(
-            "-H 'content-type: application/x-www-form-urlencoded; charset=utf-8'",
+            "-H 'content-type: application/x-www-form-urlencoded'",
           ),
         );
         expect(out, contains("-d 'foo=bar&baz=qux'"));

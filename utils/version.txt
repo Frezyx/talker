@@ -1,4 +1,4 @@
-5.1.12
 5.1.13
-[common] Fix trailing curly bracket in stacktrace output
-Copilot
+5.1.14
+[common] Update plugin com.android.application to v9.0.1
+renovatebot

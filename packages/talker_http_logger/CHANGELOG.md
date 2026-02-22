@@ -1,3 +1,10 @@
+# 5.1.14
+- [common] Update plugin com.android.application to v9.0.1
+- [common] Update plugin org.jetbrains.kotlin.android to v2.3.10
+- [common] Update Gradle to v9.3.1
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
 # 5.1.13
 - [common] Fix trailing curly bracket in stacktrace output
 

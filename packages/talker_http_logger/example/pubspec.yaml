@@ -15,7 +15,7 @@ dependencies:
   equatable: ^2.0.7
 
 dev_dependencies:
-  flutter_lints: ^5.1.1
+  flutter_lints: 6.0.0
 
 dependency_overrides:
   talker_http_logger:

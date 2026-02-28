@@ -2,6 +2,9 @@ import 'package:talker/talker.dart';
 
 Future<void> main() async {
   final talker = Talker(
+    logger: TalkerLogger(
+      output: (message) {},
+    ),
     settings: TalkerSettings(
       colors: {
         TalkerKey.info: AnsiPen()..magenta(),
@@ -36,7 +39,7 @@ Future<void> main() async {
 }
 
 class YourCustomKey extends TalkerLog {
-  YourCustomKey(String message) : super(message);
+  YourCustomKey(String super.message);
 
   /// Your own log key (for color customization in settings)
   static const logKey = 'custom_log_key';

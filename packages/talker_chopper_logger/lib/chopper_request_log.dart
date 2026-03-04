@@ -1,4 +1,4 @@
-import 'dart:convert' show JsonEncoder, jsonDecode;
+import 'dart:convert' show jsonDecode;
 
 import 'package:chopper/chopper.dart' show Request;
 import 'package:http/http.dart' as http
@@ -18,7 +18,6 @@ class ChopperRequestLog extends TalkerLog {
   final http.BaseRequest request;
   final TalkerChopperLoggerSettings settings;
 
-  static const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
   static const String _hiddenValue = '*****';
 
   @override
@@ -31,7 +30,7 @@ class ChopperRequestLog extends TalkerLog {
   LogLevel get logLevel => settings.logLevel;
 
   @visibleForTesting
-  String convert(Object? object) => _encoder.convert(object);
+  String convert(Object? object) => settings.jsonFormatter.format(object);
 
   @override
   String generateTextMessage({

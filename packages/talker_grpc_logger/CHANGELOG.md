@@ -1,3 +1,11 @@
+# 5.1.15
+- [talker] Add custom pretty json formatter and strip quotes
+- [talker_dio_logger] Add new pretty json formatter 
+- [talker_chopper_logger] Add new pretty json formatter 
+- [talker_http_logger] Add new pretty json formatter 
+
+Thanks to [westito](https://github.com/westito)
+
 # 5.1.14
 - [common] Update plugin com.android.application to v9.0.1
 - [common] Update plugin org.jetbrains.kotlin.android to v2.3.10

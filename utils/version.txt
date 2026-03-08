@@ -1,4 +1,4 @@
-5.1.13
 5.1.14
-[common] Update plugin com.android.application to v9.0.1
-renovatebot
+5.1.15
+[talker] Add custom pretty json formatter and strip quotes
+westito

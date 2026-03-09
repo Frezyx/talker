@@ -187,7 +187,7 @@ class Talker {
       return;
     }
     if (data is TalkerLog) {
-      _handleLogData(data);
+      _handleLogData(data, logLevel: data.logLevel ?? LogLevel.info);
     }
   }
 

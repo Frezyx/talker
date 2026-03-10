@@ -1,0 +1,21 @@
+name: talker_devtools_extension
+description: DevTools extension for Talker - view app logs in a console inside Flutter DevTools.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  devtools_extensions: ^0.5.0
+  devtools_app_shared: ^0.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true

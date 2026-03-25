@@ -797,7 +797,7 @@ dependencies:
 Just pass **TalkerRiverpodObserver** to either `ProviderScope` or `ProviderContainer` and it will work
 
 ```dart
-import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
 runApp(
   ProviderScope(
@@ -812,7 +812,7 @@ runApp(
 or
 
 ```dart
-import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
 final container = ProviderContainer(
   observers: [
@@ -872,7 +872,7 @@ You can add your talker instance for TalkerRiverpodLogger if your Appication alr
 In this case, all logs and errors will fall into your unified tracking system
 
 ```dart
-import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 import 'package:talker/talker.dart';
 
 final talker = Talker();
@@ -892,7 +892,7 @@ runApp(
 or
 
 ```dart
-import 'package:talker_riverpod_observer/talker_riverpod_observer.dart';
+import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 import 'package:talker/talker.dart';
 
 final talker = Talker();

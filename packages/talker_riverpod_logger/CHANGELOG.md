@@ -1,3 +1,8 @@
+# 5.1.16
+- [talker_riverpod_logger] fix: correct Riverpod integration package import in README
+
+Thanks to [Copilot](https://github.com/Copilot)
+
 # 5.1.15
 - [talker] Add custom pretty json formatter and strip quotes
 - [talker_dio_logger] Add new pretty json formatter 

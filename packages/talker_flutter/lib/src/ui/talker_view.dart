@@ -20,6 +20,7 @@ class TalkerView extends StatefulWidget {
     this.customSettings = const [],
     this.isLogsExpanded = true,
     this.isLogOrderReversed = true,
+    this.maxDisplayedLogs = 500,
   }) : super(key: key);
 
   /// Talker implementation
@@ -55,6 +56,13 @@ class TalkerView extends StatefulWidget {
   /// {@endtemplate}
   final bool isLogOrderReversed;
 
+  /// Maximum number of log entries to display in the list.
+  /// Older entries beyond this limit are not rendered, which prevents
+  /// UI freezes when the log history grows large.
+  /// Set to 0 to display all logs (not recommended for large histories).
+  /// Defaults to 500.
+  final int maxDisplayedLogs;
+
   @override
   State<TalkerView> createState() => _TalkerViewState();
 }
@@ -67,6 +75,38 @@ class _TalkerViewState extends State<TalkerView> {
         isLogOrderReversed: widget.isLogOrderReversed,
       );
 
+  // Cached filtered results to avoid recomputing on every build
+  List<TalkerData> _cachedFiltered = [];
+  int _lastSourceLength = -1;
+  int _lastFilterHash = -1;
+
+  int get _filterHash => Object.hash(
+        _controller.filter.enabledKeys.length,
+        _controller.filter.searchQuery,
+        _controller.isPaused,
+        _controller.filter.enabledKeys.hashCode,
+      );
+
+  List<TalkerData> _getFilteredLogs(List<TalkerData> source) {
+    final currentHash = _filterHash;
+    if (source.length == _lastSourceLength && currentHash == _lastFilterHash) {
+      return _cachedFiltered;
+    }
+
+    _lastSourceLength = source.length;
+    _lastFilterHash = currentHash;
+
+    // Cap the source list to prevent processing thousands of entries
+    final maxLogs = widget.maxDisplayedLogs;
+    final capped = maxLogs > 0 && source.length > maxLogs
+        ? source.sublist(source.length - maxLogs)
+        : source;
+
+    _cachedFiltered =
+        capped.where((e) => _controller.filter.filter(e)).toList();
+    return _cachedFiltered;
+  }
+
   @override
   Widget build(BuildContext context) {
     final talkerTheme = widget.theme;
@@ -75,51 +115,18 @@ class _TalkerViewState extends State<TalkerView> {
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
+          // When paused, use frozen snapshot; otherwise use live history
+          // via TalkerBuilder which throttles stream updates.
+          if (_controller.isPaused) {
+            return _buildLogList(
+              _controller.frozenLogs,
+              talkerTheme,
+            );
+          }
           return TalkerBuilder(
             talker: widget.talker,
             builder: (context, data) {
-              final filteredElements = _getFilteredLogs(data);
-              final keys = data.map((e) => e.key).toList();
-              final uniqKeys = keys.toSet().toList();
-
-              return CustomScrollView(
-                controller: widget.scrollController,
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  TalkerViewAppBar(
-                    keys: keys,
-                    uniqKeys: uniqKeys,
-                    title: widget.appBarTitle,
-                    leading: widget.appBarLeading,
-                    talker: widget.talker,
-                    talkerTheme: talkerTheme,
-                    controller: _controller,
-                    onMonitorTap: () => _openTalkerMonitor(context),
-                    onActionsTap: () => _openActions(context),
-                    onSettingsTap: () => _openSettings(context, talkerTheme),
-                    onToggleKey: _onToggleKey,
-                  ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 8)),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, i) {
-                        final data = _getListItem(filteredElements, i);
-                        if (widget.itemsBuilder != null) {
-                          return widget.itemsBuilder!.call(context, data);
-                        }
-                        return TalkerDataCard(
-                          data: data,
-                          backgroundColor: widget.theme.cardColor,
-                          onCopyTap: () => _copyTalkerDataItemText(data),
-                          expanded: _controller.expandedLogs,
-                          color: data.getFlutterColor(widget.theme),
-                        );
-                      },
-                      childCount: filteredElements.length,
-                    ),
-                  ),
-                ],
-              );
+              return _buildLogList(data, talkerTheme);
             },
           );
         },
@@ -127,22 +134,73 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  List<TalkerData> _getFilteredLogs(List<TalkerData> data) =>
-      data.where((e) => _controller.filter.filter(e)).toList();
+  Widget _buildLogList(List<TalkerData> data, TalkerScreenTheme talkerTheme) {
+    final filteredElements = _getFilteredLogs(data);
+
+    // Compute keys from capped source for accurate filter chip counts
+    final maxLogs = widget.maxDisplayedLogs;
+    final cappedData = maxLogs > 0 && data.length > maxLogs
+        ? data.sublist(data.length - maxLogs)
+        : data;
+    final keys = cappedData.map((e) => e.key).toList();
+    final uniqKeys = keys.toSet().toList();
+
+    return CustomScrollView(
+      controller: widget.scrollController,
+      physics: const BouncingScrollPhysics(),
+      slivers: [
+        TalkerViewAppBar(
+          keys: keys,
+          uniqKeys: uniqKeys,
+          title: _controller.isPaused
+              ? '${widget.appBarTitle ?? 'Interrupted'} (Paused)'
+              : widget.appBarTitle,
+          leading: widget.appBarLeading,
+          talker: widget.talker,
+          talkerTheme: talkerTheme,
+          controller: _controller,
+          onMonitorTap: () => _openTalkerMonitor(context),
+          onActionsTap: () => _openActions(context),
+          onSettingsTap: () => _openSettings(context, talkerTheme),
+          onToggleKey: _onToggleKey,
+          onPauseTap: _controller.togglePause,
+          isPaused: _controller.isPaused,
+        ),
+        const SliverToBoxAdapter(child: SizedBox(height: 8)),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, i) {
+              final index = _controller.isLogOrderReversed
+                  ? filteredElements.length - 1 - i
+                  : i;
+              final data = filteredElements[index];
+              if (widget.itemsBuilder != null) {
+                return RepaintBoundary(
+                  child: widget.itemsBuilder!.call(context, data),
+                );
+              }
+              return RepaintBoundary(
+                child: TalkerDataCard(
+                  key: ValueKey(index),
+                  data: data,
+                  backgroundColor: widget.theme.cardColor,
+                  onCopyTap: () => _copyTalkerDataItemText(data),
+                  expanded: _controller.expandedLogs,
+                  color: data.getFlutterColor(widget.theme),
+                ),
+              );
+            },
+            childCount: filteredElements.length,
+          ),
+        ),
+      ],
+    );
+  }
 
   void _onToggleKey(String key, bool selected) {
     final action =
         selected ? _controller.addFilterKey : _controller.removeFilterKey;
     action(key);
-  }
-
-  TalkerData _getListItem(
-    List<TalkerData> filteredElements,
-    int i,
-  ) {
-    final data = filteredElements[
-        _controller.isLogOrderReversed ? filteredElements.length - 1 - i : i];
-    return data;
   }
 
   void _openSettings(BuildContext context, TalkerScreenTheme theme) {
@@ -241,6 +299,7 @@ class _TalkerViewState extends State<TalkerView> {
 
   void _cleanHistory() {
     widget.talker.cleanHistory();
+    _lastSourceLength = -1; // Invalidate cache
     _controller.update();
   }
 
@@ -257,8 +316,8 @@ class _TalkerViewState extends State<TalkerView> {
 
   void _copyFilteredLogs(BuildContext context) {
     Clipboard.setData(ClipboardData(
-        text: _getFilteredLogs(widget.talker.history)
-            .text(timeFormat: widget.talker.settings.timeFormat)));
+        text: _cachedFiltered.text(
+            timeFormat: widget.talker.settings.timeFormat)));
     _showSnackBar(context, 'All filtered logs copied in buffer');
   }
 }

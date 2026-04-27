@@ -1,4 +1,4 @@
-5.1.15
 5.1.16
-[talker_riverpod_logger] fix: correct Riverpod integration package import in README
-Copilot
+5.1.17
+[talker_flutter] chore: bump share_plus from ^12.0.1 to ^13.0.0
+PAzter1101

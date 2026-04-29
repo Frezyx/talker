@@ -13,6 +13,7 @@ class TalkerScreen extends StatelessWidget {
     this.customSettings = const [],
     this.isLogsExpanded = true,
     this.isLogOrderReversed = true,
+    this.maxDisplayedLogs = 500,
   }) : super(key: key);
 
   /// Talker implementation
@@ -40,6 +41,11 @@ class TalkerScreen extends StatelessWidget {
   ///{@macro talker_flutter_is_log_order_reversed}
   final bool isLogOrderReversed;
 
+  /// Maximum number of log entries to display.
+  /// Set to 0 to display all logs.
+  /// Defaults to 500.
+  final int maxDisplayedLogs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +59,7 @@ class TalkerScreen extends StatelessWidget {
         customSettings: customSettings,
         isLogsExpanded: isLogsExpanded,
         isLogOrderReversed: isLogOrderReversed,
+        maxDisplayedLogs: maxDisplayedLogs,
       ),
     );
   }

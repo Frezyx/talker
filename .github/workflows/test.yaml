@@ -138,6 +138,6 @@ jobs:
           min_coverage: ${{ inputs.min_coverage }}
       - name: Upload coverage to Codecov
         if: steps.has_tests.outputs.exists == 'true'
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

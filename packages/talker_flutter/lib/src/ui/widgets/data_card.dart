@@ -82,10 +82,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                           Text(
                             message,
                             maxLines: _expanded ? null : 2,
-                            style: TextStyle(
-                              color: widget.color,
-                              fontSize: 12,
-                            ),
+                            style: TextStyle(color: widget.color, fontSize: 12),
                           ),
                       ],
                     ),
@@ -96,10 +93,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       iconSize: 20,
-                      icon: Icon(
-                        Icons.copy,
-                        color: widget.color,
-                      ),
+                      icon: Icon(Icons.copy, color: widget.color),
                       onPressed: widget.onCopyTap,
                     ),
                   ),
@@ -108,8 +102,9 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
               if (_expanded)
                 Container(
                   width: double.infinity,
-                  margin:
-                      stackTrace != null ? const EdgeInsets.only(top: 8) : null,
+                  margin: stackTrace != null
+                      ? const EdgeInsets.only(top: 8)
+                      : null,
                   padding: stackTrace != null
                       ? const EdgeInsets.all(6)
                       : EdgeInsets.zero,
@@ -125,18 +120,12 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                       if (_expanded && errorType != null)
                         Text(
                           errorType,
-                          style: TextStyle(
-                            color: widget.color,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: widget.color, fontSize: 12),
                         ),
                       if (_expanded && errorMessage != null)
                         Text(
                           errorMessage,
-                          style: TextStyle(
-                            color: widget.color,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: widget.color, fontSize: 12),
                         ),
                     ],
                   ),
@@ -151,10 +140,7 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
                   ),
                   child: Text(
                     stackTrace,
-                    style: TextStyle(
-                      color: widget.color,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: widget.color, fontSize: 12),
                   ),
                 ),
             ],
@@ -180,12 +166,16 @@ class _TalkerDataCardState extends State<TalkerDataCard> {
   }
 
   String? get _message {
-    final isHttpLog = [
+    final isDetailedLog = [
       TalkerKey.httpError,
       TalkerKey.httpRequest,
       TalkerKey.httpResponse,
+      TalkerKey.graphqlRequest,
+      TalkerKey.graphqlResponse,
+      TalkerKey.graphqlError,
+      TalkerKey.graphqlSubscription,
     ].contains(widget.data.key);
-    if (isHttpLog) {
+    if (isDetailedLog) {
       return widget.data.generateTextMessage();
     }
     return widget.data.displayMessage;

@@ -1,7 +1,9 @@
 import 'dart:developer' show log;
 
 import 'package:flutter/foundation.dart';
-import 'package:talker_flutter/talker_flutter.dart';
+import 'package:talker/talker.dart';
+
+import '../devtools/talker_devtools_extension.dart';
 
 extension TalkerFlutter on Talker {
   static Talker init({
@@ -9,13 +11,18 @@ extension TalkerFlutter on Talker {
     TalkerObserver? observer,
     TalkerSettings? settings,
     TalkerFilter? filter,
-  }) =>
-      Talker(
-        logger: logger ?? TalkerLogger(output: _defaultFlutterOutput),
-        observer: observer,
-        settings: settings,
-        filter: filter,
-      );
+  }) {
+    final talker = Talker(
+      logger: logger ?? TalkerLogger(output: _defaultFlutterOutput),
+      observer: observer,
+      settings: settings,
+      filter: filter,
+    );
+    if (kDebugMode) {
+      TalkerDevTools.register(talker);
+    }
+    return talker;
+  }
 
   /// Default output function for Flutter:
   /// - On web, prints to console.

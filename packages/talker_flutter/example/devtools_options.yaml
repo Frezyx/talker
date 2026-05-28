@@ -1,0 +1,4 @@
+# Enable DevTools extensions for this project.
+# Talker tab will appear in DevTools when debugging.
+extensions:
+  - talker_flutter: true

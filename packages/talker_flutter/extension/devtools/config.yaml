@@ -1,0 +1,12 @@
+# Flutter DevTools extension configuration for talker_flutter.
+# See: https://docs.flutter.dev/tools/devtools/extensions
+# Spec: https://blog.flutter.dev/dart-flutter-devtools-extensions-c8bc1aaf8e5f
+# Package name this extension belongs to (lowercase, underscores only). Used in title bar.
+name: talker_flutter
+version: 1.0.0
+# URL for "Report an issue" in DevTools UI [required]
+issueTracker: https://github.com/Frezyx/talker/issues
+# Material Icons codepoint for extension tab (Icons.list = 0xe896) [required]
+materialIconCodePoint: 59542
+# Extension needs connected app to fetch logs [optional, default true]
+requiresConnection: true

@@ -222,9 +222,9 @@ class _TalkerViewState extends State<TalkerView> {
               icon: Icons.delete_outline,
             ),
             TalkerActionItem(
-              onTap: _shareLogsInFile,
-              title: 'Save logs file',
-              icon: Icons.ios_share_outlined,
+              onTap: _saveLogsToFile,
+              title: 'Save logs locally',
+              icon: Icons.save_alt_outlined,
             ),
           ],
           talkerScreenTheme: widget.theme,
@@ -233,12 +233,26 @@ class _TalkerViewState extends State<TalkerView> {
     );
   }
 
-  Future<void> _shareLogsInFile() async {
-    await _controller.downloadLogsFile(
-      widget.talker.history.text(timeFormat: widget.talker.settings.timeFormat),
-    );
-    if (!mounted) return;
-    _showSnackBar(context, 'Logs file saved to temporary directory');
+  Future<void> _saveLogsToFile() async {
+    try {
+      await _controller.downloadLogsFile(
+        widget.talker.history.text(
+          timeFormat: widget.talker.settings.timeFormat,
+        ),
+      );
+      if (!mounted) return;
+      final fileLocation = _controller.lastSavedLogsFileLocation;
+      _showSnackBar(
+        context,
+        fileLocation == null
+            ? 'Logs file saved to temporary directory'
+            : 'Logs file saved: $fileLocation',
+      );
+    } catch (error, stackTrace) {
+      widget.talker.handle(error, stackTrace);
+      if (!mounted) return;
+      _showSnackBar(context, 'Failed to save logs file');
+    }
   }
 
   void _cleanHistory() {

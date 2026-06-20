@@ -18,6 +18,7 @@ class TalkerViewController extends ChangeNotifier {
 
   bool _expandedLogs;
   bool _isLogOrderReversed;
+  String? _lastSavedLogsFileLocation;
 
   /// Filter for selecting specific logs and errors
   TalkerFilter get filter => _uiFilter;
@@ -63,7 +64,11 @@ class TalkerViewController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> downloadLogsFile(String logs) async => await downloadFile(logs);
+  String? get lastSavedLogsFileLocation => _lastSavedLogsFileLocation;
+
+  Future<void> downloadLogsFile(String logs) async {
+    _lastSavedLogsFileLocation = await downloadFile(logs, DateTime.now());
+  }
 
   /// Redefinition [notifyListeners]
   void update() => notifyListeners();

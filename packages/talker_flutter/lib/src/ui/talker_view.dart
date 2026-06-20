@@ -223,7 +223,7 @@ class _TalkerViewState extends State<TalkerView> {
             ),
             TalkerActionItem(
               onTap: _shareLogsInFile,
-              title: 'Share logs file',
+              title: 'Save logs file',
               icon: Icons.ios_share_outlined,
             ),
           ],
@@ -237,6 +237,8 @@ class _TalkerViewState extends State<TalkerView> {
     await _controller.downloadLogsFile(
       widget.talker.history.text(timeFormat: widget.talker.settings.timeFormat),
     );
+    if (!mounted) return;
+    _showSnackBar(context, 'Logs file saved to temporary directory');
   }
 
   void _cleanHistory() {

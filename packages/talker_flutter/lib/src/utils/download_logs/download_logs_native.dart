@@ -6,9 +6,9 @@ import 'dart:io';
 Future<String> downloadFile(String logs, DateTime timestamp) async {
   final dirPath = Directory.systemTemp.path;
   final formattedDate = timestamp.toIso8601String().replaceAll(':', '-');
-  final file =
-      await File('$dirPath/talker_logs_$formattedDate.txt')
-          .create(recursive: true);
+  final file = await File('$dirPath/talker_logs_$formattedDate.txt').create(
+    recursive: true,
+  );
   await file.writeAsString(logs);
   return file.path;
 }

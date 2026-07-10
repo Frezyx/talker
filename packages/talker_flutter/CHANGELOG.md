@@ -1,5 +1,6 @@
 # 5.1.17
 - [talker_flutter] chore: bump share_plus from ^12.0.1 to ^13.0.0
+- [talker_flutter] fix: remove share_plus dependency to avoid Flutter KGP warning from transitive Android plugin setup
 
 Thanks to [PAzter1101](https://github.com/PAzter1101)
 

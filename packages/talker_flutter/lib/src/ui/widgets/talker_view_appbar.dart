@@ -17,6 +17,8 @@ class TalkerViewAppBar extends StatefulWidget {
     required this.onSettingsTap,
     required this.onActionsTap,
     required this.onToggleKey,
+    required this.onPauseTap,
+    required this.isPaused,
   }) : super(key: key);
 
   final String? title;
@@ -33,6 +35,9 @@ class TalkerViewAppBar extends StatefulWidget {
   final VoidCallback onMonitorTap;
   final VoidCallback onSettingsTap;
   final VoidCallback onActionsTap;
+  final VoidCallback onPauseTap;
+
+  final bool isPaused;
 
   final Function(String key, bool selected) onToggleKey;
 
@@ -108,10 +113,22 @@ class _TalkerViewAppBarState extends State<TalkerViewAppBar>
       iconTheme: IconThemeData(color: widget.talkerTheme.textColor),
       actions: [
         UnconstrainedBox(
+          child: IconButton(
+            onPressed: widget.onPauseTap,
+            icon: Icon(
+              widget.isPaused ? Icons.play_arrow : Icons.pause,
+              color: widget.isPaused
+                  ? Colors.yellow
+                  : widget.talkerTheme.textColor,
+            ),
+          ),
+        ),
+        UnconstrainedBox(
           child: _MonitorButton(
             talker: widget.talker,
             onPressed: widget.onMonitorTap,
             talkerTheme: widget.talkerTheme,
+            keys: widget.keys,
           ),
         ),
         UnconstrainedBox(
@@ -267,53 +284,53 @@ class _SearchTextField extends StatelessWidget {
   }
 }
 
+/// Monitor button that shows a red dot when errors exist in the log history.
+/// Uses the already-available keys list from the parent instead of spawning
+/// its own TalkerBuilder (which would cause extra full-history scans).
 class _MonitorButton extends StatelessWidget {
   const _MonitorButton({
     Key? key,
     required this.talker,
     required this.onPressed,
     required this.talkerTheme,
+    required this.keys,
   }) : super(key: key);
 
   final Talker talker;
   final TalkerScreenTheme talkerTheme;
   final VoidCallback onPressed;
+  final List<String?> keys;
 
   @override
   Widget build(BuildContext context) {
-    return TalkerBuilder(
-      talker: talker,
-      builder: (context, data) {
-        final haveErrors = data
-            .where((e) => e is TalkerError || e is TalkerException)
-            .isNotEmpty;
-        return Stack(
-          children: [
-            Center(
-              child: IconButton(
-                onPressed: onPressed,
-                icon: Icon(
-                  Icons.monitor_heart_outlined,
-                  color: talkerTheme.textColor,
-                ),
-              ),
+    final haveErrors = keys.any(
+      (k) => k == TalkerKey.error || k == TalkerKey.exception,
+    );
+    return Stack(
+      children: [
+        Center(
+          child: IconButton(
+            onPressed: onPressed,
+            icon: Icon(
+              Icons.monitor_heart_outlined,
+              color: talkerTheme.textColor,
             ),
-            if (haveErrors)
-              Positioned(
-                right: 6,
-                top: 8,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  height: 7,
-                  width: 7,
-                ),
+          ),
+        ),
+        if (haveErrors)
+          Positioned(
+            right: 6,
+            top: 8,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
               ),
-          ],
-        );
-      },
+              height: 7,
+              width: 7,
+            ),
+          ),
+      ],
     );
   }
 }

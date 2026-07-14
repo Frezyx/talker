@@ -67,6 +67,7 @@ Talker is designed for any level of customization. <br>
 | [talker_chopper_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_chopper_logger)   | [![Pub](https://img.shields.io/pub/v/talker_chopper_logger.svg?style=flat-square)](https://pub.dev/packages/talker_chopper_logger)   | Best logger for [Chopper](https://pub.dev/packages/chopper) http calls                                                                           |
 | [talker_http_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_http_logger)         | [![Pub](https://img.shields.io/pub/v/talker_http_logger.svg?style=flat-square)](https://pub.dev/packages/talker_http_logger)         | Best logger for [http](https://pub.dev/packages/http) package                                                                                                    |
 | [talker_grpc_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_grpc_logger)         | [![Pub](https://img.shields.io/pub/v/talker_grpc_logger.svg?style=flat-square)](https://pub.dev/packages/talker_grpc_logger)         | Best logger for [grpc](https://pub.dev/packages/grpc) package                                                                                                    |
+| [talker_drift_logger](https://github.com/Frezyx/talker/tree/master/packages/talker_drift_logger)         | [![Pub](https://img.shields.io/pub/v/talker_drift_logger.svg?style=flat-square)](https://pub.dev/packages/talker_drift_logger)         | Best logger for [Drift](https://pub.dev/packages/drift) database                                                                                                    |
 
 ## Table of contents
 
@@ -128,7 +129,52 @@ Talker is designed for any level of customization. <br>
   - [Getting Started](#getting-started-4)
   - [Using with Talker](#using-with-talker-3)
   - [Token obfuscation](#token-obfuscation)
-- [Crashlytics integration](#crashlytics-integration)
+
+## Talker Drift Logger
+
+Lightweight, simple and pretty solution for logging Drift database operations using [Drift](https://pub.dev/packages/drift).
+
+This is how SQL statements and results will look in the console with Talker formatting and colors.
+
+### Getting Started
+Follow these steps to use this package
+
+### Add dependency
+```yaml
+dependencies:
+  talker_drift_logger: ^5.0.0
+```
+
+### Usage
+Attach an interceptor to Drift executor via `interceptWith`:
+
+```dart
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
+import 'package:talker_drift_logger/talker_drift_logger.dart';
+
+final executor = NativeDatabase.memory().interceptWith(
+  TalkerDriftLogger(
+    settings: const TalkerDriftLoggerSettings(
+      printArgs: true,
+      printResults: true,
+    ),
+  ),
+);
+```
+
+### Using with Talker
+You can add your Talker instance for `TalkerDriftLogger` if your application already uses Talker.
+In this case, all logs and errors will fall into your unified tracking system and appear in Talker UI filters.
+
+```dart
+final talker = Talker();
+final executor = NativeDatabase('app.db').interceptWith(
+  TalkerDriftLogger(talker: talker),
+);
+```
+
+## Crashlytics integration
 - [Features list](#features-list)
 - [Coverage](#coverage)
 - [Additional information](#additional-information)

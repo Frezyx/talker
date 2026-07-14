@@ -1,3 +1,9 @@
+# 5.1.18
+- [common] Update plugin com.android.application to v9.2.1
+- [common] Update Gradle to v9.5.0
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
 # 5.1.17
 - [talker_flutter] chore: bump share_plus from ^12.0.1 to ^13.0.0
 

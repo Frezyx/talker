@@ -44,7 +44,7 @@ void main() {
       expect(
         generatedMessage,
         equals(
-          '${talkerData.displayTitleWithTime()}${talkerData.displayMessage}${talkerData.displayStackTrace}',
+          '${talkerData.displayTitleWithTime()}${talkerData.displayMessage}${talkerData.displayException}${talkerData.displayError}${talkerData.displayStackTrace}',
         ),
       );
     });

@@ -1,4 +1,4 @@
-5.1.17
 5.1.18
-[common] Update plugin com.android.application to v9.2.1 
-PAzter1101
+5.1.19
+[talker_flutter] Bump path_provider version from 2.1.4 to 2.1.6
+Frezyx

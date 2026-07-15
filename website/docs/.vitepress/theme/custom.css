@@ -1,0 +1,100 @@
+/**
+ * Talker Documentation - Purple Theme
+ *
+ * Colors based on Material Purple (#7C4DFF)
+ * @see https://vitepress.dev/reference/default-theme-config#custom-css
+ */
+
+:root {
+  /* Brand / Primary Purple */
+  --vp-c-brand-1: #7C4DFF;
+  --vp-c-brand-2: #9C6FFF;
+  --vp-c-brand-3: #651FFF;
+  --vp-c-brand-soft: rgba(124, 77, 255, 0.14);
+
+  /* Tip color - same as brand */
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+
+  /* Button colors */
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #fff;
+  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: #fff;
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: #fff;
+  --vp-button-brand-active-bg: var(--vp-c-brand-3);
+
+  /* Home hero name gradient */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #7C4DFF 30%,
+    #B388FF
+  );
+
+  /* Home hero image glow */
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #7C4DFF 50%,
+    #B388FF 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+.dark {
+  --vp-c-brand-1: #9C6FFF;
+  --vp-c-brand-2: #B388FF;
+  --vp-c-brand-3: #7C4DFF;
+  --vp-c-brand-soft: rgba(156, 111, 255, 0.16);
+
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #B388FF 30%,
+    #7C4DFF
+  );
+}
+
+/* Sidebar active link */
+.VPSidebar .is-active > .link > .text {
+  color: var(--vp-c-brand-1) !important;
+}
+
+/* Custom badge for package versions */
+.package-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+
+/* DartPad embed styling */
+.dartpad-embed {
+  width: 100%;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.dartpad-embed iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+}
+
+/* Feature cards on home page */
+.VPFeatures .VPFeature {
+  border-color: var(--vp-c-brand-soft) !important;
+}
+
+.VPFeatures .VPFeature:hover {
+  border-color: var(--vp-c-brand-1) !important;
+}

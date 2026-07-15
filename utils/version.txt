@@ -1,4 +1,4 @@
-5.1.7
-5.1.8
-[talker_dio_logger] Add comprehensive test coverage for FormData logging support
-Copilot
+5.1.18
+5.1.19
+[talker_flutter] Bump path_provider version from 2.1.4 to 2.1.6
+Frezyx

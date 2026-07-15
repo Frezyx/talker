@@ -18,6 +18,7 @@ class TalkerDioLoggerSettings {
     this.printRequestHeaders = false,
     this.printRequestExtra = false,
     this.hiddenHeaders = const <String>{},
+    this.jsonFormatter = const TalkerJsonFormatter(),
     this.responseDataConverter,
     this.requestPen,
     this.responsePen,
@@ -107,7 +108,13 @@ class TalkerDioLoggerSettings {
   /// You can add your custom logic to log only specific HTTP responses [Response].
   final bool Function(Response response)? responseFilter;
 
-  /// response data converter.
+  /// JSON formatter for converting data to pretty string.
+  /// Use [TalkerJsonFormatter] for default formatting,
+  /// [TalkerJsonFormatter(stripQuotes: true)] to strip quotes,
+  /// or [TalkerJsonFormatter.custom(fn)] for custom formatting.
+  final TalkerJsonFormatter jsonFormatter;
+
+  /// Response data converter.
   final String Function(Response response)? responseDataConverter;
 
   /// For error filtering.
@@ -134,6 +141,7 @@ class TalkerDioLoggerSettings {
     AnsiPen? errorPen,
     bool Function(RequestOptions requestOptions)? requestFilter,
     bool Function(Response response)? responseFilter,
+    TalkerJsonFormatter? jsonFormatter,
     String Function(Response response)? responseDataConverter,
     bool Function(DioException response)? errorFilter,
     Set<String>? hiddenHeaders,
@@ -155,6 +163,7 @@ class TalkerDioLoggerSettings {
       errorPen: errorPen ?? this.errorPen,
       requestFilter: requestFilter ?? this.requestFilter,
       responseFilter: responseFilter ?? this.responseFilter,
+      jsonFormatter: jsonFormatter ?? this.jsonFormatter,
       responseDataConverter:
           responseDataConverter ?? this.responseDataConverter,
       errorFilter: errorFilter ?? this.errorFilter,

@@ -1,5 +1,3 @@
-import 'dart:convert' show JsonEncoder;
-
 import 'package:chopper/chopper.dart' show Request, Response;
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:talker/talker.dart';
@@ -19,8 +17,6 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
   final TalkerChopperLoggerSettings settings;
   final int responseTime;
 
-  static const JsonEncoder _encoder = JsonEncoder.withIndent('  ');
-
   @override
   AnsiPen get pen => settings.responsePen ?? (AnsiPen()..xterm(46));
 
@@ -31,7 +27,7 @@ class ChopperResponseLog<BodyType> extends TalkerLog {
   LogLevel get logLevel => settings.logLevel;
 
   @visibleForTesting
-  String convert(Object? object) => _encoder.convert(object);
+  String convert(Object? object) => settings.jsonFormatter.format(object);
 
   @override
   String generateTextMessage({

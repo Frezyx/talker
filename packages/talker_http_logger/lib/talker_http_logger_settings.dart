@@ -23,6 +23,7 @@ class TalkerHttpLoggerSettings with EquatableMixin {
     this.printRequestHeaders = false,
     this.printRequestCurl = false,
     this.hiddenHeaders = const <String>{},
+    this.jsonFormatter = const TalkerJsonFormatter(),
     this.requestPen,
     this.responsePen,
     this.errorPen,
@@ -119,6 +120,12 @@ class TalkerHttpLoggerSettings with EquatableMixin {
   /// Case insensitive
   final Set<String> hiddenHeaders;
 
+  /// JSON formatter for converting data to pretty string.
+  /// Use [TalkerJsonFormatter] for default formatting,
+  /// [TalkerJsonFormatter(stripQuotes: true)] to strip quotes,
+  /// or [TalkerJsonFormatter.custom(fn)] for custom formatting.
+  final TalkerJsonFormatter jsonFormatter;
+
   TalkerHttpLoggerSettings copyWith({
     bool? enabled,
     LogLevel? logLevel,
@@ -139,6 +146,7 @@ class TalkerHttpLoggerSettings with EquatableMixin {
     ResponseFilter? responseFilter,
     ResponseFilter? errorFilter,
     Set<String>? hiddenHeaders,
+    TalkerJsonFormatter? jsonFormatter,
   }) =>
       TalkerHttpLoggerSettings(
         enabled: enabled ?? this.enabled,
@@ -160,6 +168,7 @@ class TalkerHttpLoggerSettings with EquatableMixin {
         responseFilter: responseFilter ?? this.responseFilter,
         errorFilter: errorFilter ?? this.errorFilter,
         hiddenHeaders: hiddenHeaders ?? this.hiddenHeaders,
+        jsonFormatter: jsonFormatter ?? this.jsonFormatter,
       );
 
   @override
@@ -182,5 +191,6 @@ class TalkerHttpLoggerSettings with EquatableMixin {
         responseFilter,
         errorFilter,
         hiddenHeaders,
+        jsonFormatter,
       ];
 }

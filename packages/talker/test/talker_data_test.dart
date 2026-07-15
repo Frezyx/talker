@@ -73,6 +73,8 @@ void main() {
 
       final displayStackTrace = talkerData.displayStackTrace;
       expect(displayStackTrace, startsWith('\nStackTrace:'));
+      // Verify no trailing curly bracket (issue fix)
+      expect(displayStackTrace.endsWith('}'), isFalse);
     });
 
     test('displayException returns correct format', () {

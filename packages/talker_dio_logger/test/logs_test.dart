@@ -287,6 +287,76 @@ void main() {
       expect(result, contains('"Authorization": "Bearer token123"'));
     });
 
+    test('generateTextMessage should strip quotes when stripQuotes is true',
+        () {
+      final requestOptions =
+          RequestOptions(path: '/test', method: 'POST', data: {'key': 'value'});
+      final settings = TalkerDioLoggerSettings(
+        printRequestData: true,
+        jsonFormatter: TalkerJsonFormatter(stripQuotes: true),
+      );
+      final dioRequestLog = DioRequestLog('Test message',
+          requestOptions: requestOptions, settings: settings);
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('key: value'));
+      expect(result, isNot(contains('"key"')));
+      expect(result, isNot(contains('"value"')));
+    });
+
+    test('generateTextMessage should use custom formatter', () {
+      final requestOptions =
+          RequestOptions(path: '/test', method: 'POST', data: {'key': 'value'});
+      final settings = TalkerDioLoggerSettings(
+        printRequestData: true,
+        jsonFormatter: TalkerJsonFormatter.custom((data) => 'CUSTOM:$data'),
+      );
+      final dioRequestLog = DioRequestLog('Test message',
+          requestOptions: requestOptions, settings: settings);
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('Data: CUSTOM:{key: value}'));
+    });
+
+    test('generateTextMessage should strip quotes in headers', () {
+      final requestOptions = RequestOptions(
+          path: '/test',
+          method: 'GET',
+          headers: {'Authorization': 'Bearer Token'});
+      final settings = TalkerDioLoggerSettings(
+        printRequestHeaders: true,
+        jsonFormatter: TalkerJsonFormatter(stripQuotes: true),
+      );
+      final dioRequestLog = DioRequestLog('Test message',
+          requestOptions: requestOptions, settings: settings);
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('Authorization: Bearer Token'));
+      expect(result, isNot(contains('"Authorization"')));
+    });
+
+    test('generateTextMessage should strip quotes in extra', () {
+      final requestOptions = RequestOptions(
+        path: '/test',
+        method: 'GET',
+        extra: {'custom': 'data'},
+      );
+      final settings = TalkerDioLoggerSettings(
+        printRequestExtra: true,
+        jsonFormatter: TalkerJsonFormatter(stripQuotes: true),
+      );
+      final dioRequestLog = DioRequestLog('Test message',
+          requestOptions: requestOptions, settings: settings);
+
+      final result = dioRequestLog.generateTextMessage();
+
+      expect(result, contains('Extra:'));
+      expect(result, contains('custom: data'));
+    });
+
     // Add more tests for DioRequestLog as needed
   });
 
@@ -520,6 +590,96 @@ void main() {
       expect(dioResponseLog.logLevel, equals(LogLevel.warning));
     });
 
+    test('generateTextMessage should strip quotes when stripQuotes is true',
+        () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 200,
+        data: {'key': 'value'},
+      );
+      final settings = TalkerDioLoggerSettings(
+        jsonFormatter: TalkerJsonFormatter(stripQuotes: true),
+      );
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result = dioResponseLog.generateTextMessage();
+
+      expect(result, contains('key: value'));
+      expect(result, isNot(contains('"key"')));
+    });
+
+    test('generateTextMessage should use custom formatter', () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 200,
+        data: {'key': 'value'},
+      );
+      final settings = TalkerDioLoggerSettings(
+        jsonFormatter: TalkerJsonFormatter.custom((data) => 'CUSTOM:$data'),
+      );
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result = dioResponseLog.generateTextMessage();
+
+      expect(result, contains('Data: CUSTOM:{key: value}'));
+    });
+
+    test('generateTextMessage should strip quotes in headers', () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 200,
+        headers: Headers.fromMap({
+          'content-type': ['application/json'],
+        }),
+      );
+      final settings = TalkerDioLoggerSettings(
+        printResponseHeaders: true,
+        jsonFormatter: TalkerJsonFormatter(stripQuotes: true),
+      );
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result = dioResponseLog.generateTextMessage();
+
+      expect(result, contains('content-type'));
+      expect(result, isNot(contains('"content-type"')));
+    });
+
+    test(
+        'generateTextMessage should prefer responseDataConverter over jsonFormatter',
+        () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 200,
+        data: {'key': 'value'},
+      );
+      final settings = TalkerDioLoggerSettings(
+        responseDataConverter: (response) => 'CONVERTER:${response.data}',
+        jsonFormatter: TalkerJsonFormatter.custom((data) => 'FORMATTER:$data'),
+      );
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result = dioResponseLog.generateTextMessage();
+
+      expect(result, contains('Data: CONVERTER:{key: value}'));
+      expect(result, isNot(contains('FORMATTER')));
+    });
+
     // Add more tests for DioResponseLog as needed
   });
 
@@ -671,6 +831,78 @@ void main() {
       );
 
       expect(dioErrorLog.logLevel, equals(LogLevel.error));
+    });
+
+    test('generateTextMessage should strip quotes when stripQuotes is true',
+        () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 500,
+        data: {'error': 'Internal Server Error'},
+      );
+      final dioException = DioException(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        message: 'Error message',
+        response: response,
+      );
+      final settings = TalkerDioLoggerSettings(
+        jsonFormatter: TalkerJsonFormatter(stripQuotes: true),
+      );
+      final dioErrorLog = DioErrorLog('Error title',
+          dioException: dioException, settings: settings);
+
+      final result = dioErrorLog.generateTextMessage();
+
+      expect(result, contains('error: Internal Server Error'));
+      expect(result, isNot(contains('"error"')));
+    });
+
+    test('generateTextMessage should use custom formatter', () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 500,
+        data: {'error': 'Internal Server Error'},
+      );
+      final dioException = DioException(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        message: 'Error message',
+        response: response,
+      );
+      final settings = TalkerDioLoggerSettings(
+        jsonFormatter: TalkerJsonFormatter.custom((data) => 'CUSTOM:$data'),
+      );
+      final dioErrorLog = DioErrorLog('Error title',
+          dioException: dioException, settings: settings);
+
+      final result = dioErrorLog.generateTextMessage();
+
+      expect(result, contains('Data: CUSTOM:{error: Internal Server Error}'));
+    });
+
+    test('generateTextMessage should strip quotes in headers', () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 500,
+        headers: Headers.fromMap({
+          'content-type': ['application/json'],
+        }),
+      );
+      final dioException = DioException(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        message: 'Error message',
+        response: response,
+      );
+      final settings = TalkerDioLoggerSettings(
+        printErrorHeaders: true,
+        jsonFormatter: TalkerJsonFormatter(stripQuotes: true),
+      );
+      final dioErrorLog = DioErrorLog('Error title',
+          dioException: dioException, settings: settings);
+
+      final result = dioErrorLog.generateTextMessage();
+
+      expect(result, contains('content-type'));
+      expect(result, isNot(contains('"content-type"')));
     });
   });
 }

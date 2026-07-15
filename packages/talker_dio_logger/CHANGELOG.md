@@ -1,3 +1,68 @@
+# 5.1.19
+- [talker_flutter] Bump path_provider version from 2.1.4 to 2.1.6
+- [talker_flutter] Bump share_plus version from 3.0.0 to 3.2.0
+- [talker_flutter] Bump web version from 1.1.0 to 1.1.1
+
+Thanks to [Frezyx](https://github.com/Frezyx)
+
+# 5.1.18
+- [common] Update plugin com.android.application to v9.2.1
+- [common] Update Gradle to v9.5.0
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
+# 5.1.17
+- [talker_flutter] chore: bump share_plus from ^12.0.1 to ^13.0.0
+
+Thanks to [PAzter1101](https://github.com/PAzter1101)
+
+# 5.1.16
+- [talker_riverpod_logger] fix: correct Riverpod integration package import in README
+
+Thanks to [Copilot](https://github.com/Copilot)
+
+# 5.1.15
+- [talker] Add custom pretty json formatter and strip quotes
+- [talker_dio_logger] Add new pretty json formatter 
+- [talker_chopper_logger] Add new pretty json formatter 
+- [talker_http_logger] Add new pretty json formatter 
+
+Thanks to [westito](https://github.com/westito)
+
+# 5.1.14
+- [common] Update plugin com.android.application to v9.0.1
+- [common] Update plugin org.jetbrains.kotlin.android to v2.3.10
+- [common] Update Gradle to v9.3.1
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
+# 5.1.13
+- [common] Fix trailing curly bracket in stacktrace output
+
+Thanks to [Copilot](https://github.com/Copilot)
+
+# 5.1.12
+- [common] Update Gradle to v9.3.0
+- [common] Update plugin com.android.application to v9
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
+# 5.1.11
+- [talker_flutter] Update plugin org.jetbrains.kotlin.android to v2.3.0
+- [talker_flutter] Update Gradle to v9.2.1
+
+Thanks to [renovatebot](https://github.com/renovatebot)
+
+# 5.1.10
+- [talker_flutter] Fix WebAssembly incompatible cast in download_logs_web.dart
+
+Thanks to [JanKubicek](https://github.com/JanKubicek), [Copilot](https://github.com/Copilot)
+
+# 5.1.9
+- [talker_flutter] Fix TalkerScreen stack trace display for TalkerLog objects
+
+Thanks to [Copilot](https://github.com/Copilot)
+
 # 5.1.8
 - [talker_dio_logger] Add comprehensive test coverage for FormData logging support
 

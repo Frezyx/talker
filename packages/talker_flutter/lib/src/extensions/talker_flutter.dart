@@ -11,10 +11,22 @@ extension TalkerFlutter on Talker {
     TalkerFilter? filter,
   }) =>
       Talker(
-        logger: logger ?? TalkerLogger(output: _defaultFlutterOutput),
+        logger: logger ?? _defaultFlutterLogger(),
         observer: observer,
         settings: settings,
         filter: filter,
+      );
+
+  /// Default logger for Flutter:
+  /// - On web, disables ANSI colors to avoid UTF-8 encoding issues.
+  /// - On other platforms, enables colors by default.
+  static TalkerLogger _defaultFlutterLogger() => TalkerLogger(
+        output: _defaultFlutterOutput,
+        settings: TalkerLoggerSettings(
+          // Disable colors on web to prevent UTF-8 encoding issues
+          // with ANSI escape codes in the browser console
+          enableColors: !kIsWeb,
+        ),
       );
 
   /// Default output function for Flutter:

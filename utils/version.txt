@@ -1,4 +1,4 @@
-5.1.18
 5.1.19
-[talker_flutter] Bump path_provider version from 2.1.4 to 2.1.6
+5.1.20
+[common] Update CI/CD dependencies
 Frezyx

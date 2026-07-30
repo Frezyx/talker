@@ -49,6 +49,11 @@ class _Home extends StatelessWidget {
                 onPressed: _handleError,
                 child: const Text('Handle error'),
               ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: _handleLog,
+                child: const Text('Handle log message'),
+              ),
             ],
           ),
         ),
@@ -70,6 +75,11 @@ class _Home extends StatelessWidget {
     } catch (e, st) {
       talker.handle(e, st);
     }
+  }
+
+  void _handleLog() {
+    final talkerLog = TalkerLog('Test log message');
+    talker.handle(talkerLog);
   }
 }
 

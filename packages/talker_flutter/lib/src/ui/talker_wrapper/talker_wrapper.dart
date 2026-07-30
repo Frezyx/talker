@@ -48,6 +48,17 @@ class TalkerWrapper extends StatelessWidget {
                   title: options.errorTitle,
                 ),
           );
+          return;
+        }
+        if (data is TalkerLog && options.enableLogAlerts) {
+          showAlert(
+            context,
+            options.logAlertBuilder?.call(context, data) ??
+                SnackbarContent(
+                  message: _mapErrorMessage(data.displayMessage),
+                  title: data.title ?? options.logTitle,
+                ),
+          );
         }
       },
       child: child,

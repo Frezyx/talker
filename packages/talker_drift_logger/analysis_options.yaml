@@ -1,0 +1,16 @@
+# This file configures the static analysis results for your project (errors,
+# warnings, and lints).
+#
+# This enables the 'recommended' set of lints from `package:lints`.
+# The core lints are also what is used by pub.dev for scoring packages.
+
+include: package:lints/recommended.yaml
+
+# Uncomment to customize rules
+# linter:
+#   rules:
+#     - always_use_package_imports
+
+# analyzer:
+#   exclude:
+#     - test/**/goldens/**

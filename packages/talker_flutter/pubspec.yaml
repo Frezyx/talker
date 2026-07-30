@@ -13,8 +13,8 @@ topics:
   - ui
 
 environment:
-  sdk: '>=3.6.0 <4.0.0'
-  flutter: '>=1.17.0'
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
@@ -25,7 +25,6 @@ dependencies:
   path_provider: ^2.1.6
   share_plus: ^13.2.0
   web: ^1.1.1
-
 
 dev_dependencies:
   flutter_test:

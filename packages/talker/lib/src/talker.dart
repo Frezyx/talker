@@ -426,8 +426,11 @@ class Talker {
     final key = data.key;
     if (key != null) {
       data.title = settings.getTitleByKey(key);
-      pen = settings.getPenByKey(key, fallbackPen: data.pen);
-      data.pen = pen;
+      // Only use the key's default color if user didn't provide a custom pen
+      if (pen == null) {
+        pen = settings.getPenByKey(key);
+        data.pen = pen;
+      }
     }
 
     _observer.onLog(data);

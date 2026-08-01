@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_http_logger/http_error_log.dart';
@@ -103,25 +105,56 @@ class TalkerHttpLogger extends InterceptorContract {
   }) async {
     final String message = '${response.request?.url}';
 
-    switch (response.statusCode) {
+    BaseResponse resForTalker;
+    BaseResponse resForReturn;
+
+    if (response is StreamedResponse) {
+      final bytes = await response.stream.toBytes();
+      final body = utf8.decode(bytes);
+      resForTalker = Response(
+        body,
+        response.statusCode,
+        headers: response.headers,
+        isRedirect: response.isRedirect,
+        persistentConnection: response.persistentConnection,
+        reasonPhrase: response.reasonPhrase,
+        request: response.request,
+      );
+
+      resForReturn = StreamedResponse(
+        Stream.value(bytes),
+        response.statusCode,
+        headers: response.headers,
+        isRedirect: response.isRedirect,
+        persistentConnection: response.persistentConnection,
+        reasonPhrase: response.reasonPhrase,
+        request: response.request,
+        contentLength: bytes.length,
+      );
+    } else {
+      resForTalker = response;
+      resForReturn = response;
+    }
+
+    switch (resForTalker.statusCode) {
       case int statusCode when settings.enabled && statusCode < 400:
-        if (settings.responseFilter?.call(response) ?? true) {
+        if (settings.responseFilter?.call(resForTalker) ?? true) {
           _talker.logCustom(
             HttpResponseLog(
               message,
-              response: response,
+              response: resForTalker,
               settings: settings,
             ),
           );
         }
         break;
       case _ when settings.enabled:
-        if (settings.errorFilter?.call(response) ?? true) {
+        if (settings.errorFilter?.call(resForTalker) ?? true) {
           _talker.logCustom(
             HttpErrorLog(
               message,
-              request: response.request,
-              response: response,
+              request: resForTalker.request,
+              response: resForTalker,
               settings: settings,
             ),
           );
@@ -129,6 +162,6 @@ class TalkerHttpLogger extends InterceptorContract {
         break;
     }
 
-    return response;
+    return resForReturn;
   }
 }

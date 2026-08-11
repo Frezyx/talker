@@ -65,22 +65,39 @@ Exception''',
     });
 
     test('TalkerLog', () async {
+      final error = Error();
+      final exception = Exception('Test Exception');
+      final dateTime = DateTime.now();
       final log = TalkerLog(
         _testMessage,
         logLevel: LogLevel.debug,
+        exception: exception,
+        error: error,
+        stackTrace: StackTrace.current,
         title: _testTitle,
+        time: dateTime,
+        pen: AnsiPen()..red(),
+        key: 'custom-key',
       );
 
       expect(log is TalkerData, true);
       expect(log is TalkerLog, true);
-      expect(log.message, _testMessage);
-      expect(log.title, _testTitle);
-      expect(log.time is DateTime, true);
+      expect(log.message, equals(_testMessage));
+      expect(log.logLevel, equals(LogLevel.debug));
+      expect(log.exception, equals(exception));
+      expect(log.error, equals(error));
+      expect(log.stackTrace is StackTrace, true);
+      expect(log.title, equals(_testTitle));
+      expect(log.time, equals(dateTime));
+      expect(log.pen, isNotNull);
+      expect(log.key, equals('custom-key'));
 
       final message = log.generateTextMessage();
       expect(
         message,
-        '''[test title] | ${TalkerDateTimeFormatter(log.time).timeAndSeconds} | test message''',
+        equals(
+          '${log.displayTitleWithTime()}${log.displayMessage}${log.displayException}${log.displayError}${log.displayStackTrace}',
+        ),
       );
     });
   });

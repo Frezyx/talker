@@ -14,18 +14,12 @@ class TalkerData {
     DateTime? time,
     this.pen,
     this.key,
-  }) {
-    _time = time ?? DateTime.now();
-  }
-
-  late DateTime _time;
+  }) : time = time ?? DateTime.now();
 
   /// {@template talker_data_message}
   /// [String] [message] - message describes what happened
   /// {@endtemplate}
   final String? message;
-
-  final String? key;
 
   /// {@template talker_data_loglevel}
   /// [LogLevel] [logLevel] - to control logging output
@@ -42,23 +36,25 @@ class TalkerData {
   /// {@endtemplate}
   final Error? error;
 
-  /// {@template talker_data_title}
-  /// Title of Talker log
-  /// {@endtemplate}
-  String? title;
-
   /// {@template talker_data_stackTrace}
   /// StackTrace?] [stackTrace] - stackTrace if [exception] or [error] happened
   /// {@endtemplate}
   final StackTrace? stackTrace;
 
+  /// {@template talker_data_title}
+  /// Title of Talker log
+  /// {@endtemplate}
+  String? title;
+
   /// {@template talker_data_time}
   /// Internal time when the log occurred
   /// {@endtemplate}
-  DateTime get time => _time;
+  final DateTime time;
 
   /// [AnsiPen?] [pen] - sets your own log color for console
   AnsiPen? pen;
+
+  final String? key;
 
   /// {@template talker_data_generateTextMessage}
   /// Internal method that generates

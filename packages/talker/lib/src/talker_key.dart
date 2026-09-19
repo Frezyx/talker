@@ -36,6 +36,7 @@ abstract class TalkerKey {
   static const riverpodMutationReset = 'riverpod-mutation-reset';
 
   /// grpc section
+  static const grpcEvent = 'grpc-event';
   static const grpcRequest = 'grpc-request';
   static const grpcResponse = 'grpc-response';
   static const grpcError = 'grpc-error';

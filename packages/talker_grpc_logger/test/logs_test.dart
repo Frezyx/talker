@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:grpc/grpc.dart';
+import 'package:protobuf/protobuf.dart';
 import 'package:talker/talker.dart';
+import 'package:talker_grpc_logger/src/enums/enums.dart';
 import 'package:talker_grpc_logger/src/grpc_logs/grpc_error_log.dart';
 import 'package:talker_grpc_logger/src/grpc_logs/grpc_event_log.dart';
 import 'package:talker_grpc_logger/src/grpc_logs/grpc_request_log.dart';
@@ -10,11 +12,48 @@ import 'package:talker_grpc_logger/src/intercepted_response_stream.dart';
 import 'package:talker_grpc_logger/talker_grpc_logger.dart';
 import 'package:test/test.dart';
 
+/// Minimal [GeneratedMessage] used to exercise proto3 JSON rendering.
+class FakeProto extends GeneratedMessage {
+  FakeProto._();
+
+  factory FakeProto({String? name}) {
+    final result = FakeProto._();
+    if (name != null) result.name = name;
+    return result;
+  }
+
+  static final BuilderInfo _i = BuilderInfo(
+    'FakeProto',
+    createEmptyInstance: FakeProto._,
+  )
+    ..aOS(1, 'name')
+    ..hasRequiredFields = false;
+
+  @override
+  BuilderInfo get info_ => _i;
+
+  @override
+  FakeProto createEmptyInstance() => FakeProto._();
+
+  @override
+  FakeProto clone() => deepCopy();
+
+  String get name => $_getSZ(0);
+  set name(String value) => $_setString(0, value);
+}
+
 ClientMethod<String, String> createMethod(String path) =>
     ClientMethod<String, String>(
       path,
       (s) => List<int>.from(s.codeUnits),
       (l) => String.fromCharCodes(l),
+    );
+
+ClientMethod<FakeProto, FakeProto> createProtoMethod(String path) =>
+    ClientMethod<FakeProto, FakeProto>(
+      path,
+      (_) => <int>[],
+      (_) => FakeProto(),
     );
 
 class _FakeClientCall<R> implements ClientCall<dynamic, R> {
@@ -37,12 +76,19 @@ ResponseFuture<R> _responseFuture<R>(Future<R> future) =>
     ResponseFuture<R>(_FakeClientCall<R>(future));
 
 class FakeResponseStream<R> extends Stream<R> implements ResponseStream<R> {
-  FakeResponseStream(this._inner);
+  FakeResponseStream(
+    this._inner, {
+    this.headersResult = const <String, String>{},
+    this.trailersResult = const <String, String>{},
+  });
 
   final Stream<R> _inner;
+  final Map<String, String> headersResult;
+  final Map<String, String> trailersResult;
+  var cancelCalled = false;
 
   @override
-  bool get isBroadcast => false;
+  bool get isBroadcast => _inner.isBroadcast;
 
   @override
   StreamSubscription<R> listen(
@@ -59,16 +105,18 @@ class FakeResponseStream<R> extends Stream<R> implements ResponseStream<R> {
       );
 
   @override
-  Future<Map<String, String>> get headers async => const <String, String>{};
+  Future<Map<String, String>> get headers async => headersResult;
 
   @override
-  Future<Map<String, String>> get trailers async => const <String, String>{};
+  Future<Map<String, String>> get trailers async => trailersResult;
 
   @override
   ResponseFuture<R> get single => _responseFuture<R>(_inner.single);
 
   @override
-  Future<void> cancel() async {}
+  Future<void> cancel() async {
+    cancelCalled = true;
+  }
 }
 
 Future<void> waitFor(
@@ -287,6 +335,44 @@ void main() {
       );
       expect(log.logLevel, LogLevel.warning);
     });
+
+    test('formats GeneratedMessage via toProto3Json', () {
+      final method = createProtoMethod('/TestService/RequestProto');
+      final log = GrpcRequestLog<FakeProto, FakeProto>.unary(
+        request: FakeProto(name: 'alice'),
+        method: method,
+        options: CallOptions(metadata: {}),
+      );
+      final msg = log.generateTextMessage();
+      expect(msg, contains('Data:'));
+      expect(msg, contains('alice'));
+      expect(log.grpcCallType, GrpcCallType.unary);
+    });
+
+    test('falls back to toString when jsonFormatter throws', () {
+      final method = createMethod('/TestService/RequestFormatterThrow');
+      final log = GrpcRequestLog<String, String>.unary(
+        request: 'raw-payload',
+        method: method,
+        options: CallOptions(metadata: {}),
+        settings: TalkerGrpcLoggerSettings(
+          jsonFormatter: TalkerJsonFormatter.custom(
+            (_) => throw StateError('formatter failed'),
+          ),
+        ),
+      );
+      expect(log.generateTextMessage(), contains('Data: raw-payload'));
+    });
+
+    test('uses default request pen when none provided', () {
+      final method = createMethod('/TestService/RequestDefaultPen');
+      final log = GrpcRequestLog<String, String>.unary(
+        request: 'x',
+        method: method,
+        options: CallOptions(metadata: {}),
+      );
+      expect(log.pen, isNotNull);
+    });
   });
 
   // NEW: GrpcEventLog carries lifecycle markers, no payload.
@@ -320,6 +406,34 @@ void main() {
           msg, contains('Event: Stream completed (3 responses / 1 request)'));
       expect(msg, isNot(contains('x-trace-id')));
       expect(msg, isNot(contains('Data:')));
+    });
+
+    test('key, pen and logLevel follow settings', () {
+      final method = createMethod('/TestService/EventMeta');
+      final pen = AnsiPen()..cyan();
+      final log = GrpcEventLog<String, String>.stream(
+        event: 'Stream started',
+        method: method,
+        options: CallOptions(metadata: {}),
+        settings: TalkerGrpcLoggerSettings(
+          requestPen: pen,
+          logLevel: LogLevel.info,
+        ),
+      );
+      expect(log.key, equals(TalkerKey.grpcEvent));
+      expect(log.pen, same(pen));
+      expect(log.logLevel, LogLevel.info);
+      expect(log.grpcCallType, GrpcCallType.stream);
+    });
+
+    test('uses default pen when none provided', () {
+      final method = createMethod('/TestService/EventDefaultPen');
+      final log = GrpcEventLog<String, String>.stream(
+        event: 'Stream started',
+        method: method,
+        options: CallOptions(metadata: {}),
+      );
+      expect(log.pen, isNotNull);
     });
   });
 
@@ -500,6 +614,43 @@ void main() {
       );
       expect(log.pen, same(pen));
     });
+
+    test('uses default error pen when none provided', () {
+      final method = createMethod('/TestService/ErrorDefaultPen');
+      final log = GrpcErrorLog<String, String>.unary(
+        request: 'x',
+        method: method,
+        options: CallOptions(metadata: {}),
+        grpcError: GrpcError.unknown('x'),
+        durationMs: 1,
+      );
+      expect(log.pen, isNotNull);
+    });
+
+    test('printErrorHeaders = false hides headers', () {
+      final method = createMethod('/TestService/ErrorNoHeadersFlag');
+      final log = GrpcErrorLog<String, String>.unary(
+        request: 'x',
+        method: method,
+        options: CallOptions(metadata: {'x-trace-id': '123'}),
+        grpcError: GrpcError.unknown('x'),
+        durationMs: 1,
+        settings: const TalkerGrpcLoggerSettings(printErrorHeaders: false),
+      );
+      expect(log.generateTextMessage(), isNot(contains('Headers:')));
+    });
+
+    test('negative durationMs is omitted', () {
+      final method = createMethod('/TestService/ErrorNegativeDuration');
+      final log = GrpcErrorLog<String, String>.unary(
+        request: 'x',
+        method: method,
+        options: CallOptions(metadata: {}),
+        grpcError: GrpcError.unknown('x'),
+        durationMs: -1,
+      );
+      expect(log.generateTextMessage(), isNot(contains('Duration:')));
+    });
   });
 
   group('GrpcResponseLog', () {
@@ -597,6 +748,30 @@ void main() {
       );
       expect(log.pen, same(pen));
     });
+
+    test('uses default response pen when none provided', () {
+      final method = createMethod('/TestService/ResponseDefaultPen');
+      final log = GrpcResponseLog<String, String>.unary(
+        response: 'x',
+        method: method,
+        durationMs: 1,
+        options: CallOptions(),
+      );
+      expect(log.pen, isNotNull);
+      expect(log.logLevel, LogLevel.debug);
+    });
+
+    test('printResponseHeaders = false hides headers', () {
+      final method = createMethod('/TestService/ResponseNoHeadersFlag');
+      final log = GrpcResponseLog<String, String>.unary(
+        response: 'OK',
+        method: method,
+        durationMs: 10,
+        options: CallOptions(metadata: {'x-trace-id': 'abc'}),
+        settings: const TalkerGrpcLoggerSettings(printResponseHeaders: false),
+      );
+      expect(log.generateTextMessage(), isNot(contains('Headers:')));
+    });
   });
 
   group('TalkerGrpcLoggerSettings', () {
@@ -620,24 +795,46 @@ void main() {
 
     test('copyWith updates fields', () {
       const settings = TalkerGrpcLoggerSettings();
+      final pen = AnsiPen()..red();
+      final formatter = TalkerJsonFormatter.custom((data) => '$data');
       final copy = settings.copyWith(
         enabled: false,
         logLevel: LogLevel.error,
         printRequestData: false,
+        printRequestHeaders: false,
         printResponseData: false,
+        printResponseHeaders: false,
+        printResponseDuration: false,
+        printErrorCode: false,
+        printErrorHeaders: false,
+        printErrorMessage: false,
         printStreamInit: false,
         printStreamChunks: false,
         printStreamComplete: false,
         hiddenHeaders: const {'authorization'},
+        requestPen: pen,
+        responsePen: pen,
+        errorPen: pen,
+        jsonFormatter: formatter,
       );
       expect(copy.enabled, isFalse);
       expect(copy.logLevel, LogLevel.error);
       expect(copy.printRequestData, isFalse);
+      expect(copy.printRequestHeaders, isFalse);
       expect(copy.printResponseData, isFalse);
+      expect(copy.printResponseHeaders, isFalse);
+      expect(copy.printResponseDuration, isFalse);
+      expect(copy.printErrorCode, isFalse);
+      expect(copy.printErrorHeaders, isFalse);
+      expect(copy.printErrorMessage, isFalse);
       expect(copy.printStreamInit, isFalse);
       expect(copy.printStreamChunks, isFalse);
       expect(copy.printStreamComplete, isFalse);
       expect(copy.hiddenHeaders, contains('authorization'));
+      expect(copy.requestPen, same(pen));
+      expect(copy.responsePen, same(pen));
+      expect(copy.errorPen, same(pen));
+      expect(copy.jsonFormatter, same(formatter));
     });
 
     test('copyWith without args keeps original values', () {
@@ -789,6 +986,39 @@ void main() {
         invoker,
       );
       expect(identical(result, original), isTrue);
+    });
+
+    test('wraps non-GrpcError failures as UNKNOWN', () async {
+      final method = createMethod('/TestService/UnaryNonGrpcError');
+      final logger = TalkerGrpcLogger(talker: talker);
+
+      final rf = logger.interceptUnary<String, String>(
+        method,
+        'req',
+        CallOptions(metadata: const {}),
+        makeUnaryInvoker(Future<String>.error(StateError('boom'))),
+      );
+      await rf.catchError((_) => '');
+      await waitFor(() => logsWithKey(TalkerKey.grpcError).isNotEmpty);
+
+      final msg = logsWithKey(TalkerKey.grpcError).first.generateTextMessage();
+      expect(msg, contains('Code: UNKNOWN'));
+      expect(msg, contains('Message: Bad state: boom'));
+    });
+  });
+
+  group('TalkerGrpcLogger defaults', () {
+    test('creates a private Talker when none is provided', () async {
+      final method = createMethod('/TestService/DefaultTalker');
+      final logger = TalkerGrpcLogger();
+
+      final rf = logger.interceptUnary<String, String>(
+        method,
+        'req',
+        CallOptions(metadata: const {}),
+        (m, r, o) => _responseFuture<String>(Future.value('ok')),
+      );
+      expect(await rf, 'ok');
     });
   });
 
@@ -1129,6 +1359,104 @@ void main() {
       expect(logsWithKey(TalkerKey.grpcEvent), isNotEmpty);
       expect(logsWithKey(TalkerKey.grpcError), isNotEmpty);
       expect(hasText(TalkerKey.grpcError, 'Event:'), isFalse);
+    });
+
+    test('wraps non-GrpcError stream failures as UNKNOWN', () async {
+      final method = createMethod('/TestService/StreamNonGrpcError');
+      final logger = TalkerGrpcLogger(talker: talker);
+
+      ResponseStream<String> invoker(
+        ClientMethod<String, String> _,
+        Stream<String> __,
+        CallOptions ___,
+      ) {
+        final controller = StreamController<String>();
+        Future.microtask(() => controller.addError(StateError('stream boom')));
+        return FakeResponseStream<String>(controller.stream);
+      }
+
+      final stream = logger.interceptStreaming<String, String>(
+        method,
+        const Stream<String>.empty(),
+        CallOptions(),
+        invoker,
+      );
+
+      await stream.drain<void>().catchError((_) {});
+      await waitFor(() => logsWithKey(TalkerKey.grpcError).isNotEmpty);
+
+      final msg = logsWithKey(TalkerKey.grpcError).first.generateTextMessage();
+      expect(msg, contains('Code: UNKNOWN'));
+      expect(msg, contains('Message: Bad state: stream boom'));
+    });
+
+    test('completion entry with only responses omits request counter', () async {
+      final method = createMethod('/TestService/StreamResponsesOnly');
+      final logger = TalkerGrpcLogger(talker: talker);
+
+      ResponseStream<String> invoker(
+        ClientMethod<String, String> _,
+        Stream<String> __,
+        CallOptions ___,
+      ) {
+        return FakeResponseStream<String>(Stream.fromIterable(['a', 'b']));
+      }
+
+      final stream = logger.interceptStreaming<String, String>(
+        method,
+        const Stream<String>.empty(),
+        CallOptions(),
+        invoker,
+      );
+
+      await stream.toList();
+      await waitFor(() => hasEvent('Event: Stream completed'));
+
+      expect(
+        hasEvent('Event: Stream completed (2 responses)'),
+        isTrue,
+      );
+    });
+
+    test('completion entry with only requests omits response counter', () async {
+      final method = createMethod('/TestService/StreamRequestsOnly');
+      final logger = TalkerGrpcLogger(talker: talker);
+      final source = StreamController<String>();
+
+      ResponseStream<String> invoker(
+        ClientMethod<String, String> _,
+        Stream<String> requests,
+        CallOptions __,
+      ) {
+        // Keep the response open until all requests are consumed so the
+        // interceptor can count them before emitting completion.
+        final out = StreamController<String>();
+        requests.listen(
+          (_) {},
+          onDone: out.close,
+          onError: out.addError,
+        );
+        return FakeResponseStream<String>(out.stream);
+      }
+
+      final stream = logger.interceptStreaming<String, String>(
+        method,
+        source.stream,
+        CallOptions(),
+        invoker,
+      );
+
+      final resultsFuture = stream.toList();
+      source.add('a');
+      source.add('b');
+      await source.close();
+      await resultsFuture;
+      await waitFor(() => hasEvent('Event: Stream completed'));
+
+      expect(
+        hasEvent('Event: Stream completed (2 requests)'),
+        isTrue,
+      );
     });
 
     test('completion entry is suppressed when stream fails', () async {
@@ -1618,7 +1946,7 @@ void main() {
       await Future<void>.delayed(Duration.zero);
     });
 
-    test('cancel delegates to original stream', () async {
+    test('subscription cancel detaches from the source', () async {
       final controller = StreamController<String>();
       final stream = InterceptedResponseStream<String>(
         FakeResponseStream<String>(controller.stream),
@@ -1693,22 +2021,122 @@ void main() {
       expect(errors.first, isA<GrpcError>());
     });
 
-    test('single() delegates headers to original stream', () async {
+    test('delegates isBroadcast, headers and trailers', () async {
+      final original = FakeResponseStream<String>(
+        Stream.value('only'),
+        headersResult: const {'h': '1'},
+        trailersResult: const {'t': '2'},
+      );
       final stream = InterceptedResponseStream<String>(
-        FakeResponseStream<String>(Stream.value('only')),
+        original,
+        onResponse: (_) {},
+        onError: (_) {},
+      );
+
+      expect(stream.isBroadcast, isFalse);
+      expect(await stream.headers, equals({'h': '1'}));
+      expect(await stream.trailers, equals({'t': '2'}));
+    });
+
+    test('cancel() delegates to original stream', () async {
+      final original = FakeResponseStream<String>(const Stream<String>.empty());
+      final stream = InterceptedResponseStream<String>(
+        original,
+        onResponse: (_) {},
+        onError: (_) {},
+      );
+
+      await stream.cancel();
+      expect(original.cancelCalled, isTrue);
+    });
+
+    test('single() delegates headers and trailers to original stream', () async {
+      final stream = InterceptedResponseStream<String>(
+        FakeResponseStream<String>(
+          Stream.value('only'),
+          headersResult: const {'h': '1'},
+          trailersResult: const {'t': '2'},
+        ),
         onResponse: (_) {},
         onError: (_) {},
       );
 
       final single = stream.single;
       expect(await single, 'only');
-      expect(await single.headers, isEmpty);
+      expect(await single.headers, equals({'h': '1'}));
+      expect(await single.trailers, equals({'t': '2'}));
     });
 
-    test('single() cancel() cancels the underlying subscription', () async {
-      final controller = StreamController<String>();
+    test('single() errors when no responses are received', () async {
       final stream = InterceptedResponseStream<String>(
-        FakeResponseStream<String>(controller.stream),
+        FakeResponseStream<String>(const Stream<String>.empty()),
+        onResponse: (_) {},
+        onError: (_) {},
+      );
+
+      await expectLater(
+        stream.single,
+        throwsA(
+          isA<GrpcError>().having(
+            (e) => e.message,
+            'message',
+            'No responses received',
+          ),
+        ),
+      );
+    });
+
+    test('single() errors when more than one response is received', () async {
+      final stream = InterceptedResponseStream<String>(
+        FakeResponseStream<String>(Stream.fromIterable(['a', 'b'])),
+        onResponse: (_) {},
+        onError: (_) {},
+      );
+
+      await expectLater(
+        stream.single,
+        throwsA(
+          isA<GrpcError>().having(
+            (e) => e.message,
+            'message',
+            'More than one response received',
+          ),
+        ),
+      );
+    });
+
+    test('single() cancel() cancels before a value arrives', () async {
+      final controller = StreamController<String>();
+      final original = FakeResponseStream<String>(controller.stream);
+      final stream = InterceptedResponseStream<String>(
+        original,
+        onResponse: (_) {},
+        onError: (_) {},
+      );
+
+      final future = stream.single;
+      // Attach the expectation before cancel so the error is not unhandled.
+      final expectation = expectLater(
+        future,
+        throwsA(
+          isA<GrpcError>().having(
+            (e) => e.message,
+            'message',
+            'Call cancelled',
+          ),
+        ),
+      );
+      await future.cancel();
+      await expectation;
+      expect(original.cancelCalled, isTrue);
+      await controller.close();
+    });
+
+    test('single() cancel() after completion is safe', () async {
+      final controller = StreamController<String>();
+      final original = FakeResponseStream<String>(controller.stream);
+      final stream = InterceptedResponseStream<String>(
+        original,
         onResponse: (_) {},
         onError: (_) {},
       );
@@ -1716,7 +2144,10 @@ void main() {
       final future = stream.single;
       controller.add('only');
       await controller.close();
-      await future;
+      expect(await future, 'only');
+
+      await future.cancel();
+      expect(original.cancelCalled, isTrue);
     });
   });
 }

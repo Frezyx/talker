@@ -169,7 +169,9 @@ class _SingleCall<R> implements ClientCall<dynamic, R> {
     await _original.cancel();
   }
 
+  // coverage:ignore-start
   @override
   dynamic noSuchMethod(Invocation invocation) =>
       throw UnimplementedError('_SingleCall: $invocation');
+  // coverage:ignore-end
 }

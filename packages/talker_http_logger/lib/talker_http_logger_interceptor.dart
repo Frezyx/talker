@@ -67,6 +67,7 @@ class TalkerHttpLogger extends InterceptorContract {
         printErrorMessage: printErrorMessage,
         printResponseHeaders: printResponseHeaders,
         printResponseMessage: printResponseMessage,
+        processStreamedResponse: processStreamedResponse,
         requestPen: requestPen,
         responsePen: responsePen,
         errorPen: errorPen,

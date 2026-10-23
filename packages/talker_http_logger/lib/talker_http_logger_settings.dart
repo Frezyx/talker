@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:http_interceptor/http_interceptor.dart'
     show BaseRequest, BaseResponse;
-import 'package:talker/talker.dart' show AnsiPen, LogLevel;
 import 'package:talker/talker.dart';
 
 typedef RequestFilter = bool Function(BaseRequest request);
@@ -166,7 +165,8 @@ class TalkerHttpLoggerSettings with EquatableMixin {
         printRequestData: printRequestData ?? this.printRequestData,
         printRequestHeaders: printRequestHeaders ?? this.printRequestHeaders,
         printRequestCurl: printRequestCurl ?? this.printRequestCurl,
-        processStreamedResponse: processStreamedResponse ?? this.processStreamedResponse,
+        processStreamedResponse:
+            processStreamedResponse ?? this.processStreamedResponse,
         requestPen: requestPen ?? this.requestPen,
         responsePen: responsePen ?? this.responsePen,
         errorPen: errorPen ?? this.errorPen,

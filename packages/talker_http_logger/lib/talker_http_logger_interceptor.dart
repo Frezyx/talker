@@ -45,6 +45,7 @@ class TalkerHttpLogger extends InterceptorContract {
     bool? printRequestData,
     bool? printRequestHeaders,
     bool? printRequestCurl,
+    bool? processStreamedResponse,
     AnsiPen? requestPen,
     AnsiPen? responsePen,
     AnsiPen? errorPen,
@@ -59,6 +60,7 @@ class TalkerHttpLogger extends InterceptorContract {
         printRequestData: printRequestData,
         printRequestHeaders: printRequestHeaders,
         printRequestCurl: printRequestCurl,
+        processStreamedResponse: processStreamedResponse,
         printResponseData: printResponseData,
         printErrorData: printErrorData,
         printErrorHeaders: printErrorHeaders,
@@ -103,6 +105,33 @@ class TalkerHttpLogger extends InterceptorContract {
   }) async {
     final String message = '${response.request?.url}';
 
+    switch (response) {
+      case StreamedResponse streamedResponse:
+        if (!settings.processStreamedResponse) {
+          continue standard;
+        }
+        final Response normalResponse = await Response.fromStream(
+          streamedResponse,
+        );
+        _logResponse(message: message, response: normalResponse);
+        return StreamedResponse(
+          Stream.value(normalResponse.bodyBytes),
+          normalResponse.statusCode,
+          contentLength: normalResponse.contentLength,
+          request: normalResponse.request,
+          headers: normalResponse.headers,
+          isRedirect: normalResponse.isRedirect,
+          persistentConnection: normalResponse.persistentConnection,
+          reasonPhrase: normalResponse.reasonPhrase,
+        );
+      standard:
+      default:
+        _logResponse(message: message, response: response);
+        return response;
+    }
+  }
+
+  void _logResponse({required String message, required BaseResponse response}) {
     switch (response.statusCode) {
       case int statusCode when settings.enabled && statusCode < 400:
         if (settings.responseFilter?.call(response) ?? true) {
@@ -128,7 +157,5 @@ class TalkerHttpLogger extends InterceptorContract {
         }
         break;
     }
-
-    return response;
   }
 }

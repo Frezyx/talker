@@ -127,7 +127,12 @@ class InterceptedResponseStream<R> extends Stream<R>
       _SingleCall<R>(
         response: Stream.fromFuture(completer.future),
         original: _originalStream,
-        cancelUnderlying: sub.cancel,
+        cancelUnderlying: () async {
+          if (!completer.isCompleted) {
+            completer.completeError(GrpcError.cancelled('Call cancelled'));
+          }
+          await sub.cancel();
+        },
       ),
     );
   }

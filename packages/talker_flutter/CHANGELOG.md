@@ -1,3 +1,9 @@
+# 5.1.21
+- - [talker_http_logger] Process StreamedResponse
+- [talker_http_logger] Fix HTTP logger CI formatting failure
+
+Thanks to [chdanielmueller](https://github.com/chdanielmueller)
+
 # 5.1.20
 - [common] Update CI/CD dependencies
 - [common] Update Gradle to v9.6.1

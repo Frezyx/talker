@@ -1,11 +1,17 @@
 import 'package:talker/talker.dart';
 
 class TalkerFilter implements _Filter<TalkerData> {
-  TalkerFilter({
+  const TalkerFilter({
     this.enabledKeys = const [],
     this.disabledKeys = const [],
     this.searchQuery,
   });
+
+  const factory TalkerFilter.simple(bool Function(TalkerData item) condition) =
+      SimpleTalkerFilter;
+
+  const factory TalkerFilter.combine(List<TalkerFilter> filters) =
+      MultiTalkerFilter;
 
   /// List of enabled for filter keys
   /// This is a new way to filter logs by their keys.

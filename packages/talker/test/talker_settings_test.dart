@@ -31,9 +31,7 @@ void main() {
       final settings = TalkerSettings();
       final newSettings = settings.copyWith(
         enabled: false,
-        useHistory: false,
         useConsoleLogs: false,
-        maxHistoryItems: 999,
       );
 
       expect(newSettings.enabled, false);
@@ -95,7 +93,7 @@ void main() {
 }
 
 class HttpTalkerLog extends TalkerLog {
-  HttpTalkerLog(String message) : super(message);
+  HttpTalkerLog(String super.message);
 
   @override
   AnsiPen get pen => AnsiPen()..blue();

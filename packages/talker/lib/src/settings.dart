@@ -1,5 +1,7 @@
 import 'package:talker/talker.dart';
 
+part 'history_settings.dart';
+
 final _defaultTitles = {
   /// Base logs section
   TalkerKey.critical: 'critical',
@@ -70,16 +72,20 @@ final _fallbackPen = AnsiPen()..gray();
 class TalkerSettings {
   TalkerSettings({
     this.enabled = true,
-    bool useHistory = true,
     bool useConsoleLogs = true,
-    int maxHistoryItems = 1000,
+    @Deprecated('Use historySettings instead') bool? useHistory,
+    @Deprecated('Use historySettings instead') int? maxHistoryItems,
     Map<String, String>? titles,
     Map<String, AnsiPen>? colors,
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
-  })  : _useHistory = useHistory,
-        _useConsoleLogs = useConsoleLogs,
-        _maxHistoryItems = maxHistoryItems,
-        _timeFormat = timeFormat {
+    TalkerHistorySettings? historySettings,
+  })  : _useConsoleLogs = useConsoleLogs,
+        _timeFormat = timeFormat,
+        _history = historySettings ??
+            TalkerHistorySettings(
+              enabled: useHistory,
+              maxRuntimeHistoryItems: maxHistoryItems,
+            ) {
     if (colors != null) {
       _defaultColors.addAll(colors);
     }
@@ -95,8 +101,8 @@ class TalkerSettings {
   /// (base dart [List] field in core)
   /// If [true] - writing in history
   /// If [false] - not writing
-  bool get useHistory => _useHistory && enabled;
-  final bool _useHistory;
+  @Deprecated('Use historySettings instead')
+  bool get useHistory => _history.enabled && enabled;
 
   /// By default talker print all Errors / Exceptions and logs in console.
   /// If [true] - printing in console [false] - not printing.
@@ -104,8 +110,8 @@ class TalkerSettings {
   final bool _useConsoleLogs;
 
   /// Max records count in history list
-  int get maxHistoryItems => _maxHistoryItems;
-  final int _maxHistoryItems;
+  @Deprecated('Use historySettings instead')
+  int? get maxHistoryItems => _history.maxRuntimeHistoryItems;
 
   /// The time format of the logs [TimeFormat]
   TimeFormat get timeFormat => _timeFormat;
@@ -172,6 +178,9 @@ class TalkerSettings {
   /// This allows you to register custom keys that can be used for filtering logs in the Talker UI.
   final List<String> registeredKeys = [];
 
+  TalkerHistorySettings get history => _history;
+  final TalkerHistorySettings _history;
+
   /// Registers multiple custom keys for filtering logs in the Talker UI
   void registerKeys(List<String> keys) {
     for (final key in keys) {
@@ -194,19 +203,17 @@ class TalkerSettings {
 
   TalkerSettings copyWith({
     bool? enabled,
-    bool? useHistory,
     bool? useConsoleLogs,
-    int? maxHistoryItems,
     Map<String, String>? titles,
     Map<String, AnsiPen>? colors,
+    TalkerHistorySettings? historySettings,
   }) {
     return TalkerSettings(
-      useHistory: useHistory ?? _useHistory,
       useConsoleLogs: useConsoleLogs ?? _useConsoleLogs,
-      maxHistoryItems: maxHistoryItems ?? _maxHistoryItems,
       enabled: enabled ?? this.enabled,
       titles: titles ?? this.titles,
       colors: colors ?? this.colors,
+      historySettings: historySettings ?? _history,
     );
   }
 }

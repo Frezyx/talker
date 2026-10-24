@@ -55,38 +55,21 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
         talkerScreenTheme: widget.talkerScreenTheme,
         title: 'Enabled',
         enabled: talker.settings.enabled,
-        onChanged: (enabled) {
-          (enabled ? talker.enable : talker.disable).call();
-          widget.talker.notifyListeners();
-        },
+        onChanged: (enabled) => _toggleEnabled(enabled, talker),
       ),
       TalkerSettingsCard(
         canEdit: talker.settings.enabled,
         talkerScreenTheme: widget.talkerScreenTheme,
         title: 'Use console logs',
         enabled: talker.settings.useConsoleLogs,
-        onChanged: (enabled) {
-          talker.configure(
-            settings: talker.settings.copyWith(
-              useConsoleLogs: enabled,
-            ),
-          );
-          widget.talker.notifyListeners();
-        },
+        onChanged: (enabled) => _toggleUseConsoleLogs(talker, enabled),
       ),
       TalkerSettingsCard(
         canEdit: talker.settings.enabled,
         talkerScreenTheme: widget.talkerScreenTheme,
         title: 'Use history',
-        enabled: talker.settings.useHistory,
-        onChanged: (enabled) {
-          talker.configure(
-            settings: talker.settings.copyWith(
-              useHistory: enabled,
-            ),
-          );
-          widget.talker.notifyListeners();
-        },
+        enabled: talker.settings.history.enabled,
+        onChanged: (enabled) => _toggleHistoryEnabled(talker, enabled),
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -229,6 +212,31 @@ class _TalkerSettingsBottomSheetState extends State<TalkerSettingsBottomSheet> {
         ],
       ),
     );
+  }
+
+  void _toggleEnabled(bool enabled, Talker talker) {
+    (enabled ? talker.enable : talker.disable).call();
+    widget.talker.notifyListeners();
+  }
+
+  void _toggleUseConsoleLogs(Talker talker, bool enabled) {
+    talker.configure(
+      settings: talker.settings.copyWith(
+        useConsoleLogs: enabled,
+      ),
+    );
+    widget.talker.notifyListeners();
+  }
+
+  void _toggleHistoryEnabled(Talker talker, bool enabled) {
+    talker.configure(
+      settings: talker.settings.copyWith(
+        historySettings: talker.settings.history.copyWith(
+          enabled: enabled,
+        ),
+      ),
+    );
+    widget.talker.notifyListeners();
   }
 
   void _toggleKeySelected(bool enabled, String e) {

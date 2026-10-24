@@ -7,7 +7,7 @@ final lightTheme = ThemeData(
   primarySwatch: Colors.purple,
   scaffoldBackgroundColor: const Color(0xffF9F9F9),
   cardColor: Colors.white,
-  appBarTheme: const AppBarTheme(color: Colors.white),
+  appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
 );
 
 const cardShadow = [

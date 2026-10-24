@@ -33,7 +33,8 @@ class DefaultTalkerHistory implements TalkerHistory {
     /// Check if you are authorized to write.
     if (settings.useHistory && settings.enabled) {
       /// Check if you have reached the max number of history and delete them.
-      if (settings.maxHistoryItems <= _history.length) {
+      final maxHistoryItems = settings.maxHistoryItems;
+      if (maxHistoryItems != null && maxHistoryItems <= _history.length) {
         _history.removeAt(0);
       }
       _history.add(data);

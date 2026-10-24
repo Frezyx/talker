@@ -1,4 +1,4 @@
-library talker_riverpod_logger;
+library;
 
 export 'riverpod_logs.dart';
 export 'talker_riverpod_logger_observer.dart';

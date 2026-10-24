@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http_interceptor/http_interceptor.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:qs_dart/qs_dart.dart' as qs;
 import 'package:talker/talker.dart';
 import 'package:talker_http_logger/curl_request.dart';

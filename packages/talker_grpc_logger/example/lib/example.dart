@@ -7,10 +7,14 @@ import 'package:talker_grpc_logger/talker_grpc_logger.dart';
 
 import 'hello.pbgrpc.dart';
 
-Future<void> main() async {
-  try {
-    final talker = Talker();
-
+void main() {
+  final talker = Talker(
+    filter: const TalkerFilter.combine([
+      ExcludeGrpcErrorFilter(),
+      // add your other filters here
+    ]),
+  );
+  return runZonedGuarded(() async {
     final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
       host: 'grpcb.in',
       port: 9000,
@@ -39,7 +43,7 @@ Future<void> main() async {
     } finally {
       await channel.shutdown();
     }
-  } on GrpcError catch (_) {}
+  }, (e, st) => talker.handle(e, st));
 }
 
 Future<void> _sayHello(HelloServiceClient client, Talker talker) async {

@@ -89,6 +89,70 @@ void main() {
 }
 ```
 
+## Avoiding duplicate error logs
+
+`TalkerGrpcLogger` already logs failed calls as a `grpc-error` entry. If the
+same error is not caught in your code and reaches `Talker.handle` (for example,
+when you use `talker_flutter` together with `runTalkerZonedGuarded`), it is
+logged a second time as a generic `exception` entry:
+
+```
+[grpc-error] | [UNARY] /hello.HelloService/SayHello
+│ Code: UNAVAILABLE
+│ Message: Error connecting: ...
+
+[exception] |
+gRPC Error (code: 14, codeName: UNAVAILABLE, message: Error connecting: ...)
+```
+
+To hide the duplicate, pass `ExcludeGrpcErrorFilter` to your `Talker` instance.
+It drops the `exception` entry for `GrpcError`s and keeps the `grpc-error`
+entry produced by the interceptor:
+
+```dart
+final talker = TalkerFlutter.init(
+  filter: ExcludeGrpcErrorFilter(),
+);
+
+runTalkerZonedGuarded(
+  talker,
+  () => runApp(const MyApp()),
+  (error, stack) {
+    // your own handling
+  },
+);
+```
+
+### Using together with other filters
+
+`Talker` accepts only one filter. If you already have your own filter in the
+code, merge them with `TalkerFilter.combine`. A log is shown only when **all**
+filters approve it:
+
+```dart
+final talker = TalkerFlutter.init(
+  filter: TalkerFilter.combine([
+    ExcludeGrpcErrorFilter(),
+    // add your other filters here
+  ]),
+);
+```
+
+### Using together with other filters
+
+`Talker` accepts only one filter. If you already have your own filter in the
+code, merge them with `TalkerFilter.combine`. A log is shown only when **all**
+filters approve it:
+
+```dart
+final talker = TalkerFlutter.init(
+  filter: const TalkerFilter.combine([
+    ExcludeGrpcErrorFilter(),
+    // add your other filters here
+  ]),
+);
+```
+
 ## Streaming
 
 Streaming RPCs are logged in three stages:

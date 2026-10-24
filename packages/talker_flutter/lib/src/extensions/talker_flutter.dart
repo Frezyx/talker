@@ -1,6 +1,8 @@
 import 'dart:developer' show log;
 
 import 'package:flutter/foundation.dart';
+import 'package:talker_flutter/src/observers/storage_observer.dart';
+import 'package:talker_flutter/src/storage/storage.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 extension TalkerFlutter on Talker {
@@ -12,7 +14,7 @@ extension TalkerFlutter on Talker {
   }) =>
       Talker(
         logger: logger ?? TalkerLogger(output: _defaultFlutterOutput),
-        observer: observer,
+        observer: _setupObserver(observer: observer),
         settings: settings,
         filter: filter,
       );
@@ -36,5 +38,21 @@ extension TalkerFlutter on Talker {
       default:
         debugPrint(message);
     }
+  }
+
+  static TalkerObserver _setupObserver({
+    TalkerObserver? observer,
+  }) {
+    final date = DateTime.now();
+    final sessionId = date.millisecondsSinceEpoch.toString();
+
+    final storage = SqliteTalkerDataStorage();
+    final sessionObserver = TalkerSessionObserver(
+      sessionId: sessionId,
+      storage: storage,
+    );
+    return observer != null
+        ? MultipleTalkerObserver(observers: [observer, sessionObserver])
+        : sessionObserver;
   }
 }

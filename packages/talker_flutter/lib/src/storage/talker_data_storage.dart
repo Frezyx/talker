@@ -13,7 +13,6 @@ class TalkerSession {
 }
 
 abstract class TalkerDataStorage {
-  Future<TalkerSession> createSession();
   Future<List<TalkerSession>> getSessionsList();
   Future<void> saveToSession({
     required String sessionId,

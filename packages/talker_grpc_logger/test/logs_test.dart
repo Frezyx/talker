@@ -1390,7 +1390,8 @@ void main() {
       expect(msg, contains('Message: Bad state: stream boom'));
     });
 
-    test('completion entry with only responses omits request counter', () async {
+    test('completion entry with only responses omits request counter',
+        () async {
       final method = createMethod('/TestService/StreamResponsesOnly');
       final logger = TalkerGrpcLogger(talker: talker);
 
@@ -1418,7 +1419,8 @@ void main() {
       );
     });
 
-    test('completion entry with only requests omits response counter', () async {
+    test('completion entry with only requests omits response counter',
+        () async {
       final method = createMethod('/TestService/StreamRequestsOnly');
       final logger = TalkerGrpcLogger(talker: talker);
       final source = StreamController<String>();
@@ -2050,7 +2052,8 @@ void main() {
       expect(original.cancelCalled, isTrue);
     });
 
-    test('single() delegates headers and trailers to original stream', () async {
+    test('single() delegates headers and trailers to original stream',
+        () async {
       final stream = InterceptedResponseStream<String>(
         FakeResponseStream<String>(
           Stream.value('only'),

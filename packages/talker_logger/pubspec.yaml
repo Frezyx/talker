@@ -13,7 +13,7 @@ topics:
   - cli
 
 environment:
-  sdk: '>=2.15.0 <4.0.0'
+  sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
   ansicolor: ^2.0.2

@@ -1,14 +1,21 @@
 /// Level of logs to segmentation and control logging output
 enum LogLevel {
   /// Errors
-  error,
-  critical,
+  error('error'),
+  critical('critical'),
 
   /// Messages
-  info,
-  debug,
-  verbose,
-  warning,
+  info('info'),
+  debug('debug'),
+  verbose('verbose'),
+  warning('warning');
+
+  const LogLevel(this.id);
+  final String id;
+
+  factory LogLevel.fromId(String id) {
+    return LogLevel.values.firstWhere((e) => e.id == id);
+  }
 }
 
 /// List of levels sorted by priority

@@ -38,9 +38,9 @@ class TalkerData {
   final Object? exception;
 
   /// {@template talker_data_error}
-  /// [Error?] [error] - error if it happened
+  /// [Object?] [error] - error if it happened
   /// {@endtemplate}
-  final Error? error;
+  final Object? error;
 
   /// {@template talker_data_title}
   /// Title of Talker log
@@ -73,6 +73,35 @@ class TalkerData {
   String generateTextMessage(
       {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
     return '${displayTitleWithTime(timeFormat: timeFormat)}$message$displayStackTrace';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'message': message,
+      'title': title,
+      'exception': exception,
+      'error': error,
+      'stackTrace': stackTrace.toString(),
+      'time': time,
+      'pen': pen,
+      'key': key,
+      'logLevel': logLevel?.id,
+    };
+  }
+
+  factory TalkerData.fromJson(Map<String, dynamic> map) {
+    final logLevelId = map['logLevel'];
+    final logLevel = logLevelId != null ? LogLevel.fromId(logLevelId) : null;
+    return TalkerData(
+      map['message'],
+      title: map['title'],
+      exception: map['exception'],
+      error: map['error'],
+      stackTrace: StackTrace.fromString(map['stackTrace']),
+      time: DateTime.parse(map['time']),
+      key: map['key'],
+      logLevel: logLevel,
+    );
   }
 }
 

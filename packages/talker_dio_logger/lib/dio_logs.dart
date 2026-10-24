@@ -4,6 +4,24 @@ import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 const _hiddenValue = '*****';
 
+/// Shared helper that appends a formatted timestamp line to [msg] when
+/// [settings.logTimestamp] is enabled.
+///
+/// Uses the customisable [TalkerDioLoggerSettings.timestampLabel] and
+/// [TalkerDioLoggerSettings.timestampFormat] so the format and label are
+/// consistent across request, response, and error logs.
+String _appendTimestamp(
+  String msg,
+  TalkerDioLoggerSettings settings,
+  String Function({required TimeFormat timeFormat}) displayTime,
+) {
+  if (settings.logTimestamp) {
+    msg +=
+        '\n ${settings.timestampLabel}: ${displayTime(timeFormat: settings.timestampFormat)}';
+  }
+  return msg;
+}
+
 class DioRequestLog extends TalkerLog {
   DioRequestLog(
     String message, {
@@ -30,6 +48,7 @@ class DioRequestLog extends TalkerLog {
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
     var msg = '[$title] [${requestOptions.method}] $message';
+    msg = _appendTimestamp(msg, settings, displayTime);
 
     final data = requestOptions.data;
     final headers = Map.from(requestOptions.headers);
@@ -119,6 +138,7 @@ class DioResponseLog extends TalkerLog {
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
     var msg = '[$title] [${response.requestOptions.method}] $message';
+    msg = _appendTimestamp(msg, settings, displayTime);
 
     final responseMessage = response.statusMessage;
     final data = response.data;
@@ -190,6 +210,7 @@ class DioErrorLog extends TalkerLog {
     TimeFormat timeFormat = TimeFormat.timeAndSeconds,
   }) {
     var msg = '[$title] [${dioException.requestOptions.method}] $message';
+    msg = _appendTimestamp(msg, settings, displayTime);
 
     final responseMessage = dioException.message;
     final statusCode = dioException.response?.statusCode;

@@ -9,6 +9,117 @@ void main() {
     _testFilterBySearchText(useTalkerFilter: false);
     _testFilterBySearchText(useTalkerFilter: true);
   });
+
+  _testSimpleFilter();
+  _testCombineFilter();
+}
+
+TalkerData _log(String key, [String msg = 'msg']) => TalkerLog(msg, key: key);
+
+void _testSimpleFilter() {
+  group('TalkerFilter.simple', () {
+    final filter = TalkerFilter.simple((item) => item.key == 'error');
+
+    test('passes item when condition returns true', () {
+      expect(filter.filter(_log('error')), isTrue);
+    });
+
+    test('rejects item when condition returns false', () {
+      expect(filter.filter(_log('info')), isFalse);
+    });
+
+    test('applies key and search fields together with condition', () {
+      final withKeys = SimpleTalkerFilter(
+        (item) => item.key == 'error',
+        disabledKeys: ['error'],
+      );
+      final withSearch = SimpleTalkerFilter(
+        (item) => item.key == 'error',
+        searchQuery: 'ok',
+      );
+
+      expect(withKeys.filter(_log('error')), isFalse);
+      expect(withSearch.filter(_log('error', 'ok')), isTrue);
+      expect(withSearch.filter(_log('error', 'nope')), isFalse);
+    });
+
+    test('copyWith keeps custom condition and type', () {
+      final copy = filter.copyWith(disabledKeys: ['verbose']);
+
+      expect(copy, isA<SimpleTalkerFilter>());
+      expect(copy.disabledKeys, ['verbose']);
+      expect(copy.filter(_log('error')), isTrue);
+      expect(copy.filter(_log('info')), isFalse);
+    });
+
+    test('works as Talker filter', () {
+      final talker = Talker(
+        filter: TalkerFilter.simple((item) => item.key == 'error'),
+      );
+
+      talker.error('shown');
+      talker.info('hidden');
+
+      expect(talker.history.length, 1);
+      expect(talker.history.single.key, 'error');
+    });
+  });
+}
+
+void _testCombineFilter() {
+  group('TalkerFilter.combine', () {
+    final filter = TalkerFilter.combine([
+      TalkerFilter.simple((item) => item.key == 'error'),
+      TalkerFilter.simple((item) => item.generateTextMessage().contains('ok')),
+    ]);
+
+    test('passes item only when all filters pass', () {
+      expect(filter.filter(_log('error', 'ok')), isTrue);
+    });
+
+    test('rejects item when any filter rejects', () {
+      expect(filter.filter(_log('error', 'nope')), isFalse);
+      expect(filter.filter(_log('info', 'ok')), isFalse);
+    });
+
+    test('passes everything for an empty list', () {
+      expect(TalkerFilter.combine([]).filter(_log('error')), isTrue);
+    });
+
+    test('applies key and search fields together with filters', () {
+      final withKeys = MultiTalkerFilter(
+        [TalkerFilter.simple((item) => true)],
+        disabledKeys: ['info'],
+      );
+
+      expect(withKeys.filter(_log('info')), isFalse);
+      expect(withKeys.filter(_log('error')), isTrue);
+    });
+
+    test('copyWith keeps combined filters and type', () {
+      final copy = filter.copyWith(searchQuery: 'ok');
+
+      expect(copy, isA<MultiTalkerFilter>());
+      expect(copy.searchQuery, 'ok');
+      expect(copy.filter(_log('error', 'ok')), isTrue);
+      expect(copy.filter(_log('info', 'ok')), isFalse);
+    });
+
+    test('works as Talker filter', () {
+      final talker = Talker(
+        filter: TalkerFilter.combine([
+          TalkerFilter(disabledKeys: ['verbose']),
+          TalkerFilter.simple((item) => item.key != 'debug'),
+        ]),
+      );
+
+      talker.info('shown');
+      talker.verbose('hidden by keys');
+      talker.debug('hidden by simple');
+
+      expect(talker.history.length, 1);
+    });
+  });
 }
 
 void _testFilterBySearchText({

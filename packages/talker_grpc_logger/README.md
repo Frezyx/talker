@@ -176,7 +176,7 @@ final debug = base.copyWith(
 ```
 
 | Field                   | Default                      | Purpose                                                                              |
-| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------ | --- |
+| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------ |
 | `enabled`               | `true`                       | Master switch. When `false` the interceptor passes calls through untouched.          |
 | `logLevel`              | `LogLevel.debug`             | Level attached to request and response logs. Error logs always use `LogLevel.error`. |
 | `printRequestData`      | `true`                       | Render the request payload (`Data: {...}`) in request logs.                          |
@@ -189,7 +189,7 @@ final debug = base.copyWith(
 | `printErrorMessage`     | `true`                       | Render `Message: <text>` in error logs.                                              |
 | `printStreamInit`       | `true`                       | Emit the `Stream started` lifecycle entry.                                           |
 | `printStreamChunks`     | `true`                       | Emit one entry per stream chunk.                                                     |
-| `printStreamComplete`   | `true`                       | Emit the `Stream completed (<n> responses / <m> requests)` lifecycle entry.          |     |
+| `printStreamComplete`   | `true`                       | Emit the `Stream completed (<n> responses / <m> requests)` lifecycle entry.          |
 | `hiddenHeaders`         | `{}`                         | Case-insensitive set of header names to mask with `*****`.                           |
 | `jsonFormatter`         | `TalkerJsonFormatter()`      | Formatter for payloads and headers.                                                  |
 | `requestPen`            | `null` (violet `xterm(219)`) | Console color for request logs.                                                      |

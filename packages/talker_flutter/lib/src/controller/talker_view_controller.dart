@@ -14,7 +14,7 @@ class TalkerViewController extends ChangeNotifier {
   /// Filter for selecting specific logs and errors on [TalkerScreen] and [TalkerView]
   /// by their keys [TalkerData.key] and by string query [TalkerFilter.searchQuery]
   /// Works only on screen (don't affect [Talker.filter])
-  TalkerFilter _uiFilter = TalkerFilter();
+  TalkerFilter _uiFilter = const TalkerFilter();
 
   bool _expandedLogs;
   bool _isLogOrderReversed;

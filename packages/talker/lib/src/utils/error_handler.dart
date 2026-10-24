@@ -16,6 +16,9 @@ class TalkerErrorHandler {
     if (exception is TalkerException) {
       return exception;
     }
+    if (exception is TalkerLog) {
+      return exception;
+    }
 
     final errKey = TalkerKey.error;
     final exceptionKey = TalkerKey.exception;

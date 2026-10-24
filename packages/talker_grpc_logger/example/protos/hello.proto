@@ -1,16 +1,20 @@
+// based on https://grpc.io/docs/guides/concepts.html
+
 syntax = "proto3";
 
+package hello;
+
 service HelloService {
-  rpc sayHello(HelloRequest) returns (HelloReply);
-  rpc LotsOfReplies(HelloRequest) returns (stream HelloReply);
-  rpc lotsOfGreetings(stream HelloRequest) returns (HelloReply);
-  rpc BidiHello(stream HelloRequest) returns (stream HelloReply);
+  rpc SayHello(HelloRequest) returns (HelloResponse);
+  rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse);
+  rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse);
+  rpc BidiHello(stream HelloRequest) returns (stream HelloResponse);
 }
 
 message HelloRequest {
-  string greeting = 1;
+  optional string greeting = 1;
 }
 
-message HelloReply {
+message HelloResponse {
   string reply = 1;
 }

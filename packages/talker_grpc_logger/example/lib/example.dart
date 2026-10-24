@@ -5,66 +5,125 @@ import 'package:grpc/grpc_or_grpcweb.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_grpc_logger/talker_grpc_logger.dart';
 
-// сгенерённые файлы из hello.proto
 import 'hello.pbgrpc.dart';
 
 Future<void> main() async {
-  final talker = Talker();
+  try {
+    final talker = Talker();
 
-  // Публичный echo-сервер Postman
-  const host = 'grpc.postman-echo.com';
-  const port = 443;
+    final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
+      host: 'grpcb.in',
+      port: 9000,
+      transportSecure: false,
+    );
 
-  // Включаем TLS (для localhost можно отключать)
-  final channel = GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-    host: host,
-    port: port,
-    transportSecure: true,
+    final client = HelloServiceClient(
+      channel,
+      interceptors: [
+        _StubAuthHeaderInterceptor(),
+        TalkerGrpcLogger(
+          talker: talker,
+          settings: const TalkerGrpcLoggerSettings(
+            hiddenHeaders: {'authorization'},
+            printStreamChunks: true,
+          ),
+        ),
+      ],
+    );
+
+    try {
+      await _sayHello(client, talker);
+      await _lotsOfReplies(client, talker);
+      await _lotsOfGreetings(client, talker);
+      await _bidiHello(client, talker);
+    } finally {
+      await channel.shutdown();
+    }
+  } on GrpcError catch (_) {}
+}
+
+Future<void> _sayHello(HelloServiceClient client, Talker talker) async {
+  talker.info('--- SayHello (unary) ---');
+  final response = await client.sayHello(
+    HelloRequest(greeting: 'Hello from unary'),
   );
+  talker.info('Reply: ${response.reply}');
+}
 
-  final interceptors = <ClientInterceptor>[
-    TalkerGrpcLogger(talker: talker),
-  ];
-
-  final client = HelloServiceClient(
-    channel,
-    interceptors: interceptors,
-  );
-
-  // 1) Unary
-  final unary = await client.sayHello(
-    HelloRequest(greeting: 'Привет от Flutter'),
-  );
-  talker.info('Unary reply: ${unary.reply}');
-
-  // 2) Server-stream
-  await for (final msg in client.lotsOfReplies(
-    HelloRequest(greeting: 'Дай несколько ответов'),
+Future<void> _lotsOfReplies(
+  HelloServiceClient client,
+  Talker talker,
+) async {
+  talker.info('--- LotsOfReplies (server-stream) ---');
+  await for (final response in client.lotsOfReplies(
+    HelloRequest(greeting: 'Stream me a few'),
   )) {
-    talker.info('Stream reply: ${msg.reply}');
+    talker.info('Reply: ${response.reply}');
+  }
+}
+
+Future<void> _lotsOfGreetings(
+  HelloServiceClient client,
+  Talker talker,
+) async {
+  talker.info('--- LotsOfGreetings (client-stream) ---');
+
+  final controller = StreamController<HelloRequest>();
+  final summary = client.lotsOfGreetings(controller.stream);
+
+  controller.add(HelloRequest(greeting: 'one'));
+  controller.add(HelloRequest(greeting: 'two'));
+  controller.add(HelloRequest(greeting: 'three'));
+  await controller.close();
+
+  final response = await summary;
+  talker.info('Summary: ${response.reply}');
+}
+
+Future<void> _bidiHello(HelloServiceClient client, Talker talker) async {
+  talker.info('--- BidiHello (bidi-stream) ---');
+
+  final controller = StreamController<HelloRequest>();
+  final responses = client.bidiHello(controller.stream);
+
+  final done = responses
+      .listen(
+        (r) => talker.info('Reply: ${r.reply}'),
+        onError: talker.handle,
+        onDone: () => talker.info('Bidi done'),
+      )
+      .asFuture();
+
+  controller.add(HelloRequest(greeting: 'hello'));
+  controller.add(HelloRequest(greeting: 'how are you?'));
+  await controller.close();
+
+  await done;
+}
+
+class _StubAuthHeaderInterceptor extends ClientInterceptor {
+  static final Map<String, String> _headers = {
+    'authorization': 'Bearer 12345678'
+  };
+  @override
+  ResponseStream<R> interceptStreaming<Q, R>(
+    ClientMethod<Q, R> method,
+    Stream<Q> requests,
+    CallOptions options,
+    ClientStreamingInvoker<Q, R> invoker,
+  ) {
+    final mOptions = options.mergedWith(CallOptions(metadata: _headers));
+    return invoker(method, requests, mOptions);
   }
 
-  // 3) Client-stream
-  final controller1 = StreamController<HelloRequest>();
-  final clientStreamFuture = client.lotsOfGreetings(controller1.stream);
-  controller1.add(HelloRequest(greeting: 'one'));
-  controller1.add(HelloRequest(greeting: 'two'));
-  await controller1.close();
-  final clientStreamReply = await clientStreamFuture;
-  talker.info('Client-stream summary: ${clientStreamReply.reply}');
-
-  // 4) Bidi-stream
-  final controller2 = StreamController<HelloRequest>();
-  final bidiResponses = client.bidiHello(controller2.stream);
-  final sub = bidiResponses.listen(
-    (e) => talker.info('Bidi reply: ${e.reply}'),
-    onError: talker.handle,
-    onDone: () => talker.info('Bidi done'),
-  );
-  controller2.add(HelloRequest(greeting: 'hello'));
-  controller2.add(HelloRequest(greeting: 'how are you?'));
-  await controller2.close();
-  await sub.asFuture();
-
-  await channel.shutdown();
+  @override
+  ResponseFuture<R> interceptUnary<Q, R>(
+    ClientMethod<Q, R> method,
+    Q request,
+    CallOptions options,
+    ClientUnaryInvoker<Q, R> invoker,
+  ) {
+    final mOptions = options.mergedWith(CallOptions(metadata: _headers));
+    return invoker(method, request, mOptions);
+  }
 }

@@ -14,6 +14,10 @@ void main() {
       expect(TalkerKey.httpError, equals('http-error'));
       expect(TalkerKey.httpRequest, equals('http-request'));
       expect(TalkerKey.httpResponse, equals('http-response'));
+      expect(TalkerKey.grpcError, equals('grpc-error'));
+      expect(TalkerKey.grpcEvent, equals('grpc-event'));
+      expect(TalkerKey.grpcRequest, equals('grpc-request'));
+      expect(TalkerKey.grpcResponse, equals('grpc-response'));
       expect(TalkerKey.blocEvent, equals('bloc-event'));
       expect(TalkerKey.blocTransition, equals('bloc-transition'));
       expect(TalkerKey.blocClose, equals('bloc-close'));

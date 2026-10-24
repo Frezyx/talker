@@ -8,7 +8,8 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, unused_import
+// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
+// ignore_for_file: unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -18,23 +19,34 @@ import 'dart:typed_data' as $typed_data;
 const HelloRequest$json = {
   '1': 'HelloRequest',
   '2': [
-    {'1': 'greeting', '3': 1, '4': 1, '5': 9, '10': 'greeting'},
+    {
+      '1': 'greeting',
+      '3': 1,
+      '4': 1,
+      '5': 9,
+      '9': 0,
+      '10': 'greeting',
+      '17': true
+    },
+  ],
+  '8': [
+    {'1': '_greeting'},
   ],
 };
 
 /// Descriptor for `HelloRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List helloRequestDescriptor = $convert.base64Decode(
-    'CgxIZWxsb1JlcXVlc3QSGgoIZ3JlZXRpbmcYASABKAlSCGdyZWV0aW5n');
+    'CgxIZWxsb1JlcXVlc3QSHwoIZ3JlZXRpbmcYASABKAlIAFIIZ3JlZXRpbmeIAQFCCwoJX2dyZW'
+    'V0aW5n');
 
-@$core.Deprecated('Use helloReplyDescriptor instead')
-const HelloReply$json = {
-  '1': 'HelloReply',
+@$core.Deprecated('Use helloResponseDescriptor instead')
+const HelloResponse$json = {
+  '1': 'HelloResponse',
   '2': [
     {'1': 'reply', '3': 1, '4': 1, '5': 9, '10': 'reply'},
   ],
 };
 
-/// Descriptor for `HelloReply`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List helloReplyDescriptor = $convert.base64Decode(
-    'CgpIZWxsb1JlcGx5EhQKBXJlcGx5GAEgASgJUgVyZXBseQ==');
-
+/// Descriptor for `HelloResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List helloResponseDescriptor = $convert
+    .base64Decode('Cg1IZWxsb1Jlc3BvbnNlEhQKBXJlcGx5GAEgASgJUgVyZXBseQ==');

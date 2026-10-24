@@ -13,7 +13,7 @@ dependencies:
   talker_flutter: ^5.1.20
   chopper: ^8.2.0
   json_annotation: ^4.9.0
-  equatable: ^2.0.7
+  equatable: ^3.0.0
 
 dev_dependencies:
   build_runner: ^2.4.15

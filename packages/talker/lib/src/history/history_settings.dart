@@ -1,4 +1,4 @@
-part of 'settings.dart';
+part of '../settings.dart';
 
 class TalkerHistorySettings {
   const TalkerHistorySettings({

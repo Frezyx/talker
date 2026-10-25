@@ -1,6 +1,6 @@
 import 'package:talker/talker.dart';
 
-part 'history_settings.dart';
+part 'history/history_settings.dart';
 
 final _defaultTitles = {
   /// Base logs section

@@ -3,9 +3,9 @@ import 'package:talker/talker.dart';
 //TODO: provide storage to write data
 /// Base implementation of [TalkerHistory]
 /// to save the history locally
-class DefaultTalkerHistory implements TalkerHistory {
+class RuntimeTalkerHistory implements TalkerHistory {
   /// Take [TalkerSettings] as required parameter
-  DefaultTalkerHistory(this.settings, {List<TalkerData>? history}) {
+  RuntimeTalkerHistory(this.settings, {List<TalkerData>? history}) {
     if (history != null) {
       _history.addAll(history);
     }
@@ -32,7 +32,7 @@ class DefaultTalkerHistory implements TalkerHistory {
   @override
   void write(TalkerData data) {
     /// Check if you are authorized to write.
-    if (settings.useHistory && settings.enabled) {
+    if (settings.useHistory) {
       /// Check if you have reached the max number of history and delete them.
       final maxHistoryItems = settings.maxHistoryItems;
       if (maxHistoryItems != null && maxHistoryItems <= _history.length) {
@@ -41,21 +41,4 @@ class DefaultTalkerHistory implements TalkerHistory {
       _history.add(data);
     }
   }
-}
-
-/// Base class for create your own implementation of history
-///
-/// The history stores all information about all events like
-/// occurred errors [TalkerError]s, exceptions [TalkerException]s
-/// and logs [TalkerLog]s that have been sent
-abstract class TalkerHistory {
-  /// Return List of [TalkerDataInterface]
-  List<TalkerData> get history;
-
-  /// Called when [Talker] handle [cleanHistory].
-  /// For example, [TalkerView] handle the [Talker.cleanHistory]
-  void clean();
-
-  /// Called when [Talker] handle an [TalkerDataInterface] log
-  void write(TalkerData data);
 }

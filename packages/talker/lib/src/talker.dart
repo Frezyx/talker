@@ -62,7 +62,7 @@ class Talker {
     _initLogger(logger);
     _observer = observer ?? const _DefaultTalkerObserver();
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
-    _history = history ?? DefaultTalkerHistory(this.settings);
+    _history = history ?? RuntimeTalkerHistory(this.settings);
     _historyFilter = _logger.filter;
     _storage = storage;
   }
@@ -143,7 +143,7 @@ class Talker {
     _observer = observer ?? _observer;
     _logger = logger ?? _logger;
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
-    _history = DefaultTalkerHistory(this.settings, history: _history.history);
+    _history = RuntimeTalkerHistory(this.settings, history: _history.history);
     _historyFilter = _logger.filter;
     _storage = storage ?? _storage;
   }

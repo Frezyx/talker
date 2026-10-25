@@ -40,8 +40,9 @@ class Talker {
     TalkerFilter? filter,
     TalkerErrorHandler? errorHandler,
     TalkerHistory? history,
+    TalkerStorage? storage,
   }) {
-    _init(filter, settings, logger, observer, errorHandler, history);
+    _init(filter, settings, logger, observer, errorHandler, history, storage);
   }
 
   void _init(
@@ -51,6 +52,7 @@ class Talker {
     TalkerObserver? observer,
     TalkerErrorHandler? errorHandler,
     TalkerHistory? history,
+    TalkerStorage? storage,
   ) {
     _filter = filter ?? _DefaultTalkerFilter();
     this.settings = settings ?? TalkerSettings();
@@ -59,6 +61,7 @@ class Talker {
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
     _history = history ?? DefaultTalkerHistory(this.settings);
     _historyFilter = _logger.filter;
+    _storage = storage;
   }
 
   void _initLogger(TalkerLogger? logger) {
@@ -87,6 +90,7 @@ class Talker {
   late TalkerObserver _observer;
   late TalkerHistory _history;
   late LoggerFilter _historyFilter;
+  late TalkerStorage? _storage;
 
   // final _fileManager = FileManager();
 
@@ -121,6 +125,7 @@ class Talker {
     TalkerFilter? filter,
     TalkerErrorHandler? errorHandler,
     TalkerHistory? history,
+    TalkerStorage? storage,
   }) {
     if (filter != null) {
       _filter = filter;
@@ -133,6 +138,7 @@ class Talker {
     _errorHandler = errorHandler ?? TalkerErrorHandler(this.settings);
     _history = DefaultTalkerHistory(this.settings, history: _history.history);
     _historyFilter = _logger.filter;
+    _storage = storage ?? _storage;
   }
 
   final _talkerStreamController = StreamController<TalkerData>.broadcast();

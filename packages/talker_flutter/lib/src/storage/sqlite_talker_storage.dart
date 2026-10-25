@@ -1,9 +1,8 @@
 import 'package:talker/talker.dart';
-import 'package:talker_flutter/src/storage/talker_data_storage.dart';
 
-class SqliteTalkerDataStorage implements TalkerDataStorage {
+class SqliteTalkerStorage implements TalkerStorage {
   @override
-  Future<void> deleteSession() {
+  Future<void> deleteSession(String sessionId) {
     // TODO: implement deleteSession
     throw UnimplementedError();
   }

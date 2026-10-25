@@ -7,7 +7,7 @@ class TalkerViewController extends ChangeNotifier {
   TalkerViewController({
     required Talker talker,
     bool expandedLogs = true,
-    isLogOrderReversed = true,
+    bool isLogOrderReversed = true,
   })  : _expandedLogs = expandedLogs,
         _isLogOrderReversed = isLogOrderReversed;
 

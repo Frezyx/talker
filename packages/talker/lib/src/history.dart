@@ -1,5 +1,6 @@
 import 'package:talker/talker.dart';
 
+//TODO: provide storage to write data
 /// Base implementation of [TalkerHistory]
 /// to save the history locally
 class DefaultTalkerHistory implements TalkerHistory {

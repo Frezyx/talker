@@ -1,2 +1,1 @@
-export 'sqlite_talker_data_storage.dart';
-export 'talker_data_storage.dart';
+export 'sqlite_talker_storage.dart';

@@ -1,4 +1,3 @@
-import 'package:talker_flutter/src/storage/storage.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 class TalkerSessionObserver implements TalkerObserver {
@@ -7,7 +6,7 @@ class TalkerSessionObserver implements TalkerObserver {
     required this.storage,
   });
   final String sessionId;
-  final TalkerDataStorage storage;
+  final TalkerStorage storage;
 
   @override
   void onLog(TalkerData log) {

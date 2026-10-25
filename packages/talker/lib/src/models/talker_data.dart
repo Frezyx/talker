@@ -79,10 +79,10 @@ class TalkerData {
     return {
       'message': message,
       'title': title,
-      'exception': exception,
-      'error': error,
+      'exception': exception?.toString(),
+      'error': error?.toString(),
       'stackTrace': stackTrace.toString(),
-      'time': time,
+      'time': time.toIso8601String(),
       'pen': pen,
       'key': key,
       'logLevel': logLevel?.id,

@@ -54,6 +54,9 @@ class Talker {
     TalkerHistory? history,
     TalkerStorage? storage,
   ) {
+    final date = DateTime.now();
+    _sessionId = date.millisecondsSinceEpoch.toString();
+
     _filter = filter ?? _DefaultTalkerFilter();
     this.settings = settings ?? TalkerSettings();
     _initLogger(logger);
@@ -79,6 +82,10 @@ class Talker {
       ),
     );
   }
+
+  /// Id of current [Talker] session
+  String get sessionId => _sessionId;
+  late final String _sessionId;
 
   /// Fields can be setup in [configure()] method
   ///

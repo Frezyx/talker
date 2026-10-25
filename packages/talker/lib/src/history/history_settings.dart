@@ -4,15 +4,15 @@ class TalkerHistorySettings {
   const TalkerHistorySettings({
     bool? enabled,
     this.storageEnabled = false,
-    this.maxRuntimeHistoryItems,
-    this.maxStorageHistoryItems,
+    this.maxRuntimeItems,
+    this.maxStorageItems,
     this.maxStorageSessions,
   }) : enabled = enabled ?? true;
 
   final bool enabled;
   final bool storageEnabled;
-  final int? maxRuntimeHistoryItems;
-  final int? maxStorageHistoryItems;
+  final int? maxRuntimeItems;
+  final int? maxStorageItems;
   final int? maxStorageSessions;
 
   TalkerHistorySettings copyWith({
@@ -25,10 +25,8 @@ class TalkerHistorySettings {
     return TalkerHistorySettings(
       enabled: enabled ?? this.enabled,
       storageEnabled: storageEnabled ?? this.storageEnabled,
-      maxRuntimeHistoryItems:
-          maxRuntimeHistoryItems ?? this.maxRuntimeHistoryItems,
-      maxStorageHistoryItems:
-          maxStorageHistoryItems ?? this.maxStorageHistoryItems,
+      maxRuntimeItems: maxRuntimeHistoryItems ?? maxRuntimeItems,
+      maxStorageItems: maxStorageHistoryItems ?? maxStorageItems,
       maxStorageSessions: maxStorageSessions ?? this.maxStorageSessions,
     );
   }

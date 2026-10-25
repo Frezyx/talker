@@ -19,4 +19,10 @@ class SqliteTalkerStorage implements TalkerStorage {
     // TODO: implement saveToSession
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> deleteFirstInSession(String sessionId) {
+    // TODO: implement deleteFirstInSession
+    throw UnimplementedError();
+  }
 }

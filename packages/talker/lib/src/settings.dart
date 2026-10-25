@@ -84,7 +84,7 @@ class TalkerSettings {
         _history = historySettings ??
             TalkerHistorySettings(
               enabled: useHistory,
-              maxRuntimeHistoryItems: maxHistoryItems,
+              maxRuntimeItems: maxHistoryItems,
             ) {
     if (colors != null) {
       _defaultColors.addAll(colors);
@@ -111,7 +111,7 @@ class TalkerSettings {
 
   /// Max records count in history list
   @Deprecated('Use historySettings instead')
-  int? get maxHistoryItems => _history.maxRuntimeHistoryItems;
+  int? get maxHistoryItems => _history.maxRuntimeItems;
 
   /// The time format of the logs [TimeFormat]
   TimeFormat get timeFormat => _timeFormat;

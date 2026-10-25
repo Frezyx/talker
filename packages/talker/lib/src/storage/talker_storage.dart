@@ -6,5 +6,6 @@ abstract class TalkerStorage {
     required String sessionId,
     required TalkerData data,
   });
+  Future<void> deleteFirstInSession(String sessionId);
   Future<void> deleteSession(String sessionId);
 }

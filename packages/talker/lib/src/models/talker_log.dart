@@ -19,6 +19,6 @@ class TalkerLog extends TalkerData {
   @override
   String generateTextMessage(
       {TimeFormat timeFormat = TimeFormat.timeAndSeconds}) {
-    return '${displayTitleWithTime(timeFormat: timeFormat)}$displayMessage$displayException$displayStackTrace';
+    return '${displayTitleWithTime(timeFormat: timeFormat)}$displayMessage$displayException$displayError$displayStackTrace';
   }
 }

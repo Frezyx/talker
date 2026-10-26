@@ -1,7 +1,7 @@
 import 'package:talker/talker.dart';
 
 /// Base implementation of [TalkerData]
-/// to handle ONLY [Exceptions]s
+/// to handle ONLY [Exception]s
 class TalkerException extends TalkerData {
   TalkerException(
     Exception exception, {
@@ -10,19 +10,12 @@ class TalkerException extends TalkerData {
     String? key,
     super.title,
     LogLevel? logLevel,
-  }) : super(message, exception: exception) {
-    _key = key ?? TalkerKey.exception;
-    _logLevel = logLevel ?? LogLevel.error;
-  }
-
-  late String _key;
-  late LogLevel _logLevel;
-
-  @override
-  String get key => _key;
-
-  @override
-  LogLevel? get logLevel => _logLevel;
+  }) : super(
+          message,
+          logLevel: logLevel ?? LogLevel.error,
+          exception: exception,
+          key: key ?? TalkerKey.exception,
+        );
 
   /// {@macro talker_data_generateTextMessage}
   @override

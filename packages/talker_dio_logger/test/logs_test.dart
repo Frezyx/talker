@@ -632,6 +632,33 @@ void main() {
       expect(result, contains('Data: CUSTOM:{key: value}'));
     });
 
+    test('generateTextMessage should support single-line JSON formatting', () {
+      final response = Response(
+        requestOptions: RequestOptions(path: '/test', method: 'GET'),
+        statusCode: 200,
+        data: {
+          'key': 'value',
+          'nested': {'id': 1}
+        },
+      );
+      final settings = TalkerDioLoggerSettings(
+        jsonFormatter: TalkerJsonFormatter(prettyPrint: false),
+      );
+      final dioResponseLog = DioResponseLog(
+        'Test message',
+        response: response,
+        settings: settings,
+      );
+
+      final result = dioResponseLog.generateTextMessage();
+
+      expect(
+        result,
+        contains('Data: {"key":"value","nested":{"id":1}}'),
+      );
+      expect(result, isNot(contains('\n  "key"')));
+    });
+
     test('generateTextMessage should strip quotes in headers', () {
       final response = Response(
         requestOptions: RequestOptions(path: '/test', method: 'GET'),

@@ -31,6 +31,14 @@ void main() {
         expect(result, contains('2'));
         expect(result, contains('3'));
       });
+
+      test('formats single-line JSON when prettyPrint is false', () {
+        const formatter = TalkerJsonFormatter(prettyPrint: false);
+        final result = formatter.format({'name': 'John', 'age': 30});
+
+        expect(result, equals('{"name":"John","age":30}'));
+        expect(result, isNot(contains('\n')));
+      });
     });
 
     group('stripQuotes', () {
@@ -96,6 +104,7 @@ void main() {
         final formatter = TalkerJsonFormatter.custom((data) => 'CUSTOM: $data');
 
         expect(formatter.stripQuotes, isFalse);
+        expect(formatter.prettyPrint, isTrue);
       });
     });
 

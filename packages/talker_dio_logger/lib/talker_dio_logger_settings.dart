@@ -110,6 +110,7 @@ class TalkerDioLoggerSettings {
 
   /// JSON formatter for converting data to pretty string.
   /// Use [TalkerJsonFormatter] for default formatting,
+  /// [TalkerJsonFormatter(prettyPrint: false)] for single-line JSON,
   /// [TalkerJsonFormatter(stripQuotes: true)] to strip quotes,
   /// or [TalkerJsonFormatter.custom(fn)] for custom formatting.
   final TalkerJsonFormatter jsonFormatter;

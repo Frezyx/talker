@@ -104,6 +104,16 @@ TalkerDioLoggerSettings(
 )
 ```
 
+### Log JSON in a single line
+
+If you need copy-friendly JSON output, disable pretty printing in the formatter.
+
+```dart
+TalkerDioLoggerSettings(
+  jsonFormatter: const TalkerJsonFormatter(prettyPrint: false),
+)
+```
+
 ## Using with Talker
 You can add your talker instance for TalkerDioLogger if your app already uses Talker.
 In this case, all logs and errors will fall into your unified tracking system
@@ -118,4 +128,3 @@ dio.interceptors.add(TalkerDioLogger(talker: talker));
 ## Additional information
 The project is under development and ready for your pull-requests and issues 👍<br>
 Thank you for support ❤️
-

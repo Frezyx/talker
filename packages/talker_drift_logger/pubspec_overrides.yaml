@@ -1,0 +1,4 @@
+dependency_overrides:
+  talker:
+    path:
+      ../talker

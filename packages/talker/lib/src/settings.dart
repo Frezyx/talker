@@ -27,6 +27,13 @@ final _defaultTitles = {
   TalkerKey.riverpodDispose: 'riverpod-dispose',
   TalkerKey.riverpodFail: 'riverpod-fail',
 
+  /// Drift section
+  TalkerKey.driftError: 'drift-error',
+  TalkerKey.driftQuery: 'drift-query',
+  TalkerKey.driftResult: 'drift-result',
+  TalkerKey.driftTransaction: 'drift-transaction',
+  TalkerKey.driftBatch: 'drift-batch',
+
   /// Flutter section
   TalkerKey.route: 'route',
 };
@@ -57,6 +64,13 @@ final _defaultColors = {
   TalkerKey.riverpodUpdate: AnsiPen()..xterm(49),
   TalkerKey.riverpodDispose: AnsiPen()..xterm(198),
   TalkerKey.riverpodFail: AnsiPen()..red(),
+
+  /// Drift section
+  TalkerKey.driftError: AnsiPen()..red(),
+  TalkerKey.driftQuery: AnsiPen()..xterm(219),
+  TalkerKey.driftResult: AnsiPen()..xterm(46),
+  TalkerKey.driftTransaction: AnsiPen()..xterm(135),
+  TalkerKey.driftBatch: AnsiPen()..xterm(49),
 
   /// Flutter section
   TalkerKey.route: AnsiPen()..xterm(135),

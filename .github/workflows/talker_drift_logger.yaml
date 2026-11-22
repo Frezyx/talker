@@ -1,0 +1,21 @@
+name: talker_drift_logger
+
+on:
+  push:
+    paths:
+      - "packages/talker_drift_logger/**"
+      - ".github/workflows/talker_drift_logger.yaml"
+  pull_request:
+    paths:
+      - "packages/talker_drift_logger/**"
+      - ".github/workflows/talker_drift_logger.yaml"
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
+    with:
+      package: talker_drift_logger
+      sdk: dart
+      chrome: false

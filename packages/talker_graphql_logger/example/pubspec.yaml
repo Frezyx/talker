@@ -1,0 +1,15 @@
+name: talker_graphql_logger_example
+description: Example of talker_graphql_logger usage
+publish_to: "none"
+
+environment:
+  sdk: ^3.2.6
+
+dependencies:
+  gql: ^1.0.0
+  gql_exec: ^1.0.0
+  gql_http_link: ^1.0.0
+  gql_link: ^1.0.0
+  talker: ^5.1.1
+  talker_graphql_logger:
+    path: ../

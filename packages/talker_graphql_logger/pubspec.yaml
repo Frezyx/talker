@@ -1,0 +1,28 @@
+name: talker_graphql_logger
+description: >
+  Lightweight and customizable GraphQL client logger on talker base.
+  Logs queries, mutations, subscriptions with request/response details.
+version: 5.1.1
+homepage: https://github.com/Frezyx/talker
+repository: https://github.com/Frezyx/talker
+issue_tracker: https://github.com/Frezyx/talker/issues
+
+topics:
+  - graphql
+  - logging
+  - log
+  - network
+  - flutter
+
+environment:
+  sdk: ^3.2.6
+
+dependencies:
+  gql: ^1.0.0
+  gql_exec: ^1.0.0
+  gql_link: ^1.0.0
+  talker: ^5.1.1
+
+dev_dependencies:
+  lints: ^5.1.1
+  test: ^1.24.0
